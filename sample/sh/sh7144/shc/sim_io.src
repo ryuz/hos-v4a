@@ -1,0 +1,41 @@
+; SCI出力をルネサスのシミュレータ用のIO出力に切り替えるファイル
+
+
+				.EXPORT		_Sci1_Initialize
+				.EXPORT		_Sci1_PutString
+
+
+				.SECTION	P, CODE, ALIGN=4
+_Sci1_Initialize:
+				rts
+				nop
+
+
+_Sci1_PutString:
+				mov.l	addr_fno_fputs, r0
+				xor.l	r2, r2
+				mov.l	addr_sim_param, r1
+				mov.l	r4, @r1
+				jsr		@r2
+				nop
+				rts
+				nop
+
+
+				.ALIGN		4
+addr_fno_fputs:
+				.DATA.L		h'01240000
+
+addr_sim_param:
+				.DATA.L		sim_param
+
+
+				.SECTION	B, DATA, ALIGN=4
+sim_param:
+				.RES.L		1
+
+
+				.END
+
+
+; end of file

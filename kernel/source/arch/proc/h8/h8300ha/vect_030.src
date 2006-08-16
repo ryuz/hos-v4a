@@ -1,0 +1,24 @@
+; --------------------------------------------------------------------------- 
+;  Hyper Operating System V4 Advance
+; 
+;                                   Copyright (C) 1998-2006 by Project HOS
+;                                   http://sourceforge.jp/projects/hos/
+; --------------------------------------------------------------------------- 
+
+
+				.EXPORT	__kernel_vector_030
+				.IMPORT	__kernel_int_hdr
+
+
+				.SECTION P, CODE, ALIGN=2
+
+__kernel_vector_030:
+				push.l	er0
+				mov.b	#30, r0l
+				bra		__kernel_int_hdr
+
+
+				.END
+
+
+; end of file
