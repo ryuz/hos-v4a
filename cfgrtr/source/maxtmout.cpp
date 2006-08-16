@@ -13,7 +13,7 @@
 #include "defercd.h"
 #include "maxtmout.h"
 #include "analyze.h"
-
+#include "readcfg.h"
 
 
 // コンストラクタ

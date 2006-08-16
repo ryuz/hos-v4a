@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "crempf.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 #define CREMPF_MPFID		0
@@ -79,8 +80,7 @@ void CApiCreMpf::WriteId(FILE* fp)
 void  CApiCreMpf::WriteCfgDef(FILE* fp)
 {
 	const char* pszParam;
-	bool blOutput;
-	int  i, j;
+	int         i;
 
 	// コメント出力
 	fputs(
@@ -89,9 +89,199 @@ void  CApiCreMpf::WriteCfgDef(FILE* fp)
 		"/*   create fixed size memory-pool objects    */\n"
 		"/* ------------------------------------------ */\n"
 		, fp);
+	
+	// %jp{メモリプール領域出力}
+	for ( i = 0; i < m_iObjs; i++ )
+	{
+		pszParam = m_pParamPacks[i]->GetParam(CREMPF_MPF);
+		if ( strcmp(pszParam, "NULL") == 0 )
+		{
+			fprintf(
+				fp,
+				"static VP _kernel_mpf%d_mpfblk[TSZ_MPF((%s), (%s)) + (sizeof(VP) - 1) / sizeof(VP)];\n",
+				m_iId[i],
+				m_pParamPacks[i]->GetParam(CREMPF_BLKCNT),
+				m_pParamPacks[i]->GetParam(CREMPF_BLKSZ));
+		}
+	}
+	
 
-	fprintf(fp, "\n\n_KERNEL_T_MPFCB _kernel_mpfcb_tbl[64];\n");
-	fprintf(fp, "\n\nconst ID _kernel_max_mpfid = 64;\n");
+#if _KERNEL_MPFCB_ALGORITHM == _KERNEL_MPFCB_ALG_BLKARRAY
+#if _KERNEL_MPFCB_SPLIT_RO
+	// %jp{ブロック配列＆ROM分離}
+	{
+		// %jp{RAM部出力}
+		fprintf(fp, "\n_KERNEL_T_MPFCB _kernel_mpfcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t{");
+				WriteMpfcbRam(fp, iObjNum);
+				fprintf(fp, "},\n");
+			}
+			else
+			{
+				fprintf(fp, "\t\t{{0}, },\n");
+			}
+		}
+		fprintf(fp, "\t};\n");
+
+		// %jp{ROM部出力}
+		fprintf(fp, "\nconst _KERNEL_T_MPFCB_RO _kernel_mpfcb_ro_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t{");
+				WriteTcbRom(fp, iObjNum);
+				fprintf(fp, "},\n");
+			}
+			else
+			{
+				fprintf(fp, "\t\t{0},\n");
+			}
+		}
+		fprintf(fp, "\t};\n\n");
+	}
+#else
+	// ブロック配列＆統合MPFCB
+	{
+		// %jp{RAM部出力}
+		fprintf(fp, "\n_KERNEL_T_MPFCB _kernel_mpfcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t{");
+				WriteMpfcbRam(fp, iObjNum);
+				WriteMpfcbRom(fp, iObjNum);
+				fprintf(fp, "},\n");
+			}
+			else
+			{
+				fprintf(fp, "\t\t{{0}, },\n");
+			}
+		}
+		fprintf(fp, "\t};\n");
+	}
+#endif
+#elif _KERNEL_MPFCB_ALGORITHM == _KERNEL_MPFCB_ALG_PTRARRAY
+#if _KERNEL_MPFCB_SPLIT_RO
+	// ポインタ配列＆ROM分離
+	{
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "const _KERNEL_T_MPFCB_RO _kernel_tcb_ro_blk_%d = {", m_iId[i]);
+			WriteTcbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_MPFCB _kernel_mpfcb_blk_%d = {", m_iId[i]);
+			WriteTcbRam(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_MPFCB *_kernel_mpfcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t&_kernel_mpfcb_blk_%d,\n", i);
+			}
+			else
+			{
+				fprintf(fp, "\t\tNULL,\n");
+			}
+		}
+		fprintf(fp, "\t};\n");		
+	}
+#else
+	// ポインタ配列＆統合MPFCB
+	{
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_MPFCB _kernel_mpfcb_blk_%d = {", m_iId[i]);
+			WriteMpfcbRam(fp, i);
+			WriteMpfcbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_MPFCB *_kernel_mpfcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t&_kernel_mpfcb_blk_%d,\n", i);
+			}
+			else
+			{
+				fprintf(fp, "\t\tNULL,\n");
+			}
+		}
+		fprintf(fp, "\t};\n");		
+	}
+#endif
+#endif
+	
+	// %jp{タスク情報出力}
+	fprintf(
+		fp,
+		"\nconst ID	_kernel_max_mpfid = %d;\n",
+		m_iMaxId);
+
+}
+
+
+void CApiCreMpf::WriteMpfcbRam(FILE *fp, int iObj)
+{
+#if _KERNEL_MPFCB_QUE
+	fprintf(fp, "{0}, ");		/* %jp{キュー} */
+#endif
+
+#if _KERNEL_MPFCB_FREBLK
+	fprintf(fp, "0, ");			/* %jp{空きブロック} */
+#endif
+
+#if _KERNEL_MPFCB_FBLKCNT
+	fprintf(fp, "0, ");			/* %jp{空きブロック数} */
+#endif
+}
+
+
+void CApiCreMpf::WriteMpfcbRom(FILE *fp, int iObj)
+{
+#if _KERNEL_MPFCB_MPFATR
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREMPF_MPFATR));		/* %jp{固定長メモリプール属性} */
+#endif
+
+#if _KERNEL_MPFCB_BLKCNT
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREMPF_BLKCNT));		/* %jp{獲得できるメモリブロック数(個数)} */
+#endif
+
+#if _KERNEL_MPFCB_BLKSZ
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREMPF_BLKSZ));			/* %jp{メモリブロックのサイズ(バイト数)} */
+#endif
+
+#if _KERNEL_MPFCB_MPF
+	if ( strcmp(m_pParamPacks[iObj]->GetParam(CREMPF_MPF), "NULL") == 0 )
+	{
+		fprintf(fp, "_kernel_mpf%d_mpfblk, ", m_iId[iObj]);		/* %jp{固定長メモリプール領域の先頭番地} */
+	}
+	else
+	{
+		fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREMPF_MPF));		/* %jp{固定長メモリプール領域の先頭番地} */
+	}
+#endif
 }
 
 

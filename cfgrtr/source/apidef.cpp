@@ -20,6 +20,7 @@ CApiDef::CApiDef()
 {
 	int i;
 
+	m_iDefaultMaxId = 0;
 	m_iMaxId = 0;
 	m_iObjs  = 0;
 	m_iResObj = 0;
@@ -190,6 +191,12 @@ int CApiDef::AutoId(void)
 	if ( m_iMaxId < m_iObjs + m_iResObj )
 	{
 		m_iMaxId = m_iObjs + m_iResObj;
+	}
+
+	// 指定が無い場合はデフォルト値に設定
+	if ( m_iMaxId == 0 )
+	{
+		m_iMaxId = m_iDefaultMaxId;
 	}
 
 	return 0;

@@ -4,7 +4,7 @@
  * @file  mbxobj.h
  * @brief %jp{メールボックスオジェクトのヘッダファイル}%en{Mailbox object heder file}
  *
- * @version $Id: mbxobj.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: mbxobj.h,v 1.2 2006-08-16 18:31:05 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -77,12 +77,12 @@ typedef struct _kernel_t_mbxcb_rom
 /** %jp{メールボックスコントロールブロック(RAM部)} */
 typedef struct _kernel_t_mbxcb
 {
-#if _KERNEL_MBXCB_MSGQUE
-	VP						msgque;											/**< %jp{メッセージキュー} */
-#endif
-
 #if _KERNEL_MBXCB_QUE
 	_KERNEL_T_QUE			que;											/**< %jp{タスクの待ち行列} */
+#endif
+
+#if _KERNEL_MBXCB_MSGQUE
+	VP						msgque;											/**< %jp{メッセージキュー} */
 #endif
 } _KERNEL_T_MBXCB;
 
@@ -93,12 +93,12 @@ typedef struct _kernel_t_mbxcb
 /** %jp{メールボックスコントロールブロック} */
 typedef struct _kernel_t_mbxcb
 {
-#if _KERNEL_MBXCB_MSGQUE
-	VP						msgque;											/**< %jp{メッセージキュー} */
-#endif
-
 #if _KERNEL_MBXCB_QUE
 	_KERNEL_T_QUE			que;											/**< %jp{タスクの待ち行列} */
+#endif
+
+#if _KERNEL_MBXCB_MSGQUE
+	VP						msgque;											/**< %jp{メッセージキュー} */
 #endif
 
 #if _KERNEL_MBXCB_MBXATR

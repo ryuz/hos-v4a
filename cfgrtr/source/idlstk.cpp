@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "idlstk.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 #define IDLSTK_STKSZ		0

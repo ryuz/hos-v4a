@@ -13,6 +13,8 @@
 #include "defercd.h"
 #include "attini.h"
 #include "analyze.h"
+#include "readcfg.h"
+
 
 #define ATTINI_INIATR		0
 #define ATTINI_EXINF		1

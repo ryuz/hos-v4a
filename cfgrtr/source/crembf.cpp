@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "crembf.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 #define CREMBF_MBFID		0

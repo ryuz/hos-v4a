@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "crealm.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 #define CREALM_ALMID		0

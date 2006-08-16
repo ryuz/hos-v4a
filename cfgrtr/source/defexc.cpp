@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "defexc.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 #define DEFEXC_EXCNO		0

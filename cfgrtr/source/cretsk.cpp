@@ -10,11 +10,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "readcfg.h"
 #include "defercd.h"
 #include "cretsk.h"
 #include "analyze.h"
-
+#include "readcfg.h"
 
 // parameter
 #define CRETSK_TSKID		0
@@ -30,6 +29,9 @@
 // %jp{コンストラクタ}%en{constructor}
 CApiCreTsk::CApiCreTsk()
 {
+	// %jp{デフォルトの最大ID設定}
+	m_iDefaultMaxId = _KERNEL_TMAX_TSKID;
+
 	// %jp{パラメーター構文設定}
 	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}
 	m_iParamSyntax[1] = 6;		// %jp{6パラメーターのブロック}
@@ -70,19 +72,6 @@ int CApiCreTsk::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	
 	return CFG_ERR_NOPROC;
 }
-
-
-// 自動ID番号割り当て
-int CApiCreTsk::AutoId(void)
-{
-	if ( m_iMaxId == 0 )
-	{
-		m_iMaxId = _KERNEL_TMAX_TSKID;
-	}
-
-	return CApiDef::AutoId();
-}
-
 
 
 // %jp{ID 定義ファイル書き出し}

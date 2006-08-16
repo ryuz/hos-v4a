@@ -25,6 +25,9 @@
 // コンストラクタ
 CApiCreFlg::CApiCreFlg()
 {
+	// %jp{デフォルトの最大ID設定}
+	m_iDefaultMaxId = _KERNEL_TMAX_FLGID;
+	
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 2;		// 2パラメーターのブロック
@@ -182,10 +185,62 @@ void  CApiCreFlg::WriteCfgDef(FILE* fp)
 #if _KERNEL_FLGCB_ROM
 	// ポインタ配列＆ROM分離
 	{
-	}
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "const _KERNEL_T_FLGCB_RO _kernel_flgcb_ro_blk_%d = {", m_iId[i]);
+			WriteFlgcbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_FLGCB _kernel_flgcb_blk_%d = {", m_iId[i]);
+			WriteFlgcbRam(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_FLGCB *_kernel_flgcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t&_kernel_flgcb_blk_%d,\n", i);
+			}
+			else
+			{
+				fprintf(fp, "\t\tNULL,\n");
+			}
+		}
+		fprintf(fp, "\t};\n");		}
 #else
-	// ポインタ配列＆統合TCB
+	// ポインタ配列＆統合FLGCB
 	{
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_FLGCB _kernel_flgcb_blk_%d = {", m_iId[i]);
+			WriteFlgcbRam(fp, i);
+			WriteFlgcbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_FLGCB *_kernel_flgcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t&_kernel_flgcb_blk_%d,\n", i);
+			}
+			else
+			{
+				fprintf(fp, "\t\tNULL,\n");
+			}
+		}
+		fprintf(fp, "\t};\n");		
+
 	}
 #endif
 #endif

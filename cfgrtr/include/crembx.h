@@ -27,6 +27,10 @@ public:
 	void  WriteCfgDef(FILE* fp);				// cfgファイル定義部書き出し
 	void  WriteCfgIni(FILE* fp);				// cfgファイル初期化部書き出し
 	void  WriteCfgStart(FILE* fp);				// cfgファイル起動部書き出し
+
+protected:
+	void  WriteMbxcbRam(FILE *fp, int iObj);	// MBXCB情報書き出し(RAM部)
+	void  WriteMbxcbRom(FILE *fp, int iObj);	// MBXCB情報書き出し(ROM部)
 };
 
 

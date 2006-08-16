@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "timtic.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 #define TIMTIC_NUME		0

@@ -23,12 +23,15 @@
 
 
 
-// コンストラクタ
+// %jp{コンストラクタ}
 CApiCreSem::CApiCreSem()
 {
-	// パラメーター構文設定
-	m_iParamSyntax[0] = 0;		// 単独パラメーター
-	m_iParamSyntax[1] = 3;		// 3パラメーターのブロック
+	// %jp{デフォルトの最大ID設定}
+	m_iDefaultMaxId = _KERNEL_TMAX_SEMID;
+	
+	// %jp{パラメーター構文設定}
+	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}
+	m_iParamSyntax[1] = 3;		// %jp{3パラメーターのブロック}
 	m_iParams = 2;
 }
 
@@ -106,7 +109,7 @@ void  CApiCreSem::WriteCfgDef(FILE* fp)
 {
 	int  i;
 
-	// コメント出力
+	// %jp{コメント出力}
 	fputs(
 		"\n\n\n"
 		"/* ------------------------------------------ */\n"
@@ -157,7 +160,7 @@ void  CApiCreSem::WriteCfgDef(FILE* fp)
 		fprintf(fp, "\t};\n\n");
 	}
 #else
-	// %jp{ブロック配列＆統合TCB}
+	// %jp{ブロック配列＆統合SEMCB}
 	{
 		// %jp{RAM部出力}
 		fprintf(fp, "\n_KERNEL_T_SEMCB _kernel_semcb_tbl[%d] =\n\t{\n", m_iMaxId);
@@ -214,7 +217,7 @@ void  CApiCreSem::WriteCfgDef(FILE* fp)
 		fprintf(fp, "\t};\n");		
 	}
 #else
-	// %jp{ポインタ配列＆統合TCB}
+	// %jp{ポインタ配列＆統合SEMCB}
 	{
 		fprintf(fp, "\n");
 		for ( i = 0; i < m_iObjs; i++ )

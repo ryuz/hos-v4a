@@ -41,6 +41,7 @@ protected:
 	int         m_iObjs;								// オブジェクト数
 	int         m_iResObj;								// 予約オブジェクト数
 	int         m_iMaxId;								// 最大ID 番号
+	int         m_iDefaultMaxId;						// デフォルトのMaxID
 	int         m_iParams;								// パラメーター数
 	int         m_iParamSyntax[PARAMPACK_MAX];			// パラメーター構文
 };

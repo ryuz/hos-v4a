@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "credtq.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 
@@ -26,6 +27,9 @@
 // コンストラクタ
 CApiCreDtq::CApiCreDtq()
 {
+	// %jp{デフォルトの最大ID設定}
+	m_iDefaultMaxId = _KERNEL_TMAX_DTQID;
+	
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 3;		// 3パラメーターのブロック

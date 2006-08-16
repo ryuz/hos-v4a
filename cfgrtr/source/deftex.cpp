@@ -13,6 +13,7 @@
 #include "defercd.h"
 #include "deftex.h"
 #include "analyze.h"
+#include "readcfg.h"
 
 
 #define DEFTEX_TSKID		0
