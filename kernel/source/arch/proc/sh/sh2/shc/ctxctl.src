@@ -60,7 +60,7 @@ L_imsk			.DATA.L	__kernel_sh_imsk		; 割り込みマスク
 ;------------------------------------------------
 				.STACK	__kernel_wai_int=0
 __kernel_wai_int:
-		;		sleep
+				sleep
 				bra		__kernel_wai_int
 				nop
 

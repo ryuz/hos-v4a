@@ -1,6 +1,26 @@
 
 
-TARGET ?= sample.abs
+TARGET ?= sample
+
+
+ifeq ($(DEBUG),Yes)
+TARGET := $(TARGET)Dbg
+endif
+
+ifeq ($(ROM),Yes)
+TARGET := $(TARGET)Rom
+endif
+
+ifeq ($(SIM),Yes)
+TARGET := $(TARGET)Sim
+endif
+
+
+# 出力ファイル名
+TARGET_ABS = $(TARGET).abs
+TARGET_MOT = $(TARGET).mot
+
+
 
 INC_DIR = ../../../../kernel/include
 
@@ -16,7 +36,7 @@ CFLAGS = -CPu=sh2 -I=$(INC_DIR)
 AFLAGS = -CPu=sh2 
 LFLAGS = 
 
-ifeq ($DEBUG),Yes)
+ifeq ($(DEBUG),Yes)
 OS_LIBS = ../../../../kernel/build/sh/sh2/shc/libhosv4adbg.lib
 AFLAGS += -DEBug
 CFLAGS += -DEBug -OP=0
@@ -51,7 +71,7 @@ STD_LIBS = stdlib.lib
 
 VPATH = ..
 
-all: mkdir_objs mk_kernel $(TARGET)
+all: mkdir_objs mk_kernel $(TARGET_ABS)
 
 
 # メモリ配置
@@ -66,20 +86,21 @@ SECTION_RAM  ?= 000410000
 endif
 
 
-$(TARGET): $(OBJS) $(STD_LIBS) $(OS_LIBS)
+
+$(TARGET_ABS): $(OBJS) $(STD_LIBS) $(OS_LIBS)
 	echo rom D=R                         > $(OBJS_DIR)/subcmd.txt
 	echo list sample.map                >> $(OBJS_DIR)/subcmd.txt
 	echo SHow SY,R,X                    >> $(OBJS_DIR)/subcmd.txt
 	echo -Input=$(OBJS) | sed "s/ /,/g" >> $(OBJS_DIR)/subcmd.txt
 	echo -LIB=$(OS_LIBS),$(STD_LIBS)    >> $(OBJS_DIR)/subcmd.txt
 	echo "-start=VECTTBL/$(SECTION_VECT),P,C,C\$$BSEC,C\$$DSEC,D/$(SECTION_ROM),B,R/$(SECTION_RAM),S/0FFFFFBF0" >> $(OBJS_DIR)/subcmd.txt
-	echo -output=$(TARGET)              >> $(OBJS_DIR)/subcmd.txt
+	echo -output=$(TARGET_ABS)          >> $(OBJS_DIR)/subcmd.txt
 	echo end                            >> $(OBJS_DIR)/subcmd.txt
-	echo -input=$(TARGET)               >> $(OBJS_DIR)/subcmd.txt
+	echo -input=$(TARGET_ABS)           >> $(OBJS_DIR)/subcmd.txt
 	echo form stype                     >> $(OBJS_DIR)/subcmd.txt
-	echo output sample.mot              >> $(OBJS_DIR)/subcmd.txt
+	echo output $(TARGET_MOT)           >> $(OBJS_DIR)/subcmd.txt
 	echo -exit                          >> $(OBJS_DIR)/subcmd.txt
-	$(RM) -f $(TARGET)
+	$(RM) -f $(TARGET_ABS)
 	$(LINK) -SU=$(OBJS_DIR)/subcmd.txt
 
 $(STD_LIBS):
@@ -93,7 +114,7 @@ mkdir_objs:
 	@mkdir -p $(OBJS_DIR)
 
 clean:
-	rm -f $(OBJS) $(TARGET) ../kernel_cfg.c ../kernel_id.h
+	rm -f $(OBJS) $(TARGET_ABS) $(TARGET_MOT) ../kernel_cfg.c ../kernel_id.h
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i

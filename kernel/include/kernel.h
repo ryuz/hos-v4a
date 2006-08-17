@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: kernel.h,v 1.2 2006-08-17 14:26:43 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -208,8 +208,8 @@ typedef struct t_rmpf
 /* 割り込みハンドラの定義用 */
 typedef struct t_dinh
 {
-	ATR inhatr;				/* 割り込みハンドラ属性 */
-	FP  inthdr;				/* 割り込みハンドラの起動番地 */
+	ATR inhatr;				/* 割込みハンドラ属性 */
+	FP  inthdr;				/* 割込みハンドラの起動番地 */
 } T_DINH;
 
 

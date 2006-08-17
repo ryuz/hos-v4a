@@ -4,7 +4,7 @@
  * @file  ctxctl.h
  * @brief %jp{コンテキスト制御}%en{context control}
  *
- * @version $Id: proc.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: proc.h,v 1.2 2006-08-17 14:26:44 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -30,9 +30,9 @@ extern "C" {
 
 void    _kernel_ini_arc(void);																		/**< %jp{アーキテクチャ固有の初期化} */
 
-void    _kernel_ena_int(void);																		/**< %jp{割り込み許可} */
-void    _kernel_dis_int(void);																		/**< %jp{割り込み禁止} */
-void    _kernel_wai_int(void);																		/**< %jp{割り込み待ち(アイドル時の処理)} */
+void    _kernel_ena_int(void);																		/**< %jp{割込み許可} */
+void    _kernel_dis_int(void);																		/**< %jp{割込み禁止} */
+void    _kernel_wai_int(void);																		/**< %jp{割込み待ち(アイドル時の処理)} */
 
 void    _kernel_cre_ctx(_KERNEL_T_CTXCB *pk_ctxcb, VP isp, FP entry, VP_INT par1, VP_INT par2);		/**< %jp{実行コンテキストの作成} */
 void    _kernel_del_ctx(_KERNEL_T_CTXCB *pk_ctxcb);													/**< %jp{実行コンテキストの削除} */
@@ -47,9 +47,9 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 
 #define _KERNEL_INI_PRC()	do {} while (0)
 
-#define _KERNEL_ENA_INT()	_kernel_ena_int()														/**< %jp{割り込み許可} */
-#define _KERNEL_DIS_INT()	_kernel_dis_int()														/**< %jp{割り込み禁止} */
-#define _KERNEL_WAI_INT()	_kernel_wai_int()														/**< %jp{割り込み待ち(アイドル時の処理)} */
+#define _KERNEL_ENA_INT()	_kernel_ena_int()														/**< %jp{割込み許可} */
+#define _KERNEL_DIS_INT()	_kernel_dis_int()														/**< %jp{割込み禁止} */
+#define _KERNEL_WAI_INT()	_kernel_wai_int()														/**< %jp{割込み待ち(アイドル時の処理)} */
 
 #define _KERNEL_CRE_CTX(pk_ctxcb, stksz, stk, isp, entry, exinf1, exinf2)		\
 									_kernel_cre_ctx((pk_ctxcb), (isp), (entry), (exinf1), (exinf2))

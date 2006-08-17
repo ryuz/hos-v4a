@@ -83,7 +83,7 @@ void  CApiAttIsr::WriteCfgDef(FILE* fp)
 		"/* ------------------------------------------ */\n"
 		, fp);
 	
-	// 割り込み管理テーブル生成
+	// 割込み管理テーブル生成
 	if ( _KERNEL_IRCATR_TMAX_INHNO - _KERNEL_IRCATR_TMIN_INHNO + 1 > 0 )
 	{
 		fprintf(

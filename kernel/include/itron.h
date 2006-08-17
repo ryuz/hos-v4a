@@ -4,7 +4,7 @@
  * @file  itron.h
  * @brief %en{uITRON4.0 standard header file}%jp{μITRON4.0用の標準ヘッダファイル}
  *
- * @version $Id: itron.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: itron.h,v 1.2 2006-08-17 14:26:43 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -972,8 +972,8 @@ typedef UINT					RDVPTN;
 typedef INT						RDVNO;
 typedef INT						OVRTIM;
 
-typedef INT						INHNO;		/**< %jp{割り込みハンドラ番号}%en{} */
-typedef INT						INTNO;		/**< %jp{割り込み番号}%en{} */
+typedef INT						INHNO;		/**< %jp{割込みハンドラ番号}%en{} */
+typedef INT						INTNO;		/**< %jp{割込み番号}%en{} */
 
 typedef INT						EXCNO;		/**< %jp{CPU例外ハンドラ番号}%en{} */
 

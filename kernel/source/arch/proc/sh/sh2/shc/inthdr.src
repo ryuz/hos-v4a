@@ -1190,39 +1190,45 @@ __kernel_vector_255:
 ;
 ;  r4をスタックに積んだ後、r4に割り込み番号を
 ;  格納してここに分岐するものとする
+;
+;  以下、大急ぎで割り込みマスクした後は、メモリ
+;  アクセス命令が偶数番地に配置されるように頑張る
 ;------------------------------------------------
+				.ALIGN	4
 __kernel_int_hdr:
-				mov.l	r0, @-r15			; r0 退避
+		; ---- 多重割り込みをマスク
+				mov.l	r0, @-r15			; r0 退避(割込み元のスタック)
 				stc		sr, r0
-				mov.l	r1, @-r15			; r1 退避
+				mov.l	r1, @-r15			; r1 退避(割込み元のスタック)
 				mov		r0, r1				; sr 保存
 				or		#h'f0, r0
 				ldc		r0, sr				; 全割り込みマスク
 
 		; ---- レジスタ保存(r2-r7,pr)
-				mov.l	r2, @-r15
-				mov.l	r3, @-r15
-				mov.l	r5, @-r15
-				mov.l	r6, @-r15
-				mov.l	r7, @-r15
-				sts.l	pr, @-r15
-
-		; ---- 割り込みマスク値の設定
-				mov.l	r1, r0
+				mov.l	r2, @-r15			; r2 退避(割込み元のスタック)
+				mov.l	r1, r0				; srを移動
+				mov.l	r3, @-r15			; r3 退避(割込み元のスタック)
 				and		#h'f0, r0			; 割り込みマスクレベル取り出し
-				mov.l	addr_sh_imsk, r1
-				mov.l	@r1, r2				; 古いマスク値取り出し
-				mov.l	r0, @r1				; 新しいマスク値設定
-
-		; ---- 多重割り込み判定
-				mov.l	addr_int_cnt, r1
+				mov.l	r5, @-r15			; r5 退避(割込み元のスタック)
+				mov.l	r0, r2				; r2に新しい割込みマスク値格納
+				mov.l	r6, @-r15			; r6 退避(割込み元のスタック)
 				extu.b	r4, r4				; 割込み番号の符号拡張をクリア
-				mov.l	@r1, r0
-				cmp/eq	#0, r0
-				add		#1, r0
-				bf/s	multiple_int
+				mov.l	r7, @-r15			; r7 退避(割込み元のスタック)
+				mov.l	addr_int_cnt, r5
+				sts.l	pr, @-r15			; pr 退避(割込み元のスタック)
+
+		; ---- 割り込みマスク値の設定＆多重割り込み判定
+				mov.l	@r5, r0				; 割込みネストカウンタ取り出し
+				mov.l	addr_sh_imsk, r1
+				cmp/eq	#0, r0				; 初回割込み判定
+				mov.l	@r1, r3				; r3に古い割込みマスク値格納
+				add		#1, r0				; 割込みネストカウンタ加算
+				mov.l	r2, @r1				; 新しい割込みマスク値設定
+				bf/s	multiple_int		; 多重割込み処理へ分岐
 				mov.l	r0, @r1				; 割り込みネスト値を設定(遅延スロット)
-				
+
+		; ==== 初回割り込みの処理
+
 		; ---- スタック入れ替え
 				mov.l	r15, r0				; 現在のスタックを退避
 				mov.l	addr_int_isp, r1
@@ -1230,7 +1236,7 @@ __kernel_int_hdr:
 				mov.l	r0, @-r15			; 割込み前のスタックポインタを保存
 				
 		; ---- 古いマスク値を保存
-				mov.l	r2, @-r15			; 古いマスク値を保存
+				mov.l	r3, @-r15			; 古いマスク値を保存
 				
 		; ---- 割り込み開始処理呼び出し
 				mov.l	addr_sta_inh, r1
@@ -1240,29 +1246,31 @@ __kernel_int_hdr:
 		; ---- 割り込み実行処理呼び出し
 				mov.l	addr_exe_inh, r1
 				jsr		@r1
-				mov.l	@r15+, r4			; 割込み番号を引数とする
-		
+				mov.l	@r15+, r4			; 割込み番号を引数とする(遅延スロット)
+				
 		; ---- 古いマスク値を取り出し
-				mov.l	@r15+, r2			; 古いマスク値を取り出し
+				mov.l	@r15+, r3			; 古い割込みマスク値を取り出し
 				
 		; ---- スタックの復帰
 				mov.l	@r15, r15
 				
-		; ---- 割り込みカウンタのクリア
+		; ---- 割込みカウンタのクリア
 				mov.l	addr_int_cnt, r1
 				xor		r0, r0
 				mov.l	r0, @r1
 
+		; ---- 割込みマスク値復帰
 				mov.l	@(40, r15), r0		; 割込み前の sr を取り出し
-				and		#h'f0, r0
-				cmp/eq	r0, r2
-				bf		return_int
-
-		; ---- 割り込み終了処理呼び出し
 				mov.l	addr_sh_imsk, r1
+				and		#h'f0, r0			; 割込みマスク値取り出し
+				cmp/eq	r0, r3				; 古い割込みマスク値と比較
+				bf/s	return_int			; 不一致なら既に割込み処理中とみなす
+				mov.l	r3, @r1				; 割込み前の状態に割込みマスク値を設定(遅延スロット)
+
+		; ---- 割込み終了処理呼び出し
 				mov.l	addr_end_inh, r2
 				jsr		@r2
-				mov.l	r0, @r1				; 割込み前の状態に割込みマスク値を設定(遅延スロット)
+				nop
 				
 		; ---- 復帰時割り込みマスクの設定
 				mov.l	@(40, r15), r0		; 割込み前の sr を取り出し
@@ -1287,33 +1295,28 @@ return_int:
 				rte
 				nop
 
-		; ---- 多重割り込み処理
+
+
+		; ==== 多重割込みの処理
+				.ALIGN	4
 multiple_int:
-				mov.l	r0, @r1				; 割り込みネスト値を設定
-				
-		; ---- 割り込み実行処理呼び出し
+		; ---- 割込み実行処理呼び出し
 				mov.l	addr_exe_inh, r1
-				jsr		@r1					; 割り込み番号を引数とする
-				nop
+				jsr		@r1					; 割り込み番号(r4)を引数とする
+				mov.l	r3, @-r15			; 古いマスク値を保存
 				
-		; ---- 割り込みカウンタの減算
+		; ---- 割込みカウンタの減算
 				mov.l	addr_int_cnt, r1
 				mov.l	@r1, r0
 				add		#-1, r0
 				mov.l	r0, @r1
 				
-		; ---- レジスタ復帰
-				lds.l	@r15+, pr
-				mov.l	@r15+, r7
-				mov.l	@r15+, r6
-				mov.l	@r15+, r5
-				mov.l	@r15+, r3
-				mov.l	@r15+, r2
-				mov.l	@r15+, r1
-				mov.l	@r15+, r0
-				mov.l	@r15+, r4
-				rte
-				nop
+		; ---- 割込みマスク値の復帰
+				mov.l	r3, @-r15			; 古いマスク値を復帰
+				mov.l	addr_sh_imsk, r1
+				bra		return_int
+				mov.l	r3, @r1
+
 
 				.ALIGN	4
 addr_int_cnt:
