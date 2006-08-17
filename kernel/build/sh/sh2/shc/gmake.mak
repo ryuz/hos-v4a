@@ -2,7 +2,7 @@
 # Hyper Operating System V4 Advance
 #  makefile for H8/300H
 #
-# $Id: gmake.mak,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+# $Id: gmake.mak,v 1.2 2006-08-17 07:16:22 ryuz Exp $
 #
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -354,11 +354,11 @@ all: mkdir_objs $(TARGET_LIB) mk_cfgrtr
 
 
 $(TARGET_LIB): $(OBJS)
-	$(ECHO) -Input=$(OBJS) | sed "s/ /,/g" > $(OBJ_DIR)/subcmd.txt
-	$(ECHO) -OUtput=$(TARGET_LIB) >> $(OBJ_DIR)/subcmd.txt
-	$(ECHO) -FOrm=Library >> $(OBJ_DIR)/subcmd.txt
+	$(ECHO) -Input=$(OBJS) | sed "s/ /,/g"  > $(OBJS_DIR)/subcmd.txt
+	$(ECHO) -OUtput=$(TARGET_LIB)          >> $(OBJS_DIR)/subcmd.txt
+	$(ECHO) -FOrm=Library                  >> $(OBJS_DIR)/subcmd.txt
 	$(RM) -f $(TARGET_LIB)
-	$(LIBR) -SU=$(OBJ_DIR)/subcmd.txt
+	$(LIBR) -SU=$(OBJS_DIR)/subcmd.txt
 
 mkdir_objs:
 	$(MKDIR) -p $(OBJS_DIR)
