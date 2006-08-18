@@ -61,6 +61,11 @@ all: mkdir_objs mk_kernel $(TARGET_ELF)
 mk_kernel:
 	make -C ../../../../kernel/build/sh/sh2/gcc -f gmake.mak
 
+
+clean:
+	rm -f $(OBJS) $(TARGET_ELF) $(TARGET_MOT) ../kernel_cfg.c ../kernel_id.h
+
+
 mkdir_objs:
 	@mkdir -p $(OBJS_DIR)
 
@@ -74,21 +79,6 @@ $(TARGET_ELF): $(OBJS)
 
 $(OBJS_DIR)/sample.o: ../kernel_id.h
 
-#vector.o: vector.S
-#	$(CC) $(AFLAGS) vector.S -o vector.o
-
-#crt0.o: crt0.S
-#	$(CC) $(AFLAGS) crt0.S -o crt0.o
-
-#sample.o: sample.c
-#	$(CC) $(CFLAGS) sample.c -o sample.o
-
-#kernel_cfg.o: kernel_cfg.c
-#	$(CC) $(CFLAGS) kernel_cfg.c -o kernel_cfg.o
-
-#kernel_cfg.c: system.cfg
-#	cpp -E system.cfg > system.i
-#	../../../../cfgrtr/build/gcc/h4acfg-sh2
 
 
 
