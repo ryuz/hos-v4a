@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /Ze /W3 /Gm /GX /ZI /Od /I "..\..\..\..\include" /I "..\..\..\..\include\arch\proc\win\win32" /I "..\..\..\..\include\arch\irc\none" /I "../../kernel/include" /D "_LIB" /D "WIN32" /D "_DEBUG" /D "_MBCS" /FD /D /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\..\..\include" /I "..\..\..\..\include\arch\proc\win\win32" /I "..\..\..\..\include\arch\irc\none" /I "../../kernel/include" /D "_LIB" /D "WIN32" /D "_DEBUG" /D "_MBCS" /FD /D /GZ /c
 # ADD BASE RSC /l 0x411 /d "_DEBUG"
 # ADD RSC /l 0x411 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -109,6 +109,10 @@ SOURCE=..\..\..\..\include\object\mpfobj.h
 # Begin Source File
 
 SOURCE=..\..\..\..\include\object\semobj.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\include\object\timobj.h
 # End Source File
 # Begin Source File
 

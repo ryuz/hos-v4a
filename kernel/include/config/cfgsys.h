@@ -4,7 +4,7 @@
  * @file  cfgsys.h
  * @brief %jp{ITRONシステムのコンフィギュレーション用ヘッダファイル}%en{ITRON system configuration heder file}
  *
- * @version $Id: cfgsys.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: cfgsys.h,v 1.2 2006-08-18 12:00:12 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -85,14 +85,9 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_TMAX_MAXSEM			(-1)
 
 
-/* %jp{タイムティックの周期}%en{Time Tick Period} */
-#define _KERNEL_CFG_TIC_NUME			1					/**< %jp{タイムティック周期の分子} */
-#define _KERNEL_CFG_TIC_DENO			1					/**< %jp{タイムティック周期の分母} */
-
-
-/* %jp{T_RTSKに exinf を含めるか} */
-#define _KERNEL_CFG_RTSK_EXINF			TRUE
-#define _KERNEL_CFG_RTST_EXINF			TRUE
+/* %jp{HOS独自拡張機能} */
+#define _KERNEL_CFG_RTST_EXINF			FALSE				/**< %jp{T_RTSTに exinf を含めるか} */
+#define _KERNEL_CFG_RTSK_EXINF			FALSE				/**< %jp{T_RTSKに exinf を含めるか} */
 
 
 

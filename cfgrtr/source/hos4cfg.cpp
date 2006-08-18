@@ -1,10 +1,14 @@
-// ---------------------------------------------------------------------------
-//  Hyper Operating System V4 Advance コンフィギュレーター                           
-//    メインルーチン                                                          
-//                                                                            
-//                                    Copyright (C) 1998-2002 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
-// ---------------------------------------------------------------------------
+/**
+ *  Hyper Operating System V4 Advance Configurator
+ *
+ * @file  hos4cfg.cpp
+ * @brief %jp{メインルーチン}%en{main}
+ *
+ * @version $Id: hos4cfg.cpp,v 1.2 2006-08-18 12:00:12 ryuz Exp $
+ *
+ * Copyright (C) 1998-2006 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
 
 
 #include <stdio.h>
@@ -18,7 +22,6 @@
 #include "idlstk.h"
 #include "intstk.h"
 #include "knlheap.h"
-#include "timtic.h"
 #include "maxtpri.h"
 #include "cretsk.h"
 #include "deftex.h"
@@ -28,6 +31,7 @@
 #include "crembx.h"
 #include "crembf.h"
 #include "crempf.h"
+#include "timtic.h"
 #include "crecyc.h"
 #include "crealm.h"
 #include "definh.h"
@@ -52,7 +56,6 @@ CApiIdleStack  g_ApiIdleStack;
 CApiMaxTpri    g_ApiMaxTpri;
 CApiIntStack   g_IntStack;
 CApiKernelHeap g_ApiKernelHeap;
-CApiTimTic     g_ApiTimTic;
 CApiCreTsk     g_ApiCreTsk;
 CApiDefTex     g_ApiDefTex;
 CApiCreSem     g_ApiCreSem;
@@ -61,6 +64,7 @@ CApiCreDtq     g_ApiCreDtq;
 CApiCreMbx     g_ApiCreMbx;
 CApiCreMbf     g_ApiCreMbf;
 CApiCreMpf     g_ApiCreMpf;
+CApiTimTic     g_ApiTimTic;
 CApiCreCyc     g_ApiCreCyc;
 CApiCreAlm     g_ApiCreAlm;
 CApiDefInh     g_ApiDefInh;
@@ -79,7 +83,6 @@ static CApiDef* g_ApiList[] =
 		&g_ApiIdleStack,
 		&g_IntStack,
 		&g_ApiKernelHeap,
-//		&g_ApiTimTic,
 		&g_ApiCreTsk,
 //		&g_ApiDefTex,
 		&g_ApiCreSem,
@@ -88,6 +91,7 @@ static CApiDef* g_ApiList[] =
 		&g_ApiCreMbx,
 //		&g_ApiCreMbf,
 		&g_ApiCreMpf,
+		&g_ApiTimTic,
 //		&g_ApiCreCyc,
 //		&g_ApiCreAlm,
 		&g_ApiDefInh,
@@ -340,6 +344,7 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/flgobj.h\"\n");
 	fprintf(fp, "#include \"object/mbxobj.h\"\n");
 	fprintf(fp, "#include \"object/mpfobj.h\"\n");
+	fprintf(fp, "#include \"object/timobj.h\"\n");
 	fprintf(fp, "#include \"object/inhobj.h\"\n");
 	fprintf(fp, "#include \"object/isrobj.h\"\n");
 	
@@ -408,6 +413,4 @@ void PrintUsage(void)
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2006 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

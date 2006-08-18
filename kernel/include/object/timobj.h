@@ -4,7 +4,7 @@
  * @file  timobj.h
  * @brief %jp{時間管理オジェクトのヘッダファイル}%en{Time object heder file}
  *
- * @version $Id: timobj.h,v 1.1 2006-08-18 09:21:59 ryuz Exp $
+ * @version $Id: timobj.h,v 1.2 2006-08-18 12:00:13 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -15,25 +15,24 @@
 #define _KERNEL__object__timobj_h__
 
 
-
 /* ------------------------------------------ */
 /*  Primitive type definition                 */
 /* ------------------------------------------ */
 
 /* %jp{タイムティックの除算結果} (TIC_NUME / TIC_DENO) */
-typedef RELTIM				_KERNEL_TIMCB_T_TICDIV;
+typedef RELTIM							_KERNEL_TIMCB_T_TICDIV;
 #define _KERNEL_TIMCB_TBITDEF_TICDIV
 
 /* %jp{タイムティックの除算の余り結果} (TIC_NUME % TIC_DENO) */
-typedef RELTIM				_KERNEL_TIMCB_T_TICDIV;
-#define _KERNEL_TIMCB_TBITDEF_TICDIV
+typedef RELTIM							_KERNEL_TIMCB_T_TICMOD;
+#define _KERNEL_TIMCB_TBITDEF_TICMOD
 
 /* %jp{タイムティックの分母} (TIC_DENO) */
-typedef RELTIM				_KERNEL_TIMCB_T_TICDENO;
+typedef RELTIM							_KERNEL_TIMCB_T_TICDENO;
 #define _KERNEL_TIMCB_TBITDEF_TICDENO
 
 /* %jp{分数繰上げ用のカウンタ} */
-typedef RELTIM				_KERNEL_TIMCB_T_TICCNT;
+typedef RELTIM							_KERNEL_TIMCB_T_TICCNT;
 #define _KERNEL_TIMCB_TBITDEF_TICCNT
 
 
@@ -62,12 +61,13 @@ typedef struct _kernel_t_timcb_ro
 /** %jp{時間管理コントロールブロック}%en{Time-Manegement Control Block} */
 typedef struct _kernel_t_timcb
 {
-#if _KERNEL_SEMCB_SEMCNT
+#if _KERNEL_TIMCB_SYSTIM
 	SYSTIM					systim;											/**< %jp{現在のシステム時刻} */
 #endif
 
-#if _KERNEL_TIMCB_SEMCNT
+#if _KERNEL_TIMCB_TICCNT
 	_KERNEL_TIMCB_T_TICCNT	ticcnt		_KERNEL_TIMCB_TBITDEF_TICCNT;		/**< %jp{分数繰上げ用のカウンタ} */
+#endif
 } _KERNEL_T_TIMCB;
 
 
@@ -77,7 +77,7 @@ typedef struct _kernel_t_timcb
 /* ------------------------------------------ */
 
 const _KERNEL_T_TIMCB_RO	_kernel_timcb_ro;
-_KERNEL_T_TIMCB_RO			_kernel_timcb;
+_KERNEL_T_TIMCB				_kernel_timcb;
 
 
 

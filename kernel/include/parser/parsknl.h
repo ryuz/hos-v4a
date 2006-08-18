@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.2 2006-08-18 07:54:59 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.3 2006-08-18 12:00:13 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -880,7 +880,7 @@
 
 
 /* ---------------------------------------------- */
-/* Fixed-sized memory pools                       */
+/*  Fixed-sized memory pools                      */
 /* ---------------------------------------------- */
 
 
@@ -925,6 +925,23 @@
 #define _KERNEL_MPFCB_BLKSZ			TRUE
 #define _KERNEL_MPFCB_MPF			TRUE
 
+
+
+/* ------------------------------------------------------------------ */
+/*  System Time Management                                            */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_FRACTIONAL_TIMTIC	_KERNEL_CFG_FRACTIONAL_TIMTIC	/**< %jp{タイムティックの分数指定を許す} */
+#define _KERNEL_TIC_NUME			_KERNEL_CFG_TIC_NUME			/**< %jp{デフォルトのタイムティック周期の分子} */
+#define _KERNEL_TIC_DENO			_KERNEL_CFG_TIC_DENO			/**< %jp{デフォルトのタイムティック周期の分母} */
+
+
+#define _KERNEL_TIMCB_TICDIV		TRUE
+#define _KERNEL_TIMCB_TICMOD		_KERNEL_FRACTIONAL_TIMTIC
+#define _KERNEL_TIMCB_TICDENO		_KERNEL_FRACTIONAL_TIMTIC
+#define _KERNEL_TIMCB_TICCNT		_KERNEL_FRACTIONAL_TIMTIC
+
+#define _KERNEL_TIMCB_SYSTIM		(_KERNEL_CFG_SET_TIM || _KERNEL_SPT_GET_TIM)
 
 
 /* ------------------------------------------------------------------ */

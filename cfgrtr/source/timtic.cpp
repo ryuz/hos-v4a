@@ -28,8 +28,8 @@ CApiTimTic::CApiTimTic()
 	m_iParamSyntax[1] = 0;		// 単独パラメーター
 	m_iParams         = 2;
 
-	m_iNume = 1;
-	m_iDeno = 1;
+	m_iNume = _KERNEL_TIC_NUME;
+	m_iDeno = _KERNEL_TIC_DENO;
 }
 
 
@@ -48,7 +48,7 @@ int CApiTimTic::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	int iErr;
 
 	// API名チェック
-	if ( strcmp(pszApiName, "HOS_TIM_TIC") == 0 )
+	if ( strcmp(pszApiName, "KERNEL_TIM_TIC") == 0 )
 	{
 		if ( m_iObjs > 0 )
 		{
@@ -92,8 +92,8 @@ void CApiTimTic::WriteId(FILE* fp)
 		fp,
 		"\n\n"
 		"/* time tic */\n"
-		"#define TIC_NUME\t\t%d\n"
-		"#define TIC_DENO\t\t%d\n",
+		"#define TIC_NUME\t\t(%d)\n"
+		"#define TIC_DENO\t\t(%d)\n",
 		m_iNume,
 		m_iDeno);
 }
@@ -108,13 +108,24 @@ void  CApiTimTic::WriteCfgDef(FILE* fp)
 		"/*               set time tic                 */\n"
 		"/* ------------------------------------------ */\n"
 		"\n"
-		"const UW kernel_tic_deno = TIC_DENO;\n"
-		"const UW kernel_tic_div  = TIC_NUME / TIC_DENO;\n"
-		"const UW kernel_tic_mod  = TIC_NUME % TIC_DENO;\n",
+		"const _KERNEL_T_TIMCB_RO _kernel_timcb_ro =\n"
+		"\t{\n"
+#ifdef _KERNEL_TIMCB_TICDIV
+		"\t\tTIC_NUME / TIC_DENO,\n"
+#endif
+#ifdef _KERNEL_TIMCB_TICMOD
+		"\t\tTIC_NUME % TIC_DENO,\n"
+#endif
+#ifdef _KERNEL_TIMCB_TICDENO
+		"\t\tTIC_DENO,\n"
+#endif		
+		"\t};\n\n",
 		fp);
+
+#if _KERNEL_TIMCB_SYSTIM || _KERNEL_TIMCB_TICCNT
+	fputs("_KERNEL_T_TIMCB _kernel_timcb;\n\n", fp);
+#endif
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

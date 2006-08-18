@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.2 2006-08-18 12:00:12 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -218,7 +218,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* ---------------------------------------------- */
-/* Fixed-sized Memory Pools                       */
+/*  Fixed-sized Memory Pools                      */
 /* ---------------------------------------------- */
 
 /* Attribute */
@@ -241,6 +241,16 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_MPFCB_ROM			FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_CFG_MPFCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
+
+
+/* ------------------------------------------------------------------ */
+/*  System Time Management                                            */
+/* ------------------------------------------------------------------ */
+
+/* %jp{タイムティックの周期}%en{Time Tick Period} */
+#define _KERNEL_CFG_FRACTIONAL_TIMTIC	TRUE				/**< %jp{タイムティックの分数指定を許す} */
+#define _KERNEL_CFG_TIC_NUME			1					/**< %jp{デフォルトのタイムティック周期の分子} */
+#define _KERNEL_CFG_TIC_DENO			1					/**< %jp{デフォルトのタイムティック周期の分母} */
 
 
 
