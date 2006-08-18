@@ -91,13 +91,15 @@ CSRCS += $(DSP_DIR)/ent_tsk.c		\
          $(MPFOBJ_DIR)/get_mpf.c	\
          $(MPFOBJ_DIR)/pget_mpf.c	\
          $(MPFOBJ_DIR)/rel_mpf.c	\
+         $(TIMOBJ_DIR)/set_tim.c	\
+         $(TIMOBJ_DIR)/get_tim.c	\
+         $(TIMOBJ_DIR)/isig_tim.c	\
          $(INHOBJ_DIR)/def_inh.c	\
          $(INHOBJ_DIR)/sta_inh.c	\
          $(INHOBJ_DIR)/exe_inh.c	\
          $(INHOBJ_DIR)/end_inh.c	\
          $(ISROBJ_DIR)/acre_isr.c	\
          $(ISROBJ_DIR)/kcre_isr.c	\
-         $(ISROBJ_DIR)/exe_isr.c	\
-         $(TIMOBJ_DIR)/isig_tim.c
+         $(ISROBJ_DIR)/exe_isr.c
 
 
