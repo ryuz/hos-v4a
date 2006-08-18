@@ -583,7 +583,15 @@ SOURCE=..\..\..\..\source\object\inh\sta_inh.c
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\tim\get_tim.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\tim\isig_tim.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tim\set_tim.c
 # End Source File
 # End Group
 # Begin Group "mbx"

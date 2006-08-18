@@ -4,7 +4,7 @@
  * @file  cfgerr.h
  * @brief %jp{エラー処理のコンフィギュレーション用ヘッダファイル}
  *
- * @version $Id: cfgerr.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: cfgerr.h,v 1.2 2006-08-18 14:42:46 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -323,8 +323,15 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* set_tim */
+#define _KERNEL_CFG_SET_TIM_E_PAR	 	TRUE	
+#define _KERNEL_CFG_SET_TIM_E_NOSPT		FALSE
+
 /* get_tim */
+#define _KERNEL_CFG_GET_TIM_E_PAR	 	TRUE	
+#define _KERNEL_CFG_GET_TIM_E_NOSPT		FALSE
+
 /* isig_tim */
+#define _KERNEL_CFG_ISIG_TIM_E_NOSPT	FALSE
 
 
 /* cre_cyc */

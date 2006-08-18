@@ -4,7 +4,7 @@
  * @file  parserr.h
  * @brief %jp{エラー処理コンフィギュレーションの解析}%en{error configulation parser}
  *
- * @version $Id: parserr.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: parserr.h,v 1.2 2006-08-18 14:42:46 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -341,8 +341,16 @@
 
 
 /* set_tim */
+#define _KERNEL_SPT_SET_TIM_E_PAR	 	_KERNEL_CFG_SET_TIM_E_PAR	
+#define _KERNEL_SPT_SET_TIM_E_NOSPT		_KERNEL_CFG_SET_TIM_E_NOSPT	
+
 /* get_tim */
+#define _KERNEL_SPT_GET_TIM_E_PAR	 	_KERNEL_CFG_GET_TIM_E_PAR
+#define _KERNEL_SPT_GET_TIM_E_NOSPT		_KERNEL_CFG_GET_TIM_E_NOSPT
+
 /* isig_tim */
+#define _KERNEL_SPT_ISIG_TIM_E_NOSPT	_KERNEL_CFG_ISIG_TIM_E_NOSPT
+
 
 
 /* cre_cyc */

@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.3 2006-08-18 07:54:59 ryuz Exp $
+ * @version $Id: kernel.h,v 1.4 2006-08-18 14:42:46 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -312,8 +312,11 @@ ER      rel_mpf(ID mpfid, VP blk);							/**< %jp{固定長メモリブロック
 ER      ref_mpf(ID mpfid, T_RMPF *pk_rmpf);					/**< %jp{固定長メモリブロックの状態参照} */
 
 
-/* システム時間管理機能 */
+/* %jp{システム時間管理機能}%en{System Time Management} */
+ER      set_tim(const SYSTIM *p_system);					/**< %jp{システム時刻の設定}%en{Set System Time} */
+ER      get_tim(SYSTIM *p_system);							/**< %jp{システム時刻の参照}%en{Reference System Time} */
 ER      isig_tim(void);										/**< %jp{タイムティックの供給}%en{Supply Time Tick} */
+
 
 /* システム状態管理機能 */
 ER      rot_rdq(PRI tskpri);								/* タスク優先順位の回転 */

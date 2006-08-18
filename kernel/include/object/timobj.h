@@ -4,7 +4,7 @@
  * @file  timobj.h
  * @brief %jp{時間管理オジェクトのヘッダファイル}%en{Time object heder file}
  *
- * @version $Id: timobj.h,v 1.2 2006-08-18 12:00:13 ryuz Exp $
+ * @version $Id: timobj.h,v 1.3 2006-08-18 14:42:46 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -76,8 +76,8 @@ typedef struct _kernel_t_timcb
 /*  Control block tables                      */
 /* ------------------------------------------ */
 
-const _KERNEL_T_TIMCB_RO	_kernel_timcb_ro;
-_KERNEL_T_TIMCB				_kernel_timcb;
+extern const _KERNEL_T_TIMCB_RO	_kernel_timcb_ro;
+extern _KERNEL_T_TIMCB				_kernel_timcb;
 
 
 
@@ -109,9 +109,11 @@ _KERNEL_T_TIMCB				_kernel_timcb;
 /* systim */
 #if _KERNEL_TIMCB_SYSTIM
 #define _KERNEL_TIM_GET_SYSTIM()			(&_kernel_timcb.systim)
+#define _KERNEL_TIM_SET_SYSTIM(p_tim)		do { _kernel_timcb.systim = *(p_tim); } while(0)
 #define _KERNEL_TIM_ADD_SYSTIM(tic)			_KERNEL_SYSTIM_ADD(&_kernel_timcb.systim, (tic))
 #else
 #define _KERNEL_TIM_GET_SYSTIM()			(NULL)
+#define _KERNEL_TIM_SET_SYSTIM(p_tim)		do {} while(0)
 #define _KERNEL_TIM_ADD_SYSTIM(tic)			do {} while(0)
 #endif
 

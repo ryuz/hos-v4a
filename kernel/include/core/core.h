@@ -4,7 +4,7 @@
  * @file  core.h
  * @brief %jp{カーネル内部用コアヘッダファイル}%en{kernel core header file}
  *
- * @version $Id: core.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: core.h,v 1.2 2006-08-18 14:42:46 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -22,6 +22,7 @@
 #include "irc.h"
 #include "config/cfgknl.h"
 #include "parser/parsknl.h"
+#include "core/chkptr.h"
 #include "core/opttyp.h"
 #include "core/objid.h"
 #include "core/objhdl.h"

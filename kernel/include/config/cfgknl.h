@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.2 2006-08-18 12:00:12 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.3 2006-08-18 14:42:46 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -400,8 +400,8 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_REF_MPL 			FALSE				/* ref_mpl */
 
 /* System time management */
-#define _KERNEL_CFG_SET_TIM 			FALSE				/* set_tim */
-#define _KERNEL_CFG_GET_TIM 			FALSE				/* get_tim */
+#define _KERNEL_CFG_SET_TIM 			TRUE				/* set_tim */
+#define _KERNEL_CFG_GET_TIM 			TRUE				/* get_tim */
 #define _KERNEL_CFG_ISIG_TIM			TRUE				/* isig_tim */
 
 /* Cyclic handlers */
