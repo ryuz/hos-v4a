@@ -135,7 +135,7 @@ void  CApiCreFlg::WriteCfgDef(FILE* fp)
 			}
 			else
 			{
-				fprintf(fp, "\t\t{0},\n");
+				fprintf(fp, "\t\t{{0}, },\n");
 			}
 		}
 		fprintf(fp, "\t};\n");

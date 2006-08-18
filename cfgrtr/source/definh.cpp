@@ -75,7 +75,7 @@ void  CApiDefInh::WriteCfgDef(FILE* fp)
 		"const "
 #endif
 		"_KERNEL_T_INHINF _kernel_inh_tbl[%d] =\n"
-		"{\n",
+		"\t{\n",
 		KERNEL_TMAX_INH_INHNO - KERNEL_TMIN_INH_INHNO + 1);
 	
 	for ( i = KERNEL_TMIN_INH_INHNO; i <= KERNEL_TMAX_INH_INHNO; i++ )
@@ -89,20 +89,20 @@ void  CApiDefInh::WriteCfgDef(FILE* fp)
 		}
 		if ( j < m_iObjs )
 		{
-			fprintf(fp, "\t(FP)(%s),\n", m_pParamPacks[j]->GetParam(DEFINH_INTHDR));
+			fprintf(fp, "\t\t{(FP)(%s)},\n", m_pParamPacks[j]->GetParam(DEFINH_INTHDR));
 		}
 #if _KERNEL_SPT_ISR
 		else if ( i >= _KERNEL_IRCATR_TMIN_INHNO && i <= _KERNEL_IRCATR_TMAX_INHNO )
 		{
-			fprintf(fp, "\t(FP)_KERNEL_EXE_IRC,\n");
+			fprintf(fp, "\t\t{(FP)_KERNEL_EXE_IRC},\n");
 		}
 #endif
 		else
 		{
-			fprintf(fp, "\tNULL,\n");
+			fprintf(fp, "\t\t{(FP)NULL},\n");
 		}
 	}
-	fprintf(fp, "};\n\n");
+	fprintf(fp, "\t};\n\n");
 }
 
 

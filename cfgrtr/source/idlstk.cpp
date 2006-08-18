@@ -2,7 +2,7 @@
 //  Hyper Operating System V4  コンフィギュレーター                           
 //    HOS_IDL_STK API の処理                                                  
 //                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
+//                                    Copyright (C) 1998-2006 by Project HOS  
 //                                    http://sourceforge.jp/projects/hos/     
 // ---------------------------------------------------------------------------
 
