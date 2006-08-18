@@ -4,7 +4,7 @@
  * @file  exe_inh.c
  * @brief %jp{割り込みハンドラの処理}
  *
- * @version $Id: exe_inh.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: exe_inh.c,v 1.2 2006-08-18 07:55:00 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -26,7 +26,9 @@ void _kernel_exe_inh(INHNO inhno)
 	
 	if ( pk_inhinf->inthdr != NULL )
 	{
-		pk_inhinf->inthdr(inhno);
+		_KERNEL_ENA_INT();			/* %jp{多重割込み許可} */
+		pk_inhinf->inthdr(inhno);	/* %jp{割込みハンドラの処理} */
+		_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 	}
 }
 

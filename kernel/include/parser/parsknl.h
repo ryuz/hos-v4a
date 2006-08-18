@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.2 2006-08-18 07:54:59 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -346,11 +346,8 @@
 #define _KERNEL_SPT_SINCLUDE		_KERNEL_CFG_SINCLUDE		/* INCLUDE */
 
 
-/* %jp{オブジェクト動的生成サポートの判定} */
-#if ((_KERNEL_CFG_CRE_TSK)			\
-	|| (_KERNEL_CFG_ACRE_TSK)		\
-	|| (_KERNEL_CFG_SCRE_TSK))		\
-	&& (_KERNEL_CFG_TMAX_TSKID) > 0
+/* %jp{タスクオブジェクトサポートの判定} */
+#if ((_KERNEL_CFG_CRE_TSK)|| (_KERNEL_CFG_ACRE_TSK) || (_KERNEL_CFG_SCRE_TSK)) && (_KERNEL_CFG_TMAX_TSKID) > 0
 #define _KERNEL_SPT_TSK				TRUE
 #else
 #define _KERNEL_SPT_TSK				FALSE
@@ -368,7 +365,13 @@
 #define _KERNEL_SPT_CYC				FALSE
 #define _KERNEL_SPT_ALM				FALSE
 #define _KERNEL_SPT_OVR				FALSE
+
+/* %jp{割込みサービスルーチンサポートの判定} */
+#if _KERNEL_IRCATR_IRC && (_KERNEL_SPT_CRE_ISR || _KERNEL_SPT_SCRE_ISR) && (_KERNEL_CFG_TMAX_ISRID) > 0
 #define _KERNEL_SPT_ISR				TRUE
+#else
+#define _KERNEL_SPT_ISR				FALSE
+#endif
 
 
 /* %jp{オブジェクト動的生成サポートの判定} */

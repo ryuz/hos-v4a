@@ -2,7 +2,7 @@
 # Hyper Operating System V4 Advance
 #  makefile for H8/300H
 #
-# $Id: gmake.mak,v 1.2 2006-08-17 07:16:22 ryuz Exp $
+# $Id: gmake.mak,v 1.3 2006-08-18 07:54:59 ryuz Exp $
 #
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -11,17 +11,17 @@
 
 
 # ターゲット名
-TARGET    ?= libhosv4a
+TARGET ?= libhosv4a
 
 # アーキテクチャパス
 ARCH_PROC ?= sh/sh2
-ARCH_IRC  ?= none
+ARCH_IRC  ?= simple
 ARCH_CC   ?= shc
 
 # ディレクトリ定義
-TOP_DIR      = ../../../../..
-KNL_DIR      = $(TOP_DIR)/kernel
-OBJS_DIR     = objs_$(TARGET)
+TOP_DIR    = ../../../../..
+KNL_DIR    = $(TOP_DIR)/kernel
+OBJS_DIR   = objs_$(TARGET)
 
 # インクルードディレクトリ定義
 INC_KNL_DIR  = $(KNL_DIR)/include
@@ -338,7 +338,7 @@ LINTFLAGS += -weak -I$(INC_KNL_DIR) -I$(INC_PROC_DIR) -I$(INC_IRC_DIR)
 ifeq ($(DEBUG),Yes)
 TARGET    := $(TARGET)dbg
 AFLAGS    += -DEBug
-CFLAGS    += -OP=0
+CFLAGS    += -DEBug -OP=0
 else
 AFLAGS    += 
 CFLAGS    += -OP=1

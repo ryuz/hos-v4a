@@ -4,7 +4,7 @@
  * @file  procatr.h
  * @brief %jp{プロセッサアーキテクチャ固有属性定義(SH2 processor)}
  *
- * @version $Id: procatr.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: procatr.h,v 1.2 2006-08-18 07:54:59 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -34,7 +34,7 @@
 #define _KERNEL_PROCATR_TMIN_INHNO			64			/**< %jp{割込みハンドラ番号の最小値} */
 #define _KERNEL_PROCATR_TMAX_INHNO			255			/**< %jp{割込みハンドラ番号の最大値} */
 
-#define _KERNEL_PROCATR_TMIN_EXCNO			0			/**< %jp{CPU例外ハンドラ番号の最小値} */
+#define _KERNEL_PROCATR_TMIN_EXCNO			4			/**< %jp{CPU例外ハンドラ番号の最小値} */
 #define _KERNEL_PROCATR_TMAX_EXCNO			63			/**< %jp{CPU例外ハンドラ番号の最大値} */
 
 #define _KERNEL_PROCATR_EXCSTK_NUM			0			/**< %jp{CPU例外処理用スタックは何本必要か？} */

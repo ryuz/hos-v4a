@@ -105,7 +105,7 @@ void  CApiDefExc::WriteCfgDef(FILE* fp)
 		"/* ------------------------------------------ */\n"
 		, fp);
 
-	// 割り込み管理テーブル生成
+	// 割込み管理テーブル生成
 	fputs("\n/* interrupt control */\n", fp);
 
 	if ( m_iMaxExcNo - m_iMinExcNo + 1 > 0 )

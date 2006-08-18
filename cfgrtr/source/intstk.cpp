@@ -103,7 +103,7 @@ void  CApiIntStack::WriteCfgDef(FILE* fp)
 		"/* ------------------------------------------ */\n\n"
 		, fp);
 
-	// 割り込み用スタックポインタ出力
+	// 割込み用スタックポインタ出力
 	if ( m_szStackPointer[0] != '\0' )
 	{
 		fprintf(

@@ -4,7 +4,7 @@
  * @file  knl_sys.h
  * @brief %en{system heder file}%jp{システム制御のヘッダファイル}
  *
- * @version $Id: sys.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: sys.h,v 1.2 2006-08-18 07:54:59 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -94,8 +94,8 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_SNS_DPN()				((_kernel_syscb.proccb[0].stat != _KERNEL_TSS_TSK) ? TRUE : FALSE)
 
 
-#define _KERNEL_ENTER_SVC()					do { _kernel_dis_int(); } while (0)
-#define _KERNEL_LEAVE_SVC()					do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_DINT)){ _kernel_ena_int(); } } while (0)
+#define _KERNEL_ENTER_SVC()					do { _KERNEL_DIS_INT(); } while (0)
+#define _KERNEL_LEAVE_SVC()					do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_DINT)){ _KERNEL_ENA_INT(); } } while (0)
 
 
 #ifdef __cplusplus

@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.2 2006-08-17 14:26:43 ryuz Exp $
+ * @version $Id: kernel.h,v 1.3 2006-08-18 07:54:59 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -205,7 +205,7 @@ typedef struct t_rmpf
 
 
 
-/* 割り込みハンドラの定義用 */
+/* 割込みハンドラの定義用 */
 typedef struct t_dinh
 {
 	ATR inhatr;				/* 割込みハンドラ属性 */
@@ -218,7 +218,7 @@ typedef struct t_cisr
 {
 	ATR    isratr;			/* 割込みサービスルーチン属性 */
 	VP_INT exinf;			/* 割込みサービスルーチンの拡張情報 */
-	INTNO  intno;			/* 割込みサービスルーチンを付加する割り込み番号 */
+	INTNO  intno;			/* 割込みサービスルーチンを付加する割込み番号 */
 	FP     isr;				/* 割込みサービスルーチンの起動番地 */
 } T_CISR;
 

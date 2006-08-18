@@ -16,12 +16,12 @@
 #include "readcfg.h"
 
 
-#define ATTINI_INIATR		0
-#define ATTINI_EXINF		1
-#define ATTINI_INIRTN		2
+#define DEFINH_INHNO		0
+#define DEFINH_INHATR		1
+#define DEFINH_INTHDR		2
 
 
-// コンストラクタ
+// %jp{コンストラクタ}
 CApiDefInh::CApiDefInh()
 {
 	// パラメーター構文設定
@@ -31,14 +31,13 @@ CApiDefInh::CApiDefInh()
 }
 
 
-// デストラクタ
+// %jp{デストラクタ}
 CApiDefInh::~CApiDefInh()
 {
 }
 
 
-
-// APIの解析
+// %jp{APIの解析}
 int CApiDefInh::AnalyzeApi(const char* pszApiName, const char* pszParams)
 {
 	if ( strcmp(pszApiName, "DEF_INH") == 0 )
@@ -50,15 +49,18 @@ int CApiDefInh::AnalyzeApi(const char* pszApiName, const char* pszParams)
 }
 
 
-// 文字列を展開
+// %jp{文字列を展開}
 int CApiDefInh::AutoId(void)
 {
 	return CFG_ERR_OK;
 }
 
-// cfgファイル定義部書き出し
+
+// %jp{cfgファイル定義部書き出し}
 void  CApiDefInh::WriteCfgDef(FILE* fp)
 {
+	int i, j;
+
 	// コメント出力
 	fputs(
 		"\n\n\n"
@@ -72,18 +74,44 @@ void  CApiDefInh::WriteCfgDef(FILE* fp)
 #if !_KERNEL_SPT_DEF_INH
 		"const "
 #endif
-		"_KERNEL_T_INHINF _kernel_inh_tbl[%d];\n\n",
+		"_KERNEL_T_INHINF _kernel_inh_tbl[%d] =\n"
+		"{\n",
 		KERNEL_TMAX_INH_INHNO - KERNEL_TMIN_INH_INHNO + 1);
-
+	
+	for ( i = KERNEL_TMIN_INH_INHNO; i <= KERNEL_TMAX_INH_INHNO; i++ )
+	{
+		for ( j = 0; j < m_iObjs; j++ )
+		{
+			if ( atoi(m_pParamPacks[j]->GetParam(DEFINH_INHNO)) == i )
+			{
+				break;
+			}
+		}
+		if ( j < m_iObjs )
+		{
+			fprintf(fp, "\t(FP)(%s),\n", m_pParamPacks[j]->GetParam(DEFINH_INTHDR));
+		}
+#if _KERNEL_SPT_ISR
+		else if ( i >= _KERNEL_IRCATR_TMIN_INHNO && i <= _KERNEL_IRCATR_TMAX_INHNO )
+		{
+			fprintf(fp, "\t(FP)_KERNEL_EXE_IRC,\n");
+		}
+#endif
+		else
+		{
+			fprintf(fp, "\tNULL,\n");
+		}
+	}
+	fprintf(fp, "};\n\n");
 }
 
 
-// cfgファイル定義部書き出し
+// %jp{cfgファイル定義部書き出し}
 void  CApiDefInh::WriteCfgStart(FILE* fp)
 {
 }
 
 
 // ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2002 by Project HOS                                    
+//  Copyright (C) 1998-2006 by Project HOS                                    
 // ---------------------------------------------------------------------------
