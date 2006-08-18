@@ -1,168 +1,223 @@
 /* ------------------------------------------------------------------------ */
-/*  Hyper Operating System V4  μITRON4.0仕様 Real-Time OS                  */
-/*    プロセッサ抽象化コンポーネント (日立 SH2用)                           */
-/*    割り込みハンドラ                                                      */
+/*  Hyper Operating System V4 Advance                                       */
+/*    Interuupt handler for SH2                                             */
 /*                                                                          */
 /*                                  Copyright (C) 1998-2006 by Project HOS  */
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
 
+				.global	__kernel_int_hdr
+				.global	__kernel_int_cnt
+				.global	__kernel_sh_imsk
+				.global	__kernel_int_isp
+				.global	__kernel_sta_inh
+				.global	__kernel_exe_inh
+				.global	__kernel_end_inh
 
-				.global	__kernel_vecter004
-				.global	__kernel_vecter005
-				.global	__kernel_vecter006
-				.global	__kernel_vecter007
-				.global	__kernel_vecter008
-				.global	__kernel_vecter009
-				.global	__kernel_vecter010
-				.global	__kernel_vecter011
-				.global	__kernel_vecter012
-				.global	__kernel_vecter013
-				.global	__kernel_vecter014
-				.global	__kernel_vecter015
-				.global	__kernel_vecter016
-				.global	__kernel_vecter017
-				.global	__kernel_vecter018
-				.global	__kernel_vecter019
-				.global	__kernel_vecter020
-				.global	__kernel_vecter021
-				.global	__kernel_vecter022
-				.global	__kernel_vecter023
-				.global	__kernel_vecter024
-				.global	__kernel_vecter025
-				.global	__kernel_vecter026
-				.global	__kernel_vecter027
-				.global	__kernel_vecter028
-				.global	__kernel_vecter029
-				.global	__kernel_vecter030
-				.global	__kernel_vecter031
-				.global	__kernel_vecter032
-				.global	__kernel_vecter033
-				.global	__kernel_vecter034
-				.global	__kernel_vecter035
-				.global	__kernel_vecter036
-				.global	__kernel_vecter037
-				.global	__kernel_vecter038
-				.global	__kernel_vecter039
-				.global	__kernel_vecter040
-				.global	__kernel_vecter041
-				.global	__kernel_vecter042
-				.global	__kernel_vecter043
-				.global	__kernel_vecter044
-				.global	__kernel_vecter045
-				.global	__kernel_vecter046
-				.global	__kernel_vecter047
-				.global	__kernel_vecter048
-				.global	__kernel_vecter049
-				.global	__kernel_vecter050
-				.global	__kernel_vecter051
-				.global	__kernel_vecter052
-				.global	__kernel_vecter053
-				.global	__kernel_vecter054
-				.global	__kernel_vecter055
-				.global	__kernel_vecter056
-				.global	__kernel_vecter057
-				.global	__kernel_vecter058
-				.global	__kernel_vecter059
-				.global	__kernel_vecter060
-				.global	__kernel_vecter061
-				.global	__kernel_vecter062
-				.global	__kernel_vecter063
-				.global	__kernel_vecter064
-				.global	__kernel_vecter065
-				.global	__kernel_vecter066
-				.global	__kernel_vecter067
-				.global	__kernel_vecter068
-				.global	__kernel_vecter069
-				.global	__kernel_vecter070
-				.global	__kernel_vecter071
-				.global	__kernel_vecter072
-				.global	__kernel_vecter073
-				.global	__kernel_vecter074
-				.global	__kernel_vecter075
-				.global	__kernel_vecter076
-				.global	__kernel_vecter077
-				.global	__kernel_vecter078
-				.global	__kernel_vecter079
-				.global	__kernel_vecter080
-				.global	__kernel_vecter081
-				.global	__kernel_vecter082
-				.global	__kernel_vecter083
-				.global	__kernel_vecter084
-				.global	__kernel_vecter085
-				.global	__kernel_vecter086
-				.global	__kernel_vecter087
-				.global	__kernel_vecter088
-				.global	__kernel_vecter089
-				.global	__kernel_vecter090
-				.global	__kernel_vecter091
-				.global	__kernel_vecter092
-				.global	__kernel_vecter093
-				.global	__kernel_vecter094
-				.global	__kernel_vecter095
-				.global	__kernel_vecter096
-				.global	__kernel_vecter097
-				.global	__kernel_vecter098
-				.global	__kernel_vecter099
-				.global	__kernel_vecter100
-				.global	__kernel_vecter101
-				.global	__kernel_vecter102
-				.global	__kernel_vecter103
-				.global	__kernel_vecter104
-				.global	__kernel_vecter105
-				.global	__kernel_vecter106
-				.global	__kernel_vecter107
-				.global	__kernel_vecter108
-				.global	__kernel_vecter109
-				.global	__kernel_vecter110
-				.global	__kernel_vecter111
-				.global	__kernel_vecter112
-				.global	__kernel_vecter113
-				.global	__kernel_vecter114
-				.global	__kernel_vecter115
-				.global	__kernel_vecter116
-				.global	__kernel_vecter117
-				.global	__kernel_vecter118
-				.global	__kernel_vecter119
-				.global	__kernel_vecter120
-				.global	__kernel_vecter121
-				.global	__kernel_vecter122
-				.global	__kernel_vecter123
-				.global	__kernel_vecter124
-				.global	__kernel_vecter125
-				.global	__kernel_vecter126
-				.global	__kernel_vecter127
-				.global	__kernel_vecter128
-				.global	__kernel_vecter129
-				.global	__kernel_vecter130
-				.global	__kernel_vecter131
-				.global	__kernel_vecter132
-				.global	__kernel_vecter133
-				.global	__kernel_vecter134
-				.global	__kernel_vecter135
-				.global	__kernel_vecter136
-				.global	__kernel_vecter137
-				.global	__kernel_vecter138
-				.global	__kernel_vecter139
-				.global	__kernel_vecter140
-				.global	__kernel_vecter141
-				.global	__kernel_vecter142
-				.global	__kernel_vecter143
-				.global	__kernel_vecter144
-				.global	__kernel_vecter145
-				.global	__kernel_vecter146
-				.global	__kernel_vecter147
-				.global	__kernel_vecter148
-				.global	__kernel_vecter149
-				.global	__kernel_vecter150
-				.global	__kernel_vecter151
-				.global	__kernel_vecter152
-				.global	__kernel_vecter153
-				.global	__kernel_vecter154
-				.global	__kernel_vecter155
-				.global	__kernel_vecter156
 
+				.text
+
+#ifdef _KERNEL_FAST_INTVEC
+
+/************************************************
+  %jp{高速割り込みベクタ利用時、bra で分岐可能な
+  位置にベクタ入り口を設置。ただし未使用の
+  ベクタまでリンクされてしまう。}
+ ************************************************/
+ 
+				.global	__kernel_vecter_064
+				.global	__kernel_vecter_065
+				.global	__kernel_vecter_066
+				.global	__kernel_vecter_067
+				.global	__kernel_vecter_068
+				.global	__kernel_vecter_069
+				.global	__kernel_vecter_070
+				.global	__kernel_vecter_071
+				.global	__kernel_vecter_072
+				.global	__kernel_vecter_073
+				.global	__kernel_vecter_074
+				.global	__kernel_vecter_075
+				.global	__kernel_vecter_076
+				.global	__kernel_vecter_077
+				.global	__kernel_vecter_078
+				.global	__kernel_vecter_079
+				.global	__kernel_vecter_080
+				.global	__kernel_vecter_081
+				.global	__kernel_vecter_082
+				.global	__kernel_vecter_083
+				.global	__kernel_vecter_084
+				.global	__kernel_vecter_085
+				.global	__kernel_vecter_086
+				.global	__kernel_vecter_087
+				.global	__kernel_vecter_088
+				.global	__kernel_vecter_089
+				.global	__kernel_vecter_090
+				.global	__kernel_vecter_091
+				.global	__kernel_vecter_092
+				.global	__kernel_vecter_093
+				.global	__kernel_vecter_094
+				.global	__kernel_vecter_095
+				.global	__kernel_vecter_096
+				.global	__kernel_vecter_097
+				.global	__kernel_vecter_098
+				.global	__kernel_vecter_099
+				.global	__kernel_vecter_100
+				.global	__kernel_vecter_101
+				.global	__kernel_vecter_102
+				.global	__kernel_vecter_103
+				.global	__kernel_vecter_104
+				.global	__kernel_vecter_105
+				.global	__kernel_vecter_106
+				.global	__kernel_vecter_107
+				.global	__kernel_vecter_108
+				.global	__kernel_vecter_109
+				.global	__kernel_vecter_110
+				.global	__kernel_vecter_111
+				.global	__kernel_vecter_112
+				.global	__kernel_vecter_113
+				.global	__kernel_vecter_114
+				.global	__kernel_vecter_115
+				.global	__kernel_vecter_116
+				.global	__kernel_vecter_117
+				.global	__kernel_vecter_118
+				.global	__kernel_vecter_119
+				.global	__kernel_vecter_120
+				.global	__kernel_vecter_121
+				.global	__kernel_vecter_122
+				.global	__kernel_vecter_123
+				.global	__kernel_vecter_124
+				.global	__kernel_vecter_125
+				.global	__kernel_vecter_126
+				.global	__kernel_vecter_127
+				.global	__kernel_vecter_128
+				.global	__kernel_vecter_129
+				.global	__kernel_vecter_130
+				.global	__kernel_vecter_131
+				.global	__kernel_vecter_132
+				.global	__kernel_vecter_133
+				.global	__kernel_vecter_134
+				.global	__kernel_vecter_135
+				.global	__kernel_vecter_136
+				.global	__kernel_vecter_137
+				.global	__kernel_vecter_138
+				.global	__kernel_vecter_139
+				.global	__kernel_vecter_140
+				.global	__kernel_vecter_141
+				.global	__kernel_vecter_142
+				.global	__kernel_vecter_143
+				.global	__kernel_vecter_144
+				.global	__kernel_vecter_145
+				.global	__kernel_vecter_146
+				.global	__kernel_vecter_147
+				.global	__kernel_vecter_148
+				.global	__kernel_vecter_149
+				.global	__kernel_vecter_150
+				.global	__kernel_vecter_151
+				.global	__kernel_vecter_152
+				.global	__kernel_vecter_153
+				.global	__kernel_vecter_154
+				.global	__kernel_vecter_155
+				.global	__kernel_vecter_156
+				.global	__kernel_vector_157
+				.global	__kernel_vector_158
+				.global	__kernel_vector_159
+				.global	__kernel_vector_160
+				.global	__kernel_vector_161
+				.global	__kernel_vector_162
+				.global	__kernel_vector_163
+				.global	__kernel_vector_164
+				.global	__kernel_vector_165
+				.global	__kernel_vector_166
+				.global	__kernel_vector_167
+				.global	__kernel_vector_168
+				.global	__kernel_vector_169
+				.global	__kernel_vector_170
+				.global	__kernel_vector_171
+				.global	__kernel_vector_172
+				.global	__kernel_vector_173
+				.global	__kernel_vector_174
+				.global	__kernel_vector_175
+				.global	__kernel_vector_176
+				.global	__kernel_vector_177
+				.global	__kernel_vector_178
+				.global	__kernel_vector_179
+				.global	__kernel_vector_180
+				.global	__kernel_vector_181
+				.global	__kernel_vector_182
+				.global	__kernel_vector_183
+				.global	__kernel_vector_184
+				.global	__kernel_vector_185
+				.global	__kernel_vector_186
+				.global	__kernel_vector_187
+				.global	__kernel_vector_188
+				.global	__kernel_vector_189
+				.global	__kernel_vector_190
+				.global	__kernel_vector_191
+				.global	__kernel_vector_192
+				.global	__kernel_vector_193
+				.global	__kernel_vector_194
+				.global	__kernel_vector_195
+				.global	__kernel_vector_196
+				.global	__kernel_vector_197
+				.global	__kernel_vector_198
+				.global	__kernel_vector_199
+				.global	__kernel_vector_200
+				.global	__kernel_vector_201
+				.global	__kernel_vector_202
+				.global	__kernel_vector_203
+				.global	__kernel_vector_204
+				.global	__kernel_vector_205
+				.global	__kernel_vector_206
+				.global	__kernel_vector_207
+				.global	__kernel_vector_208
+				.global	__kernel_vector_209
+				.global	__kernel_vector_210
+				.global	__kernel_vector_211
+				.global	__kernel_vector_212
+				.global	__kernel_vector_213
+				.global	__kernel_vector_214
+				.global	__kernel_vector_215
+				.global	__kernel_vector_216
+				.global	__kernel_vector_217
+				.global	__kernel_vector_218
+				.global	__kernel_vector_219
+				.global	__kernel_vector_220
+				.global	__kernel_vector_221
+				.global	__kernel_vector_222
+				.global	__kernel_vector_223
+				.global	__kernel_vector_224
+				.global	__kernel_vector_225
+				.global	__kernel_vector_226
+				.global	__kernel_vector_227
+				.global	__kernel_vector_228
+				.global	__kernel_vector_229
+				.global	__kernel_vector_230
+				.global	__kernel_vector_231
+				.global	__kernel_vector_232
+				.global	__kernel_vector_233
+				.global	__kernel_vector_234
+				.global	__kernel_vector_235
+				.global	__kernel_vector_236
+				.global	__kernel_vector_237
+				.global	__kernel_vector_238
+				.global	__kernel_vector_239
+				.global	__kernel_vector_240
+				.global	__kernel_vector_241
+				.global	__kernel_vector_242
+				.global	__kernel_vector_243
+				.global	__kernel_vector_244
+				.global	__kernel_vector_245
+				.global	__kernel_vector_246
+				.global	__kernel_vector_247
+				.global	__kernel_vector_248
+				.global	__kernel_vector_249
+				.global	__kernel_vector_250
+				.global	__kernel_vector_251
+				.global	__kernel_vector_252
+				.global	__kernel_vector_253
+				.global	__kernel_vector_254
+				.global	__kernel_vector_255
 
 				.text
 
@@ -170,769 +225,769 @@
 /************************************************
   割り込みハンドラ
 ************************************************/
-__kernel_vecter004:
+__kernel_vecter_004:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#4, r4
 
-__kernel_vecter005:
+__kernel_vecter_005:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#5, r4
 
-__kernel_vecter006:
+__kernel_vecter_006:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#6, r4
 
-__kernel_vecter007:
+__kernel_vecter_007:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#7, r4
 
-__kernel_vecter008:
+__kernel_vecter_008:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#8, r4
 
-__kernel_vecter009:
+__kernel_vecter_009:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#9, r4
 
-__kernel_vecter010:
+__kernel_vecter_010:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#10, r4
 
-__kernel_vecter011:
+__kernel_vecter_011:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#11, r4
 
-__kernel_vecter012:
+__kernel_vecter_012:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#12, r4
 
-__kernel_vecter013:
+__kernel_vecter_013:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#13, r4
 
-__kernel_vecter014:
+__kernel_vecter_014:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#14, r4
 
-__kernel_vecter015:
+__kernel_vecter_015:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#15, r4
 
-__kernel_vecter016:
+__kernel_vecter_016:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#16, r4
 
-__kernel_vecter017:
+__kernel_vecter_017:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#17, r4
 
-__kernel_vecter018:
+__kernel_vecter_018:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#18, r4
 
-__kernel_vecter019:
+__kernel_vecter_019:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#19, r4
 
-__kernel_vecter020:
+__kernel_vecter_020:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#20, r4
 
-__kernel_vecter021:
+__kernel_vecter_021:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#21, r4
 
-__kernel_vecter022:
+__kernel_vecter_022:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#22, r4
 
-__kernel_vecter023:
+__kernel_vecter_023:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#23, r4
 
-__kernel_vecter024:
+__kernel_vecter_024:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#24, r4
 
-__kernel_vecter025:
+__kernel_vecter_025:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#25, r4
 
-__kernel_vecter026:
+__kernel_vecter_026:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#26, r4
 
-__kernel_vecter027:
+__kernel_vecter_027:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#27, r4
 
-__kernel_vecter028:
+__kernel_vecter_028:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#28, r4
 
-__kernel_vecter029:
+__kernel_vecter_029:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#29, r4
 
-__kernel_vecter030:
+__kernel_vecter_030:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#30, r4
 
-__kernel_vecter031:
+__kernel_vecter_031:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#31, r4
 
-__kernel_vecter032:
+__kernel_vecter_032:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#32, r4
 
-__kernel_vecter033:
+__kernel_vecter_033:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#33, r4
 
-__kernel_vecter034:
+__kernel_vecter_034:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#34, r4
 
-__kernel_vecter035:
+__kernel_vecter_035:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#35, r4
 
-__kernel_vecter036:
+__kernel_vecter_036:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#36, r4
 
-__kernel_vecter037:
+__kernel_vecter_037:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#37, r4
 
-__kernel_vecter038:
+__kernel_vecter_038:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#38, r4
 
-__kernel_vecter039:
+__kernel_vecter_039:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#39, r4
 
-__kernel_vecter040:
+__kernel_vecter_040:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#40, r4
 
-__kernel_vecter041:
+__kernel_vecter_041:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#41, r4
 
-__kernel_vecter042:
+__kernel_vecter_042:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#42, r4
 
-__kernel_vecter043:
+__kernel_vecter_043:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#43, r4
 
-__kernel_vecter044:
+__kernel_vecter_044:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#44, r4
 
-__kernel_vecter045:
+__kernel_vecter_045:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#45, r4
 
-__kernel_vecter046:
+__kernel_vecter_046:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#46, r4
 
-__kernel_vecter047:
+__kernel_vecter_047:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#47, r4
 
-__kernel_vecter048:
+__kernel_vecter_048:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#48, r4
 
-__kernel_vecter049:
+__kernel_vecter_049:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#49, r4
 
-__kernel_vecter050:
+__kernel_vecter_050:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#50, r4
 
-__kernel_vecter051:
+__kernel_vecter_051:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#51, r4
 
-__kernel_vecter052:
+__kernel_vecter_052:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#52, r4
 
-__kernel_vecter053:
+__kernel_vecter_053:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#53, r4
 
-__kernel_vecter054:
+__kernel_vecter_054:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#54, r4
 
-__kernel_vecter055:
+__kernel_vecter_055:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#55, r4
 
-__kernel_vecter056:
+__kernel_vecter_056:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#56, r4
 
-__kernel_vecter057:
+__kernel_vecter_057:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#57, r4
 
-__kernel_vecter058:
+__kernel_vecter_058:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#58, r4
 
-__kernel_vecter059:
+__kernel_vecter_059:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#59, r4
 
-__kernel_vecter060:
+__kernel_vecter_060:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#60, r4
 
-__kernel_vecter061:
+__kernel_vecter_061:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#61, r4
 
-__kernel_vecter062:
+__kernel_vecter_062:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#62, r4
 
-__kernel_vecter063:
+__kernel_vecter_063:
 				mov.l	r4, @-r15
 				bra		_kernel_exc_hdr
 				mov		#63, r4
 
 
 
-__kernel_vecter064:
+__kernel_vecter_064:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#64, r4
 
-__kernel_vecter065:
+__kernel_vecter_065:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#65, r4
 
-__kernel_vecter066:
+__kernel_vecter_066:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#66, r4
 
-__kernel_vecter067:
+__kernel_vecter_067:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#67, r4
 
-__kernel_vecter068:
+__kernel_vecter_068:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#68, r4
 
-__kernel_vecter069:
+__kernel_vecter_069:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#69, r4
 
-__kernel_vecter070:
+__kernel_vecter_070:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#70, r4
 
-__kernel_vecter071:
+__kernel_vecter_071:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#71, r4
 
-__kernel_vecter072:
+__kernel_vecter_072:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#72, r4
 
-__kernel_vecter073:
+__kernel_vecter_073:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#73, r4
 
-__kernel_vecter074:
+__kernel_vecter_074:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#74, r4
 
-__kernel_vecter075:
+__kernel_vecter_075:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#75, r4
 
-__kernel_vecter076:
+__kernel_vecter_076:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#76, r4
 
-__kernel_vecter077:
+__kernel_vecter_077:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#77, r4
 
-__kernel_vecter078:
+__kernel_vecter_078:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#78, r4
 
-__kernel_vecter079:
+__kernel_vecter_079:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#79, r4
 
-__kernel_vecter080:
+__kernel_vecter_080:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#80, r4
 
-__kernel_vecter081:
+__kernel_vecter_081:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#81, r4
 
-__kernel_vecter082:
+__kernel_vecter_082:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#82, r4
 
-__kernel_vecter083:
+__kernel_vecter_083:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#83, r4
 
-__kernel_vecter084:
+__kernel_vecter_084:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#84, r4
 
-__kernel_vecter085:
+__kernel_vecter_085:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#85, r4
 
-__kernel_vecter086:
+__kernel_vecter_086:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#86, r4
 
-__kernel_vecter087:
+__kernel_vecter_087:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#87, r4
 
-__kernel_vecter088:
+__kernel_vecter_088:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#88, r4
 
-__kernel_vecter089:
+__kernel_vecter_089:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#89, r4
 
-__kernel_vecter090:
+__kernel_vecter_090:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#90, r4
 
-__kernel_vecter091:
+__kernel_vecter_091:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#91, r4
 
-__kernel_vecter092:
+__kernel_vecter_092:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#92, r4
 
-__kernel_vecter093:
+__kernel_vecter_093:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#93, r4
 
-__kernel_vecter094:
+__kernel_vecter_094:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#94, r4
 
-__kernel_vecter095:
+__kernel_vecter_095:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#95, r4
 
-__kernel_vecter096:
+__kernel_vecter_096:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#96, r4
 
-__kernel_vecter097:
+__kernel_vecter_097:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#97, r4
 
-__kernel_vecter098:
+__kernel_vecter_098:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#98, r4
 
-__kernel_vecter099:
+__kernel_vecter_099:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#99, r4
 
-__kernel_vecter100:
+__kernel_vecter_100:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#100, r4
 
-__kernel_vecter101:
+__kernel_vecter_101:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#101, r4
 
-__kernel_vecter102:
+__kernel_vecter_102:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#102, r4
 
-__kernel_vecter103:
+__kernel_vecter_103:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#103, r4
 
-__kernel_vecter104:
+__kernel_vecter_104:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#104, r4
 
-__kernel_vecter105:
+__kernel_vecter_105:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#105, r4
 
-__kernel_vecter106:
+__kernel_vecter_106:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#106, r4
 
-__kernel_vecter107:
+__kernel_vecter_107:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#107, r4
 
-__kernel_vecter108:
+__kernel_vecter_108:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#108, r4
 
-__kernel_vecter109:
+__kernel_vecter_109:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#109, r4
 
-__kernel_vecter110:
+__kernel_vecter_110:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#110, r4
 
-__kernel_vecter111:
+__kernel_vecter_111:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#111, r4
 
-__kernel_vecter112:
+__kernel_vecter_112:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#112, r4
 
-__kernel_vecter113:
+__kernel_vecter_113:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#113, r4
 
-__kernel_vecter114:
+__kernel_vecter_114:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#114, r4
 
-__kernel_vecter115:
+__kernel_vecter_115:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#115, r4
 
-__kernel_vecter116:
+__kernel_vecter_116:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#116, r4
 
-__kernel_vecter117:
+__kernel_vecter_117:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#117, r4
 
-__kernel_vecter118:
+__kernel_vecter_118:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#118, r4
 
-__kernel_vecter119:
+__kernel_vecter_119:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#119, r4
 
-__kernel_vecter120:
+__kernel_vecter_120:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#120, r4
 
-__kernel_vecter121:
+__kernel_vecter_121:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#121, r4
 
-__kernel_vecter122:
+__kernel_vecter_122:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#122, r4
 
-__kernel_vecter123:
+__kernel_vecter_123:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#123, r4
 
-__kernel_vecter124:
+__kernel_vecter_124:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#124, r4
 
-__kernel_vecter125:
+__kernel_vecter_125:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#125, r4
 
-__kernel_vecter126:
+__kernel_vecter_126:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#126, r4
 
-__kernel_vecter127:
+__kernel_vecter_127:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#127, r4
 
-__kernel_vecter128:
+__kernel_vecter_128:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#128, r4
 
-__kernel_vecter129:
+__kernel_vecter_129:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#129, r4
 
-__kernel_vecter130:
+__kernel_vecter_130:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#130, r4
 
-__kernel_vecter131:
+__kernel_vecter_131:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#131, r4
 
-__kernel_vecter132:
+__kernel_vecter_132:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#132, r4
 
-__kernel_vecter133:
+__kernel_vecter_133:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#133, r4
 
-__kernel_vecter134:
+__kernel_vecter_134:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#134, r4
 
-__kernel_vecter135:
+__kernel_vecter_135:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#135, r4
 
-__kernel_vecter136:
+__kernel_vecter_136:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#136, r4
 
-__kernel_vecter137:
+__kernel_vecter_137:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#137, r4
 
-__kernel_vecter138:
+__kernel_vecter_138:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#138, r4
 
-__kernel_vecter139:
+__kernel_vecter_139:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#139, r4
 
-__kernel_vecter140:
+__kernel_vecter_140:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#140, r4
 
-__kernel_vecter141:
+__kernel_vecter_141:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#141, r4
 
-__kernel_vecter142:
+__kernel_vecter_142:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#142, r4
 
-__kernel_vecter143:
+__kernel_vecter_143:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#143, r4
 
-__kernel_vecter144:
+__kernel_vecter_144:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#144, r4
 
-__kernel_vecter145:
+__kernel_vecter_145:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#145, r4
 
-__kernel_vecter146:
+__kernel_vecter_146:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#146, r4
 
-__kernel_vecter147:
+__kernel_vecter_147:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#147, r4
 
-__kernel_vecter148:
+__kernel_vecter_148:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#148, r4
 
-__kernel_vecter149:
+__kernel_vecter_149:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#149, r4
 
-__kernel_vecter150:
+__kernel_vecter_150:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#150, r4
 
-__kernel_vecter151:
+__kernel_vecter_151:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#151, r4
 
-__kernel_vecter152:
+__kernel_vecter_152:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#152, r4
 
-__kernel_vecter153:
+__kernel_vecter_153:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#153, r4
 
-__kernel_vecter154:
+__kernel_vecter_154:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#154, r4
 
-__kernel_vecter155:
+__kernel_vecter_155:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#155, r4
 
-__kernel_vecter156:
+__kernel_vecter_156:
 				mov.l	r4, @-r15
 				bra		__kernel_int_hdr
 				mov		#156, r4
@@ -1449,16 +1504,16 @@ __kernel_int_hdr:
 				stc		sr, r0
 				mov.l	r1, @-r15			/* r1 退避(割込み元のスタック) */
 				mov		r0, r1				/* sr 保存 */
-				or		#h'f0, r0
+				or		#0xf0, r0
 				ldc		r0, sr				/* 全割り込みマスク */
 
 		/* ---- レジスタ保存(r2-r7,pr) */
 				mov.l	r2, @-r15			/* r2 退避(割込み元のスタック) */
-				mov.l	r1, r0				/* srを移動 */
+				mov		r1, r0				/* srを移動 */
 				mov.l	r3, @-r15			/* r3 退避(割込み元のスタック) */
-				and		#h'f0, r0			/* 割り込みマスクレベル取り出し */
+				and		#0xf0, r0			/* 割り込みマスクレベル取り出し */
 				mov.l	r5, @-r15			/* r5 退避(割込み元のスタック) */
-				mov.l	r0, r2				/* r2に新しい割込みマスク値格納 */
+				mov		r0, r2				/* r2に新しい割込みマスク値格納 */
 				mov.l	r6, @-r15			/* r6 退避(割込み元のスタック) */
 				extu.b	r4, r4				/* 割込み番号の符号拡張をクリア */
 				mov.l	r7, @-r15			/* r7 退避(割込み元のスタック) */
@@ -1478,7 +1533,7 @@ __kernel_int_hdr:
 		/* ==== 初回割り込みの処理 */
 
 		/* ---- スタック入れ替え */
-				mov.l	r15, r0				/* 現在のスタックを退避 */
+				mov		r15, r0				/* 現在のスタックを退避 */
 				mov.l	addr_int_isp, r1
 				mov.l	@r1, r15			/* 割込み用スタックを設定 */
 				mov.l	r0, @-r15			/* 割込み前のスタックポインタを保存 */
@@ -1510,7 +1565,7 @@ __kernel_int_hdr:
 		/* ---- 割込みマスク値復帰 */
 				mov.l	@(40, r15), r0		/* 割込み前の sr を取り出し */
 				mov.l	addr_sh_imsk, r1
-				and		#h'f0, r0			/* 割込みマスク値取り出し */
+				and		#0xf0, r0			/* 割込みマスク値取り出し */
 				cmp/eq	r0, r3				/* 古い割込みマスク値と比較 */
 				bf/s	return_int			/* 不一致なら既に割込み処理中とみなす */
 				mov.l	r3, @r1				/* 割込み前の状態に割込みマスク値を設定(遅延スロット) */
@@ -1522,9 +1577,9 @@ __kernel_int_hdr:
 				
 		/* ---- 復帰時割り込みマスクの設定 */
 				mov.l	@(40, r15), r0		/* 割込み前の sr を取り出し */
-				or		#h'f0, r0			/* 割込みマスク部分クリアの前処理(一旦ビットを立てる) */
+				or		#0xf0, r0			/* 割込みマスク部分クリアの前処理(一旦ビットを立てる) */
 				mov.l	addr_sh_imsk, r1
-				xor		#h'f0, r0			/* 割込みマスク部分クリア(立てといて反転させる) */
+				xor		#0xf0, r0			/* 割込みマスク部分クリア(立てといて反転させる) */
 				mov.l	@r1, r1				/* マスク値取得 */
 				or		r1, r0				/* マスク値を設定 */
 				mov.l	r0, @(40, r15)		/* 復帰時SRの設定 */
@@ -1560,7 +1615,7 @@ multiple_int:
 				mov.l	r0, @r1
 				
 		/* ---- 割込みマスク値の復帰 */
-				mov.l	r3, @-r15			; 古いマスク値を復帰 */
+				mov.l	r3, @-r15			/* 古いマスク値を復帰 */
 				mov.l	addr_sh_imsk, r1
 				bra		return_int
 				mov.l	r3, @r1
@@ -1574,7 +1629,7 @@ addr_sh_imsk:
 addr_int_cnt:
 				.long	_kernel_int_cnt			/* 割り込みネスト回数 */
 
-addr_int_ispr:
+addr_int_isp:
 				.long	_kernel_int_isp			/* 割り込み用スタックポインタ */
 
 addr_sta_inh:
