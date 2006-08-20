@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.5 2006-08-20 09:02:29 ryuz Exp $
+ * @version $Id: kernel.h,v 1.6 2006-08-20 15:19:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -172,7 +172,7 @@ typedef struct t_rmbx
 typedef struct t_cmtx
 {
 	ATR		mtxatr;			/* ミューテックス属性 */
-	PRI		ceilpri;			/* ミューテックスの上限優先度 */
+	PRI		ceilpri;		/* ミューテックスの上限優先度 */
 } T_CMTX;
 
 
@@ -181,7 +181,7 @@ typedef struct t_rmbf
 {
 	ID		stskid;			/* メッセージバッファの送信待ち行列の先頭のタスクのID番号 */
 	ID		rtskid;			/* メッセージバッファの受信待ち行列の先頭のタスクのID番号 */
-	UINT	smsgcnt;			/* メッセージバッファに入っているメッセージの数 */
+	UINT	smsgcnt;		/* メッセージバッファに入っているメッセージの数 */
 	SIZE	fmbfsz;			/* メッセージバッファ領域の空き領域のサイズ(バイト数、最低限の管理領域を除く) */
 } T_RMBF;
 

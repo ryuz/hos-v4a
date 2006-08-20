@@ -4,7 +4,7 @@
  * @file  fsnd_dtq.c
  * @brief %jp{データキューへの強制送信}%en{Forced Send to Data Queue}
  *
- * @version $Id: fsnd_dtq.c,v 1.1 2006-08-20 15:16:29 ryuz Exp $
+ * @version $Id: fsnd_dtq.c,v 1.2 2006-08-20 15:19:31 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -140,7 +140,7 @@ ER fsnd_dtq(ID dtqid, VP_INT data)
 
 #if _KERNEL_SPT_FSND_DTQ_E_NOSPT
 
-/** %jp{データキューへの送信}%en{Send to Data Queue}
+/** %jp{データキューへの強制送信}%en{Forced Send to Data Queue}
  * @param  dtqid    %jp{送信対象のデータキューのID番号}%en{ID number of the data queue to which the data element is sent}
  * @param  data     %jp{データキューへ送信するデータ}%en{Data element tobe sent}
  * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}

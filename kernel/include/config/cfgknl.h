@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.4 2006-08-20 09:02:29 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.5 2006-08-20 15:19:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -317,7 +317,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ISIG_SEM			FALSE				/* isig_sem */
 #define _KERNEL_CFG_WAI_SEM 			TRUE				/* wai_sem */
 #define _KERNEL_CFG_POL_SEM 			TRUE				/* pol_sem */
-#define _KERNEL_CFG_TWAI_SEM			FALSE				/* twai_sem */
+#define _KERNEL_CFG_TWAI_SEM			TRUE				/* twai_sem */
 #define _KERNEL_CFG_REF_SEM 			TRUE				/* ref_sem */
 
 /* Eventflags */

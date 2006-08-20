@@ -4,7 +4,7 @@
  * @file  snd_dtq.c
  * @brief %jp{データキューへの送信}%en{Send to Data Queue}
  *
- * @version $Id: snd_dtq.c,v 1.3 2006-08-20 15:16:29 ryuz Exp $
+ * @version $Id: snd_dtq.c,v 1.4 2006-08-20 15:19:31 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -101,9 +101,11 @@ ER snd_dtq(ID dtqid, VP_INT data)
 			_KERNEL_DTQ_T_DTQCNT head;
 			VP_INT               *dtq;
 
-			/* %jp{データキューに追加} */
+			/* %jp{データキュー情報取得} */
 			head = _KERNEL_DTQ_GET_HEAD(dtqcb);
 			dtq  = _KERNEL_DTQ_GET_DTQ(dtqcb_ro);
+
+			/* %jp{データキュー末尾に追加} */
 			if ( head < dtqcnt - sdtqcnt - 1 )
 			{
 				dtq[head + sdtqcnt] = data;
@@ -112,6 +114,8 @@ ER snd_dtq(ID dtqid, VP_INT data)
 			{
 				dtq[head + sdtqcnt - dtqcnt] = data;
 			}
+			
+			/* %jp{データ個数加算} */
 			sdtqcnt++;
 			_KERNEL_DTQ_SET_SDTQCNT(dtqcb, sdtqcnt);
 

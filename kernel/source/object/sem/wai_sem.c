@@ -4,7 +4,7 @@
  * @file  wai_sem.c
  * @brief %jp{セマフォ資源の獲得}%en{Acquire Semaphore Resource}
  *
- * @version $Id: wai_sem.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: wai_sem.c,v 1.3 2006-08-20 15:19:31 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -49,8 +49,9 @@ ER wai_sem(ID semid)
  */
 ER wai_sem(ID semid)
 {
-	_KERNEL_T_SEMHDL     semhdl;
+	_KERNEL_T_SEMCB      *semcb;
 	_KERNEL_T_TSKHDL     tskhdl;
+	_KERNEL_T_TCB        *tcb;
 	_KERNEL_SEM_T_SEMCNT semcnt;
 	ER                   ercd;
 		
@@ -81,32 +82,33 @@ ER wai_sem(ID semid)
 	}
 #endif
 
-	/* %jp{セマフォハンドル取得} */
-	semhdl = _KERNEL_SEM_ID2SEMHDL(semid);
+	/* %jp{セマフォコントロールブロック取得} */
+	semcb = _KERNEL_SEM_ID2SEMCB(semid);
 	
 	/* %jp{セマフォカウンタ取得} */
-	semcnt = _KERNEL_SEM_GET_SEMCNT(semhdl);
+	semcnt = _KERNEL_SEM_GET_SEMCNT(semcb);
 	
 	if ( semcnt > 0 )
 	{
 		/* %jp{セマフォ資源が獲得できれば成功} */
-		_KERNEL_SEM_SET_SEMCNT(semhdl, semcnt - 1); 		/* %jp{セマフォ資源の獲得} */
+		_KERNEL_SEM_SET_SEMCNT(semcb, semcnt - 1); 		/* %jp{セマフォ資源の獲得} */
 		ercd = E_OK;
 	}
 	else
 	{
 		/* %jp{タスクを待ち状態にする} */
 		tskhdl = _KERNEL_SYS_GET_RUNTSK();
+		tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);		/* %jp{TCB取得} */
+		_KERNEL_TSK_SET_TSKWAIT(tcb, _KERNEL_TTW_SEM);
+		_KERNEL_TSK_SET_WOBJID(tcb, semid);
 		_KERNEL_DSP_WAI_TSK(tskhdl);
-		_KERNEL_TSK_SET_TSKWAIT(tskhdl, _KERNEL_TTW_SEM);
-		_KERNEL_TSK_SET_WOBJID(tskhdl, semid);
-		_KERNEL_SEM_ADD_QUE(semhdl, tskhdl);				/* %jp{待ち行列に追加} */
+		_KERNEL_SEM_ADD_QUE(semcb, _KERNEL_SEM_GET_SEMCB_RO(semid, semcb), tskhdl);			/* %jp{待ち行列に追加} */
 		
 		/* %jp{タスクディスパッチの実行} */
 		_KERNEL_DSP_TSK();
 
 		/* %jp{エラーコードの取得} */
-		ercd = _KERNEL_TSK_GET_ERCD(tskhdl);
+		ercd = _KERNEL_TSK_GET_ERCD(tcb);
 	}
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{オブジェクト未生成}%en{Non-existant object} */

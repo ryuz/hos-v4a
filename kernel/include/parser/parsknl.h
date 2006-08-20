@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.4 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.5 2006-08-20 15:19:31 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -869,11 +869,13 @@
 #define _KERNEL_SPT_DTQ_TA_TPRI		_KERNEL_CFG_DTQ_TA_TPRI				/**< %jp{TA_TPRI属性に対応する} */
 
 
-#define _KERNEL_DTQCB_QUE			TRUE
-#define _KERNEL_DTQCB_DTQCNT		TRUE
+#define _KERNEL_DTQCB_SQUE			TRUE
+#define _KERNEL_DTQCB_RQUE			TRUE
+#define _KERNEL_DTQCB_SDTQCNT		TRUE
+#define _KERNEL_DTQCB_HEAD			TRUE
 #define _KERNEL_DTQCB_DTQATR		TRUE
-
-
+#define _KERNEL_DTQCB_DTQCNT		TRUE
+#define _KERNEL_DTQCB_DTQ			TRUE
 
 
 /* ------------------------------------------------------------------ */
