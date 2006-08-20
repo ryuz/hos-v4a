@@ -4,7 +4,7 @@
  * @file  dtqobj.h
  * @brief %jp{データキュージェクトのヘッダファイル}%en{Data queue object heder file}
  *
- * @version $Id: dtqobj.h,v 1.1 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: dtqobj.h,v 1.2 2006-08-20 10:35:08 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -122,12 +122,12 @@ typedef struct _kernel_t_dtqcb
 	_KERNEL_T_QUE			rque;											/**< %jp{データキュー受信待ちタスクキュー} */
 #endif
 
-#if _KERNEL_DTQCB_HEAD
-	_KERNEL_DTQCB_T_DTQCNT	head		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキューのデータ先頭位置} */
-#endif
-
 #if _KERNEL_DTQCB_SDTQCNT
 	_KERNEL_DTQCB_T_DTQCNT	sdtqcnt		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキューに入っているデータの数}%en{The number of data elemnts int the data queue} */
+#endif
+
+#if _KERNEL_DTQCB_HEAD
+	_KERNEL_DTQCB_T_DTQCNT	head		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキューのデータ先頭位置} */
 #endif
 
 
@@ -151,12 +151,12 @@ typedef struct _kernel_t_dtqcb
 	_KERNEL_T_QUE			rque;											/**< %jp{データキュー受信待ちタスクキュー} */
 #endif
 
-#if _KERNEL_DTQCB_HEAD
-	_KERNEL_DTQCB_T_DTQCNT	head		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキューのデータ先頭位置} */
-#endif
-
 #if _KERNEL_DTQCB_SDTQCNT
 	_KERNEL_DTQCB_T_DTQCNT	sdtqcnt		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキューに入っているデータの数}%en{The number of data elemnts int the data queue} */
+#endif
+
+#if _KERNEL_DTQCB_HEAD
+	_KERNEL_DTQCB_T_DTQCNT	head		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキューのデータ先頭位置} */
 #endif
 
 
@@ -252,15 +252,6 @@ extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 #define _KERNEL_DTQ_GET_RQUE(dtqcb)			(&(dtqcb)->rque)
 
 
-/* head */
-#if _KERNEL_DTQCB_HEAD
-#define _KERNEL_DTQ_SET_HEAD(dtqcb, x)		do { (dtqcb)->head = (_KERNEL_DTQCB_T_DTQCNT)(x); } while (0)
-#define _KERNEL_DTQ_GET_HEAD(dtqcb)			((_KERNEL_DTQ_T_DTQCNT)(dtqcb)->head)
-#else
-#define _KERNEL_DTQ_SET_HEAD(dtqcb, x)		do { } while (0)
-#define _KERNEL_DTQ_GET_HEAD(dtqcb)			(0)
-#endif
-
 /* sdtqcnt */
 #if _KERNEL_DTQCB_SDTQCNT
 #define _KERNEL_DTQ_SET_SDTQCNT(dtqcb, x)	do { (dtqcb)->sdtqcnt = (_KERNEL_DTQCB_T_DTQCNT)(x); } while (0)
@@ -268,6 +259,16 @@ extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 #else
 #define _KERNEL_DTQ_SET_SDTQCNT(dtqcb, x)	do { } while (0)
 #define _KERNEL_DTQ_GET_SDTQCNT(dtqcb)		(0)
+#endif
+
+
+/* head */
+#if _KERNEL_DTQCB_HEAD
+#define _KERNEL_DTQ_SET_HEAD(dtqcb, x)		do { (dtqcb)->head = (_KERNEL_DTQCB_T_DTQCNT)(x); } while (0)
+#define _KERNEL_DTQ_GET_HEAD(dtqcb)			((_KERNEL_DTQ_T_DTQCNT)(dtqcb)->head)
+#else
+#define _KERNEL_DTQ_SET_HEAD(dtqcb, x)		do { } while (0)
+#define _KERNEL_DTQ_GET_HEAD(dtqcb)			(0)
 #endif
 
 
@@ -292,6 +293,15 @@ extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 #else
 #define _KERNEL_DTQ_SET_DTQCNT(dtqcb_ro, x)	do { } while (0)
 #define _KERNEL_DTQ_GET_DTQCNT(dtqcb_ro)	(0)
+#endif
+
+/* dtq */
+#if _KERNEL_DTQCB_DTQ
+#define _KERNEL_DTQ_SET_DTQ(dtqcb_ro, x)	do { (dtqcb_ro)->dtqcnt = (_KERNEL_DTQCB_T_DTQ)(x); } while (0)
+#define _KERNEL_DTQ_GET_DTQ(dtqcb_ro)		((VP_INT *)(dtqcb_ro)->dtq)
+#else
+#define _KERNEL_DTQ_SET_DTQ(dtqcb_ro, x)	do { } while (0)
+#define _KERNEL_DTQ_GET_DTQ(dtqcb_ro)		(0)
 #endif
 
 
