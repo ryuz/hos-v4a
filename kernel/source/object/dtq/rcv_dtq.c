@@ -4,7 +4,7 @@
  * @file  rcv_dtq.c
  * @brief %jp{データキューへの送信}%en{Send to Data Queue}
  *
- * @version $Id: rcv_dtq.c,v 1.1 2006-08-20 10:50:21 ryuz Exp $
+ * @version $Id: rcv_dtq.c,v 1.2 2006-08-20 15:16:29 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -37,7 +37,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 #endif
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_SIG_DTQ_E_ID
+#ifdef _KERNEL_SPT_RCV_DTQ_E_ID
 	if ( !_KERNEL_DTQ_CHECK_DTQID(dtqid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -47,7 +47,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_SIG_DTQ_E_NOEXS
+#ifdef _KERNEL_SPT_RCV_DTQ_E_NOEXS
 	if ( !_KERNEL_DTQ_CHECK_EXS(dtqid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
@@ -76,7 +76,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 		/* %jp{タスクディスパッチの実行} */
 		_KERNEL_DSP_TSK();
 
-		ercd = E_OK;
+		ercd = E_OK;	/* %jp{正常終了}%en{Normal completion} */
 	}
 	else
 	{
@@ -116,7 +116,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 			}
 			_KERNEL_DTQ_SET_HEAD(dtqcb, head);
 
-			ercd = E_OK;
+			ercd = E_OK;	/* %jp{正常終了}%en{Normal completion} */
 		}
 		else
 		{
@@ -143,7 +143,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 	
-	return ercd;	/* %jp{正常終了}%en{Normal completion} */
+	return ercd;
 }
 
 

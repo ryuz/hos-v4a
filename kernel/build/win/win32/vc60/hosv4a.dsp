@@ -655,6 +655,14 @@ SOURCE=..\..\..\..\source\object\mpf\rel_mpf.c
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\dtq\fsnd_dtq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\rcv_dtq.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\dtq\snd_dtq.c
 # End Source File
 # End Group
