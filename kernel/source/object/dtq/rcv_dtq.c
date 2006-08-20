@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  snd_dtq.c
+ * @file  rcv_dtq.c
  * @brief %jp{データキューへの送信}%en{Send to Data Queue}
  *
- * @version $Id: snd_dtq.c,v 1.2 2006-08-20 10:50:21 ryuz Exp $
+ * @version $Id: rcv_dtq.c,v 1.1 2006-08-20 10:50:21 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -17,17 +17,11 @@
 
 
 
-#if _KERNEL_SPT_SND_DTQ
+#if _KERNEL_SPT_RCV_DTQ
 
 
-/** %jp{データキューへの送信}%en{Send to Data Queue}
- * @param  dtqid    %jp{送信対象のデータキューのID番号}%en{ID number of the data queue to which the data element is sent}
- * @param  data     %jp{データキューへ送信するデータ}%en{Data element tobe sent}
- * @retval E_OK     %jp{正常終了}%en{Normal completion}
- * @retval E_ID     %jp{不正ID番号(dtqidが不正あるいは使用できない)}%en{Invalid ID number(dtqid is invalid or unusable)}
- * @retval E_NOEXS  %jp{オブジェクト未生成(対象データキューが未登録)}%en{Non-existant object(specified data queue is not registerd)}
- */
-ER snd_dtq(ID dtqid, VP_INT data)
+/** %jp{データキューからの受信} */
+ER rcv_dtq(ID dtqid, VP_INT *p_data)
 {
 	_KERNEL_T_DTQCB  *dtqcb;
 	_KERNEL_T_TSKHDL tskhdl;
@@ -64,19 +58,20 @@ ER snd_dtq(ID dtqid, VP_INT data)
 	/* %jp{データキューコントロールブロック取得} */
 	dtqcb = _KERNEL_DTQ_ID2DTQCB(dtqid);
 	
-	/* %jp{受信待ち行列先頭からタスク取り出し} */
-	tskhdl = _KERNEL_DTQ_RMH_RQUE(dtqcb);
+	/* %jp{送信待ち行列先頭からタスク取り出し} */
+	tskhdl = _KERNEL_DTQ_RMH_SQUE(dtqcb);
 	if ( tskhdl != _KERNEL_TSKHDL_NULL )
 	{
-		VP_INT *p_data;
-
 		/* %jp{待ちタスクがあれば待ち解除} */
 		tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);		/* %jp{TCB取得} */
-		_KERNEL_TSK_SET_ERCD(tcb, E_OK);			/* %jp{エラーコード設定} */
-		p_data = (VP_INT *)_KERNEL_TSK_GET_DATA(tcb);
-		*p_data = data;
-		_KERNEL_DSP_WUP_TSK(tskhdl);				/* %jp{タスクの待ち解除} */
-		_KERNEL_DTQ_RMV_RTOQ(tskhdl);
+		
+		/* %jp{送信データ取得} */
+		*p_data = (VP_INT)_KERNEL_TSK_GET_DATA(tcb);
+		
+		/* %jp{タスクを起す} */
+		_KERNEL_TSK_SET_ERCD(tcb, E_OK);	/* %jp{エラーコード設定} */
+		_KERNEL_DSP_WUP_TSK(tskhdl);		/* %jp{タスクの待ち解除} */
+		_KERNEL_DTQ_RMV_STOQ(tskhdl);		/* %jp{タイムアウトキューからはずす} */
 		
 		/* %jp{タスクディスパッチの実行} */
 		_KERNEL_DSP_TSK();
@@ -87,47 +82,56 @@ ER snd_dtq(ID dtqid, VP_INT data)
 	{
 		const _KERNEL_T_DTQCB_RO *dtqcb_ro;
 		_KERNEL_DTQ_T_DTQCNT     sdtqcnt;
-		_KERNEL_DTQ_T_DTQCNT     dtqcnt;
+		VP_INT		             *dtq;
 		
 		/* %jp{RO部取得} */
 		dtqcb_ro = _KERNEL_DTQ_GET_DTQCB_RO(dtqid, dtqcb);
 
-		/* %jp{データキューカウンタ取得} */
+		/* %jp{データキュー情報取得} */
 		sdtqcnt = _KERNEL_DTQ_GET_SDTQCNT(dtqcb);
-		dtqcnt  = _KERNEL_DTQ_GET_DTQCNT(dtqcb_ro);
+		dtq     = _KERNEL_DTQ_GET_DTQ(dtqcb_ro);
 
-		if ( sdtqcnt < dtqcnt )		/* %jp{キューに空きはあるか？} */
+		if ( sdtqcnt > 0 )		/* %jp{キューにデータはあるか？} */
 		{
 			_KERNEL_DTQ_T_DTQCNT head;
-			VP_INT               *dtq;
+			_KERNEL_DTQ_T_DTQCNT dtqcnt;
 
-			/* %jp{データキューに追加} */
-			head = _KERNEL_DTQ_GET_HEAD(dtqcb);
-			dtq  = _KERNEL_DTQ_GET_DTQ(dtqcb_ro);
-			if ( head < dtqcnt - sdtqcnt - 1 )
+			/* %jp{キューからデータを取り出し} */
+			head   = _KERNEL_DTQ_GET_HEAD(dtqcb);
+			dtqcnt = _KERNEL_DTQ_GET_DTQCNT(dtqcb_ro);
+			*p_data = dtq[head];
+			
+			/* %jp{データ個数を減ずる} */
+			sdtqcnt--;
+			_KERNEL_DTQ_SET_SDTQCNT(dtqcb, sdtqcnt);
+
+			/* %jp{先頭位置をずらす} */
+			if ( head + 1 < dtqcnt )
 			{
-				dtq[head + sdtqcnt] = data;
+				head++;
 			}
 			else
 			{
-				dtq[head + sdtqcnt - dtqcnt] = data;
+				head = 0;
 			}
-			sdtqcnt++;
-			_KERNEL_DTQ_SET_SDTQCNT(dtqcb, sdtqcnt);
+			_KERNEL_DTQ_SET_HEAD(dtqcb, head);
 
 			ercd = E_OK;
 		}
 		else
 		{
+			/* %jp{実行中タスクを取得} */
+			tskhdl = _KERNEL_SYS_GET_RUNTSK();			/* %jp{タスクハンドル取得} */
+			tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);	/* %jp{TCB取得} */
+			
+			/* %jp{受信データ格納アドレス設定} */
+			_KERNEL_TSK_SET_DATA(tcb, (VP_INT)p_data);
+			
 			/* %jp{タスクを待ち状態にする} */
-			tskhdl = _KERNEL_SYS_GET_RUNTSK();
-			tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);			/* %jp{TCB取得} */
-			_KERNEL_TSK_SET_TSKWAIT(tcb, _KERNEL_TTW_SDTQ);
-			_KERNEL_TSK_SET_WOBJID(tcb, dtqid);
-			_KERNEL_TSK_SET_DATA(tcb, data);
-			_KERNEL_DSP_WAI_TSK(tskhdl);
-			_KERNEL_DTQ_ADD_SQUE(dtqcb, dtqcb_ro, tskhdl);		/* %jp{待ち行列に追加} */
-
+			_KERNEL_TSK_SET_TSKWAIT(tcb, _KERNEL_TTW_RDTQ);		/* %jp{待ち要因設定} */
+			_KERNEL_TSK_SET_WOBJID(tcb, dtqid);					/* %jp{待ちオブジェクトID設定} */
+			_KERNEL_DSP_WAI_TSK(tskhdl);						/* %jp{待ち状態に設定} */
+			_KERNEL_DTQ_ADD_RQUE(dtqcb, dtqcb_ro, tskhdl);		/* %jp{待ち行列に追加} */
 		
 			/* %jp{タスクディスパッチの実行} */
 			_KERNEL_DSP_TSK();
@@ -143,10 +147,10 @@ ER snd_dtq(ID dtqid, VP_INT data)
 }
 
 
-#else	/* _KERNEL_SPT_SND_DTQ */
+#else	/* _KERNEL_SPT_RCV_DTQ */
 
 
-#if _KERNEL_SPT_SND_DTQ_E_NOSPT
+#if _KERNEL_SPT_RCV_DTQ_E_NOSPT
 
 /** %jp{データキューへの送信}%en{Send to Data Queue}
  * @param  dtqid    %jp{送信対象のデータキューのID番号}%en{ID number of the data queue to which the data element is sent}
@@ -161,7 +165,7 @@ ER snd_dtq(ID dtqid, VP_INT data)
 #endif
 
 
-#endif	/* _KERNEL_SPT_SND_DTQ */
+#endif	/* _KERNEL_SPT_RCV_DTQ */
 
 
 
