@@ -1,10 +1,10 @@
 /**
  *  Hyper Operating System V4 Advance
  *
- * @file  knl_sem.h
- * @brief %en{Semaphore object heder file}%jp{セマフォオジェクトのヘッダファイル}
+ * @file  semobj.h
+ * @brief %jp{セマフォオジェクトのヘッダファイル}%en{Semaphore object heder file}
  *
- * @version $Id: semobj.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: semobj.h,v 1.2 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -76,7 +76,7 @@ typedef unsigned int					_KERNEL_SEMCB_T_SEMATR;
 #else							/* %jp{SEMCBにビットフィールドを利用しない場合 */
 
 typedef _KERNEL_T_FAST_UB				_KERNEL_SEM_T_SEMATR;
-typedef _KERNEL_T_OPT_UB				_KERNEL_SEMCB_T_SEMATR;
+typedef _KERNEL_T_LEAST_UB				_KERNEL_SEMCB_T_SEMATR;
 #define _KERNEL_SEMCB_TBITDEF_SEMATR
 
 #endif
@@ -104,7 +104,9 @@ typedef struct _kernel_t_semcb_ro
 /** %jp{セマフォコントロールブロック}%en{Semaphore Control Block} */
 typedef struct _kernel_t_semcb
 {
+#if _KERNEL_SEMCB_QUE
 	_KERNEL_T_QUE			que;											/**< %jp{セマフォ待ちタスクキュー} */
+#endif
 
 #if _KERNEL_SEMCB_SEMCNT
 	_KERNEL_SEMCB_T_SEMCNT	semcnt		_KERNEL_SEMCB_TBITDEF_SEMCNT;		/**< %jp{セマフォの資源数} */
@@ -112,7 +114,7 @@ typedef struct _kernel_t_semcb
 
 
 #if _KERNEL_SEMCB_ALGORITHM == _KERNEL_SEMCB_ALG_PTRARRAY
-	const _KERNEL_T_SEMCB_RO	*semcb_ro;									/**< %jp{セマフォコントロールブロックROM部へのポインタ} */
+	const _KERNEL_T_SEMCB_RO	*semcb_ro;									/**< %jp{セマフォコントロールブロックRO部へのポインタ} */
 #endif
 } _KERNEL_T_SEMCB;
 
@@ -265,10 +267,10 @@ extern  _KERNEL_T_SEMCB					*_kernel_semcb_tbl[];									/**< %jp{セマフォ�
 #endif
 
 /* %jp{キュー取り外し} */
-#define _KERNEL_SEM_RMV_QUE(semcb, tskhdl)	_KERNEL_RMV_QUE(semcb, tskhdl)
+#define _KERNEL_SEM_RMV_QUE(semcb, tskhdl)	_KERNEL_RMV_QUE(_KERNEL_SEM_GET_QUE(semcb), tskhdl)
 
 /* %jp{キュー先頭取り出し} */
-#define _KERNEL_SEM_RMH_QUE(semcb)			_KERNEL_RMH_QUE(semcb)
+#define _KERNEL_SEM_RMH_QUE(semcb)			_KERNEL_RMH_QUE(_KERNEL_SEM_GET_QUE(semcb))
 
 
 /* %jp{タイムアウトキュー接続} */

@@ -4,7 +4,7 @@
  * @file  get_mpf.c
  * @brief %jp{固定長メモリプール資源の獲得}%en{Acquire Semaphore Resource}
  *
- * @version $Id: get_mpf.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: get_mpf.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -45,7 +45,6 @@ ER get_mpf(ID mpfid, VP *p_blk)
 #if _KERNEL_SPT_GET_MPF_E_CTX
 	if ( _KERNEL_SYS_SNS_DPN() )
 	{
-		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
 	}
 #endif

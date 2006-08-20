@@ -4,7 +4,7 @@
  * @file  sig_sem.c
  * @brief %jp{セマフォ資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: sig_sem.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: sig_sem.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -57,7 +57,7 @@ ER sig_sem(ID semid)
 	semcb = _KERNEL_SEM_ID2SEMCB(semid);
 	
 	/* %jp{待ち行列先頭からタスク取り出し} */
-	tskhdl = _KERNEL_SEM_RMH_QUE(_KERNEL_SEM_GET_QUE(semcb));
+	tskhdl = _KERNEL_SEM_RMH_QUE(semcb);
 	if ( tskhdl != _KERNEL_TSKHDL_NULL )
 	{
 		/* %jp{待ちタスクがあれば待ち解除} */

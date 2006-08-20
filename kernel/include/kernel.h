@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.4 2006-08-18 14:42:46 ryuz Exp $
+ * @version $Id: kernel.h,v 1.5 2006-08-20 09:02:29 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -134,20 +134,20 @@ typedef struct t_rflg
 } T_RFLG;
 
 
-/* データキュー生成情報 */
+/** %jp{データキュー生成情報}%en{Data queue creation information packet} */
 typedef struct t_cdtq
 {
-	ATR  dtqatr;			/* データキュー属性 */
-	UINT dtqcnt;			/* データキュー領域の容量(データの個数) */
-	VP   dtq;				/* データキュー領域の先頭番地 */
+	ATR  dtqatr;			/**< %jp{データキュー属性}%en{Data queue attribute} */
+	UINT dtqcnt;			/**< %jp{データキュー領域の容量(データの個数)}%en{Capacity of the data queue area(the number of data elements)} */
+	VP   dtq;				/**< %jp{データキュー領域の先頭番地}%en{Start address of the data queue area} */
 } T_CDTQ;
 
-/* データキュー状態 */
+/** %jp{データキュー状態}%en{Data queue state packet} */
 typedef struct t_rdtq
 {
-	ID   stskid;			/* データキューの送信待ち行列の先頭のタスクのID番号 */
-	ID   rtskid;			/* データキューの受信待ち行列の先頭のタスクのID番号 */
-	UINT sdtqcnt;			/* データキューに入っているデータの数 */
+	ID   stskid;			/**< %jp{データキューの送信待ち行列の先頭のタスクのID番号}%en{ID number of the task at the head of the send-wait queue} */
+	ID   rtskid;			/**< %jp{データキューの受信待ち行列の先頭のタスクのID番号}%en{ID number of the task at the head of the receive-wait queue} */
+	UINT sdtqcnt;			/**< %jp{データキューに入っているデータの数}%en{The number of data elemnts int the data queue} */
 } T_RDTQ;
 
 
@@ -171,18 +171,18 @@ typedef struct t_rmbx
 /* ミューテックス生成情報 */
 typedef struct t_cmtx
 {
-	ATR   mtxatr;			/* ミューテックス属性 */
-	PRI   ceilpri;			/* ミューテックスの上限優先度 */
+	ATR		mtxatr;			/* ミューテックス属性 */
+	PRI		ceilpri;			/* ミューテックスの上限優先度 */
 } T_CMTX;
 
 
 /* メッセージバッファ状態情報 */
 typedef struct t_rmbf
 {
-	ID   stskid;			/* メッセージバッファの送信待ち行列の先頭のタスクのID番号 */
-	ID   rtskid;			/* メッセージバッファの受信待ち行列の先頭のタスクのID番号 */
-	UINT smsgcnt;			/* メッセージバッファに入っているメッセージの数 */
-	SIZE fmbfsz;			/* メッセージバッファ領域の空き領域のサイズ(バイト数、最低限の管理領域を除く) */
+	ID		stskid;			/* メッセージバッファの送信待ち行列の先頭のタスクのID番号 */
+	ID		rtskid;			/* メッセージバッファの受信待ち行列の先頭のタスクのID番号 */
+	UINT	smsgcnt;			/* メッセージバッファに入っているメッセージの数 */
+	SIZE	fmbfsz;			/* メッセージバッファ領域の空き領域のサイズ(バイト数、最低限の管理領域を除く) */
 } T_RMBF;
 
 
@@ -208,8 +208,8 @@ typedef struct t_rmpf
 /* 割込みハンドラの定義用 */
 typedef struct t_dinh
 {
-	ATR inhatr;				/* 割込みハンドラ属性 */
-	FP  inthdr;				/* 割込みハンドラの起動番地 */
+	ATR		inhatr;			/* 割込みハンドラ属性 */
+	FP		inthdr;			/* 割込みハンドラの起動番地 */
 } T_DINH;
 
 
@@ -290,6 +290,23 @@ ER      pol_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn);
 ER      twai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmout);
 															/**< %jp{イベントフラグ待ち(タイムアウトあり)}%en{Wait for Eventflag(with Timeout)} */
 ER      ref_flg(ID flgid, T_RFLG *pk_rflg);					/**< %jp{イベントフラグの状態参照}%en{Reference Eventflag State} */
+
+/* %jp{データキュー}%en{Data queue} */
+#define _kernel_ini_dtq()									/**< %jp{データキューの初期化} */
+ER      cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq);			/**< %jp{データキューの生成} */
+ER_ID   acre_dtq(const T_CDTQ *pk_cdtq);					/**< %jp{データキューの生成(ID番号自動割付け)} */
+ER      kernel_cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq);	/**< %jp{データキューの生成(カーネル内部関数)} */
+ER      del_dtq(ID dtqid);									/**< %jp{データキューの削除} */
+ER      snd_dtq(ID dtqid, VP_INT data);						/**< %jp{データキューへの送信} */
+ER      psnd_dtq(ID dtqid, VP_INT data);					/**< %jp{データキューへの送信(ポーリング)} */
+#define ipsnd_dtq	psnd_dtq								/**< %jp{データキューへの送信(ポーリング 非タスクコンテキスト用マクロ)} */
+ER      tsnd_dtq(ID dtqid, VP_INT data, TMO tmout);			/**< %jp{データキューへの送信(タイムアウトあり)} */
+ER      fsnd_dtq(ID dtqid, VP_INT data);					/**< %jp{データキューへの強制送信} */
+#define ifsnd_dtq	fsnd_dtq								/**< %jp{データキューへの強制送信(非タスクコンテキスト用マクロ)} */
+ER      rcv_dtq(ID dtqid, VP_INT *p_data);					/**< %jp{データキューからの受信} */
+ER      prcv_dtq(ID dtqid, VP_INT *p_data);					/**< %jp{データキューからの受信(ポーリング)} */
+ER      trcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout);		/**< %jp{データキューからの受信(タイムアウトあり)} */
+ER      ref_dtq(ID dtqid, T_RDTQ *pk_rdtq);					/**< %jp{データキューの状態参照} */
 
 /* %jp{メールボックス}%en{Mailboxes} */
 ER      cre_mbx(ID semid, const T_CMBX *pk_cmbx);			/**< %jp{メールボックスの生成} */

@@ -4,7 +4,7 @@
  * @file  wai_flg.c
  * @brief %jp{イベントフラグ待ち}%en{Wait for Eventflag}
  *
- * @version $Id: wai_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: wai_flg.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -68,7 +68,6 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 #if _KERNEL_SPT_WAI_FLG_E_CTX
 	if ( _KERNEL_SYS_SNS_DPN() )
 	{
-		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
 	}
 #endif

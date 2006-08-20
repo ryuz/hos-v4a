@@ -88,6 +88,10 @@ LIB32=link.exe -lib
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\include\object\dtqobj.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\include\object\flgobj.h
 # End Source File
 # Begin Source File
@@ -644,6 +648,14 @@ SOURCE=..\..\..\..\source\object\mpf\pget_mpf.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\mpf\rel_mpf.c
+# End Source File
+# End Group
+# Begin Group "dtq"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\snd_dtq.c
 # End Source File
 # End Group
 # End Group

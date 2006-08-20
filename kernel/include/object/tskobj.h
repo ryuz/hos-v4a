@@ -4,7 +4,7 @@
  * @file  knl_que.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * @version $Id: tskobj.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: tskobj.h,v 1.2 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -585,7 +585,7 @@ typedef struct _kernel_t_tcb
 #endif
 	
 #if _KERNEL_TCB_TOQOBJ
-	_KERNEL_TOQOBJ														/* %jp{タイムアウトキューに接続する為のオブジェクト}%en{Timeout queue object} */
+	_KERNEL_TOQOBJ														/**< %jp{タイムアウトキューに接続する為のオブジェクト}%en{Timeout queue object} */
 #endif
 
 #if _KERNEL_TCB_TSKSTAT

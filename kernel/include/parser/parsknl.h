@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.3 2006-08-18 12:00:13 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.4 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -852,9 +852,33 @@
 
 
 
-/* ---------------------------------------------- */
-/* Mailbox objects                                */
-/* ---------------------------------------------- */
+/* ------------------------------------------------------------------ */
+/*  Data queues                                                       */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_DTQCB_ALG_BLKARRAY		1
+#define _KERNEL_DTQCB_ALG_PTRARRAY		2
+
+/* control block */
+#define _KERNEL_DTQCB_ALGORITHM		_KERNEL_CFG_DTQCB_ALGORITHM
+#define _KERNEL_DTQCB_BITFIELD		_KERNEL_CFG_DTQCB_BITFIELD
+#define _KERNEL_DTQCB_ROM			_KERNEL_CFG_DTQCB_ROM
+
+/* Attribute */
+#define _KERNEL_SPT_DTQ_TA_TFIFO	_KERNEL_CFG_DTQ_TA_TFIFO			/**< %jp{TA_TFIFO属性に対応する} */
+#define _KERNEL_SPT_DTQ_TA_TPRI		_KERNEL_CFG_DTQ_TA_TPRI				/**< %jp{TA_TPRI属性に対応する} */
+
+
+#define _KERNEL_DTQCB_QUE			TRUE
+#define _KERNEL_DTQCB_DTQCNT		TRUE
+#define _KERNEL_DTQCB_DTQATR		TRUE
+
+
+
+
+/* ------------------------------------------------------------------ */
+/*  Mailbox objects                                                   */
+/* ------------------------------------------------------------------ */
 
 #define _KERNEL_MBXCB_ALG_BLKARRAY	1
 #define _KERNEL_MBXCB_ALG_PTRARRAY	2

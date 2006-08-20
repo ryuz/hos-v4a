@@ -4,7 +4,7 @@
  * @file  wai_sem.c
  * @brief %jp{セマフォ資源の獲得}%en{Acquire Semaphore Resource}
  *
- * @version $Id: wai_sem.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: wai_sem.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -58,7 +58,6 @@ ER wai_sem(ID semid)
 #if _KERNEL_SPT_WAI_SEM_E_CTX
 	if ( _KERNEL_SYS_SNS_DPN() )
 	{
-		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
 	}
 #endif

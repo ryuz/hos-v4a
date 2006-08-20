@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.3 2006-08-18 14:42:46 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.4 2006-08-20 09:02:29 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -190,6 +190,19 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_FLGCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
 
+/* ---------------------------------------------- */
+/*  Data queues                                   */
+/* ---------------------------------------------- */
+
+/* Attribute */
+#define _KERNEL_CFG_DTQ_TA_TFIFO		TRUE				/**< %jp{TA_TFIFO属性に対応する} */
+#define _KERNEL_CFG_DTQ_TA_TPRI			TRUE				/**< %jp{TA_TPRI属性に対応する} */
+
+/* Control block */
+#define _KERNEL_CFG_DTQCB_ALGORITHM		_KERNEL_DTQCB_ALG_BLKARRAY
+#define _KERNEL_CFG_DTQCB_ROM			FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_DTQCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
 
 /* ---------------------------------------------- */
 /*  Mailboxes                                     */
@@ -320,18 +333,18 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_REF_FLG 			TRUE				/* ref_flg */
 
 /* Data queues */
-#define _KERNEL_CFG_CRE_DTQ 			FALSE				/* cre_dtq */
-#define _KERNEL_CFG_ACRE_DTQ			FALSE				/* acre_dtq */
-#define _KERNEL_CFG_DEL_DTQ 			FALSE				/* del_dtq */
-#define _KERNEL_CFG_SND_DTQ 			FALSE				/* snd_dtq */
-#define _KERNEL_CFG_IPSND_DT			FALSE				/* ipsnd_dtq */
+#define _KERNEL_CFG_CRE_DTQ 			TRUE				/* cre_dtq */
+#define _KERNEL_CFG_ACRE_DTQ			TRUE				/* acre_dtq */
+#define _KERNEL_CFG_DEL_DTQ 			TRUE				/* del_dtq */
+#define _KERNEL_CFG_SND_DTQ 			TRUE				/* snd_dtq */
+#define _KERNEL_CFG_IPSND_DT			TRUE				/* ipsnd_dtq */
 #define _KERNEL_CFG_TSND_DTQ			FALSE				/* tsnd_dtq */
-#define _KERNEL_CFG_FSND_DTQ			FALSE				/* fsnd_dtq */
-#define _KERNEL_CFG_IFSND_DT			FALSE				/* ifsnd_dtq */
-#define _KERNEL_CFG_RCV_DTQ 			FALSE				/* rcv_dtq */
-#define _KERNEL_CFG_PRCV_DTQ			FALSE				/* prcv_dtq */
+#define _KERNEL_CFG_FSND_DTQ			TRUE				/* fsnd_dtq */
+#define _KERNEL_CFG_IFSND_DT			TRUE				/* ifsnd_dtq */
+#define _KERNEL_CFG_RCV_DTQ 			TRUE				/* rcv_dtq */
+#define _KERNEL_CFG_PRCV_DTQ			TRUE				/* prcv_dtq */
 #define _KERNEL_CFG_TRCV_DTQ			FALSE				/* trcv_dtq */
-#define _KERNEL_CFG_REF_DTQ 			FALSE				/* ref_dtq */
+#define _KERNEL_CFG_REF_DTQ 			TRUE				/* ref_dtq */
 
 /* Mailboxes */
 #define _KERNEL_CFG_CRE_MBX 			TRUE				/* cre_mbx */

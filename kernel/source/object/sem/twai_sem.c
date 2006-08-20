@@ -4,7 +4,7 @@
  * @file  twai_sem.c
  * @brief %jp{セマフォ資源の獲得(タイムアウトあり)}%en{Acquire Semaphore Resource(with Timeout)}
  *
- * @version $Id: twai_sem.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: twai_sem.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -79,7 +79,15 @@ ER _kernel_wai_sem(ID semid, TMO tmout)
 	_KERNEL_T_TCB        *tcb;
 	_KERNEL_SEM_T_SEMCNT semcnt;
 	ER                   ercd;
-	
+
+	/* %jp{コンテキストチェック} */
+#if _KERNEL_SPT_KWAI_SEM_E_CTX
+	if ( tmout != TMO_POL && _KERNEL_SYS_SNS_DPN() )
+	{
+		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
+	}
+#endif
+
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_KWAI_SEM_E_ID
 	if ( !_KERNEL_SEM_CHECK_SEMID(semid) )
@@ -87,16 +95,7 @@ ER _kernel_wai_sem(ID semid, TMO tmout)
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
 	}
 #endif
-	
-	/* %jp{コンテキストチェック} */
-#if _KERNEL_SPT_KWAI_SEM_E_CTX
-	if ( tmout != TMO_POL && _KERNEL_SYS_SNS_DPN() )
-	{
-		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
-		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
-	}
-#endif
-	
+		
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
