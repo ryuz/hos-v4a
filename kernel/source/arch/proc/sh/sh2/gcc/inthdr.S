@@ -1624,24 +1624,25 @@ multiple_int:
 				.align	2
 
 addr_sh_imsk:
-				.long	_kernel_sh_imsk			/* 割り込みマスク */
+				.long	__kernel_sh_imsk	/* 割り込みマスク */
 
 addr_int_cnt:
-				.long	_kernel_int_cnt			/* 割り込みネスト回数 */
+				.long	__kernel_int_cnt	/* 割り込みネスト回数 */
 
 addr_int_isp:
-				.long	_kernel_int_isp			/* 割り込み用スタックポインタ */
+				.long	__kernel_int_isp	/* 割り込み用スタックポインタ */
 
 addr_sta_inh:
-				.long	_kernel_sta_inh			/* 割り込み開始処理 */
+				.long	__kernel_sta_inh	/* 割り込み開始処理 */
 
 addr_exe_inh:
-				.long	_kernel_exe_inh			/* 割り込み実行処理 */
+				.long	__kernel_exe_inh	/* 割り込み実行処理 */
 
 addr_end_inh:
-				.long	_kernel_end_inh			/* 割り込み終了処理 */
+				.long	__kernel_end_inh	/* 割り込み終了処理 */
 
 
+				.comm	__kernel_int_cnt,4,4
 
 				.end
 

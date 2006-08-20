@@ -38,7 +38,7 @@ __kernel_dis_int:
   void _kernel_ena_int(void)
 ************************************************/
 				.align	2
-_kernel_ena_int:
+__kernel_ena_int:
 				mov.l	addr_sh_imsk, r2
 				stc		sr, r0
 				mov.l	@r2, r1
@@ -52,6 +52,16 @@ _kernel_ena_int:
 addr_sh_imsk:
 				.long	__kernel_sh_imsk		/* 割り込みマスク */
 
+
+/************************************************
+ 割り込み待ち
+ void _kernel_wai_int(void)
+************************************************/
+				.align	2
+__kernel_wai_int:
+		;		sleep
+				bra		__kernel_wai_int
+				nop
 
 
 /************************************************
@@ -70,16 +80,19 @@ __kernel_cre_ctx:
 				mov.l	r7, @(32, r5)			/* 実行時パラメータ1を r9 の領域に設定 */
 				mov.l	@(0, r15), r0
 				mov.l	r0, @(28, r5)			/* 実行時パラメータ2を r10 の領域に設定 */
-				mov		#ctx_entry, r0
+				mov.l	addr_ctx_entry, r0
 				mov.l	r0, @(0, r5)			/* 実行エントリポイントを pr の領域に設定 */
 				rts
 				mov.l	r5, @(0, r4) 			/* スタックポインタを保存(遅延スロット) */
 
+				.align 2
+addr_ctx_entry:
+				.long	ctx_entry
 
 /************************************************
   実行コンテキストエントリーアドレス
 ************************************************/
-ctx_entry:	 	
+ctx_entry:
 				mov		r9, r4					/* 実行時パラメータ1を設定 */
 				jmp		@r8						/* 実行開始アドレスに分岐 */
 				mov		r10, r5					/* 実行時パラメータ2を設定(遅延スロット) */
@@ -143,5 +156,7 @@ __kernel_rst_ctx:
 
 				.comm	__kernel_sh_imsk,4,4
 
+
+				.end
 
 /* end of file */
