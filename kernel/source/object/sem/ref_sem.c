@@ -4,7 +4,7 @@
  * @file  ref_sem.c
  * @brief %jp{セマフォの状態参照}%en{Reference Semaphore State}
  *
- * @version $Id: ref_sem.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: ref_sem.c,v 1.2 2006-09-02 10:43:19 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -30,7 +30,7 @@
  */
 ER ref_sem(ID semid, T_RSEM *pk_rsem)
 {
-	_KERNEL_T_SEMCB *semcb;
+	_KERNEL_T_SEMCB_PTR semcb;
 	
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_REF_SEM_E_ID

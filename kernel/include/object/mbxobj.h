@@ -4,7 +4,7 @@
  * @file  mbxobj.h
  * @brief %jp{メールボックスオジェクトのヘッダファイル}%en{Mailbox object heder file}
  *
- * @version $Id: mbxobj.h,v 1.2 2006-08-16 18:31:05 ryuz Exp $
+ * @version $Id: mbxobj.h,v 1.3 2006-09-02 10:43:18 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -23,7 +23,7 @@
 /* %jp{メールボックス属性用の型(4bit必要)} */
 #if _KERNEL_MBXCB_BITFIELD		/* %jp{MBXCBにビットフィールドを利用する場合 */
 
-#if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
+#if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
 typedef signed int						_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
 #define _KERNEL_TBITDEF_MBXCB_MBXATR	: 3 + 1							/**< %jp{メールボックス属性のビットフィールド宣言時の幅} */
@@ -37,10 +37,10 @@ typedef unsigned int					_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボック�
 
 #if _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
-typedef _KERNEL_T_OPT_B					_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_B					_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
 #else
 typedef _KERNEL_T_FAST_UB				_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
-typedef _KERNEL_T_OPT_UB				_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_UB				_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
 #endif
 
 #define _KERNEL_MBXCB_TBITDEF_MBXATR									/**< %jp{メールボックス属性のビットフィールド宣言時の幅} */
@@ -55,12 +55,12 @@ typedef	PRI		_KERNEL_MBXCB_T_MPRI;
 
 
 /* ------------------------------------------ */
-/*  Eventflag control block                   */
+/*  Control block                             */
 /* ------------------------------------------ */
 
-#if _KERNEL_MBXCB_ROM
+#if _KERNEL_MBXCB_SPLIT_RO
 
-/** %jp{メールボックスコントロールブロック(ROM部)} */
+/** %jp{メールボックスコントロールブロック(リードオンリー部)} */
 typedef struct _kernel_t_mbxcb_rom
 {
 #if _KERNEL_MBXCB_MBXATR
@@ -70,11 +70,12 @@ typedef struct _kernel_t_mbxcb_rom
 #if _KERNEL_MBXCB_MAXMPRI
 	_KERNEL_MBXCB_T_MAXMPRI	maxmpri		_KERNEL_TBITDEF_MBXCB_MAXMPRI;		/**< %jp{送信されるメッセージの優先度の最大値} */
 #endif
+} _KERNEL_T_MBXCB_RO;
 
-} _KERNEL_MBXCB_T_ROM;
+typedef const _KERNEL_T_MBXCB_RO	*_KERNEL_T_MBXCB_RO_PTR;
 
 
-/** %jp{メールボックスコントロールブロック(RAM部)} */
+/** %jp{メールボックスコントロールブロック} */
 typedef struct _kernel_t_mbxcb
 {
 #if _KERNEL_MBXCB_QUE
@@ -84,7 +85,13 @@ typedef struct _kernel_t_mbxcb
 #if _KERNEL_MBXCB_MSGQUE
 	VP						msgque;											/**< %jp{メッセージキュー} */
 #endif
+
+#if _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_PTRARRAY
+	_KERNEL_T_MBXCB_RO_PTR	mbxcb_ro;										/**< %jp{コントロールブロックRO部へのポインタ} */
+#endif
 } _KERNEL_T_MBXCB;
+
+typedef _KERNEL_T_MBXCB				*_KERNEL_T_MBXCB_PTR;
 
 
 #else
@@ -110,53 +117,63 @@ typedef struct _kernel_t_mbxcb
 #endif
 } _KERNEL_T_MBXCB;
 
+typedef	_KERNEL_T_MBXCB				_KERNEL_T_MBXCB_RO;
+typedef const _KERNEL_T_MBXCB_RO	*_KERNEL_T_MBXCB_RO_PTR;
+typedef	_KERNEL_T_MBXCB				*_KERNEL_T_MBXCB_PTR;
+
+
 #endif
 
 
 
-/* Eventflag handle */
-typedef _KERNEL_T_MBXCB*				_KERNEL_T_MBXHDL;
+/* ------------------------------------------ */
+/*  ID range                                  */
+/* ------------------------------------------ */
+
+extern const ID							_kernel_max_mbxid;										/**< %jp{メールボックスIDの最大値} */
+
+#define _KERNEL_MBX_TMIN_ID				1														/**< %jp{メールボックスIDの最小値} */
+#define _KERNEL_MBX_TMAX_ID				(_kernel_max_mbxid)										/**< %jp{メールボックスIDの最大値} */
+
+#define _KERNEL_MBX_CHECK_MBXID(mbxid)	((mbxid) >= _KERNEL_MBX_TMIN_ID && (mbxid) <= _KERNEL_MBX_TMAX_ID)
 
 
 
-#if _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_BLKARRAY			/* block array */
+/* ------------------------------------------ */
+/*  Control block tables                      */
+/* ------------------------------------------ */
 
-extern const ID							_kernel_max_mbxid;					/** %jp{メールボックスコントロールブロック個数} */
-extern       _KERNEL_T_MBXCB			_kernel_mbxcb_tbl[];				/** %jp{メールボックスコントロールブロックテーブル} */
+#if _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_BLKARRAY
+#if _KERNEL_MBXCB_SPLIT_RO
 
-#define _KERNEL_MBX_ID2MBXCB(mbxid)		(&_kernel_mbxcb_tbl[(mbxid) - _KERNEL_TMIN_MBX_ID])
-#define _KERNEL_MBX_ID2MBXHDL(mbxid)	_KERNEL_MBX_ID2MBXCB(mbxid)
+/* %jp{ブロック配列管理でRO分離の場合}%en{block array} */
+extern  _KERNEL_T_MBXCB					_kernel_mbxcb_tbl[];									/**< %jp{メールボックスコントロールブロックテーブル} */
+extern const _KERNEL_T_MBXCB_RO			_kernel_mbxcb_ro_tbl[];									/**< %jp{メールボックスコントロールブロック(リードオンリー部)テーブル} */
+#define _KERNEL_MBX_ID2MBXCB(mbxid)		(&_kernel_mbxcb_tbl[(mbxid) - _KERNEL_MBX_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
+#define _KERNEL_MBX_CHECK_EXS(mbxid)	(_kernel_mbxcb_ro_tbl[(mbxid) - _KERNEL_MBX_TMIN_ID].mbxatr & _KERNEL_MBX_TA_CRE)
+																								/**< %jp{オブジェクトの存在チェック} */
+#define _KERNEL_MBX_TA_CRE				0x08													/**< %jp{mbxatrのビットに生成済みbitを割り当て} */
 
+#else
 
-/* %jp{オブジェクトの存在チェック} */
-#define _KERNEL_MBX_CHECK_EXS(mbxid)	(_KERNEL_MBX_ID2MBXCB(mbxid)->mbxatr & _KERNEL_MBX_TA_CRE)
-#define _KERNEL_MBX_TA_CRE				0x08
+/* %jp{ブロック配列管理の場合}%en{block array} */
+extern  _KERNEL_T_MBXCB					_kernel_mbxcb_tbl[];									/**< %jp{メールボックスコントロールブロックテーブル} */
+#define _KERNEL_MBX_ID2MBXCB(mbxid)		(&_kernel_mbxcb_tbl[(mbxid) - _KERNEL_MBX_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
+#define _KERNEL_MBX_CHECK_EXS(mbxid)	(_kernel_mbxcb_tbl[(mbxid) - _KERNEL_MBX_TMIN_ID].mbxatr & _KERNEL_MBX_TA_CRE)
+																								/**< %jp{オブジェクトの存在チェック} */
+#define _KERNEL_MBX_TA_CRE				0x08													/**< %jp{mbxatrのビットに生成済みbitを割り当て} */
 
+#endif
 
-#elif _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_PTRARRAY		/* pointer array */
+#elif _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_PTRARRAY
 
-extern const ID							_kernel_max_mbxid;					/** %jp{メールボックスコントロールブロック個数} */
-extern       _KERNEL_T_MBXCB			*_kernel_mbxcb_tbl[];				/** %jp{メールボックスコントロールブロックテーブル} */
-
-#define _KERNEL_MBX_ID2MBXCB(mbxid)		(_kernel_mbxcb_tbl[(mbxid) - _KERNEL_TMIN_MBX_ID])
-#define _KERNEL_MBX_ID2MBXHDL(mbxid)	_KERNEL_MBX_ID2MBXCB(mbxid)
-																	/** %jp{セマフォIDからMBXCB アドレスを取得} */
-
-/* %jp{オブジェクトの存在チェック} */
-#define _KERNEL_MBX_CHECK_EXS(mbxid)	(_KERNEL_MBX_ID2MBXCB(mbxid) != NULL)
+/* %jp{ポインタ配列管理の場合}%en{pointer array} */
+extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボックスコントロールブロックテーブル} */
+#define _KERNEL_MBX_ID2MBXCB(mbxid)		(_kernel_mbxcb_tbl[(mbxid) - _KERNEL_TMIN_MBXID])		/**< %jp{メールボックスIDからMBXCB アドレスを取得} */
+#define _KERNEL_MBX_CHECK_EXS(mbxid)	(_KERNEL_MBX_ID2MBXCB(mbxid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 #define _KERNEL_MBX_TA_CRE				0
 
 #endif
-
-
-/* %jp{ID範囲定義} */
-#define _KERNEL_TMIN_MBX_ID				1
-#define _KERNEL_TMAX_MBX_ID				(_kernel_max_mbxid)
-
-
-/* %jp{ID範囲チェック} */
-#define _KERNEL_MBX_CHECK_MBXID(mbxid)	((mbxid) >= _KERNEL_TMIN_MBX_ID && (mbxid) <= _KERNEL_TMAX_MBX_ID)
-
 
 
 
@@ -164,68 +181,117 @@ extern       _KERNEL_T_MBXCB			*_kernel_mbxcb_tbl[];				/** %jp{メールボッ�
 /*   Accessor for MBXCB                       */
 /* ------------------------------------------ */
 
+/* mbxcb_ro */
+#if !_KERNEL_MBXCB_SPLIT_RO								
+#define _KERNEL_MBX_GET_MBXCB_RO(mbxid, mbxcb)	(mbxcb)
+#else
+#if _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_BLKARRAY		/* %jp{MBXCBを単純配列で管理}%en{array of block} */
+#define _KERNEL_MBX_GET_MBXCB_RO(mbxid, mbxcb)	(&_kernel_mbxcb_ro_tbl[(mbxid)])
+#elif _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_PTRARRAY		/* %jp{MBXCBをポインタ配列で管理}%en{array of pointer} */
+#define _KERNEL_MBX_GET_MBXCB_RO(mbxid, mbxcb)	((mbxcb)->mbxcb_ro)
+#endif
+#endif
+
+
 /* que */
-#define _KERNEL_MBX_GET_QUE(mbxhdl)			(&(mbxhdl)->que)
+#define _KERNEL_MBX_GET_QUE(mbxcb)				(&(mbxcb)->que)
 
 /* mbxptn */
 #if _KERNEL_MBXCB_MSGQUE
-#define _KERNEL_MBX_SET_MSGQUE(mbxhdl, x)	do { (mbxhdl)->msgque = (VP)(x); } while (0)
-#define _KERNEL_MBX_GET_MSGQUE(mbxhdl)		((VP)&(mbxhdl)->msgque)
+#define _KERNEL_MBX_SET_MSGQUE(mbxcb, x)		do { (mbxcb)->msgque = (VP)(x); } while (0)
+#define _KERNEL_MBX_GET_MSGQUE(mbxcb)			((VP)&(mbxcb)->msgque)
 #else
-#define _KERNEL_MBX_SET_MSGQUE(mbxhdl, x)	do { } while (0)
-#define _KERNEL_MBX_GET_MSGQUE(mbxhdl)		(0)
+#define _KERNEL_MBX_SET_MSGQUE(mbxcb, x)		do { } while (0)
+#define _KERNEL_MBX_GET_MSGQUE(mbxcb)			(0)
 #endif
 
 /* mbxatr */
 #if _KERNEL_MBXCB_MBXATR
-#define _KERNEL_MBX_SET_MBXATR(mbxhdl, x)	do { (mbxhdl)->mbxatr = (_KERNEL_MBXCB_T_MBXATR)(x); } while (0)
-#define _KERNEL_MBX_GET_MBXATR(mbxhdl)		((_KERNEL_MBX_T_MBXATR)(mbxhdl)->mbxatr)
+#define _KERNEL_MBX_SET_MBXATR(mbxcb_ro, x)		do { (mbxcb)->mbxatr = (_KERNEL_MBXCB_T_MBXATR)(x); } while (0)
+#define _KERNEL_MBX_GET_MBXATR(mbxcb_ro)		((_KERNEL_MBX_T_MBXATR)(mbxcb)->mbxatr)
 #else
-#define _KERNEL_MBX_SET_MBXATR(mbxhdl, x)	do { } while (0)
-#if _KERNEL_SPT_MBX_TA_TFIFO
-#define _KERNEL_MBX_GET_MBXATR(mbxhdl)		(TA_TFIFO)
+#define _KERNEL_MBX_SET_MBXATR(mbxcb_ro, x)		do { } while (0)
+#if _KERNEL_SPT_MBX_TA_TFIFO && _KERNEL_SPT_MBX_TA_MFIFO
+#define _KERNEL_MBX_GET_MBXATR(mbxcb_ro)		(TA_TFIFO | TA_MFIFO)
+#elif _KERNEL_SPT_MBX_TA_TFIFO && _KERNEL_SPT_MBX_TA_MPRI
+#define _KERNEL_MBX_GET_MBXATR(mbxcb_ro)		(TA_TFIFO | TA_MPRI)
+#elif _KERNEL_SPT_MBX_TA_MPRI && _KERNEL_SPT_MBX_TA_MFIFO
+#define _KERNEL_MBX_GET_MBXATR(mbxcb_ro)		(TA_TFIFO | TA_FIFO)
 #else
-#define _KERNEL_MBX_GET_MBXATR(mbxhdl)		(TA_TPRI)
+#define _KERNEL_MBX_GET_MBXATR(mbxcb_ro)		(TA_TPRI | TA_MPRI)
 #endif
 #endif
 
+/* maxmpri */
 #if _KERNEL_MBXCB_MAXMPRI
-#define _KERNEL_MBX_SET_MAXMPRI(mbxhdl, x)	do { (mbxhdl)->maxmpri = (_KERNEL_MBXCB_T_MPRI)(x); } while (0)
-#define _KERNEL_MBX_GET_MAXMPRI(mbxhdl)		((_KERNEL_MBX_T_MPRI)(mbxhdl)->maxmpri)
+#define _KERNEL_MBX_SET_MAXMPRI(mbxcb_ro, x)	do { (mbxcb)->maxmpri = (_KERNEL_MBXCB_T_MPRI)(x); } while (0)
+#define _KERNEL_MBX_GET_MAXMPRI(mbxcb_ro)		((_KERNEL_MBX_T_MPRI)(mbxcb)->maxmpri)
 #else
-#define _KERNEL_MBX_SET_MAXMPRI(mbxhdl, x)	do { } while (0)
-#define _KERNEL_MBX_GET_MAXMPRI(mbxhdl)		(1)
+#define _KERNEL_MBX_SET_MAXMPRI(mbxcb_ro, x)	do { } while (0)
+#define _KERNEL_MBX_GET_MAXMPRI(mbxcb_ro)		(1)
 #endif
 
 
+
+
+/* ------------------------------------------ */
+/*   Macro functions                          */
+/* ------------------------------------------ */
 
 /* %jp{キュー接続} */
-#if _KERNEL_SPT_MBX_TA_TFIFO && _KERNEL_SPT_MBX_TA_TPRI		/* %jp{TA_TFIFO と TA_TPRI の混在 } */
-#define _KERNEL_MBX_ADD_QUE(mbxhdl, tskhdl)		_kernel_add_que(_KERNEL_MBX_GET_QUE(mbxhdl), tskhdl, _KERNEL_MBX_GET_MBXATR(mbxhdl))
-#elif _KERNEL_SPT_MBX_TA_TFIFO && !_KERNEL_SPT_MBX_TA_TPRI	/* %jp{TA_TFIFO のみ利用 } */
-#define _KERNEL_MBX_ADD_QUE(mbxhdl, tskhdl)		_kernel_adf_que(_KERNEL_MBX_GET_QUE(mbxhdl), tskhdl)
+#if _KERNEL_SPT_MBX_TA_TFIFO && _KERNEL_SPT_MBX_TA_TPRI		/* %jp{TA_TFIFOとTA_TPRI両方対応(属性で判定)} */
+#define _KERNEL_MBX_ADD_QUE(mbxcb, mbxcb_ro, tskhdl)	_KERNEL_ADD_QUE(_KERNEL_MBX_GET_QUE(mbxcb), tskhdl, _KERNEL_MBX_GET_MBXATR(mbxcb_ro))
+#elif _KERNEL_SPT_MBX_TA_TFIFO && !_KERNEL_SPT_SE_TA_TPRI	/* %jp{TA_TFIFO のみ利用 } */
+#define _KERNEL_MBX_ADD_QUE(mbxcb, mbxcb_ro, tskhdl)	_KERNEL_ADF_QUE(_KERNEL_MBX_GET_QUE(mbxcb), tskhdl)
 #elif !_KERNEL_SPT_MBX_TA_TFIFO && _KERNEL_SPT_MBX_TA_TPRI	/* %jp{TA_TPRI のみ利用 } */
-#define _KERNEL_MBX_ADD_QUE(mbxhdl, tskhdl)		_kernel_adp_que(_KERNEL_MBX_GET_QUE(mbxhdl), tskhdl)
+#define _KERNEL_MBX_ADD_QUE(mbxcb, mbxcb_ro, tskhdl)	_KERNEL_ADP_QUE(_KERNEL_MBX_GET_QUE(mbxcb), tskhdl)
 #else
 #error error:_KERNEL_SPT_MBX_TA_TPRI and _KERNEL_SPT_MBX_TA_TFIFO
 #endif
 
-/* %jp{タイムアウトキュー解除} */
-#if _KERNEL_SPT_TRCV_MBX	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
+/* %jp{キュー取り外し} */
+#define _KERNEL_MBX_RMV_QUE(mbxcb, tskhdl)	_KERNEL_RMV_QUE(_KERNEL_MBX_GET_QUE(mbxcb), tskhdl)
+
+/* %jp{キュー先頭取り出し} */
+#define _KERNEL_MBX_RMH_QUE(mbxcb)			_KERNEL_RMH_QUE(_KERNEL_MBX_GET_QUE(mbxcb))
+
+
+/* %jp{タイムアウトキュー操作} */
+#if _KERNEL_SPT_TWAI_MBX	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
+#define _KERNEL_MBX_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
 #define _KERNEL_MBX_RMV_TOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
 #else
+#define _KERNEL_MBX_ADD_TOQ(tskhdl)			do { } while (0)
 #define _KERNEL_MBX_RMV_TOQ(tskhdl)			do { } while (0)
 #endif
 
 
+/* %jp{メッセージキュー操作} */
+#if _KERNEL_SPT_MBX_TA_MFIFO && _KERNEL_SPT_MBX_TA_MPRI		/* %jp{TA_MFIFOとTA_MPRI両方対応(属性で判定)} */
+#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_add_msg((mbxcb), (pk_msg), _KERNEL_MBX_GET_MBXATR(mbxcb_ro))
+#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmv_msg((mbxcb), _KERNEL_MBX_GET_MBXATR(mbxcb_ro))
+#elif _KERNEL_SPT_MBX_TA_MFIFO && !_KERNEL_SPT_MBX_TA_MPRI	/* %jp{TA_MFIFO のみ利用 } */
+#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_adf_mque((mbxcb), (pk_msg))
+#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmf_mque(mbxcb)
+#elif !_KERNEL_SPT_MBX_TA_MFIFO && _KERNEL_SPT_MBX_TA_MPRI	/* %jp{TA_MPRI のみ利用 } */
+#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_adp_mque((mbxcb), (pk_msg))
+#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmp_mque(mbxcb)
+#else
+#error error:_KERNEL_SPT_MBX_TA_MPRI and _KERNEL_SPT_MBX_TA_MFIFO
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-ER     _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx);
-void   _kernel_add_msg(_KERNEL_T_MBXHDL mbxhdl, T_MSG *pk_msg);
-T_MSG *_kernel_rmv_msg(_KERNEL_T_MBXHDL mbxhdl);
+ER     _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx);										/**< %jp{メールボックスを生成} */
+void   _kernel_add_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg, _KERNEL_MBX_T_MBXATR mbxatr);	/**< %jp{属性に応じてキューにメッセージを追加} */
+void   _kernel_adp_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg);								/**< %jp{優先度キューにメッセージを追加} */
+void   _kernel_adf_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg);								/**< %jp{FIFOキューにメッセージを追加} */
+T_MSG *_kernel_rmv_msg(_KERNEL_T_MBXCB_PTR mbxcb, _KERNEL_MBX_T_MBXATR mbxatr);					/**< %jp{属性に応じてキューからメッセージを取り出し} */
+T_MSG *_kernel_rmp_msg(_KERNEL_T_MBXCB_PTR mbxcb);												/**< %jp{優先度キューからメッセージを取り出し} */
+T_MSG *_kernel_rmf_msg(_KERNEL_T_MBXCB_PTR mbxcb);												/**< %jp{FIFOキューからメッセージを取り出し} */
+
 
 #ifdef __cplusplus
 }

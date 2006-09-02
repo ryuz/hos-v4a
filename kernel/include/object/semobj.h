@@ -4,7 +4,7 @@
  * @file  semobj.h
  * @brief %jp{セマフォオジェクトのヘッダファイル}%en{Semaphore object heder file}
  *
- * @version $Id: semobj.h,v 1.3 2006-09-02 06:08:27 ryuz Exp $
+ * @version $Id: semobj.h,v 1.4 2006-09-02 10:43:18 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -102,6 +102,9 @@ typedef struct _kernel_t_semcb_ro
 #endif
 } _KERNEL_T_SEMCB_RO;
 
+typedef const _KERNEL_T_SEMCB_RO	*_KERNEL_T_SEMCB_RO_PTR;
+
+
 /** %jp{セマフォコントロールブロック}%en{Semaphore Control Block} */
 typedef struct _kernel_t_semcb
 {
@@ -115,9 +118,11 @@ typedef struct _kernel_t_semcb
 
 
 #if _KERNEL_SEMCB_ALGORITHM == _KERNEL_SEMCB_ALG_PTRARRAY
-	const _KERNEL_T_SEMCB_RO	*semcb_ro;									/**< %jp{セマフォコントロールブロックRO部へのポインタ} */
+	_KERNEL_T_SEMCB_RO_PTR	semcb_ro;										/**< %jp{セマフォコントロールブロックRO部へのポインタ} */
 #endif
 } _KERNEL_T_SEMCB;
+
+typedef _KERNEL_T_SEMCB				*_KERNEL_T_SEMCB_PTR;
 
 
 #else
@@ -143,7 +148,9 @@ typedef struct _kernel_t_semcb
 #endif
 } _KERNEL_T_SEMCB;
 
-typedef _KERNEL_T_SEMCB		_KERNEL_T_SEMCB_RO;
+typedef _KERNEL_T_SEMCB				_KERNEL_T_SEMCB_RO;
+typedef const _KERNEL_T_SEMCB_RO	*_KERNEL_T_SEMCB_RO_PTR;
+typedef _KERNEL_T_SEMCB				*_KERNEL_T_SEMCB_PTR;
 
 
 #endif

@@ -4,7 +4,7 @@
  * @file  twai_sem.c
  * @brief %jp{セマフォ資源の獲得(タイムアウトあり)}%en{Acquire Semaphore Resource(with Timeout)}
  *
- * @version $Id: twai_sem.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: twai_sem.c,v 1.3 2006-09-02 10:43:19 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -74,7 +74,7 @@ ER twai_sem(ID semid, TMO tmout)
  */
 ER _kernel_wai_sem(ID semid, TMO tmout)
 {
-	_KERNEL_T_SEMCB      *semcb;
+	_KERNEL_T_SEMCB_PTR  semcb;
 	_KERNEL_T_TSKHDL     tskhdl;
 	_KERNEL_T_TCB        *tcb;
 	_KERNEL_SEM_T_SEMCNT semcnt;

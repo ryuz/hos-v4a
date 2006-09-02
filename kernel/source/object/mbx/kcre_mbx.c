@@ -4,7 +4,7 @@
  * @file  kcre_mbx.c
  * @brief %jp{メールボックスの生成}%en{Create Eventflag}
  *
- * @version $Id: kcre_mbx.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: kcre_mbx.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -34,19 +34,61 @@
  */
 ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 {
-	_KERNEL_T_MBXHDL mbxhdl;
-	
+	_KERNEL_T_MBXCB    *mbxcb;
+	_KERNEL_T_MBXCB_RO *mbxcb_ro;
+	VP                 mprihd;
+
 	/* %jp{メモリ確保}%en{get memory} */
 #if _KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_PTRARRAY
-#if _KERNEL_MBXCB_ROM
+#if _KERNEL_MBXCB_SPLIT_RO
 	{
-		/* %jp{TCB領域がポインタ管理で、ROM/RAM分離の場合} */
+		/* %jp{MBXCB領域がポインタ管理で、ROM/RAM分離の場合} */
 		VP   mem;
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB))
-					+ _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB_ROM));
+		memsz  = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB));			/* %jp{コントロールブロックのサイズ} */
+		memsz += _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB_RO));		/* %jp{コントロールブロック(RO部)のサイズ} */
+		if ( (pk_cmbx->mbxatr & TA_MPRI) && pk_cmbx->mprihd == NULL )
+		{
+			memsz += _KERNEL_SYS_ALG_MEM(TSZ_MPRIHD(pk_cmbx->maxmpri));
+		}
+
+		/* %jp{メモリ確保} */
+		mem = _KERNEL_SYS_ALC_MEM(memsz);
+
+#if _KERNEL_SPT_KCRE_MBX_E_NOMEM
+		if ( mem == NULL )
+		{
+			return E_NOMEM;
+		}
+#endif
+		/* %jp{メモリ割り当て} */
+		mbxcb  = (_KERNEL_T_MBXCB *)mem;
+		mbx_ro = (_KERNEL_T_MBXCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)));
+		if ( pk_cmbx->mprihd == NULL )
+		{
+			mprihd = (VP)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)) + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB_RO)));
+		}
+		else
+		{
+			mprihd = pk_cmbx->mprihd;
+		}
+		mbxcb ->mbxcb_ro = mbx_ro
+		_KERNEL_TSK_ID2MBXCB(mbxid) = mbxcb;
+	}
+#else
+	{
+		/* %jp{MBXCB領域がポインタ管理で、ROM/RAM統合の場合} */
+		VP   mem;
+		SIZE memsz;
+		
+		/* %jp{メモリサイズ決定} */
+		memsz  = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB));			/* %jp{コントロールブロックのサイズ} */
+		if ( (pk_cmbx->mbxatr & TA_MPRI) && pk_cmbx->mprihd == NULL )
+		{
+			memsz += _KERNEL_SYS_ALG_MEM(TSZ_MPRIHD(pk_cmbx->maxmpri));
+		}
 
 		/* %jp{メモリ確保} */
 		mem = _KERNEL_SYS_ALC_MEM(memsz);
@@ -59,39 +101,52 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 #endif
 
 		/* %jp{メモリ割り当て} */
-		_KERNEL_TSK_ID2MBXCB(mbxid)           = (_KERNEL_T_MBXCB *)mem;
-		_KERNEL_TSK_ID2MBXCB(mbxid)->mbxcbrom = (_KERNEL_T_MBXCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)));
-	}
-#else
-	{
-		VP   mem;
-		
-		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(sizeof(_KERNEL_T_MBXCB));
-
-#if _KERNEL_SPT_KCRE_MBX_E_NOMEM
-		if ( mem == NULL )
+		mbxcb  = (_KERNEL_T_MBXCB *)mem;
+		if ( pk_cmbx->mprihd == NULL )
 		{
-			return E_NOMEM;
+			mprihd = (VP)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)));
 		}
-#endif
-
-		/* %jp{メモリ割り当て} */
+		else
+		{
+			mprihd = pk_cmbx->mprihd;
+		}
+		mbxcb_ro = mbxcb;
 		_KERNEL_SEM_ID2MBXCB(mbxid) = (_KERNEL_T_MBXCB *)mem;
 	}
 #endif
+#else
+	{	/* %jp{MBXCB領域がブロック配列管理の場合} */
+
+		if ( (pk_cmbx->mbxatr & TA_MPRI) && pk_cmbx->mprihd == NULL )
+		{
+			mprihd = _KERNEL_SYS_ALC_MEM(TSZ_MPRIHD(pk_cmbx->maxmpri));
+		}
+		else
+		{
+			mprihd = pk_cmbx->mprihd;
+		}
+
+		mbxcb    = _KERNEL_MBX_ID2MBXCB(mbxid);
+		mbxcb_ro = mbxcb;
+	}
 #endif
 
 	/* %jp{オブジェクト生成} */
-	mbxhdl = _KERNEL_MBX_ID2MBXHDL(mbxid);
-	_KERNEL_MBX_SET_MBXATR(mbxhdl, pk_cmbx->mbxatr | _KERNEL_MBX_TA_CRE);
-	_KERNEL_CRE_QUE(_KERNEL_MBX_GET_QUE(mbxhdl));
-	if ( pk_cmbx->mbxatr & TA_MPRI)
+	_KERNEL_MBX_SET_MBXATR(mbxcb_ro, pk_cmbx->mbxatr | _KERNEL_MBX_TA_CRE);
+	_KERNEL_MBX_SET_MAXMPRI(mbxcb_ro, pk_cmbx->maxmpri);
+	_KERNEL_CRE_QUE(_KERNEL_MBX_GET_QUE(mbxcb));
+	if ( pk_cmbx->mbxatr & TA_MPRI )
 	{
+		int i;
+		_KERNEL_MBX_SET_MSGQUE(mbxcb, mprihd);
+		for ( i = 0; i < pk_cmbx->maxmpri; i++ )
+		{
+			((VP *)mprihd)[i] = NULL;
+		}
 	}
 	else
 	{
-		_KERNEL_MBX_SET_MSGQUE(mbxhdl, NULL);
+		_KERNEL_MBX_SET_MSGQUE(mbxcb, NULL);
 	}
 
 	return E_OK;

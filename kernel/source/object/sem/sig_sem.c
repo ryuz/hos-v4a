@@ -4,7 +4,7 @@
  * @file  sig_sem.c
  * @brief %jp{セマフォ資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: sig_sem.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: sig_sem.c,v 1.3 2006-09-02 10:43:19 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -29,7 +29,7 @@
  */
 ER sig_sem(ID semid)
 {
-	_KERNEL_T_SEMCB      *semcb;
+	_KERNEL_T_SEMCB_PTR  semcb;
 	_KERNEL_T_TSKHDL     tskhdl;
 	_KERNEL_T_TCB        *tcb;
 	_KERNEL_SEM_T_SEMCNT semcnt;
@@ -77,7 +77,7 @@ ER sig_sem(ID semid)
 		/* %jp{キューイングオーバーフローチェック} */
 #ifdef _KERNEL_SPT_SIG_SEM_E_QOVR
 		{
-			const _KERNEL_T_SEMCB_RO *semcb_ro;
+			_KERNEL_T_SEMCB_RO_PTR semcb_ro;
 
 			semcb_ro = _KERNEL_SEM_GET_SEMCB_RO(semid, semcb);
 			if ( semcnt >= _KERNEL_SEM_GET_MAXSEM(semcb_ro) )

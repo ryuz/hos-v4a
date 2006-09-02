@@ -4,7 +4,7 @@
  * @file  acre_mbx.c
  * @brief %jp{メールボックスの生成(ID番号自動割付)}%en{Create Mailbox(ID Number Automatic Assignment)}
  *
- * @version $Id: acre_mbx.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: acre_mbx.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -45,7 +45,7 @@ ER_ID acre_mbx(const T_CMBX *pk_cmbx)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{空きID探索} */
-	for ( mbxid = _KERNEL_TMAX_MBX_ID; mbxid >= _KERNEL_TMIN_MBX_ID; mbxid-- )
+	for ( mbxid = _KERNEL_MBX_TMAX_ID; mbxid >= _KERNEL_MBX_TMIN_ID; mbxid-- )
 	{
 		if ( !_KERNEL_MBX_CHECK_EXS(mbxid) )
 		{
@@ -55,7 +55,7 @@ ER_ID acre_mbx(const T_CMBX *pk_cmbx)
 
 	/* %jp{空きID探索チェック} */
 #if _KERNEL_SPT_ACRE_SEM_E_NOID
-	if ( mbxid <= _KERNEL_TMIN_MBX_ID )
+	if ( mbxid < _KERNEL_MBX_TMIN_ID )
 	{
 		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_NOID;				/* %jp{ID番号不足}%en{No ID number available} */

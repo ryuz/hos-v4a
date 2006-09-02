@@ -4,7 +4,7 @@
  * @file  pol_sem.c
  * @brief %jp{セマフォ資源の獲得(ポーリング)}%en{Acquire Semaphore Resource(Polling)}
  *
- * @version $Id: pol_sem.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: pol_sem.c,v 1.2 2006-09-02 10:43:19 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -46,7 +46,7 @@ ER pol_sem(ID semid)
  */
 ER pol_sem(ID semid)
 {
-	_KERNEL_T_SEMCB      *semcb;
+	_KERNEL_T_SEMCB_PTR  semcb;
 	_KERNEL_SEM_T_SEMCNT semcnt;
 	ER                   ercd;
 	

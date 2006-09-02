@@ -4,7 +4,7 @@
  * @file  sig_mbx.c
  * @brief %jp{メールボックス資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: snd_mbx.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: snd_mbx.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -23,9 +23,9 @@
 /**< %jp{メールボックスへの送信} */
 ER snd_mbx(ID mbxid, T_MSG *pk_msg)
 {
-	_KERNEL_T_MBXHDL mbxhdl;
-	_KERNEL_T_TSKHDL tskhdl;
-	_KERNEL_T_TCB    *tcb;
+	_KERNEL_T_MBXCB_PTR mbxcb;
+	_KERNEL_T_TSKHDL    tskhdl;
+	_KERNEL_T_TCB       *tcb;
 	
 	/* %jp{ID のチェック} */
 #ifdef _KERNEL_SPT_SND_MBX_E_ID
@@ -46,11 +46,11 @@ ER snd_mbx(ID mbxid, T_MSG *pk_msg)
 	}
 #endif
 	
-	/* %jp{メールボックスハンドル取得} */
-	mbxhdl = _KERNEL_MBX_ID2MBXHDL(mbxid);
+	/* %jp{コントロールブロック取得} */
+	mbxcb = _KERNEL_MBX_ID2MBXCB(mbxid);
 	
 	/* %jp{待ち行列先頭からタスク取り出し} */
-	tskhdl = _kernel_rmh_que(_KERNEL_MBX_GET_QUE(mbxhdl));
+	tskhdl = _kernel_rmh_que(_KERNEL_MBX_GET_QUE(mbxcb));
 	if ( tskhdl != _KERNEL_TSKHDL_NULL )
 	{
 		T_MSG **ppk_msg;
@@ -69,7 +69,7 @@ ER snd_mbx(ID mbxid, T_MSG *pk_msg)
 	else
 	{
 		/* %jp{メールボックに追加} */
-		_kernel_add_msg(mbxhdl, pk_msg);
+		_KERNEL_MBX_ADD_MSG(mbxcb, _KERNEL_MBX_GET_MBXCB_RO(mbxid, mbxcb), pk_msg);
 	}
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */

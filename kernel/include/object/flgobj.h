@@ -4,7 +4,7 @@
  * @file  flgobj.h
  * @brief %jp{イベントフラグオジェクトのヘッダファイル}%en{Eventflag object heder file}
  *
- * @version $Id: flgobj.h,v 1.3 2006-09-02 06:10:27 ryuz Exp $
+ * @version $Id: flgobj.h,v 1.4 2006-09-02 10:43:18 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -37,28 +37,28 @@ typedef unsigned int					_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパター�
 
 #if _KERNEL_FLG_TBIT_FLGPTN <= 7 && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_B					_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 8 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_LEAST_B				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+#elif _KERNEL_FLG_TBIT_FLGPTN <= 8 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
 typedef _KERNEL_T_FAST_UB				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_UB				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_UB				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
 #elif _KERNEL_FLG_TBIT_FLGPTN <= 15 && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_H				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_H					_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 16 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_LEAST_H				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+#elif _KERNEL_FLG_TBIT_FLGPTN <= 16 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
 typedef _KERNEL_T_FAST_UH				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_UH				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_UH				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
 #elif _KERNEL_FLG_TBIT_FLGPTN <= 31 && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_W				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_W					_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 32 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_LEAST_W				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+#elif _KERNEL_FLG_TBIT_FLGPTN <= 32 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
 typedef _KERNEL_T_FAST_UW				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_UW				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_UW				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
 #elif _KERNEL_FLG_TBIT_FLGPTN <= 63 && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_D				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_D					_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_D				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
 #else
 typedef _KERNEL_T_FAST_UD				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
-typedef _KERNEL_T_OPT_UD				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_UD				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
 #endif
 
 #define _KERNEL_FLGCB_TBITDEF_FLGPTN									/**< %jp{フラグパターンのビットフィールド宣言時の幅} */
@@ -69,7 +69,7 @@ typedef _KERNEL_T_OPT_UD				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパタ�
 /* %jp{イベントフラグ属性用の型(4bit必要)} */
 #if _KERNEL_FLGCB_BITFIELD		/* %jp{FLGCBにビットフィールドを利用する場合 */
 
-#if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
+#if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_FLG_T_FLGATR;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
 typedef signed int						_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
 #define _KERNEL_FLGCB_TBITDEF_FLGATR	: 4 + 1							/**< %jp{イベントフラグ属性のビットフィールド宣言時の幅} */
@@ -83,10 +83,10 @@ typedef unsigned int					_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフラ�
 
 #if _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_FLG_T_FLGATR;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
-typedef _KERNEL_T_OPT_B					_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_B				_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
 #else
 typedef _KERNEL_T_FAST_UB				_KERNEL_FLG_T_FLGATR;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
-typedef _KERNEL_T_OPT_UB				_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_UB				_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
 #endif
 
 #define _KERNEL_FLGCB_TBITDEF_FLGATR									/**< %jp{イベントフラグ属性のビットフィールド宣言時の幅} */
@@ -104,10 +104,10 @@ typedef struct _kernel_t_flginf
 
 
 /* ------------------------------------------ */
-/*  Eventflag control block                   */
+/*  Control block                             */
 /* ------------------------------------------ */
 
-#if _KERNEL_FLGCB_ROM
+#if _KERNEL_FLGCB_SPLIT_RO
 
 
 /** %jp{イベントフラグコントロールブロック(リードオンリー部)}%en{Eventflag Control Block(read-only)} */
@@ -116,7 +116,7 @@ typedef struct _kernel_t_flgcb_ro
 #if _KERNEL_FLGCB_FLGATR
 	_KERNEL_FLGCB_T_FLGATR	flgatr		_KERNEL_FLGCB_TBITDEF_FLGPTN;		/**< %jp{イベントフラグ属性} */
 #endif
-} _KERNEL_FLGCB_T_ROM;
+} _KERNEL_FLGCB_T_RO;
 
 /** %jp{イベントフラグコントロールブロック}%en{Eventflag Control Block} */
 typedef struct _kernel_t_flgcb
@@ -226,7 +226,7 @@ extern  _KERNEL_T_FLGCB					*_kernel_flgcb_tbl[];									/**< %jp{イベント�
 
 
 /* que */
-#define _KERNEL_FLG_GET_QUE(flgcb)			(&(flgcb)->que)
+#define _KERNEL_FLG_GET_QUE(flgcb)				(&(flgcb)->que)
 
 /* flgptn */
 #if _KERNEL_FLGCB_FLGPTN

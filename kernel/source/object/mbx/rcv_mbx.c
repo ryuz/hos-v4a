@@ -4,7 +4,7 @@
  * @file  sig_mbx.c
  * @brief %jp{メールボックス資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: rcv_mbx.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: rcv_mbx.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -23,11 +23,11 @@
 /**< %jp{メールボックスへの送信} */
 ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 {
-	_KERNEL_T_MBXHDL mbxhdl;
-	_KERNEL_T_TSKHDL tskhdl;
-	_KERNEL_T_TCB    *tcb;
-	T_MSG            *pk_msg;
-	ER               ercd;
+	_KERNEL_T_MBXCB_PTR mbxcb;
+	_KERNEL_T_TSKHDL    tskhdl;
+	_KERNEL_T_TCB       *tcb;
+	T_MSG               *pk_msg;
+	ER                  ercd;
 
 	/* %jp{ID のチェック} */
 #ifdef _KERNEL_SPT_SIG_MBX_E_ID
@@ -48,11 +48,11 @@ ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 	}
 #endif
 	
-	/* %jp{メールボックスハンドル取得} */
-	mbxhdl = _KERNEL_MBX_ID2MBXHDL(mbxid);
+	/* %jp{コントロールブロック取得} */
+	mbxcb = _KERNEL_MBX_ID2MBXCB(mbxid);
 	
 	/* %jp{メッセージキューから取り出し} */
-	pk_msg = _kernel_rmv_msg(mbxhdl);
+	pk_msg = _KERNEL_MBX_RMV_MSG(mbxcb, _KERNEL_MBX_GET_MBXCB_RO(mbxid, mbxcb));
 
 	if ( pk_msg != NULL )
 	{
@@ -70,7 +70,7 @@ ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 		_KERNEL_TSK_SET_DATA(tcb, (VP_INT)ppk_msg);
 		
 		_KERNEL_DSP_WAI_TSK(tskhdl);
-		_KERNEL_MBX_ADD_QUE(mbxhdl, tskhdl);				/* %jp{待ち行列に追加} */
+		_KERNEL_MBX_ADD_QUE(mbxcb, _KERNEL_MBX_GET_MBXCB_RO(flgid, mbxcb), tskhdl);		/* %jp{待ち行列に追加} */
 		
 		/* %jp{タスクディスパッチの実行} */
 		_KERNEL_DSP_TSK();
@@ -91,7 +91,7 @@ ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 #if _KERNEL_SPT_RCV_MBX_E_NOSPT
 
 
-ER snd_mbx(ID mbxid)
+ER rcv_mbx(ID mbxid)
 {
 	return E_NOSPT;
 }
