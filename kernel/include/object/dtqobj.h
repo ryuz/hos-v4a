@@ -4,7 +4,7 @@
  * @file  dtqobj.h
  * @brief %jp{データキュージェクトのヘッダファイル}%en{Data queue object heder file}
  *
- * @version $Id: dtqobj.h,v 1.2 2006-08-20 10:35:08 ryuz Exp $
+ * @version $Id: dtqobj.h,v 1.3 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -297,7 +297,7 @@ extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 
 /* dtq */
 #if _KERNEL_DTQCB_DTQ
-#define _KERNEL_DTQ_SET_DTQ(dtqcb_ro, x)	do { (dtqcb_ro)->dtqcnt = (_KERNEL_DTQCB_T_DTQ)(x); } while (0)
+#define _KERNEL_DTQ_SET_DTQ(dtqcb_ro, x)	do { (dtqcb_ro)->dtq = (VP_INT *)(x); } while (0)
 #define _KERNEL_DTQ_GET_DTQ(dtqcb_ro)		((VP_INT *)(dtqcb_ro)->dtq)
 #else
 #define _KERNEL_DTQ_SET_DTQ(dtqcb_ro, x)	do { } while (0)

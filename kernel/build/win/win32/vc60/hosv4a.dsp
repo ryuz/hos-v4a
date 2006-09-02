@@ -659,6 +659,10 @@ SOURCE=..\..\..\..\source\object\dtq\fsnd_dtq.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\dtq\kcre_dtq.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\dtq\rcv_dtq.c
 # End Source File
 # Begin Source File

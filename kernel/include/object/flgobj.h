@@ -4,7 +4,7 @@
  * @file  flgobj.h
  * @brief %jp{イベントフラグオジェクトのヘッダファイル}%en{Eventflag object heder file}
  *
- * @version $Id: flgobj.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: flgobj.h,v 1.2 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -94,6 +94,14 @@ typedef _KERNEL_T_OPT_UB				_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフ�
 #endif
 
 
+/** %jp{待ちフラグ情報構造体} */
+typedef struct _kernel_t_flginf
+{
+	MODE   wfmode;		/**< %jp{待ちモード} */
+	FLGPTN waiptn;		/**< %jp{待ちビットパターン（解除時パターンと兼用)} */
+} _KERNEL_T_FLGINF;
+
+
 
 /* ------------------------------------------ */
 /*  Eventflag control block                   */
@@ -101,16 +109,16 @@ typedef _KERNEL_T_OPT_UB				_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフ�
 
 #if _KERNEL_FLGCB_ROM
 
-/** %jp{イベントフラグコントロールブロック(ROM部)} */
-typedef struct _kernel_t_flgcb_rom
+
+/** %jp{イベントフラグコントロールブロック(リードオンリー部)}%en{Eventflag Control Block(read-only)} */
+typedef struct _kernel_t_flgcb_ro
 {
 #if _KERNEL_FLGCB_FLGATR
 	_KERNEL_FLGCB_T_FLGATR	flgatr		_KERNEL_FLGCB_TBITDEF_FLGPTN;		/**< %jp{イベントフラグ属性} */
 #endif
 } _KERNEL_FLGCB_T_ROM;
 
-
-/** %jp{イベントフラグコントロールブロック(RAM部)} */
+/** %jp{イベントフラグコントロールブロック}%en{Eventflag Control Block} */
 typedef struct _kernel_t_flgcb
 {
 #if _KERNEL_FLGCB_QUE
@@ -142,60 +150,62 @@ typedef struct _kernel_t_flgcb
 #endif
 } _KERNEL_T_FLGCB;
 
+typedef _KERNEL_T_FLGCB		_KERNEL_T_FLGCB_RO;
+
+
 #endif
 
 
-/** %jp{待ちフラグ情報構造体} */
-typedef struct _kernel_t_flginf
-{
-	MODE   wfmode;		/**< %jp{待ちモード} */
-	FLGPTN waiptn;		/**< %jp{待ちビットパターン（解除時パターンと兼用)} */
-} _KERNEL_T_FLGINF;
+
+/* ------------------------------------------ */
+/*  ID range                                  */
+/* ------------------------------------------ */
+
+extern const ID							_kernel_max_flgid;										/**< %jp{イベントフラグIDの最大値} */
+
+#define _KERNEL_FLG_TMIN_ID				1														/**< %jp{イベントフラグIDの最小値} */
+#define _KERNEL_FLG_TMAX_ID				(_kernel_max_flgid)										/**< %jp{イベントフラグIDの最大値} */
+
+#define _KERNEL_FLG_CHECK_FLGID(flgid)	((flgid) >= _KERNEL_FLG_TMIN_ID && (flgid) <= _KERNEL_FLG_TMAX_ID)
 
 
-/* Eventflag handle */
-typedef _KERNEL_T_FLGCB*				_KERNEL_T_FLGHDL;
+
+/* ------------------------------------------ */
+/*  Control block tables                      */
+/* ------------------------------------------ */
 
 
+#if _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY
+#if _KERNEL_FLGCB_SPLIT_RO
 
-#if _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY			/* block array */
+/* %jp{ブロック配列管理でRO分離の場合}%en{block array} */
+extern  _KERNEL_T_FLGCB					_kernel_flgcb_tbl[];									/**< %jp{イベントフラグコントロールブロックテーブル} */
+extern const _KERNEL_T_FLGCB_RO			_kernel_flgcb_ro_tbl[];									/**< %jp{イベントフラグコントロールブロック(リードオンリー部)テーブル} */
+#define _KERNEL_FLG_ID2FLGCB(flgid)		(&_kernel_flgcb_tbl[(flgid) - _KERNEL_FLG_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
+#define _KERNEL_FLG_CHECK_EXS(flgid)	(_kernel_flgcb_ro_tbl[(flgid) - _KERNEL_FLG_TMIN_ID].flgatr & _KERNEL_FLG_TA_CRE)
+																								/**< %jp{オブジェクトの存在チェック} */
+#define _KERNEL_FLG_TA_CRE				0x08													/**< %jp{flgatrのビットに生成済みbitを割り当て} */
 
-extern const ID							_kernel_max_flgid;					/** %jp{イベントフラグコントロールブロック個数} */
-extern       _KERNEL_T_FLGCB			_kernel_flgcb_tbl[];				/** %jp{イベントフラグコントロールブロックテーブル} */
+#else
 
-#define _KERNEL_FLG_ID2FLGCB(flgid)		(&_kernel_flgcb_tbl[(flgid) - _KERNEL_TMIN_FLG_ID])
-#define _KERNEL_FLG_ID2FLGHDL(flgid)	_KERNEL_FLG_ID2FLGCB(flgid)
+/* %jp{ブロック配列管理の場合}%en{block array} */
+extern  _KERNEL_T_FLGCB					_kernel_flgcb_tbl[];									/**< %jp{イベントフラグコントロールブロックテーブル} */
+#define _KERNEL_FLG_ID2FLGCB(flgid)		(&_kernel_flgcb_tbl[(flgid) - _KERNEL_FLG_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
+#define _KERNEL_FLG_CHECK_EXS(flgid)	(_kernel_flgcb_tbl[(flgid) - _KERNEL_FLG_TMIN_ID].flgatr & _KERNEL_FLG_TA_CRE)
+																								/**< %jp{オブジェクトの存在チェック} */
+#define _KERNEL_FLG_TA_CRE				0x08													/**< %jp{flgatrのビットに生成済みbitを割り当て} */
 
+#endif
 
-/* %jp{オブジェクトの存在チェック} */
-#define _KERNEL_FLG_CHECK_EXS(flgid)	(_KERNEL_FLG_ID2FLGCB(flgid)->flgatr & _KERNEL_FLG_TA_CRE)
-#define _KERNEL_FLG_TA_CRE				0x08
+#elif _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_PTRARRAY
 
-
-#elif _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_PTRARRAY		/* pointer array */
-
-extern const ID					_kernel_max_flgid;					/** %jp{イベントフラグコントロールブロック個数} */
-extern       _KERNEL_T_FLGCB	*_kernel_flgcb_tbl[];				/** %jp{イベントフラグコントロールブロックテーブル} */
-
-#define _KERNEL_FLG_ID2FLGCB(flgid)		(_kernel_flgcb_tbl[(flgid) - _KERNEL_TMIN_FLG_ID])
-#define _KERNEL_FLG_ID2FLGHDL(flgid)	_KERNEL_FLG_ID2FLGCB(flgid)
-																	/** %jp{イベントフラグIDからFLGCB アドレスを取得} */
-
-/* %jp{オブジェクトの存在チェック} */
-#define _KERNEL_FLG_CHECK_EXS(flgid)	(_KERNEL_FLG_ID2FLGCB(flgid) != NULL)
+/* %jp{ポインタ配列管理の場合}%en{pointer array} */
+extern  _KERNEL_T_FLGCB					*_kernel_flgcb_tbl[];									/**< %jp{イベントフラグコントロールブロックテーブル} */
+#define _KERNEL_FLG_ID2FLGCB(flgid)		(_kernel_flgcb_tbl[(flgid) - _KERNEL_TMIN_FLGID])		/**< %jp{イベントフラグIDからFLGCB アドレスを取得} */
+#define _KERNEL_FLG_CHECK_EXS(flgid)	(_KERNEL_FLG_ID2FLGCB(flgid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 #define _KERNEL_FLG_TA_CRE				0
 
 #endif
-
-
-/* %jp{ID範囲定義} */
-#define _KERNEL_TMIN_FLG_ID				1
-#define _KERNEL_TMAX_FLG_ID				(_kernel_max_flgid)
-
-
-/* %jp{ID範囲チェック} */
-#define _KERNEL_FLG_CHECK_FLGID(flgid)	((flgid) >= _KERNEL_TMIN_FLG_ID && (flgid) <= _KERNEL_TMAX_FLG_ID)
-
 
 
 
@@ -203,45 +213,75 @@ extern       _KERNEL_T_FLGCB	*_kernel_flgcb_tbl[];				/** %jp{イベントフラ
 /*   Accessor for FLGCB                       */
 /* ------------------------------------------ */
 
+/* flgcb_ro */
+#if !_KERNEL_FLGCB_SPLIT_RO								
+#define _KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb)	(flgcb)
+#else
+#if _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY		/* %jp{FLGCBを単純配列で管理}%en{array of block} */
+#define _KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb)	(&_kernel_flgcb_ro_tbl[(flgid)])
+#elif _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_PTRARRAY		/* %jp{FLGCBをポインタ配列で管理}%en{array of pointer} */
+#define _KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb)	((flgcb)->flgcb_ro)
+#endif
+#endif
+
+
 /* que */
-#define _KERNEL_FLG_GET_QUE(flghdl)			(&(flghdl)->que)
+#define _KERNEL_FLG_GET_QUE(flgcb)			(&(flgcb)->que)
 
 /* flgptn */
 #if _KERNEL_FLGCB_FLGPTN
-#define _KERNEL_FLG_SET_FLGPTN(flghdl, x)	do { (flghdl)->flgptn = (_KERNEL_FLGCB_T_FLGPTN)(x); } while (0)
-#define _KERNEL_FLG_GET_FLGPTN(flghdl)		((_KERNEL_FLG_T_FLGPTN)(flghdl)->flgptn)
+#define _KERNEL_FLG_SET_FLGPTN(flgcb, x)		do { (flgcb)->flgptn = (_KERNEL_FLGCB_T_FLGPTN)(x); } while (0)
+#define _KERNEL_FLG_GET_FLGPTN(flgcb)			((_KERNEL_FLG_T_FLGPTN)(flgcb)->flgptn)
 #else
-#define _KERNEL_FLG_SET_FLGPTN(flghdl, x)	do { } while (0)
-#define _KERNEL_FLG_GET_FLGPTN(flghdl)		(0)
+#define _KERNEL_FLG_SET_FLGPTN(flgcb, x)		do { } while (0)
+#define _KERNEL_FLG_GET_FLGPTN(flgcb)			(0)
 #endif
 
 /* flgatr */
 #if _KERNEL_FLGCB_FLGATR
-#define _KERNEL_FLG_SET_FLGATR(flghdl, x)	do { (flghdl)->flgatr = (_KERNEL_FLGCB_T_FLGATR)(x); } while (0)
-#define _KERNEL_FLG_GET_FLGATR(flghdl)		((_KERNEL_FLG_T_FLGATR)(flghdl)->flgatr)
+#define _KERNEL_FLG_SET_FLGATR(flgcb_ro, x)		do { (flgcb_ro)->flgatr = (_KERNEL_FLGCB_T_FLGATR)(x); } while (0)
+#define _KERNEL_FLG_GET_FLGATR(flgcb_ro)		((_KERNEL_FLG_T_FLGATR)(flgcb_ro)->flgatr)
 #else
-#define _KERNEL_FLG_SET_FLGATR(flghdl, x)	do { } while (0)
+#define _KERNEL_FLG_SET_FLGATR(flgcb_ro, x)		do { } while (0)
 #if _KERNEL_SPT_FLG_TA_TFIFO
-#define _KERNEL_FLG_GET_FLGATR(flghdl)		(TA_TFIFO)
+#define _KERNEL_FLG_GET_FLGATR(flgcb_ro)		(TA_TFIFO)
 #else
-#define _KERNEL_FLG_GET_FLGATR(flghdl)		(TA_TPRI)
+#define _KERNEL_FLG_GET_FLGATR(flgcb_ro)		(TA_TPRI)
 #endif
 #endif
 
+
+
+/* ------------------------------------------ */
+/*   Macro functions                          */
+/* ------------------------------------------ */
 
 /* %jp{キュー接続} */
 #if _KERNEL_SPT_FLG_TA_TFIFO && _KERNEL_SPT_FLG_TA_TPRI		/* %jp{TA_TFIFO と TA_TPRI の混在 } */
-#define _KERNEL_FLG_ADD_QUE(flghdl, tskhdl)		_kernel_add_que(_KERNEL_FLG_GET_QUE(flghdl), tskhdl, _KERNEL_FLG_GET_FLGATR(flghdl))
-#elif _KERNEL_SPT_FLG_TA_TFIFO && !_KERNEL_SPT_FLG_TA_TPRI	/* %jp{TA_TFIFO のみ利用 } */
-#define _KERNEL_FLG_ADD_QUE(flghdl, tskhdl)		_kernel_adf_que(_KERNEL_FLG_GET_QUE(flghdl), tskhdl)
+#define _KERNEL_FLG_ADD_QUE(flgcb, flgcb_ro, tskhdl)	_KERNEL_ADD_QUE(_KERNEL_FLG_GET_QUE(flgcb), tskhdl, _KERNEL_FLG_GET_FLGATR(flgcb_ro))
+#elif _KERNEL_SPT_FLG_TA_TFIFO && !_KERNEL_SPT_SE_TA_TPRI	/* %jp{TA_TFIFO のみ利用 } */
+#define _KERNEL_FLG_ADD_QUE(flgcb, flgcb_ro, tskhdl)	_KERNEL_ADF_QUE(_KERNEL_FLG_GET_QUE(flgcb), tskhdl)
 #elif !_KERNEL_SPT_FLG_TA_TFIFO && _KERNEL_SPT_FLG_TA_TPRI	/* %jp{TA_TPRI のみ利用 } */
-#define _KERNEL_FLG_ADD_QUE(flghdl, tskhdl)		_kernel_adp_que(_KERNEL_FLG_GET_QUE(flghdl), tskhdl)
+#define _KERNEL_FLG_ADD_QUE(flgcb, flgcb_ro, tskhdl)	_KERNEL_ADP_QUE(_KERNEL_FLG_GET_QUE(flgcb), tskhdl)
 #else
 #error error:_KERNEL_SPT_FLG_TA_TPRI and _KERNEL_SPT_FLG_TA_TFIFO
 #endif
 
-/* %jp{タイムアウトキュー解除} */
+/* %jp{キュー取り外し} */
+#define _KERNEL_FLG_RMV_QUE(flgcb, tskhdl)	_KERNEL_RMV_QUE(_KERNEL_FLG_GET_QUE(flgcb), tskhdl)
+
+/* %jp{キュー先頭取り出し} */
+#define _KERNEL_FLG_RMH_QUE(flgcb)			_KERNEL_RMH_QUE(_KERNEL_FLG_GET_QUE(flgcb))
+
+/* %jp{タイムアウトキュー接続} */
 #if _KERNEL_SPT_TWAI_FLG	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
+#define _KERNEL_SEM_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
+#else
+#define _KERNEL_SEM_ADD_TOQ(tskhdl)			do { } while (0)
+#endif
+
+/* %jp{タイムアウトキュー解除} */
+#if _KERNEL_SPT_TWAI_FLG	/* %jp{twai_flgサポート時はタイムアウトキューも考慮する} */
 #define _KERNEL_FLG_RMV_TOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
 #else
 #define _KERNEL_FLG_RMV_TOQ(tskhdl)			do { } while (0)
@@ -249,12 +289,16 @@ extern       _KERNEL_T_FLGCB	*_kernel_flgcb_tbl[];				/** %jp{イベントフラ
 
 
 
+/* ------------------------------------------ */
+/*   Functions                                */
+/* ------------------------------------------ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 ER   _kernel_cre_flg(ID flgid, const T_CFLG *pk_cflg);
-BOOL _kernel_chk_flg(_KERNEL_T_FLGHDL flghdl, _KERNEL_T_FLGINF *pk_flginf);
+BOOL _kernel_chk_flg(_KERNEL_T_FLGCB *flgcb, _KERNEL_T_FLGINF *pk_flginf);
 
 #ifdef __cplusplus
 }
