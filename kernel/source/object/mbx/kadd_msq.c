@@ -4,7 +4,7 @@
  * @file  kadd_msq.c
  * @brief %jp{メッセージキューへのメッセージ追加}
  *
- * @version $Id: kadd_msg.c,v 1.3 2006-09-02 15:03:17 ryuz Exp $
+ * @version $Id: kadd_msq.c,v 1.1 2006-09-02 15:03:08 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/

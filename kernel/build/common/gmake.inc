@@ -84,8 +84,12 @@ CSRCS += $(DSP_DIR)/ent_tsk.c		\
          $(MBXOBJ_DIR)/kcre_mbx.c	\
          $(MBXOBJ_DIR)/snd_mbx.c	\
          $(MBXOBJ_DIR)/rcv_mbx.c	\
-         $(MBXOBJ_DIR)/kadd_msg.c	\
-         $(MBXOBJ_DIR)/krmv_msg.c	\
+         $(MBXOBJ_DIR)/kadf_msg.c	\
+         $(MBXOBJ_DIR)/kadp_msg.c	\
+         $(MBXOBJ_DIR)/kadd_msq.c	\
+         $(MBXOBJ_DIR)/krmf_msg.c	\
+         $(MBXOBJ_DIR)/krmp_msg.c	\
+         $(MBXOBJ_DIR)/krmv_msq.c	\
          $(MPFOBJ_DIR)/acre_mpf.c	\
          $(MPFOBJ_DIR)/kcre_mpf.c	\
          $(MPFOBJ_DIR)/get_mpf.c	\

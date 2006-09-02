@@ -4,7 +4,7 @@
  * @file  kcre_mbx.c
  * @brief %jp{メールボックスの生成}%en{Create Eventflag}
  *
- * @version $Id: kcre_mbx.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
+ * @version $Id: kcre_mbx.c,v 1.3 2006-09-02 15:03:17 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -64,8 +64,8 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 		}
 #endif
 		/* %jp{メモリ割り当て} */
-		mbxcb  = (_KERNEL_T_MBXCB *)mem;
-		mbx_ro = (_KERNEL_T_MBXCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)));
+		mbxcb    = (_KERNEL_T_MBXCB *)mem;
+		mbxcb_ro = (_KERNEL_T_MBXCB_RO *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)));
 		if ( pk_cmbx->mprihd == NULL )
 		{
 			mprihd = (VP)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)) + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB_RO)));
@@ -74,8 +74,8 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 		{
 			mprihd = pk_cmbx->mprihd;
 		}
-		mbxcb ->mbxcb_ro = mbx_ro
-		_KERNEL_TSK_ID2MBXCB(mbxid) = mbxcb;
+		mbxcb->mbxcb_ro = mbxcb_ro;
+		_KERNEL_MBX_ID2MBXCB(mbxid) = mbxcb;
 	}
 #else
 	{

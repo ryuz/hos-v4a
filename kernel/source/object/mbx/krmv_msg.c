@@ -4,7 +4,7 @@
  * @file  sig_mbx.c
  * @brief %jp{メールボックス資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: krmv_msg.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
+ * @version $Id: krmv_msg.c,v 1.3 2006-09-02 15:03:17 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -19,12 +19,12 @@
 static T_MSG *_kernel_rmv_mque(T_MSG **ppk_msgque);		
 
 
-T_MSG *_kernel_rmv_msg(_KERNEL_T_MBXCB_PTR mbxcb, _KERNEL_MBX_T_MBXATR mbxatr)
+T_MSG *_kernel_rmv_msg(_KERNEL_T_MBXCB_PTR mbxcb, _KERNEL_MBX_T_MBXATR mbxatr, _KERNEL_MBXCB_T_MPRI maxmpri)
 {
 	/* %jp{メールボックから取り出し} */
 	if ( mbxatr & TA_MPRI )
 	{
-		return _kernel_rmp_msg(mbxcb);
+		return _kernel_rmp_msg(mbxcb, maxmpri);
 	}
 	else
 	{
@@ -49,7 +49,7 @@ T_MSG *_kernel_rmf_msg(_KERNEL_T_MBXCB_PTR mbxcb)
 }
 
 
-T_MSG *_kernel_rmp_msg(_KERNEL_T_MBXCB_PTR mbxcb)
+T_MSG *_kernel_rmp_msg(_KERNEL_T_MBXCB_PTR mbxcb, _KERNEL_MBXCB_T_MPRI maxmpri)
 {
 	_KERNEL_MBX_T_MPRI mpri;
 /*	T_MSG              *(*pppk_msgque)[];	やっぱりshcに怒られる... orz */
@@ -58,7 +58,7 @@ T_MSG *_kernel_rmp_msg(_KERNEL_T_MBXCB_PTR mbxcb)
 	/* %jp{メッセージキューの配列として取得} */
 	pppk_msgque = (T_MSG ***)_KERNEL_MBX_GET_MSGQUE(mbxcb);
 
-	for ( mpri = TMIN_MPRI; mpri < _KERNEL_MBX_GET_MAXMPRI(mbxcb); mpri++ )
+	for ( mpri = TMIN_MPRI; mpri < maxmpri; mpri++ )
 	{
 		if ( (*pppk_msgque)[mpri] != NULL )
 		{

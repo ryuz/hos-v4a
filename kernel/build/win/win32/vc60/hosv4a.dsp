@@ -615,7 +615,19 @@ SOURCE=..\..\..\..\source\object\mbx\kcre_mbx.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\mbx\krmf_msg.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mbx\krmp_msg.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\mbx\krmv_msg.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mbx\krmv_msq.c
 # End Source File
 # Begin Source File
 
@@ -680,5 +692,13 @@ SOURCE=..\..\..\..\source\arch\proc\win\win32\ctxctl.c
 # End Source File
 # End Group
 # End Group
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mbx\kadf_msg.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mbx\kadp_msg.c
+# End Source File
 # End Target
 # End Project
