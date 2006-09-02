@@ -4,7 +4,7 @@
  * @file  pol_flg.c
  * @brief %jp{イベントフラグ待ち(ポーリング)}%en{Wait for Eventflag(Polling)}
  *
- * @version $Id: pol_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: pol_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -56,9 +56,9 @@ ER pol_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
  */
 ER pol_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 {
-	_KERNEL_T_FLGINF flginf;
-	_KERNEL_T_FLGHDL flghdl;
-	ER               ercd;
+	_KERNEL_T_FLGCB          *flgcb;
+	_KERNEL_T_FLGINF         flginf;
+	ER                       ercd;
 
 	/* %jp{ID のチェック} */
 #ifdef _KERNEL_SPT_POL_FLG_E_ID
@@ -79,23 +79,24 @@ ER pol_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 	}
 #endif
 	
-	/* %jp{イベントフラグハンドル取得} */
-	flghdl = _KERNEL_FLG_ID2FLGHDL(flgid);
-
+	
+	/* %jp{コントロールブロック取得} */
+	flgcb = _KERNEL_FLG_ID2FLGCB(flgid);
+	
 	/* %jp{待ち条件設定} */
 	flginf.waiptn = waiptn;
 	flginf.wfmode = wfmode;
 	
 	/* %jp{フラグチェック} */
-	if ( _kernel_chk_flg(flghdl, &flginf) )
+	if ( _kernel_chk_flg(flgcb, &flginf) )
 	{
 		/* %jp{既に条件を満たしているなら} */
-		*p_flgptn = _KERNEL_FLG_GET_FLGPTN(flghdl);		/* %jp{解除時のフラグパターンを格納} */
+		*p_flgptn = _KERNEL_FLG_GET_FLGPTN(flgcb);			/* %jp{解除時のフラグパターンを格納} */
 
 #if _KERNEL_SPT_FLG_TA_CLR
-		if ( _KERNEL_FLG_GET_FLGATR(flghdl) & TA_CLR )
+		if ( _KERNEL_FLG_GET_FLGATR(_KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb)) & TA_CLR )
 		{
-			_KERNEL_FLG_SET_FLGPTN(flghdl, 0);			/* %jp{クリア属性があればクリア} */
+			_KERNEL_FLG_SET_FLGPTN(flgcb, 0);		/* %jp{クリア属性があればクリア} */
 		}
 #endif
 		

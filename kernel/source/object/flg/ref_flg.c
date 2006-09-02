@@ -4,7 +4,7 @@
  * @file  ref_flg.c
  * @brief %jp{イベントフラグの状態参照}%en{Reference Semaphore State}
  *
- * @version $Id: ref_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: ref_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -30,7 +30,7 @@
  */
 ER ref_flg(ID flgid, T_RFLG *pk_rflg)
 {
-	_KERNEL_T_FLGHDL flghdl;
+	_KERNEL_T_FLGCB *flgcb;
 	
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_REF_FLG_E_ID
@@ -58,14 +58,14 @@ ER ref_flg(ID flgid, T_RFLG *pk_rflg)
 	}
 #endif
 
-	/* %jp{イベントフラグハンドル取得} */
-	flghdl = _KERNEL_FLG_ID2FLGHDL(flgid);
+	/* %jp{コントロールブロック取得} */
+	flgcb = _KERNEL_FLG_ID2FLGCB(flgid);
 	
 	/* %jp{情報取得} */
-	pk_rflg->wtskid = _KERNEL_TSK_GET_TSKID(_KERNEL_REF_QUE(_KERNEL_FLG_GET_QUE(flghdl)));
-	pk_rflg->flgptn = _KERNEL_FLG_GET_FLGPTN(flghdl);
+	pk_rflg->wtskid = _KERNEL_TSK_GET_TSKID(_KERNEL_REF_QUE(_KERNEL_FLG_GET_QUE(flgcb)));
+	pk_rflg->flgptn = _KERNEL_FLG_GET_FLGPTN(flgcb);
 	
-	_KERNEL_LEAVE_SVC();	/* %jp{オブジェクト未生成}%en{Non-existant object} */
+	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 	
 	return E_OK;
 }

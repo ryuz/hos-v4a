@@ -4,7 +4,7 @@
  * @file  semobj.h
  * @brief %jp{セマフォオジェクトのヘッダファイル}%en{Semaphore object heder file}
  *
- * @version $Id: semobj.h,v 1.2 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: semobj.h,v 1.3 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -89,6 +89,7 @@ typedef _KERNEL_T_LEAST_UB				_KERNEL_SEMCB_T_SEMATR;
 
 #if _KERNEL_SEMCB_SPLIT_RO
 
+
 /** %jp{セマフォコントロールブロック(リードオンリー部)}%en{Semaphore Control Block(read-only)} */
 typedef struct _kernel_t_semcb_ro
 {
@@ -143,6 +144,7 @@ typedef struct _kernel_t_semcb
 } _KERNEL_T_SEMCB;
 
 typedef _KERNEL_T_SEMCB		_KERNEL_T_SEMCB_RO;
+
 
 #endif
 

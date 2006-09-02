@@ -4,7 +4,7 @@
  * @file  flgobj.h
  * @brief %jp{イベントフラグオジェクトのヘッダファイル}%en{Eventflag object heder file}
  *
- * @version $Id: flgobj.h,v 1.2 2006-09-02 06:08:27 ryuz Exp $
+ * @version $Id: flgobj.h,v 1.3 2006-09-02 06:10:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -275,9 +275,9 @@ extern  _KERNEL_T_FLGCB					*_kernel_flgcb_tbl[];									/**< %jp{イベント�
 
 /* %jp{タイムアウトキュー接続} */
 #if _KERNEL_SPT_TWAI_FLG	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_SEM_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
+#define _KERNEL_FLG_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
 #else
-#define _KERNEL_SEM_ADD_TOQ(tskhdl)			do { } while (0)
+#define _KERNEL_FLG_ADD_TOQ(tskhdl)			do { } while (0)
 #endif
 
 /* %jp{タイムアウトキュー解除} */

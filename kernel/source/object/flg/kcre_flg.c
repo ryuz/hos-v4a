@@ -4,7 +4,7 @@
  * @file  kcre_flg.c
  * @brief %jp{イベントフラグの生成}%en{Create Eventflag}
  *
- * @version $Id: kcre_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: kcre_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -34,35 +34,10 @@
  */
 ER _kernel_cre_flg(ID flgid, const T_CFLG *pk_cflg)
 {
-	_KERNEL_T_FLGHDL flghdl;
+	_KERNEL_T_FLGCB    *flgcb;
 	
 	/* %jp{メモリ確保}%en{get memory} */
 #if _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_PTRARRAY
-#if _KERNEL_FLGCB_ROM
-	{
-		/* %jp{TCB領域がポインタ管理で、ROM/RAM分離の場合} */
-		VP   mem;
-		SIZE memsz;
-
-		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_FLGCB))
-					+ _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_FLGCB_ROM));
-
-		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
-
-#if _KERNEL_SPT_KCRE_FLG_E_NOMEM
-		if ( mem == NULL )
-		{
-			return E_NOMEM;
-		}
-#endif
-
-		/* %jp{メモリ割り当て} */
-		_KERNEL_TSK_ID2FLGCB(flgid)           = (_KERNEL_T_FLGCB *)mem;
-		_KERNEL_TSK_ID2FLGCB(flgid)->flgcbrom = (_KERNEL_T_FLGCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_FLGCB)));
-	}
-#else
 	{
 		VP   mem;
 		
@@ -77,16 +52,19 @@ ER _kernel_cre_flg(ID flgid, const T_CFLG *pk_cflg)
 #endif
 
 		/* %jp{メモリ割り当て} */
-		_KERNEL_SEM_ID2FLGCB(flgid) = (_KERNEL_T_FLGCB *)mem;
+		flgcb = (_KERNEL_T_FLGCB *)mem;
+		_KERNEL_SEM_ID2FLGCB(flgid) = flgcb;
 	}
-#endif
+#else
+	{
+		flgcb = _KERNEL_FLG_ID2FLGCB(flgid);
+	}
 #endif
 
 	/* %jp{オブジェクト生成} */
-	flghdl = _KERNEL_FLG_ID2FLGHDL(flgid);
-	_KERNEL_FLG_SET_FLGATR(flghdl, pk_cflg->flgatr | _KERNEL_FLG_TA_CRE);
-	_KERNEL_CRE_QUE(_KERNEL_FLG_GET_QUE(flghdl));
-	_KERNEL_FLG_SET_FLGPTN(flghdl, pk_cflg->iflgptn);
+	_KERNEL_FLG_SET_FLGATR(flgcb, pk_cflg->flgatr | _KERNEL_FLG_TA_CRE);
+	_KERNEL_CRE_QUE(_KERNEL_FLG_GET_QUE(flgcb));
+	_KERNEL_FLG_SET_FLGPTN(flgcb, pk_cflg->iflgptn);
 
 	return E_OK;
 }

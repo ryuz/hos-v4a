@@ -4,7 +4,7 @@
  * @file  clr_flg.c
  * @brief %jp{イベントフラグのクリア}%en{Clear Eventflag}
  *
- * @version $Id: clr_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: clr_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -30,7 +30,7 @@
  */
 ER clr_flg(ID flgid, FLGPTN clrptn)
 {
-	_KERNEL_T_FLGHDL flghdl;
+	_KERNEL_T_FLGCB *flgcb;
 	
 	/* %jp{ID のチェック} */
 #ifdef _KERNEL_SPT_CLR_FLG_E_ID
@@ -51,15 +51,16 @@ ER clr_flg(ID flgid, FLGPTN clrptn)
 	}
 #endif
 	
-	flghdl = _KERNEL_FLG_ID2FLGHDL(flgid);
+	/* %jp{コントロールブロック取得} */
+	flgcb = _KERNEL_FLG_ID2FLGCB(flgid);
 	
 	/* フラグクリア */
-	_KERNEL_FLG_SET_FLGPTN(flghdl, _KERNEL_FLG_GET_FLGPTN(flghdl) & clrptn);
+	_KERNEL_FLG_SET_FLGPTN(flgcb, _KERNEL_FLG_GET_FLGPTN(flgcb) & clrptn);
 
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
 	
-	return E_OK;	/* 成功 */
+	return E_OK;	/* %jp{成功} */
 }
 
 

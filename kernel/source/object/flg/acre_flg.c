@@ -4,7 +4,7 @@
  * @file  acre_flg.c
  * @brief %jp{イベントフラグの生成(ID番号自動割付)}%en{Create Eventflag(ID Number Automatic Assignment)}
  *
- * @version $Id: acre_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: acre_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -46,7 +46,7 @@ ER_ID acre_flg(const T_CFLG *pk_cflg)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{空きID探索} */
-	for ( flgid = _KERNEL_TMAX_FLG_ID; flgid >= _KERNEL_TMIN_FLG_ID; flgid-- )
+	for ( flgid = _KERNEL_FLG_TMAX_ID; flgid >= _KERNEL_FLG_TMIN_ID; flgid-- )
 	{
 		if ( !_KERNEL_FLG_CHECK_EXS(flgid) )
 		{
@@ -56,7 +56,7 @@ ER_ID acre_flg(const T_CFLG *pk_cflg)
 
 	/* %jp{空きID探索チェック} */
 #if _KERNEL_SPT_ACRE_SEM_E_NOID
-	if ( flgid <= _KERNEL_TMIN_FLG_ID )
+	if ( flgid < _KERNEL_FLG_TMIN_ID )
 	{
 		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_NOID;				/* %jp{ID番号不足}%en{No ID number available} */

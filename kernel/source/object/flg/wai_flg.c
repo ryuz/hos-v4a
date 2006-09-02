@@ -4,7 +4,7 @@
  * @file  wai_flg.c
  * @brief %jp{イベントフラグ待ち}%en{Wait for Eventflag}
  *
- * @version $Id: wai_flg.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: wai_flg.c,v 1.3 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -58,8 +58,8 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
  */
 ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 {
+	_KERNEL_T_FLGCB  *flgcb;
 	_KERNEL_T_FLGINF flginf;
-	_KERNEL_T_FLGHDL flghdl;
 	_KERNEL_T_TSKHDL tskhdl;
 	_KERNEL_T_TCB    *tcb;
 	ER               ercd;
@@ -91,11 +91,12 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 	}
 #endif
 	
-	/* %jp{イベントフラグハンドル取得} */
-	flghdl = _KERNEL_FLG_ID2FLGHDL(flgid);
+	/* %jp{コントロールブロック取得} */
+	flgcb = _KERNEL_FLG_ID2FLGCB(flgid);
 
 #if _KERNEL_SPT_WAI_FLG_E_ILUSE
-	if ( !(_KERNEL_FLG_GET_FLGATR(flghdl) & TA_WMUL) && _KERNEL_REF_QUE(_KERNEL_FLG_GET_QUE(flghdl)) != _KERNEL_TSKHDL_NULL )
+	if ( !(_KERNEL_FLG_GET_FLGATR(_KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb)) & TA_WMUL)
+			&& _KERNEL_REF_QUE(_KERNEL_FLG_GET_QUE(flgcb)) != _KERNEL_TSKHDL_NULL )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
 		return E_ILUSE;
@@ -107,15 +108,15 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 	flginf.wfmode = wfmode;
 	
 	/* %jp{フラグチェック} */
-	if ( _kernel_chk_flg(flghdl, &flginf) )
+	if ( _kernel_chk_flg(flgcb, &flginf) )
 	{
 		/* %jp{既に条件を満たしているなら} */
-		*p_flgptn = _KERNEL_FLG_GET_FLGPTN(flghdl);		/* %jp{解除時のフラグパターンを格納} */
+		*p_flgptn = _KERNEL_FLG_GET_FLGPTN(flgcb);		/* %jp{解除時のフラグパターンを格納} */
 
 #if _KERNEL_SPT_FLG_TA_CLR
-		if ( _KERNEL_FLG_GET_FLGATR(flghdl) & TA_CLR )
+		if ( _KERNEL_FLG_GET_FLGATR(_KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb)) & TA_CLR )
 		{
-			_KERNEL_FLG_SET_FLGPTN(flghdl, 0);			/* %jp{クリア属性があればクリア} */
+			_KERNEL_FLG_SET_FLGPTN(flgcb, 0);		/* %jp{クリア属性があればクリア} */
 		}
 #endif
 		
@@ -132,7 +133,7 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 		_KERNEL_TSK_SET_DATA(tcb, (VP_INT)&flginf);
 		
 		_KERNEL_DSP_WAI_TSK(tskhdl);
-		_KERNEL_FLG_ADD_QUE(flghdl, tskhdl);				/* %jp{待ち行列に追加} */
+		_KERNEL_FLG_ADD_QUE(flgcb, _KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb), tskhdl);		/* %jp{待ち行列に追加} */
 		
 		/* %jp{タスクディスパッチの実行} */
 		_KERNEL_DSP_TSK();

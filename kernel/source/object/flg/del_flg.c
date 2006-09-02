@@ -4,7 +4,7 @@
  * @file  del_flg.c
  * @brief %jp{イベントフラグの削除}%en{Delete Eventflag}
  *
- * @version $Id: del_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: del_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -27,7 +27,7 @@
  */
 ER del_flg(ID flgid)
 {
-	_KERNEL_T_FLGHDL flghdl;
+	_KERNEL_T_FLGCB  *flgcb;
 	_KERNEL_T_TSKHDL tskhdl;
 	_KERNEL_T_TCB    *tcb;
 	_KERNEL_T_QUE    *pk_que;;
@@ -51,20 +51,20 @@ ER del_flg(ID flgid)
 	}
 #endif
 	
-	/* %jp{イベントフラグハンドル取得} */
-	flghdl = _KERNEL_FLG_ID2FLGHDL(flgid);
+	/* %jp{コントロールブロック取得} */
+	flgcb = _KERNEL_FLG_ID2FLGCB(flgid);
 	
 	/* %jp{待ち行列取得} */
-	pk_que = _KERNEL_FLG_GET_QUE(flghdl);
+	pk_que = _KERNEL_FLG_GET_QUE(flgcb);
 	
 	/* %jp{待ち行列のタスクを全て起床} */
 	while ( (tskhdl = _KERNEL_RMH_QUE(pk_que)) != _KERNEL_TSKHDL_NULL )
 	{
 		/* %jp{待ちタスクがあれば待ち解除} */
-		tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);	/* %jp{TCB取得} */
-		_KERNEL_TSK_SET_ERCD(tcb, E_DLT);			/* %jp{エラーコード設定} */
-		_KERNEL_FLG_RMV_TOQ(tskhdl);				/* %jp{タイムアウトキューから外す} */
-		_KERNEL_DSP_WUP_TSK(tskhdl);				/* %jp{タスクの待ち解除} */	
+		tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);	/* %jp{TCB取得} */
+		_KERNEL_TSK_SET_ERCD(tcb, E_DLT);		/* %jp{エラーコード設定} */
+		_KERNEL_FLG_RMV_TOQ(tskhdl);			/* %jp{タイムアウトキューから外す} */
+		_KERNEL_DSP_WUP_TSK(tskhdl);			/* %jp{タスクの待ち解除} */	
 	}
 	
 	/* %jp{オブジェクト削除} */
@@ -72,7 +72,7 @@ ER del_flg(ID flgid)
 	_KERNEL_SYS_FRE_MEM(_KERNEL_TSK_ID2FLGCB(flgid));	/* %jp{メモリ開放} */
 	_KERNEL_TSK_ID2FLGCB(flgid) = NULL;
 #elif _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY
-	_KERNEL_FLG_SET_FLGATR(flghdl, 0);					/* %jp{削除をマーク} */
+	_KERNEL_FLG_SET_FLGATR(flgcb, 0);					/* %jp{削除をマーク} */
 #endif
 
 	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
