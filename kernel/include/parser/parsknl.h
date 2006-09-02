@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.5 2006-08-20 15:19:31 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.6 2006-09-02 15:08:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -862,7 +862,7 @@
 /* control block */
 #define _KERNEL_DTQCB_ALGORITHM		_KERNEL_CFG_DTQCB_ALGORITHM
 #define _KERNEL_DTQCB_BITFIELD		_KERNEL_CFG_DTQCB_BITFIELD
-#define _KERNEL_DTQCB_ROM			_KERNEL_CFG_DTQCB_ROM
+#define _KERNEL_DTQCB_SPLIT_RO		_KERNEL_CFG_DTQCB_ROM
 
 /* Attribute */
 #define _KERNEL_SPT_DTQ_TA_TFIFO	_KERNEL_CFG_DTQ_TA_TFIFO			/**< %jp{TA_TFIFO属性に対応する} */
@@ -892,10 +892,9 @@
 #define _KERNEL_SPT_MBX_TA_MPRI		_KERNEL_CFG_MBX_TA_MPRI			/**< %jp{TA_MPRI属性に対応する} */
 
 /* Control block */
-#define _KERNEL_MBXCB_ALGORITHM		_KERNEL_MBXCB_ALG_BLKARRAY
-
-#define _KERNEL_MBXCB_ROM			FALSE							/**< %jp{TCBの不変部を分割してROM部配置とするか} */
-#define _KERNEL_MBXCB_BITFIELD		FALSE							/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+#define _KERNEL_MBXCB_ALGORITHM		_KERNEL_CFG_MPFCB_ALGORITHM
+#define _KERNEL_MBXCB_SPLIT_RO		_KERNEL_CFG_MPFCB_SPLIT_RO		/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_MBXCB_BITFIELD		_KERNEL_CFG_MPFCB_BITFIELD		/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
 
 #define _KERNEL_MBXCB_QUE			TRUE
@@ -926,8 +925,7 @@
 
 /* Control block */
 #define _KERNEL_MPFCB_ALGORITHM		_KERNEL_MPFCB_ALG_BLKARRAY
-
-#define _KERNEL_MPFCB_ROM			FALSE							/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_MPFCB_SPLIT_RO		FALSE							/**< %jp{TCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_MPFCB_BITFIELD		FALSE							/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
 #if _KERNEL_CFG_MPF_TMAX_BLKCNT <= 0

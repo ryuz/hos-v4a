@@ -4,7 +4,7 @@
  * @file  get_mpf.c
  * @brief %jp{固定長メモリプール資源の獲得}%en{Acquire Semaphore Resource}
  *
- * @version $Id: rel_mpf.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: rel_mpf.c,v 1.2 2006-09-02 15:08:04 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -34,9 +34,9 @@ ER get_mpf(ID mpfid, VP *p_blk)
 
 ER rel_mpf(ID mpfid, VP blk)
 {
-	_KERNEL_T_MPFHDL mpfhdl;
-	_KERNEL_T_TSKHDL tskhdl;
-	_KERNEL_T_TCB    *tcb;
+	_KERNEL_T_MPFCB_PTR mpfcb;
+	_KERNEL_T_TSKHDL    tskhdl;
+	_KERNEL_T_TCB       *tcb;
 
 	/* %jp{コンテキストチェック} */
 #if _KERNEL_SPT_GET_MPF_E_CTX
@@ -66,11 +66,11 @@ ER rel_mpf(ID mpfid, VP blk)
 	}
 #endif
 
-	/* %jp{固定長メモリプールハンドル取得} */
-	mpfhdl = _KERNEL_MPF_ID2MPFHDL(mpfid);
+	/* %jp{コントロールブロック取得} */
+	mpfcb = _KERNEL_MPF_ID2MPFCB(mpfid);
 
 	/* %jp{待ち行列先頭からタスク取り出し} */
-	tskhdl = _KERNEL_MPF_RMH_QUE(_KERNEL_MPF_GET_QUE(mpfhdl));
+	tskhdl = _KERNEL_MPF_RMH_QUE(mpfcb);
 	if ( tskhdl != _KERNEL_TSKHDL_NULL )
 	{
 		VP *p_blk;
@@ -89,8 +89,8 @@ ER rel_mpf(ID mpfid, VP blk)
 	else
 	{
 		/* %jp{プールに返却} */
-		*(_KERNEL_MPF_T_BLKHDL *)blk = _KERNEL_MPF_GET_FREBLK(mpfhdl);
-		_KERNEL_MPF_SET_FREBLK(mpfhdl, _KERNEL_MPF_PTR2BLKHDL(mpfhdl, blk));
+		*(_KERNEL_MPF_T_BLKHDL *)blk = _KERNEL_MPF_GET_FREBLK(mpfcb);
+		_KERNEL_MPF_SET_FREBLK(mpfcb, _KERNEL_MPF_PTR2BLKHDL(mpfcb, blk));
 	}
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */

@@ -4,7 +4,7 @@
  * @file  get_mpf.c
  * @brief %jp{固定長メモリプール資源の獲得}%en{Acquire Semaphore Resource}
  *
- * @version $Id: get_mpf.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: get_mpf.c,v 1.3 2006-09-02 15:08:04 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -34,7 +34,7 @@ ER get_mpf(ID mpfid, VP *p_blk)
 
 ER get_mpf(ID mpfid, VP *p_blk)
 {
-	_KERNEL_T_MPFHDL     mpfhdl;
+	_KERNEL_T_MPFCB_PTR  mpfcb;
 	_KERNEL_T_TSKHDL     tskhdl;
 	_KERNEL_T_TCB        *tcb;
 	_KERNEL_MPF_T_BLKHDL blkhdl;
@@ -68,19 +68,19 @@ ER get_mpf(ID mpfid, VP *p_blk)
 	}
 #endif
 
-	/* %jp{固定長メモリプールハンドル取得} */
-	mpfhdl = _KERNEL_MPF_ID2MPFHDL(mpfid);
+	/* %jp{コントロールブロック取得} */
+	mpfcb = _KERNEL_MPF_ID2MPFCB(mpfid);
 	
 	/* %jp{固定長メモリプールカウンタ取得} */
-	blkhdl = _KERNEL_MPF_GET_FREBLK(mpfhdl);
+	blkhdl = _KERNEL_MPF_GET_FREBLK(mpfcb);
 	
 	if ( blkhdl != _KERNEL_MPF_BLKHDL_NULL )
 	{
 		/* %jp{固定長メモリプール資源が獲得できれば成功} */
-		blkptr = _KERNEL_MPF_BLKHDL2PTR(mpfhdl, blkhdl);
+		blkptr = _KERNEL_MPF_BLKHDL2PTR(mpfcb, blkhdl);
 		*p_blk = blkptr;
-		_KERNEL_MPF_SET_FREBLK(mpfhdl, *(_KERNEL_MPF_T_BLKHDL *)blkptr);
-		_KERNEL_MPF_SET_FBLKCNT(mpfhdl, _KERNEL_MPF_GET_FBLKCNT(mpfhdl) - 1);
+		_KERNEL_MPF_SET_FREBLK(mpfcb, *(_KERNEL_MPF_T_BLKHDL *)blkptr);
+		_KERNEL_MPF_SET_FBLKCNT(mpfcb, _KERNEL_MPF_GET_FBLKCNT(mpfhdl) - 1);
 		ercd = E_OK;
 	}
 	else
@@ -93,7 +93,7 @@ ER get_mpf(ID mpfid, VP *p_blk)
 		_KERNEL_TSK_SET_DATA(tcb, (VP_INT)p_blk);
 
 		_KERNEL_DSP_WAI_TSK(tskhdl);
-		_KERNEL_MPF_ADD_QUE(mpfhdl, tskhdl);				/* %jp{待ち行列に追加} */
+		_KERNEL_MPF_ADD_QUE(mpfcb, _KERNEL_MPF_GET_MPFCB_RO(mpfid, mpfcb), tskhdl);		/* %jp{待ち行列に追加} */
 
 		/* %jp{タスクディスパッチの実行} */
 		_KERNEL_DSP_TSK();

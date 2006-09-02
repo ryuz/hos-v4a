@@ -4,7 +4,7 @@
  * @file  mbxobj.h
  * @brief %jp{メールボックスオジェクトのヘッダファイル}%en{Mailbox object heder file}
  *
- * @version $Id: mbxobj.h,v 1.3 2006-09-02 10:43:18 ryuz Exp $
+ * @version $Id: mbxobj.h,v 1.4 2006-09-02 15:08:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -64,11 +64,11 @@ typedef	PRI		_KERNEL_MBXCB_T_MPRI;
 typedef struct _kernel_t_mbxcb_rom
 {
 #if _KERNEL_MBXCB_MBXATR
-	_KERNEL_MBXCB_T_MBXATR	mbxatr		_KERNEL_TBITDEF_MBXCB_MBXPTN;		/**< %jp{メールボックス属性} */
+	_KERNEL_MBXCB_T_MBXATR	mbxatr		_KERNEL_MBXCB_TBITDEF_MBXATR;		/**< %jp{メールボックス属性} */
 #endif
 
 #if _KERNEL_MBXCB_MAXMPRI
-	_KERNEL_MBXCB_T_MAXMPRI	maxmpri		_KERNEL_TBITDEF_MBXCB_MAXMPRI;		/**< %jp{送信されるメッセージの優先度の最大値} */
+	_KERNEL_MBXCB_T_MPRI	maxmpri		_KERNEL_MBXCB_TBITDEF_MPRI;			/**< %jp{送信されるメッセージの優先度の最大値} */
 #endif
 } _KERNEL_T_MBXCB_RO;
 
@@ -169,7 +169,7 @@ extern  _KERNEL_T_MBXCB					_kernel_mbxcb_tbl[];									/**< %jp{メールボ�
 
 /* %jp{ポインタ配列管理の場合}%en{pointer array} */
 extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボックスコントロールブロックテーブル} */
-#define _KERNEL_MBX_ID2MBXCB(mbxid)		(_kernel_mbxcb_tbl[(mbxid) - _KERNEL_TMIN_MBXID])		/**< %jp{メールボックスIDからMBXCB アドレスを取得} */
+#define _KERNEL_MBX_ID2MBXCB(mbxid)		(_kernel_mbxcb_tbl[(mbxid) - _KERNEL_MBX_TMIN_ID])		/**< %jp{メールボックスIDからMBXCB アドレスを取得} */
 #define _KERNEL_MBX_CHECK_EXS(mbxid)	(_KERNEL_MBX_ID2MBXCB(mbxid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 #define _KERNEL_MBX_TA_CRE				0
 
@@ -205,10 +205,11 @@ extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボ�
 #define _KERNEL_MBX_GET_MSGQUE(mbxcb)			(0)
 #endif
 
+
 /* mbxatr */
 #if _KERNEL_MBXCB_MBXATR
-#define _KERNEL_MBX_SET_MBXATR(mbxcb_ro, x)		do { (mbxcb)->mbxatr = (_KERNEL_MBXCB_T_MBXATR)(x); } while (0)
-#define _KERNEL_MBX_GET_MBXATR(mbxcb_ro)		((_KERNEL_MBX_T_MBXATR)(mbxcb)->mbxatr)
+#define _KERNEL_MBX_SET_MBXATR(mbxcb_ro, x)		do { (mbxcb_ro)->mbxatr = (_KERNEL_MBXCB_T_MBXATR)(x); } while (0)
+#define _KERNEL_MBX_GET_MBXATR(mbxcb_ro)		((_KERNEL_MBX_T_MBXATR)(mbxcb_ro)->mbxatr)
 #else
 #define _KERNEL_MBX_SET_MBXATR(mbxcb_ro, x)		do { } while (0)
 #if _KERNEL_SPT_MBX_TA_TFIFO && _KERNEL_SPT_MBX_TA_MFIFO
@@ -224,8 +225,8 @@ extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボ�
 
 /* maxmpri */
 #if _KERNEL_MBXCB_MAXMPRI
-#define _KERNEL_MBX_SET_MAXMPRI(mbxcb_ro, x)	do { (mbxcb)->maxmpri = (_KERNEL_MBXCB_T_MPRI)(x); } while (0)
-#define _KERNEL_MBX_GET_MAXMPRI(mbxcb_ro)		((_KERNEL_MBX_T_MPRI)(mbxcb)->maxmpri)
+#define _KERNEL_MBX_SET_MAXMPRI(mbxcb_ro, x)	do { (mbxcb_ro)->maxmpri = (_KERNEL_MBXCB_T_MPRI)(x); } while (0)
+#define _KERNEL_MBX_GET_MAXMPRI(mbxcb_ro)		((_KERNEL_MBX_T_MPRI)(mbxcb_ro)->maxmpri)
 #else
 #define _KERNEL_MBX_SET_MAXMPRI(mbxcb_ro, x)	do { } while (0)
 #define _KERNEL_MBX_GET_MAXMPRI(mbxcb_ro)		(1)
@@ -268,14 +269,14 @@ extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボ�
 
 /* %jp{メッセージキュー操作} */
 #if _KERNEL_SPT_MBX_TA_MFIFO && _KERNEL_SPT_MBX_TA_MPRI		/* %jp{TA_MFIFOとTA_MPRI両方対応(属性で判定)} */
-#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_add_msg((mbxcb), (pk_msg), _KERNEL_MBX_GET_MBXATR(mbxcb_ro))
-#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmv_msg((mbxcb), _KERNEL_MBX_GET_MBXATR(mbxcb_ro))
+#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	do { if ( _KERNEL_MBX_GET_MBXATR(mbxcb_ro) & TA_MPRI ) { _kernel_adp_msg((mbxcb), (pk_msg)); } else { _kernel_adf_msg((mbxcb), (pk_msg)); }} while(0)
+#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			(_KERNEL_MBX_GET_MBXATR(mbxcb_ro) & TA_MPRI ? _kernel_rmp_msg((mbxcb), _KERNEL_MBX_GET_MAXMPRI(mbxcb_ro)) : _kernel_rmf_msg(mbxcb))
 #elif _KERNEL_SPT_MBX_TA_MFIFO && !_KERNEL_SPT_MBX_TA_MPRI	/* %jp{TA_MFIFO のみ利用 } */
-#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_adf_mque((mbxcb), (pk_msg))
-#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmf_mque(mbxcb)
+#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_adf_msg((mbxcb), (pk_msg))
+#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmf_msg(mbxcb)
 #elif !_KERNEL_SPT_MBX_TA_MFIFO && _KERNEL_SPT_MBX_TA_MPRI	/* %jp{TA_MPRI のみ利用 } */
-#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_adp_mque((mbxcb), (pk_msg))
-#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmp_mque(mbxcb)
+#define _KERNEL_MBX_ADD_MSG(mbxcb, mbxcb_ro, pk_msg)	_kernel_adp_msg((mbxcb), (pk_msg))
+#define _KERNEL_MBX_RMV_MSG(mbxcb, mbxcb_ro)			_kernel_rmp_msg((mbxcb), _KERNEL_MBX_GET_MAXMPRI(mbxcb_ro))
 #else
 #error error:_KERNEL_SPT_MBX_TA_MPRI and _KERNEL_SPT_MBX_TA_MFIFO
 #endif
@@ -284,14 +285,13 @@ extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボ�
 extern "C" {
 #endif
 
-ER     _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx);										/**< %jp{メールボックスを生成} */
-void   _kernel_add_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg, _KERNEL_MBX_T_MBXATR mbxatr);	/**< %jp{属性に応じてキューにメッセージを追加} */
-void   _kernel_adp_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg);								/**< %jp{優先度キューにメッセージを追加} */
-void   _kernel_adf_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg);								/**< %jp{FIFOキューにメッセージを追加} */
-T_MSG *_kernel_rmv_msg(_KERNEL_T_MBXCB_PTR mbxcb, _KERNEL_MBX_T_MBXATR mbxatr);					/**< %jp{属性に応じてキューからメッセージを取り出し} */
-T_MSG *_kernel_rmp_msg(_KERNEL_T_MBXCB_PTR mbxcb);												/**< %jp{優先度キューからメッセージを取り出し} */
-T_MSG *_kernel_rmf_msg(_KERNEL_T_MBXCB_PTR mbxcb);												/**< %jp{FIFOキューからメッセージを取り出し} */
-
+ER     _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx);							/**< %jp{メールボックスを生成} */
+void   _kernel_adf_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg);					/**< %jp{FIFOキューにメッセージを追加} */
+void   _kernel_adp_msg(_KERNEL_T_MBXCB_PTR mbxcb, T_MSG *pk_msg);					/**< %jp{優先度キューにメッセージを追加} */
+void   _kernel_add_msq(T_MSG **ppk_msgque, T_MSG *pk_msg);							/**< %jp{メッセージキューへのメッセージ追加} */
+T_MSG *_kernel_rmf_msg(_KERNEL_T_MBXCB_PTR mbxcb);									/**< %jp{FIFOキューからメッセージを取り出し} */
+T_MSG *_kernel_rmp_msg(_KERNEL_T_MBXCB_PTR mbxcb, _KERNEL_MBXCB_T_MPRI maxmpri);	/**< %jp{優先度キューからメッセージを取り出し} */
+T_MSG *_kernel_rmv_msq(T_MSG **ppk_msgque);											/**< %jp{メッセージキューからメッセージ取り出し} */
 
 #ifdef __cplusplus
 }
