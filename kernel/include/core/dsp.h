@@ -4,7 +4,7 @@
  * @file  dsp.h
  * @brief %jp{タスクディスパッチャのヘッダファイル}%en{task dispatcher heder file}
  *
- * @version $Id: dsp.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: dsp.h,v 1.2 2006-09-03 14:09:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -31,6 +31,8 @@ void _kernel_dsp_ext_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{自タスクを終�
 void _kernel_dsp_ter_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{他タスクを終了する} */
 void _kernel_dsp_wai_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{自タスクを待ち状態にする} */
 void _kernel_dsp_wup_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{他タスクを待ち解除する} */
+void _kernel_dsp_sus_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{タスクをサスペンドする} */
+void _kernel_dsp_rsm_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{タスクをサスペンド解除する} */
 
 #ifdef __cplusplus
 }
@@ -40,9 +42,6 @@ void _kernel_dsp_wup_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{他タスクを待�
 #define _KERNEL_DSP_TSK()			_kernel_dsp_tsk()			/**< タスクディスパッチ実施 */
 
 
-/* %jp{実行中もレディーキューに繋ぐモデルの場合} */
-
-
 #if _KERNEL_SPT_SUS_TSK	/*  %jp{サスペンドありのモデルの場合} */
 
 #define _KERNEL_DSP_STA_TSK(tskhdl)		_kernel_dsp_sta_tsk(tskhdl)		/**< %jp{他タスクを開始する} */
@@ -50,6 +49,9 @@ void _kernel_dsp_wup_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{他タスクを待�
 #define _KERNEL_DSP_TER_TSK(tskhdl)		_kernel_dsp_ter_tsk(tskhdl)		/**< %jp{他タスクを終了する} */
 #define _KERNEL_DSP_WAI_TSK(tskhdl)		_kernel_dsp_wai_tsk(tskhdl)		/**< %jp{自タスクを待ち状態にする} */
 #define _KERNEL_DSP_WUP_TSK(tskhdl)		_kernel_dsp_wup_tsk(tskhdl)		/**< %jp{他タスクを待ち解除する} */
+#define _KERNEL_DSP_SUS_TSK(tskhdl)		_kernel_dsp_sus_tsk(tskhdl)		/**< %jp{タスクをサスペンドする} */
+#define _KERNEL_DSP_RSM_TSK(tskhdl)		_kernel_dsp_rsm_tsk(tskhdl)		/**< %jp{タスクをサスペンド解除する} */
+
 
 #else /* %jp{サスペンド無しのモデルの場合} */
 

@@ -27,8 +27,15 @@ VPATH := $(VPATH):$(SEMOBJ_DIR):$(FLGOBJ_DIR):$(MBXOBJ_DIR):$(MPFOBJ_DIR):$(INHO
 
 
 CSRCS += $(DSP_DIR)/ent_tsk.c		\
-         $(DSP_DIR)/dsp_tsk.c		\
          $(DSP_DIR)/idl_lop.c		\
+         $(DSP_DIR)/dsp_tsk.c		\
+         $(DSP_DIR)/dsp_sta.c		\
+         $(DSP_DIR)/dsp_ext.c		\
+         $(DSP_DIR)/dsp_ter.c		\
+         $(DSP_DIR)/dsp_wai.c		\
+         $(DSP_DIR)/dsp_wup.c		\
+         $(DSP_DIR)/dsp_sus.c		\
+         $(DSP_DIR)/dsp_rsm.c		\
          $(QUE_DIR)/add_que.c		\
          $(QUE_DIR)/adf_que.c		\
          $(QUE_DIR)/adp_que.c		\

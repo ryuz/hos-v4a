@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  wup_tsk.c
- * @brief %jp{タスクの起床}%en{Wakeup Task}
+ * @file  sus_tsk.c
+ * @brief 
  *
- * @version $Id: sus_tsk.c,v 1.1 2006-09-03 13:20:55 ryuz Exp $
+ * @version $Id: sus_tsk.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -14,6 +14,8 @@
 
 #include "core/core.h"
 
+
+#if _KERNEL_SPT_SUS_TSK
 
 
 ER sus_tsk(
@@ -79,20 +81,32 @@ ER sus_tsk(
 	}
 	else
 	{
-		if ( tskstat & _KERNEL_TTS_WAI )
-		{
-
-		}
+		_KERNEL_DSP_SUS_TSK(tskhdl);			/* %jp{タスクの強制待ち} */
+		
+		_KERNEL_DSP_TSK();
 	}
-
-	/* %jp{待ちカウンタクリア} */
-	_KERNEL_TSK_SET_WUPCNT(tcb, 0);
-
 
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
 
 	return E_OK;
 }
+
+
+#else	/* _KERNEL_SPT_SUS_TSK */
+
+
+#if _KERNEL_SPT_SUS_TSK_E_NOSPT
+
+ER sus_tsk(
+		ID tskid)
+{
+	return E_NOSPT;
+}
+
+#endif
+
+
+#endif
 
 
 /* end of file */

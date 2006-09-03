@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.7 2006-09-03 03:01:03 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.8 2006-09-03 14:09:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -242,7 +242,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_MPF_TMAX_BLKSZ		(-1)				/**< %jp{ブロックサイズの最大値} */
 
 /* Algorithm */
-#define _KERNEL_CFG_MPF_ALGORITHM		_KERNEL_MPF_ALG_CHAIN_PTR
+#define _KERNEL_CFG_MPF_ALGORITHM		_KERNEL_MPF_ALG_CHAIN_NUM
 /* %jp{
    _KERNEL_MPF_ALG_CHAIN_PTR : 空きブロックをポインタでチェイン(乗算器の無いCPUでも高速)
    _KERNEL_MPF_ALG_CHAIN_NUM : 空きブロックをブロック番号でチェイン(メモリが削減できる場合あり)
@@ -294,9 +294,9 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_CAN_WUP 			FALSE				/* can_wup */
 #define _KERNEL_CFG_REL_WAI 			TRUE				/* rel_wai */
 #define _KERNEL_CFG_IREL_WAI			FALSE				/* irel_wai */
-#define _KERNEL_CFG_SUS_TSK 			FALSE				/* sus_tsk */
-#define _KERNEL_CFG_RSM_TSK 			FALSE				/* rsm_tsk */
-#define _KERNEL_CFG_FRSM_TSK			FALSE				/* frsm_tsk */
+#define _KERNEL_CFG_SUS_TSK 			TRUE				/* sus_tsk */
+#define _KERNEL_CFG_RSM_TSK 			TRUE				/* rsm_tsk */
+#define _KERNEL_CFG_FRSM_TSK			TRUE				/* frsm_tsk */
 #define _KERNEL_CFG_DLY_TSK 			TRUE				/* dly_tsk */
 
 /* Task exception handling functions */

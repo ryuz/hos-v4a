@@ -267,7 +267,35 @@ SOURCE=..\..\..\..\include\kernel.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\source\core\dsp\dsp_ext.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dsp\dsp_rsm.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dsp\dsp_sta.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dsp\dsp_sus.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dsp\dsp_ter.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\core\dsp\dsp_tsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dsp\dsp_wai.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dsp\dsp_wup.c
 # End Source File
 # Begin Source File
 
@@ -412,6 +440,10 @@ SOURCE=..\..\..\..\source\object\tsk\rel_wai.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\tsk\slp_tsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\sus_tsk.c
 # End Source File
 # Begin Source File
 
@@ -669,6 +701,14 @@ SOURCE=..\..\..\..\source\object\mpf\rel_mpf.c
 # Begin Group "dtq"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\acre_dtq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\cre_dtq.c
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\dtq\fsnd_dtq.c

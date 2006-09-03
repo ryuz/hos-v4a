@@ -4,7 +4,7 @@
  * @file  dsp_tsk.c
  * @brief %en{Task dispatch}%jp{タスクディスパッチ}
  *
- * @version $Id: dsp_tsk.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: dsp_tsk.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -33,17 +33,27 @@ void _kernel_dsp_tsk(void)
 	}
 	
 	/* %jp{タスクハンドルを取得} */
-	tskhdl_run = _KERNEL_SYS_GET_RUNTSK();	/* %jp{実行中タスクを取得} */
 	tskhdl_top = _KERNEL_REF_RDQ();			/* %jp{レディーキュー先頭タスクを取得} */
+	tskhdl_run = _KERNEL_SYS_GET_RUNTSK();	/* %jp{実行中タスクを取得} */
 	
 	
 	/* %jp{コンテキスト取得} */
 #if _KERNEL_SYSTSK_TCB
 
+	ctxcb_top = _KERNEL_TSK_GET_CTXCB(_KERNEL_TSK_TSKHDL2TCB(tskhdl_top));	/* %jp{レディーキュー先頭タスクのコンテキストを取得} */
 	ctxcb_run = _KERNEL_TSK_GET_CTXCB(_KERNEL_TSK_TSKHDL2TCB(tskhdl_run));	/* %jp{実行中タスクのコンテキストを取得} */
-	ctxcb_top = _KERNEL_SYS_GET_SYSCTXCB();			/* %jp{レディーキュー先頭タスクのコンテキストを取得} */
 
 #else
+
+	/* %jp{レディーキュー先頭タスクのコンテキストを取得} */
+	if ( tskhdl_top != _KERNEL_TSKHDL_NULL )
+	{
+		ctxcb_top = _KERNEL_TSK_GET_CTXCB(_KERNEL_TSK_TSKHDL2TCB(tskhdl_top));
+	}
+	else
+	{
+		ctxcb_top = _KERNEL_SYS_GET_SYSCTXCB();
+	}
 
 	/* %jp{実行中タスクのコンテキストを取得} */
 	if ( tskhdl_run != _KERNEL_TSKHDL_NULL )
@@ -55,15 +65,6 @@ void _kernel_dsp_tsk(void)
 		ctxcb_run = _KERNEL_SYS_GET_SYSCTXCB();
 	}
 
-	/* %jp{レディーキュー先頭タスクのコンテキストを取得} */
-	if ( tskhdl_top != _KERNEL_TSKHDL_NULL )
-	{
-		ctxcb_top = _KERNEL_TSK_GET_CTXCB(_KERNEL_TSK_TSKHDL2TCB(tskhdl_top));
-	}
-	else
-	{
-		ctxcb_top = _KERNEL_SYS_GET_SYSCTXCB();
-	}
 
 #endif
 	

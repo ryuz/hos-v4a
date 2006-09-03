@@ -4,7 +4,7 @@
  * @file  dsp_wup.c
  * @brief %jp{他タスクを待ち解除する}
  *
- * @version $Id: dsp_wup.c,v 1.1 2006-09-03 13:19:31 ryuz Exp $
+ * @version $Id: dsp_wup.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -32,14 +32,19 @@ void _kernel_dsp_wup_tsk(_KERNEL_T_TSKHDL tskhdl)
 	{
 		/* %jp{レディーキューに接続} */
 		_KERNEL_ADD_RDQ(tskhdl);
+		tskstat = _KERNEL_TTS_RDY;
+	}
+	else
+	{
+		tskstat = _KERNEL_TTS_SUS;
 	}
 #else
 	/* %jp{レディーキューに接続} */
 	_KERNEL_ADD_RDQ(tskhdl);
+	tskstat = _KERNEL_TTS_RDY;
 #endif
 
 	/* %jp{待ち状態を解除} */
-	tskstat &= ~_KERNEL_TTS_WAI;
 	_KERNEL_TSK_SET_TSKSTAT(tcb, tskstat);
 }
 

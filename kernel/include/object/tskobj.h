@@ -4,7 +4,7 @@
  * @file  knl_que.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * @version $Id: tskobj.h,v 1.2 2006-08-20 09:02:30 ryuz Exp $
+ * @version $Id: tskobj.h,v 1.3 2006-09-03 14:09:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -493,6 +493,7 @@ typedef struct _kernel_t_tcb_ro				/* タスクコントロールブロック(RO
 #endif
 } _KERNEL_T_TCB_RO;
 
+typedef const _KERNEL_T_TCB_RO		*_KERNEL_T_TCB_RO_PTR;
 
 /** %jp{タスクコントロールブロック(RAM部)}%en{Task control block for RAM} */
 typedef struct _kernel_t_tcb
@@ -564,6 +565,8 @@ typedef struct _kernel_t_tcb
 	const _KERNEL_T_TCB_RO	*tcb_ro;
 #endif
 } _KERNEL_T_TCB;
+
+typedef _KERNEL_T_TCB			*_KERNEL_T_TCB_PTR;
 
 
 #else
@@ -663,7 +666,9 @@ typedef struct _kernel_t_tcb
 #endif
 } _KERNEL_T_TCB;
 
-typedef _KERNEL_T_TCB		_KERNEL_T_TCB_RO;
+typedef _KERNEL_T_TCB				_KERNEL_T_TCB_RO;
+typedef const _KERNEL_T_TCB_RO		*_KERNEL_T_TCB_RO_PTR;
+typedef _KERNEL_T_TCB				*_KERNEL_T_TCB_PTR;
 
 #endif
 

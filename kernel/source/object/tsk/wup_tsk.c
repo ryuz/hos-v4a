@@ -4,7 +4,7 @@
  * @file  wup_tsk.c
  * @brief %jp{タスクの起床}%en{Wakeup Task}
  *
- * @version $Id: wup_tsk.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: wup_tsk.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -64,7 +64,7 @@ ER wup_tsk(
 	/* %jp{TCB取得} */
 	tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
 
-	if ( (_KERNEL_TSK_GET_TSKSTAT(tcb) == _KERNEL_TTS_WAI) && _KERNEL_TSK_GET_TSKWAIT(tcb) == _KERNEL_TTW_SLP )
+	if ( ((_KERNEL_TSK_GET_TSKSTAT(tcb) & _KERNEL_TTS_WAI)) && _KERNEL_TSK_GET_TSKWAIT(tcb) == _KERNEL_TTW_SLP )
 	{
 		/* %jp{待ち解除} */
 		_KERNEL_TSK_SET_ERCD(tcb, E_OK);		/* %jp{エラーコード設定} */
