@@ -98,6 +98,10 @@ SOURCE=..\ostimer.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\kernel\source\object\tsk\rsm_tsk.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\sample.c
 # End Source File
 # Begin Source File

@@ -4,7 +4,7 @@
  * @file  dsp.h
  * @brief %jp{タスクディスパッチャのヘッダファイル}%en{task dispatcher heder file}
  *
- * @version $Id: dsp.h,v 1.2 2006-09-03 14:09:03 ryuz Exp $
+ * @version $Id: dsp.h,v 1.3 2006-09-03 15:10:01 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -14,8 +14,6 @@
 
 #ifndef _KERNEL_core__dsp_h__
 #define _KERNEL_core__dsp_h__
-
-
 
 
 

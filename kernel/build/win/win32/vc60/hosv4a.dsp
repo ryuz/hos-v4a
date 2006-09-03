@@ -439,6 +439,10 @@ SOURCE=..\..\..\..\source\object\tsk\rel_wai.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\tsk\rsm_tsk.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\tsk\slp_tsk.c
 # End Source File
 # Begin Source File

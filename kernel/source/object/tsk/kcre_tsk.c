@@ -4,7 +4,7 @@
  * @file  kact_tsk.c
  * @brief %en{Activate Task}%jp{タスクの起動}
  *
- * @version $Id: kcre_tsk.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: kcre_tsk.c,v 1.2 2006-09-03 15:10:01 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -49,7 +49,7 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		}
 		
 /*		tskhdl = _KERNEL_TSK_ID2TSKHDL(tskid);	*/
-		tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
+		tcb    = _KERNEL_TSK_ID2TCB(tskid);
 		tcb_ro = _KERNEL_TSK_GET_TCB_RO(tskid, tcb);
 	}
 #elif _KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_PTRARRAY

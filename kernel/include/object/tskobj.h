@@ -4,7 +4,7 @@
  * @file  knl_que.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * @version $Id: tskobj.h,v 1.3 2006-09-03 14:09:03 ryuz Exp $
+ * @version $Id: tskobj.h,v 1.4 2006-09-03 15:10:01 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -746,7 +746,6 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 #endif
 
 
-
 /* ------------------------------------------ */
 /*   Accessor for TCB                         */
 /* ------------------------------------------ */
@@ -943,6 +942,20 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 #define _KERNEL_TSK_GET_ISP(tcb_ro)			((VP)((UB *)_KERNEL_TSK_GET_STK(tcb_ro) + _KERNEL_TSK_GET_STKSZ(tcb_ro)))
 #endif
 
+
+/* ------------------------------------------ */
+/*   Macro functions                          */
+/* ------------------------------------------ */
+
+#if _KERNEL_TCB_TSKSTAT
+#define _KERNEL_TSK_SNS_RDY(tcb)	(_KERNEL_TSK_GET_TSKSTAT(tcb) == _KERNEL_TTS_RDY)
+#define _KERNEL_TSK_SNS_WAI(tcb)	(_KERNEL_TSK_GET_TSKSTAT(tcb) & _KERNEL_TTS_WAI)
+#define _KERNEL_TSK_SNS_SUS(tcb)	(_KERNEL_TSK_GET_TSKSTAT(tcb) & _KERNEL_TTS_SUS)
+#else
+#define _KERNEL_TSK_SNS_RDY(tcb)	()
+#define _KERNEL_TSK_SNS_WAI(tcb)	()
+#define _KERNEL_TSK_SNS_SUS(tcb)	(_KERNEL_TSK_GET_SUSCNT(tcb) > 0)
+#endif
 
 
 #ifdef __cplusplus
