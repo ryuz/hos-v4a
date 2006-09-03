@@ -4,7 +4,7 @@
  * @file  flgobj.h
  * @brief %jp{イベントフラグオジェクトのヘッダファイル}%en{Eventflag object heder file}
  *
- * @version $Id: flgobj.h,v 1.4 2006-09-02 10:43:18 ryuz Exp $
+ * @version $Id: flgobj.h,v 1.5 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -26,11 +26,11 @@
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
 typedef signed int						_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
-#define _KERNEL_FLGCB_TBITDEF_FLGPTN	: _KERNEL_FLGCB_TBIT_FLGPTN + 1	/**< %jp{フラグパターンのビットフィールド宣言時の幅} */
+#define _KERNEL_FLGCB_TBITDEF_FLGPTN	: _KERNEL_FLG_TBIT_FLGPTN + 1	/**< %jp{フラグパターンのビットフィールド宣言時の幅} */
 #else
 typedef unsigned int					_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
 typedef unsigned int					_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパターンをFLGCBに格納するときの型} */
-#define _KERNEL_FLGCB_TBITDEF_FLGPTN	: _KERNEL_FLGCB_TBIT_FLGPTN		/**< %jp{フラグパターンのビットフィールド宣言時の幅} */
+#define _KERNEL_FLGCB_TBITDEF_FLGPTN	: _KERNEL_FLG_TBIT_FLGPTN		/**< %jp{フラグパターンのビットフィールド宣言時の幅} */
 #endif
 
 #else							/* %jp{FLGCBにビットフィールドを利用しない場合 */
@@ -201,7 +201,7 @@ extern  _KERNEL_T_FLGCB					_kernel_flgcb_tbl[];									/**< %jp{イベント�
 
 /* %jp{ポインタ配列管理の場合}%en{pointer array} */
 extern  _KERNEL_T_FLGCB					*_kernel_flgcb_tbl[];									/**< %jp{イベントフラグコントロールブロックテーブル} */
-#define _KERNEL_FLG_ID2FLGCB(flgid)		(_kernel_flgcb_tbl[(flgid) - _KERNEL_TMIN_FLGID])		/**< %jp{イベントフラグIDからFLGCB アドレスを取得} */
+#define _KERNEL_FLG_ID2FLGCB(flgid)		(_kernel_flgcb_tbl[(flgid) - _KERNEL_FLG_TMIN_ID])		/**< %jp{イベントフラグIDからFLGCB アドレスを取得} */
 #define _KERNEL_FLG_CHECK_EXS(flgid)	(_KERNEL_FLG_ID2FLGCB(flgid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 #define _KERNEL_FLG_TA_CRE				0
 

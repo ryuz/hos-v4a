@@ -4,7 +4,7 @@
  * @file  mpfobj.h
  * @brief %en{Semaphore object heder file}%jp{固定長メモリプールオジェクトのヘッダファイル}
  *
- * @version $Id: mpfobj.h,v 1.2 2006-09-02 15:08:03 ryuz Exp $
+ * @version $Id: mpfobj.h,v 1.3 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -180,9 +180,10 @@ typedef struct _kernel_t_mpfcb_ro
 #if _KERNEL_MPFCB_MPF
 	_KERNEL_MPFCB_T_MPF		mpf			_KERNEL_MPFCB_TBITDEF_MPF;			/**< %jp{固定長メモリプール領域の先頭番地} */
 #endif
-} _KERNEL_MPFCB_T_RO;
+} _KERNEL_T_MPFCB_RO;
 
 typedef const _KERNEL_T_MPFCB_RO	*_KERNEL_T_MPFCB_RO_PTR;
+
 
 /** %jp{固定長メモリプールコントロールブロック(RAM部)} */
 typedef struct _kernel_t_mpfcb

@@ -4,7 +4,7 @@
  * @file  kcre_flg.c
  * @brief %jp{イベントフラグの生成}%en{Create Eventflag}
  *
- * @version $Id: kcre_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
+ * @version $Id: kcre_flg.c,v 1.3 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -53,7 +53,7 @@ ER _kernel_cre_flg(ID flgid, const T_CFLG *pk_cflg)
 
 		/* %jp{メモリ割り当て} */
 		flgcb = (_KERNEL_T_FLGCB *)mem;
-		_KERNEL_SEM_ID2FLGCB(flgid) = flgcb;
+		_KERNEL_FLG_ID2FLGCB(flgid) = flgcb;
 	}
 #else
 	{

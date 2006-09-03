@@ -4,7 +4,7 @@
  * @file  kcre_mbx.c
  * @brief %jp{メールボックスの生成}%en{Create Eventflag}
  *
- * @version $Id: kcre_mbx.c,v 1.3 2006-09-02 15:03:17 ryuz Exp $
+ * @version $Id: kcre_mbx.c,v 1.4 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -111,7 +111,7 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 			mprihd = pk_cmbx->mprihd;
 		}
 		mbxcb_ro = mbxcb;
-		_KERNEL_SEM_ID2MBXCB(mbxid) = (_KERNEL_T_MBXCB *)mem;
+		_KERNEL_MBX_ID2MBXCB(mbxid) = (_KERNEL_T_MBXCB *)mem;
 	}
 #endif
 #else

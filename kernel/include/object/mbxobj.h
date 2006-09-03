@@ -4,7 +4,7 @@
  * @file  mbxobj.h
  * @brief %jp{メールボックスオジェクトのヘッダファイル}%en{Mailbox object heder file}
  *
- * @version $Id: mbxobj.h,v 1.4 2006-09-02 15:08:03 ryuz Exp $
+ * @version $Id: mbxobj.h,v 1.5 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -26,18 +26,18 @@
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
 typedef signed int						_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
-#define _KERNEL_TBITDEF_MBXCB_MBXATR	: 3 + 1							/**< %jp{メールボックス属性のビットフィールド宣言時の幅} */
+#define _KERNEL_MBXCB_TBITDEF_MBXATR	: 3 + 1							/**< %jp{メールボックス属性のビットフィールド宣言時の幅} */
 #else
 typedef unsigned int					_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
 typedef unsigned int					_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
-#define _KERNEL_TBITDEF_MBXCB_MBXATR	: 3								/**< %jp{メールボックス属性のビットフィールド宣言時の幅} */
+#define _KERNEL_MBXCB_TBITDEF_MBXATR	: 3								/**< %jp{メールボックス属性のビットフィールド宣言時の幅} */
 #endif
 
 #else							/* %jp{MBXCBにビットフィールドを利用しない場合 */
 
 #if _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
-typedef _KERNEL_T_LEAST_B					_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_B				_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
 #else
 typedef _KERNEL_T_FAST_UB				_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
 typedef _KERNEL_T_LEAST_UB				_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボックス属性をMBXCBに格納するときの型} */
@@ -172,6 +172,10 @@ extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボ�
 #define _KERNEL_MBX_ID2MBXCB(mbxid)		(_kernel_mbxcb_tbl[(mbxid) - _KERNEL_MBX_TMIN_ID])		/**< %jp{メールボックスIDからMBXCB アドレスを取得} */
 #define _KERNEL_MBX_CHECK_EXS(mbxid)	(_KERNEL_MBX_ID2MBXCB(mbxid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 #define _KERNEL_MBX_TA_CRE				0
+
+#else
+
+#error error: _KERNEL_MBXCB_ALGORITHM
 
 #endif
 

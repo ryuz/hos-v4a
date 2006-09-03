@@ -4,7 +4,7 @@
  * @file  del_flg.c
  * @brief %jp{イベントフラグの削除}%en{Delete Eventflag}
  *
- * @version $Id: del_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
+ * @version $Id: del_flg.c,v 1.3 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -69,8 +69,8 @@ ER del_flg(ID flgid)
 	
 	/* %jp{オブジェクト削除} */
 #if _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_PTRARRAY
-	_KERNEL_SYS_FRE_MEM(_KERNEL_TSK_ID2FLGCB(flgid));	/* %jp{メモリ開放} */
-	_KERNEL_TSK_ID2FLGCB(flgid) = NULL;
+	_KERNEL_SYS_FRE_MEM(_KERNEL_FLG_ID2FLGCB(flgid));	/* %jp{メモリ開放} */
+	_KERNEL_FLG_ID2FLGCB(flgid) = NULL;
 #elif _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY
 	_KERNEL_FLG_SET_FLGATR(flgcb, 0);					/* %jp{削除をマーク} */
 #endif

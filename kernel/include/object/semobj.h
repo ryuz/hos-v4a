@@ -4,7 +4,7 @@
  * @file  semobj.h
  * @brief %jp{セマフォオジェクトのヘッダファイル}%en{Semaphore object heder file}
  *
- * @version $Id: semobj.h,v 1.4 2006-09-02 10:43:18 ryuz Exp $
+ * @version $Id: semobj.h,v 1.5 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -255,7 +255,7 @@ extern  _KERNEL_T_SEMCB					*_kernel_semcb_tbl[];									/**< %jp{セマフォ�
 #define _KERNEL_SEM_GET_MAXSEM(semcb_ro)	((_KERNEL_SEM_T_SEMCNT)(semcb_ro)->maxsem)
 #else
 #define _KERNEL_SEM_SET_MAXSEM(semcb_ro, x)	do { } while (0)
-#define _KERNEL_SEM_GET_MAXSEM(semcb_ro)	(_KERNEL_TMAX_SEMCNT)
+#define _KERNEL_SEM_GET_MAXSEM(semcb_ro)	(_KERNEL_TMAX_MAXSEM)
 #endif
 
 

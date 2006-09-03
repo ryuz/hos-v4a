@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.6 2006-09-02 15:08:03 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.7 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -16,9 +16,9 @@
 #define _KERNEL__parser__parsknl_h__
 
 
-/* ---------------------------------------------- */
-/*  Processor Attribute                           */
-/* ---------------------------------------------- */
+/* ------------------------------------------------------------------ */
+/*  Processor Attribute                                               */
+/* ------------------------------------------------------------------ */
 
 /* 割り込み用スタックの本数 */
 #ifndef _KERNEL_PROCATR_INTSTK_NUM
@@ -28,9 +28,9 @@
 #endif
 
 
-/* ---------------------------------------------- */
-/*  Optimize                                      */
-/* ---------------------------------------------- */
+/* ------------------------------------------------------------------ */
+/*  Optimize                                                          */
+/* ------------------------------------------------------------------ */
 
 /* %jp{数値の小さいものを優先して最適化する} */
 #define _KERNEL_OPT_RW_SIZE			_KERNEL_CFG_OPT_RW_SIZE		/**< %jp{リードライトデータサイズ(通常はRAM配置)の優先度} */
@@ -75,10 +75,9 @@
 
 
 
-
-/* ---------------------------------------------- */
-/*  Kernel                                        */
-/* ---------------------------------------------- */
+/* ------------------------------------------------------------------ */
+/*  Kernel                                                            */
+/* ------------------------------------------------------------------ */
 
 /* %jp{遅延プロシージャーコール(きっと当分未実装)} */
 #define _KERNEL_SPT_DPC				_KERNEL_CFG_DPC				/**< Deferred Procedure Call */
@@ -103,9 +102,9 @@
 
 
 
-/* -------------------------------------------------------------------- */
-/*  service call support                                                */
-/* -------------------------------------------------------------------- */
+/* ------------------------------------------------------------------ */
+/*  service call support                                              */
+/* ------------------------------------------------------------------ */
 
 /* Task management functions */
 #define _KERNEL_SPT_CRE_TSK			_KERNEL_CFG_CRE_TSK			/* cre_tsk */
@@ -454,9 +453,9 @@
 #define _KERNEL_SPT_SEM_TA_TPRI		_KERNEL_CFG_SEM_TA_TPRI
 
 
-/* -------------------------------------------------------------------- */
-/*  Task-queue                                                          */
-/* -------------------------------------------------------------------- */
+/* ------------------------------------------------------------------ */
+/*  Task-queue                                                        */
+/* ------------------------------------------------------------------ */
 
 #define _KERNEL_QUE_ALG_ONEWAYLIST		1
 #define _KERNEL_QUE_ALG_TWOWAYLIST		2
@@ -465,9 +464,9 @@
 
 
 
-/* -------------------------------------------------------------------- */
-/*  TCB                                                                 */
-/* -------------------------------------------------------------------- */
+/* ------------------------------------------------------------------ */
+/*  TCB                                                               */
+/* ------------------------------------------------------------------ */
 
 /* ---------------------------------- */
 /*            Task-ID                 */
@@ -797,31 +796,37 @@
 /*  Semaphore                                                         */
 /* ------------------------------------------------------------------ */
 
+/* Definitions */
 #define _KERNEL_SEMCB_ALG_BLKARRAY	1
 #define _KERNEL_SEMCB_ALG_PTRARRAY	2
 
 
+/* Control block */
 #define _KERNEL_SEMCB_ALGORITHM		_KERNEL_CFG_SEMCB_ALGORITHM
 #define _KERNEL_SEMCB_BITFIELD		_KERNEL_CFG_SEMCB_BITFIELD
 
-/*  */
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
 #if (_KERNEL_SEMCB_ALGORITHM == _KERNEL_SEMCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_SEM || _KERNEL_SPT_ACRE_SEM)
 #define _KERNEL_SEMCB_SPLIT_RO		FALSE
 #else
 #define _KERNEL_SEMCB_SPLIT_RO		_KERNEL_CFG_SEMCB_SPLIT_RO
 #endif
 
+
 #define _KERNEL_SEM_TMAX_SEMCNT		_KERNEL_TMAX_MAXSEM
 #define _KERNEL_SEM_TBIT_SEMCNT		_KERNEL_MAXNUM2BIT(_KERNEL_SEM_TMAX_SEMCNT)
 
 
-#define _KERNEL_SEMCB_QUE			TRUE
-#define _KERNEL_SEMCB_SEMCNT		TRUE
-#define _KERNEL_SEMCB_SEMATR		TRUE
-#define _KERNEL_SEMCB_MAXSEM		TRUE
-
+/* Attributes */
 #define _KERNEL_SPT_SEM_TA_TFIFO	_KERNEL_CFG_SEM_TA_TFIFO
 #define _KERNEL_SPT_SEM_TA_TPRI		_KERNEL_CFG_SEM_TA_TPRI
+
+
+/* Member variables */
+#define _KERNEL_SEMCB_QUE			TRUE
+#define _KERNEL_SEMCB_SEMCNT		TRUE
+#define _KERNEL_SEMCB_SEMATR		(_KERNEL_SPT_SEM_TA_TFIFO && _KERNEL_SPT_SEM_TA_TPRI)
+#define _KERNEL_SEMCB_MAXSEM		_KERNEL_CFG_SEM_MAXSEM
 
 
 
@@ -829,15 +834,24 @@
 /*  Eventflags                                                        */
 /* ------------------------------------------------------------------ */
 
-#define _KERNEL_FLGCB_ALG_BLKARRAY		1
-#define _KERNEL_FLGCB_ALG_PTRARRAY		2
+/* Definitions */
+#define _KERNEL_FLGCB_ALG_BLKARRAY	1
+#define _KERNEL_FLGCB_ALG_PTRARRAY	2
 
-/* control block */
+
+/* Control block */
 #define _KERNEL_FLGCB_ALGORITHM		_KERNEL_CFG_FLGCB_ALGORITHM
 #define _KERNEL_FLGCB_BITFIELD		_KERNEL_CFG_FLGCB_BITFIELD
-#define _KERNEL_FLGCB_ROM			_KERNEL_CFG_FLGCB_ROM
 
-/* Attribute */
+/* %jp{ブロック配列で動的生成無しの場合以外はRO分離は不可} */
+#if !((_KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY) && (!_KERNEL_SPT_CRE_FLG && !_KERNEL_SPT_ACRE_FLG))
+#define _KERNEL_FLGCB_ROM			FALSE
+#else
+#define _KERNEL_FLGCB_ROM			_KERNEL_CFG_FLGCB_ROM
+#endif
+
+
+/* Attributes */
 #define _KERNEL_SPT_FLG_TA_TFIFO	_KERNEL_CFG_FLG_TA_TFIFO			/**< %jp{TA_TFIFO属性に対応する} */
 #define _KERNEL_SPT_FLG_TA_TPRI		_KERNEL_CFG_FLG_TA_TPRI				/**< %jp{TA_TPRI属性に対応する} */
 #define _KERNEL_SPT_FLG_TA_WSGL		_KERNEL_CFG_FLG_TA_WSGL				/**< %jp{TA_WSGL属性に対応する} */
@@ -845,30 +859,44 @@
 #define _KERNEL_SPT_FLG_TA_CLR		_KERNEL_CFG_FLG_TA_CLR				/**< %jp{TA_CLR属性に対応する} */
 
 
-
+/* Member variables  */
 #define _KERNEL_FLGCB_QUE			TRUE
 #define _KERNEL_FLGCB_FLGPTN		TRUE
-#define _KERNEL_FLGCB_FLGATR		TRUE
 
+#if (!_KERNEL_CFG_FLG_TA_TFIFO || !_KERNEL_CFG_FLG_TA_TPRI) && (!_KERNEL_CFG_FLG_TA_WSGL || !_KERNEL_CFG_FLG_TA_WSGL) && !_KERNEL_CFG_FLG_TA_CLR
+#define _KERNEL_FLGCB_FLGATR		FALSE
+#else
+#define _KERNEL_FLGCB_FLGATR		TRUE
+#endif
 
 
 /* ------------------------------------------------------------------ */
 /*  Data queues                                                       */
 /* ------------------------------------------------------------------ */
 
-#define _KERNEL_DTQCB_ALG_BLKARRAY		1
-#define _KERNEL_DTQCB_ALG_PTRARRAY		2
+/* Definitions */
+#define _KERNEL_DTQCB_ALG_BLKARRAY	1
+#define _KERNEL_DTQCB_ALG_PTRARRAY	2
 
-/* control block */
+
+/* Control block */
 #define _KERNEL_DTQCB_ALGORITHM		_KERNEL_CFG_DTQCB_ALGORITHM
 #define _KERNEL_DTQCB_BITFIELD		_KERNEL_CFG_DTQCB_BITFIELD
-#define _KERNEL_DTQCB_SPLIT_RO		_KERNEL_CFG_DTQCB_ROM
+
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
+#if (_KERNEL_DTQCB_ALGORITHM == _KERNEL_DTQCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_DTQ || _KERNEL_SPT_ACRE_DTQ)
+#define _KERNEL_DTQCB_ROM			FALSE
+#else
+#define _KERNEL_DTQCB_ROM			_KERNEL_CFG_DTQCB_ROM
+#endif
+
 
 /* Attribute */
 #define _KERNEL_SPT_DTQ_TA_TFIFO	_KERNEL_CFG_DTQ_TA_TFIFO			/**< %jp{TA_TFIFO属性に対応する} */
 #define _KERNEL_SPT_DTQ_TA_TPRI		_KERNEL_CFG_DTQ_TA_TPRI				/**< %jp{TA_TPRI属性に対応する} */
 
 
+/* Member variables  */
 #define _KERNEL_DTQCB_SQUE			TRUE
 #define _KERNEL_DTQCB_RQUE			TRUE
 #define _KERNEL_DTQCB_SDTQCNT		TRUE
@@ -878,8 +906,9 @@
 #define _KERNEL_DTQCB_DTQ			TRUE
 
 
+
 /* ------------------------------------------------------------------ */
-/*  Mailbox objects                                                   */
+/*  Mailboxes                                                         */
 /* ------------------------------------------------------------------ */
 
 #define _KERNEL_MBXCB_ALG_BLKARRAY	1
@@ -892,9 +921,15 @@
 #define _KERNEL_SPT_MBX_TA_MPRI		_KERNEL_CFG_MBX_TA_MPRI			/**< %jp{TA_MPRI属性に対応する} */
 
 /* Control block */
-#define _KERNEL_MBXCB_ALGORITHM		_KERNEL_CFG_MPFCB_ALGORITHM
-#define _KERNEL_MBXCB_SPLIT_RO		_KERNEL_CFG_MPFCB_SPLIT_RO		/**< %jp{TCBの不変部を分割してROM部配置とするか} */
-#define _KERNEL_MBXCB_BITFIELD		_KERNEL_CFG_MPFCB_BITFIELD		/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+#define _KERNEL_MBXCB_ALGORITHM		_KERNEL_CFG_MBXCB_ALGORITHM
+#define _KERNEL_MBXCB_BITFIELD		_KERNEL_CFG_MBXCB_BITFIELD		/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
+#if (_KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_MBX || _KERNEL_SPT_ACRE_MBX)
+#define _KERNEL_MBXCB_ROM			FALSE
+#else
+#define _KERNEL_MBXCB_ROM			_KERNEL_CFG_MBXCB_ROM
+#endif
 
 
 #define _KERNEL_MBXCB_QUE			TRUE
@@ -925,8 +960,15 @@
 
 /* Control block */
 #define _KERNEL_MPFCB_ALGORITHM		_KERNEL_MPFCB_ALG_BLKARRAY
-#define _KERNEL_MPFCB_SPLIT_RO		FALSE							/**< %jp{TCBの不変部を分割してROM部配置とするか} */
-#define _KERNEL_MPFCB_BITFIELD		FALSE							/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+#define _KERNEL_MPFCB_BITFIELD		_KERNEL_CFG_MPFCB_BITFIELD		/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
+#if (_KERNEL_MPFCB_ALGORITHM == _KERNEL_MPFCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_MPF || _KERNEL_SPT_ACRE_MPF)
+#define _KERNEL_MPFCB_ROM			FALSE
+#else
+#define _KERNEL_MPFCB_ROM			_KERNEL_CFG_MPFCB_ROM
+#endif
+
 
 #if _KERNEL_CFG_MPF_TMAX_BLKCNT <= 0
 #define _KERNEL_MPF_TMAX_BLKCNT		_KERNEL_TMAX_UINT

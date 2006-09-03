@@ -4,7 +4,7 @@
  * @file  cfgsys.h
  * @brief %jp{ITRONシステムのコンフィギュレーション用ヘッダファイル}%en{ITRON system configuration heder file}
  *
- * @version $Id: cfgsys.h,v 1.2 2006-08-18 12:00:12 ryuz Exp $
+ * @version $Id: cfgsys.h,v 1.3 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -68,13 +68,13 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* %jp{優先度の範囲}%en{Priority Range} */
-#define _KERNEL_CFG_TMAX_TPRI			255					/**< %jp{タスク優先度の最大値(-1の時デフォルト値)}%en{Maximum task priority} */
-#define _KERNEL_CFG_TMAX_MPRI			255					/**< %jp{メッセージ優先度の最大値(-1の時デフォルト値)}%en{Maximum message priority} */
+#define _KERNEL_CFG_TMAX_TPRI			127					/**< %jp{タスク優先度の最大値(-1の時デフォルト値)}%en{Maximum task priority} */
+#define _KERNEL_CFG_TMAX_MPRI			127					/**< %jp{メッセージ優先度の最大値(-1の時デフォルト値)}%en{Maximum message priority} */
 
 /* %jp{キューイング／ネスト回数の最大値}%en{Maximum Nesting/Queueing Count} */
-#define _KERNEL_CFG_TMAX_ACTCNT			255					/**< %jp{タスク起動要求キューイング数の最大値(-1の時デフォルト値)} */
-#define _KERNEL_CFG_TMAX_WUPCNT			255					/**< %jp{タスク起床要求キューイング数の最大値(-1の時デフォルト値)} */
-#define _KERNEL_CFG_TMAX_SUSCNT			255					/**< %jp{タスク強制待ち要求ネスト数の最大値(-1の時デフォルト値)} */
+#define _KERNEL_CFG_TMAX_ACTCNT			127					/**< %jp{タスク起動要求キューイング数の最大値(-1の時デフォルト値)} */
+#define _KERNEL_CFG_TMAX_WUPCNT			127					/**< %jp{タスク起床要求キューイング数の最大値(-1の時デフォルト値)} */
+#define _KERNEL_CFG_TMAX_SUSCNT			127					/**< %jp{タスク強制待ち要求ネスト数の最大値(-1の時デフォルト値)} */
 
 /* %jp{ビットパターンのビット数} %en{Number of Bits in Bitpatterns}*/
 #define _KERNEL_CFG_TEX_TBIT_TEXPTN		(-1)				/**< %jp{タスク例外要因のビット数(-1の時デフォルト値)} */
@@ -82,7 +82,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_RDV_TBIT_RDVPTN		(-1)				/**< %jp{ランデブ条件のビット数(-1の時デフォルト値)} */
 
 /* %jp{セマフォの最大値}%en{Maximum value of the maximum definable semaphore resource count} */
-#define _KERNEL_CFG_TMAX_MAXSEM			(-1)
+#define _KERNEL_CFG_TMAX_MAXSEM			(-1)				/**< %jp{セマフォの最大値}%en{Maximum value of the maximum definable semaphore resource count} */
 
 
 /* %jp{HOS独自拡張機能} */

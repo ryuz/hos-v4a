@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.6 2006-09-02 15:08:03 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.7 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -163,11 +163,11 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* Attribute */
 #define _KERNEL_CFG_SEM_TA_TFIFO		TRUE				/**< %jp{TA_TFIFO属性に対応する} */
 #define _KERNEL_CFG_SEM_TA_TPRI			TRUE				/**< %jp{TA_TPRI属性に対応する} */
-
+#define _KERNEL_CFG_SEM_MAXSEM			TRUE				/**< %jp{maxsem(上限チェック)を使う} */
 
 /* Control block */
 #define _KERNEL_CFG_SEMCB_ALGORITHM		_KERNEL_SEMCB_ALG_PTRARRAY
-#define _KERNEL_CFG_SEMCB_SPLIT_RO		TRUE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_SEMCB_SPLIT_RO		FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_CFG_SEMCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
 
@@ -183,9 +183,8 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_FLG_TA_WMUL			TRUE				/**< %jp{TA_WMUL属性に対応する} */
 #define _KERNEL_CFG_FLG_TA_CLR			TRUE				/**< %jp{TA_CLR属性に対応する} */
 
-
 /* Control block */
-#define _KERNEL_CFG_FLGCB_ALGORITHM		_KERNEL_FLGCB_ALG_BLKARRAY
+#define _KERNEL_CFG_FLGCB_ALGORITHM		_KERNEL_FLGCB_ALG_PTRARRAY
 #define _KERNEL_CFG_FLGCB_SPLIT_RO		FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_CFG_FLGCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
@@ -199,7 +198,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_DTQ_TA_TPRI			TRUE				/**< %jp{TA_TPRI属性に対応する} */
 
 /* Control block */
-#define _KERNEL_CFG_DTQCB_ALGORITHM		_KERNEL_DTQCB_ALG_BLKARRAY
+#define _KERNEL_CFG_DTQCB_ALGORITHM		_KERNEL_DTQCB_ALG_PTRARRAY
 #define _KERNEL_CFG_DTQCB_SPLIT_RO		FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_CFG_DTQCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
@@ -224,9 +223,9 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* Control block */
-#define _KERNEL_CFG_MBXCB_ALGORITHM		_KERNEL_MBXCB_ALG_BLKARRAY
-#define _KERNEL_CFG_MBXCB_SPLIT_RO		FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
-#define _KERNEL_CFG_MBXCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+#define _KERNEL_CFG_MBXCB_ALGORITHM		_KERNEL_MBXCB_ALG_PTRARRAY
+#define _KERNEL_CFG_MBXCB_SPLIT_RO		TRUE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_MBXCB_BITFIELD		TRUE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
 
 
@@ -251,7 +250,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 /* Control block */
 #define _KERNEL_CFG_MPFCB_ALGORITHM		_KERNEL_MPFCB_ALG_PTRARRAY
-#define _KERNEL_CFG_MPFCB_SPLIT_RO		TRUE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_MPFCB_SPLIT_RO		FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_CFG_MPFCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
 
 

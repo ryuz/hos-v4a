@@ -4,7 +4,7 @@
  * @file  dtqobj.h
  * @brief %jp{データキュージェクトのヘッダファイル}%en{Data queue object heder file}
  *
- * @version $Id: dtqobj.h,v 1.3 2006-09-02 06:08:27 ryuz Exp $
+ * @version $Id: dtqobj.h,v 1.4 2006-09-03 03:01:03 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -221,7 +221,7 @@ extern  _KERNEL_T_DTQCB					_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 
 /* %jp{ポインタ配列管理の場合}%en{pointer array} */
 extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキューコントロールブロックテーブル} */
-#define _KERNEL_DTQ_ID2DTQCB(dtqid)		(_kernel_dtqcb_tbl[(dtqid) - _KERNEL_TMIN_DTQID])		/**< %jp{データキューIDからDTQCB アドレスを取得} */
+#define _KERNEL_DTQ_ID2DTQCB(dtqid)		(_kernel_dtqcb_tbl[(dtqid) - _KERNEL_DTQ_TMIN_ID])		/**< %jp{データキューIDからDTQCB アドレスを取得} */
 #define _KERNEL_DTQ_CHECK_EXS(dtqid)	(_KERNEL_DTQ_ID2DTQCB(dtqid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 
 #endif
