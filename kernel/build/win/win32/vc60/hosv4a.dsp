@@ -88,6 +88,10 @@ LIB32=link.exe -lib
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\include\object\cycobj.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\include\object\dtqobj.h
 # End Source File
 # Begin Source File
@@ -723,11 +727,27 @@ SOURCE=..\..\..\..\source\object\dtq\kcre_dtq.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\dtq\prcv_dtq.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\dtq\rcv_dtq.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\dtq\snd_dtq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\trcv_dtq.c
+# End Source File
+# End Group
+# Begin Group "cyc"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\cyc\kcre_cyc.c
 # End Source File
 # End Group
 # End Group

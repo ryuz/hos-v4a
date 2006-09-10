@@ -4,7 +4,7 @@
  * @file  acre_cyc.c
  * @brief %en{Activate Task}%jp{タスクの起動}
  *
- * @version $Id: kcre_cyc.c,v 1.1 2006-09-10 09:31:58 ryuz Exp $
+ * @version $Id: kcre_cyc.c,v 1.2 2006-09-10 14:54:26 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -35,6 +35,7 @@ ER _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 {
 	_KERNEL_T_CYCCB    *cyccb;
 	_KERNEL_T_CYCCB_RO *cyccb_ro;
+	_KERNEL_T_TIMOBJ   *pk_timobj;
 	
 	/* %jp{メモリ確保}%en{get memory} */
 #if _KERNEL_CYCCB_ALGORITHM == _KERNEL_CYCCB_ALG_BLKARRAY
@@ -94,13 +95,29 @@ ER _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 #endif
 
 	/* %jp{メンバ初期化} */
-	_KERNEL_TIMOBJ_CRE_TIMOBJ(_KERNEL_CYC_GET_TIMOBJ(cyccb));
-	_KERNEL_TIMOBJ_SET_TIMHDR(_KERNEL_CYC_GET_TIMOBJ(cyccb), _kernel_cyc_hdr);
+	pk_timobj = _KERNEL_CYC_GET_TIMOBJ(cyccb);
+	_KERNEL_TIMOBJ_CRE_TIMOBJ(pk_timobj);
+	_KERNEL_TIMOBJ_SET_TIMHDR(pk_timobj, _kernel_cyc_hdr);
 	_KERNEL_CYC_SET_CYCATR(cyccb_ro, pk_ccyc->cycatr);
 	_KERNEL_CYC_SET_CYCHDR(cyccb_ro, pk_ccyc->cychdr);
 	_KERNEL_CYC_SET_CYCTIM(cyccb_ro, pk_ccyc->cyctim);
 	_KERNEL_CYC_SET_CYCPHS(cyccb_ro, pk_ccyc->cycphs);
 	
+#if _KERNEL_SPT_CYC_TA_STA
+	if ( pk_ccyc->cycatr & TA_STA )
+	{
+		if ( pk_ccyc->cycatr & TA_PHS )
+		{
+			_KERNEL_TIMOBJ_SET_LEFTTIM(pk_timobj, pk_ccyc->cycphs);
+		}
+		else
+		{
+			_KERNEL_TIMOBJ_SET_LEFTTIM(pk_timobj, pk_ccyc->cyctim);
+		}
+		_KERNEL_ADD_TMQ(_KERNEL_CYC_GET_TIMOBJ(cyccb));
+	}
+#endif
+
 	return E_OK;
 }
 

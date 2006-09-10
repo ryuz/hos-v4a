@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.6 2006-08-20 15:19:30 ryuz Exp $
+ * @version $Id: kernel.h,v 1.7 2006-09-10 14:54:25 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -202,6 +202,17 @@ typedef struct t_rmpf
 	ID		wtskid;			/**< %jp{固定長メモリプールの待ち行列の先頭のタスクのID番号} */
 	UINT	fblkcnt;		/**< %jp{固定長メモリプールの空きメモリブロック数(個数)} */
 } T_RMPF;
+
+
+/* %jp{周期ハンドラ生成情報} */
+typedef struct t_ccyc
+{
+	ATR		cycatr;			/**< %jp{周期ハンドラ属性} */
+	VP_INT	exinf;			/**< %jp{周期ハンドラの拡張情報} */
+	FP		cychdr;			/**< %jp{周期ハンドラの起動番地} */
+	RELTIM	cyctim;			/**< %jp{周期ハンドラの起動周期} */
+	RELTIM	cycphs;			/**< %jp{周期ハンドラの起動位相} */
+} T_CCYC;
 
 
 

@@ -4,7 +4,7 @@
  * @file  cycobj.h
  * @brief %jp{周期ハンドラオジェクトのヘッダファイル}%en{Cyclic Handler object heder file}
  *
- * @version $Id: cycobj.h,v 1.1 2006-09-10 09:22:18 ryuz Exp $
+ * @version $Id: cycobj.h,v 1.2 2006-09-10 14:54:26 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -69,7 +69,7 @@ typedef struct _kernel_t_cyccb_ro
 #endif
 
 #if _KERNEL_CYCCB_CYCHDR
-	_KERNEL_CYCCB_T_RELTIM	cychdr		_KERNEL_CYCCB_TBITDEF_CYCHDR;		/**< %jp{周期ハンドラの起動周期} */
+	_KERNEL_CYCCB_T_CYCHDR	cychdr		_KERNEL_CYCCB_TBITDEF_CYCHDR;		/**< %jp{周期ハンドラの起動周期} */
 #endif
 
 #if _KERNEL_CYCCB_CYCTIM
@@ -120,7 +120,7 @@ typedef struct _kernel_t_cyccb
 #endif
 
 #if _KERNEL_CYCCB_CYCHDR
-	_KERNEL_CYCCB_T_RELTIM	cychdr		_KERNEL_CYCCB_TBITDEF_CYCHDR;		/**< %jp{周期ハンドラの起動周期} */
+	_KERNEL_CYCCB_T_CYCHDR	cychdr		_KERNEL_CYCCB_TBITDEF_CYCHDR;		/**< %jp{周期ハンドラの起動周期} */
 #endif
 
 #if _KERNEL_CYCCB_CYCTIM
@@ -212,13 +212,48 @@ extern  _KERNEL_T_CYCCB					*_kernel_cyccb_tbl[];									/**< %jp{周期ハン�
 
 /* cycatr */
 #if _KERNEL_CYCCB_CYCATR
-#define _KERNEL_CYC_SET_CYCATR(cyccb, x)	do { (cyccb)->cycatr = (_KERNEL_CYCCB_T_CYCATR)(x); } while (0)
-#define _KERNEL_CYC_GET_CYCATR(cyccb)		((_KERNEL_CYC_T_CYCATR)(cyccb)->cycatr)
+#define _KERNEL_CYC_SET_CYCATR(cyccb_ro, x)	do { (cyccb_ro)->cycatr = (_KERNEL_CYCCB_T_CYCATR)(x); } while (0)
+#define _KERNEL_CYC_GET_CYCATR(cyccb_ro)		((_KERNEL_CYC_T_CYCATR)(cyccb_ro)->cycatr)
 #else
-#define _KERNEL_CYC_SET_CYCATR(cyccb, x)	do { } while (0)
-#define _KERNEL_CYC_GET_CYCATR(cyccb)		(0)
+#define _KERNEL_CYC_SET_CYCATR(cyccb_ro, x)	do { } while (0)
+#define _KERNEL_CYC_GET_CYCATR(cyccb_ro)		(0)
 #endif
 
+/* exinf */
+#if _KERNEL_CYCCB_EXINF
+#define _KERNEL_CYC_SET_EXINF(cyccb_ro, x)	do { (cyccb_ro)->exinf = (_KERNEL_CYCCB_T_EXINF)(x); } while (0)
+#define _KERNEL_CYC_GET_EXINF(cyccb_ro)		((_KERNEL_CYC_T_EXINF)(cyccb_ro)->exinf)
+#else
+#define _KERNEL_CYC_SET_EXINF(cyccb_ro, x)	do { } while (0)
+#define _KERNEL_CYC_GET_EXINF(cyccb_ro)		(0)
+#endif
+
+/* cychdr */
+#if _KERNEL_CYCCB_CYCHDR
+#define _KERNEL_CYC_SET_CYCHDR(cyccb_ro, x)	do { (cyccb_ro)->cychdr = (_KERNEL_CYCCB_T_CYCHDR)(x); } while (0)
+#define _KERNEL_CYC_GET_CYCHDR(cyccb_ro)	((_KERNEL_CYC_T_CYCHDR)(cyccb_ro)->cychdr)
+#else
+#define _KERNEL_CYC_SET_CYCHDR(cyccb_ro, x)	do { } while (0)
+#define _KERNEL_CYC_GET_CYCHDR(cyccb_ro)	(0)
+#endif
+
+/* cyctim */
+#if _KERNEL_CYCCB_CYCTIM
+#define _KERNEL_CYC_SET_CYCTIM(cyccb_ro, x)		do { (cyccb_ro)->cyctim = (_KERNEL_CYCCB_T_RELTIM)(x); } while (0)
+#define _KERNEL_CYC_GET_CYCTIM(cyccb_ro)		((_KERNEL_CYC_T_RELTIM)(cyccb_ro)->cyctim)
+#else
+#define _KERNEL_CYC_SET_CYCTIM(cyccb_ro, x)		do { } while (0)
+#define _KERNEL_CYC_GET_CYCTIM(cyccb_ro)		(0)
+#endif
+
+/* cycphs */
+#if _KERNEL_CYCCB_CYCPHS
+#define _KERNEL_CYC_SET_CYCPHS(cyccb_ro, x)		do { (cyccb_ro)->cycphs = (_KERNEL_CYCCB_T_RELTIM)(x); } while (0)
+#define _KERNEL_CYC_GET_CYCPHS(cyccb_ro)		((_KERNEL_CYC_T_RELTIM)(cyccb_ro)->cycphs)
+#else
+#define _KERNEL_CYC_SET_CYCPHS(cyccb_ro, x)		do { } while (0)
+#define _KERNEL_CYC_GET_CYCPHS(cyccb_ro)		(0)
+#endif
 
 
 

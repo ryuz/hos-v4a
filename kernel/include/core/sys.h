@@ -4,7 +4,7 @@
  * @file  knl_sys.h
  * @brief %en{system heder file}%jp{システム制御のヘッダファイル}
  *
- * @version $Id: sys.h,v 1.2 2006-08-18 07:54:59 ryuz Exp $
+ * @version $Id: sys.h,v 1.3 2006-09-10 14:54:26 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -17,6 +17,8 @@
 
 
 #include "core/hep.h"
+#include "core/toq.h"
+#include "core/tmq.h"
 
 
 /* %jp{システムの状態} */
@@ -45,6 +47,7 @@ typedef struct _kernel_t_syscb
 {
 	_KERNEL_T_RDQ		rdq;				/**< %jp{レディーキュー}%en{ready-queue} */
 	_KERNEL_T_TOQ		toq;				/**< %jp{タイムアウトキュー}%en{timeout-queue} */
+	_KERNEL_T_TMQ		tmq;				/**< %jp{タイマキュー}%en{timer-queue} */
 	_KERNEL_T_HEPCB		memhep;				/**< %jp{カーネルメモリヒープ}%en{kernel heap-memory control block} */
 	_KERNEL_T_PROCCB	proccb[1];			/**< %jp{プロセッサ制御情報}%en{processor control block} */
 } _KERNEL_T_SYSCB;
@@ -59,6 +62,7 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 
 #define _KERNEL_SYS_GET_RDQ()				(&_kernel_syscb.rdq)
 #define _KERNEL_SYS_GET_TOQ()				(&_kernel_syscb.toq)
+#define _KERNEL_SYS_GET_TMQ()				(&_kernel_syscb.tmq)
 
 #define _KERNEL_SYS_INI_MEM(p_base, size)	_kernel_cre_hep(&_kernel_syscb.memhep, (p_base), (size))
 #define _KERNEL_SYS_ALC_MEM(size)			_kernel_alc_hep(&_kernel_syscb.memhep, (size))

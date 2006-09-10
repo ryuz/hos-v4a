@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.7 2006-09-03 03:01:03 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.8 2006-09-10 14:54:26 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -1008,6 +1008,19 @@
 #define _KERNEL_TIMCB_TICCNT		_KERNEL_FRACTIONAL_TIMTIC
 
 #define _KERNEL_TIMCB_SYSTIM		(_KERNEL_CFG_SET_TIM || _KERNEL_SPT_GET_TIM)
+
+
+
+/* ------------------------------------------------------------------ */
+/*  Cyclic Handlers                                                   */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_CYCCB_TIMOBJ		TRUE
+#define _KERNEL_CYCCB_CYCATR		TRUE
+#define _KERNEL_CYCCB_EXINF			TRUE
+#define _KERNEL_CYCCB_CYCHDR		TRUE
+#define _KERNEL_CYCCB_CYCTIM		TRUE
+#define _KERNEL_CYCCB_CYCPHS		TRUE
 
 
 /* ------------------------------------------------------------------ */

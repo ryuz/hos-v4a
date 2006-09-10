@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.9 2006-09-03 15:10:01 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.10 2006-09-10 14:54:26 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -37,6 +37,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_OPT_RO_SIZE			2					/**< %jp{リードオンリーデータ(通常はROM配置)のサイズの優先度} */
 #define _KERNEL_CFG_OPT_CODE_SIZE		2					/**< %jp{コードサイズ(通常はROM配置)の優先度} */
 #define _KERNEL_CFG_OPT_SPEED			3					/**< %jp{実行速度の優先度} */
+#define _KERNEL_CFG_OPT_POWER			3					/**< %jp{消費電力の優先度} */
 
 
 
