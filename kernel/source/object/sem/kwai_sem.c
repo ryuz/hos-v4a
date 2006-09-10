@@ -4,7 +4,7 @@
  * @file  twai_sem.c
  * @brief %jp{セマフォ資源の獲得(統合版)}%en{Acquire Semaphore Resource}
  *
- * @version $Id: kwai_sem.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: kwai_sem.c,v 1.2 2006-09-10 04:58:20 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -31,8 +31,9 @@
  */
 ER _kernel_wai_sem(ID semid, TMO tmout)
 {
-	_KERNEL_T_SEMHDL     semhdl;
+	_KERNEL_T_SEMCB_PTR  semcb;
 	_KERNEL_T_TSKHDL     tskhdl;
+	_KERNEL_T_TCB_PTR    tcb;
 	_KERNEL_SEM_T_SEMCNT semcnt;
 	ER                   ercd;
 	
@@ -48,7 +49,6 @@ ER _kernel_wai_sem(ID semid, TMO tmout)
 #if _KERNEL_SPT_KWAI_SEM_E_CTX
 	if ( tmout != TMO_POL && _KERNEL_SYS_SNS_DPN() )
 	{
-		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
 	}
 #endif
@@ -64,16 +64,16 @@ ER _kernel_wai_sem(ID semid, TMO tmout)
 	}
 #endif
 
-	/* %jp{セマフォハンドル取得} */
-	semhdl = _KERNEL_SEM_ID2SEMHDL(semid);
+	/* %jp{コントロールブロック取得} */
+	semcb = _KERNEL_SEM_ID2SEMCB(semid);
 	
 	/* %jp{セマフォカウンタ取得} */
-	semcnt = _KERNEL_SEM_GET_SEMCNT(semhdl);
+	semcnt = _KERNEL_SEM_GET_SEMCNT(semcb);
 	
 	if ( semcnt > 0 )
 	{
 		/* %jp{セマフォ資源が獲得できれば成功} */
-		_KERNEL_SEM_SET_SEMCNT(semhdl, semcnt - 1); 		/* %jp{セマフォ資源の獲得} */
+		_KERNEL_SEM_SET_SEMCNT(semcb, semcnt - 1); 		/* %jp{セマフォ資源の獲得} */
 		ercd = E_OK;
 	}
 	else
@@ -88,10 +88,11 @@ ER _kernel_wai_sem(ID semid, TMO tmout)
 		{
 			/* %jp{タスクを待ち状態にする} */
 			tskhdl = _KERNEL_SYS_GET_RUNTSK();
+			tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);			/* %jp{TCB取得} */
 			_KERNEL_DSP_WAI_TSK(tskhdl);
-			_KERNEL_TSK_SET_TSKWAIT(tskhdl, _KERNEL_TTW_SEM);
-			_KERNEL_TSK_SET_WOBJID(tskhdl, semid);
-			_KERNEL_SEM_ADD_QUE(semhdl, tskhdl);				/* %jp{待ち行列に追加} */
+			_KERNEL_TSK_SET_TSKWAIT(tcb, _KERNEL_TTW_SEM);
+			_KERNEL_TSK_SET_WOBJID(tcb, semid);
+			_KERNEL_SEM_ADD_QUE(semcb, _KERNEL_SEM_GET_SEMCB_RO(semid, semcb), tskhdl);			/* %jp{待ち行列に追加} */
 			
 #if _KERNEL_SPT_TWAI_SEM
 			if ( tmout != TMO_FEVR )
@@ -104,7 +105,7 @@ ER _kernel_wai_sem(ID semid, TMO tmout)
 			_KERNEL_DSP_TSK();
 
 			/* %jp{エラーコードの取得} */
-			ercd = _KERNEL_TSK_GET_ERCD(tskhdl);
+			ercd = _KERNEL_TSK_GET_ERCD(tcb);
 		}
 	}
 	
