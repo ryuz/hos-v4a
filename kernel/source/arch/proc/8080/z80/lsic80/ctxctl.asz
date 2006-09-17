@@ -1,0 +1,121 @@
+
+
+				cseg
+
+; -----------------------------------------------
+;  %jp{割り込み禁止}
+;  void _kernel_dis_int(void)
+; -----------------------------------------------
+				public	_kernel_dis_int_
+_kernel_dis_int_:
+				di
+				ret
+
+
+; -----------------------------------------------
+;  %jp{割り込み許可}
+;  void _kernel_ena_int(void)
+; -----------------------------------------------
+				public	_kernel_ena_int_
+_kernel_ena_int_:
+				ei
+				ret
+
+
+;------------------------------------------------
+; %jp{割り込み待ち}
+; void _kernel_wai_int(void)
+;------------------------------------------------
+				public	_kernel_wai_int_
+_kernel_wai_int_:
+				halt
+				jr		_kernel_wai_int_
+
+
+
+; -----------------------------------------------
+;  Entry point
+; -----------------------------------------------
+ctx_entry:
+				pop		hl
+				pop		de
+				jp		(ix)
+
+
+; -----------------------------------------------
+;  %jp{実行コンテキストの作成}
+;  _kernel_cre_ctx(
+;		_KERNEL_T_CTXCB *pk_ctxcb,		[hl]		%jp{作成するコンテキスト}
+;		VP              isp,			[de]		%jp{初期スタックポインタ}
+;		FP              entry,			[bc]		%jp{実行アドレス}
+;		VP_INT          par1,			[(sp+2)]	%jp{実行時パラメータ1}
+;		VP_INT          par2)			[(sp+4)]	%jp{実行時パラメータ2}
+; -----------------------------------------------
+				public	_kernel_cre_ctx_
+_kernel_cre_ctx_:
+				push	ix
+				ld		ix, 0
+				add		ix, sp
+				ld		iy, 0
+				add		iy, de
+				ld		de, -8
+				add		iy, de
+				ld		de, ctx_entry
+				ld		(iy+0), e
+				ld		(iy+1), d
+				ld		(iy+2), c
+				ld		(iy+3), b
+				ld		a, (ix+4)
+				ld		(iy+4), a
+				ld		a, (ix+5)
+				ld		(iy+5), a
+				ld		a, (ix+6)
+				ld		(iy+6), a
+				ld		a, (ix+7)
+				ld		(iy+7), a
+				pop		ix
+				push	iy
+				pop		de
+				ld		(hl), e
+				inc		hl
+				ld		(hl), d
+				ret
+
+
+; -----------------------------------------------
+;  %jp{実行コンテキストの切替}
+;  void _kernel_swi_ctx(
+;		_KERNEL_T_CTXCB *pk_ctxcb_nxt)	[hl]	%jp{切り替え先のコンテキスト}
+;		_KERNEL_T_CTXCB *pk_ctxcb_now,	[de]	%jp{現在のコンテキスト}
+; -----------------------------------------------
+				public	_kernel_swi_ctx_
+_kernel_swi_ctx_:
+				push	ix				; %jp{ix退避}
+				ld		iy, 0
+				add		iy, de			; %jp{現在のコンテキストアドレスをiyに格納}
+				ex		de, hl			; %jp{切り替え先のコンテキストをdeに退避}
+				ld		hl, 0
+				add		hl, sp			; %jp{spをhlへ}
+				ld		(iy+0), l
+				ld		(iy+1), h
+				ex		de, hl
+		; ---- %jp{このまま _kernel_sta_ctx に続ける}
+
+
+; -----------------------------------------------
+;  %jp{実行コンテキストの開始}
+;  void _kernel_sta_ctx(
+;		_KERNEL_T_CTXCB *pk_ctxcb)		[hl]	%jp{開始するコンテキスト [er0]}
+; -----------------------------------------------
+				public	_kernel_sta_ctx_
+_kernel_sta_ctx_:
+				ld		a, (hl)
+				inc		hl
+				ld		h, (hl)
+				ld		l, a
+				ld		sp,hl
+				pop		ix				; %jp{ix復帰}
+				ret
+
+
+; end of file
