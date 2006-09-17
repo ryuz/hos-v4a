@@ -132,7 +132,15 @@ SOURCE=..\..\..\..\include\object\tskobj.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\include\core\adtq.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\include\core\basetyp.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\include\core\chkptr.h
 # End Source File
 # Begin Source File
 
@@ -396,6 +404,14 @@ SOURCE=..\..\..\..\source\core\tmq\rmv_tmq.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\core\tmq\sig_tmq.c
+# End Source File
+# End Group
+# Begin Group "adtq"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\adtq\snd_adtq.c
 # End Source File
 # End Group
 # End Group
