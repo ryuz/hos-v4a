@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  sig_sem.c
+ * @file  isig_sem.c
  * @brief %jp{セマフォ資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: isig_sem.c,v 1.1 2006-09-18 11:21:45 ryuz Exp $
+ * @version $Id: isig_sem.c,v 1.2 2006-09-18 11:41:20 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -66,12 +66,10 @@ void _kernel_dpc_sig_sem(void)
 
 /** %jp{セマフォ資源の返却}%en{Release Semaphore Resource}
  * @param  semid    %jp{セマフォ資源返却対象のセマフォのID番号}%en{ID number of the semaphore to which resource is released}
- * @retval E_OK     %jp{正常終了}%en{Normal completion}
- * @retval E_NOMEM  %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution}
  */
 ER isig_sem(ID semid)
 {
-	return sig
+	return sig_sem(semid);
 }
 
 #endif	/* _KERNEL_SPT_DPC */
