@@ -1,6 +1,6 @@
 ; ---------------------------------------------------------------------------
 ;  HOS-V4 Advance
-;     Intel 8086     LSI-C86 Small Model
+;     Intel 8086 LSI-C86 Small Model
 ;
 ;                                     Copyright (C) 1998-2006 by Project HOS
 ;                                     http://sourceforge.jp/projects/hos/
@@ -36,8 +36,6 @@ ctx_entry:
 				mov		bx, bp		; 実行時パラメータ2を設定
 				jmp		cx			; 実行アドレスに分岐
 
-
-
 ; -----------------------------------------------
 ;  %jp{実行コンテキストの作成}
 ;  _kernel_cre_ctx(
@@ -59,14 +57,12 @@ _kernel_cre_ctx_::
 				ret
 
 
-
 ; -----------------------------------------------
 ;  %jp{実行コンテキストの切替}
 ;  void _kernel_swi_ctx(
 ;		_KERNEL_T_CTXCB *pk_ctxcb_nxt,			切り替え先のコンテキスト [ax]
 ;		_KERNEL_T_CTXCB *pk_ctxcb_now)			現在のコンテキスト       [bx]
 ; -----------------------------------------------
-
 _kernel_swi_ctx_::
 				push	di
 				push	si
