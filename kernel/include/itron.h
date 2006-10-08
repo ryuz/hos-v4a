@@ -4,7 +4,7 @@
  * @file  itron.h
  * @brief %en{uITRON4.0 standard header file}%jp{μITRON4.0用の標準ヘッダファイル}
  *
- * @version $Id: itron.h,v 1.2 2006-08-17 14:26:43 ryuz Exp $
+ * @version $Id: itron.h,v 1.3 2006-10-08 05:30:34 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -229,13 +229,13 @@ typedef _KERNEL_T_D				INT;					/**< %jp{プロセッサに自然なサイズの
 #if _KERNEL_TBIT_UINT == _KERNEL_TBIT_PROC_UINT
 
 typedef _KERNEL_T_PROC_UINT		UINT;					/**< %jp{プロセッサに自然なサイズの符号付き整数}%en{Unsigned integer for the processor}  */
-#define _KERNEL_TMAX_UINT		_KERNEL_TMAX_PROC_UINT
+#define _KERNEL_TMIN_UINT		_KERNEL_TMIN_PROC_UINT
 #define _KERNEL_TMAX_UINT		_KERNEL_TMAX_PROC_UINT
 
 #elif _KERNEL_TBIT_UINT == 8			/* 8-bit */
 
 typedef _KERNEL_T_UB			UINT;					/**< %jp{プロセッサに自然なサイズの符号付き整数}%en{Unsigned integer for the processor}  */
-#define _KERNEL_TMAX_UINT		_KERNEL_TMAX_UB
+#define _KERNEL_TMIN_UINT		_KERNEL_TMIN_UB
 #define _KERNEL_TMAX_UINT		_KERNEL_TMAX_UB
 
 #elif _KERNEL_TBIT_UINT == 16		/* 16-bit */

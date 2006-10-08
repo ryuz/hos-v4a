@@ -4,7 +4,7 @@
  * @file  rmv_toq.c
  * @brief %jp{タスクをタイムアウトキューから削除}
  *
- * @version $Id: rmv_toq.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: rmv_toq.c,v 1.2 2006-10-08 05:30:35 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -72,7 +72,7 @@ void _kernel_rmv_toq(
 	_KERNEL_TSK_SET_TOQPREV(tcb, _KERNEL_TSKHDL_NULL);
 }
 
-#endif	/* _KERNEL_SPT_TMOUT	*/
+#endif	/* _KERNEL_SPT_TOQ */
 
 
 /* end of file */

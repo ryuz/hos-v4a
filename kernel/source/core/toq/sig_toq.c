@@ -4,7 +4,7 @@
  * @file  _tic_toq.c
  * @brief %jp{タスクをタイムアウトキューに追加}
  *
- * @version $Id: sig_toq.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: sig_toq.c,v 1.2 2006-10-08 05:30:35 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -91,7 +91,7 @@ void _kernel_sig_toq(
 	_KERNEL_TOQ_SET_HED_TSK(tskhdl);
 }
 
-#endif	/* _KERNEL_SPT_TMOUT	*/
+#endif	/* _KERNEL_SPT_TOQ */
 
 
 /* end of file */

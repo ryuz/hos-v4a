@@ -4,7 +4,7 @@
  * @file  add_toq.c
  * @brief %jp{タスクをタイムアウトキューに追加}
  *
- * @version $Id: add_toq.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: add_toq.c,v 1.2 2006-10-08 05:30:35 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -98,7 +98,7 @@ void _kernel_add_toq(
 	_KERNEL_TSK_SET_TOQPREV(tcb_next, tskhdl);
 }
 
-#endif	/* _KERNEL_SPT_TMOUT */
+#endif	/* _KERNEL_SPT_TOQ */
 
 
 /* end of file */

@@ -4,7 +4,7 @@
  * @file  parsknl.h
  * @brief %jp{カーネルコンフィギュレーションの解析}%en{kernel configuration parser}
  *
- * @version $Id: parsknl.h,v 1.8 2006-09-10 14:54:26 ryuz Exp $
+ * @version $Id: parsknl.h,v 1.9 2006-10-08 05:30:35 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -53,25 +53,6 @@
 #define _KERNEL_OPT_SIGNED_INT		FALSE
 #endif
 
-
-
-#if _KERNEL_CFG_TMAX_ACTCNT < 0
-#define _KERNEL_TMAX_ACTCNT			_KERNEL_TMAX_UINT
-#else
-#define _KERNEL_TMAX_ACTCNT			_KERNEL_CFG_TMAX_ACTCNT
-#endif
-
-#if _KERNEL_CFG_TMAX_WUPCNT < 0
-#define _KERNEL_TMAX_WUPCNT			_KERNEL_TMAX_UINT
-#else
-#define _KERNEL_TMAX_WUPCNT			_KERNEL_CFG_TMAX_WUPCNT
-#endif
-
-#if _KERNEL_CFG_TMAX_SUSCNT	< 0
-#define _KERNEL_TMAX_SUSCNT			_KERNEL_TMAX_UINT
-#else
-#define _KERNEL_TMAX_SUSCNT			_KERNEL_CFG_TMAX_SUSCNT
-#endif
 
 
 
@@ -328,8 +309,6 @@
 #define _KERNEL_SPT_SCRE_DTQ		_KERNEL_CFG_SCRE_DTQ		/* CRE_DTQ */
 #define _KERNEL_SPT_SCRE_MBX		_KERNEL_CFG_SCRE_MBX		/* CRE_MBX */
 #define _KERNEL_SPT_SCRE_MTX		_KERNEL_CFG_SCRE_MTX		/* CRE_MTX */
-#define _KERNEL_SPT_SCRE_MBX		_KERNEL_CFG_SCRE_MBX		/* CRE_MBX */
-#define _KERNEL_SPT_SCRE_MTX		_KERNEL_CFG_SCRE_MTX		/* CRE_MTX */
 #define _KERNEL_SPT_SCRE_MBF		_KERNEL_CFG_SCRE_MBF		/* CRE_MBF */
 #define _KERNEL_SPT_SCRE_POR		_KERNEL_CFG_SCRE_POR		/* CRE_POR */
 #define _KERNEL_SPT_SCRE_MPF		_KERNEL_CFG_SCRE_MPF		/* CRE_MPF */
@@ -364,6 +343,7 @@
 #define _KERNEL_SPT_CYC				FALSE
 #define _KERNEL_SPT_ALM				FALSE
 #define _KERNEL_SPT_OVR				FALSE
+
 
 /* %jp{割込みサービスルーチンサポートの判定} */
 #if _KERNEL_IRCATR_IRC && (_KERNEL_SPT_CRE_ISR || _KERNEL_SPT_SCRE_ISR) && (_KERNEL_CFG_TMAX_ISRID) > 0
@@ -440,17 +420,11 @@
 	|| (_KERNEL_SPT_TACP_POR)		\
 	|| (_KERNEL_SPT_TGET_MPF)		\
 	|| (_KERNEL_SPT_TGET_MPL)
-#define _KERNEL_SPT_TOQ				TRUE
+#define _KERNEL_SPT_TMOUT			TRUE
 #else
-#define _KERNEL_SPT_TOQ				FALSE
+#define _KERNEL_SPT_TMOUT			FALSE
 #endif
 
-
-
-#define _KERNEL_SPT_TSK_TA_ACT		_KERNEL_CFG_TSK_TA_ACT
-
-#define _KERNEL_SPT_SEM_TA_TFIFO	_KERNEL_CFG_SEM_TA_TFIFO
-#define _KERNEL_SPT_SEM_TA_TPRI		_KERNEL_CFG_SEM_TA_TPRI
 
 
 /* ------------------------------------------------------------------ */
@@ -461,6 +435,14 @@
 #define _KERNEL_QUE_ALG_TWOWAYLIST		2
 
 #define _KERNEL_QUE_ALGORITHM			_KERNEL_CFG_QUE_ALGORITHM
+
+
+/* ------------------------------------------------------------------ */
+/*  Timeout-queue                                                     */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_SPT_TOQ					_KERNEL_SPT_TMOUT
+
 
 
 
@@ -530,11 +512,15 @@
 /*  TCB                                                               */
 /* ------------------------------------------------------------------ */
 
+
 #define _KERNEL_TCB_ALG_BLKARRAY	1
 #define _KERNEL_TCB_ALG_PTRARRAY	2
 
+
 #define _KERNEL_TCB_BITFIELD		_KERNEL_CFG_TCB_BITFIELD
 #define _KERNEL_TCB_ALGORITHM		_KERNEL_CFG_TCB_ALGORITHM
+
+#define _KERNEL_SPT_TSK_TA_ACT		_KERNEL_CFG_TSK_TA_ACT
 
 #if (_KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_TSK || _KERNEL_SPT_ACRE_TSK)
 #define _KERNEL_TCB_SPLIT_RO		FALSE
@@ -583,7 +569,7 @@
 /* ---------------------------------- */
 
 /* Task Wait */
-#if _KERNEL_OPT_CB_SIZE || _KERNEL_CFG_TTW_PACK		/**< %jp{待ち状態をパッキングして保存なら} */
+#if _KERNEL_OPT_CB_SIZE								/**< %jp{サイズ優先ならパッキングして保存} */
 
 #define _KERNEL_TTW_SLP				0				/**< %jp{起床待ち状態} */
 #define _KERNEL_TTW_DLY				1				/**< %jp{時間経過待ち状態} */
@@ -604,6 +590,8 @@
 #define _KERNEL_DEC_TTW(x)			(1 << (x))
 
 #define _KERNEL_TSK_TBIT_TSKWAIT	4				/**< %jp{ビット幅4ビット} */
+#define _KERNEL_TSK_TMIN_TSKWAIT	_KERNEL_TTW_SLP
+#define _KERNEL_TSK_TMAX_TSKWAIT	_KERNEL_TTW_MPL
 
 #else												/**< %jp{待ち状態をパックしないなら} */
 
@@ -626,6 +614,8 @@
 #define _KERNEL_DEC_TTW(x)			(x)
 
 #define _KERNEL_TSK_TBIT_TSKWAIT	15				/**< %jp{ビット幅15ビット} */
+#define _KERNEL_TSK_TMIN_TSKWAIT	_KERNEL_TTW_SLP
+#define _KERNEL_TSK_TMAX_TSKWAIT	_KERNEL_TTW_MPL
 
 #endif
 
@@ -721,6 +711,12 @@
 #define _KERNEL_TSK_TMAX_TSKID		_KERNEL_TMAX_TSKID
 
 
+/* ---------------------------------- */
+/*          reltime                   */
+/* ---------------------------------- */
+
+#define _KERNEL_TSK_TMIN_RELTIM		_KERNEL_TMIN_RELTIM
+#define _KERNEL_TSK_TMAX_RELTIM		_KERNEL_TMAX_RELTIM
 
 
 /* ---------------------------------- */
@@ -768,13 +764,13 @@
 #define _KERNEL_TCB_DATA			(_KERNEL_SPT_FLG || _KERNEL_SPT_DTQ || _KERNEL_SPT_MBX || _KERNEL_SPT_MPF || _KERNEL_SPT_MPL)
 
 /* %jp{IDの高速逆引き時に必要} */
-#define _KERNEL_TCB_TSKID			FALSE						/**< %jp{TCBにtskidを含めるか} */
+#define _KERNEL_TCB_TSKID			FALSE								/**< %jp{TCBにtskidを含めるか} */
 
 /* %jp{含める理由があまりない?} */
-#define _KERNEL_TCB_TSKATR			FALSE						/**< %jp{TCBにtskatrを含めるか} */
+#define _KERNEL_TCB_TSKATR			FALSE								/**< %jp{TCBにtskatrを含めるか} */
 
 /* %jp{タスクの拡張情報を使わないなら不要} */
-#define _KERNEL_TCB_EXINF			TRUE						/**< %jp{TCBにexinfを含めるか} */
+#define _KERNEL_TCB_EXINF			TRUE								/**< %jp{TCBにexinfを含めるか} */
 
 #if !(_KERNEL_SPT_ACT_TSK) && !(_KERNEL_SPT_IACT_TSK) && !(_KERNEL_SPT_STA_TSK)
 /* %jp{タスク生成時のTA_ACTで一回だけ起動するなら、生成情報の保持は不要} */
@@ -845,9 +841,9 @@
 
 /* %jp{ブロック配列で動的生成無しの場合以外はRO分離は不可} */
 #if !((_KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY) && (!_KERNEL_SPT_CRE_FLG && !_KERNEL_SPT_ACRE_FLG))
-#define _KERNEL_FLGCB_ROM			FALSE
+#define _KERNEL_FLGCB_SPLIT_RO		FALSE
 #else
-#define _KERNEL_FLGCB_ROM			_KERNEL_CFG_FLGCB_ROM
+#define _KERNEL_FLGCB_SPLIT_RO		_KERNEL_CFG_FLGCB_SPLIT_RO
 #endif
 
 
@@ -885,9 +881,9 @@
 
 /* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
 #if (_KERNEL_DTQCB_ALGORITHM == _KERNEL_DTQCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_DTQ || _KERNEL_SPT_ACRE_DTQ)
-#define _KERNEL_DTQCB_ROM			FALSE
+#define _KERNEL_DTQCB_SPLIT_RO		FALSE
 #else
-#define _KERNEL_DTQCB_ROM			_KERNEL_CFG_DTQCB_ROM
+#define _KERNEL_DTQCB_SPLIT_RO		_KERNEL_CFG_DTQCB_SPLIT_RO
 #endif
 
 
@@ -926,9 +922,9 @@
 
 /* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
 #if (_KERNEL_MBXCB_ALGORITHM == _KERNEL_MBXCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_MBX || _KERNEL_SPT_ACRE_MBX)
-#define _KERNEL_MBXCB_ROM			FALSE
+#define _KERNEL_MBXCB_SPLIT_RO		FALSE
 #else
-#define _KERNEL_MBXCB_ROM			_KERNEL_CFG_MBXCB_ROM
+#define _KERNEL_MBXCB_SPLIT_RO		_KERNEL_CFG_MBXCB_SPLIT_RO
 #endif
 
 
@@ -964,9 +960,9 @@
 
 /* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
 #if (_KERNEL_MPFCB_ALGORITHM == _KERNEL_MPFCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_MPF || _KERNEL_SPT_ACRE_MPF)
-#define _KERNEL_MPFCB_ROM			FALSE
+#define _KERNEL_MPFCB_SPLIT_RO		FALSE
 #else
-#define _KERNEL_MPFCB_ROM			_KERNEL_CFG_MPFCB_ROM
+#define _KERNEL_MPFCB_SPLIT_RO		_KERNEL_CFG_MPFCB_SPLIT_RO
 #endif
 
 

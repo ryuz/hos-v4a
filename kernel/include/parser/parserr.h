@@ -4,7 +4,7 @@
  * @file  parserr.h
  * @brief %jp{エラー処理コンフィギュレーションの解析}%en{error configulation parser}
  *
- * @version $Id: parserr.h,v 1.2 2006-08-18 14:42:46 ryuz Exp $
+ * @version $Id: parserr.h,v 1.3 2006-10-08 05:30:35 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -168,10 +168,10 @@
 
 /* iset_flg */
 /* clr_flg */
-#define _KERNEL_SPT_SET_FLG_E_ID		_KERNEL_CFG_SET_FLG_E_ID
-#define _KERNEL_SPT_SET_FLG_E_NOEXS		_KERNEL_CFG_SET_FLG_E_NOEXS
-#define _KERNEL_SPT_SET_FLG_E_PAR		_KERNEL_CFG_SET_FLG_E_PAR
-#define _KERNEL_SPT_SET_FLG_E_NOSPT		_KERNEL_CFG_SET_FLG_E_NOSPT
+#define _KERNEL_SPT_CLR_FLG_E_ID		_KERNEL_CFG_CLR_FLG_E_ID
+#define _KERNEL_SPT_CLR_FLG_E_NOEXS		_KERNEL_CFG_CLR_FLG_E_NOEXS
+#define _KERNEL_SPT_CLR_FLG_E_PAR		_KERNEL_CFG_CLR_FLG_E_PAR
+#define _KERNEL_SPT_CLR_FLG_E_NOSPT		_KERNEL_CFG_CLR_FLG_E_NOSPT
 
 /* wai_flg */
 #define _KERNEL_SPT_WAI_FLG_E_ID		_KERNEL_CFG_WAI_FLG_E_ID		
@@ -184,11 +184,11 @@
 #define _KERNEL_SPT_WAI_FLG_E_NOSPT		_KERNEL_CFG_WAI_FLG_E_NOSPT		
 
 /* pol_flg */
-#define _KERNEL_SPT_WAI_FLG_E_ID		_KERNEL_CFG_WAI_FLG_E_ID
-#define _KERNEL_SPT_WAI_FLG_E_NOEXS 	_KERNEL_CFG_WAI_FLG_E_NOEXS
-#define _KERNEL_SPT_WAI_FLG_E_PAR   	_KERNEL_CFG_WAI_FLG_E_PAR  
-#define _KERNEL_SPT_WAI_FLG_E_TMOUT   	_KERNEL_CFG_WAI_FLG_E_TMOUT
-#define _KERNEL_SPT_WAI_FLG_E_NOSPT		_KERNEL_CFG_WAI_FLG_E_NOSPT
+#define _KERNEL_SPT_POL_FLG_E_ID		_KERNEL_CFG_WAI_FLG_E_ID
+#define _KERNEL_SPT_POL_FLG_E_NOEXS 	_KERNEL_CFG_WAI_FLG_E_NOEXS
+#define _KERNEL_SPT_POL_FLG_E_PAR   	_KERNEL_CFG_WAI_FLG_E_PAR  
+#define _KERNEL_SPT_POL_FLG_E_TMOUT   	_KERNEL_CFG_WAI_FLG_E_TMOUT
+#define _KERNEL_SPT_POL_FLG_E_NOSPT		_KERNEL_CFG_WAI_FLG_E_NOSPT
 
 /* twai_flg */
 #if _KERNEL_OPT_CODE_SIZE <= _KERNEL_OPT_SPEED	/* %jp{twai_flgへの集約を行う場合} */

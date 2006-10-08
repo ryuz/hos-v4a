@@ -4,7 +4,7 @@
   @file  armctx.s
   @brief %en{コンテキスト制御}%jp{}
  
-  @version $Id: ctxctl.S,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+  @version $Id: ctxctl.S,v 1.2 2006-10-08 05:30:35 ryuz Exp $
 
   Copyright (C) 1998-2006 by Project HOS
   http://sourceforge.jp/projects/hos/
@@ -59,7 +59,7 @@ __kernel_wai_int:
 
 /************************************************
   実行コンテキストの作成
-  void __kernel_cre_ctx(
+  void _kernel_cre_ctx(
 			VP_INT          par1,		実行時パラメータ1    [d0]
 			VP_INT          par2,		実行時パラメータ2    [d1]
 			_KERNEL_T_CTXCB *pk_ctxcb,	作成するコンテキスト [(12, sp)]
@@ -97,8 +97,8 @@ ctx_entry:
 /************************************************
   実行コンテキストのリスタート
   void _kernel_rst_ctx(
-			VP_INT         par1,		実行時パラメータ     [r0]
-			VP_INT         par2,		実行時パラメータ     [r1]
+			VP_INT         par1,		実行時パラメータ     [d0]
+			VP_INT         par2,		実行時パラメータ     [d1]
 			FP             entry,		実行アドレス         [(12, sp)]
 			VP             isp)			初期スタックポインタ [(16, sp)]
 *************************************************/

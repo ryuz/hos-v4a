@@ -4,7 +4,7 @@
  * @file  mpfobj.h
  * @brief %en{Semaphore object heder file}%jp{固定長メモリプールオジェクトのヘッダファイル}
  *
- * @version $Id: mpfobj.h,v 1.3 2006-09-03 03:01:03 ryuz Exp $
+ * @version $Id: mpfobj.h,v 1.4 2006-10-08 05:30:34 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -38,19 +38,19 @@ typedef unsigned int					_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリ�
 #if (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_B) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
 typedef _KERNEL_T_LEAST_B				_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数をMPFCBに格納するときの型} */
-#elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_UB) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
+#elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_UB) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
 typedef _KERNEL_T_FAST_UB				_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
 typedef _KERNEL_T_LEAST_UB				_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数をMPFCBに格納するときの型} */
 #elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_H) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_H				_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
 typedef _KERNEL_T_LEAST_H				_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数をMPFCBに格納するときの型} */
-#elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_UH) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
+#elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_UH) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
 typedef _KERNEL_T_FAST_UH				_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
 typedef _KERNEL_T_LEAST_UH				_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数をMPFCBに格納するときの型} */
 #elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_W) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_W				_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
 typedef _KERNEL_T_LEAST_W				_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数をMPFCBに格納するときの型} */
-#elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_UW) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
+#elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_UW) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
 typedef _KERNEL_T_FAST_UW				_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
 typedef _KERNEL_T_LEAST_UW				_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数をMPFCBに格納するときの型} */
 #elif (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_D) && _KERNEL_PROCATR_SIGNED_INT
@@ -84,19 +84,19 @@ typedef unsigned int					_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプ
 #if (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_B) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
 typedef _KERNEL_T_LEAST_B				_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズをMPFCBに格納するときの型} */
-#elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_UB) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
+#elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_UB) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
 typedef _KERNEL_T_FAST_UB				_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
 typedef _KERNEL_T_LEAST_UB				_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズをMPFCBに格納するときの型} */
 #elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_H) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_H				_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
 typedef _KERNEL_T_LEAST_H				_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズをMPFCBに格納するときの型} */
-#elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_UH) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
+#elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_UH) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
 typedef _KERNEL_T_FAST_UH				_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
 typedef _KERNEL_T_LEAST_UH				_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズをMPFCBに格納するときの型} */
 #elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_W) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_W				_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
 typedef _KERNEL_T_LEAST_W				_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズをMPFCBに格納するときの型} */
-#elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_UW) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE)
+#elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_UW) && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
 typedef _KERNEL_T_FAST_UW				_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
 typedef _KERNEL_T_LEAST_UW				_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズをMPFCBに格納するときの型} */
 #elif (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_D) && _KERNEL_PROCATR_SIGNED_INT

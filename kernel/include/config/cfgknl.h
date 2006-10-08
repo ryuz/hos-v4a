@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.10 2006-09-10 14:54:26 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.11 2006-10-08 05:30:34 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -482,8 +482,6 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_SCRE_SEM			TRUE				/* CRE_SEM */
 #define _KERNEL_CFG_SCRE_FLG			TRUE				/* CRE_FLG */
 #define _KERNEL_CFG_SCRE_DTQ			FALSE				/* CRE_DTQ */
-#define _KERNEL_CFG_SCRE_MBX			FALSE				/* CRE_MBX */
-#define _KERNEL_CFG_SCRE_MTX			FALSE				/* CRE_MTX */
 #define _KERNEL_CFG_SCRE_MBX			FALSE				/* CRE_MBX */
 #define _KERNEL_CFG_SCRE_MTX			FALSE				/* CRE_MTX */
 #define _KERNEL_CFG_SCRE_MBF			FALSE				/* CRE_MBF */

@@ -4,7 +4,7 @@
  * @file  knl_que.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * @version $Id: tskobj.h,v 1.4 2006-09-03 15:10:01 ryuz Exp $
+ * @version $Id: tskobj.h,v 1.5 2006-10-08 05:30:34 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -373,8 +373,8 @@ typedef VP_INT							_KERNEL_TCB_T_EXINF;
 
 
 /* %jp{タスクの開始番地}%en{Start address} */
-typedef FP								_KERNEL_TSK_T_TASK;
-typedef FP								_KERNEL_TCB_T_TASK;
+typedef void (*_KERNEL_TSK_T_TASK)(VP_INT exinf);
+typedef void (*_KERNEL_TCB_T_TASK)(VP_INT exinf);
 #define _KERNEL_TCB_TBITDEF_TASK
 
 

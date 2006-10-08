@@ -4,7 +4,7 @@
  * @file  cfgerr.h
  * @brief %jp{エラー処理のコンフィギュレーション用ヘッダファイル}
  *
- * @version $Id: cfgerr.h,v 1.2 2006-08-18 14:42:46 ryuz Exp $
+ * @version $Id: cfgerr.h,v 1.3 2006-10-08 05:30:34 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -161,10 +161,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 /* iset_flg */
 /* clr_flg */
-#define _KERNEL_CFG_SET_FLG_E_ID		TRUE
-#define _KERNEL_CFG_SET_FLG_E_NOEXS		TRUE
-#define _KERNEL_CFG_SET_FLG_E_PAR		TRUE
-#define _KERNEL_CFG_SET_FLG_E_NOSPT		FALSE
+#define _KERNEL_CFG_CLR_FLG_E_ID		TRUE
+#define _KERNEL_CFG_CLR_FLG_E_NOEXS		TRUE
+#define _KERNEL_CFG_CLR_FLG_E_PAR		TRUE
+#define _KERNEL_CFG_CLR_FLG_E_NOSPT		FALSE
 
 /* wai_flg */
 #define _KERNEL_CFG_WAI_FLG_E_ID		TRUE	
@@ -177,11 +177,11 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_WAI_FLG_E_NOSPT		FALSE
 
 /* pol_flg */
-#define _KERNEL_CFG_WAI_FLG_E_ID		TRUE	
-#define _KERNEL_CFG_WAI_FLG_E_NOEXS 	TRUE
-#define _KERNEL_CFG_WAI_FLG_E_PAR   	TRUE
-#define _KERNEL_CFG_WAI_FLG_E_TMOUT   	TRUE
-#define _KERNEL_CFG_WAI_FLG_E_NOSPT		FALSE
+#define _KERNEL_CFG_POL_FLG_E_ID		TRUE	
+#define _KERNEL_CFG_POL_FLG_E_NOEXS 	TRUE
+#define _KERNEL_CFG_POL_FLG_E_PAR   	TRUE
+#define _KERNEL_CFG_POL_FLG_E_TMOUT   	TRUE
+#define _KERNEL_CFG_POL_FLG_E_NOSPT		FALSE
 
 /* twai_flg */
 #define _KERNEL_CFG_TWAI_FLG_E_ID		TRUE	

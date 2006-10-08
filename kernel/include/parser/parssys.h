@@ -4,7 +4,7 @@
  * @file  pitrncfg.h
  * @brief %jp{itrncfgのパーサー}%en{perser for itrncfg.h}
  *
- * @version $Id: parssys.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: parssys.h,v 1.2 2006-10-08 05:30:35 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -166,18 +166,6 @@
 #endif
 
 
-/* %jp{ER_IDのbit数を定義する}%en{Error code or an object ID number} */
-#if _KERNEL_CFG_TBIT_ER_ID <= 0
-#if _KERNEL_TBIT_ER >= _KERNEL_TBIT_ID
-#define _KERNEL_TBIT_ER_ID		_KERNEL_TBIT_ER
-#else
-#define _KERNEL_TBIT_ER_ID		_KERNEL_TBIT_ID
-#endif
-#else
-#define _KERNEL_TBIT_ER_ID		_KERNEL_CFG_TBIT_ER_ID
-#endif
-
-
 /**< %jp{ER_UINTのbit数を定義する}%en{Error code or an unsigned integer} */
 #if _KERNEL_CFG_TBIT_ER_UINT <= 0
 #if _KERNEL_TBIT_ER >= _KERNEL_TBIT_UINT
@@ -265,9 +253,28 @@
 
 
 /* %jp{キューイング／ネスト回数の最大値}%en{Maximum Nesting/Queueing Count} */
-#define _KERNEL_TMAX_ACTCNT		_KERNEL_CFG_TMAX_ACTCNT					/**< %jp{タスク起動要求キューイング数の最大値(-1の時デフォルト値)} */
-#define _KERNEL_TMAX_WUPCNT		_KERNEL_CFG_TMAX_WUPCNT					/**< %jp{タスク起床要求キューイング数の最大値(-1の時デフォルト値)} */
-#define _KERNEL_TMAX_SUSCNT		_KERNEL_CFG_TMAX_SUSCNT					/**< %jp{タスク強制待ち要求ネスト数の最大値(-1の時デフォルト値)} */
+/*#define _KERNEL_TMAX_ACTCNT		_KERNEL_CFG_TMAX_ACTCNT	*/				/**< %jp{タスク起動要求キューイング数の最大値(-1の時デフォルト値)} */
+/*#define _KERNEL_TMAX_WUPCNT		_KERNEL_CFG_TMAX_WUPCNT	*/					/**< %jp{タスク起床要求キューイング数の最大値(-1の時デフォルト値)} */
+/*#define _KERNEL_TMAX_SUSCNT		_KERNEL_CFG_TMAX_SUSCNT	*/				/**< %jp{タスク強制待ち要求ネスト数の最大値(-1の時デフォルト値)} */
+
+#if _KERNEL_CFG_TMAX_ACTCNT < 0
+#define _KERNEL_TMAX_ACTCNT			_KERNEL_TMAX_UINT
+#else
+#define _KERNEL_TMAX_ACTCNT			_KERNEL_CFG_TMAX_ACTCNT
+#endif
+
+#if _KERNEL_CFG_TMAX_WUPCNT < 0
+#define _KERNEL_TMAX_WUPCNT			_KERNEL_TMAX_UINT
+#else
+#define _KERNEL_TMAX_WUPCNT			_KERNEL_CFG_TMAX_WUPCNT
+#endif
+
+#if _KERNEL_CFG_TMAX_SUSCNT	< 0
+#define _KERNEL_TMAX_SUSCNT			_KERNEL_TMAX_UINT
+#else
+#define _KERNEL_TMAX_SUSCNT			_KERNEL_CFG_TMAX_SUSCNT
+#endif
+
 
 
 /* */

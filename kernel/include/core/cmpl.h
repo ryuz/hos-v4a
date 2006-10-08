@@ -4,7 +4,7 @@
  * @file  cmpl.h
  * @brief %jp{コンパイラ判定ヘッダファイル}%en{uITRON4.0 kernel type header file}
  *
- * @version $Id: cmpl.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: cmpl.h,v 1.2 2006-10-08 05:30:34 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -14,8 +14,11 @@
 #ifndef _KERNEL__core__cmpl_h__
 #define _KERNEL__core__cmpl_h__
 
+#if !defined(__STDC_VERSION__)
+#define __STDC_VERSION__	0
+#endif
 
-#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#if __STDC_VERSION__ >= 199901L
 
 /* C99(ISO/IEC 9899:1999) */
 #define _KERNEL_CMPL_STDINT_H			TRUE						/**< %jp{stdint.hは利用可能か？} */
