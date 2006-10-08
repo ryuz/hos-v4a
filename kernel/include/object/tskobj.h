@@ -4,7 +4,7 @@
  * @file  knl_que.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * @version $Id: tskobj.h,v 1.5 2006-10-08 05:30:34 ryuz Exp $
+ * @version $Id: tskobj.h,v 1.6 2006-10-08 05:42:04 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -899,8 +899,8 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 
 /* task */
 #if _KERNEL_TCB_TASK
-#define _KERNEL_TSK_SET_TASK(tcb_ro, x)		do { (tcb_ro)->task = (x); } while(0)
-#define _KERNEL_TSK_GET_TASK(tcb_ro)		((tcb_ro)->task)
+#define _KERNEL_TSK_SET_TASK(tcb_ro, x)		do { (tcb_ro)->task = (_KERNEL_TCB_T_TASK)(x); } while(0)
+#define _KERNEL_TSK_GET_TASK(tcb_ro)		((_KERNEL_TSK_T_TASK)(tcb_ro)->task)
 #else
 #define _KERNEL_TSK_SET_TASK(tcb_ro, x)		do { } while(0)
 #define _KERNEL_TSK_GET_TASK(tcb_ro)		(0)
