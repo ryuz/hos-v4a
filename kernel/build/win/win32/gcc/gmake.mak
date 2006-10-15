@@ -2,7 +2,7 @@
 # Hyper Operating System V4 Advance
 #  makefile for Win32
 #
-# $Id: gmake.mak,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+# $Id: gmake.mak,v 1.2 2006-10-15 09:44:36 ryuz Exp $
 #
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -39,9 +39,25 @@ SRC_IRC_ASM_DIR  = $(SRC_KNL_DIR)/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
 CFGRTR_DIR   = $(TOP_DIR)/cfgrtr/build/gcc
 CFGRTR       = h4acfg-win32
 
+# %jp{ツール定義}
+CC     = gcc
+ASM    = gcc
+LIBR   = ar
+DEPEND = gcc -M
+LINT   = splint
+AWK    = gawk
+LINT   = splint
+MKDIR  = mkdir
+RM     = rm
 
-# 共通設定インクルード
-include $(TOP_DIR)/kernel/build/common/gmake.inc
+# %jp{拡張子定義}
+C_EXT   = c
+CPP_EXT = cpp
+ASM_EXT = S
+OBJ_EXT = o
+LIB_EXT = l
+EXE_EXT = exe
+
 
 
 # ターゲットライブラリファイル名
@@ -58,17 +74,6 @@ CSRCS += $(SRC_PROC_DIR)/ctxctl.c
 VPATH := $(VPATH):$(SRC_PROC_DIR):$(SRC_PROC_DIR):$(SRC_PROC_ASM_DIR):$(SRC_IRC_DIR):$(SRC_IRC_ASM_DIR)
 
 
-# Tools
-CC     = gcc
-ASM    = gcc
-LIBR   = ar
-DEPEND = gcc -M
-LINT   = splint
-AWK    = gawk
-LINT   = splint
-MKDIR  = mkdir
-RM     = rm
-
 
 # オプションフラグ
 AFLAGS    += -c -Wall
@@ -84,6 +89,10 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(basename $(notdir $(CSRCS))))
 
 
 all: $(ASRCS) $(CSRCS) $(TARGET_LIB) $(CFGRTR)
+
+
+# 共通設定インクルード
+include $(TOP_DIR)/kernel/build/common/gmake.inc
 
 
 $(TARGET_LIB): mkdir_objs $(OBJS)
