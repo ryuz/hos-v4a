@@ -24,7 +24,7 @@ elsif ( $ARGV[2] =~ /en-/ )
 
 if ( $ARGV[2] =~ /-sjis-/ )
 {
-	$nkf_out .= " -j"
+	$nkf_out .= " -s"
 }
 elsif ( $ARGV[2] =~ /-euc-/ )
 {
