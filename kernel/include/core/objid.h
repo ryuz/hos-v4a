@@ -4,7 +4,7 @@
  * @file  objid.h
  * @brief %jp{タスクブジェクトのID用の型定義}%en{define object ID type}
  *
- * @version $Id: objid.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: objid.h,v 1.2 2006-10-15 13:37:44 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -43,7 +43,7 @@ typedef _KERNEL_T_FAST_UD		_KERNEL_T_TSKID;							/**< %jp{タスクIDの型}%en
 
 
 /* ---------------------------------- */
-/*            Semaphore-ID            */
+/*           Semaphore-ID             */
 /* ---------------------------------- */
 
 /* %jp{サイズに適した型とする} */
@@ -68,7 +68,7 @@ typedef _KERNEL_T_FAST_UD		_KERNEL_T_SEMID;							/**< %jp{セマフォIDの型}
 
 
 /* ---------------------------------- */
-/*            Eventflag-ID            */
+/*           Eventflag-ID             */
 /* ---------------------------------- */
 
 /* %jp{サイズに適した型とする} */

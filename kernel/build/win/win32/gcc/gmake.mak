@@ -2,7 +2,7 @@
 # Hyper Operating System V4 Advance
 #  makefile for Win32
 #
-# $Id: gmake.mak,v 1.2 2006-10-15 09:44:36 ryuz Exp $
+# $Id: gmake.mak,v 1.3 2006-10-15 13:37:44 ryuz Exp $
 #
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -21,6 +21,7 @@ ARCH_CC   ?= gcc
 # ディレクトリ定義
 TOP_DIR      = ../../../../..
 KNL_DIR      = $(TOP_DIR)/kernel
+MAKE_INC_DIR = $(KNL_DIR)/build/common
 OBJS_DIR     = objs_$(TARGET)
 
 # インクルードディレクトリ定義
@@ -73,6 +74,9 @@ CSRCS += $(SRC_PROC_DIR)/ctxctl.c
 # 検索パスの追加
 VPATH := $(VPATH):$(SRC_PROC_DIR):$(SRC_PROC_DIR):$(SRC_PROC_ASM_DIR):$(SRC_IRC_DIR):$(SRC_IRC_ASM_DIR)
 
+# 共通設定インクルード
+include $(MAKE_INC_DIR)/gmake.inc
+
 
 
 # オプションフラグ
@@ -89,10 +93,6 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(basename $(notdir $(CSRCS))))
 
 
 all: $(ASRCS) $(CSRCS) $(TARGET_LIB) $(CFGRTR)
-
-
-# 共通設定インクルード
-include $(TOP_DIR)/kernel/build/common/gmake.inc
 
 
 $(TARGET_LIB): mkdir_objs $(OBJS)
@@ -116,7 +116,10 @@ depend:
 	$(DEPEND) $(CFLAGS) $(CSRCS) | awk '/^[^ ]/{print "$(OBJS_DIR)/"$$0} /^ /{print $$0}' > $(OBJS_DIR)/depend.inc
 
 
--include $(OBJS_DIR)/depend.inc
+
+# 共通依存関係インクルード
+include $(MAKE_INC_DIR)/gmake_d.inc
+
 
 
 # 推論規則

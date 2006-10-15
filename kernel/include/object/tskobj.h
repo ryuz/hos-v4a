@@ -4,7 +4,7 @@
  * @file  knl_que.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * @version $Id: tskobj.h,v 1.6 2006-10-08 05:42:04 ryuz Exp $
+ * @version $Id: tskobj.h,v 1.7 2006-10-15 13:37:44 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -22,7 +22,7 @@
 /* ------------------------------------------ */
 
 /* %jp{タスクハンドルの型}%en{Task-handle} */
-#if _KERNEL_TCB_BITFIELD		/* %jp{TCBにビットフィールドを利用する場合 */
+#if _KERNEL_TCB_BITFIELD		/* %jp{TCBにビットフィールドを利用する場合} */
 typedef int								_KERNEL_TCB_T_TSKHDL;			/**< %jp{タスクハンドルをTCBに格納するときの型} */
 #define _KERNEL_TCB_TBITDEF_TSKHDL		: _KERNEL_TBIT_TSKHDL			/**< %jp{タスクハンドルのビットフィールド宣言時の幅} */
 #else

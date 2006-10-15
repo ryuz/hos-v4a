@@ -44,6 +44,9 @@ mkdir_objs:
 clean:
 	rm -f $(OBJS) $(TARGET) ../kernel_cfg.c ../kernel_id.h
 
+distclean: clean
+	make -C ../../../../kernel/build/win/win32/gcc -f gmake.mak clean
+
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
 	$(OS_CFG) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h

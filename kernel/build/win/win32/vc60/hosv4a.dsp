@@ -531,6 +531,10 @@ SOURCE=..\..\..\..\source\object\sem\del_sem.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\sem\isig_sem.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\sem\kcre_sem.c
 # End Source File
 # Begin Source File
@@ -776,9 +780,5 @@ SOURCE=..\..\..\..\source\arch\proc\win\win32\ctxctl.c
 # End Source File
 # End Group
 # End Group
-# Begin Source File
-
-SOURCE=..\..\..\..\source\object\sem\isig_sem.c
-# End Source File
 # End Target
 # End Project
