@@ -4,7 +4,7 @@
 @c_file      = ("\.c\$", "\.cpp\$", "\.h\$");
 @binary_file = ("\.dsw\$", "\.dsp\$");
 @ignore_file = ("\.o\$", "\.obj\$", "\.lib\$", "\.l\$", "\.exe\$", "\.elf\$");
-@ignore_dir  = ("^CVS\$", "^Debug\$", "^Release\$", "^objs", "test");
+@ignore_dir  = ("^CVS\$", "^tools\$", "^test\$", "^Debug\$", "^Release\$", "^objs");
 
 # %jp{オプション設定}
 $nkf_in     = "nkf -e ";
@@ -51,26 +51,39 @@ elsif ( $ARGV[2] =~ /-unix/ )
 sub copy_bin_file($$)
 {
 	my($src, $dst) = @_;
-	print "copy binary file : " . $src . " -> " . $dst . "\n";
-	system("cp $src $dst") || die $!;
+	print "[bin] " . $dst . "\n";
+	$ret = system("cp $src $dst");
+	if ( $ret != 0 )
+	{
+		print STDERR "Aborted. \n";
+		exit($ret);
+	}
 }
 
 # %jp{テキストファイル}
 sub copy_txt_file($$)
 {
 	my($src, $dst) = @_;
-	print "copy text file : " . $src . " -> " . $dst . "\n";
-	print "$nkf_in $src | $lng_filter | $nkf_out > $dst \n";
-	system("$nkf_in $src | $lng_filter | $nkf_out > $dst");
+	print "[text] " . $dst . "\n";
+	$ret = system("$nkf_in $src | $lng_filter | $nkf_out > $dst");
+	if ( $ret != 0 )
+	{
+		print STDERR "Aborted. \n";
+		exit($ret);
+	}
 }
 
 # %jp{C言語ファイル}
 sub copy_c_file($$)
 {
 	my($src, $dst) = @_;
-	print "copy C file : " . $src . " -> " . $dst . "\n";
-	print "$nkf_in $src | $lng_filter | $c_filter | $nkf_out > $dst \n";
-	system("$nkf_in $src | $lng_filter | $c_filter | $nkf_out > $dst");
+	print "[c-lng] " . $dst . "\n";
+	$ret = system("$nkf_in $src | $lng_filter | $c_filter | $nkf_out > $dst");
+	if ( $ret != 0 )
+	{
+		print STDERR "Aborted. \n";
+		exit($ret);
+	}
 }
 
 
@@ -87,7 +100,7 @@ sub search_dir($$)
 	# %jp{出力先が無ければ掘る}
 	unless ( -d $outdir )
 	{
-		print "mkdir " . $outdir . "\n";
+		print "[mkdir] " . $outdir . "\n";
 		mkdir($outdir, 0755) || die $!;
 	}
 	
@@ -104,7 +117,7 @@ sub search_dir($$)
 				# %jp{無視リストチェック}
 				if ( &check_name($fname, @ignore_dir) )
 				{
-					print "ignore : " . $inpath . "\n";
+					print "[skip] " . $inpath . "\n";
 					next file_search;
 				}
 				
@@ -116,12 +129,12 @@ sub search_dir($$)
 				# %jp{無視リストチェック}
 				if ( &check_name($fname, @ignore_file) )
 				{
-					print "ignore : " . $inpath . "\n";
+					print "[skip] : " . $inpath . "\n";
 					next file_search;
 				}
 				
 				# %jp{C言語ファイルチェック}
-				elsif ( &check_name($fname, @b_file) )
+				elsif ( &check_name($fname, @c_file) )
 				{
 					&copy_c_file($inpath, $outpath);
 				}
