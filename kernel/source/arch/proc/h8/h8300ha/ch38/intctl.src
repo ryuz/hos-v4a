@@ -78,7 +78,7 @@ __kernel_int_hdr:
 				mov.b	r1l, @__kernel_int_cnt
 				
 		; -------- 割り込みマスク値の復帰
-				mov.b	@(10, er7), r1l
+				mov.b	@(8, er7), r1l
 				and.b	#h'c0, r1l
 				mov.b	r1l, @__kernel_h83_imsk		; 割込み前の値に戻す
 				cmp.b	r1l, r0h
@@ -89,10 +89,10 @@ __kernel_int_hdr:
 		
 		; -------- コンテキストスイッチの後処理
 				mov.b	@__kernel_h83_imsk, r0l		; マスク値取り出し
-				mov.b	@(10, er7), r1l
+				mov.b	@(8, er7), r1l
 				and.b	#h'3f, r1l					
 				or.b	r0l, r1l
-				mov.b	r1l, @(10, er7)				; スタック上のCCRを更新
+				mov.b	r1l, @(8, er7)				; スタック上のCCRを更新
 
 return_int:
 		; -------- 復帰
