@@ -4,7 +4,7 @@
  * @file  ostimer.c
  * @brief %jp{OSタイマ}%en{OS timer}
  *
- * @version $Id: ostimer.h,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: ostimer.h,v 1.2 2006-11-02 10:47:09 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/

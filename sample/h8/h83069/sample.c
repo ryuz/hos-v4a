@@ -4,16 +4,17 @@
  * @file  sample.c
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
- * @version $Id: sample.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: sample.c,v 1.2 2006-11-02 10:47:09 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
-
-#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
+#include "sci1.h"
 
 
 #define LEFT(num)	((num) <= 1 ? 5 : (num) - 1)
@@ -64,7 +65,7 @@ void Sample_Initialize(VP_INT exinf)
 /** %jp{適当な時間待つ} */
 void rand_wait(void)
 {
-	dly_tsk(10000 /*rand()*/ % 1000 + 1);	
+	dly_tsk(rand() % 1000 + 1);
 }
 
 
@@ -79,8 +80,13 @@ void print_state(int num, char *text)
 	msg = (T_PRINT_MSG *)mem;
 
 	/* %jp{文字列生成} */
-/*	sprintf(msg->text, "%d : %s", num, text);	*/
-
+	msg->text[0] = '0' + num;
+	msg->text[1] = ' ';
+	msg->text[2] = ':';
+	msg->text[3] = ' ';
+	strcpy(&msg->text[4], text);
+	strcat(msg->text, "\n");
+	
 	/* %jp{表示タスクに送信} */
 	snd_mbx(mbxid, (T_MSG *)msg);
 }
@@ -90,18 +96,16 @@ void print_state(int num, char *text)
 void Sample_Task(VP_INT exinf)
 {
 	int num;
-
+	
 	num = (int)exinf;
-
-	putchar('a');
-
+	
 	/* %jp{いわゆる哲学者の食事の問題} */
 	for ( ; ; )
 	{
 		/* %jp{適当な時間考える} */
 		print_state(num, "thinking");
 		rand_wait();
-
+		
 		/* %jp{左右のフォークを取るまでループ} */
 		for ( ; ; )
 		{
@@ -145,11 +149,11 @@ void Sample_Task(VP_INT exinf)
 void Sample_Print(VP_INT exinf)
 {
 	T_PRINT_MSG *msg;
-
+	
 	for ( ; ; )
 	{
 		rcv_mbx(mbxid, (T_MSG **)&msg);
-	/*	printf("%s\n", msg->text);	*/
+		Sci1_PutString(msg->text);
 		rel_mpf(mpfid, msg);
 	}
 }

@@ -1,7 +1,7 @@
 
 				.IMPORT     _ResetHandler
-				.IMPORT		__kernel_vector_012
 				.IMPORT		__kernel_vector_dmy
+				.IMPORT		__kernel_vector_024
 
 
 				.SECTION    VECTTBL, DATA, ALIGN=4 
@@ -19,7 +19,7 @@ _Vectors:
 				.DATA.L		__kernel_vector_dmy		; ベクタ9   TRAP1
 				.DATA.L		__kernel_vector_dmy		; ベクタ10  TRAP2
 				.DATA.L		__kernel_vector_dmy		; ベクタ11  TRAP3
-				.DATA.L		__kernel_vector_012		; ベクタ12  IRQ0
+				.DATA.L		__kernel_vector_dmy		; ベクタ12  IRQ0
 				.DATA.L		__kernel_vector_dmy		; ベクタ13
 				.DATA.L		__kernel_vector_dmy		; ベクタ14
 				.DATA.L		__kernel_vector_dmy		; ベクタ15
@@ -31,7 +31,7 @@ _Vectors:
 				.DATA.L		__kernel_vector_dmy		; ベクタ21
 				.DATA.L		__kernel_vector_dmy		; ベクタ22
 				.DATA.L		__kernel_vector_dmy		; ベクタ23
-				.DATA.L		__kernel_vector_dmy		; ベクタ24
+				.DATA.L		__kernel_vector_024		; ベクタ24
 				.DATA.L		__kernel_vector_dmy		; ベクタ25
 				.DATA.L		__kernel_vector_dmy		; ベクタ26
 				.DATA.L		__kernel_vector_dmy		; ベクタ27
