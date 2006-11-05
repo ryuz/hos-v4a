@@ -53,6 +53,8 @@ void SciDrv_Delete(C_SCIDRV *self)
 {
 	SysEvt_Delete(self->hEvtRecv);
 	SysEvt_Delete(self->hEvtSend);
+	SysMtx_Delete(self->hMtxRecv);
+	SysMtx_Delete(self->hMtxSend);
 }
 
 

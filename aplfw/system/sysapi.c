@@ -15,6 +15,7 @@
 #include "kernel.h"
 
 
+static SYSMTX_HANDLE System_hMtx;
 static SYSMTX_HANDLE SysMem_hMtx;
 static C_MEMPOL      SysMem_MemPol;
 
@@ -22,9 +23,24 @@ static C_MEMPOL      SysMem_MemPol;
 /* システムの初期化 */
 void System_Initialize(void *pMem, long lSize)
 {
+	/* システムロックの作成 */
+	System_hMtx = SysMtx_Create();					/* システムロック用ミューテックス生成 */
+
 	/* メモリ管理の初期化 */
 	SysMem_hMtx = SysMtx_Create();					/* メモリ管理用排他制御用ミューテックス生成 */
 	MemPol_Create(&SysMem_MemPol, pMem, lSize);		/* メモリプール生成 */
+}
+
+/* システム全体のロック */
+void System_Lock(void)
+{
+	SysMtx_Lock(System_hMtx);
+}
+
+/* システム全体のロック解除 */
+void System_Unlock(void)
+{
+	SysMtx_Unlock(System_hMtx);
 }
 
 

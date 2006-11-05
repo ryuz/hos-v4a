@@ -42,6 +42,10 @@ extern "C" {
 /* 初期化 */
 void          System_Initialize(void *pMem, long lSize);	/* システムの初期化処理 */
 
+/* システムロック */
+void          System_Lock(void);							/* システム全体のロック */
+void          System_Unlock(void);							/* システム全体のロック解除 */
+
 /* システム用メモリ制御API */
 void         *SysMem_Alloc(long lSize);						/* システムメモリの割り当て */
 void          SysMem_Free(void *pMem);						/* システムメモリの返却 */
