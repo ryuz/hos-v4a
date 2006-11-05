@@ -1,0 +1,23 @@
+
+				.EXPORT		_ResetHandler
+				.IMPORT     __INITSCT
+	;			.IMPORT		__INIT_IOLIB
+				.IMPORT     _main
+
+				.SECTION	P, CODE, ALIGN=2
+_ResetHandler:
+	;			mov.l	#H'00FFFF00, er7
+				mov.l	#H'00FFFF20, er7
+				jsr		@__INITSCT
+	;			jsr		@__INIT_IOLIB
+				jsr		@_main
+				sleep
+
+
+
+				.SECTION	S, STACK, ALIGN=2
+				.RES.B		1024
+
+
+				.END		_ResetHandler
+

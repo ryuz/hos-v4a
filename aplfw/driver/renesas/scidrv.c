@@ -1,0 +1,174 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  scidrv.c
+ * @brief %jp{SCI用デバイスドライバ}
+ *
+ * @version $Id: scidrv.c,v 1.1 2006-11-05 16:11:07 ryuz Exp $
+ *
+ * Copyright (C) 2006 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
+
+#include "scidrv.h"
+
+
+static void SciDrv_IsrRecvErr(void *pParam);		/* 受信エラー割り込み */
+static void SciDrv_IsrRecv(void *pParam);			/* 受信割り込み */
+static void SciDrv_IsrSend(void *pParam);			/* 送信エンプティー */
+static void SciDrv_IsrSendEnd(void *pParam);		/* 送信終了 */
+
+
+/** コンストラクタ */
+void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, long lSysClock, int iBufSize)
+{
+	void *pMem;
+
+	self->iOpenCount = 0;
+
+	/* SciHal 初期化 */
+	SciHal_Create(&self->SciHal, pRegAddr, lSysClock);
+
+	/* バッファ確保 */
+	pMem = SysMem_Alloc(iBufSize);
+	StreamBuf_Create(&self->StmBuf, iBufSize, pMem);
+
+	/* イベント生成 */
+	self->hEvtRecv = SysEvt_Create();
+	self->hEvtSend = SysEvt_Create();
+
+	/* 割り込み処理登録 */
+	SysIsr_Create(iIntNum + 0, SciDrv_IsrRecvErr, (void *)self);
+	SysIsr_Create(iIntNum + 1, SciDrv_IsrRecv,    (void *)self);
+	SysIsr_Create(iIntNum + 2, SciDrv_IsrSend,    (void *)self);
+	SysIsr_Create(iIntNum + 3, SciDrv_IsrSendEnd, (void *)self);
+}
+
+
+/** デストラクタ */
+void SciDrv_Delete(C_SCIDRV *self)
+{
+	SysEvt_Delete(self->hEvtRecv);
+	SysEvt_Delete(self->hEvtSend);
+}
+
+
+/** オープン */
+void SciDrv_Open(C_SCIDRV *self)
+{
+	if ( self->iOpenCount++ == 0 )
+	{
+		SciHal_Setup(&self->SciHal, 38400);
+		SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_RIE);
+	}
+}
+
+/** クローズ */
+void SciDrv_Close(C_SCIDRV *self)
+{
+	if ( --self->iOpenCount == 0 )
+	{
+		SciHal_EnableInterrupt(&self->SciHal, 0);
+		SciHal_Stop(&self->SciHal);
+		StreamBuf_ClearBuf(&self->StmBuf);
+	}
+}
+
+/** %jp{受信} */
+int SciDrv_Read(C_SCIDRV *self, void *pRecvBuf, int iSize)
+{
+	unsigned char *pubBuf;
+	int c;
+	int i;
+
+	pubBuf = (unsigned char *)pRecvBuf;
+
+	for ( i = 0; i < iSize; i++ )
+	{
+		while ( (c = StreamBuf_RecvChar(&self->StmBuf)) < 0 )
+		{
+			/* 受信イベントを待つ */
+			SysEvt_Wait(self->hEvtRecv);
+			SysEvt_Clear(self->hEvtRecv);
+		}
+		*pubBuf++ = (unsigned char)c;
+	}
+
+	return iSize;
+}
+
+
+/** %jp{送信} */
+int SciDrv_Write(C_SCIDRV *self, const void *pData, int iSize)
+{
+	const unsigned char *pubBuf;
+	int c;
+	int i;
+
+	pubBuf = (const unsigned char *)pData;
+
+	for ( i = 0; i < iSize; i++ )
+	{
+		c = *pubBuf++;
+		while ( SciHal_SendChar(&self->SciHal, c) < 0 )
+		{
+			/* 送信割り込みを待つ */
+			SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_TIE | SCIHAL_INT_RIE);
+			SysEvt_Wait(self->hEvtSend);
+			SysEvt_Clear(self->hEvtSend);
+		}
+	}
+
+	return iSize;
+}
+
+
+/* 受信エラー割り込み */
+void SciDrv_IsrRecvErr(void *pParam)
+{
+	C_SCIDRV *self;
+
+	self = (C_SCIDRV *)pParam;
+
+	SciHal_RecvChar(&self->SciHal);
+}
+
+/* 受信割り込み */
+void SciDrv_IsrRecv(void *pParam)
+{
+	C_SCIDRV *self;
+	int c;
+	
+	self = (C_SCIDRV *)pParam;
+	
+	while ( (c = SciHal_RecvChar(&self->SciHal)) >= 0 )
+	{
+		StreamBuf_SendChar(&self->StmBuf, c);
+	}
+	
+	SysEvt_Set(self->hEvtRecv);
+}
+
+/* 送信エンプティー */
+void SciDrv_IsrSend(void *pParam)
+{
+	C_SCIDRV *self;
+
+	self = (C_SCIDRV *)pParam;
+	
+	SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_RIE);
+	SysEvt_Set(self->hEvtSend);
+}
+
+/* 送信終了 */
+void SciDrv_IsrSendEnd(void *pParam)
+{
+	C_SCIDRV *self;
+
+	self = (C_SCIDRV *)pParam;
+	
+	SysEvt_Set(self->hEvtSend);
+}
+
+/* end of file */
