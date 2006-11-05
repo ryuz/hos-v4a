@@ -82,6 +82,7 @@ CSRCS         += $(DSP_DIR)/ent_tsk.c			\
                  $(SEMOBJ_DIR)/cre_sem.c		\
                  $(SEMOBJ_DIR)/acre_sem.c		\
                  $(SEMOBJ_DIR)/kcre_sem.c		\
+                 $(SEMOBJ_DIR)/del_sem.c		\
                  $(SEMOBJ_DIR)/sig_sem.c		\
                  $(SEMOBJ_DIR)/wai_sem.c		\
                  $(SEMOBJ_DIR)/pol_sem.c		\
@@ -90,6 +91,7 @@ CSRCS         += $(DSP_DIR)/ent_tsk.c			\
                  $(FLGOBJ_DIR)/cre_flg.c		\
                  $(FLGOBJ_DIR)/acre_flg.c		\
                  $(FLGOBJ_DIR)/kcre_flg.c		\
+                 $(FLGOBJ_DIR)/del_flg.c		\
                  $(FLGOBJ_DIR)/set_flg.c		\
                  $(FLGOBJ_DIR)/clr_flg.c		\
                  $(FLGOBJ_DIR)/wai_flg.c		\

@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.7 2006-09-10 14:54:25 ryuz Exp $
+ * @version $Id: kernel.h,v 1.8 2006-11-05 16:24:29 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -360,6 +360,10 @@ BOOL    sns_dpn(void);										/* ディスパッチ保留状態の参照 */
 
 
 ER      def_inh(INHNO inhno, const T_DINH *pk_dinh);
+ER      cre_isr(ID isrid, const T_CISR *pk_cisr);			/**< %jp{割り込みサービスルーチンの生成} */
+ER_ID   acre_isr(const T_CISR *pk_cisr);					/**< %jp{割り込みサービスルーチンの生成(ID番号自動割付け)} */
+ER      del_isr(ID isrid);									/**< %jp{割り込みサービスルーチンの削除} */
+
 
 ER      dis_int(INTNO intno);								/* 割り込みの禁止 */
 ER      ena_int(INTNO intno);								/* 割り込みの許可 */

@@ -4,7 +4,7 @@
  * @file  acre_sem.c
  * @brief %en{Activate Task}%jp{タスクの起動}
  *
- * @version $Id: kcre_isr.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
+ * @version $Id: kcre_isr.c,v 1.2 2006-11-05 16:24:29 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -46,8 +46,7 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 	/* %jp{割り込みリストの先頭に繋ぐ} */
 	_KERNEL_ISR_SET_NEXT(isrhdl, _KERNEL_INT_GET_HEAD(pk_cisr->intno));
 	_KERNEL_INT_SET_HEAD(pk_cisr->intno, isrhdl);
-
-		
+	
 	return E_OK;
 }
 

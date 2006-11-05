@@ -4,8 +4,6 @@
  * @file  ne2000hdl.h
  * @brief %jp{NE2000互換Ether用ハードウェアアクセス層}
  *
- * @version $Id: ne2000hal.h,v 1.1 2006-11-05 16:19:44 ryuz Exp $
- *
  * Copyright (C) 2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

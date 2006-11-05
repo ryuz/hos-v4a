@@ -4,8 +4,6 @@
  * @file  scidrv.h
  * @brief %jp{SCI用デバイスドライバ}
  *
- * @version $Id: scidrv.h,v 1.1 2006-11-05 16:11:07 ryuz Exp $
- *
  * Copyright (C) 2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
