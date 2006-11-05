@@ -36,6 +36,10 @@ void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, long lSysClock, 
 	self->hEvtRecv = SysEvt_Create();
 	self->hEvtSend = SysEvt_Create();
 
+	/* ミューテックス生成 */
+	self->hMtxSend = SysMtx_Create();
+	self->hMtxRecv = SysMtx_Create();
+
 	/* 割り込み処理登録 */
 	SysIsr_Create(iIntNum + 0, SciDrv_IsrRecvErr, (void *)self);
 	SysIsr_Create(iIntNum + 1, SciDrv_IsrRecv,    (void *)self);
@@ -82,6 +86,8 @@ int SciDrv_Read(C_SCIDRV *self, void *pRecvBuf, int iSize)
 
 	pubBuf = (unsigned char *)pRecvBuf;
 
+	SysMtx_Lock(self->hMtxRecv);
+
 	for ( i = 0; i < iSize; i++ )
 	{
 		while ( (c = StreamBuf_RecvChar(&self->StmBuf)) < 0 )
@@ -92,6 +98,8 @@ int SciDrv_Read(C_SCIDRV *self, void *pRecvBuf, int iSize)
 		}
 		*pubBuf++ = (unsigned char)c;
 	}
+
+	SysMtx_Unlock(self->hMtxRecv);
 
 	return iSize;
 }
@@ -106,6 +114,8 @@ int SciDrv_Write(C_SCIDRV *self, const void *pData, int iSize)
 
 	pubBuf = (const unsigned char *)pData;
 
+	SysMtx_Lock(self->hMtxSend);
+
 	for ( i = 0; i < iSize; i++ )
 	{
 		c = *pubBuf++;
@@ -117,6 +127,8 @@ int SciDrv_Write(C_SCIDRV *self, const void *pData, int iSize)
 			SysEvt_Clear(self->hEvtSend);
 		}
 	}
+
+	SysMtx_Unlock(self->hMtxSend);
 
 	return iSize;
 }

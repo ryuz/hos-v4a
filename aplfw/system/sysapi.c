@@ -1,3 +1,14 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  system.h
+ * @brief %jp{システム用API定義}
+ *
+ * Copyright (C) 2006 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
+
 #include <stdio.h>
 #include "system/sysapi.h"
 #include "library/mempol.h"
@@ -6,9 +17,6 @@
 
 static SYSMTX_HANDLE SysMem_hMtx;
 static C_MEMPOL      SysMem_MemPol;
-
-#define SysMem_Lock()		wai_sem(SysMem_idLock)
-#define SysMem_Unlock()		sig_sem(SysMem_idLock)
 
 
 /* システムの初期化 */

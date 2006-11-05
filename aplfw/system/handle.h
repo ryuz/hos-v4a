@@ -4,8 +4,6 @@
  * @file  handle.h
  * @brief %jp{ハンドルオブジェクト}
  *
- * @version $Id: handle.h,v 1.1 2006-11-05 16:11:07 ryuz Exp $
- *
  * Copyright (C) 2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

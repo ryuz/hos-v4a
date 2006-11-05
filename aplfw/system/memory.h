@@ -8,11 +8,8 @@
 extern "C" {
 #endif
 
-void SysMem_Initialize(void *pMem, long lSize);		/* システムメモリの初期化 */
-
-
-void *Memory_Alloc(long lSize);						/* システムメモリの割り当て */
-void  Memory_Free(void *pMem);						/* システムメモリの割り当て */
+void *Memory_Alloc(long lSize);						/* メモリの割り当て */
+void  Memory_Free(void *pMem);						/* メモリの割り当て */
 
 #ifdef __cplusplus
 }

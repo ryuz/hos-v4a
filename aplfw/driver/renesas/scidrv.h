@@ -24,6 +24,8 @@ typedef struct c_scidrv
 	int           iOpenCount;
 	SYSEVT_HANDLE hEvtSend;
 	SYSEVT_HANDLE hEvtRecv;
+	SYSMTX_HANDLE hMtxSend;
+	SYSMTX_HANDLE hMtxRecv;
 	C_SCIHAL      SciHal;
 	C_STREAMBUF   StmBuf;
 } C_SCIDRV;

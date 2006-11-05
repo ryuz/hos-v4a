@@ -1,3 +1,13 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  file.h
+ * @brief %jp{ファイルシステム}
+ *
+ * Copyright (C) 2006 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
 
 #ifndef __HOS__file_h__
 #define __HOS__file_h__
@@ -131,3 +141,6 @@ void     FileObj_Delete(C_FILEOBJ *self);
 
 
 #endif	/* __HOS__file_h__ */
+
+
+/* end of file */

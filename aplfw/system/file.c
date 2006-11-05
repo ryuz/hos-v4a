@@ -1,3 +1,14 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  file.c
+ * @brief %jp{ファイルシステム}
+ *
+ * Copyright (C) 2006 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
+
 #include <stdio.h>
 #include <string.h>
 #include "file.h"
@@ -42,6 +53,7 @@ FILEERR SysFile_AddDevice(const char *pszPath, const T_SYSFILE_DEVINF *pDevInf)
 
 	return FILE_ERR_NG;
 }
+
 
 
 /* ファイルのオープン */
@@ -149,3 +161,6 @@ FILESIZE File_Read(HANDLE hFile, void *pBuf, FILESIZE Size)
 	return FILE_ERR_NG;
 }
 
+
+
+/* end of file */
