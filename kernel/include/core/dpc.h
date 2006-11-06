@@ -4,8 +4,6 @@
  * @file  dpc.h
  * @brief %jp{遅延プロシージャーコールヘッダファイル}%en{Deferred Procedure Call header file}
  *
- * @version $Id: dpc.h,v 1.1 2006-10-15 13:37:44 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
@@ -15,7 +13,7 @@
 #define _KERNEL__core__dpc_h__
 
 
-typedef _kernel_t_dpccb
+typedef struct _kernel_t_dpccb
 {
 	VP_INT			*msgq;
 	UINT			msgqsz;
@@ -34,19 +32,22 @@ typedef _kernel_t_dpccb
 #define _KERNEL_DPC_GET_HEAD(dcpcb)			((dcpcb)->msgqsz)
 
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void _kernel_dpc_snd_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT msg);
+BOOL _kernel_dpc_snd_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT msg);
 BOOL _kernel_dpc_rcv_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT *p_msg);
+UINT _kernel_dpc_ref_fre(_KERNEL_T_DPCCB *dcpcb);
+void _kernel_dpc_lev_svc(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-
+#define _KERNEL_DPC_SND_MSG(dcpcb, msg)			_kernel_dpc_snd_msg((dcpcb), (msg))
+#define _KERNEL_DPC_RCV_MSG(dcpcb, p_msg)		_kernel_dpc_rcv_msg((dcpcb), (p_msg))
+#define _KERNEL_DPC_REF_FRE(dcpcb)				_kernel_dpc_ref_fre((dcpcb))
 
 
 #endif	/* _KERNEL__core__dpc_h__ */
