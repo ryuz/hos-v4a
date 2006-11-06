@@ -4,7 +4,7 @@
  * @file  kernel.h
  * @brief %jp{カーネルヘッダファイル}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: kernel.h,v 1.8 2006-11-05 16:24:29 ryuz Exp $
+ * @version $Id: kernel.h,v 1.9 2006-11-06 15:00:58 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -281,7 +281,7 @@ ER      cre_sem(ID semid, const T_CSEM *pk_csem);			/**< %jp{セマフォの生�
 ER_ID   acre_sem(const T_CSEM *pk_csem);					/**< %jp{セマフォの生成(ID番号自動割付け)}%en{Create Semaphore(ID Number Automatic Assignment)} */
 ER      del_sem(ID semid);									/**< %jp{セマフォの削除}%en{Delete Semaphore} */
 ER      sig_sem(ID semid);									/**< %jp{セマフォ資源の返却}%en{Release Semaphore Resource} */
-#define isig_sem sig_sem									/**< %jp{セマフォ資源の返却(非タスクコンテキスト用)}%en{Release Semaphore Resource} */
+ER      isig_sem(ID semid);									/**< %jp{セマフォ資源の返却(非タスクコンテキスト用)}%en{Release Semaphore Resource} */
 ER      wai_sem(ID semid);									/**< %jp{セマフォ資源の獲得}%en{Acquire Semaphore Resource} */
 ER      pol_sem(ID semid);									/**< %jp{セマフォ資源の獲得(ポーリング)}%en{Acquire Semaphore Resource(Polling)} */
 ER      twai_sem(ID semid, TMO tmout);						/**< %jp{セマフォ資源の獲得(タイムアウトあり)}%en{Acquire Semaphore Resource(with Timeout)} */
@@ -292,7 +292,7 @@ ER      cre_flg(ID flgid, const T_CFLG *pk_cflg);			/**< %jp{イベントフラ�
 ER_ID   acre_flg(const T_CFLG *pk_cflg);					/**< %jp{イベントフラグの生成(ID番号自動割付)}%en{Create Eventflag(ID Number Automatic Assignment)} */
 ER      del_flg(ID flgid);									/**< %jp{イベントフラグの削除}%en{Delete Eventflag} */
 ER      set_flg(ID flgid, FLGPTN setptn);					/**< %jp{イベントフラグのセット}%en{Set Eventflag} */
-#define iset_flg	set_flg									/**< %jp{イベントフラグのセット(非タスクコンテキスト用)}%en{Set Eventflag} */
+ER      iset_flg(ID flgid, FLGPTN setptn);					/**< %jp{イベントフラグのセット(非タスクコンテキスト用)}%en{Set Eventflag} */
 ER      clr_flg(ID flgid, FLGPTN clrptn);					/**< %jp{イベントフラグのクリア}%en{Clear Eventflag} */
 ER      wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn);
 															/**< %jp{イベントフラグ待ち}%en{Wait for Eventflag} */

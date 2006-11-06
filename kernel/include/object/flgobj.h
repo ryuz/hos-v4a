@@ -4,8 +4,6 @@
  * @file  flgobj.h
  * @brief %jp{イベントフラグオジェクトのヘッダファイル}%en{Eventflag object heder file}
  *
- * @version $Id: flgobj.h,v 1.6 2006-10-08 05:30:34 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

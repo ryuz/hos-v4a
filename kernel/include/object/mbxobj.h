@@ -4,8 +4,6 @@
  * @file  mbxobj.h
  * @brief %jp{メールボックスオジェクトのヘッダファイル}%en{Mailbox object heder file}
  *
- * @version $Id: mbxobj.h,v 1.5 2006-09-03 03:01:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

@@ -4,7 +4,7 @@
  * @file  knl_sys.h
  * @brief %en{system heder file}%jp{システム制御のヘッダファイル}
  *
- * @version $Id: sys.h,v 1.4 2006-11-06 10:59:36 ryuz Exp $
+ * @version $Id: sys.h,v 1.5 2006-11-06 15:00:58 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -27,13 +27,15 @@
 #define _KERNEL_TSS_DINT		0x01		/**< %jp{割り込み禁止(loc_cpu 有効)} */
 #define _KERNEL_TSS_DDSP		0x02		/**< %jp{ディスパッチ禁止 (dis_dsp 有効)} */
 #define _KERNEL_TSS_INDP		0x04		/**< %jp{タスク独立部実行中} */
-#define _KERNEL_TSS_DDLY		0x08		/**< %jp{ディスパッチ遅延中} */
+
+/*#define _KERNEL_TSS_DDLY		0x08*/		/**< %jp{ディスパッチ遅延中} */
 
 
 /** %jp{プロセッサ制御情報}%en{Processor control block} */
 typedef struct _kernel_t_proccb
 {
 	STAT				stat;				/**< %jp{システムのコンテキスト状態}%en{system state} */
+	UB                  dlydsp;				/**< %jp{ディスパッチのディレイ管理} */
 	_KERNEL_T_TSKHDL	tskhdl_run;			/**< %jp{実行中タスク} */
 	_KERNEL_T_CTXCB		sysctxcb;			/**< %jp{システムコンテキスト(アイドル実行等)のコンテキスト} */
 	SIZE				sysstksz;			/**< %jp{システムコンテキストのスタックサイズ} */
@@ -99,9 +101,14 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_CLR_DSP()				do { _kernel_syscb.proccb[0].stat &= ~_KERNEL_TSS_DDSP; } while (0)
 #define _KERNEL_SYS_SNS_DSP()				((_kernel_syscb.proccb[0].stat & _KERNEL_TSS_DDSP) ? TRUE : FALSE)
 
+/*
 #define _KERNEL_SYS_SET_DLY()				do { _kernel_syscb.proccb[0].stat |= _KERNEL_TSS_DDLY; } while (0)
 #define _KERNEL_SYS_CLR_DLY()				do { _kernel_syscb.proccb[0].stat &= ~_KERNEL_TSS_DDLY; } while (0)
 #define _KERNEL_SYS_SNS_DLY()				((_kernel_syscb.proccb[0].stat & _KERNEL_TSS_DDLY) ? TRUE : FALSE)
+*/
+#define _KERNEL_SYS_SET_DLY()				do { _kernel_syscb.proccb[0].dlydsp = TRUE;} while (0)
+#define _KERNEL_SYS_CLR_DLY()				do { _kernel_syscb.proccb[0].dlydsp = FALSE;} while (0)
+#define _KERNEL_SYS_SNS_DLY()				(_kernel_syscb.proccb[0].dlydsp)
 
 #define _KERNEL_SYS_SNS_DPN()				((_kernel_syscb.proccb[0].stat != _KERNEL_TSS_TSK) ? TRUE : FALSE)
 
@@ -115,7 +122,8 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_LOC_DPC()				do { _KERNEL_DIS_INT(); } while (0)
 #define _KERNEL_SYS_UNL_DPC()				do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_DINT)){ _KERNEL_ENA_INT(); } } while (0)
 #define _KERNEL_SYS_SND_DPC(msg)			_KERNEL_DPC_SND_MSG(&_kernel_syscb.dpccb, (msg))
-#define _KERNEL_SYS_RCV_DPC(p_msg)			_KERNEL_DPC_RCV_MSG(&_kernel_syscb.dpccb, (p_msg))
+#define _KERNEL_SYS_RCV_DPC()				_KERNEL_DPC_RCV_MSG(&_kernel_syscb.dpccb)
+#define _KERNEL_SYS_RDT_DPC()				_KERNEL_DPC_REF_DAT(&_kernel_syscb.dpccb)
 #define _KERNEL_SYS_RFR_DPC()				_KERNEL_DPC_REF_FRE(&_kernel_syscb.dpccb)
 
 #define _KERNEL_SYS_REF_SVC()				(_kernel_syscb.proccb[0].svcnst)

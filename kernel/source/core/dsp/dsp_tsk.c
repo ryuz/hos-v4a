@@ -4,7 +4,7 @@
  * @file  dsp_tsk.c
  * @brief %en{Task dispatch}%jp{タスクディスパッチ}
  *
- * @version $Id: dsp_tsk.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
+ * @version $Id: dsp_tsk.c,v 1.3 2006-11-06 15:00:59 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -31,6 +31,7 @@ void _kernel_dsp_tsk(void)
 		_KERNEL_SYS_SET_DLY();
 		return;
 	}
+	_KERNEL_SYS_CLR_DLY();
 	
 	/* %jp{タスクハンドルを取得} */
 	tskhdl_top = _KERNEL_REF_RDQ();			/* %jp{レディーキュー先頭タスクを取得} */

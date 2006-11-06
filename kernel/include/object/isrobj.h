@@ -4,8 +4,6 @@
  * @file  int.h
  * @brief %jp{割り込み制御のヘッダファイル}%en{interrupt control heder file}
  *
- * @version $Id: isrobj.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

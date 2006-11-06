@@ -12,19 +12,20 @@
 #include "core/core.h"
 #include "core/dpc.h"
 
+#if _KERNEL_SPT_DPC
 
-
-BOOL _kernel_dpc_rcv_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT *p_msg)
+VP_INT _kernel_dpc_rcv_msg(_KERNEL_T_DPCCB *dcpcb)
 {
-	UINT head;
+	UINT   head;
+	VP_INT msg;
 
 	head = dcpcb->head;
 	if ( head == dcpcb->tail )
 	{
-		return FALSE;
+		return 0;
 	}
 
-	*p_msg = dcpcb->msgq[head];
+	msg = dcpcb->msgq[head];
 
 	if ( head + 1 >= dcpcb->msgqsz )
 	{
@@ -35,8 +36,10 @@ BOOL _kernel_dpc_rcv_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT *p_msg)
 		dcpcb->head = head + 1;
 	}
 
-	return TRUE;
+	return msg;
 }
+
+#endif	/* _KERNEL_SPT_DPC	*/
 
 
 /* end of file */

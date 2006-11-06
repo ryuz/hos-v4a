@@ -194,7 +194,14 @@ void SysEvt_Wait(SYSEVT_HANDLE hEvt)
 /* システム用イベントセット */
 void SysEvt_Set(SYSEVT_HANDLE hEvt)
 {
-	set_flg((ID)hEvt, 1);
+	if ( sns_ctx() )
+	{
+		iset_flg((ID)hEvt, 1);
+	}
+	else
+	{
+		set_flg((ID)hEvt, 1);
+	}
 }
 		
 /* システム用イベントクリア */

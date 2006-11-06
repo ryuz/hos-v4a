@@ -4,7 +4,7 @@
  * @file  isig_sem.c
  * @brief %jp{セマフォ資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: isig_sem.c,v 1.2 2006-09-18 11:41:20 ryuz Exp $
+ * @version $Id: isig_sem.c,v 1.3 2006-11-06 15:00:59 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -32,12 +32,12 @@ ER isig_sem(ID semid)
 {
 	ER ercd;
 
-	_KERNEL_DPC_LOC_MSGQ();	/* %jp{多重割り込み対策でロックをかける} */
+	_KERNEL_SYS_LOC_DPC();	/* %jp{多重割り込み対策でロックをかける} */
 
-	if ( _KERNEL_DPC_REF_FMSGQ() < 2 )
+	if ( _KERNEL_SYS_RFR_DPC() >= 2 )
 	{
-		_KERNEL_DPC_SND_MSG((VP_INT)_kernel_dpc_sig_sem);
-		_KERNEL_DPC_SND_MSG((VP_INT)semid);
+		_KERNEL_SYS_SND_DPC((VP_INT)_kernel_dpc_sig_sem);
+		_KERNEL_SYS_SND_DPC((VP_INT)semid);
 		ercd = E_OK;		/* %jp{正常終了}%en{Normal completion} */
 	}
 	else
@@ -45,7 +45,7 @@ ER isig_sem(ID semid)
 		ercd = E_NOMEM;		/* %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution} */
 	}
 
-	_KERNEL_DPC_UNL_MSGQ();	/* jp{ロック解除} */
+	_KERNEL_SYS_UNL_DPC();	/* jp{ロック解除} */
 		
 	return ercd;
 }
@@ -56,7 +56,7 @@ void _kernel_dpc_sig_sem(void)
 	ID semid;
 	
 	/* %jp{パラメータ取り出し} */
-	semid = (ID)_KERNEL_DPC_RCV_MSG();
+	semid = (ID)_KERNEL_SYS_RCV_DPC();
 	
 	/* %jp{遅延実行} */
 	sig_sem(semid);

@@ -4,7 +4,7 @@
  * @file  sta_knl.c
  * @brief %en{Start Kernel}%jp{OSの起動}
  *
- * @version $Id: sta_knl.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: sta_knl.c,v 1.2 2006-11-06 15:01:00 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -25,6 +25,10 @@ extern SIZE _kernel_idl_stksz;
 
 static void _kernel_sys_sta(void);
 
+#if _KERNEL_SPT_DPC
+VP_INT dpc_buf[32];
+#endif
+
 
 /** %jp{カーネルの開始(独自サービスコール)}%en{Start Kernel}
  * @return void
@@ -37,6 +41,10 @@ ER vsta_knl(void)
 	/* %jp{プロセッサ固有の初期化} */
 	_KERNEL_INI_PRC();
 
+#if _KERNEL_SPT_DPC
+	_kernel_syscb.dpccb.msgq   = dpc_buf;
+	_kernel_syscb.dpccb.msgqsz = 32;
+#endif
 	
 	_KERNEL_ENTER_SVC();
 	
@@ -85,7 +93,6 @@ void _kernel_sys_sta(void)
 {
 	_KERNEL_SYS_CLR_CTX();
 	_KERNEL_SYS_CLR_LOC();
-	_KERNEL_SYS_CLR_DLY();
 
 	_KERNEL_DSP_TSK();
 	

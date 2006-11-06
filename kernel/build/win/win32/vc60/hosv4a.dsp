@@ -635,6 +635,10 @@ SOURCE=..\..\..\..\source\object\flg\del_flg.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\flg\iset_flg.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\flg\kchk_flg.c
 # End Source File
 # Begin Source File

@@ -4,7 +4,7 @@
  * @file  unl_cpu.c
  * @brief %en{Start Kernel}%jp{OSの起動}
  *
- * @version $Id: ena_dsp.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
+ * @version $Id: ena_dsp.c,v 1.2 2006-11-06 15:01:00 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -23,13 +23,12 @@ ER ena_dsp(void)
 {
 	_KERNEL_ENTER_SVC();
 	
-	/* %jp{ディスパッチの禁止} */
+	/* %jp{ディスパッチの許可} */
 	_KERNEL_SYS_CLR_DSP();
 
 	/* %jp{遅延しているディスパッチがあれば実施} */
 	if ( _KERNEL_SYS_SNS_DLY() )
 	{
-		_KERNEL_SYS_CLR_DLY();
 		_KERNEL_DSP_TSK();
 	}
 

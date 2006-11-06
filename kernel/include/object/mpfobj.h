@@ -4,8 +4,6 @@
  * @file  mpfobj.h
  * @brief %en{Semaphore object heder file}%jp{固定長メモリプールオジェクトのヘッダファイル}
  *
- * @version $Id: mpfobj.h,v 1.4 2006-10-08 05:30:34 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

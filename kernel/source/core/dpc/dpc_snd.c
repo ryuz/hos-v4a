@@ -12,9 +12,10 @@
 #include "core/core.h"
 #include "core/dpc.h"
 
+#if _KERNEL_SPT_DPC
 
 /* %jp{メッセージの送信} */
-BOOL _kernel_dpc_snd_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT msg)
+void _kernel_dpc_snd_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT msg)
 {
 	UINT next_tail;
 
@@ -31,15 +32,16 @@ BOOL _kernel_dpc_snd_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT msg)
 	/* %jp{オーバーフローチェック} */
 	if ( next_tail == dcpcb->head )
 	{
-		return FALSE;
+		return;
 	}
 
 	/* %jp{格納} */
 	dcpcb->msgq[dcpcb->tail] = msg;
 	dcpcb->tail = next_tail;
-
-	return TRUE;
 }
+
+
+#endif	/* _KERNEL_SPT_DPC	*/
 
 
 /* end of file */

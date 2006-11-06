@@ -4,7 +4,7 @@
  * @file  sta_inte.c
  * @brief %jp{割り込み処理開始}
  *
- * @version $Id: end_inh.c,v 1.2 2006-11-06 10:59:36 ryuz Exp $
+ * @version $Id: end_inh.c,v 1.3 2006-11-06 15:00:59 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -34,7 +34,6 @@ void _kernel_end_inh(void)
 	/* %jp{遅延しているディスパッチがあれば実施} */
 	if ( _KERNEL_SYS_SNS_DLY() )
 	{
-		_KERNEL_SYS_CLR_DLY();
 		_KERNEL_DSP_TSK();
 	}
 }

@@ -4,7 +4,7 @@
  * @file  config.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * @version $Id: cfgknl.h,v 1.11 2006-10-08 05:30:34 ryuz Exp $
+ * @version $Id: cfgknl.h,v 1.12 2006-11-06 15:00:58 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -314,7 +314,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ACRE_SEM			TRUE				/* acre_sem */
 #define _KERNEL_CFG_DEL_SEM 			TRUE				/* del_sem */
 #define _KERNEL_CFG_SIG_SEM 			TRUE				/* sig_sem */
-#define _KERNEL_CFG_ISIG_SEM			FALSE				/* isig_sem */
+#define _KERNEL_CFG_ISIG_SEM			TRUE				/* isig_sem */
 #define _KERNEL_CFG_WAI_SEM 			TRUE				/* wai_sem */
 #define _KERNEL_CFG_POL_SEM 			TRUE				/* pol_sem */
 #define _KERNEL_CFG_TWAI_SEM			TRUE				/* twai_sem */
@@ -325,7 +325,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ACRE_FLG			TRUE				/* acre_flg */
 #define _KERNEL_CFG_DEL_FLG 			TRUE				/* del_flg */
 #define _KERNEL_CFG_SET_FLG 			TRUE				/* set_flg */
-#define _KERNEL_CFG_ISET_FLG			FALSE				/* iset_flg */
+#define _KERNEL_CFG_ISET_FLG			TRUE				/* iset_flg */
 #define _KERNEL_CFG_CLR_FLG 			TRUE				/* clr_flg */
 #define _KERNEL_CFG_WAI_FLG 			TRUE				/* wai_flg */
 #define _KERNEL_CFG_POL_FLG 			TRUE				/* pol_flg */

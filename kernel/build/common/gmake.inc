@@ -98,6 +98,7 @@ CSRCS         += $(DSP_DIR)/ent_tsk.c			\
                  $(FLGOBJ_DIR)/kcre_flg.c		\
                  $(FLGOBJ_DIR)/del_flg.c		\
                  $(FLGOBJ_DIR)/set_flg.c		\
+                 $(FLGOBJ_DIR)/iset_flg.c		\
                  $(FLGOBJ_DIR)/clr_flg.c		\
                  $(FLGOBJ_DIR)/wai_flg.c		\
                  $(FLGOBJ_DIR)/pol_flg.c		\
