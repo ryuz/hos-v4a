@@ -12,7 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "file.h"
-#include "sysapi.h"
+#include "system/sysapi.h"
+#include "system/memory.h"
 
 
 #define FILE_MAX_DEVICE		16
@@ -161,6 +162,129 @@ FILESIZE File_Read(HANDLE hFile, void *pBuf, FILESIZE Size)
 	return FILE_ERR_NG;
 }
 
+
+int File_GetChar(HANDLE hFile)
+{
+	char c;
+	if ( File_Read(hFile, &c, 1) != 1 )
+	{
+		return FILE_EOF;
+	}
+	return c;
+}
+
+int File_GetString(HANDLE hFile, char *pszString, int iSize)
+{
+	int i;
+	int c;
+
+	for ( i = 0; i < iSize - 1; i++ )
+	{
+		c = File_GetChar(hFile);
+		if ( c == FILE_EOF )
+		{
+			if ( i == 0 )
+			{
+				return FILE_EOF;
+			}
+			break;
+		}
+	
+		pszString[i] = c;
+
+		if ( c == '\n' )
+		{
+			break;
+		}
+	}
+	pszString[i] = '\0';
+
+	return i;
+}
+
+
+int File_PutChar(HANDLE hFile, int c)
+{
+	char b;
+	b = (char)c;
+	if ( File_Write(hFile, &b, 1) == 1 )
+	{
+		return b;
+	}
+	return FILE_EOF;
+}
+
+
+int File_PutString(HANDLE hFile, const char *pszString)
+{
+	return File_Write(hFile, pszString, strlen(pszString));
+}
+
+
+int File_PrintFormatV(HANDLE hFile, const char *pszFormat, va_list argptr)
+{
+	char *pBuf;
+	int  iRet = 0;
+	
+	pBuf = (char *)Memory_Alloc(128);
+	if ( pBuf != NULL )
+	{
+/*		iRet = vsprintf(pBuf, pszFormat, argptr);	*/	/* 肥大化するのでちと保留 */
+		if ( iRet > 0 )
+		{
+			iRet = File_Write(hFile, pBuf, iRet);
+		}
+		Memory_Free(pBuf);
+	}
+
+	return iRet;
+}
+
+
+int File_PrintFormat(HANDLE hFile, const char *pszFormat, ...)
+{
+	va_list argptr;
+	int iRet;
+
+	va_start(argptr, pszFormat);
+	iRet = File_PrintFormatV(hFile, pszFormat, argptr);
+	va_end(argptr);
+
+	return iRet;
+}
+
+
+void File_PrintHexNibble(HANDLE hFile, unsigned char c)
+{
+	c &= 0xf;
+	if ( c < 10 )
+	{
+		c = c + '0';
+	}
+	else
+	{
+		c = c - 10 + 'a';
+	}
+	File_PutChar(hFile, c);
+}
+
+void File_PrintHexByte(HANDLE hFile, unsigned char ubData)
+{
+	File_PrintHexNibble(hFile, (unsigned char)(ubData >> 4));
+	File_PrintHexNibble(hFile, (unsigned char)(ubData >> 0));
+}
+
+void File_PrintHexHalfWord(HANDLE hFile, unsigned short uhData)
+{
+	File_PrintHexByte(hFile, (unsigned char)(uhData >> 8));
+	File_PrintHexByte(hFile, (unsigned char)(uhData >> 0));
+}
+
+void File_PrintHexWord(HANDLE hFile, unsigned long uwData)
+{
+	File_PrintHexHalfWord(hFile, (unsigned short)(uwData >> 16));
+	File_PrintHexHalfWord(hFile, (unsigned short)(uwData >> 0));
+}
 
 
 /* end of file */

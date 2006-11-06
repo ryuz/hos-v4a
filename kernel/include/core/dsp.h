@@ -4,7 +4,7 @@
  * @file  dsp.h
  * @brief %jp{タスクディスパッチャのヘッダファイル}%en{task dispatcher heder file}
  *
- * @version $Id: dsp.h,v 1.3 2006-09-03 15:10:01 ryuz Exp $
+ * @version $Id: dsp.h,v 1.4 2006-11-06 10:59:36 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -37,7 +37,7 @@ void _kernel_dsp_rsm_tsk(_KERNEL_T_TSKHDL tskhdl);		/**< %jp{タスクをサス�
 #endif
 
 
-#define _KERNEL_DSP_TSK()			_kernel_dsp_tsk()			/**< タスクディスパッチ実施 */
+#define _KERNEL_DSP_TSK()				_kernel_dsp_tsk()				/**< タスクスケジュール実行 */
 
 
 #if _KERNEL_SPT_SUS_TSK	/*  %jp{サスペンドありのモデルの場合} */

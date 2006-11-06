@@ -13,6 +13,7 @@
 #define __HOS__file_h__
 
 
+#include <stdarg.h>
 #include "system/handle.h"
 
 #define FILE_MAX_PATH				128			/* パス名の最大値 */
@@ -118,6 +119,13 @@ FILEPOS  File_Seek(HANDLE hFile, FILEPOS Offset, int iOrign);
 FILESIZE File_Read(HANDLE hFile, void *pBuf, FILESIZE Size);
 FILESIZE File_Write(HANDLE hFile, const void *pData, FILESIZE Size);
 
+int      File_GetChar(HANDLE hFile);
+int      File_GetString(HANDLE hFile, char *pszString, int iSize);
+int      File_PutChar(HANDLE hFile, int c);
+int      File_PutString(HANDLE hFile, const char *pszString);
+int      File_PrintFormatV(HANDLE hFile, const char *pszFormat, va_list argptr);
+int      File_PrintFormat(HANDLE hFile, const char *pszFormat, ...);
+
 FILEERR  File_Sync(HANDLE hFile);
 FILEPOS  File_GetFileSize(HANDLE hFile);
 FILESIZE File_GetReadSize(HANDLE hFile);
@@ -127,6 +135,8 @@ FILESIZE File_RelReadBuf(HANDLE hFile, void *pBuf, long lSize);
 FILESIZE File_GetWriteBuf(HANDLE hFile, void **ppBuf);
 FILESIZE File_SendWriteBuf(HANDLE hFile, void *pBuf, long lSize);
 FILEERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
+
+
 
 /* システムAPI */
 void     SysFile_Initialize(void);													/* ファイルシステムの初期化 */

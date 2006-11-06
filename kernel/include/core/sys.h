@@ -4,7 +4,7 @@
  * @file  knl_sys.h
  * @brief %en{system heder file}%jp{システム制御のヘッダファイル}
  *
- * @version $Id: sys.h,v 1.3 2006-09-10 14:54:26 ryuz Exp $
+ * @version $Id: sys.h,v 1.4 2006-11-06 10:59:36 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -19,6 +19,7 @@
 #include "core/hep.h"
 #include "core/toq.h"
 #include "core/tmq.h"
+#include "core/dpc.h"
 
 
 /* %jp{システムの状態} */
@@ -39,6 +40,9 @@ typedef struct _kernel_t_proccb
 	VP					sysstk;				/**< %jp{システムコンテキストのスタック} */
 	SIZE				intstksz;			/**< %jp{割り込みコンテキストのスタックサイズ} */
 	VP					intstk;				/**< %jp{割り込みコンテキストのスタック} */
+#if _KERNEL_SPT_DPC
+	UINT                svcnst;				/**< %jp{サービスコールネストカウンタ} */
+#endif
 } _KERNEL_T_PROCCB;
 
 
@@ -49,13 +53,17 @@ typedef struct _kernel_t_syscb
 	_KERNEL_T_TOQ		toq;				/**< %jp{タイムアウトキュー}%en{timeout-queue} */
 	_KERNEL_T_TMQ		tmq;				/**< %jp{タイマキュー}%en{timer-queue} */
 	_KERNEL_T_HEPCB		memhep;				/**< %jp{カーネルメモリヒープ}%en{kernel heap-memory control block} */
+
+#if _KERNEL_SPT_DPC
+	_KERNEL_T_DPCCB		dpccb;				/**< %jp{遅延プロシージャコール用メッセージキュー} */
+#endif
+
 	_KERNEL_T_PROCCB	proccb[1];			/**< %jp{プロセッサ制御情報}%en{processor control block} */
 } _KERNEL_T_SYSCB;
 
 
 /** %jp{システム制御情報}%en{system control block} */
 extern _KERNEL_T_SYSCB _kernel_syscb;
-
 
 
 #define _KERNEL_SYS_INI_SYS()				do {} while (0)
@@ -98,8 +106,27 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_SNS_DPN()				((_kernel_syscb.proccb[0].stat != _KERNEL_TSS_TSK) ? TRUE : FALSE)
 
 
+
+#if _KERNEL_SPT_DPC		/* %jp{遅延プロシージャコールの場合} */
+
+#define _KERNEL_ENTER_SVC()					do { _kernel_syscb.proccb[0].svcnst++; } while (0)
+#define _KERNEL_LEAVE_SVC()					do { _kernel_dpc_lev_svc(); } while (0)
+
+#define _KERNEL_SYS_LOC_DPC()				do { _KERNEL_DIS_INT(); } while (0)
+#define _KERNEL_SYS_UNL_DPC()				do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_DINT)){ _KERNEL_ENA_INT(); } } while (0)
+#define _KERNEL_SYS_SND_DPC(msg)			_KERNEL_DPC_SND_MSG(&_kernel_syscb.dpccb, (msg))
+#define _KERNEL_SYS_RCV_DPC(p_msg)			_KERNEL_DPC_RCV_MSG(&_kernel_syscb.dpccb, (p_msg))
+#define _KERNEL_SYS_RFR_DPC()				_KERNEL_DPC_REF_FRE(&_kernel_syscb.dpccb)
+
+#define _KERNEL_SYS_REF_SVC()				(_kernel_syscb.proccb[0].svcnst)
+#define _KERNEL_SYS_SET_SVC(x)				do { _kernel_syscb.proccb[0].svcnst = (x); } while (0)
+
+#else					/* %jp{バズロック型の場合} */
+
 #define _KERNEL_ENTER_SVC()					do { _KERNEL_DIS_INT(); } while (0)
 #define _KERNEL_LEAVE_SVC()					do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_DINT)){ _KERNEL_ENA_INT(); } } while (0)
+
+#endif
 
 
 #ifdef __cplusplus

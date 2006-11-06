@@ -29,6 +29,11 @@ typedef struct c_processobj
 	int         iExitCode;						/* 終了コード */
 	HANDLE		*pHandleList;					/* 所有するハンドルのリスト(終了時に開放) */
 	char		szCurrentDir[FILE_MAX_PATH];	/* カレントディレクトリ */
+
+	struct c_processobj	*pParentProcess;		/* 親プロセス */
+	struct c_processobj	*pPrevProcess;			/* 姉妹プロセス */
+	struct c_processobj	*pNextProcess;			/* 姉妹プロセス */
+	struct c_processobj	*pChildProcess;			/* 子プロセス */
 #endif
 } C_PROCESSOBJ;
 

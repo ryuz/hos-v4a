@@ -152,6 +152,10 @@ SOURCE=..\..\..\..\include\core\core.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\include\core\dpc.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\include\core\dsp.h
 # End Source File
 # Begin Source File
@@ -428,6 +432,26 @@ SOURCE=..\..\..\..\source\core\tmq\sig_tmq.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\core\adtq\snd_adtq.c
+# End Source File
+# End Group
+# Begin Group "dpc"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dpc\dpc_fre.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dpc\dpc_rcv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dpc\dpc_snd.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\dpc\lev_svc.c
 # End Source File
 # End Group
 # End Group

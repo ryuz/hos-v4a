@@ -4,7 +4,7 @@
  * @file  _tic_toq.c
  * @brief %jp{タスクをタイムアウトキューに追加}
  *
- * @version $Id: sig_toq.c,v 1.2 2006-10-08 05:30:35 ryuz Exp $
+ * @version $Id: sig_toq.c,v 1.3 2006-11-06 10:59:36 ryuz Exp $
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -57,7 +57,7 @@ void _kernel_sig_toq(
 		_KERNEL_TSK_SET_ERCD(tcb, E_TMOUT);
 		_KERNEL_DSP_WUP_TSK(tskhdl);
 
-		_KERNEL_DSP_TSK();				/* %jp{遅延ディスパッチ予約を行う} */
+		_KERNEL_DSP_TSK();			/* %jp{遅延ディスパッチ予約を行う} */
 		
 		/* %jp{キューから外す} */
 		tskhdl_next = _KERNEL_TSK_GET_TOQNEXT(tcb);

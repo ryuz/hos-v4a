@@ -19,6 +19,7 @@ DSP_DIR     = $(CORE_DIR)/dsp
 QUE_DIR     = $(CORE_DIR)/que
 TOQ_DIR     = $(CORE_DIR)/toq
 HEP_DIR     = $(CORE_DIR)/hep
+DPC_DIR     = $(CORE_DIR)/dpc
 
 SYSOBJ_DIR  = $(OBJ_DIR)/sys
 TSKOBJ_DIR  = $(OBJ_DIR)/tsk
@@ -31,7 +32,7 @@ ISROBJ_DIR  = $(OBJ_DIR)/isr
 TIMOBJ_DIR  = $(OBJ_DIR)/tim
 
 
-VPATH := $(VPATH):$(DSP_DIR):$(QUE_DIR):$(TOQ_DIR):$(HEP_DIR):$(SYSOBJ_DIR):$(TSKOBJ_DIR)
+VPATH := $(VPATH):$(DSP_DIR):$(QUE_DIR):$(TOQ_DIR):$(HEP_DIR):$(DPC_DIR):$(SYSOBJ_DIR):$(TSKOBJ_DIR)
 VPATH := $(VPATH):$(SEMOBJ_DIR):$(FLGOBJ_DIR):$(MBXOBJ_DIR):$(MPFOBJ_DIR):$(INHOBJ_DIR):$(ISROBJ_DIR):$(TIMOBJ_DIR)
 
 
@@ -60,6 +61,10 @@ CSRCS         += $(DSP_DIR)/ent_tsk.c			\
                  $(HEP_DIR)/cre_hep.c			\
                  $(HEP_DIR)/alc_hep.c			\
                  $(HEP_DIR)/fre_hep.c			\
+                 $(DPC_DIR)/dpc_fre.c			\
+                 $(DPC_DIR)/dpc_rcv.c			\
+                 $(DPC_DIR)/dpc_snd.c			\
+                 $(DPC_DIR)/lev_svc.c			\
                  $(SYSOBJ_DIR)/sta_knl.c		\
                  $(SYSOBJ_DIR)/get_tid.c		\
                  $(SYSOBJ_DIR)/loc_cpu.c		\
@@ -154,7 +159,9 @@ CORE_HEADERS   = $(INC_DIR)/core/adtq.h			\
                  $(INC_DIR)/core/rdq.h			\
                  $(INC_DIR)/core/sys.h			\
                  $(INC_DIR)/core/tmq.h			\
-                 $(INC_DIR)/core/toq.h
+                 $(INC_DIR)/core/toq.h			\
+                 $(INC_DIR)/core/dpc.h
+
 
 TSKOBJ_HEADERS = $(INC_DIR)/object/tskobj.h
 

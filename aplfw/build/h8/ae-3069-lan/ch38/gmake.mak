@@ -41,12 +41,13 @@ OBJS = $(OBJS_DIR)/vcttbl.obj		\
        $(OBJS_DIR)/memory.obj		\
        $(OBJS_DIR)/mempol.obj		\
        $(OBJS_DIR)/stmbuf.obj		\
-       $(OBJS_DIR)/ne2000drv.obj	\
        $(OBJS_DIR)/scihal.obj		\
        $(OBJS_DIR)/scidrv.obj		\
        $(OBJS_DIR)/scifile.obj		\
+       $(OBJS_DIR)/shell.obj		\
        $(OBJS_DIR)/dbgprt.obj		\
 
+#       $(OBJS_DIR)/ne2000drv.obj	\
 
 
 
@@ -63,6 +64,7 @@ all: mkdir_objs mk_kernel $(TARGET).abs
 
 $(TARGET).abs: $(OBJS) $(STD_LIBS) $(OS_LIBS)
 	echo rom D=R                         > $(OBJS_DIR)/subcmd.txt
+	echo -OPtimize                      >> $(OBJS_DIR)/subcmd.txt
 	echo list $(TARGET).map             >> $(OBJS_DIR)/subcmd.txt
 	echo -Input=$(OBJS) | sed "s/ /,/g" >> $(OBJS_DIR)/subcmd.txt
 	echo -LIB=$(OS_LIBS),$(STD_LIBS)    >> $(OBJS_DIR)/subcmd.txt
@@ -86,6 +88,9 @@ mkdir_objs:
 
 clean:
 	rm -f $(OBJS) $(TARGET) ../kernel_cfg.c ../kernel_id.h
+
+clean_kernel:
+	make -C $(OS_DIR)/kernel/build/h8/h8300ha/ch38 -f gmake.mak clean
 
 $(OBJS_DIR)/sample.obj: sample.c ../kernel_id.h
 

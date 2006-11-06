@@ -158,9 +158,9 @@ void SciDrv_IsrRecv(void *pParam)
 	{
 		StreamBuf_SendChar(&self->StmBuf, c);
 	}
-	
 	SysEvt_Set(self->hEvtRecv);
 }
+
 
 /* 送信エンプティー */
 void SciDrv_IsrSend(void *pParam)
@@ -172,6 +172,7 @@ void SciDrv_IsrSend(void *pParam)
 	SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_RIE);
 	SysEvt_Set(self->hEvtSend);
 }
+
 
 /* 送信終了 */
 void SciDrv_IsrSendEnd(void *pParam)
