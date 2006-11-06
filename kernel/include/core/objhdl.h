@@ -4,8 +4,6 @@
  * @file  objid.h
  * @brief %jp{タスクブジェクトのID用の型定義}%en{define object ID type}
  *
- * @version $Id: objhdl.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

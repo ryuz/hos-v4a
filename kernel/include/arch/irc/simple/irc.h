@@ -5,8 +5,6 @@
  * @brief %jp{割り込みコントローラ固有属性定義}%jp{Interrupt controler attribute}
  *  %jp{割込みハンドラと割込みサービスルーチンが単純対応する場合}
  *
- * @version $Id: irc.h,v 1.1 2006-08-18 06:47:47 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

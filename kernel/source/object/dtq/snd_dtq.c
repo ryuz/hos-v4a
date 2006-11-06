@@ -4,8 +4,6 @@
  * @file  snd_dtq.c
  * @brief %jp{データキューへの送信}%en{Send to Data Queue}
  *
- * @version $Id: snd_dtq.c,v 1.4 2006-08-20 15:19:31 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

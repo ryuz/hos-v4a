@@ -4,8 +4,6 @@
  * @file  hos4cfg.cpp
  * @brief %jp{メインルーチン}%en{main}
  *
- * @version $Id: hos4cfg.cpp,v 1.2 2006-08-18 12:00:12 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

@@ -4,8 +4,6 @@
  * @file  trcv_dtq.c
  * @brief %jp{データキューからの受信(タイムアウトあり)}%en{Receive from Data Queue(with Timeout)}
  *
- * @version $Id: trcv_dtq.c,v 1.1 2006-09-10 14:54:27 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

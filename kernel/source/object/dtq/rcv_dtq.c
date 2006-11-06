@@ -4,8 +4,6 @@
  * @file  rcv_dtq.c
  * @brief %jp{データキューへの送信}%en{Send to Data Queue}
  *
- * @version $Id: rcv_dtq.c,v 1.2 2006-08-20 15:16:29 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

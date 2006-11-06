@@ -4,8 +4,6 @@
  * @file  irc.h
  * @brief %jp{ADuC7019/20/21/22/24/25/26/27 用割り込みコントローラ操作}%en{uITRON4.0 kernel header file}
  *
- * @version $Id: irc.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

@@ -4,8 +4,6 @@
  * @file  alc_hep.c
  * @brief %jp{メモリヒープのからメモリ割当て}%en{allocate memory}
  *
- * @version $Id: alc_hep.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

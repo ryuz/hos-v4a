@@ -4,8 +4,6 @@
  * @file  prcv_dtq.c
  * @brief %jp{データキューへの送信(ポーリング)}%en{Send to Data Queue(Polling)}
  *
- * @version $Id: prcv_dtq.c,v 1.1 2006-09-10 14:54:27 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

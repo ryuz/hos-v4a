@@ -4,8 +4,6 @@
  * @file  timobj.h
  * @brief %jp{時間管理オジェクトのヘッダファイル}%en{Time object heder file}
  *
- * @version $Id: timobj.h,v 1.3 2006-08-18 14:42:46 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

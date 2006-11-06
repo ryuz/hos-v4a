@@ -4,8 +4,6 @@
  * @file  fsnd_dtq.c
  * @brief %jp{データキューへの強制送信}%en{Forced Send to Data Queue}
  *
- * @version $Id: fsnd_dtq.c,v 1.2 2006-08-20 15:19:31 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

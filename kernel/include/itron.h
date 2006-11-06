@@ -4,8 +4,6 @@
  * @file  itron.h
  * @brief %en{uITRON4.0 standard header file}%jp{μITRON4.0用の標準ヘッダファイル}
  *
- * @version $Id: itron.h,v 1.3 2006-10-08 05:30:34 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

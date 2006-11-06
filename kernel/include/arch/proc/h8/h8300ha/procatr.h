@@ -4,8 +4,6 @@
  * @file  procatr.h
  * @brief %jp{プロセッサアーキテクチャ固有機能}
  *
- * @version $Id: procatr.h,v 1.2 2006-11-05 16:24:29 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

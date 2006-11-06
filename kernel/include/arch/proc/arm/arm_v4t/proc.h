@@ -4,8 +4,6 @@
  * @file  ctxctl.h
  * @brief %jp{コンテキスト制御}%en{context control}
  *
- * @version $Id: proc.h,v 1.2 2006-08-17 14:26:43 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

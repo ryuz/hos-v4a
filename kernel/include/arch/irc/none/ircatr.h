@@ -4,8 +4,6 @@
  * @file  ircatr.h
  * @brief %jp{割り込みコントローラ固有属性定義}%jp{Interrupt controler attribute}
  *
- * @version $Id: ircatr.h,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
