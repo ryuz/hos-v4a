@@ -4,8 +4,6 @@
  * @file  iset_flg.c
  * @brief %jp{イベントフラグのセット}%en{Set Eventflag}
  *
- * @version $Id: iset_flg.c,v 1.1 2006-11-06 14:51:51 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
@@ -72,9 +70,9 @@ void _kernel_dpc_set_flg(void)
 /** %jp{イベントフラグ資源の返却}%en{Release Flgaphore Resource}
  * @param  flgid    %jp{イベントフラグ資源返却対象のイベントフラグのID番号}%en{ID number of the Eventflag to which resource is released}
  */
-ER iset_flg(ID flgid)
+ER iset_flg(ID flgid, FLGPTN setptn)
 {
-	return set_flg(flgid);
+	return set_flg(flgid, setptn);
 }
 
 #endif	/* _KERNEL_SPT_DPC */
@@ -89,7 +87,7 @@ ER iset_flg(ID flgid)
  * @param  flgid    %jp{イベントフラグ資源返却対象のイベントフラグのID番号}%en{ID number of the Eventflag to which resource is released}
  * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
  */
-ER iset_flg(ID flgid)
+ER iset_flg(ID flgid, FLGPTN setptn)
 {
 	return E_NOSPT;
 }
