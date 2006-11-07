@@ -4,8 +4,6 @@
  * @file  act_tsk.c
  * @brief %en{Activate Task}%jp{タスクの起動}
  *
- * @version $Id: acre_tsk.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

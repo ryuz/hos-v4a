@@ -4,8 +4,6 @@
  * @file  add_tmq.c
  * @brief %jp{タイマキューにオブジェクトを追加}
  *
- * @version $Id: sig_tmq.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

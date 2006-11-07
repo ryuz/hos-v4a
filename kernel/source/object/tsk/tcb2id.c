@@ -4,8 +4,6 @@
  * @file  tcb2id.c
  * @brief %jp{TCBアドレスをIDに変換}%en{TCB-address to ID}
  *
- * @version $Id: tcb2id.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

@@ -4,8 +4,6 @@
  * @file  toq.h
  * @brief %jp{タイムアウトキューのヘッダファイル}%en{time-out queue heder file}
  *
- * @version $Id: tmq.h,v 1.2 2006-09-10 14:54:26 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

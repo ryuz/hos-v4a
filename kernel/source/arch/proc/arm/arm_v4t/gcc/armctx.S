@@ -4,8 +4,6 @@
   @file  armctx.s
   @brief %en{コンテキスト制御(ARM v4t アーキテクチャ)}%jp{ARM v4t}
  
-  @version $Id: armctx.S,v 1.1 2006-08-16 16:27:03 ryuz Exp $
-
   Copyright (C) 1998-2006 by Project HOS
   http://sourceforge.jp/projects/hos/
 ****************************************************************************/

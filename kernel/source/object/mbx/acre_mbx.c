@@ -4,8 +4,6 @@
  * @file  acre_mbx.c
  * @brief %jp{メールボックスの生成(ID番号自動割付)}%en{Create Mailbox(ID Number Automatic Assignment)}
  *
- * @version $Id: acre_mbx.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

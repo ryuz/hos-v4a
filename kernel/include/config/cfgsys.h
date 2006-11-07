@@ -4,8 +4,6 @@
  * @file  cfgsys.h
  * @brief %jp{ITRONシステムのコンフィギュレーション用ヘッダファイル}%en{ITRON system configuration heder file}
  *
- * @version $Id: cfgsys.h,v 1.3 2006-09-03 03:01:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

@@ -4,8 +4,6 @@
  * @file  dsp_sta.c
  * @brief %jp{他タスクを開始する}
  *
- * @version $Id: dsp_sta.c,v 1.1 2006-09-03 13:19:31 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

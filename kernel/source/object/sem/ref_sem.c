@@ -4,8 +4,6 @@
  * @file  ref_sem.c
  * @brief %jp{セマフォの状態参照}%en{Reference Semaphore State}
  *
- * @version $Id: ref_sem.c,v 1.2 2006-09-02 10:43:19 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

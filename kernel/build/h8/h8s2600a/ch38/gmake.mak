@@ -2,8 +2,6 @@
 # Hyper Operating System V4 Advance
 #  makefile for H8/300H
 #
-# $Id: gmake.mak,v 1.1 2006-08-16 16:27:03 ryuz Exp $
-#
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------

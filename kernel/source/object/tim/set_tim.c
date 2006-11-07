@@ -4,8 +4,6 @@
  * @file  set_tim.c
  * @brief %jp{システム時刻の設定}%en{Set System Time}
  *
- * @version $Id: set_tim.c,v 1.2 2006-08-18 14:42:47 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

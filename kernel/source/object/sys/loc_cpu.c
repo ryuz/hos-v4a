@@ -4,8 +4,6 @@
  * @file  sta_knl.c
  * @brief %en{Start Kernel}%jp{OSの起動}
  *
- * @version $Id: loc_cpu.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

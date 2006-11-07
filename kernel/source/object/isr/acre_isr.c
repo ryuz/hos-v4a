@@ -4,8 +4,6 @@
  * @file  acre_sem.c
  * @brief %en{Activate Task}%jp{タスクの起動}
  *
- * @version $Id: acre_isr.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

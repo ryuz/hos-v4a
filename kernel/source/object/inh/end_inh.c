@@ -4,8 +4,6 @@
  * @file  sta_inte.c
  * @brief %jp{割り込み処理開始}
  *
- * @version $Id: end_inh.c,v 1.3 2006-11-06 15:00:59 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

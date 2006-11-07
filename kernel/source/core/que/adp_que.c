@@ -4,8 +4,6 @@
  * @file  adp_que.c
  * @brief %en{Add the task to the queue in the order of the task's priority}%jp{タスクを優先度順でキューに追加}
  *
- * @version $Id: adp_que.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

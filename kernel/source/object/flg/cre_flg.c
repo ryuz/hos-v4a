@@ -4,8 +4,6 @@
  * @file  cre_flg.c
  * @brief %jp{イベントフラグの生成}%en{Create Eventflag}
  *
- * @version $Id: cre_flg.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

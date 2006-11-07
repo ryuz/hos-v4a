@@ -4,8 +4,6 @@
  * @file  rot_que.c
  * @brief %en{Rotate queue}%jp{キューの回転}
  *
- * @version $Id: rot_que.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

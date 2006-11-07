@@ -4,8 +4,6 @@
  * @file  del_flg.c
  * @brief %jp{イベントフラグの削除}%en{Delete Eventflag}
  *
- * @version $Id: del_flg.c,v 1.3 2006-09-03 03:01:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

@@ -4,8 +4,6 @@
  * @file  dsp_wai.c
  * @brief %jp{自タスクを待ち状態にする}
  *
- * @version $Id: dsp_wai.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

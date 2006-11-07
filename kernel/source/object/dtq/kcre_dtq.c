@@ -4,8 +4,6 @@
  * @file  kcre_dtq.c
  * @brief %jp{データキューの生成}%en{Create Data queue}
  *
- * @version $Id: kcre_dtq.c,v 1.1 2006-09-02 03:56:38 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

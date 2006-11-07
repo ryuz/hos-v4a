@@ -4,8 +4,6 @@
  * @file  acre_mpf.c
  * @brief %jp{固定長メモリプールの生成(ID番号自動割付け)}%en{Create Semaphore(ID Number Automatic Assignment)}
  *
- * @version $Id: acre_mpf.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

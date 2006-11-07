@@ -4,8 +4,6 @@
  * @file  acre_mpf.c
  * @brief %jp{固定長メモリプールの生成}%en{}
  *
- * @version $Id: kcre_mpf.c,v 1.2 2006-09-02 15:08:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

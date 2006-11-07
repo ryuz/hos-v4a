@@ -4,8 +4,6 @@
  * @file  acre_flg.c
  * @brief %jp{イベントフラグの生成(ID番号自動割付)}%en{Create Eventflag(ID Number Automatic Assignment)}
  *
- * @version $Id: acre_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

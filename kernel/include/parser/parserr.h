@@ -4,8 +4,6 @@
  * @file  parserr.h
  * @brief %jp{エラー処理コンフィギュレーションの解析}%en{error configulation parser}
  *
- * @version $Id: parserr.h,v 1.3 2006-10-08 05:30:35 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

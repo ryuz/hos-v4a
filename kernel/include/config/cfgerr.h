@@ -4,8 +4,6 @@
  * @file  cfgerr.h
  * @brief %jp{エラー処理のコンフィギュレーション用ヘッダファイル}
  *
- * @version $Id: cfgerr.h,v 1.3 2006-10-08 05:30:34 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

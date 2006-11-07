@@ -4,8 +4,6 @@
  * @file  knl_que.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * @version $Id: tskobj.h,v 1.7 2006-10-15 13:37:44 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

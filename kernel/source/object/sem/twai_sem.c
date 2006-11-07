@@ -4,8 +4,6 @@
  * @file  twai_sem.c
  * @brief %jp{セマフォ資源の獲得(タイムアウトあり)}%en{Acquire Semaphore Resource(with Timeout)}
  *
- * @version $Id: twai_sem.c,v 1.3 2006-09-02 10:43:19 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

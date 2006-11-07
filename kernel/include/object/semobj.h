@@ -4,8 +4,6 @@
  * @file  semobj.h
  * @brief %jp{セマフォオジェクトのヘッダファイル}%en{Semaphore object heder file}
  *
- * @version $Id: semobj.h,v 1.6 2006-09-10 14:54:26 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

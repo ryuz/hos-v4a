@@ -2,8 +2,6 @@
 # Hyper Operating System V4 Advance
 #  makefile for ADuC7019/20/21/22/24/25/26/27
 #
-# $Id: gmake.mak,v 1.1 2006-08-16 16:27:03 ryuz Exp $
-#
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------

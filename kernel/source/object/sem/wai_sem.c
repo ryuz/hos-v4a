@@ -4,8 +4,6 @@
  * @file  wai_sem.c
  * @brief %jp{セマフォ資源の獲得}%en{Acquire Semaphore Resource}
  *
- * @version $Id: wai_sem.c,v 1.4 2006-09-02 10:43:19 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

@@ -4,8 +4,6 @@
  * @file  acre_dtq.c
  * @brief %jp{データキューの生成(ID番号自動割付け)}%en{Create Data queue(ID Number Automatic Assignment)}
  *
- * @version $Id: acre_dtq.c,v 1.1 2006-09-03 13:20:47 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

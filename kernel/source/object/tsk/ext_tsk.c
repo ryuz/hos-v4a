@@ -4,8 +4,6 @@
  * @file  ext_tsk.c
  * @brief %jp{タスクの終了}%en{Exit Task}
  *
- * @version $Id: ext_tsk.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

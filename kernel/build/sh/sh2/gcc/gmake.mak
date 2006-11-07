@@ -2,8 +2,6 @@
 # Hyper Operating System V4 Advance
 #  makefile for sh2
 #
-# $Id: gmake.mak,v 1.2 2006-08-20 05:28:56 ryuz Exp $
-#
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------

@@ -4,8 +4,6 @@
  * @file  exe_inh.c
  * @brief %jp{割り込みハンドラの処理}
  *
- * @version $Id: exe_inh.c,v 1.2 2006-08-18 07:55:00 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

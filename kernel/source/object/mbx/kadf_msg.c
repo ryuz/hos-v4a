@@ -4,8 +4,6 @@
  * @file  kadf_msg.c
  * @brief %jp{FIFOキューにメッセージを追加}
  *
- * @version $Id: kadf_msg.c,v 1.1 2006-09-02 15:03:08 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

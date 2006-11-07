@@ -4,8 +4,6 @@
  * @file  exe_int.c
  * @brief %jp{割込みの処理}
  *
- * @version $Id: exe_isr.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

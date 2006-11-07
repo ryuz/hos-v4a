@@ -4,8 +4,6 @@
  * @file  chkptr.h
  * @brief %jp{ポインタチェックヘッダファイル}%en{pointer check header file}
  *
- * @version $Id: chkptr.h,v 1.2 2006-08-18 14:42:46 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

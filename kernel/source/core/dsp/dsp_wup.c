@@ -4,8 +4,6 @@
  * @file  dsp_wup.c
  * @brief %jp{他タスクを待ち解除する}
  *
- * @version $Id: dsp_wup.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

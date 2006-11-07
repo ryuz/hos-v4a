@@ -4,8 +4,6 @@
  * @file  sig_sem.c
  * @brief %jp{セマフォ資源の返却}
  *
- * @version $Id: kchk_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

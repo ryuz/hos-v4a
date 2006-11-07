@@ -4,8 +4,6 @@
  * @file  procatr.h
  * @brief %jp{プロセッサアーキテクチャ固有属性定義(SH2 processor)}
  *
- * @version $Id: procatr.h,v 1.2 2006-08-18 07:54:59 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

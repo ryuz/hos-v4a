@@ -4,8 +4,6 @@
  * @file  dly_tsk.c
  * @brief %jp{自タスクの遅延}%en{Delay Task}
  *
- * @version $Id: dly_tsk.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

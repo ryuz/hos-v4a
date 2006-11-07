@@ -4,8 +4,6 @@
  * @file  _tic_toq.c
  * @brief %jp{タスクをタイムアウトキューに追加}
  *
- * @version $Id: sig_toq.c,v 1.3 2006-11-06 10:59:36 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

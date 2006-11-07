@@ -4,8 +4,6 @@
  * @file  dsp.h
  * @brief %jp{タスクディスパッチャのヘッダファイル}%en{task dispatcher heder file}
  *
- * @version $Id: dsp.h,v 1.4 2006-11-06 10:59:36 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

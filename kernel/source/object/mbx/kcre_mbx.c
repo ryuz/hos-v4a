@@ -4,8 +4,6 @@
  * @file  kcre_mbx.c
  * @brief %jp{メールボックスの生成}%en{Create Eventflag}
  *
- * @version $Id: kcre_mbx.c,v 1.4 2006-09-03 03:01:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

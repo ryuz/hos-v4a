@@ -4,8 +4,6 @@
  * @file  kact_tsk.c
  * @brief %en{Activate Task}%jp{タスクの起動}
  *
- * @version $Id: kcre_tsk.c,v 1.2 2006-09-03 15:10:01 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

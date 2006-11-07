@@ -4,8 +4,6 @@
  * @file  isig_tim.c
  * @brief %jp{タイムティックの供給}%en{Supply Time Tick}
  *
- * @version $Id: isig_tim.c,v 1.3 2006-08-18 12:00:13 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

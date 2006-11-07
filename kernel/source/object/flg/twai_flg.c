@@ -4,8 +4,6 @@
  * @file  twai_flg.c
  * @brief %jp{イベントフラグ待ち(タイムアウトあり)}%en{Wait for Eventflag(with Timeout)}
  *
- * @version $Id: twai_flg.c,v 1.2 2006-08-20 09:02:30 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

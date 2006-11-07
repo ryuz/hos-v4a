@@ -4,8 +4,6 @@
  * @file  krmf_msg.c
  * @brief %jp{FIFOキューからメッセージを取り出し}
  *
- * @version $Id: krmf_msg.c,v 1.1 2006-09-02 15:03:08 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

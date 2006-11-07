@@ -4,8 +4,6 @@
  * @file  adtq.h
  * @brief %jp{非同期データキューヘッダファイル}%en{Asynchronous Data Queue header file}
  *
- * @version $Id: adtq.h,v 1.1 2006-09-17 08:29:27 ryuz Exp $
- *
  * %jp{送信側、及び、受信側でロック(割り込み禁止など)を利用しなくても成立するキュー}
  * %jp{データ領域が１つ無駄になるのでメモリ効率で若干不利}
  * %jp{DPC向けだが、将来DTQとの共用も可能なように切り出しておく}

@@ -4,8 +4,6 @@
  * @file  sig_mbx.c
  * @brief %jp{メールボックス資源の返却}%en{Release Semaphore Resource}
  *
- * @version $Id: snd_mbx.c,v 1.2 2006-09-02 10:43:18 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

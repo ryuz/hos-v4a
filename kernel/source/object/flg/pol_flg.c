@@ -4,8 +4,6 @@
  * @file  pol_flg.c
  * @brief %jp{イベントフラグ待ち(ポーリング)}%en{Wait for Eventflag(Polling)}
  *
- * @version $Id: pol_flg.c,v 1.2 2006-09-02 06:08:27 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

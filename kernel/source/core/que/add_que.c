@@ -4,8 +4,6 @@
  * @file  add_que.c
  * @brief %en{Add the task to the queue-tail}%jp{タスクをキュー末尾に追加}
  *
- * @version $Id: add_que.c,v 1.1 2006-08-16 16:27:03 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

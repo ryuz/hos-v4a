@@ -4,8 +4,6 @@
  * @file  add_toq.c
  * @brief %jp{タスクをタイムアウトキューに追加}
  *
- * @version $Id: add_toq.c,v 1.2 2006-10-08 05:30:35 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

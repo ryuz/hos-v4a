@@ -4,8 +4,6 @@
  * @file  sta_knl.c
  * @brief %en{Start Kernel}%jp{OSの起動}
  *
- * @version $Id: sta_knl.c,v 1.2 2006-11-06 15:01:00 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

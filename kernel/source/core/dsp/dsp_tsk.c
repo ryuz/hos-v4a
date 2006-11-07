@@ -4,8 +4,6 @@
  * @file  dsp_tsk.c
  * @brief %en{Task dispatch}%jp{タスクディスパッチ}
  *
- * @version $Id: dsp_tsk.c,v 1.3 2006-11-06 15:00:59 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

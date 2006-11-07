@@ -4,8 +4,6 @@
  * @file  sample.c
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
- * @version $Id: sample.c,v 1.2 2006-08-18 14:42:47 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

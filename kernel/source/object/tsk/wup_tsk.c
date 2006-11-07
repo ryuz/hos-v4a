@@ -4,8 +4,6 @@
  * @file  wup_tsk.c
  * @brief %jp{タスクの起床}%en{Wakeup Task}
  *
- * @version $Id: wup_tsk.c,v 1.2 2006-09-03 14:09:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

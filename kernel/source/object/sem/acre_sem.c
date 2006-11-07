@@ -4,8 +4,6 @@
  * @file  acre_sem.c
  * @brief %jp{セマフォの生成(ID番号自動割付け)}%en{Create Semaphore(ID Number Automatic Assignment)}
  *
- * @version $Id: acre_sem.c,v 1.1 2006-08-16 16:27:04 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

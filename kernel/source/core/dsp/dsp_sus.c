@@ -4,8 +4,6 @@
  * @file  dsp_sus.c
  * @brief %jp{タスクをサスペンドする}
  *
- * @version $Id: dsp_sus.c,v 1.1 2006-09-03 13:19:31 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */

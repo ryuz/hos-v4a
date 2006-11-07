@@ -4,8 +4,6 @@
  * @file  pol_sem.c
  * @brief %jp{セマフォ資源の獲得(ポーリング)}%en{Acquire Semaphore Resource(Polling)}
  *
- * @version $Id: pol_sem.c,v 1.2 2006-09-02 10:43:19 ryuz Exp $
- *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
