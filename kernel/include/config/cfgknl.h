@@ -249,8 +249,20 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 /* Control block */
 #define _KERNEL_CFG_MPFCB_ALGORITHM		_KERNEL_MPFCB_ALG_BLKARRAY
-#define _KERNEL_CFG_MPFCB_SPLIT_RO		FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_MPFCB_SPLIT_RO		FALSE				/**< %jp{MPFCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_CFG_MPFCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
+
+
+/* ---------------------------------------------- */
+/*  Interrupt Service Routines                    */
+/* ---------------------------------------------- */
+
+/* Control block */
+#define _KERNEL_CFG_ISRCB_ALGORITHM		_KERNEL_ISRCB_ALG_PTRARRAY
+#define _KERNEL_CFG_ISRCB_SPLIT_RO		FALSE				/**< %jp{ISRCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_ISRCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
 
 
 

@@ -18,17 +18,20 @@
 /* %jp{割り込みの処理} */
 void _kernel_exe_isr(INTNO intno)
 {
-	_KERNEL_T_ISRHDL isrhdl;
+	_KERNEL_T_ISRCB_RO_PTR isrcb_ro;
+	_KERNEL_T_ISRCB_PTR    isrcb;
+	_KERNEL_T_ISRHDL       isrhdl;
 	
-	isrhdl = _KERNEL_INT_GET_HEAD(intno);
-	while ( isrhdl != NULL )
+	isrhdl   = _KERNEL_INT_GET_HEAD(intno);
+	isrcb    = _KERNEL_ISR_ISRHDL2ISRCB(isrhdl);
+	isrcb_ro = _KERNEL_ISR_ISRHDL2ISRCBRO(isrhdl);
+
+	while ( isrhdl != _KERNEL_ISRHDL_NULL )
 	{
-		_KERNEL_ISR_GET_ISR(isrhdl)(_KERNEL_ISR_GET_EXINF(isrhdl));
+		_KERNEL_ISR_GET_ISR(isrcb_ro)(_KERNEL_ISR_GET_EXINF(isrcb_ro));
 		
-		isrhdl = _KERNEL_ISR_GET_NEXT(isrhdl);
+		isrhdl = _KERNEL_ISR_GET_NEXT(isrcb);
 	}
-	
-	_kernel_dis_int();
 }
 
 #endif

@@ -1,3 +1,14 @@
+/** 
+ *  Hyper Operating System V4 Advance
+ *
+ * @file  rcv_adtq.c
+ * @brief %jp{非同期データキュー送信}%en{Send to Asynchronous Data Queue}
+ *
+ * Copyright (C) 1998-2006 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
+
 #include "core/core.h"
 #include "core/adtq.h"
 
@@ -34,4 +45,6 @@ BOOL _kernel_adtq_snd_dat(_KERNEL_T_ADTQCB *adtqcb, VP_INT data)
 	return TRUE;
 }
 
+
+/* end of file */
 

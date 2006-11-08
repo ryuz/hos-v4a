@@ -14,7 +14,6 @@
 #define _KERNEL__object__inhobj_h__
 
 
-
 /* %jp{割込みハンドラ情報} */
 typedef struct _kernel_t_inhinf
 {
@@ -24,12 +23,12 @@ typedef struct _kernel_t_inhinf
 
 /** %jp{割込みハンドラ情報テーブル} */
 #if _KERNEL_SPT_DEF_INH
-extern       _KERNEL_T_INHINF  _kernel_inh_tbl[KERNEL_TMAX_INH_INHNO - KERNEL_TMIN_INH_INHNO + 1];
+extern       _KERNEL_T_INHINF  _kernel_inh_tbl[_KERNEL_TMAX_INH_INHNO - _KERNEL_TMIN_INH_INHNO + 1];
 #else
-extern const _KERNEL_T_INHINF  _kernel_inh_tbl[KERNEL_TMAX_INH_INHNO - KERNEL_TMIN_INH_INHNO + 1];
+extern const _KERNEL_T_INHINF  _kernel_inh_tbl[_KERNEL_TMAX_INH_INHNO - _KERNEL_TMIN_INH_INHNO + 1];
 #endif
 
-#define _KERNEL_INT_GET_INHINF(inhno)		(&_kernel_inh_tbl[inhno - KERNEL_TMIN_INH_INHNO])
+#define _KERNEL_INT_GET_INHINF(inhno)		(&_kernel_inh_tbl[inhno - _KERNEL_TMIN_INH_INHNO])
 
 #define _KERNEL_INH_GET_INTHDR(inhno)		(_KERNEL_INT_GET_INHINF(inhno)->inthdr);
 #define _KERNEL_INH_SET_INTHDR(inhno, x)	do { _KERNEL_INT_GET_INHINF(inhno)->inthdr = (x); } while(0)

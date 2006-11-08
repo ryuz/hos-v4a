@@ -26,6 +26,10 @@ public:
 	int   AutoId(void);
 	void  WriteCfgDef(FILE* fp);	// cfgファイル定義部書き出し
 	void  WriteCfgIni(FILE* fp);	// cfgファイル初期化部書き出し
+
+protected:
+	int   m_iMinIntNo;	
+	int   m_iMaxIntNo;	
 };
 
 

@@ -23,8 +23,8 @@ CC     = ch38
 ASM    = asm38
 LINK   = optlnk
 
-CFLAGS = -CP=300HA -DEBug -I=$(INC_DIR),$(SRC_DIR)
-AFLAGS = -CP=300HA -DEBug
+CFLAGS = -CP=300HA -DEBug -NOLOGO -I=$(INC_DIR),$(SRC_DIR)
+AFLAGS = -CP=300HA -DEBug -NOLOGO
 LFLAGS = 
 
 OBJS_DIR = objs

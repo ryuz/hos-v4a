@@ -18,8 +18,8 @@
 
 #define _KERNEL_IRCATR_IRC			TRUE							/**< %jp{IRCの有無} */
 
-#define _KERNEL_IRCATR_TMIN_INHNO	_KERNEL_PROCATR_TMIN_INHNO		/**< %jp{割込みハンドラ番号の最小値} */
-#define _KERNEL_IRCATR_TMAX_INHNO	_KERNEL_PROCATR_TMAX_INHNO		/**< %jp{割込みハンドラ番号の最大値} */
+#define _KERNEL_IRCATR_TMIN_INTNO	_KERNEL_PROCATR_TMIN_INHNO		/**< %jp{割込みハンドラ番号の最小値} */
+#define _KERNEL_IRCATR_TMAX_INTNO	_KERNEL_PROCATR_TMAX_INHNO		/**< %jp{割込みハンドラ番号の最大値} */
 
 
 #endif	/* _KERNEL__arch__simple__ircatr_h__ */

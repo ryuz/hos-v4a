@@ -9,12 +9,12 @@
  */
 
 
-#ifndef _KERNEL__arch__proc__arm__arm_v4t__procatr_h__
-#define _KERNEL__arch__proc__arm__arm_v4t__procatr_h__
+#ifndef _KERNEL__arch__proc__mn1030__procatr_h__
+#define _KERNEL__arch__proc__mn1030__procatr_h__
 
 
 /* %jp{プロセッサアーキテクチャ定義のあるインクルードパス} */
-#define _KERNEL_PROCATR_INC_PATH			"arm/arm_v4t"
+#define _KERNEL_PROCATR_INC_PATH			"mn103/mn1030"
 
 
 /* %jp{プロセッサアーキテクチャに依存した属性} */
@@ -59,7 +59,7 @@
 
 
 
-#endif	/* _KERNEL__arch__proc__arm__arm_v4t__procatr_h__ */
+#endif	/* _KERNEL__arch__proc__mn1030__procatr_h__ */
 
 
 /* end of file */

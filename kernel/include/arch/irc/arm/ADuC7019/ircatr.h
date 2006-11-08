@@ -15,8 +15,8 @@
 #define _KERNEL_IRCATR_INC_PATH				"arm/ADuC7019"
 
 
-#define _KERNEL_IRCATR_TMIN_INHNO			1			/**< %jp{割込みハンドラ番号の最小値} */
-#define _KERNEL_IRCATR_TMAX_INHNO			23			/**< %jp{割込みハンドラ番号の最大値} */
+#define _KERNEL_IRCATR_TMIN_INTNO			1			/**< %jp{割込み番号の最小値} */
+#define _KERNEL_IRCATR_TMAX_INTNO			23			/**< %jp{割込み番号の最大値} */
 
 
 #endif	/* _KERNEL__arch__irc__ADuC7019__ircatr_h__ */

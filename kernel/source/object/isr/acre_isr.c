@@ -27,14 +27,14 @@ ER_ID acre_isr(const T_CISR *pk_cisr)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{空きID探索} */
-	for ( isrid = _KERNEL_TMAX_ISR_ISRID; isrid >= _KERNEL_TMIN_ISR_ISRID; isrid-- )
+	for ( isrid = _KERNEL_ISR_TMAX_ID; isrid >= _KERNEL_ISR_TMIN_ID; isrid-- )
 	{
 		if ( !_KERNEL_ISR_CHECK_EXS(isrid) )
 		{
 			break;
 		}
 	}
-	if ( isrid <= _KERNEL_TMIN_ISR_ISRID )
+	if ( isrid <= _KERNEL_ISR_TMIN_ID )
 	{
 		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_NOID;				/* %jp{ID番号不足} */

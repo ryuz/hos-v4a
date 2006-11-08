@@ -28,6 +28,9 @@ CApiAttIsr::CApiAttIsr()
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 4;		// 4つのパラメーターブロック
 	m_iParams         = 1;
+
+	m_iMinIntNo =  0;	
+	m_iMaxIntNo = -1;
 }
 
 // デストラクタ
@@ -39,6 +42,12 @@ CApiAttIsr::~CApiAttIsr()
 // 自動ID番号割り当て
 int CApiAttIsr::AutoId(void)
 {
+	if ( m_iMaxIntNo ==  -1 )
+	{
+		m_iMinIntNo = _KERNEL_IRCATR_TMIN_INTNO;
+		m_iMaxIntNo = _KERNEL_IRCATR_TMAX_INTNO;
+	}
+	
 	return CFG_ERR_OK;
 }
 
@@ -67,6 +76,16 @@ int CApiAttIsr::AnalyzeApi(const char* pszApiName, const char* pszParams)
 		
 		return CFG_ERR_OK;
 	}
+	else if ( strcmp(pszApiName, "KERNEL_MIN_INTNO") == 0 )
+	{
+		m_iMinIntNo = atoi(pszParams);
+		return CFG_ERR_OK;
+	}
+	else if ( strcmp(pszApiName, "KERNEL_MAX_INTNO") == 0 )
+	{
+		m_iMaxIntNo = atoi(pszParams);
+		return CFG_ERR_OK;
+	}
 
 	return CFG_ERR_NOPROC;
 }
@@ -82,15 +101,22 @@ void  CApiAttIsr::WriteCfgDef(FILE* fp)
 		"/*        interrupt control objects           */\n"
 		"/* ------------------------------------------ */\n"
 		, fp);
+
+	fprintf(
+			fp,
+			"\n"
+			"const INTNO _kernel_min_intno = %d;\n"
+			"const INTNO _kernel_max_intno = %d;\n",
+			m_iMinIntNo, m_iMaxIntNo);
 	
 	// 割込み管理テーブル生成
-	if ( _KERNEL_IRCATR_TMAX_INHNO - _KERNEL_IRCATR_TMIN_INHNO + 1 > 0 )
+	if ( m_iMaxIntNo - m_iMinIntNo + 1 > 0 )
 	{
 		fprintf(
 			fp,
 			"\n"
 			"_KERNEL_T_INTINF _kernel_int_tbl[%d];\n\n",
-			_KERNEL_IRCATR_TMAX_INHNO - _KERNEL_IRCATR_TMIN_INHNO + 1);
+			 m_iMaxIntNo - m_iMinIntNo + 1);
 	}
 
 	if ( m_iMaxId > 0 )
@@ -117,5 +143,5 @@ void  CApiAttIsr::WriteCfgIni(FILE* fp)
 
 
 // ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2002 by Project HOS                                    
+//  Copyright (C) 1998-2006 by Project HOS                                    
 // ---------------------------------------------------------------------------

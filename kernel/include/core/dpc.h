@@ -22,16 +22,6 @@ typedef struct _kernel_t_dpccb
 } _KERNEL_T_DPCCB;
 
 
-#define _KERNEL_DPC_SET_MSGQ(dcpcb, x)		do { (dcpcb)->msgq = (x); } while (0)
-#define _KERNEL_DPC_GET_MSGQ(dcpcb)			((dcpcb)->msgq)
-#define _KERNEL_DPC_SET_MSGQSZ(dcpcb, x)	do { (dcpcb)->msgqsz = (x); } while (0)
-#define _KERNEL_DPC_GET_MSGQSZ(dcpcb)		((dcpcb)->msgqsz)
-#define _KERNEL_DPC_SET_HEAD(dcpcb, x)		do { (dcpcb)->msgqsz = (x); } while (0)
-#define _KERNEL_DPC_GET_HEAD(dcpcb)			((dcpcb)->msgqsz)
-#define _KERNEL_DPC_SET_TAIL(dcpcb, x)		do { (dcpcb)->msgqsz = (x); } while (0)
-#define _KERNEL_DPC_GET_HEAD(dcpcb)			((dcpcb)->msgqsz)
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif

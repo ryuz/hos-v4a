@@ -14,6 +14,7 @@
 
 
 #define _KERNEL_INI_IRC()			do {} while (0)		/**< %jp{IRCの初期化ハンドラ} */
+#define _KERNEL_EXE_IRC()			do {} while (0)		/**< %jp{IRCの処理ハンドラ} */
 
 
 #endif	/* _KERNEL__arch__irc_none_h__ */

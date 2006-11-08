@@ -720,7 +720,6 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 
 
 
-
 /* ------------------------------------------ */
 /*  Convert Handle                            */
 /* ------------------------------------------ */
@@ -742,6 +741,7 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 #define _KERNEL_TSK_GET_TSKHDL(tskid, tcb)	(tcb)
 
 #endif
+
 
 
 /* ------------------------------------------ */

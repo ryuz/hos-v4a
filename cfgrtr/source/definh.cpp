@@ -76,9 +76,9 @@ void  CApiDefInh::WriteCfgDef(FILE* fp)
 #endif
 		"_KERNEL_T_INHINF _kernel_inh_tbl[%d] =\n"
 		"\t{\n",
-		KERNEL_TMAX_INH_INHNO - KERNEL_TMIN_INH_INHNO + 1);
+		_KERNEL_TMAX_INH_INHNO - _KERNEL_TMIN_INH_INHNO + 1);
 	
-	for ( i = KERNEL_TMIN_INH_INHNO; i <= KERNEL_TMAX_INH_INHNO; i++ )
+	for ( i = _KERNEL_TMIN_INH_INHNO; i <= _KERNEL_TMAX_INH_INHNO; i++ )
 	{
 		for ( j = 0; j < m_iObjs; j++ )
 		{
@@ -91,12 +91,6 @@ void  CApiDefInh::WriteCfgDef(FILE* fp)
 		{
 			fprintf(fp, "\t\t{(FP)(%s)},\n", m_pParamPacks[j]->GetParam(DEFINH_INTHDR));
 		}
-#if _KERNEL_SPT_ISR
-		else if ( i >= _KERNEL_IRCATR_TMIN_INHNO && i <= _KERNEL_IRCATR_TMAX_INHNO )
-		{
-			fprintf(fp, "\t\t{(FP)_KERNEL_EXE_IRC},\n");
-		}
-#endif
 		else
 		{
 			fprintf(fp, "\t\t{(FP)NULL},\n");

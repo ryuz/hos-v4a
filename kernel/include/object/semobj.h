@@ -196,7 +196,7 @@ extern  _KERNEL_T_SEMCB					_kernel_semcb_tbl[];									/**< %jp{セマフォ�
 
 /* %jp{ポインタ配列管理の場合}%en{pointer array} */
 extern  _KERNEL_T_SEMCB					*_kernel_semcb_tbl[];									/**< %jp{セマフォコントロールブロックテーブル} */
-#define _KERNEL_SEM_ID2SEMCB(semid)		(_kernel_semcb_tbl[(semid) - _KERNEL_TMIN_SEMID])		/**< %jp{セマフォIDからSEMCB アドレスを取得} */
+#define _KERNEL_SEM_ID2SEMCB(semid)		(_kernel_semcb_tbl[(semid) - _KERNEL_SEM_TMIN_ID])		/**< %jp{セマフォIDからSEMCB アドレスを取得} */
 #define _KERNEL_SEM_CHECK_EXS(semid)	(_KERNEL_SEM_ID2SEMCB(semid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 
 #endif

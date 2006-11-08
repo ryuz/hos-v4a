@@ -14,8 +14,19 @@
 #define _KERNEL__arch__irc_none_h__
 
 
-#define _KERNEL_INI_IRC()			do {} while (0)				/**< %jp{IRCの初期化ハンドラ} */
-#define _KERNEL_EXE_IRC				_kernel_exe_isr				/**< %jp{IRCの処理ルーチン} */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void _kernel_exe_isr(INTNO intno);
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#define _KERNEL_INI_IRC()			do {} while (0)						/**< %jp{IRCの初期化ハンドラ} */
+#define _KERNEL_EXE_IRC(inhno)		_kernel_exe_isr((INTNO)(inhno))		/**< %jp{IRCの処理ルーチン} */
 
 
 #endif	/* _KERNEL__arch__irc_none_h__ */

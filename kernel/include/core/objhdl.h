@@ -34,4 +34,15 @@ typedef struct _kernel_t_tcb	*_KERNEL_T_TSKHDL;
 #endif
 
 
+
+/* ---------------------------------- */
+/*           Isr-Handle               */
+/* ---------------------------------- */
+
+struct _kernel_t_isrcb;
+typedef struct _kernel_t_isrcb	*_KERNEL_T_ISRHDL;
+#define _KERNEL_ISRHDL_NULL		0
+
+
+
 #endif	/* _KERNEL__core__objhdl_h__ */

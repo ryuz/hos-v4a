@@ -69,8 +69,8 @@ CFGRTR       = h4acfg-h8300ha
 
 
 # オプションフラグ
-AFLAGS    += -CP=300HA:24 -DEBug
-CFLAGS    += -CP=300HA:24 -DEBug -I=$(INC_KNL_DIR) -I=$(INC_PROC_DIR) -I=$(INC_IRC_DIR)
+AFLAGS    += -CP=300HA:24 -DEBug -NOLOGO
+CFLAGS    += -CP=300HA:24 -DEBug -NOLOGO -I=$(INC_KNL_DIR) -I=$(INC_PROC_DIR) -I=$(INC_IRC_DIR)
 LFLAGS    += -FOrm=Library
 LINTFLAGS += -weak -I$(INC_KNL_DIR) -I$(INC_PROC_DIR) -I$(INC_IRC_DIR)
 

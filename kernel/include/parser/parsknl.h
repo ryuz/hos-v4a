@@ -342,6 +342,12 @@
 #define _KERNEL_SPT_ALM				FALSE
 #define _KERNEL_SPT_OVR				FALSE
 
+/* %jp{割込みハンドラサポートの判定} */
+#if _KERNEL_SPT_DEF_INH || _KERNEL_SPT_SDEF_INH
+#define _KERNEL_SPT_INH				TRUE
+#else
+#define _KERNEL_SPT_INH				FALSE
+#endif
 
 /* %jp{割込みサービスルーチンサポートの判定} */
 #if _KERNEL_IRCATR_IRC && (_KERNEL_SPT_CRE_ISR || _KERNEL_SPT_SCRE_ISR) && (_KERNEL_CFG_TMAX_ISRID) > 0
@@ -1021,12 +1027,37 @@
 /*  inh                                                               */
 /* ------------------------------------------------------------------ */
 
-#define KERNEL_TMIN_INH_INHNO		_KERNEL_PROCATR_TMIN_INHNO
-#define KERNEL_TMAX_INH_INHNO		_KERNEL_PROCATR_TMAX_INHNO
+#define _KERNEL_TMIN_INH_INHNO		_KERNEL_PROCATR_TMIN_INHNO
+#define _KERNEL_TMAX_INH_INHNO		_KERNEL_PROCATR_TMAX_INHNO
 
+#if 0
 #define KERNEL_TMIN_ISR_INTNO		_KERNEL_IRCATR_TMIN_INHNO
 #define KERNEL_TMAX_ISR_INTNO		_KERNEL_IRCATR_TMAX_INHNO
+#endif
 
+
+
+/* ---------------------------------------------- */
+/*  Interrupt Service Routines                    */
+/* ---------------------------------------------- */
+
+#define _KERNEL_ISRCB_ALG_BLKARRAY	1
+#define _KERNEL_ISRCB_ALG_PTRARRAY	2
+
+/* Control block */
+#define _KERNEL_ISRCB_ALGORITHM		_KERNEL_CFG_ISRCB_ALGORITHM
+#define _KERNEL_ISRCB_BITFIELD		_KERNEL_CFG_ISRCB_BITFIELD
+
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
+#if (_KERNEL_ISRCB_ALGORITHM == _KERNEL_ISRCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_ISR || _KERNEL_SPT_ACRE_ISR)
+#define _KERNEL_ISRCB_SPLIT_RO		FALSE
+#else
+#define _KERNEL_ISRCB_SPLIT_RO		_KERNEL_CFG_MBXCB_SPLIT_RO
+#endif
+
+#define _KERNEL_ISRCB_NEXT			TRUE
+#define _KERNEL_ISRCB_EXINF			TRUE
+#define _KERNEL_ISRCB_ISR			TRUE
 
 
 #endif	/* _KERNEL__parser__parsknl_h__ */
