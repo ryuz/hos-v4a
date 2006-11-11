@@ -15,7 +15,6 @@
 #include "kernel.h"
 #include "kernel_id.h"
 #include "system/sysapi/sysapi.h"
-#include "driver/serial/renesas/scidrv.h"
 #include "driver/serial/renesas/scifile.h"
 
 
