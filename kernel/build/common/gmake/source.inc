@@ -38,13 +38,14 @@ ISROBJ_DIR  = $(OBJ_DIR)/isr
 TIMOBJ_DIR  = $(OBJ_DIR)/tim
 
 
-#VPATH := $(VPATH):$(DSP_DIR):$(QUE_DIR):$(TOQ_DIR):$(HEP_DIR):$(DPC_DIR):$(SYSOBJ_DIR):$(TSKOBJ_DIR)
-#VPATH := $(VPATH):$(SEMOBJ_DIR):$(FLGOBJ_DIR):$(MBXOBJ_DIR):$(MPFOBJ_DIR):$(INHOBJ_DIR):$(ISROBJ_DIR):$(TIMOBJ_DIR)
-
 INC_DIRS += $(INC_DIR)
 
-SRC_DIRS += $(DSP_DIR) $(QUE_DIR) $(TOQ_DIR) $(HEP_DIR) $(DPC_DIR) $(SYSOBJ_DIR) $(TSKOBJ_DIR)	\
-            $(SEMOBJ_DIR) $(FLGOBJ_DIR) $(MBXOBJ_DIR) $(MPFOBJ_DIR) $(INHOBJ_DIR) $(ISROBJ_DIR) $(TIMOBJ_DIR)
+SRC_DIRS += $(DSP_DIR) $(QUE_DIR) $(TOQ_DIR) $(HEP_DIR) $(DPC_DIR)	\
+            $(SYSOBJ_DIR) $(TSKOBJ_DIR) $(SEMOBJ_DIR) $(FLGOBJ_DIR)	\
+            $(MBXOBJ_DIR) $(MPFOBJ_DIR) $(INHOBJ_DIR) $(ISROBJ_DIR)	\
+            $(TIMOBJ_DIR)
+
+
 
 # C source files
 CSRCS         += $(DSP_DIR)/ent_tsk.c			\
@@ -173,6 +174,11 @@ CORE_HEADERS   = $(INC_DIR)/core/adtq.h			\
                  $(INC_DIR)/core/toq.h			\
                  $(INC_DIR)/core/dpc.h
 
+ARCH_HEADERS   = $(INC_PROC_DIR)/proc.h			\
+                 $(INC_PROC_DIR)/procatr.h		\
+                 $(INC_IRC_DIR)/irc.h			\
+                 $(INC_IRC_DIR)/ircatr.h
+
 
 TSKOBJ_HEADERS = $(INC_DIR)/object/tskobj.h
 
@@ -193,7 +199,8 @@ INHOBJ_HEADERS = $(INC_DIR)/object/inhobj.h
 ISROBJ_HEADERS = $(INC_DIR)/object/isrobj.h
 
 
-COMMON_HEADERS = $(ITRON_HEADERS) $(CFG_HEADERS) $(PARS_HEADERS) $(TSKOBJ_HEADERS)
+COMMON_HEADERS = $(ITRON_HEADERS) $(CFG_HEADERS) $(PARS_HEADERS) $(CORE_HEADERS) $(ARCH_HEADERS) $(TSKOBJ_HEADERS)
+
 
 
 # end of file
