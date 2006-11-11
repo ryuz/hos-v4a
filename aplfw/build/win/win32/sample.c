@@ -14,9 +14,9 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
-#include "system/sysapi.h"
-#include "driver/renesas/scidrv.h"
-#include "driver/renesas/scifile.h"
+#include "system/sysapi/sysapi.h"
+#include "driver/serial/renesas/scidrv.h"
+#include "driver/serial/renesas/scifile.h"
 
 
 long g_SystemHeap[8 * 1024 / sizeof(long)];

@@ -14,7 +14,7 @@
 
 
 #include <stdarg.h>
-#include "system/handle.h"
+#include "system/handle/handle.h"
 
 #define FILE_MAX_PATH				128			/* パス名の最大値 */
 #define FILE_MAX_NAME				12			/* 名前の最大値 */
@@ -76,6 +76,7 @@ typedef int		FILESIZE;		/* 読み書き時のサイズ用の型定義 */
 /* ファイルオブジェクトクラス基本メソッドテーブル */
 typedef struct t_fileobj_methods
 {
+	T_HANDLEOBJ_METHODS HandlObjMethods;
 	FILEERR  (*pfncIoControl)(HANDLE hFile, int iFunc, const void *pInBuf, FILESIZE InSize, void *pOutBuf, FILESIZE OutSize);
 	FILEPOS  (*pfncSeek)(HANDLE hFile, FILEPOS Offset, int iOrign);
 	FILESIZE (*pfncRead)(HANDLE hFile, void *pBuf, FILESIZE Size);
@@ -86,10 +87,8 @@ typedef struct t_fileobj_methods
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_fileobj
 {
-	C_HANDLEOBJ             HandleObj;			/* ハンドルオブジェクトを継承 */
-	const T_FILEOBJ_METHODS *pMethods;			/* メッソドテーブルへのポインタ */
+	C_HANDLEOBJ HandleObj;								/* ハンドルオブジェクトを継承 */
 } C_FILEOBJ;
-
 
 
 /* デバイス情報 */
@@ -142,8 +141,9 @@ FILEERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
 void     SysFile_Initialize(void);													/* ファイルシステムの初期化 */
 FILEERR  SysFile_AddDevice(const char *pszPath, const T_SYSFILE_DEVINF *pDevInf);	/* デバイスファイルの追加 */
 
-void     FileObj_Create(C_FILEOBJ *self);
+void     FileObj_Create(C_FILEOBJ *self, const T_FILEOBJ_METHODS* pMethods);
 void     FileObj_Delete(C_FILEOBJ *self);
+#define  FileObj_GetMethods(self)			((T_FILEOBJ_METHODS *)HandleObj_GetMethods(&(self)->HandleObj))
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 #include "memory.h"
-#include "sysapi.h"
+#include "system/sysapi/sysapi.h"
 
 
 /* メモリの割り当て(ユーザー用) */

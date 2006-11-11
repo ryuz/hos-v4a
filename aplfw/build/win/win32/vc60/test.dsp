@@ -81,12 +81,16 @@ LINK32=link.exe
 
 # Name "test - Win32 Release"
 # Name "test - Win32 Debug"
-# Begin Group "Source Files"
+# Begin Group "Boot"
 
-# PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# PROP Default_Filter ""
 # Begin Source File
 
 SOURCE=..\kernel_cfg.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\kernel_id.h
 # End Source File
 # Begin Source File
 
@@ -98,23 +102,11 @@ SOURCE=..\ostimer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\sample.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\wintimer.c
-# End Source File
-# End Group
-# Begin Group "Header Files"
-
-# PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=..\kernel_id.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\ostimer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\sample.c
 # End Source File
 # Begin Source File
 
@@ -122,140 +114,16 @@ SOURCE=..\sample.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\wintimer.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\wintimer.h
 # End Source File
 # End Group
-# Begin Group "system"
-
-# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\system\command.h
+SOURCE=..\..\..\..\driver\serial\panasonic\scdrv.c
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\handle.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\handle.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\memory.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\memory.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\mutex.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\process.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\shell.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\sysapi.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\sysapi.h
-# End Source File
-# End Group
-# Begin Group "driver"
-
-# PROP Default_Filter ""
-# Begin Group "sci"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\renesas\scidrv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\renesas\scidrv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\renesas\scifile.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\renesas\scifile.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\renesas\scihal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\renesas\scihal.h
-# End Source File
-# End Group
-# Begin Group "ne2000"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ethermac.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ethermac.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000drv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000drv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000hal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000hal.h
-# End Source File
-# End Group
-# End Group
-# Begin Group "library"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\library\mempol.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\library\mempol.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\library\stmbuf.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\library\stmbuf.h
-# End Source File
-# End Group
 # End Target
 # End Project

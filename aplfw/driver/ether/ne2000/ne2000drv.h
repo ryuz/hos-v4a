@@ -14,7 +14,7 @@
 
 
 #include "ne2000hal.h"
-#include "system/sysapi.h"
+#include "system/sysapi/sysapi.h"
 
 
 /* NE2000互換NIC制御ドライバクラス */

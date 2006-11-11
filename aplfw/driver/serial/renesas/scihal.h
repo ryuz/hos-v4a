@@ -9,8 +9,8 @@
  */
 
 
-#ifndef __HOS__renesas_scihal_h__
-#define __HOS__renesas_scihal_h__
+#ifndef __HOS__renesas__scihal_h__
+#define __HOS__renesas__scihal_h__
 
 
 #define SCIHAL_INT_TIE		0x80				/* 送信割り込み許可 */
@@ -44,7 +44,7 @@ void SciHal_EnableInterrupt(C_SCIHAL *self, unsigned char flag);					/**< %jp{�
 #endif
 
 
-#endif	/* __HOS__renesas_scihal_h__ */
+#endif	/* __HOS__renesas__scihal_h__ */
 
 
 /* end of file */

@@ -10,7 +10,7 @@
 
 
 #include <stdio.h>
-#include "system/sysapi.h"
+#include "system/sysapi/sysapi.h"
 #include "library/mempol.h"
 #include "kernel.h"
 
@@ -62,6 +62,22 @@ void  SysMem_Free(void *pMem)
 	SysMtx_Lock(SysMem_hMtx);
 	MemPol_Free(&SysMem_MemPol, pMem);
 	SysMtx_Unlock(SysMem_hMtx);
+}
+
+
+void SysInt_Enable(int iIntNum)
+{
+	ena_int((INTNO)iIntNum);
+}
+
+void SysInt_Disable(int iIntNum)
+{
+	dis_int((INTNO)iIntNum);
+}
+
+void SysInt_Clear(int iIntNum)
+{
+	vclr_int((INTNO)iIntNum);
 }
 
 
@@ -210,3 +226,6 @@ void SysEvt_Clear(SYSEVT_HANDLE hEvt)
 	clr_flg((ID)hEvt, 0);
 }
 
+
+
+/* end of file */

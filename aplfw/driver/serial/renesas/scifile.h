@@ -14,7 +14,7 @@
 
 
 #include "scidrv.h"
-#include "system/file.h"
+#include "system/file/file.h"
 
 
 /* SCI用ドライバ制御部 */

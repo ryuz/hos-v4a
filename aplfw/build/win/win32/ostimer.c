@@ -12,7 +12,7 @@
 #include "kernel.h"
 #include "ostimer.h"
 #include "wintimer.h"
-#include "system/sysapi.h"
+#include "system/sysapi/sysapi.h"
 
 
 #define OSTIMER_TIMER_INHNO		1			/**< %jp{割り込みハンドラ番号} */

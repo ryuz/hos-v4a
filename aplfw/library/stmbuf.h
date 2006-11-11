@@ -37,6 +37,8 @@ int     StreamBuf_RecvChar(C_STREAMBUF *self);							/* １キャラクタの受
 /* 制御 */
 void    StreamBuf_ClearBuf(C_STREAMBUF *self);							/* バッファのクリア */
 #define StreamBuf_RefMaxSize(self)		((self)->bufsz - 1)				/* 最大格納可能サイズ参照 */
+#define StreamBuf_RefBufAddr(self)		((self)->buf)
+#define StreamBuf_RefBufSize(self)		((self)->bufsz)
 
 #ifdef __cplusplus
 }

@@ -51,8 +51,14 @@ void         *SysMem_Alloc(long lSize);						/* システムメモリの割り�
 void          SysMem_Free(void *pMem);						/* システムメモリの返却 */
 
 /* システム用割り込み制御API */
+void          SysInt_Enable(int iIntNum);
+void          SysInt_Disable(int iIntNum);
+void          SysInt_Clear(int iIntNum);
+
+/* 割り込みサービスルーチン制御API */
 SYSISR_HANDLE SysIsr_Create(int iIntNum, void (*pfncIsr)(void *pParam), void *pParam);
 void          SysIsr_Delete(SYSISR_HANDLE hIsr);
+
 
 /* システム用プロセス制御API */
 SYSPRC_HANDLE SysPrc_Create(int (*pfncEntry)(void *pParam), void *pParam, long StackSize, int Priority);

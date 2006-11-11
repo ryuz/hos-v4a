@@ -51,10 +51,18 @@ void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, long lSysClock, 
 /** デストラクタ */
 void SciDrv_Delete(C_SCIDRV *self)
 {
+	void *pMem;
+
+	/* 同期オブジェクト削除 */
 	SysEvt_Delete(self->hEvtRecv);
 	SysEvt_Delete(self->hEvtSend);
 	SysMtx_Delete(self->hMtxRecv);
 	SysMtx_Delete(self->hMtxSend);
+
+	/* バッファ削除 */
+	pMem = StreamBuf_RefBufAddr(&self->StmBuf);
+	StreamBuf_Delete(&self->StmBuf);
+	SysMem_Free(pMem);
 }
 
 
@@ -183,5 +191,6 @@ void SciDrv_IsrSendEnd(void *pParam)
 	
 	SysEvt_Set(self->hEvtSend);
 }
+
 
 /* end of file */

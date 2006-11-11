@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "h4acfg"="..\..\..\..\cfgrtr\build\vc60\h4acfg.dsp" - Package Owner=<4>
+Project: "h4acfg"="..\..\..\..\..\cfgrtr\build\vc60\h4acfg.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -15,7 +15,19 @@ Package=<4>
 
 ###############################################################################
 
-Project: "hosv4a"="..\..\..\..\kernel\build\win\win32\vc60\hosv4a.dsp" - Package Owner=<4>
+Project: "hosaplfw"=".\hosaplfw.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "hosv4a"="..\..\..\..\..\kernel\build\win\win32\vc60\hosv4a.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -40,6 +52,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name hosv4a
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name hosaplfw
     End Project Dependency
 }}}
 

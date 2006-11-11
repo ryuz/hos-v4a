@@ -25,6 +25,7 @@ const T_HANDLEOBJ_METHODS SciFile_HandleObjMethods =
 
 const T_FILEOBJ_METHODS SciFile_FileObjMethods =
 {
+	{ SciFile_Delete },		/* デストラクタ */
 	SciFile_IoControl,		/* IoControl */
 	NULL,					/* Seek */
 	SciFile_Read,			/* Read */
@@ -38,13 +39,9 @@ FILEERR SciFile_Create(HANDLE hFile, void *pParam)
 	C_SCIFILE *self;
 
 	self = (C_SCIFILE *)hFile;
-
-	/* メソッドテーブル初期化 */
-	self->FileObj.HandleObj.pMethods = &SciFile_HandleObjMethods;
-	self->FileObj.pMethods           = &SciFile_FileObjMethods;
-
+	
 	/* 親クラスコンストラクタ呼び出し */
-	FileObj_Create(&self->FileObj);
+	FileObj_Create(&self->FileObj, &SciFile_FileObjMethods);
 	
 	/* デバイスドライバ本体と関連付け */
 	self->pSciDrv = (C_SCIDRV *)pParam;

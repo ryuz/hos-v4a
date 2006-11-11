@@ -61,7 +61,7 @@ int SciHal_SendChar(C_SCIHAL *self, int c)
 	
 	*SCIHAL_REG_SSR(self) &= 0x7f;
 
-	return c;
+	return (unsigned char)c;
 }
 
 

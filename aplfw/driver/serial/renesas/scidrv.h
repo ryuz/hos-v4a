@@ -15,7 +15,7 @@
 
 #include "scihal.h"
 #include "library/stmbuf.h"
-#include "system/sysapi.h"
+#include "system/sysapi/sysapi.h"
 
 
 /* SCI用ドライバ制御部 */

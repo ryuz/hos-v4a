@@ -12,8 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "file.h"
-#include "system/sysapi.h"
-#include "system/memory.h"
+#include "system/sysapi/sysapi.h"
+#include "system/memory/memory.h"
 
 
 #define FILE_MAX_DEVICE		16
@@ -28,12 +28,14 @@ void SysFile_Initialize(void)
 {
 }
 
-void FileObj_Create(C_FILEOBJ *self)
+void FileObj_Create(C_FILEOBJ *self, const T_FILEOBJ_METHODS* pMethods)
 {
+	HandleObj_Create(&self->HandleObj, &pMethods->HandlObjMethods);
 }
 
 void FileObj_Delete(C_FILEOBJ *self)
 {
+	HandleObj_Delete(&self->HandleObj);
 }
 
 
@@ -109,9 +111,9 @@ FILEERR File_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILESIZE InS
 
 	self = FILE_HANDLE2OBJ(hFile);
 
-	if ( self->pMethods->pfncIoControl != NULL )
+	if ( FileObj_GetMethods(self)->pfncIoControl != NULL )
 	{
-		return self->pMethods->pfncIoControl(hFile, iFunc, pInBuf, InSize, pOutBuf, OutSize);
+		return FileObj_GetMethods(self)->pfncIoControl(hFile, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 	}
 
 	return FILE_ERR_NG;
@@ -124,9 +126,9 @@ FILEPOS  File_Seek(HANDLE hFile, FILEPOS Offset, int iOrign)
 
 	self = FILE_HANDLE2OBJ(hFile);
 
-	if ( self->pMethods->pfncSeek != NULL )
+	if ( FileObj_GetMethods(self)->pfncSeek != NULL )
 	{
-		return self->pMethods->pfncSeek(hFile, Offset, iOrign);
+		return FileObj_GetMethods(self)->pfncSeek(hFile, Offset, iOrign);
 	}
 
 	return FILE_ERR_NG;
@@ -139,9 +141,9 @@ FILESIZE File_Write(HANDLE hFile, const void *pData, FILESIZE Size)
 
 	self = FILE_HANDLE2OBJ(hFile);
 
-	if ( self->pMethods->pfncWrite != NULL )
+	if ( FileObj_GetMethods(self)->pfncWrite != NULL )
 	{
-		return self->pMethods->pfncWrite(hFile, pData, Size);
+		return FileObj_GetMethods(self)->pfncWrite(hFile, pData, Size);
 	}
 
 	return FILE_ERR_NG;
@@ -154,9 +156,9 @@ FILESIZE File_Read(HANDLE hFile, void *pBuf, FILESIZE Size)
 
 	self = FILE_HANDLE2OBJ(hFile);
 
-	if ( self->pMethods->pfncRead != NULL )
+	if ( FileObj_GetMethods(self)->pfncRead != NULL )
 	{
-		return self->pMethods->pfncRead(hFile, pBuf, Size);
+		return FileObj_GetMethods(self)->pfncRead(hFile, pBuf, Size);
 	}
 
 	return FILE_ERR_NG;
@@ -285,6 +287,153 @@ void File_PrintHexWord(HANDLE hFile, unsigned long uwData)
 	File_PrintHexHalfWord(hFile, (unsigned short)(uwData >> 16));
 	File_PrintHexHalfWord(hFile, (unsigned short)(uwData >> 0));
 }
+
+
+
+
+int File_PrintFormatDecimal(HANDLE hFile, long lNum, int iWidth, int iPadChar)
+{
+	char szBuf[12];
+	int  iLen = 0;
+	int  iSign = 0;
+	int  i;
+
+	/* 符号チェック */
+	if ( lNum < 0 )
+	{
+		lNum  = -lNum;
+		iSign = 1;
+	}
+
+	/* 文字列変換 */
+	i = sizeof(szBuf);
+	szBuf[--i] = '\0';
+	do
+	{
+		szBuf[--i] = lNum % 10 + '0';
+		lNum       = lNum / 10;
+	} while ( lNum != 0 );
+	
+	/* 符号付加 */
+	if ( iSign )
+	{
+		szBuf[--i] = '-';
+	}
+
+	iWidth -= (sizeof(szBuf) - i);
+	while ( iWidth > 0 )
+	{
+		File_PutChar(hFile, iPadChar);
+		iWidth--;
+		iLen++;
+	}
+	
+	iLen += File_PutString(hFile, szBuf);
+
+	return iLen;
+}
+
+
+/* */
+int File_PrintFormatHex(HANDLE hFile, long lNum, int iWidth, int iPadChar)
+{
+	return 0;
+}
+
+
+#define FILE_PRTFMT_NORMAL		0
+#define FILE_PRTFMT_ESC			1
+#define FILE_PRTFMT_WIDTH		2
+
+/* 書式付き出力軽量版 */
+int File_PrintFormatVL(HANDLE hFile, const char *pszFormat, va_list argptr)
+{
+	int iState = FILE_PRTFMT_NORMAL;
+	int iLong;
+	int iPadChar;
+	int iWidth;
+	int iLen = 0;
+	int c;
+	
+	while ( (c = *pszFormat++) != '\0' )
+	{
+		switch ( iState )
+		{
+		case FILE_PRTFMT_NORMAL:
+			if ( c == '%' )
+			{
+				iLong    = 0;
+				iWidth   = 0;
+				iPadChar = ' ';
+				iState   = FILE_PRTFMT_ESC;
+			}
+			else
+			{
+				iLen += (File_PutChar(hFile, c) != FILE_EOF);
+			}
+			break;
+
+		case FILE_PRTFMT_ESC:
+			if ( c == '%' )
+			{
+				iLen += (File_PutChar(hFile, c) != FILE_EOF);
+				iState = FILE_PRTFMT_NORMAL;
+			}
+			else if ( c >= '0' && c <= '9' )
+			{
+				c -= '0';
+				iWidth = (iWidth * 10) + c;
+				if ( iWidth == 0 )
+				{
+					iPadChar = '0';
+				}
+			}
+			else if ( c == 'l' )
+			{
+				iLong = 1;
+			}
+			else if ( c == 'd' || c == 'x' || c == 'X' )
+			{
+				long lNum;
+				if ( iLong )
+				{
+					lNum = va_arg(argptr, long);
+				}
+				else
+				{
+					lNum = va_arg(argptr, int);
+				}
+
+				if ( c == 'd' )
+				{
+					iLen += File_PrintFormatDecimal(hFile, lNum, iWidth, iPadChar);
+				}
+				else
+				{
+					iLen += File_PrintFormatHex(hFile, lNum, iWidth, iPadChar);
+				}
+				iState = FILE_PRTFMT_NORMAL;
+			}
+			else if ( c == 's' )
+			{
+				const char *pszStr;
+				pszStr  = va_arg(argptr, const char *);
+				iLen   += File_PutString(hFile, pszStr);
+				iState  = FILE_PRTFMT_NORMAL;
+			}
+			else
+			{
+				iLen += (File_PutChar(hFile, c) != FILE_EOF);
+				iState = FILE_PRTFMT_NORMAL;
+			}
+			break;
+		}
+	}
+
+	return iLen;
+}
+
+
 
 
 /* end of file */
