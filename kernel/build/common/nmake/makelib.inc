@@ -18,11 +18,13 @@
 TARGET = $(TARGET)dbg
 AFLAGS = $(AFLAGS) $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
 CFLAGS = $(CFLAGS) $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
-!elseifdef OPT_SPEED
+!else
+!ifdef OPT_SPEED
 # %jp{速度最適化指定があれば速度優先}
 AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SPEED)
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_SPEED)
-!elseifdef OPT_SIZE
+!else
+!ifdef OPT_SIZE
 # %jp{サイズ優先適化指定があればサイズ優先}
 AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SIZE)
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_SIZE)
@@ -30,6 +32,8 @@ CFLAGS = $(CFLAGS) $(AFLAGS_OPT_SIZE)
 # %jp{デフォルトで通常の最適化}
 AFLAGS = $(AFLAGS) $(AFLAGS_OPT_NORMAL)
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_NORMAL)
+!endif
+!endif
 !endif
 
 

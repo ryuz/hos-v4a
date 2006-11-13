@@ -20,22 +20,6 @@ $(TARGET_LIB): $(OBJS)
 {$(CSRC_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
 	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
-{$(CSRC1_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
-	$(CMD_CC) $(CFLAGS) $< -OB=$@
-
-{$(CSRC2_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
-	$(CMD_CC) $(CFLAGS) $< -OB=$@
-
-{$(CSRC3_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
-	$(CMD_CC) $(CFLAGS) $< -OB=$@
-
-{$(CSRC4_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
-	$(CMD_CC) $(CFLAGS) $< -OB=$@
-
-{$(CSRC5_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
-	$(CMD_CC) $(CFLAGS) $< -OB=$@
-
-
 # %jp{アセンブル}
 {$(ASRC_DIRS: =,)}.src{$(OBJS_DIR)}.obj :
 	$(CMD_ASM) $(AFLAGS) $< -OB=$@
