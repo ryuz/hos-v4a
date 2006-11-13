@@ -17,26 +17,28 @@ $(TARGET_LIB): $(OBJS)
 
 
 # %jp{Cコンパイル}
-#{$(VPATH: =,)}.c{$(OBJS_DIR)}.obj :
-#	$(CMD_CC) $(CFLAGS) $< -OB=$@
-
-{..\..\..\..\..\kernel\source\core\que,..\..\..\..\..\kernel\source\core\dsp,$(VPATH)}.c{$(OBJS_DIR)}.obj :
+{$(CSRC_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
 	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
-{..\..\..\..\..\kernel\source\arch\proc\h8/h8300ha/ch38}.src{$(OBJS_DIR)}.obj :
-	$(CMD_ASM) $(AFLAGS) $< -OB=$@
+{$(CSRC1_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
+	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
+{$(CSRC2_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
+	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
-#.c.obj:
-#	$(CMD_CC) $(CFLAGS) $< -OB=$@
+{$(CSRC3_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
+	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
-#.src.obj:
-#	$(CMD_ASM) $(AFLAGS) $< -OB=$@
+{$(CSRC4_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
+	$(CMD_CC) $(CFLAGS) $< -OB=$@
+
+{$(CSRC5_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
+	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
 
 # %jp{アセンブル}
-#{$(VPATH: =,)}.src{$(OBJS_DIR)}.obj :
-#	$(CMD_ASM) $(AFLAGS) $< -OB=$@
+{$(ASRC_DIRS: =,)}.src{$(OBJS_DIR)}.obj :
+	$(CMD_ASM) $(AFLAGS) $< -OB=$@
 
 
 # end of file
