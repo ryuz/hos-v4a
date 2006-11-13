@@ -12,12 +12,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "file.h"
+#include "fileobj.h"
+#include "filesys.h"
 #include "system/sysapi/sysapi.h"
 #include "system/memory/memory.h"
 
 
-#define FILE_MAX_DEVICE		16
 
+#define FILE_MAX_DEVICE		16
 
 /* デバイスの登録テーブル */
 static T_SYSFILE_DEVINF SysFile_DevTable[FILE_MAX_DEVICE];
@@ -38,7 +40,6 @@ void FileObj_Delete(C_FILEOBJ *self)
 	HandleObj_Delete(&self->HandleObj);
 }
 
-
 /* デバイスファイルの追加 */
 FILEERR SysFile_AddDevice(const char *pszPath, const T_SYSFILE_DEVINF *pDevInf)
 {
@@ -56,8 +57,6 @@ FILEERR SysFile_AddDevice(const char *pszPath, const T_SYSFILE_DEVINF *pDevInf)
 
 	return FILE_ERR_NG;
 }
-
-
 
 /* ファイルのオープン */
 HANDLE File_Open(const char *pszName, int iMode)
@@ -256,7 +255,7 @@ int File_PrintFormat(HANDLE hFile, const char *pszFormat, ...)
 }
 
 
-void File_PrintHexNibble(HANDLE hFile, unsigned char c)
+int File_PrintHexNibble(HANDLE hFile, unsigned char c)
 {
 	c &= 0xf;
 	if ( c < 10 )
@@ -267,7 +266,7 @@ void File_PrintHexNibble(HANDLE hFile, unsigned char c)
 	{
 		c = c - 10 + 'a';
 	}
-	File_PutChar(hFile, c);
+	return File_PutChar(hFile, c);
 }
 
 void File_PrintHexByte(HANDLE hFile, unsigned char ubData)

@@ -106,34 +106,6 @@ SOURCE=..\..\..\..\library\stmbuf.h
 # Begin Group "serial"
 
 # PROP Default_Filter ""
-# Begin Group "panasonic"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scdrv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scdrv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scfile.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scfile.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\schal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\schal.h
-# End Source File
-# End Group
 # Begin Group "renesus"
 
 # PROP Default_Filter ""
@@ -221,6 +193,10 @@ SOURCE=..\..\..\..\system\file\file.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\file.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\fileobj.h
 # End Source File
 # End Group
 # Begin Group "memory"

@@ -39,12 +39,18 @@ CFLAGS = $(CFLAGS) $(AFLAGS_OPT_NORMAL)
 
 SRC_DIRS = $(SRC_DIRS:	= )
 SRC_DIRS = $(SRC_DIRS:  = )
+SRC_DIRS = $(SRC_DIRS:  = )
+SRC_DIRS = $(SRC_DIRS:  = )
+SRC_DIRS = $(SRC_DIRS:  = )
 SRC_DIRS = @$(SRC_DIRS)@
 SRC_DIRS = $(SRC_DIRS:@ =)
 SRC_DIRS = $(SRC_DIRS: @=)
 SRC_DIRS = $(SRC_DIRS:@=)
 
 OBJS = $(OBJS:	= )
+OBJS = $(OBJS:  = )
+OBJS = $(OBJS:  = )
+OBJS = $(OBJS:  = )
 OBJS = $(OBJS:  = )
 OBJS = @$(OBJS)@
 OBJS = $(OBJS:@ =)
@@ -73,17 +79,14 @@ TARGET_LIB = $(TARGET).$(LIB_EXT)
 # --------------------------------------
 
 # %jp{all処理}
-.PHONY : all_makelib
 all_makelib: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
+	echo $(TARGET_LIB)
 
 # %jp{クリーンナップ}
-.PHONY : clean_makelib
 clean_makelib:
 	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
-	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 
 # %jp{オブジェクト出力ディレクトリ作成}
-.PHONY : mkdir_objs
 mkdir_objs:
 	-$(CMD_MKDIR) $(OBJS_DIR)
 

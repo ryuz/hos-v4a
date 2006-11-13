@@ -5,8 +5,6 @@
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
-OBJS = $(OBJS:	= )
-OBJS = $(OBJS:  = )
 
 # %jp{ライブラリ生成}
 $(TARGET_LIB): $(OBJS)
@@ -19,12 +17,26 @@ $(TARGET_LIB): $(OBJS)
 
 
 # %jp{Cコンパイル}
-{$(VPATH: =,)}.c{$(OBJS_DIR)}.obj :
+#{$(VPATH: =,)}.c{$(OBJS_DIR)}.obj :
+#	$(CMD_CC) $(CFLAGS) $< -OB=$@
+
+{..\..\..\..\..\kernel\source\core\que,..\..\..\..\..\kernel\source\core\dsp,$(VPATH)}.c{$(OBJS_DIR)}.obj :
 	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
-# %jp{アセンブル}
-{$(VPATH: =,)}.src{$(OBJS_DIR)}.obj :
+{..\..\..\..\..\kernel\source\arch\proc\h8/h8300ha/ch38}.src{$(OBJS_DIR)}.obj :
 	$(CMD_ASM) $(AFLAGS) $< -OB=$@
+
+
+#.c.obj:
+#	$(CMD_CC) $(CFLAGS) $< -OB=$@
+
+#.src.obj:
+#	$(CMD_ASM) $(AFLAGS) $< -OB=$@
+
+
+# %jp{アセンブル}
+#{$(VPATH: =,)}.src{$(OBJS_DIR)}.obj :
+#	$(CMD_ASM) $(AFLAGS) $< -OB=$@
 
 
 # end of file
