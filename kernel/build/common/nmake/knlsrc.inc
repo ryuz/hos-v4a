@@ -173,6 +173,103 @@ ARCH_HEADERS   = $(INC_PROC_DIR)\proc.h					\
                  $(INC_IRC_DIR)\ircatr.h
 
 
+# C source files
+OBJS           = $(OBJS)								\
+                 $(OBJS_DIR)\ent_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\idl_lop.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_sta.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_ext.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_ter.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_wai.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_wup.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_sus.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dsp_rsm.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\add_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\adf_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\adp_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\rmv_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\rmh_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\trm_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\nxt_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\rot_que.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\sig_toq.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\add_toq.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\rmv_toq.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\cre_hep.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\alc_hep.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\fre_hep.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dpc_fre.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dpc_rcv.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dpc_snd.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\lev_svc.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\sta_knl.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\get_tid.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\loc_cpu.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\unl_cpu.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\sns_loc.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\ena_dsp.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dis_dsp.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\sns_dsp.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\sns_ctx.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\acre_tsk.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kcre_tsk.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\act_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\ext_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\slp_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\wup_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\can_wup.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\rel_wai.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\dly_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\ref_tsk.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\cre_sem.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\acre_sem.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kcre_sem.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\del_sem.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\sig_sem.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\wai_sem.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\pol_sem.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\twai_sem.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\ref_sem.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\cre_flg.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\acre_flg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kcre_flg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\del_flg.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\set_flg.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\iset_flg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\clr_flg.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\wai_flg.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\pol_flg.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\twai_flg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kchk_flg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\ref_flg.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\acre_mbx.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kcre_mbx.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\snd_mbx.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\rcv_mbx.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\kadf_msg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kadp_msg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kadd_msq.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\krmf_msg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\krmp_msg.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\krmv_msq.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\acre_mpf.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kcre_mpf.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\get_mpf.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\pget_mpf.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\rel_mpf.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\set_tim.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\get_tim.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\isig_tim.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\def_inh.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\sta_inh.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\exe_inh.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\end_inh.$(OBJ_EXT)			\
+                 $(OBJS_DIR)\acre_isr.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\kcre_isr.$(OBJ_EXT)		\
+                 $(OBJS_DIR)\exe_isr.$(OBJ_EXT)
+
+
 TSKOBJ_HEADERS = $(KERNEL_INC_DIR)\object\tskobj.h
 
 SEMOBJ_HEADERS = $(KERNEL_INC_DIR)\object\semobj.h

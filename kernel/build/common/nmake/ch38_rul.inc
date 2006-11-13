@@ -26,9 +26,5 @@ $(TARGET_LIB): $(OBJS)
 {$(VPATH: =,)}.src{$(OBJS_DIR)}.obj :
 	$(CMD_ASM) $(AFLAGS) $< -OB=$@
 
-.c.obj:
-	$(CMD_CC) $(CFLAGS) $< -OB=$@
-
-
 
 # end of file

@@ -33,6 +33,25 @@ CFLAGS = $(CFLAGS) $(AFLAGS_OPT_NORMAL)
 !endif
 
 
+# --------------------------------------
+#  %jp{各種マクロ文字の正規化}
+# --------------------------------------
+
+SRC_DIRS = $(SRC_DIRS:	= )
+SRC_DIRS = $(SRC_DIRS:  = )
+SRC_DIRS = @$(SRC_DIRS)@
+SRC_DIRS = $(SRC_DIRS:@ =)
+SRC_DIRS = $(SRC_DIRS: @=)
+SRC_DIRS = $(SRC_DIRS:@=)
+
+OBJS = $(OBJS:	= )
+OBJS = $(OBJS:  = )
+OBJS = @$(OBJS)@
+OBJS = $(OBJS:@ =)
+OBJS = $(OBJS: @=)
+OBJS = $(OBJS:@=)
+
+
 
 # --------------------------------------
 #  %jp{各種設定}
@@ -43,8 +62,6 @@ CFLAGS = $(CFLAGS) $(CFLAGS_INC) $(CFLAGS_DEF)
 AFLAGS = $(AFLAGS) $(AFLAGS_INC) $(AFLAGS_DEF)
 
 # %jp{サーチパス設定}
-SRC_DIRS = $(SRC_DIRS:	= )
-SRC_DIRS = $(SRC_DIRS:  = )
 VPATH = $(SRC_DIRS: =,)
 
 # %jp{ターゲットライブラリファイル名}
