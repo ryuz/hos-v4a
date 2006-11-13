@@ -18,7 +18,7 @@
 #define OSTIMER_TIMER_INHNO		1			/**< %jp{割り込みハンドラ番号} */
 
 
-static void OsTimer_IrqHandler(void);		/**< %jp{タイマ割り込みハンドラ} */
+static void OsTimer_IrqHandler(VP_INT exinf);		/**< %jp{タイマ割り込みハンドラ} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
@@ -39,7 +39,7 @@ void OsTimer_Initialize(VP_INT exinf)
 	acre_isr(&cisr);
 #endif
 	return;
-
+	
 	/* %jp{タイマ動作開始} */
 	WinTimer_Start(OSTIMER_TIMER_INHNO, 10);
 }

@@ -818,6 +818,14 @@ SOURCE=..\..\..\..\source\object\cyc\kcre_cyc.c
 # Begin Group "arch"
 
 # PROP Default_Filter ""
+# Begin Group "simple"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\irc\simple\ena_int.c
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=..\..\..\..\source\arch\proc\win\win32\ctxctl.c

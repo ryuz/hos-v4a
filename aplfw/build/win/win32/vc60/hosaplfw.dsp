@@ -235,6 +235,26 @@ SOURCE=..\..\..\..\system\memory\memory.c
 SOURCE=..\..\..\..\system\memory\memory.h
 # End Source File
 # End Group
+# Begin Group "handle"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\handle.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\handle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\hdlobj.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\hdlobj.h
+# End Source File
+# End Group
 # End Group
 # End Target
 # End Project

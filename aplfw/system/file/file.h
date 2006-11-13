@@ -14,7 +14,7 @@
 
 
 #include <stdarg.h>
-#include "system/handle/handle.h"
+#include "system/handle/hdlobj.h"
 
 #define FILE_MAX_PATH				128			/* パス名の最大値 */
 #define FILE_MAX_NAME				12			/* 名前の最大値 */

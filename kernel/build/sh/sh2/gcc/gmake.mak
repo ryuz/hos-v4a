@@ -7,43 +7,56 @@
 # ----------------------------------------------------------------------------
 
 
+# %jp{ターゲット名}
+TARGET ?= libhosv4a
 
-# ターゲット名
-TARGET    ?= libhosv4a
-
-# アーキテクチャパス
+# %jp{アーキテクチャパス}
 ARCH_PROC ?= sh/sh2
 ARCH_IRC  ?= simple
 ARCH_CC   ?= gcc
 
-# ディレクトリ定義
-TOP_DIR      = ../../../../..
-KNL_DIR      = $(TOP_DIR)/kernel
-OBJS_DIR     = objs_$(TARGET)
-
-# インクルードディレクトリ定義
-INC_KNL_DIR  = $(KNL_DIR)/include
-INC_PROC_DIR = $(INC_KNL_DIR)/arch/proc/$(ARCH_PROC)
-INC_IRC_DIR  = $(INC_KNL_DIR)/arch/irc/$(ARCH_IRC)
-
-# ソースディレクトリ定義
-SRC_KNL_DIR      = $(KNL_DIR)/source
-SRC_PROC_DIR     = $(SRC_KNL_DIR)/arch/proc/$(ARCH_PROC)
-SRC_PROC_ASM_DIR = $(SRC_KNL_DIR)/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
-SRC_IRC_DIR      = $(SRC_KNL_DIR)/arch/irc/$(ARCH_IRC)
-SRC_IRC_ASM_DIR  = $(SRC_KNL_DIR)/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
-
-# コンフィギュレータ定義
-CFGRTR_DIR   = $(TOP_DIR)/cfgrtr/build/gcc
-CFGRTR       = h4acfg-sh2
+# %jp{ツール定義}
+GCC_SYS  ?= elf
+CMD_CC   ?= sh-$(GCC_SYS)-gcc
+CMD_ASM  ?= sh-$(GCC_SYS)-gcc
+CMD_LIBR ?= sh-$(GCC_SYS)-ar
 
 
-# 共通設定インクルード
-include $(TOP_DIR)/kernel/build/common/gmake.inc
+# %jp{ディレクトリ定義}
+TOP_DIR           = ../../../../..
+KERNEL_DIR        = $(TOP_DIR)/kernel
+KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+OBJS_DIR          = objs_$(TARGET)
 
 
-# ターゲットライブラリファイル名
-TARGET_LIB = $(TARGET).a
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
+
+
+# %jp{アーキテクチャパス定義}
+INC_PROC_DIR     = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
+INC_IRC_DIR      = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
+SRC_PROC_DIR     = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
+SRC_PROC_ASM_DIR = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
+SRC_IRC_DIR      = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
+SRC_IRC_ASM_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
+
+# %jp{パス設定}
+INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
+SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
+
+# %jp{オプションフラグ}
+AFLAGS += -m2
+CFLAGS += -m2
+LFLAGS += 
+
+# %jp{コンフィギュレータ定義}
+CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
+CFGRTR     = h4acfg-sh2
+
+
+# C言語ファイルの追加
+# CSRCS += $(SRC_IRC_DIR)/intc.c
 
 # アセンブラファイルの追加
 ASRCS += $(SRC_PROC_ASM_DIR)/ctxctl.S		\
@@ -308,71 +321,35 @@ ASRCS += $(SRC_PROC_ASM_DIR)/vect_004.S		\
 endif
 
 
-# C言語ファイルの追加
-# CSRCS += $(SRC_IRC_DIR)/intc.c
+# カーネル共通ソースの追加
+include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 
-# 検索パスの追加
-VPATH := $(VPATH):$(SRC_PROC_DIR):$(SRC_PROC_DIR):$(SRC_PROC_ASM_DIR):$(SRC_IRC_DIR):$(SRC_IRC_ASM_DIR)
-
-
-# Tools
-CC     = sh-elf-gcc
-ASM    = sh-elf-gcc
-LIBR   = sh-elf-ar
-DEPEND = sh-elf-gcc -M
-LINT   = splint
-AWK    = gawk
-MKDIR  = mkdir
-RM     = rm
-
-
-# オプションフラグ
-AFLAGS    += -c -m2
-CFLAGS    += -c -m2 -Wall -I$(INC_KNL_DIR) -I$(INC_PROC_DIR) -I$(INC_IRC_DIR)
-LFLAGS    += 
-LINTFLAGS += -weak -I$(INC_KNL_DIR) -I$(INC_PROC_DIR) -I$(INC_IRC_DIR)
-
-
-
-# オブジェクトファイル
-OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(basename $(notdir $(CSRCS)))))   \
-       $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(basename $(notdir $(ASRCS)))))
-
-
-all: $(TARGET_LIB) mk_cfgrtr
-
-
-$(TARGET_LIB): mkdir_objs $(OBJS)
-	$(LIBR) -r $(TARGET_LIB) $(OBJS)
-
-mkdir_objs:
-	$(MKDIR) -p $(OBJS_DIR)
-
-
-mk_cfgrtr:
+# %jp{ALL}
+.PHONY : all
+all: all_makelib
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
-clean:
-	$(RM) -f $(TARGET) $(OBJS) $(CFGRTR)
+# %jp{クリーン}
+.PHONY : clean
+clean: clean_makelib
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
-
-lint:
-	$(LINT) $(LINTFLAGS) $(CSRCS)
-
-depend:
-	$(DEPEND) $(CFLAGS) $(CSRCS) | sed 's?: ?:\t?' | sed 's?\\?\/?g' | sed 's?^?$(OBJS_DIR)\/?' | sed 's?:[\t ]+?\t?' | sed 's? ?\\ ?' > $(OBJS_DIR)/depend.inc
+	$(RM) -f *.lst
 
 
--include $(OBJS_DIR)/depend.inc
+
+# %jp{gcc用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_def.inc
+
+# %jp{ライブラリ生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 
-# 推論規則
-$(OBJS_DIR)/%.o :: %.c
-	$(CC) $(CFLAGS) $< -o $@
+# %jp{ch38用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
 
-$(OBJS_DIR)/%.o :: %.S
-	$(ASM) $(AFLAGS) $< -o $@
+# %jp{カーネル依存関係読込み}
+include $(KERNEL_MAKINC_DIR)/knldep.inc
 
 
 # end of file

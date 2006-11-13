@@ -1,49 +1,60 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for H8/300H
+#  makefile for sh2
 #
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-
-# ターゲット名
+# %jp{ターゲット名}
 TARGET ?= libhosv4a
 
-# アーキテクチャパス
+# %jp{アーキテクチャパス}
 ARCH_PROC ?= sh/sh2
 ARCH_IRC  ?= simple
 ARCH_CC   ?= shc
 
-# ディレクトリ定義
-TOP_DIR    = ../../../../..
-KNL_DIR    = $(TOP_DIR)/kernel
-OBJS_DIR   = objs_$(TARGET)
 
-# インクルードディレクトリ定義
-INC_KNL_DIR  = $(KNL_DIR)/include
-INC_PROC_DIR = $(INC_KNL_DIR)/arch/proc/$(ARCH_PROC)
-INC_IRC_DIR  = $(INC_KNL_DIR)/arch/irc/$(ARCH_IRC)
-
-# ソースディレクトリ定義
-SRC_KNL_DIR      = $(KNL_DIR)/source
-SRC_PROC_DIR     = $(SRC_KNL_DIR)/arch/proc/$(ARCH_PROC)
-SRC_PROC_ASM_DIR = $(SRC_KNL_DIR)/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
-SRC_IRC_DIR      = $(SRC_KNL_DIR)/arch/irc/$(ARCH_IRC)
-SRC_IRC_ASM_DIR  = $(SRC_KNL_DIR)/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
-
-# コンフィギュレータ定義
-CFGRTR_DIR   = $(TOP_DIR)/cfgrtr/build/gcc
-CFGRTR       = h4acfg-sh2
+# %jp{ディレクトリ定義}
+TOP_DIR           = ../../../../..
+KERNEL_DIR        = $(TOP_DIR)/kernel
+KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+OBJS_DIR          = objs_$(TARGET)
 
 
-# 共通設定インクルード
-include $(TOP_DIR)/kernel/build/common/gmake.inc
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# ターゲットライブラリファイル名
-TARGET_LIB = $(TARGET).lib
+# %jp{アーキテクチャパス定義}
+INC_PROC_DIR     = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
+INC_IRC_DIR      = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
+SRC_PROC_DIR     = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
+SRC_PROC_ASM_DIR = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
+SRC_IRC_DIR      = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
+SRC_IRC_ASM_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
+
+# %jp{パス設定}
+INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
+SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
+
+# %jp{オプションフラグ}
+AFLAGS += -CPu=sh2
+CFLAGS += -CPu=sh2
+LFLAGS += 
+
+# %jp{コンフィギュレータ定義}
+CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
+CFGRTR     = h4acfg-sh2
+
+# %jp{ch38用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/shc_def.inc
+
+
+
+# C言語ファイルの追加
+# CSRCS += $(SRC_IRC_DIR)/intc.c
 
 # アセンブラファイルの追加
 ASRCS += $(SRC_PROC_ASM_DIR)/ctxctl.src		\
@@ -307,84 +318,31 @@ ASRCS += $(SRC_PROC_ASM_DIR)/vect_004.src	\
 endif
 
 
-# C言語ファイルの追加
-# CSRCS += $(SRC_IRC_DIR)/intc.c
+# カーネル共通ソースの追加
+include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 
-# 検索パスの追加
-VPATH := $(VPATH):$(SRC_PROC_DIR):$(SRC_PROC_DIR):$(SRC_PROC_ASM_DIR):$(SRC_IRC_DIR):$(SRC_IRC_ASM_DIR)
-
-
-# Tools
-CC     = shc
-ASM    = asmsh
-LIBR   = optlnk
-DEPEND = depend
-LINT   = splint
-AWK    = gawk
-MKDIR  = mkdir
-ECHO   = echo
-RM     = rm
-
-
-# オプションフラグ
-AFLAGS    += -CPu=sh2
-CFLAGS    += -CPu=sh2 -I=$(INC_KNL_DIR),$(INC_PROC_DIR),$(INC_IRC_DIR)
-LFLAGS    += -FOrm=Library
-LINTFLAGS += -weak -I$(INC_KNL_DIR) -I$(INC_PROC_DIR) -I$(INC_IRC_DIR)
-
-ifeq ($(DEBUG),Yes)
-TARGET    := $(TARGET)dbg
-AFLAGS    += -DEBug
-CFLAGS    += -DEBug -OP=0
-else
-AFLAGS    += 
-CFLAGS    += -OP=1
-endif
-
-
-# オブジェクトファイル
-OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .obj, $(basename $(notdir $(CSRCS)))))   \
-       $(addprefix $(OBJS_DIR)/, $(addsuffix .obj, $(basename $(notdir $(ASRCS)))))
-
-
-all: mkdir_objs $(TARGET_LIB) mk_cfgrtr
-
-
-$(TARGET_LIB): $(OBJS)
-	$(ECHO) -Input=$(OBJS) | sed "s/ /,/g"  > $(OBJS_DIR)/subcmd.txt
-	$(ECHO) -OUtput=$(TARGET_LIB)          >> $(OBJS_DIR)/subcmd.txt
-	$(ECHO) -FOrm=Library                  >> $(OBJS_DIR)/subcmd.txt
-	$(RM) -f $(TARGET_LIB)
-	$(LIBR) -SU=$(OBJS_DIR)/subcmd.txt
-
-mkdir_objs:
-	$(MKDIR) -p $(OBJS_DIR)
-
-
-mk_cfgrtr:
+# %jp{ALL}
+.PHONY : all
+all: all_makelib
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
-clean:
-	$(RM) -f $(TARGET) $(OBJS) $(CFGRTR) $(OBJS_DIR)/*.lst
+# %jp{クリーン}
+.PHONY : clean
+clean: clean_makelib
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
-
-#lint:
-#	$(LINT) $(LINTFLAGS) $(CSRCS)
-
-#depend:
-#	$(DEPEND) $(CFLAGS) $(CSRCS) | sed 's?: ?:\t?' | sed 's?\\?\/?g' | sed 's?^?$(OBJS_DIR)\/?' | sed 's?:[\t ]+?\t?' | sed 's? ?\\ ?' > $(OBJS_DIR)/depend.inc
+	$(RM) -f *.lst
 
 
--include $(OBJS_DIR)/depend.inc
+# %jp{ライブラリ生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 
-# 推論規則
-$(OBJS_DIR)/%.obj :: %.c
-	$(CC) $(CFLAGS) $< -OB=$@ -List=$(@:%.obj=%.lst)
+# %jp{shc用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/shc_rul.inc
 
-$(OBJS_DIR)/%.obj :: %.src
-	$(ASM) $(AFLAGS) $< -OB=$@
+# %jp{カーネル依存関係読込み}
+include $(KERNEL_MAKINC_DIR)/knldep.inc
 
 
 # end of file

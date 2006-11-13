@@ -310,21 +310,25 @@ ASRCS += $(SRC_PROC_ASM_DIR)/vect_004.src	\
 endif
 
 
+# %jp{all}
+all:   all_common
+
+# %jp{クリーン}
+clean: clean_common
+	$(RM) -f *.lst
+
 # %jp{shc用の設定読込み}
 include $(MAKE_INC_DIR)/shc_def.inc
 
 # %jp{共通設定読込み}
 include $(MAKE_INC_DIR)/common.inc
 
-# %jp{クリーン}
-clean: clean_common
-	$(RM) -f *.lst
+# %jp{共通依存関係読込み}
+include $(MAKE_INC_DIR)/depend.inc
 
 # %jp{shc用のルール定義読込み}
 include $(MAKE_INC_DIR)/shc_rul.inc
 
-# %jp{共通依存関係読込み}
-include $(MAKE_INC_DIR)/depend.inc
 
 
 # end of file
