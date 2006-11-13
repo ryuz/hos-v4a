@@ -6,16 +6,16 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
-
-
 # %jp{ツール定義}%en{Tools}
-CMD_CC   = shc
-CMD_ASM  = asmsh
+!ifndef CMD_CC
+CMD_CC   = ch38
+!endif
+!ifndef CMD_ASM
+CMD_ASM  = asm38
+!endif
+!ifndef CMD_LIBR
 CMD_LIBR = optlnk
+!endif
 
 # %jp{拡張子定義}
 C_EXT   = c
@@ -23,7 +23,9 @@ CPP_EXT = cpp
 ASM_EXT = src
 OBJ_EXT = obj
 LIB_EXT = lib
-
+EXE_EXT = abs
+ASC_EXT = mot
+BIN_EXT = bin
 
 
 # ----------------------------------
@@ -31,10 +33,17 @@ LIB_EXT = lib
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-CFLAGS += -NOLOGO
+CFLAGS = $(CFLAGS) -NOLOGO
 
 # %jp{インクルードパスオプションの定義}
-CFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
+INC_DIRS = $(INC_DIRS:	= )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = @$(INC_DIRS)@
+INC_DIRS = $(INC_DIRS:@ =)
+INC_DIRS = $(INC_DIRS: @=)
+INC_DIRS = $(INC_DIRS:@=)
+
+CFLAGS_INC = -I=$(INC_DIRS: =,)
 
 # %jp{マクロ定義オプションの定義}
 CFLAGS_DEF = 
@@ -53,10 +62,12 @@ CFLAGS_OPT_SPEED = -OP=1
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-AFLAGS += -NOLOGO
+AFLAGS = $(AFLAGS) -NOLOGO
 
 # %jp{インクルードパスオプションの定義}
-AFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(A_INC)))
+INC_DIRS = $(INC_DIRS:	= )
+INC_DIRS = $(INC_DIRS:  = )
+AFLAGS_INC = -I=$(INC_DIRS: =,)
 
 # %jp{マクロ定義オプションの定義}
 AFLAGS_DEF = 

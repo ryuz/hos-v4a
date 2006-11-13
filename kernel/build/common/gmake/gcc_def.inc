@@ -13,17 +13,20 @@ space:= $(empty) $(empty)
 
 
 # %jp{ツール定義}%en{Tools}
-CMD_CC   = shc
-CMD_ASM  = asmsh
-CMD_LIBR = optlnk
+CMD_CC   ?= gcc
+CMD_ASM  ?= gcc
+CMD_LIBR ?= ar
+CMD_LINK ?= ln
 
 # %jp{拡張子定義}
-C_EXT   = c
-CPP_EXT = cpp
-ASM_EXT = src
-OBJ_EXT = obj
-LIB_EXT = lib
-
+C_EXT   ?= c
+CPP_EXT ?= cpp
+ASM_EXT ?= S
+OBJ_EXT ?= o
+LIB_EXT ?= l
+EXE_EXT ?= elf
+ASC_EXT ?= mot
+BIN_EXT ?= bin
 
 
 # ----------------------------------
@@ -31,10 +34,10 @@ LIB_EXT = lib
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-CFLAGS += -NOLOGO
+CFLAGS +=
 
 # %jp{インクルードパスオプションの定義}
-CFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
+CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
 
 # %jp{マクロ定義オプションの定義}
 CFLAGS_DEF = 
@@ -43,9 +46,9 @@ CFLAGS_DEF =
 CFLAGS_DBG = -DEBug
 
 # %jp{最適化オプションの定義}
-CFLAGS_OPT_NONE  = -OP=0
-CFLAGS_OPT_SIZE  = -OP=1
-CFLAGS_OPT_SPEED = -OP=1
+CFLAGS_OPT_NONE  = -O0
+CFLAGS_OPT_SIZE  = -O2
+CFLAGS_OPT_SPEED = -O2
 
 
 # ----------------------------------
@@ -53,16 +56,16 @@ CFLAGS_OPT_SPEED = -OP=1
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-AFLAGS += -NOLOGO
+AFLAGS +=
 
 # %jp{インクルードパスオプションの定義}
-AFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(A_INC)))
+AFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
 
 # %jp{マクロ定義オプションの定義}
 AFLAGS_DEF = 
 
 # %jp{デバッグオプションの定義}
-AFLAGS_DBG = -DEBug
+AFLAGS_DBG = -g
 
 # %jp{最適化オプションの定義}
 AFLAGS_OPT_NONE  =

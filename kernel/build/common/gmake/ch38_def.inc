@@ -13,9 +13,9 @@ space:= $(empty) $(empty)
 
 
 # %jp{ツール定義}%en{Tools}
-CMD_CC   = shc
-CMD_ASM  = asmsh
-CMD_LIBR = optlnk
+CMD_CC   ?= ch38
+CMD_ASM  ?= asm38
+CMD_LIBR ?= optlnk
 
 # %jp{拡張子定義}
 C_EXT   = c
@@ -23,7 +23,9 @@ CPP_EXT = cpp
 ASM_EXT = src
 OBJ_EXT = obj
 LIB_EXT = lib
-
+EXE_EXT = abs
+ASC_EXT = mot
+BIN_EXT = bin
 
 
 # ----------------------------------

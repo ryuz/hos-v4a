@@ -14,11 +14,11 @@ space:= $(empty) $(empty)
 
 # %jp{ライブラリ生成}
 $(TARGET_LIB): $(OBJS)
-	$(CMD_RM) -f $(TARGET_LIB)
-	$(CMD_ECHO) "-Input=$(subst $(space),$(comma),$(strip $(OBJS)))" > $(OBJS_DIR)/subcmd.txt
-	$(CMD_ECHO) "-OUtput=$(TARGET_LIB)"                             >> $(OBJS_DIR)/subcmd.txt
-	$(CMD_ECHO) "-FOrm=Library"                                     >> $(OBJS_DIR)/subcmd.txt
-	$(CMD_LIBR) "-SU=$(OBJS_DIR)/subcmd.txt"
+	$(RM) -f $(TARGET_LIB)
+	$(ECHO) "-Input=$(subst $(space),$(comma),$(strip $(OBJS)))" > $(OBJS_DIR)/subcmd.txt
+	$(ECHO) "-OUtput=$(TARGET_LIB)"                             >> $(OBJS_DIR)/subcmd.txt
+	$(ECHO) "-FOrm=Library"                                     >> $(OBJS_DIR)/subcmd.txt
+	$(LIBR) "-SU=$(OBJS_DIR)/subcmd.txt"
 
 
 # %jp{Cコンパイル}
@@ -29,6 +29,7 @@ $(OBJS_DIR)/%.obj :: %.c
 # %jp{アセンブル}
 $(OBJS_DIR)/%.obj :: %.src
 	$(CMD_ASM) $(AFLAGS) $< -OB=$@
+
 
 
 # end of file

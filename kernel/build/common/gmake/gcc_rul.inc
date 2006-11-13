@@ -1,25 +1,28 @@
 # ----------------------------------------------------------------------------
 #  Hyper Operating System V4 Advance
-#    common file for GNU make
 #
 #  Copyright (C) 1998-2006 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# --------------------------------------
-#  %jp{共通設定}
-# --------------------------------------
-
 # %jp{特殊文字定義}
 comma:= ,
 empty:=
 space:= $(empty) $(empty)
 
-# %jp{ツール定義}%en{Tools}
-CMD_ECHO  ?= echo
-CMD_MKDIR ?= mkdir
-CMD_RM    ?= rm
+
+# %jp{ライブラリ生成}
+$(TARGET_LIB): $(OBJS)
+	$(CMD_LIBR) -r $(TARGET_LIB) $(OBJS)
+
+# %jp{Cコンパイル}
+$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(C_EXT)
+	$(CMD_CC) $(CFLAGS) -c $< -o $@
+
+# %jp{アセンブル}
+$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(ASM_EXT)
+	$(CMD_ASM) $(CFLAGS) -c $< -o $@
 
 
 # end of file
