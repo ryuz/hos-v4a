@@ -46,8 +46,7 @@ OBJS = $(OBJS_DIR)/vcttbl.obj		\
        $(OBJS_DIR)/sample.obj		\
        $(OBJS_DIR)/ostimer.obj		\
        $(OBJS_DIR)/kernel_cfg.obj	\
-       $(OBJS_DIR)/dbsct.obj \
-       $(OBJS_DIR)/sci1.obj
+       $(OBJS_DIR)/dbsct.obj
 
 
 STD_LIBS = stdlib.lib

@@ -86,7 +86,7 @@ void Sample_Task(VP_INT exinf)
 		for ( ; ; )
 		{
 			File_PutChar(hFile, 'X');
-			dly_tsk(100);
+	/*		dly_tsk(100);	*/
 		}
 		
 		File_PutString(hFile, "Hello!\r\n");

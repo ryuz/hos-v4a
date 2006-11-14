@@ -3,7 +3,6 @@
 
 				.IMPORT     _ResetHandler				; リセットベクタ
 				.IMPORT		__kernel_vector_dmy			; ダミーベクタ
-				.IMPORT		__kernel_vector_144			; ベクタ144
 				.IMPORT		__kernel_vector_128			; ベクタ128
 				.IMPORT		__kernel_vector_129			; ベクタ129
 				.IMPORT		__kernel_vector_130			; ベクタ130
@@ -12,6 +11,7 @@
 				.IMPORT		__kernel_vector_133			; ベクタ133
 				.IMPORT		__kernel_vector_134			; ベクタ134
 				.IMPORT		__kernel_vector_135			; ベクタ135
+				.IMPORT		__kernel_vector_144			; ベクタ144
 
 
 

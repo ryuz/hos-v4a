@@ -54,7 +54,13 @@ include $(KERNEL_MAKINC_DIR)/shc_def.inc
 
 
 # C言語ファイルの追加
-# CSRCS += $(SRC_IRC_DIR)/intc.c
+CSRCS += $(SRC_IRC_DIR)/chg_ilv.c			\
+         $(SRC_IRC_DIR)/chg_imsk.c			\
+         $(SRC_IRC_DIR)/clr_int.c			\
+         $(SRC_IRC_DIR)/dis_int.c			\
+         $(SRC_IRC_DIR)/ena_int.c			\
+         $(SRC_IRC_DIR)/get_ilv.c			\
+         $(SRC_IRC_DIR)/get_imsk.c
 
 # アセンブラファイルの追加
 ASRCS += $(SRC_PROC_ASM_DIR)/ctxctl.src		\
