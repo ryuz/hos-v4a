@@ -51,8 +51,23 @@ CFGRTR     = h4acfg-h8300ha
 
 # %jp{オブジェクトファイル定義}
 OBJS   = $(OBJS)						\
-         $(OBJS_DIR)\ctxctl.obj			\
-         $(OBJS_DIR)\intctl.obj			\
+         $(OBJS_DIR)\val_int.c			\
+         $(OBJS_DIR)\val_imsk.c			\
+         $(OBJS_DIR)\chg_imsk.c			\
+         $(OBJS_DIR)\get_imsk.c			\
+         $(OBJS_DIR)\ena_int.c			\
+         $(OBJS_DIR)\dis_int.c			\
+         $(OBJS_DIR)\clr_int.c			\
+         $(OBJS_DIR)\chg_ilv.c			\
+         $(OBJS_DIR)\get_ilv.c			\
+         $(OBJS_DIR)\kini_prc.src		\
+         $(OBJS_DIR)\kena_int.src		\
+         $(OBJS_DIR)\kdis_int.src		\
+         $(OBJS_DIR)\kwai_int.src		\
+         $(OBJS_DIR)\kcre_ctx.src		\
+         $(OBJS_DIR)\krst_ctx.src		\
+         $(OBJS_DIR)\kswi_ctx.src		\
+         $(OBJS_DIR)\kint_hdr.src		\
          $(OBJS_DIR)\vect_dmy.obj		\
          $(OBJS_DIR)\vect_001.obj		\
          $(OBJS_DIR)\vect_002.obj		\
@@ -121,14 +136,14 @@ OBJS   = $(OBJS)						\
 
 # %jp{ALL}
 all: mkdir_objs srcobjcp all_makelib
-
 #	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
+
 
 # %jp{クリーン}
 clean: clean_makelib
 	$(CMD_RM) *.lst
-
 #	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
+
 
 # %jp{ch38用の設定読込み}
 !include $(KERNEL_MAKINC_DIR)/ch38_def.inc
@@ -148,12 +163,29 @@ clean: clean_makelib
 
 # %jp{コピー}
 srcobjcp:
+	$(CMD_CP) $(SRC_PROC_DIR)\*.c       $(OBJS_DIR)
+	$(CMD_CP) $(SRC_IRC_DIR)\*.c        $(OBJS_DIR)
 	$(CMD_CP) $(SRC_PROC_ASM_DIR)\*.src $(OBJS_DIR)
 
 
 # %jp{依存関係}
-$(OBJS_DIR)\ctxctl.obj:   $(OBJS_DIR)\ctxctl.src
-$(OBJS_DIR)\intctl.obj:   $(OBJS_DIR)\intctl.src
+$(OBJS_DIR)\val_int.obj : $(OBJS_DIR)\val_int.c
+$(OBJS_DIR)\val_imsk.obj: $(OBJS_DIR)\val_imsk.c
+$(OBJS_DIR)\chg_imsk.obj: $(OBJS_DIR)\chg_imsk.c
+$(OBJS_DIR)\get_imsk.obj: $(OBJS_DIR)\get_imsk.c
+$(OBJS_DIR)\ena_int.obj : $(OBJS_DIR)\ena_int.c	
+$(OBJS_DIR)\dis_int.obj : $(OBJS_DIR)\dis_int.c	
+$(OBJS_DIR)\clr_int.obj : $(OBJS_DIR)\clr_int.c	
+$(OBJS_DIR)\chg_ilv.obj : $(OBJS_DIR)\chg_ilv.c	
+$(OBJS_DIR)\get_ilv.obj : $(OBJS_DIR)\get_ilv.c	
+$(OBJS_DIR)\kini_prc.obj: $(OBJS_DIR)\kini_prc.src
+$(OBJS_DIR)\kena_int.obj: $(OBJS_DIR)\kena_int.src
+$(OBJS_DIR)\kdis_int.obj: $(OBJS_DIR)\kdis_int.src
+$(OBJS_DIR)\kwai_int.obj: $(OBJS_DIR)\kwai_int.src
+$(OBJS_DIR)\kcre_ctx.obj: $(OBJS_DIR)\kcre_ctx.src
+$(OBJS_DIR)\krst_ctx.obj: $(OBJS_DIR)\krst_ctx.src
+$(OBJS_DIR)\kswi_ctx.obj: $(OBJS_DIR)\kswi_ctx.src
+$(OBJS_DIR)\kint_hdr.obj: $(OBJS_DIR)\kint_hdr.src
 $(OBJS_DIR)\vect_dmy.obj: $(OBJS_DIR)\vect_dmy.src
 $(OBJS_DIR)\vect_001.obj: $(OBJS_DIR)\vect_001.src
 $(OBJS_DIR)\vect_002.obj: $(OBJS_DIR)\vect_002.src
