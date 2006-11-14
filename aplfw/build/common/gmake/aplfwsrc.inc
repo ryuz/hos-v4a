@@ -27,6 +27,7 @@ CSRCS    += $(APLFW_DIR)/system/sysapi/sysapi.c				\
             $(APLFW_DIR)/system/handle/hdlobj.c				\
             $(APLFW_DIR)/system/file/file.c					\
             $(APLFW_DIR)/system/memory/memory.c				\
+            $(APLFW_DIR)/system/shell/shell.c				\
             $(APLFW_DIR)/library/container/mempol/mempol.c	\
             $(APLFW_DIR)/library/container/stmbuf/stmbuf.c	\
 

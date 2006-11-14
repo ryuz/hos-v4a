@@ -1,7 +1,7 @@
 
 
-#include "system/file.h"
-#include "kernel.h"
+#include "system/file/file.h"
+
 
 #define SHELL_TERM_COLUMN		80
 

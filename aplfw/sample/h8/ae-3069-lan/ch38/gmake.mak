@@ -26,7 +26,7 @@ APLFW_BUILD_DIR  = $(APLFW_DIR)/build/h8/h8300ha/ch38
 
 KERNEL_CFG  = $(OS_DIR)/cfgrtr/build/gcc/h4acfg-h8300ha.exe
 KERNEL_LIB  = $(KERNEL_BUILD_DIR)/libhosv4a.lib
-APLFW_LIB   = $(KERNEL_BUILD_DIR)/hosaplfw.lib
+APLFW_LIB   = $(APLFW_BUILD_DIR)/hosaplfw.lib
 
 
 # Tools
@@ -58,18 +58,18 @@ all: mkdir_objs mk_kernel mk_aplfw $(TARGET).abs
 
 
 $(TARGET).abs: $(OBJS) $(STD_LIBS) $(OS_LIBS)
-	echo rom D=R                         > $(OBJS_DIR)/subcmd.txt
-	echo -OPtimize                      >> $(OBJS_DIR)/subcmd.txt
-	echo list $(TARGET).map             >> $(OBJS_DIR)/subcmd.txt
-	echo -Input=$(OBJS) | sed "s/ /,/g" >> $(OBJS_DIR)/subcmd.txt
-	echo -LIB=$(OS_LIBS),$(STD_LIBS)    >> $(OBJS_DIR)/subcmd.txt
+	echo rom D=R                                      > $(OBJS_DIR)/subcmd.txt
+	echo -OPtimize                                   >> $(OBJS_DIR)/subcmd.txt
+	echo list $(TARGET).map                          >> $(OBJS_DIR)/subcmd.txt
+	echo -Input=$(OBJS) | sed "s/ /,/g"              >> $(OBJS_DIR)/subcmd.txt
+	echo -LIB=$(KERNEL_LIB),$(APLFW_LIB),$(STD_LIBS) >> $(OBJS_DIR)/subcmd.txt
 	echo "-start=VECTTBL/$(ADDR_VECT),P,C,C\$$BSEC,C\$$DSEC,D/$(ADDR_ROM),B,R,S/$(ADDR_RAM)" >> $(OBJS_DIR)/subcmd.txt
-	echo -output=$(TARGET).abs          >> $(OBJS_DIR)/subcmd.txt
-	echo end                            >> $(OBJS_DIR)/subcmd.txt
-	echo -input=$(TARGET).abs           >> $(OBJS_DIR)/subcmd.txt
-	echo form stype                     >> $(OBJS_DIR)/subcmd.txt
-	echo output $(TARGET).mot           >> $(OBJS_DIR)/subcmd.txt
-	echo -exit                          >> $(OBJS_DIR)/subcmd.txt
+	echo -output=$(TARGET).abs                       >> $(OBJS_DIR)/subcmd.txt
+	echo end                                         >> $(OBJS_DIR)/subcmd.txt
+	echo -input=$(TARGET).abs                        >> $(OBJS_DIR)/subcmd.txt
+	echo form stype                                  >> $(OBJS_DIR)/subcmd.txt
+	echo output $(TARGET).mot                        >> $(OBJS_DIR)/subcmd.txt
+	echo -exit                                       >> $(OBJS_DIR)/subcmd.txt
 	$(LINK) -SU=$(OBJS_DIR)/subcmd.txt
 
 $(STD_LIBS):
@@ -96,7 +96,7 @@ $(OBJS_DIR)/sample.obj: sample.c ../kernel_id.h
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
-	$(OS_CFG) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+	$(KERNEL_CFG) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
 
 
