@@ -48,7 +48,7 @@ LFLAGS +=
 CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-sh2
 
-# %jp{ch38用の設定読込み}
+# %jp{shc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/shc_def.inc
 
 
