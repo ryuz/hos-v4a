@@ -3,7 +3,15 @@
 
 				.IMPORT     _ResetHandler				; リセットベクタ
 				.IMPORT		__kernel_vector_dmy			; ダミーベクタ
-				.IMPORT		__kernel_vector_144			; ベクタ255
+				.IMPORT		__kernel_vector_144			; ベクタ144
+				.IMPORT		__kernel_vector_128			; ベクタ128
+				.IMPORT		__kernel_vector_129			; ベクタ129
+				.IMPORT		__kernel_vector_130			; ベクタ130
+				.IMPORT		__kernel_vector_131			; ベクタ131
+				.IMPORT		__kernel_vector_132			; ベクタ132
+				.IMPORT		__kernel_vector_133			; ベクタ133
+				.IMPORT		__kernel_vector_134			; ベクタ134
+				.IMPORT		__kernel_vector_135			; ベクタ135
 
 
 
@@ -138,14 +146,14 @@ _Vectors:
 				.DATA.L		__kernel_vector_dmy			; ベクタ125
 				.DATA.L		__kernel_vector_dmy			; ベクタ126
 				.DATA.L		__kernel_vector_dmy			; ベクタ127
-				.DATA.L		__kernel_vector_dmy			; ベクタ128
-				.DATA.L		__kernel_vector_dmy			; ベクタ129
-				.DATA.L		__kernel_vector_dmy			; ベクタ130
-				.DATA.L		__kernel_vector_dmy			; ベクタ131
-				.DATA.L		__kernel_vector_dmy			; ベクタ132
-				.DATA.L		__kernel_vector_dmy			; ベクタ133
-				.DATA.L		__kernel_vector_dmy			; ベクタ134
-				.DATA.L		__kernel_vector_dmy			; ベクタ135
+				.DATA.L		__kernel_vector_128			; ベクタ128(SCI0)
+				.DATA.L		__kernel_vector_129			; ベクタ129
+				.DATA.L		__kernel_vector_130			; ベクタ130
+				.DATA.L		__kernel_vector_131			; ベクタ131
+				.DATA.L		__kernel_vector_132			; ベクタ132(SCI1)
+				.DATA.L		__kernel_vector_133			; ベクタ133
+				.DATA.L		__kernel_vector_134			; ベクタ134
+				.DATA.L		__kernel_vector_135			; ベクタ135
 				.DATA.L		__kernel_vector_dmy			; ベクタ136
 				.DATA.L		__kernel_vector_dmy			; ベクタ137
 				.DATA.L		__kernel_vector_dmy			; ベクタ138
