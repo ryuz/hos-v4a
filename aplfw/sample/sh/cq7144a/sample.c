@@ -36,6 +36,11 @@ void Sample_Startup(VP_INT exinf)
 {
 	T_SYSFILE_DEVINF devinf;
 	
+	Sci1_Initialize();
+	for ( ; ; )
+	{
+		Sci1_PutChar('Z');
+	}
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -82,6 +87,13 @@ void Sample_Startup(VP_INT exinf)
 		char buf[256];
 		
 		hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
+		
+		for ( ; ; )
+		{
+			volatile int v;
+			File_PutChar(hFile, 'X');
+			dly_tsk(100);
+		}
 		
 		File_PutString(hFile, "Hello!\r\n");
 		
