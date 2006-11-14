@@ -1,8 +1,8 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  ena_int.c
- * @brief %jp{割り込みの許可}
+ * @file  get_ilv.c
+ * @brief %jp{割り込みレベル参照(独自サービスコール)}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -11,8 +11,8 @@
 #include "kernel.h"
 
 
-/* %jp{割り込みの許可} */
-ER ena_int(INTNO intno)
+/* %jp{割り込みレベル参照(独自サービスコール)} */
+ER vget_ilv(INTNO intno, INT *p_ilv)
 {
 	return E_NOSPT;
 }

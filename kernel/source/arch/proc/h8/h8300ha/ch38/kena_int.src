@@ -1,0 +1,31 @@
+; --------------------------------------------------------------------------- 
+;  Hyper Operating System V4 Advance μITRON4.0仕様 Real-Time OS              
+;    コンテキスト制御                                                         
+;                                                                             
+;                                     Copyright (C) 1998-2006 by Project HOS  
+;                                     http://sourceforge.jp/projects/hos/     
+; --------------------------------------------------------------------------- 
+
+
+
+				.EXPORT	__kernel_ena_int		; 割り込み許可
+				.IMPORT	__kernel_h83_imsk		; 割り込みマスク
+
+
+				.SECTION  P, CODE, ALIGN=2
+
+
+; -----------------------------------------------
+;  割り込み許可
+;  void _kernel_ena_int(void)
+; -----------------------------------------------
+				.STACK	__kernel_ena_int=4
+__kernel_ena_int:
+				mov.b	@__kernel_h83_imsk, r0l
+				ldc.b	r0l, ccr				; 割り込みの許可
+				rts
+
+
+				.END
+
+; end of file

@@ -83,22 +83,34 @@ LIB32=link.exe -lib
 # Begin Group "library"
 
 # PROP Default_Filter ""
+# Begin Group "container"
+
+# PROP Default_Filter ""
+# Begin Group "stmbuf"
+
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\library\mempol.c
+SOURCE=..\..\..\..\library\container\stmbuf\stmbuf.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\library\mempol.h
+SOURCE=..\..\..\..\library\container\stmbuf\stmbuf.h
+# End Source File
+# End Group
+# Begin Group "mempol"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\mempol\mempol.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\library\stmbuf.c
+SOURCE=..\..\..\..\library\container\mempol\mempol.h
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\library\stmbuf.h
-# End Source File
+# End Group
+# End Group
 # End Group
 # Begin Group "driver"
 
@@ -132,6 +144,34 @@ SOURCE=..\..\..\..\driver\serial\renesas\scihal.c
 # Begin Source File
 
 SOURCE=..\..\..\..\driver\serial\renesas\scihal.h
+# End Source File
+# End Group
+# Begin Group "panasonic"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\panasonic\scdrv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\panasonic\scdrv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\panasonic\scfile.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\panasonic\scfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\panasonic\schal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\panasonic\schal.h
 # End Source File
 # End Group
 # End Group

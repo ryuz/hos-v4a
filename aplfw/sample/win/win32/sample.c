@@ -14,8 +14,12 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
+#include "system/file/filesys.h"
 #include "system/sysapi/sysapi.h"
+#include "driver/serial/renesas/scidrv.h"
 #include "driver/serial/renesas/scifile.h"
+#include "driver/serial/panasonic/scdrv.h"
+#include "driver/serial/panasonic/scfile.h"
 
 
 long g_SystemHeap[8 * 1024 / sizeof(long)];
@@ -26,6 +30,12 @@ SYSEVT_HANDLE   g_hEvt;
 SYSEVT_HANDLE   g_hEvt2;
 C_STREAMBUF     g_StmBuf;
 
+C_SCDRV        g_ScDrv[1];
+
+#define REG_SC3_CTR				((volatile unsigned short *)0x9C00C010)
+#define REG_SC3_RB				((volatile unsigned char *)0x9C00C014)
+#define REG_SC3_TB				((volatile unsigned char *)0x9C00C018)
+#define REG_SC3_STR 			((volatile unsigned char *)0x9C00C01D)
 
 
 /** %jp{初期化ハンドラ} */
@@ -73,6 +83,21 @@ void Sample_Startup(VP_INT exinf)
 	devinf.pParam     = &g_SciDrv[1];
 	SysFile_AddDevice("/dev", &devinf);
 
+	{
+		T_SCDRV_REGS ScRegs;
+		ScRegs.puhCtr = REG_SC3_CTR;
+		ScRegs.pubRb  = REG_SC3_RB;
+		ScRegs.pubTb  = REG_SC3_TB;
+		ScRegs.pubStr = REG_SC3_STR;
+		ScDrv_Create(&g_ScDrv[0], &ScRegs, 15*4 + 2, 15*4 + 3, 64);
+
+		/* SCI1 を /dev/com1 に登録 */
+		strcpy(devinf.szName, "com3");
+		devinf.pfncCreate = ScFile_Create;
+		devinf.ObjSize    = sizeof(C_SCFILE);
+		devinf.pParam     = &g_ScDrv[0];
+		SysFile_AddDevice("/dev", &devinf);
+	}
 
 	/*************************/
 	/*     ちょいテスト      *
@@ -86,7 +111,7 @@ void Sample_Startup(VP_INT exinf)
 		{
 			File_Read(hFile, &c, 1);		/* 1文字読み込み */
 
-			File_PrintHexByte(hFile, c);
+			File_PutChar(hFile, c + 1);
 			File_PutChar(hFile, '\r');
 			File_PutChar(hFile, '\n');
 		}

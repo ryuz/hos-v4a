@@ -54,7 +54,7 @@ CFLAGS_OPT_SPEED  = -Ot
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-AFLAGS += -c
+AFLAGS += -c -g
 
 # %jp{インクルードパスオプションの定義}
 AFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))

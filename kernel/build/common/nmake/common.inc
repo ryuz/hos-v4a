@@ -14,6 +14,7 @@
 # %jp{ツール定義}%en{Tools}
 CMD_ECHO  = echo
 CMD_MKDIR = mkdir
+CMD_CP    = copy
 CMD_RM    = del
 
 

@@ -7,26 +7,28 @@
 # ----------------------------------------------------------------------------
 
 
-# Directories
-INC_DIRS += $(APLFW_DIR)/system/sysapi				\
-            $(APLFW_DIR)/system/handle				\
-            $(APLFW_DIR)/system/file				\
-            $(APLFW_DIR)/system/memory				\
-            $(APLFW_DIR)/system/shell				\
+# Include directories
+INC_DIRS += $(APLFW_DIR)
 
 
-SRC_DIRS += $(APLFW_DIR)/system/sysapi				\
-            $(APLFW_DIR)/system/handle				\
-            $(APLFW_DIR)/system/file				\
-            $(APLFW_DIR)/system/memory				\
-            $(APLFW_DIR)/system/shell				\
+# Source directories
+SRC_DIRS += $(APLFW_DIR)/system/sysapi						\
+            $(APLFW_DIR)/system/handle						\
+            $(APLFW_DIR)/system/file						\
+            $(APLFW_DIR)/system/memory						\
+            $(APLFW_DIR)/system/shell						\
+            $(APLFW_DIR)/library/container/mempol			\
+            $(APLFW_DIR)/library/container/stmbuf			\
 
 
 # C source files
-CSRCS    += $(APLFW_DIR)/system/sysapi/sysapi.c		\
-            $(APLFW_DIR)/system/handle/handle.c		\
-            $(APLFW_DIR)/system/handle/hdlobj.c		\
-            $(APLFW_DIR)/system/file/file.c			\
+CSRCS    += $(APLFW_DIR)/system/sysapi/sysapi.c				\
+            $(APLFW_DIR)/system/handle/handle.c				\
+            $(APLFW_DIR)/system/handle/hdlobj.c				\
+            $(APLFW_DIR)/system/file/file.c					\
+            $(APLFW_DIR)/system/memory/memory.c				\
+            $(APLFW_DIR)/library/container/mempol/mempol.c	\
+            $(APLFW_DIR)/library/container/stmbuf/stmbuf.c	\
 
 
 # end of file

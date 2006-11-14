@@ -823,7 +823,31 @@ SOURCE=..\..\..\..\source\object\cyc\kcre_cyc.c
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\source\arch\irc\simple\chg_ilv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\irc\simple\chg_imsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\irc\simple\clr_int.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\irc\simple\dis_int.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\arch\irc\simple\ena_int.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\irc\simple\get_ilv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\irc\simple\get_imsk.c
 # End Source File
 # End Group
 # Begin Source File

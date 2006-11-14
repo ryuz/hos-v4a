@@ -15,7 +15,7 @@
 				.IMPORT	__kernel_exe_inh			; 割り込み処理実行
 				.IMPORT	__kernel_int_isp			; 割り込み用スタックアドレス
 				.IMPORT	__kernel_h83_imsk			; 現在の割り込みマスク値
-
+				.IMPORT __kernel_int_cnt			; 割り込みネストカウンタ
 
 
 				.SECTION P, CODE, ALIGN=2
@@ -27,7 +27,6 @@
 ;  割り込み発生時は er0 を push した後、er0 に
 ;  割り込み番号をセットして、ここにジャンプする
 ; -----------------------------------------------
-
 __kernel_int_hdr:
 		; ---- レジスタ保存
 				push.l	er1
@@ -121,11 +120,6 @@ multiple_int:
 		; -------- 復帰
 				bra		return_int
 
-
-				.SECTION	B, DATA, ALIGN=2
-
-__kernel_int_cnt:
-				.RES.B	1
 
 
 				.END

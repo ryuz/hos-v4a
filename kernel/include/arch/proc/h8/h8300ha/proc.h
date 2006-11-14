@@ -13,6 +13,13 @@
 #define _KERNEL__arch__proc__h8__h8300h__proc_h__
 
 
+#define _KERNEL_IMSK_I		0x80		/**< %jp{割り込みマスクビット} */
+#define _KERNEL_IMSK_UI		0x40		/**< %jp{ユーザービット／割り込みマスクビット} */
+
+#define _KERNEL_IMSK_LV0	0x00		/**< %jp{割り込みマスクレベル0(すべて許可)} */
+#define _KERNEL_IMSK_LV1	0x80		/**< %jp{割り込みマスクレベル1(高優先割込みのみ許可)} */
+#define _KERNEL_IMSK_LV2	0xc0		/**< %jp{割り込みマスクレベル2(すべてマスク)} */
+
 
 /** %jp{コンテキスト情報保存ブロック} */
 typedef struct _kernel_t_ctxcb
@@ -22,11 +29,16 @@ typedef struct _kernel_t_ctxcb
 
 
 
+/* %jp{広域変数定義} */
+extern volatile UB _kernel_h83_imsk;				/**< %jp{H8/300用割り込みマスク} */
+extern volatile UB _kernel_int_cnt;				/**< %jp{割り込みネストカウンタ} */
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void    _kernel_ini_arc(void);																		/**< %jp{アーキテクチャ固有の初期化} */
+void    _kernel_ini_prc(void);																		/**< %jp{プロセッサの初期化} */
 
 void    _kernel_ena_int(void);																		/**< %jp{割り込み許可} */
 void    _kernel_dis_int(void);																		/**< %jp{割り込み禁止} */

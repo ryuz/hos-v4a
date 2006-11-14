@@ -41,69 +41,6 @@ CFLAGS = $(CFLAGS) $(AFLAGS_OPT_NORMAL)
 #  %jp{各種マクロ文字の正規化}
 # --------------------------------------
 
-ASRC_DIRS = $(ASRC_DIRS:	= )
-ASRC_DIRS = $(ASRC_DIRS:  = )
-ASRC_DIRS = $(ASRC_DIRS:  = )
-ASRC_DIRS = $(ASRC_DIRS:  = )
-ASRC_DIRS = @$(ASRC_DIRS)@
-ASRC_DIRS = $(ASRC_DIRS:@ =)
-ASRC_DIRS = $(ASRC_DIRS: @=)
-ASRC_DIRS = $(ASRC_DIRS:@=)
-
-CSRC_DIRS = $(CSRC_DIRS:	= )
-CSRC_DIRS = $(CSRC_DIRS:  = )
-CSRC_DIRS = $(CSRC_DIRS:  = )
-CSRC_DIRS = $(CSRC_DIRS:  = )
-CSRC_DIRS = @$(CSRC_DIRS)@
-CSRC_DIRS = $(CSRC_DIRS:@ =)
-CSRC_DIRS = $(CSRC_DIRS: @=)
-CSRC_DIRS = $(CSRC_DIRS:@=)
-
-CSRC1_DIRS = $(CSRC1_DIRS:	= )
-CSRC1_DIRS = $(CSRC1_DIRS:  = )
-CSRC1_DIRS = $(CSRC1_DIRS:  = )
-CSRC1_DIRS = $(CSRC1_DIRS:  = )
-CSRC1_DIRS = @$(CSRC1_DIRS)@
-CSRC1_DIRS = $(CSRC1_DIRS:@ =)
-CSRC1_DIRS = $(CSRC1_DIRS: @=)
-CSRC1_DIRS = $(CSRC1_DIRS:@=)
-
-CSRC2_DIRS = $(CSRC2_DIRS:	= )
-CSRC2_DIRS = $(CSRC2_DIRS:  = )
-CSRC2_DIRS = $(CSRC2_DIRS:  = )
-CSRC2_DIRS = $(CSRC2_DIRS:  = )
-CSRC2_DIRS = @$(CSRC2_DIRS)@
-CSRC2_DIRS = $(CSRC2_DIRS:@ =)
-CSRC2_DIRS = $(CSRC2_DIRS: @=)
-CSRC2_DIRS = $(CSRC2_DIRS:@=)
-
-CSRC3_DIRS = $(CSRC3_DIRS:	= )
-CSRC3_DIRS = $(CSRC3_DIRS:  = )
-CSRC3_DIRS = $(CSRC3_DIRS:  = )
-CSRC3_DIRS = $(CSRC3_DIRS:  = )
-CSRC3_DIRS = @$(CSRC3_DIRS)@
-CSRC3_DIRS = $(CSRC3_DIRS:@ =)
-CSRC3_DIRS = $(CSRC3_DIRS: @=)
-CSRC3_DIRS = $(CSRC3_DIRS:@=)
-
-CSRC4_DIRS = $(CSRC4_DIRS:	= )
-CSRC4_DIRS = $(CSRC4_DIRS:  = )
-CSRC4_DIRS = $(CSRC4_DIRS:  = )
-CSRC4_DIRS = $(CSRC4_DIRS:  = )
-CSRC4_DIRS = @$(CSRC4_DIRS)@
-CSRC4_DIRS = $(CSRC4_DIRS:@ =)
-CSRC4_DIRS = $(CSRC4_DIRS: @=)
-CSRC4_DIRS = $(CSRC4_DIRS:@=)
-
-CSRC5_DIRS = $(CSRC5_DIRS:	= )
-CSRC5_DIRS = $(CSRC5_DIRS:  = )
-CSRC5_DIRS = $(CSRC5_DIRS:  = )
-CSRC5_DIRS = $(CSRC5_DIRS:  = )
-CSRC5_DIRS = @$(CSRC5_DIRS)@
-CSRC5_DIRS = $(CSRC5_DIRS:@ =)
-CSRC5_DIRS = $(CSRC5_DIRS: @=)
-CSRC5_DIRS = $(CSRC5_DIRS:@=)
-
 OBJS = $(OBJS:	= )
 OBJS = $(OBJS:  = )
 OBJS = $(OBJS:  = )
@@ -136,12 +73,12 @@ TARGET_LIB = $(TARGET).$(LIB_EXT)
 # --------------------------------------
 
 # %jp{all処理}
-all_makelib: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
-	echo $(TARGET_LIB)
+all_makelib: srcobjcp_makelib $(TARGET_LIB)
 
 # %jp{クリーンナップ}
 clean_makelib:
-	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
+	-$(CMD_RM) $(TARGET_LIB)
+	-$(CMD_RM) $(OBJS_DIR)\*.$(OBJ_EXT)
 
 # %jp{オブジェクト出力ディレクトリ作成}
 mkdir_objs:

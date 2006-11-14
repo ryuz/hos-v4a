@@ -14,7 +14,7 @@
 /* %jp{割り込みの許可} */
 ER ena_int(INTNO intno)
 {
-	return E_NOSPT;
+	return E_OK;
 }
 
 

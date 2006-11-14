@@ -1,0 +1,37 @@
+; --------------------------------------------------------------------------- 
+;  Hyper Operating System V4 Advance μITRON4.0仕様 Real-Time OS              
+;    コンテキスト制御                                                         
+;                                                                             
+;                                     Copyright (C) 1998-2006 by Project HOS  
+;                                     http://sourceforge.jp/projects/hos/     
+; --------------------------------------------------------------------------- 
+
+
+
+				.EXPORT	__kernel_rst_ctx		; 実行コンテキストのリスタート
+
+
+				.SECTION  P, CODE, ALIGN=2
+
+
+;------------------------------------------------
+; 実行コンテキストのリスタート
+; void _kernel_rst_ctx(
+;		VP_INT par1,							実行時パラメータ1    [er0]
+;		VP_INT par2,							実行時パラメータ2    [er1]
+;		VP     isp,								初期スタックポインタ [@(4, er7)]
+;		FP     entry)							実行アドレス         [@(8, er7)]
+;------------------------------------------------
+				.STACK	__kernel_rst_ctx=8
+__kernel_rst_ctx:
+				mov.l	@(4, er7), er3			; 初期スタックポインタ
+				mov.l	@(8, er7), er4			; 実行アドレス取り出し
+				mov.l	er3, er7				; スタックポインタリセット
+				jmp		@er4					; 実行アドレスに分岐
+
+
+
+				.END
+
+
+; end of file

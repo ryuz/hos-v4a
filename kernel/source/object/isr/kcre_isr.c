@@ -21,6 +21,11 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 	_KERNEL_T_ISRCB    *isrcb;
 	_KERNEL_T_ISRCB_RO *isrcb_ro;
 	
+	if ( pk_cisr->intno < _KERNEL_INT_TMIN_INTNO || pk_cisr->intno > _KERNEL_INT_TMAX_INTNO )
+	{
+		return E_PAR;
+	}
+
 	/* %jp{メモリ確保}%en{get memory} */
 #if _KERNEL_ISRCB_ALGORITHM == _KERNEL_ISRCB_ALG_BLKARRAY
 	{

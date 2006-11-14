@@ -104,14 +104,19 @@ all_makelib: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
 # %jp{クリーンナップ}
 .PHONY : clean_makelib
 clean_makelib:
-	$(RM) -f $(TARGET_LIB) $(OBJS)
-	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
+	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
 
 # %jp{オブジェクト出力ディレクトリ作成}
 .PHONY : mkdir_objs
 mkdir_objs:
-	$(MKDIR) -p $(OBJS_DIR)
+	$(CMD_MKDIR) -p $(OBJS_DIR)
 
+# %jp{ソースのコピー}
+ifdef SRCCPYDIR
+.PHONY : srccpy
+srccpy:
+	$(CMD_CP) -t $(SRCCPYDIR) $(ASRCS) $(CSRCS)
+endif
 
 
 # end of file

@@ -73,38 +73,6 @@ typedef long	FILEPOS;		/* ファイル位置の型定義 */
 typedef int		FILESIZE;		/* 読み書き時のサイズ用の型定義 */
 
 
-/* ファイルオブジェクトクラス基本メソッドテーブル */
-typedef struct t_fileobj_methods
-{
-	T_HANDLEOBJ_METHODS HandlObjMethods;
-	FILEERR  (*pfncIoControl)(HANDLE hFile, int iFunc, const void *pInBuf, FILESIZE InSize, void *pOutBuf, FILESIZE OutSize);
-	FILEPOS  (*pfncSeek)(HANDLE hFile, FILEPOS Offset, int iOrign);
-	FILESIZE (*pfncRead)(HANDLE hFile, void *pBuf, FILESIZE Size);
-	FILESIZE (*pfncWrite)(HANDLE hFile, const void *pData, FILESIZE Size);
-} T_FILEOBJ_METHODS;
-
-
-/* ファイルブジェクト基本クラス定義 */
-typedef struct c_fileobj
-{
-	C_HANDLEOBJ HandleObj;								/* ハンドルオブジェクトを継承 */
-} C_FILEOBJ;
-
-
-/* デバイス情報 */
-typedef struct t_sysfile_devinf
-{
-	char	szName[FILE_MAX_NAME];						/* ファイル名 */
-	FILEERR	(*pfncCreate)(HANDLE hFile, void *pParam);	/* コンストラクタアドレス */
-	int     ObjSize;									/* オブジェクトのサイズ */
-	void    *pParam;									/* オブジェクトの生成パラメータ */
-} T_SYSFILE_DEVINF;
-
-
-/* ハンドル変換 */
-#define FILE_HANDLE2OBJ(hFile)		((C_FILEOBJ *)hFile)
-
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,15 +103,6 @@ FILESIZE File_GetWriteBuf(HANDLE hFile, void **ppBuf);
 FILESIZE File_SendWriteBuf(HANDLE hFile, void *pBuf, long lSize);
 FILEERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
 
-
-
-/* システムAPI */
-void     SysFile_Initialize(void);													/* ファイルシステムの初期化 */
-FILEERR  SysFile_AddDevice(const char *pszPath, const T_SYSFILE_DEVINF *pDevInf);	/* デバイスファイルの追加 */
-
-void     FileObj_Create(C_FILEOBJ *self, const T_FILEOBJ_METHODS* pMethods);
-void     FileObj_Delete(C_FILEOBJ *self);
-#define  FileObj_GetMethods(self)			((T_FILEOBJ_METHODS *)HandleObj_GetMethods(&(self)->HandleObj))
 
 #ifdef __cplusplus
 }

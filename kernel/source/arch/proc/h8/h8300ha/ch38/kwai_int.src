@@ -1,0 +1,29 @@
+; --------------------------------------------------------------------------- 
+;  Hyper Operating System V4 Advance μITRON4.0仕様 Real-Time OS              
+;    コンテキスト制御                                                         
+;                                                                             
+;                                     Copyright (C) 1998-2006 by Project HOS  
+;                                     http://sourceforge.jp/projects/hos/     
+; --------------------------------------------------------------------------- 
+
+
+
+				.EXPORT	__kernel_wai_int		; 割り込み待ち
+
+
+				.SECTION  P, CODE, ALIGN=2
+
+;------------------------------------------------
+; 割り込み待ち
+; void _kernel_wai_int(void)
+;------------------------------------------------
+				.STACK	__kernel_wai_int=4
+__kernel_wai_int:
+	;			sleep
+				jmp		@__kernel_wai_int
+
+
+				.END
+
+
+; end of file

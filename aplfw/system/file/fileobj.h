@@ -12,13 +12,9 @@
 #ifndef __HOS__fileobj_h__
 #define __HOS__fileobj_h__
 
+
 #include "system/file/file.h"
 #include "system/handle/hdlobj.h"
-
-#include <stdarg.h>
-#include "system/handle/handle.h"
-#include "system/handle/hdlobj.h"
-#include "file.h"
 
 
 /* ファイルオブジェクトクラス基本メソッドテーブル */

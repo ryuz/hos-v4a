@@ -6,6 +6,9 @@
 # ----------------------------------------------------------------------------
 
 
+.SUFFIXES :
+.SUFFIXES : .obj .c .src
+
 # %jp{ツール定義}%en{Tools}
 !ifndef CMD_CC
 CMD_CC   = ch38
@@ -33,15 +36,18 @@ BIN_EXT = bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-CFLAGS = $(CFLAGS) -NOLOGO
+CFLAGS = $(CFLAGS) -NOLOGO -NOList
 
 # %jp{インクルードパスオプションの定義}
 INC_DIRS = $(INC_DIRS:	= )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = $(INC_DIRS:  = )
 INC_DIRS = $(INC_DIRS:  = )
 INC_DIRS = @$(INC_DIRS)@
 INC_DIRS = $(INC_DIRS:@ =)
 INC_DIRS = $(INC_DIRS: @=)
 INC_DIRS = $(INC_DIRS:@=)
+
 
 CFLAGS_INC = -I=$(INC_DIRS: =,)
 

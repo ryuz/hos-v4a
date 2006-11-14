@@ -12,10 +12,10 @@
 #include "scidrv.h"
 
 
-static void SciDrv_IsrRecvErr(void *pParam);		/* 受信エラー割り込み */
-static void SciDrv_IsrRecv(void *pParam);			/* 受信割り込み */
-static void SciDrv_IsrSend(void *pParam);			/* 送信エンプティー */
-static void SciDrv_IsrSendEnd(void *pParam);		/* 送信終了 */
+static void SciDrv_IsrRecvErr(VPARAM Param);		/* 受信エラー割り込み */
+static void SciDrv_IsrRecv(VPARAM Param);			/* 受信割り込み */
+static void SciDrv_IsrSend(VPARAM Param);			/* 送信エンプティー */
+static void SciDrv_IsrSendEnd(VPARAM Param);		/* 送信終了 */
 
 
 /** コンストラクタ */
@@ -41,10 +41,10 @@ void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, long lSysClock, 
 	self->hMtxRecv = SysMtx_Create();
 
 	/* 割り込み処理登録 */
-	SysIsr_Create(iIntNum + 0, SciDrv_IsrRecvErr, (void *)self);
-	SysIsr_Create(iIntNum + 1, SciDrv_IsrRecv,    (void *)self);
-	SysIsr_Create(iIntNum + 2, SciDrv_IsrSend,    (void *)self);
-	SysIsr_Create(iIntNum + 3, SciDrv_IsrSendEnd, (void *)self);
+	SysIsr_Create(iIntNum + 0, SciDrv_IsrRecvErr, (VPARAM)self);
+	SysIsr_Create(iIntNum + 1, SciDrv_IsrRecv,    (VPARAM)self);
+	SysIsr_Create(iIntNum + 2, SciDrv_IsrSend,    (VPARAM)self);
+	SysIsr_Create(iIntNum + 3, SciDrv_IsrSendEnd, (VPARAM)self);
 }
 
 
@@ -145,22 +145,22 @@ int SciDrv_Write(C_SCIDRV *self, const void *pData, int iSize)
 
 
 /* 受信エラー割り込み */
-void SciDrv_IsrRecvErr(void *pParam)
+void SciDrv_IsrRecvErr(VPARAM Param)
 {
 	C_SCIDRV *self;
 
-	self = (C_SCIDRV *)pParam;
+	self = (C_SCIDRV *)Param;
 
 	SciHal_RecvChar(&self->SciHal);
 }
 
 /* 受信割り込み */
-void SciDrv_IsrRecv(void *pParam)
+void SciDrv_IsrRecv(VPARAM Param)
 {
 	C_SCIDRV *self;
 	int c;
 	
-	self = (C_SCIDRV *)pParam;
+	self = (C_SCIDRV *)Param;
 	
 	while ( (c = SciHal_RecvChar(&self->SciHal)) >= 0 )
 	{
@@ -171,11 +171,11 @@ void SciDrv_IsrRecv(void *pParam)
 
 
 /* 送信エンプティー */
-void SciDrv_IsrSend(void *pParam)
+void SciDrv_IsrSend(VPARAM Param)
 {
 	C_SCIDRV *self;
 
-	self = (C_SCIDRV *)pParam;
+	self = (C_SCIDRV *)Param;
 	
 	SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_RIE);
 	SysEvt_Set(self->hEvtSend);
@@ -183,11 +183,11 @@ void SciDrv_IsrSend(void *pParam)
 
 
 /* 送信終了 */
-void SciDrv_IsrSendEnd(void *pParam)
+void SciDrv_IsrSendEnd(VPARAM Param)
 {
 	C_SCIDRV *self;
 
-	self = (C_SCIDRV *)pParam;
+	self = (C_SCIDRV *)Param;
 	
 	SysEvt_Set(self->hEvtSend);
 }

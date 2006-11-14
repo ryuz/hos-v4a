@@ -1,0 +1,53 @@
+; --------------------------------------------------------------------------- 
+;  Hyper Operating System V4 Advance μITRON4.0仕様 Real-Time OS              
+;    コンテキスト制御                                                         
+;                                                                             
+;                                     Copyright (C) 1998-2006 by Project HOS  
+;                                     http://sourceforge.jp/projects/hos/     
+; --------------------------------------------------------------------------- 
+
+
+
+				.EXPORT	__kernel_swi_ctx		; 実行コンテキストの切替
+				.EXPORT	__kernel_sta_ctx		; 実行コンテキストの開始
+
+
+				.SECTION  P, CODE, ALIGN=2
+
+
+; -----------------------------------------------
+;  実行コンテキストの切替
+;  void _kernel_swi_ctx(
+;		_KERNEL_T_CTXCB *pk_ctxcb_nxt,			切り替え先のコンテキスト [er0]
+;		_KERNEL_T_CTXCB *pk_ctxcb_now)			現在のコンテキスト       [er1]
+; -----------------------------------------------
+				.STACK	__kernel_swi_ctx=24
+__kernel_swi_ctx:
+				push.l	er2
+				push.l	er3
+				push.l	er4
+				push.l	er5
+				push.l	er6
+				mov.l	er7,@(0, er1)			; スタックポインタ保存
+		; ---- このまま _kernel_sta_ctx に続ける
+
+; -----------------------------------------------
+;  実行コンテキストの開始
+;  void _kernel_sta_ctx(
+;		_KERNEL_T_CTXCB *pk_ctxcb)				開始するコンテキスト [er0]
+; -----------------------------------------------
+				.STACK	__kernel_sta_ctx=4
+__kernel_sta_ctx:
+				mov.l	@(0, er0), er7			; スタックポインタ復帰
+				pop.l	er6
+				pop.l	er5
+				pop.l	er4
+				pop.l	er3
+				pop.l	er2
+				rts
+
+
+				.END
+
+
+; end of file

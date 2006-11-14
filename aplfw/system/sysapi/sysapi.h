@@ -18,6 +18,10 @@
 #define __HOS__sysapi_h__
 
 
+/* 任意のパラメータ型 */
+typedef unsigned long	VPARAM;
+
+
 /* システム用プロセスハンドル */
 #define SYSPRC_HANDLE_NULL			(0)
 typedef void* SYSPRC_HANDLE;
@@ -56,12 +60,12 @@ void          SysInt_Disable(int iIntNum);
 void          SysInt_Clear(int iIntNum);
 
 /* 割り込みサービスルーチン制御API */
-SYSISR_HANDLE SysIsr_Create(int iIntNum, void (*pfncIsr)(void *pParam), void *pParam);
+SYSISR_HANDLE SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param);
 void          SysIsr_Delete(SYSISR_HANDLE hIsr);
 
 
 /* システム用プロセス制御API */
-SYSPRC_HANDLE SysPrc_Create(int (*pfncEntry)(void *pParam), void *pParam, long StackSize, int Priority);
+SYSPRC_HANDLE SysPrc_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, long StackSize, int Priority);
 void          SysPrc_Delete(SYSPRC_HANDLE hPrc);
 void          SysPrc_Exit(void);
 SYSPRC_HANDLE Process_GetCurrentHandle(void);

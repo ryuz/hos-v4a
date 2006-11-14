@@ -17,11 +17,11 @@ $(TARGET_LIB): $(OBJS)
 
 
 # %jp{Cコンパイル}
-{$(CSRC_DIRS: =,)}.c{$(OBJS_DIR)}.obj :
+{$(OBJS_DIR)}.c{$(OBJS_DIR)}.obj :
 	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
 # %jp{アセンブル}
-{$(ASRC_DIRS: =,)}.src{$(OBJS_DIR)}.obj :
+{$(OBJS_DIR)}.src{$(OBJS_DIR)}.obj :
 	$(CMD_ASM) $(AFLAGS) $< -OB=$@
 
 

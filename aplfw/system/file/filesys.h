@@ -14,6 +14,7 @@
 
 
 #include "system/handle/handle.h"
+#include "system/file/file.h"
 
 
 /* デバイス情報 */

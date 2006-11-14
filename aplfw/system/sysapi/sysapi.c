@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "system/sysapi/sysapi.h"
-#include "library/mempol.h"
+#include "library/container/mempol/mempol.h"
 #include "kernel.h"
 
 
@@ -81,13 +81,13 @@ void SysInt_Clear(int iIntNum)
 }
 
 
-SYSISR_HANDLE SysIsr_Create(int iIntNum, void (*pfncIsr)(void *pParam), void *pParam)
+SYSISR_HANDLE SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param)
 {
 	T_CISR cisr;
 	ER_ID  erid;
 
 	cisr.isratr = TA_HLNG;
-	cisr.exinf  = (VP_INT)pParam;
+	cisr.exinf  = (VP_INT)Param;
 	cisr.intno  = (INTNO)iIntNum;
 	cisr.isr    = (FP)pfncIsr;
 	erid = acre_isr(&cisr);
@@ -106,13 +106,13 @@ void SysIsr_Delete(SYSISR_HANDLE hIsr)
 
 
 /* プロセス生成 */
-SYSPRC_HANDLE SysPrc_Create(int (*pfncEntry)(void *pParam), void *pParam, long StackSize, int Priority)
+SYSPRC_HANDLE SysPrc_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, long StackSize, int Priority)
 {
 	T_CTSK ctsk;
 	ER_ID  erid;
 	
 	ctsk.tskatr  = TA_HLNG | TA_ACT;
-	ctsk.exinf   = (VP_INT)pParam;
+	ctsk.exinf   = (VP_INT)Param;
 	ctsk.task    = (FP)pfncEntry;
 	ctsk.itskpri = (PRI)Priority;
 	ctsk.stksz   = (SIZE)StackSize;
