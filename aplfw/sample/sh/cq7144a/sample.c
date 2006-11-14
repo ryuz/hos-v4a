@@ -32,20 +32,15 @@ void Sample_Initialize(VP_INT exinf)
 
 int Shell_InputTty(HANDLE hTty, char *pszBuf, int iBufSize);
 
-void Sample_Startup(VP_INT exinf)
+void Sample_Task(VP_INT exinf)
 {
 	T_SYSFILE_DEVINF devinf;
 	
-	Sci1_Initialize();
-	for ( ; ; )
-	{
-		Sci1_PutChar('Z');
-	}
 	
 	/*************************/
 	/*    固有初期設定       */
 	/*************************/
-
+	
 	*REG_STANDBY_MSTCR1 &= ~0x0002;	/* %jp{SCI1のスタンバイモードを解除} */
 	*REG_PFC_PACRL2 |= 0x0100;		/* %jp{端子設定} */
 	
@@ -90,7 +85,6 @@ void Sample_Startup(VP_INT exinf)
 		
 		for ( ; ; )
 		{
-			volatile int v;
 			File_PutChar(hFile, 'X');
 			dly_tsk(100);
 		}
@@ -110,5 +104,8 @@ void Sample_Startup(VP_INT exinf)
 	}
 }
 
+void Sample_Print(VP_INT exinf)
+{
+}
 
 /* end of file */

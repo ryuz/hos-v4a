@@ -37,8 +37,8 @@ void SciHal_Setup(C_SCIHAL *self, long bps)
 {
 	*SCIHAL_REG_SCR(self) = 0;
 	*SCIHAL_REG_SMR(self) = 0;
-	*SCIHAL_REG_BRR(self) = self->lSysClock / (32 * bps) - 1;		/* %jp{ボーレート設定} */
-	*SCIHAL_REG_SCR(self) = 0x30;									/* %jp{送受信許可} */
+	*SCIHAL_REG_BRR(self) = (self->lSysClock + (16 * bps)) / (32 * bps) - 1;		/* %jp{ボーレート設定} */
+	*SCIHAL_REG_SCR(self) = 0x30;													/* %jp{送受信許可} */
 }
 
 /* %jp{SCIの停止} */
