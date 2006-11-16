@@ -21,10 +21,10 @@
 typedef struct t_fileobj_methods
 {
 	T_HANDLEOBJ_METHODS HandlObjMethods;
-	FILEERR  (*pfncIoControl)(HANDLE hFile, int iFunc, const void *pInBuf, FILESIZE InSize, void *pOutBuf, FILESIZE OutSize);
-	FILEPOS  (*pfncSeek)(HANDLE hFile, FILEPOS Offset, int iOrign);
-	FILESIZE (*pfncRead)(HANDLE hFile, void *pBuf, FILESIZE Size);
-	FILESIZE (*pfncWrite)(HANDLE hFile, const void *pData, FILESIZE Size);
+	FILE_ERR  (*pfncIoControl)(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize);
+	FILE_POS  (*pfncSeek)(HANDLE hFile, FILE_POS Offset, int iOrign);
+	FILE_SIZE (*pfncRead)(HANDLE hFile, void *pBuf, FILE_SIZE Size);
+	FILE_SIZE (*pfncWrite)(HANDLE hFile, const void *pData, FILE_SIZE Size);
 } T_FILEOBJ_METHODS;
 
 

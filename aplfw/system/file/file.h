@@ -16,6 +16,7 @@
 #include <stdarg.h>
 #include "system/handle/hdlobj.h"
 
+
 #define FILE_MAX_PATH				128			/* パス名の最大値 */
 #define FILE_MAX_NAME				12			/* 名前の最大値 */
 
@@ -68,9 +69,9 @@
 
 
 /* 型定義 */
-typedef int		FILEERR;		/* ファイルのエラー型 */
-typedef long	FILEPOS;		/* ファイル位置の型定義 */
-typedef int		FILESIZE;		/* 読み書き時のサイズ用の型定義 */
+typedef int		FILE_ERR;		/* ファイルのエラー型 */
+typedef long	FILE_POS;		/* ファイル位置の型定義 */
+typedef int		FILE_SIZE;		/* 読み書き時のサイズ用の型定義 */
 
 
 
@@ -78,30 +79,40 @@ typedef int		FILESIZE;		/* 読み書き時のサイズ用の型定義 */
 extern "C" {
 #endif
 
-/* ユーザーAPI */
-HANDLE   File_Open(const char *pszName, int iMode);
-void     File_Close(HANDLE hFile);
-FILEERR  File_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILESIZE InSize, void *pOutBuf, FILESIZE OutSize);
-FILEPOS  File_Seek(HANDLE hFile, FILEPOS Offset, int iOrign);
-FILESIZE File_Read(HANDLE hFile, void *pBuf, FILESIZE Size);
-FILESIZE File_Write(HANDLE hFile, const void *pData, FILESIZE Size);
+/* 基本API */
+HANDLE    File_Open(const char *pszName, int iMode);
+void      File_Close(HANDLE hFile);
+FILE_ERR  File_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
+FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
+FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
 
+/* 文字列用API */
 int      File_GetChar(HANDLE hFile);
 int      File_GetString(HANDLE hFile, char *pszString, int iSize);
 int      File_PutChar(HANDLE hFile, int c);
 int      File_PutString(HANDLE hFile, const char *pszString);
+
+/* 書式付き文字列用API */
 int      File_PrintFormatV(HANDLE hFile, const char *pszFormat, va_list argptr);
 int      File_PrintFormat(HANDLE hFile, const char *pszFormat, ...);
 
-FILEERR  File_Sync(HANDLE hFile);
-FILEPOS  File_GetFileSize(HANDLE hFile);
-FILESIZE File_GetReadSize(HANDLE hFile);
-FILESIZE File_GetWriteSize(HANDLE hFile);
-FILESIZE File_GetReadBuf(HANDLE hFile, void **ppBuf);
-FILESIZE File_RelReadBuf(HANDLE hFile, void *pBuf, long lSize);
-FILESIZE File_GetWriteBuf(HANDLE hFile, void **ppBuf);
-FILESIZE File_SendWriteBuf(HANDLE hFile, void *pBuf, long lSize);
-FILEERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
+int      File_PrintHexNibble(HANDLE hFile, unsigned char c);		/* 4bitの16進数を出力 */
+
+
+FILE_ERR  File_Sync(HANDLE hFile);
+FILE_POS  File_GetFileSize(HANDLE hFile);
+FILE_SIZE File_GetReadSize(HANDLE hFile);
+FILE_SIZE File_GetWriteSize(HANDLE hFile);
+FILE_SIZE File_GetReadBuf(HANDLE hFile, void **ppBuf);
+FILE_SIZE File_RelReadBuf(HANDLE hFile, void *pBuf, long lSize);
+FILE_SIZE File_GetWriteBuf(HANDLE hFile, void **ppBuf);
+FILE_SIZE File_SendWriteBuf(HANDLE hFile, void *pBuf, long lSize);
+FILE_ERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
+
+/* 標準入出力 */
+int File_PrintFormatDecimal(HANDLE hFile, long lNum, int iWidth, int iPadChar);		/* 書式付き10進数出力 */
+int File_PrintFormatVL(HANDLE hFile, const char *pszFormat, va_list argptr);		/* 書式付き出力軽量版 */
 
 
 #ifdef __cplusplus

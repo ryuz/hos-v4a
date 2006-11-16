@@ -1,4 +1,4 @@
-/** 
+/**
  *  Sample program for Hyper Operating System V4 Advance
  *
  * @file  sample.c
@@ -16,48 +16,39 @@
 #include "kernel_id.h"
 #include "system/file/filesys.h"
 #include "system/sysapi/sysapi.h"
+#include "system/process/process.h"
+#include "system/command/command.h"
+#include "system/shell/shell.h"
+#include "driver/serial/winsock/winsockfile.h"
+#include "apl/hello/hello.h"
+
+
 #include "driver/serial/renesas/scidrv.h"
 #include "driver/serial/renesas/scifile.h"
 #include "driver/serial/panasonic/scdrv.h"
 #include "driver/serial/panasonic/scfile.h"
 
 
-long g_SystemHeap[8 * 1024 / sizeof(long)];
+long         g_SystemHeap[8 * 1024 / sizeof(long)];
+C_WINSOCKDRV g_WinSockDrv[1];
 
-// C_SCIHAL g_SciHal;
-C_SCIDRV        g_SciDrv[2];
-SYSEVT_HANDLE   g_hEvt;
-SYSEVT_HANDLE   g_hEvt2;
-C_STREAMBUF     g_StmBuf;
 
-C_SCDRV        g_ScDrv[1];
 
-#define REG_SC3_CTR				((volatile unsigned short *)0x9C00C010)
-#define REG_SC3_RB				((volatile unsigned char *)0x9C00C014)
-#define REG_SC3_TB				((volatile unsigned char *)0x9C00C018)
-#define REG_SC3_STR 			((volatile unsigned char *)0x9C00C01D)
+int System_Boot(VPARAM Param);
 
 
 /** %jp{初期化ハンドラ} */
 void Sample_Initialize(VP_INT exinf)
 {
-	g_hEvt  = SysEvt_Create();
-	g_hEvt2 = SysEvt_Create();
 }
 
-void SysDbg_PutChar(int c)
-{
-}
-
-char g_Buf[16];
-
+/* 初期化タスク */
 void Sample_Startup(VP_INT exinf)
 {
-	T_SYSFILE_DEVINF devinf;
-
-	iset_flg((ID)g_hEvt, 1);
-	set_flg((ID)g_hEvt, 1);
-
+	T_SYSFILE_DEVINF DevInf;
+	T_PROCESS_INFO   ProcInfo;
+	HANDLE           hFile;
+	
 	/*************************/
 	/*       初期化          *
 	/*************************/
@@ -65,61 +56,49 @@ void Sample_Startup(VP_INT exinf)
 	/* システム初期化 */
 	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
 
-	/* SCIデバドラ生成 */
-	SciDrv_Create(&g_SciDrv[0], (void *)0xffffb0, 52, 20000000L, 64);	/* SCI0 */
-	SciDrv_Create(&g_SciDrv[1], (void *)0xffffb8, 56, 20000000L, 64);	/* SCI1 */
+
+	/*************************/
+	/*     デバドラ登録      */
+	/*************************/
+
+	/* WinSock用擬似シリアルデバドラ生成 */
+	WinSockDrv_Create(&g_WinSockDrv[0], 9997, 1, 64);
 	
-	/* SCI0 を /dev/com0 に登録 */
-	strcpy(devinf.szName, "com0");
-	devinf.pfncCreate = SciFile_Create;
-	devinf.ObjSize    = sizeof(C_SCIFILE);
-	devinf.pParam     = &g_SciDrv[0];
-	SysFile_AddDevice("/dev", &devinf);
-
-	/* SCI1 を /dev/com1 に登録 */
-	strcpy(devinf.szName, "com1");
-	devinf.pfncCreate = SciFile_Create;
-	devinf.ObjSize    = sizeof(C_SCIFILE);
-	devinf.pParam     = &g_SciDrv[1];
-	SysFile_AddDevice("/dev", &devinf);
-
-	{
-		T_SCDRV_REGS ScRegs;
-		ScRegs.puhCtr = REG_SC3_CTR;
-		ScRegs.pubRb  = REG_SC3_RB;
-		ScRegs.pubTb  = REG_SC3_TB;
-		ScRegs.pubStr = REG_SC3_STR;
-		ScDrv_Create(&g_ScDrv[0], &ScRegs, 15*4 + 2, 15*4 + 3, 64);
-
-		/* SCI1 を /dev/com1 に登録 */
-		strcpy(devinf.szName, "com3");
-		devinf.pfncCreate = ScFile_Create;
-		devinf.ObjSize    = sizeof(C_SCFILE);
-		devinf.pParam     = &g_ScDrv[0];
-		SysFile_AddDevice("/dev", &devinf);
-	}
+	/*  /dev/com0 に登録 */
+	strcpy(DevInf.szName, "com0");
+	DevInf.pfncCreate = WinSockFile_Create;
+	DevInf.ObjSize    = sizeof(C_WINSOCKFILE);
+	DevInf.pParam     = &g_WinSockDrv[0];
+	SysFile_AddDevice("/dev", &DevInf);
 
 	/*************************/
-	/*     ちょいテスト      *
+	/*     コマンド登録      */
 	/*************************/
-	{
-		HANDLE hFile;
-		int c;
+	Command_Initialize();
+	Command_AddCommand("hsh",   Shell_Main);
+	Command_AddCommand("hello", Hello_Main);
+	
+	/*************************/
+	/*  システムプロセス起動 */
+	/*************************/
 
-		hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
-		for ( ; ; )
-		{
-			File_Read(hFile, &c, 1);		/* 1文字読み込み */
+	hFile = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
 
-			File_PutChar(hFile, c + 1);
-			File_PutChar(hFile, '\r');
-			File_PutChar(hFile, '\n');
-		}
-	}
+	ProcInfo.hTty    = hFile;
+	ProcInfo.hStdIn  = hFile;
+	ProcInfo.hStdOut = hFile;
+	ProcInfo.hStdErr = hFile;
+	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
+
+	return;
 }
 
-void Sample_Task(VP_INT exinf)
+
+/* システムプロセス */
+int System_Boot(VPARAM Param)
 {
+	/* シェル起動 */
+	return Command_Execute("hsh");
 }
 
 

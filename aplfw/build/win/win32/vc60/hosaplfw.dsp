@@ -110,6 +110,38 @@ SOURCE=..\..\..\..\library\container\mempol\mempol.c
 SOURCE=..\..\..\..\library\container\mempol\mempol.h
 # End Source File
 # End Group
+# Begin Group "assoc"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\assoc\assoc.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\assoc\assoc.h
+# End Source File
+# End Group
+# Begin Group "list"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list.h
+# End Source File
+# End Group
+# Begin Group "memif"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\memif\memif.h
+# End Source File
+# End Group
 # End Group
 # End Group
 # Begin Group "driver"
@@ -174,6 +206,26 @@ SOURCE=..\..\..\..\driver\serial\panasonic\schal.c
 SOURCE=..\..\..\..\driver\serial\panasonic\schal.h
 # End Source File
 # End Group
+# Begin Group "winsock"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockfile.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockfile.h
+# End Source File
+# End Group
 # End Group
 # Begin Group "ether"
 
@@ -208,6 +260,10 @@ SOURCE=..\..\..\..\driver\ether\ne2000\ne2000hal.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\system\command\command.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\command\command.h
 # End Source File
 # End Group
@@ -236,12 +292,28 @@ SOURCE=..\..\..\..\system\file\file.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\filefmt.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\fileobj.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\stdfile.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\stdfile.h
 # End Source File
 # End Group
 # Begin Group "memory"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\memory\memif.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\system\memory\memory.c
@@ -269,6 +341,62 @@ SOURCE=..\..\..\..\system\handle\hdlobj.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\handle\hdlobj.h
+# End Source File
+# End Group
+# Begin Group "shell"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\shell\shell.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\shell\shell.h
+# End Source File
+# End Group
+# Begin Group "process"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\procobj.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\procobj.h
+# End Source File
+# End Group
+# Begin Group "type"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\type\type.h
+# End Source File
+# End Group
+# End Group
+# Begin Group "apl"
+
+# PROP Default_Filter ""
+# Begin Group "hello"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\apl\hello\hello.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\apl\hello\hello.h
 # End Source File
 # End Group
 # End Group

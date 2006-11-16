@@ -11,11 +11,11 @@
 #include <stdio.h>
 #include "scifile.h"
 
-static void     SciFile_Delete(HANDLE hFile);				/**< デストラクタ */
-static FILEERR  SciFile_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILESIZE InSize, void *pOutBuf, FILESIZE OutSize);
-static FILEPOS  SciFile_Seek(HANDLE hFile, FILEPOS Offset, int iOrign);
-static FILESIZE SciFile_Read(HANDLE hFile, void *pBuf, FILESIZE Size);
-static FILESIZE SciFile_Write(HANDLE hFile, const void *pData, FILESIZE Size);
+static void      SciFile_Delete(HANDLE hFile);				/**< デストラクタ */
+static FILE_ERR  SciFile_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize);
+static FILE_POS  SciFile_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
+static FILE_SIZE SciFile_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
+static FILE_SIZE SciFile_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
 
 
 const T_HANDLEOBJ_METHODS SciFile_HandleObjMethods =
@@ -34,7 +34,7 @@ const T_FILEOBJ_METHODS SciFile_FileObjMethods =
 
 
 /** コンストラクタ */
-FILEERR SciFile_Create(HANDLE hFile, void *pParam)
+FILE_ERR SciFile_Create(HANDLE hFile, void *pParam)
 {
 	C_SCIFILE *self;
 
@@ -68,13 +68,13 @@ void SciFile_Delete(HANDLE hFile)
 }
 
 
-FILEERR  SciFile_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILESIZE InSize, void *pOutBuf, FILESIZE OutSize)
+FILE_ERR  SciFile_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize)
 {
 	return FILE_ERR_NG;
 }
 
 
-FILESIZE SciFile_Read(HANDLE hFile, void *pBuf, FILESIZE Size)
+FILE_SIZE SciFile_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size)
 {
 	C_SCIFILE *self;
 
@@ -83,7 +83,7 @@ FILESIZE SciFile_Read(HANDLE hFile, void *pBuf, FILESIZE Size)
 	return SciDrv_Read(self->pSciDrv, pBuf, Size);
 }
 
-FILESIZE SciFile_Write(HANDLE hFile, const void *pData, FILESIZE Size)
+FILE_SIZE SciFile_Write(HANDLE hFile, const void *pData, FILE_SIZE Size)
 {
 	C_SCIFILE *self;
 

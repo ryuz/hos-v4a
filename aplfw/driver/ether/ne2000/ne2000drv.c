@@ -12,7 +12,7 @@
 #include "ne2000drv.h"
 
 
-static void Ne2000Drv_Isr(void *pParam);		/* 割り込み処理 */
+static void Ne2000Drv_Isr(VPARAM Param);		/* 割り込み処理 */
 
 
 /** コンストラクタ */
@@ -32,7 +32,7 @@ void Ne2000Drv_Create(C_NE2000DRV *self, void *pRegAddr, int iIntNum)
 	self->hMtx = SysMtx_Create();
 
 	/* 割り込み処理登録 */
-	SysIsr_Create(iIntNum, Ne2000Drv_Isr, (void *)self);
+	SysIsr_Create(iIntNum, Ne2000Drv_Isr, (VPARAM)self);
 }
 
 
@@ -109,11 +109,11 @@ int Ne2000Drv_Write(C_NE2000DRV *self, const void *pData, int iSize)
 
 
 /* 受信エラー割り込み */
-void Ne2000Drv_Isr(void *pParam)
+void Ne2000Drv_Isr(VPARAM Param)
 {
 	C_NE2000DRV *self;
 
-	self = (C_NE2000DRV *)pParam;
+	self = (C_NE2000DRV *)Param;
 }
 
 

@@ -3,8 +3,9 @@
 #ifndef __HOS__process_h__
 #define __HOS__process_h__
 
-#include "system/handle.h"
-#include "system/file.h"
+#include "system/type/type.h"
+#include "system/handle/handle.h"
+#include "system/file/file.h"
 
 
 /* (とりあえず適当、そのうちTSSとか真面目にやるときの為にひとまず) */
@@ -14,46 +15,32 @@
 #define PROCESS_PRIORITY_HIGH		11
 
 
-/* プロセスオブジェクト基本クラス定義 */
-typedef struct c_processobj
+/* プロセス固有情報 */
+typedef struct t_process_info
 {
-	C_HANDLEOBJ HandleObj;						/* ハンドルオブジェクトを継承(そのうちC_FILEOBJからの継承に拡張してもいいかも？) */
-	
-	int         (*pfncEntry)(void *pParam);		/* エントリーアドレス */
 	HANDLE      hTty;							/* ターミナル入出力 */
 	HANDLE      hStdIn;							/* 標準入力 */
 	HANDLE      hStdOut;						/* 標準出力 */
 	HANDLE      hStdErr;						/* 標準エラー出力 */
-
-#if 0	/* まあ、そのうちやりたいなっと */
-	int         iExitCode;						/* 終了コード */
-	HANDLE		*pHandleList;					/* 所有するハンドルのリスト(終了時に開放) */
-	char		szCurrentDir[FILE_MAX_PATH];	/* カレントディレクトリ */
-
-	struct c_processobj	*pParentProcess;		/* 親プロセス */
-	struct c_processobj	*pPrevProcess;			/* 姉妹プロセス */
-	struct c_processobj	*pNextProcess;			/* 姉妹プロセス */
-	struct c_processobj	*pChildProcess;			/* 子プロセス */
-#endif
-} C_PROCESSOBJ;
-
+} T_PROCESS_INFO;
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* ユーザーAPI */
-HANDLE Process_Create(int (*pfncEntry)(void *pParam), void *pParam, long StackSize, int Priority);
+HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority);
+HANDLE Process_CreateEx(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INFO *pInfo);
 void   Process_Exit(int iExitCode);
 HANDLE Process_GetCurrentHandle(void);
 
+int    Process_GetExitCode(HANDLE hProcess);
+const T_PROCESS_INFO *Process_GetInfo(HANDLE hProcess);
 
-/* 内部のもの(とりあえず.. そのうちヘッダ分けまふ）*/
-void   ProcessObj_Create(C_PROCESSOBJ *self, const T_HANDLEOBJ_METHODS *pMethods);	/* コンストラクタ */
-void   ProcessObj_Delete(C_PROCESSOBJ *self);											/* デストラクタ */
-
-void Handle_Close(HANDLE handle);			/* ハンドルを閉じる */
+#define Process_GetTty()		(Process_GetInfo(Process_GetCurrentHandle())->hTty)
+#define Process_GetStdIn()		(Process_GetInfo(Process_GetCurrentHandle())->hStdIn)
+#define Process_GetStdOut()		(Process_GetInfo(Process_GetCurrentHandle())->hStdOut)
+#define Process_GetStdErr()		(Process_GetInfo(Process_GetCurrentHandle())->hStdErr)
 
 #ifdef __cplusplus
 }

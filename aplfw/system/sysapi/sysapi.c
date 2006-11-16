@@ -15,20 +15,23 @@
 #include "kernel.h"
 
 
+/******************************************
+   システム共通
+ ******************************************/
+
 static SYSMTX_HANDLE System_hMtx;
 static SYSMTX_HANDLE SysMem_hMtx;
 static C_MEMPOL      SysMem_MemPol;
 
-
 /* システムの初期化 */
-void System_Initialize(void *pMem, long lSize)
+void System_Initialize(void *pMem, MEMSIZE Size)
 {
 	/* システムロックの作成 */
 	System_hMtx = SysMtx_Create();					/* システムロック用ミューテックス生成 */
 
 	/* メモリ管理の初期化 */
 	SysMem_hMtx = SysMtx_Create();					/* メモリ管理用排他制御用ミューテックス生成 */
-	MemPol_Create(&SysMem_MemPol, pMem, lSize);		/* メモリプール生成 */
+	MemPol_Create(&SysMem_MemPol, pMem, Size);		/* メモリプール生成 */
 }
 
 /* システム全体のロック */
@@ -44,13 +47,28 @@ void System_Unlock(void)
 }
 
 
+
+/******************************************
+   メモリ管理
+ ******************************************/
+
 /* システムメモリの割り当て */
-void *SysMem_Alloc(long lSize)
+void *SysMem_Alloc(MEMSIZE Size)
 {
 	void *pMem;
 	
 	SysMtx_Lock(SysMem_hMtx);
-	pMem = MemPol_Alloc(&SysMem_MemPol, lSize);
+	pMem = MemPol_Alloc(&SysMem_MemPol, Size);
+	SysMtx_Unlock(SysMem_hMtx);
+
+	return pMem;
+}
+
+/* システムメモリの再割り当て */
+void *SysMem_ReAlloc(void *pMem, MEMSIZE Size)
+{
+	SysMtx_Lock(SysMem_hMtx);
+	pMem = MemPol_ReAlloc(&SysMem_MemPol, pMem, Size);
 	SysMtx_Unlock(SysMem_hMtx);
 
 	return pMem;
@@ -64,6 +82,37 @@ void  SysMem_Free(void *pMem)
 	SysMtx_Unlock(SysMem_hMtx);
 }
 
+/* システムメモリの返却 */
+MEMSIZE SysMem_GetSize(void *pMem)
+{
+	MEMSIZE Size;
+	SysMtx_Lock(SysMem_hMtx);
+	Size = MemPol_GetSize(&SysMem_MemPol, pMem);
+	SysMtx_Unlock(SysMem_hMtx);
+
+	return Size;
+}
+
+const T_MEMIF SysMem_MemIf =
+{
+	SysMem_Alloc,
+	SysMem_ReAlloc,
+	SysMem_Free,
+	SysMem_GetSize,
+};
+
+
+/* メモリインターフェースの取得 */
+const T_MEMIF *SysMem_GetMemIf(void)
+{
+	return &SysMem_MemIf;
+}
+
+
+
+/******************************************
+   割込み管理
+ ******************************************/
 
 void SysInt_Enable(int iIntNum)
 {
@@ -105,13 +154,18 @@ void SysIsr_Delete(SYSISR_HANDLE hIsr)
 }
 
 
+
+/******************************************
+   プロセス管理
+ ******************************************/
+
 /* プロセス生成 */
-SYSPRC_HANDLE SysPrc_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, long StackSize, int Priority)
+SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority)
 {
 	T_CTSK ctsk;
 	ER_ID  erid;
 	
-	ctsk.tskatr  = TA_HLNG | TA_ACT;
+	ctsk.tskatr  = TA_HLNG;
 	ctsk.exinf   = (VP_INT)Param;
 	ctsk.task    = (FP)pfncEntry;
 	ctsk.itskpri = (PRI)Priority;
@@ -131,12 +185,26 @@ void SysPrc_Delete(SYSPRC_HANDLE hPrc)
 /*	del_tsk((ID)hPrc);	*/
 }
 
+void SysPrc_Start(SYSPRC_HANDLE hPrc)
+{
+	act_tsk((ID)hPrc);
+}
 
 void SysPrc_Exit(void)
 {
 	ext_tsk();
 }
 
+SYSPRC_HANDLE SysPrc_GetCurrentHandle(void)
+{
+	ID tskid;
+	if ( get_tid(&tskid) != E_OK )
+	{
+		return SYSPRC_HANDLE_NULL;
+	}
+
+	return (SYSPRC_HANDLE)tskid;
+}
 
 
 /* システム用ミューテックス生成 */

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "mempol.h"
 
 
@@ -83,6 +84,22 @@ void *MemPol_Alloc(C_MEMPOL *self, MEMPOL_MEMSIZE Size)
 }
 
 
+/** %jp{メモリの再割り当て} */
+void *MemPol_ReAlloc(C_MEMPOL *self, void *pPtr, MEMPOL_MEMSIZE Size)
+{
+	void *pNewPtr;
+
+	/* とりあえず手抜き */
+	if ( (pNewPtr = MemPol_Alloc(self, Size)) != NULL )
+	{
+		memcpy(pNewPtr, pPtr, MemPol_GetSize(self, pPtr));
+		MemPol_Free(self, pPtr);
+	}
+
+	return pNewPtr;
+}
+
+
 /** %jp{メモリの解放} */
 void MemPol_Free(C_MEMPOL *self, void *pPtr)
 {
@@ -130,7 +147,30 @@ void MemPol_Free(C_MEMPOL *self, void *pPtr)
 			mblktmp->Size += mblk->Size + MEMPOL_MEMBLK_SIZE;
 		}
 	}
-
 }
 
+
+/** %jp{メモリサイズの取得} */
+MEMPOL_MEMSIZE  MemPol_GetSize(C_MEMPOL *self, void *pPtr)
+{
+	T_MEMPOL_MEMBLK *mblk;
+
+	/* %jp{ポインタ範囲チェック */
+	if ( pPtr < (void *)self->pBase || pPtr >= (void *)((char *)self->pBase + self->MemSize) )
+	{
+		return 0;	/* このメモリプールの所属でない */
+	}
+
+	/* %jp{メモリブロック位置を取得 */
+	mblk = (T_MEMPOL_MEMBLK *)((char *)pPtr - MEMPOL_MEMBLK_SIZE);
+
+	/* %jp{パラメーターチェック */
+	if ( mblk->iFlag != MEMPOL_USING )	/* %jp{使用中で無ければ */
+	{
+		return 0;	/* 割り当ていない */
+	}
+
+	/* サイズを返す */
+	return mblk->Size;
+}
 

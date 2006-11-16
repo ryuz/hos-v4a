@@ -14,28 +14,26 @@
 #include "kernel.h"
 #include "kernel_id.h"
 #include "system/sysapi/sysapi.h"
+#include "system/process/process.h"
 #include "system/file/filesys.h"
+#include "system/command/command.h"
+#include "system/shell/shell.h"
 #include "driver/serial/renesas/scifile.h"
-
+#include "apl/hello/hello.h"
 
 
 long     g_SystemHeap[16 * 1024 / sizeof(long)];
 C_SCIDRV g_SciDrv[2];
 
+int System_Boot(VPARAM Param);
 
-
-/** %jp{初期化ハンドラ} */
-void Sample_Initialize(VP_INT exinf)
-{
-	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
-}
-
-int Shell_InputTty(HANDLE hTty, char *pszBuf, int iBufSize);
 
 void Sample_Startup(VP_INT exinf)
 {
 	T_SYSFILE_DEVINF devinf;
-
+	T_PROCESS_INFO   ProcInfo;
+	HANDLE           hFile;
+	
 	/*************************/
 	/*       初期化          *
 	/*************************/
@@ -61,31 +59,35 @@ void Sample_Startup(VP_INT exinf)
 	devinf.pParam     = &g_SciDrv[1];
 	SysFile_AddDevice("/dev", &devinf);
 	
+	hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
+	File_PutString(hFile, "XXXX");
 	
 	/*************************/
-	/*     ちょいテスト      *
+	/*     コマンド登録      */
 	/*************************/
-	{
-		HANDLE hFile;
-		char c;
-		char buf[256];
-		
-		hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
-		
-		File_PutString(hFile, "Hello!\r\n");
-		
-		Shell_InputTty(hFile, buf, sizeof(buf));
-		
-		for ( ; ; )
-		{
-			c = File_GetChar(hFile);
-			
-			File_PrintHexByte(hFile, c);
-			File_PutChar(hFile, '\r');
-			File_PutChar(hFile, '\n');
-		}
-	}
+	Command_Initialize();
+	Command_AddCommand("hsh",   Shell_Main);
+	Command_AddCommand("hello", Hello_Main);
+	
+	/*************************/
+	/*  システムプロセス起動 */
+	/*************************/
+
+	ProcInfo.hTty    = hFile;
+	ProcInfo.hStdIn  = hFile;
+	ProcInfo.hStdOut = hFile;
+	ProcInfo.hStdErr = hFile;
+	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
 }
+
+
+/* システムプロセス */
+int System_Boot(VPARAM Param)
+{
+	/* シェル起動 */
+	return Command_Execute("hsh");
+}
+
 
 
 /* end of file */

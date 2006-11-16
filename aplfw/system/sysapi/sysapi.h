@@ -17,9 +17,9 @@
 #ifndef __HOS__sysapi_h__
 #define __HOS__sysapi_h__
 
+#include "system/type/type.h"
+#include "library/container/memif/memif.h"
 
-/* 任意のパラメータ型 */
-typedef unsigned long	VPARAM;
 
 
 /* システム用プロセスハンドル */
@@ -44,44 +44,49 @@ extern "C" {
 #endif
 
 /* 初期化 */
-void          System_Initialize(void *pMem, long lSize);	/* システムの初期化処理 */
+void           System_Initialize(void *pMem, MEMSIZE lSize);	/* システムの初期化処理 */
 
 /* システムロック */
-void          System_Lock(void);							/* システム全体のロック */
-void          System_Unlock(void);							/* システム全体のロック解除 */
+void           System_Lock(void);								/* システム全体のロック */
+void           System_Unlock(void);								/* システム全体のロック解除 */
 
 /* システム用メモリ制御API */
-void         *SysMem_Alloc(long lSize);						/* システムメモリの割り当て */
-void          SysMem_Free(void *pMem);						/* システムメモリの返却 */
+void          *SysMem_Alloc(MEMSIZE Size);						/* システムメモリの割り当て */
+void          *SysMem_ReAlloc(void *pMem, MEMSIZE Size);		/* システムメモリの再割り当て */
+void           SysMem_Free(void *pMem);							/* システムメモリの返却 */
+MEMSIZE        SysMem_GetSize(void *pMem);						/* システムメモリのサイズ取得 */
+const T_MEMIF *SysMem_GetMemIf(void);							/* メモリインターフェースの取得 */
 
 /* システム用割り込み制御API */
-void          SysInt_Enable(int iIntNum);
-void          SysInt_Disable(int iIntNum);
-void          SysInt_Clear(int iIntNum);
+void           SysInt_Enable(int iIntNum);
+void           SysInt_Disable(int iIntNum);
+void           SysInt_Clear(int iIntNum);
 
 /* 割り込みサービスルーチン制御API */
-SYSISR_HANDLE SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param);
-void          SysIsr_Delete(SYSISR_HANDLE hIsr);
+SYSISR_HANDLE  SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param);
+void           SysIsr_Delete(SYSISR_HANDLE hIsr);
 
 
 /* システム用プロセス制御API */
-SYSPRC_HANDLE SysPrc_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, long StackSize, int Priority);
-void          SysPrc_Delete(SYSPRC_HANDLE hPrc);
-void          SysPrc_Exit(void);
-SYSPRC_HANDLE Process_GetCurrentHandle(void);
+SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority);
+void           SysPrc_Delete(SYSPRC_HANDLE hPrc);
+void           SysPrc_Exit(void);
+void           SysPrc_Start(SYSPRC_HANDLE hPrc);
+void           SysPrc_Wait(SYSPRC_HANDLE hPrc);
+SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);
 
 /* システム用ミューテックス制御API */
-SYSMTX_HANDLE SysMtx_Create(void);							/* システム用ミューテックス生成 */
-void          SysMtx_Delete(SYSMTX_HANDLE hMtx);			/* システム用ミューテックス削除 */
-void          SysMtx_Lock(SYSMTX_HANDLE hMtx);				/* システム用ミューテックスロック*/
-void          SysMtx_Unlock(SYSMTX_HANDLE hMtx);			/* システム用ミューテックスロック解除*/
+SYSMTX_HANDLE  SysMtx_Create(void);							/* システム用ミューテックス生成 */
+void           SysMtx_Delete(SYSMTX_HANDLE hMtx);			/* システム用ミューテックス削除 */
+void           SysMtx_Lock(SYSMTX_HANDLE hMtx);				/* システム用ミューテックスロック*/
+void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);			/* システム用ミューテックスロック解除*/
 
 /* システム用イベント制御API */
-SYSEVT_HANDLE SysEvt_Create(void);							/* システム用イベント生成 */
-void          SysEvt_Delete(SYSEVT_HANDLE hEvt);			/* システム用イベント削除 */
-void          SysEvt_Wait(SYSEVT_HANDLE hEvt);				/* システム用イベント待ち*/
-void          SysEvt_Set(SYSEVT_HANDLE hEvt);				/* システム用イベントセット */
-void          SysEvt_Clear(SYSEVT_HANDLE hEvt);				/* システム用イベントクリア */
+SYSEVT_HANDLE  SysEvt_Create(void);							/* システム用イベント生成 */
+void           SysEvt_Delete(SYSEVT_HANDLE hEvt);			/* システム用イベント削除 */
+void           SysEvt_Wait(SYSEVT_HANDLE hEvt);				/* システム用イベント待ち*/
+void           SysEvt_Set(SYSEVT_HANDLE hEvt);				/* システム用イベントセット */
+void           SysEvt_Clear(SYSEVT_HANDLE hEvt);				/* システム用イベントクリア */
 
 #ifdef __cplusplus
 }

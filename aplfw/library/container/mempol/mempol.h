@@ -40,11 +40,14 @@ typedef struct c_mempol
 extern "C" {
 #endif
 
-void    MemPol_Create(C_MEMPOL *self, void *p_base, MEMPOL_MEMSIZE Size);	/**< %jp{コンストラクタ} */
-#define MemPol_Delete(self)	do {} while(0)									/**< %jp{デストラクタ} */
-void   *MemPol_Alloc(C_MEMPOL *self, MEMPOL_MEMSIZE Size);					/**< %jp{メモリの割り当て} */
-void    MemPol_Free(C_MEMPOL *self, void *pPtr);							/**< %jp{メモリの解放} */
-#define MemPol_Align(Size)		MEMPOL_ALIGNED(size)						/**< %jp{メモリサイズのアライメントを合わせる} */
+void            MemPol_Create(C_MEMPOL *self, void *p_base, MEMPOL_MEMSIZE Size);	/**< %jp{コンストラクタ} */
+#define         MemPol_Delete(self)		do {} while(0)								/**< %jp{デストラクタ} */
+void           *MemPol_Alloc(C_MEMPOL *self, MEMPOL_MEMSIZE Size);					/**< %jp{メモリの割り当て} */
+void           *MemPol_ReAlloc(C_MEMPOL *self, void *pPtr, MEMPOL_MEMSIZE Size);	/**< %jp{メモリの再割り当て} */
+void            MemPol_Free(C_MEMPOL *self, void *pPtr);							/**< %jp{メモリの解放} */
+MEMPOL_MEMSIZE  MemPol_GetSize(C_MEMPOL *self, void *pPtr);							/**< %jp{メモリサイズの取得} */
+#define         MemPol_GetAlign()			MEMPOL_MEMALIGN							/**< %jp{アライメント取得} */
+#define         MemPol_SizeAlign(Size)		MEMPOL_ALIGNED(size)					/**< %jp{メモリサイズのアライメントを合わせる} */
 
 #ifdef __cplusplus
 }
