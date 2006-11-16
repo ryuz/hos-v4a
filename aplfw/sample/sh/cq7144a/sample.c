@@ -94,35 +94,6 @@ void Sample_Task(VP_INT exinf)
 	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
 	
 	return;
-	
-	/*************************/
-	/*     ちょいテスト      *
-	/*************************/
-	{
-		HANDLE hFile;
-		char c;
-		char buf[256];
-		
-		hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
-		
-		for ( ; ; )
-		{
-			File_PutChar(hFile, 'X');
-		}
-		
-		File_PutString(hFile, "Hello!\r\n");
-		
-		Shell_InputTty(hFile, buf, sizeof(buf));
-		
-		for ( ; ; )
-		{
-			c = File_GetChar(hFile);
-			
-			File_PrintHexByte(hFile, c);
-			File_PutChar(hFile, '\r');
-			File_PutChar(hFile, '\n');
-		}
-	}
 }
 
 

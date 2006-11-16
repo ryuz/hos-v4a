@@ -178,34 +178,6 @@ SOURCE=..\..\..\..\driver\serial\renesas\scihal.c
 SOURCE=..\..\..\..\driver\serial\renesas\scihal.h
 # End Source File
 # End Group
-# Begin Group "panasonic"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scdrv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scdrv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scfile.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\scfile.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\schal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\panasonic\schal.h
-# End Source File
-# End Group
 # Begin Group "winsock"
 
 # PROP Default_Filter ""

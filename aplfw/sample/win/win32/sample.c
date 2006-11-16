@@ -23,12 +23,6 @@
 #include "apl/hello/hello.h"
 
 
-#include "driver/serial/renesas/scidrv.h"
-#include "driver/serial/renesas/scifile.h"
-#include "driver/serial/panasonic/scdrv.h"
-#include "driver/serial/panasonic/scfile.h"
-
-
 long         g_SystemHeap[8 * 1024 / sizeof(long)];
 C_WINSOCKDRV g_WinSockDrv[1];
 
