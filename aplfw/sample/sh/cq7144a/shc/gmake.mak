@@ -6,7 +6,7 @@ ifeq ($(ROM),Yes)
 TARGET := $(TARGET)_rom
 ADDR_VECT ?= 000000000
 ADDR_ROM  ?= 000000400
-ADDR_RAM  ?= 0FFFFE000
+ADDR_RAM  ?= 000400000
 else
 ADDR_VECT ?= 000400000
 ADDR_ROM  ?= 000400400
@@ -28,6 +28,11 @@ KERNEL_CFG  = $(OS_DIR)/cfgrtr/build/gcc/h4acfg-sh2.exe
 KERNEL_LIB  = $(KERNEL_BUILD_DIR)/libhosv4a.lib
 APLFW_LIB   = $(APLFW_BUILD_DIR)/hosaplfw.lib
 
+ifeq ($(DEBUG),Yes)
+KERNEL_LIB  = $(KERNEL_BUILD_DIR)/libhosv4adbg.lib
+APLFW_LIB   = $(APLFW_BUILD_DIR)/hosaplfwdbg.lib
+endif
+
 
 # Tools
 CC     = shc
@@ -42,11 +47,12 @@ OBJS_DIR = objs
 
 OBJS = $(OBJS_DIR)/vcttbl.obj		\
        $(OBJS_DIR)/startup.obj		\
+       $(OBJS_DIR)/dbsct.obj		\
        $(OBJS_DIR)/main.obj			\
+       $(OBJS_DIR)/kernel_cfg.obj	\
        $(OBJS_DIR)/sample.obj		\
        $(OBJS_DIR)/ostimer.obj		\
-       $(OBJS_DIR)/kernel_cfg.obj	\
-       $(OBJS_DIR)/dbsct.obj
+       $(OBJS_DIR)/sci1.obj
 
 
 STD_LIBS = stdlib.lib

@@ -15,7 +15,12 @@
 #include "kernel_id.h"
 #include "system/sysapi/sysapi.h"
 #include "system/file/filesys.h"
+#include "system/sysapi/sysapi.h"
+#include "system/process/process.h"
+#include "system/command/command.h"
+#include "system/shell/shell.h"
 #include "driver/serial/renesas/scifile.h"
+#include "apl/hello/hello.h"
 #include "regs_sh7144.h"
 
 
@@ -23,19 +28,15 @@ long     g_SystemHeap[16 * 1024 / sizeof(long)];
 C_SCIDRV g_SciDrv[4];
 
 
+int System_Boot(VPARAM Param);
 
-/** %jp{初期化ハンドラ} */
-void Sample_Initialize(VP_INT exinf)
-{
-	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
-}
 
-int Shell_InputTty(HANDLE hTty, char *pszBuf, int iBufSize);
 
 void Sample_Task(VP_INT exinf)
 {
 	T_SYSFILE_DEVINF devinf;
-	
+	T_PROCESS_INFO   ProcInfo;
+	HANDLE           hFile;
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -44,6 +45,7 @@ void Sample_Task(VP_INT exinf)
 	*REG_STANDBY_MSTCR1 &= ~0x0002;	/* %jp{SCI1のスタンバイモードを解除} */
 	*REG_PFC_PACRL2 |= 0x0100;		/* %jp{端子設定} */
 	
+	*REG_INTC_IPRF = ((*REG_INTC_IPRF & 0xfff0) | 0x0001);
 	
 	/*************************/
 	/*       初期化          *
@@ -72,6 +74,26 @@ void Sample_Task(VP_INT exinf)
 	devinf.pParam     = &g_SciDrv[1];
 	SysFile_AddDevice("/dev", &devinf);
 	
+	/*************************/
+	/*     コマンド登録      */
+	/*************************/
+	Command_Initialize();
+	Command_AddCommand("hsh",   Shell_Main);
+	Command_AddCommand("hello", Hello_Main);
+	
+	/*************************/
+	/*  システムプロセス起動 */
+	/*************************/
+	
+	hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
+	
+	ProcInfo.hTty    = hFile;
+	ProcInfo.hStdIn  = hFile;
+	ProcInfo.hStdOut = hFile;
+	ProcInfo.hStdErr = hFile;
+	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
+	
+	return;
 	
 	/*************************/
 	/*     ちょいテスト      *
@@ -86,7 +108,6 @@ void Sample_Task(VP_INT exinf)
 		for ( ; ; )
 		{
 			File_PutChar(hFile, 'X');
-	/*		dly_tsk(100);	*/
 		}
 		
 		File_PutString(hFile, "Hello!\r\n");
@@ -104,8 +125,14 @@ void Sample_Task(VP_INT exinf)
 	}
 }
 
-void Sample_Print(VP_INT exinf)
+
+/* システムプロセス */
+int System_Boot(VPARAM Param)
 {
+	/* シェル起動 */
+	return Command_Execute("hsh");
 }
+
+
 
 /* end of file */
