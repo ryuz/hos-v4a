@@ -65,10 +65,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /*  Kernel-internal                               */
 /* ---------------------------------------------- */
 
-/* %jp{遅延プロシージャーコール(きっと当分未実装)  [未実装]} */
+/* %jp{遅延プロシージャーコール} */
 #define _KERNEL_CFG_DPC					TRUE				/**< Deferred Procedure Call */
 
-/* %jp{対称型マルチプロセッサ対応(きっと永遠に未実装) [未実装]} */
+/* %jp{対称型マルチプロセッサ対応[未実装]} */
 #define _KERNEL_CFG_SMP					FALSE				/**< Symmetric Multiple Processor */
 
 /* %jp{多重割り込み対応} */

@@ -334,7 +334,6 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"arch/irc/%s/irc.h\"\n",      _KERNEL_IRCATR_INC_PATH);
 	fprintf(fp, "#include \"config/cfgknl.h\"\n");
 	fprintf(fp, "#include \"parser/parsknl.h\"\n");
-	fprintf(fp, "#include \"core/opttyp.h\"\n");
 	fprintf(fp, "#include \"core/objid.h\"\n");
 	fprintf(fp, "#include \"core/objhdl.h\"\n");
 	fprintf(fp, "#include \"object/tskobj.h\"\n");

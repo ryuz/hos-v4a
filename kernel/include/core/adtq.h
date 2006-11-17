@@ -53,6 +53,8 @@ extern "C" {
 
 BOOL                   _kernel_adtq_snd_dat(_KERNEL_T_ADTQCB *adtqcb, VP_INT data);
 BOOL                   _kernel_adtq_rcv_dat(_KERNEL_T_ADTQCB *adtqcb, VP_INT *p_data);
+void                   _kernel_adtq_fsnd_dat(_KERNEL_T_ADTQCB *adtqcb, VP_INT data);
+VP_INT                 _kernel_adtq_frcv_dat(_KERNEL_T_ADTQCB *adtqcb);
 _KERNEL_ADTQ_T_ADTQCNT _kernel_adtq_ref_fdtqnt(_KERNEL_T_ADTQCB *adtqcb);
 _KERNEL_ADTQ_T_ADTQCNT _kernel_adtq_ref_sdtqnt(_KERNEL_T_ADTQCB *adtqcb);
 

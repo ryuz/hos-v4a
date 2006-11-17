@@ -345,16 +345,16 @@ ER      isig_tim(void);										/**< %jp{タイムティックの供給}%en{Sup
 
 
 /* システム状態管理機能 */
-ER      rot_rdq(PRI tskpri);								/* タスク優先順位の回転 */
-ER      get_tid(ID *p_tskid);								/* 実行状態タスクIDの参照 */
-ER      loc_cpu(void);										/* CPUロック状態への移行 */
-ER      unl_cpu(void);										/* CPUロック状態の解除 */
-ER      dis_dsp(void);										/* ディスパッチの禁止 */
-ER      ena_dsp(void);										/* ディスパッチの許可 */
-BOOL    sns_ctx(void);										/* コンテキストの参照 */
-BOOL    sns_loc(void);										/* CPUロック状態の参照 */
-BOOL    sns_dsp(void);										/* ディスパッチ禁止状態の参照 */
-BOOL    sns_dpn(void);										/* ディスパッチ保留状態の参照 */
+ER      rot_rdq(PRI tskpri);								/**< %jp{タスク優先順位の回転} */
+ER      get_tid(ID *p_tskid);								/**< %jp{実行状態タスクIDの参照} */
+ER      loc_cpu(void);										/**< %jp{CPUロック状態への移行} */
+ER      unl_cpu(void);										/**< %jp{CPUロック状態の解除} */
+ER      dis_dsp(void);										/**< %jp{ディスパッチの禁止} */
+ER      ena_dsp(void);										/**< %jp{ディスパッチの許可} */
+BOOL    sns_ctx(void);										/**< %jp{コンテキストの参照} */
+BOOL    sns_loc(void);										/**< %jp{CPUロック状態の参照} */
+BOOL    sns_dsp(void);										/**< %jp{ディスパッチ禁止状態の参照} */
+BOOL    sns_dpn(void);										/**< %jp{ ディスパッチ保留状態の参照} */
 
 
 ER      def_inh(INHNO inhno, const T_DINH *pk_dinh);

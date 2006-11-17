@@ -25,6 +25,7 @@
 long     g_SystemHeap[16 * 1024 / sizeof(long)];
 C_SCIDRV g_SciDrv[2];
 
+
 int System_Boot(VPARAM Param);
 
 
@@ -34,12 +35,18 @@ void Sample_Startup(VP_INT exinf)
 	T_PROCESS_INFO   ProcInfo;
 	HANDLE           hFile;
 	
+	
 	/*************************/
-	/*       初期化          *
+	/*       初期化          */
 	/*************************/
 	
 	/* システム初期化 */
 	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
+	
+	
+	/*************************/
+	/*     デバドラ登録      */
+	/*************************/
 	
 	/* SCIデバドラ生成 */
 	SciDrv_Create(&g_SciDrv[0], (void *)0xffffb0, 52, 20000000L, 64);	/* SCI0 */
@@ -59,20 +66,19 @@ void Sample_Startup(VP_INT exinf)
 	devinf.pParam     = &g_SciDrv[1];
 	SysFile_AddDevice("/dev", &devinf);
 	
-	hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
-	File_PutString(hFile, "XXXX");
 	
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
 	Command_Initialize();
-	Command_AddCommand("hsh",   Shell_Main);
-	Command_AddCommand("hello", Hello_Main);
+	Command_AddCommand("hsh",   Shell_Main);	/* シェルの登録 */
+	Command_AddCommand("hello", Hello_Main);	/* Hello World の登録 */
+	
 	
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
-
+	hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
 	ProcInfo.hTty    = hFile;
 	ProcInfo.hStdIn  = hFile;
 	ProcInfo.hStdOut = hFile;

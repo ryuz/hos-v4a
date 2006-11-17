@@ -166,7 +166,6 @@ CORE_HEADERS   = $(INC_DIR)/core/adtq.h			\
                  $(INC_DIR)/core/hep.h			\
                  $(INC_DIR)/core/objhdl.h		\
                  $(INC_DIR)/core/objid.h		\
-                 $(INC_DIR)/core/opttyp.h		\
                  $(INC_DIR)/core/que.h			\
                  $(INC_DIR)/core/rdq.h			\
                  $(INC_DIR)/core/sys.h			\

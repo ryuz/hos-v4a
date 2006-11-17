@@ -9,23 +9,25 @@
  */
 
 
-
 #include "core/core.h"
-#include "object/isrobj.h"
 
 
 
+/**** 暫定の手抜き(ここから) *****/
 _KERNEL_T_SYSCB _kernel_syscb;
 
 extern VP   _kernel_idl_stk;
 extern SIZE _kernel_idl_stksz;
 
-
-static void _kernel_sys_sta(void);
-
 #if _KERNEL_SPT_DPC
 VP_INT dpc_buf[32];
 #endif
+/**** 暫定の手抜き(ここまで) *****/
+
+
+
+
+static void _kernel_sys_sta(void);		/** %jp{システムコンテキストの開始} */
 
 
 /** %jp{カーネルの開始(独自サービスコール)}%en{Start Kernel}
@@ -38,12 +40,6 @@ ER vsta_knl(void)
 	
 	/* %jp{プロセッサ固有の初期化} */
 	_KERNEL_INI_PRC();
-
-#if _KERNEL_SPT_DPC
-	_kernel_syscb.dpccb.msgq   = dpc_buf;
-	_kernel_syscb.dpccb.msgqsz = 32;
-	_KERNEL_ENA_INT();
-#endif
 	
 	_KERNEL_ENTER_SVC();
 	
@@ -54,7 +50,12 @@ ER vsta_knl(void)
 	/* %jp{IRC固有の初期化} */
 	_KERNEL_INI_IRC();
 	
-	
+
+#if _KERNEL_SPT_DPC
+	_kernel_syscb.dpccb.msgq   = dpc_buf;
+	_kernel_syscb.dpccb.msgqsz = 32;
+#endif
+
 	_kernel_syscb.proccb[0].sysstk   = _kernel_idl_stk;
 	_kernel_syscb.proccb[0].sysstksz = _kernel_idl_stksz;
 	
@@ -88,15 +89,25 @@ ER vsta_knl(void)
 }
 
 
+/** %jp{システムコンテキストの開始} */
 void _kernel_sys_sta(void)
 {
+	/* %jp{タスク状態に遷移} */
 	_KERNEL_SYS_CLR_CTX();
 	_KERNEL_SYS_CLR_LOC();
-
+	_KERNEL_SYS_CLR_DSP();
+	_KERNEL_SYS_CLR_SYS();
+	
+	/* %jp{DPC対応ならここで割り込み許可} */
+#if _KERNEL_SPT_DPC
+	_KERNEL_ENA_INT();
+#endif
+	
+	/* %jp{タスクディスパッチ開始} */
 	_KERNEL_DSP_TSK();
 	
+	/* %jp{以降システムコンテキストをアイドルとして利用} */
 	_KERNEL_LEAVE_SVC();
-	
 	_kernel_idl_lop();
 }
 

@@ -172,10 +172,6 @@ SOURCE=..\..\..\..\include\core\objid.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\include\core\opttyp.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\include\core\que.h
 # End Source File
 # Begin Source File
@@ -431,7 +427,27 @@ SOURCE=..\..\..\..\source\core\tmq\sig_tmq.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\source\core\adtq\snd_adtq.c
+SOURCE=..\..\..\..\source\core\adtq\frcv_adq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\adtq\fsnd_adq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\adtq\rcv_adq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\adtq\reff_adq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\adtq\refs_adq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\adtq\snd_adq.c
 # End Source File
 # End Group
 # Begin Group "dpc"
