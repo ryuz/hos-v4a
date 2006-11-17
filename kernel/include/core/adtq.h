@@ -61,6 +61,12 @@ _KERNEL_ADTQ_T_ADTQCNT _kernel_adtq_ref_sdtqnt(_KERNEL_T_ADTQCB *adtqcb);
 #endif
 
 
+#define _KERNEL_ADTQ_SND_DAT(adtqcb, data)			_kernel_adtq_snd_dat((adtqcb), (data))
+#define _KERNEL_ADTQ_RCV_DAT(adtqcb, p_data)		_kernel_adtq_rcv_dat((adtqcb), (p_data))
+#define _KERNEL_ADTQ_REF_FDTQNT(adtqcb)				_kernel_adtq_ref_fdtqnt(adtqcb)
+#define _KERNEL_ADTQ_REF_SDTQNT(adtqcb)				_kernel_adtq_ref_sdtqnt(adtqcb)
+
+
 #endif	/* _KERNEL__core__adtq_h__ */
 
 

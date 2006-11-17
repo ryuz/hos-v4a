@@ -44,6 +44,8 @@ BOOL _kernel_adtq_rcv_dat(_KERNEL_T_ADTQCB *adtqcb, VP_INT *p_data)
 
 	/* %jp{先頭位置更新} */
 	_KERNEL_ADTQ_SET_HEAD(adtqcb, head);
+	
+	return TRUE;
 }
 
 

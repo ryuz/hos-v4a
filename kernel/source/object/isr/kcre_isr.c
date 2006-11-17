@@ -97,7 +97,7 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 	_KERNEL_INT_SET_HEAD(pk_cisr->intno, _KERNEL_ISR_GET_ISRHDL(isrid, isrcb));
 	
 #if _KERNEL_SPT_DPC
-	if ( !_KERNEL_SYS_SNS_LOC() ) { _KERNEL_DIS_INT(); }	/* %jp{割込み許可} */
+	if ( !_KERNEL_SYS_SNS_LOC() ) { _KERNEL_ENA_INT(); }	/* %jp{割込み許可} */
 #endif
 	
 	return E_OK;

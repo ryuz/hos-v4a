@@ -14,10 +14,10 @@
 /* メモリインターフェース */
 typedef struct t_memif
 {
-	void *(*pfncAlloc)(MEMSIZE Size);				/* メモリの割り当て */
-	void *(*pfncReAlloc)(void *pMem, MEMSIZE Size);	/* メモリの再割り当て */
-	void (*pfncFree)(void *pMem);					/* メモリの開放 */
-	long (*pfncGetSize)(void *pMem);				/* メモリのサイズ取得 */
+	void    *(*pfncAlloc)(MEMSIZE Size);				/* メモリの割り当て */
+	void    *(*pfncReAlloc)(void *pMem, MEMSIZE Size);	/* メモリの再割り当て */
+	void    (*pfncFree)(void *pMem);					/* メモリの開放 */
+	MEMSIZE (*pfncGetSize)(void *pMem);					/* メモリのサイズ取得 */
 } T_MEMIF;
 
 

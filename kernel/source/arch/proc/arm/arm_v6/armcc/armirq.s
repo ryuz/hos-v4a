@@ -29,7 +29,7 @@ INHNO_FIQ		EQU 	1
 				IMPORT	_kernel_exe_inh
 				IMPORT	_kernel_end_inh
 
-				EXPORT	_kernel_int_armirq				; IRQハンドラ
+				EXPORT	_kernel_irq_hdr				; IRQハンドラ
 
 
 				ALIGN
@@ -38,7 +38,7 @@ INHNO_FIQ		EQU 	1
 ; ----------------------------------------------
 ;  IRQ ハンドラ
 ; ----------------------------------------------
-_kernel_int_armirq
+_kernel_irq_hdr
 			; ---- レジスタ退避
 				sub		lr, lr, #4						; リターンアドレス算出
 				srsfd	#Mode_SYS!						; lr_irq, spsr_irqをSYSモードスタックに退避

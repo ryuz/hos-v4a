@@ -42,6 +42,7 @@ ER vsta_knl(void)
 #if _KERNEL_SPT_DPC
 	_kernel_syscb.dpccb.msgq   = dpc_buf;
 	_kernel_syscb.dpccb.msgqsz = 32;
+	_KERNEL_ENA_INT();
 #endif
 	
 	_KERNEL_ENTER_SVC();

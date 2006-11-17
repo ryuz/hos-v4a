@@ -9,14 +9,11 @@
  */
 
 
-
 #include "core/core.h"
 #include "object/mbxobj.h"
 
 
-
 #if _KERNEL_SPT_RCV_MBX
-
 
 /**< %jp{メールボックスへの送信} */
 ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
@@ -79,7 +76,7 @@ ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 	
-	return E_OK;	/* %jp{正常終了}%en{Normal completion} */
+	return ercd;
 }
 
 

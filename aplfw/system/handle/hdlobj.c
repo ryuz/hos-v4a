@@ -30,6 +30,4 @@ void HandleObj_Delete(C_HANDLEOBJ *self)
 }
 
 
-
-
 /* end of file */

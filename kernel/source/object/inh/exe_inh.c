@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System V4 Advance
  *
  * @file  exe_inh.c
@@ -7,7 +7,6 @@
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
-
 
 
 #include "core/core.h"

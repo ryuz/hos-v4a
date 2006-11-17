@@ -239,3 +239,7 @@ void Shell_Vt100CurLeft(C_SHELL *self)
 		File_PutString(self->hTty, "\x1b[1D");	/* カーソル左 */
 	}
 }
+
+
+
+/* end of file */

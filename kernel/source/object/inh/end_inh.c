@@ -14,20 +14,32 @@
 #include "object/inhobj.h"
 
 
+#if _KERNEL_SPT_DPC
+
+
 /** %jp{割り込み処理開始}
  * @return void
  */
 void _kernel_end_inh(void)
 {
+	/* %jp{割り込みコンテキストを抜ける} */
 	_KERNEL_SYS_CLR_CTX();
 	
-#if _KERNEL_SPT_DPC
-	/* サービスコール内での割り込みの場合ここではディスパッチしない */
-	if ( _KERNEL_SYS_REF_SVC() != 0 )
-	{
-		return;
-	}
-#endif
+	/* %jp{サービスコール処理の実施} */
+	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
+	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
+}
+
+
+#else
+
+/** %jp{割り込み処理開始}
+ * @return void
+ */
+void _kernel_end_inh(void)
+{
+	/* %jp{割り込みコンテキストを抜ける} */
+	_KERNEL_SYS_CLR_CTX();
 	
 	/* %jp{遅延しているディスパッチがあれば実施} */
 	if ( _KERNEL_SYS_SNS_DLY() )
@@ -35,6 +47,8 @@ void _kernel_end_inh(void)
 		_KERNEL_DSP_TSK();
 	}
 }
+
+#endif
 
 
 /* end of file */

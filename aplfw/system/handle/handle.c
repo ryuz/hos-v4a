@@ -31,5 +31,4 @@ void Handle_Close(HANDLE handle)
 }
 
 
-
 /* end of file */
