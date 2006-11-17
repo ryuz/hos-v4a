@@ -16,13 +16,17 @@
 #include "system/sysapi/sysapi.h"
 #include "system/process/process.h"
 #include "system/file/filesys.h"
+#include "system/file/stdfile.h"
 #include "system/command/command.h"
 #include "system/shell/shell.h"
 #include "driver/serial/renesas/scifile.h"
 #include "apl/hello/hello.h"
 
 
-long     g_SystemHeap[16 * 1024 / sizeof(long)];
+#define SYSCR		((volatile unsigned char *)0xfee012)
+#define IPRB		((volatile unsigned char *)0xfee019)
+
+/* long     g_SystemHeap[16 * 1024 / sizeof(long)]; */
 C_SCIDRV g_SciDrv[2];
 
 
@@ -35,14 +39,19 @@ void Sample_Startup(VP_INT exinf)
 	T_PROCESS_INFO   ProcInfo;
 	HANDLE           hFile;
 	
+	/*************************/
+	/*       固有設定        */
+	/*************************/
+	*SYSCR &= ~0x08;		/* UIビットを割込みマスクに使う */
+	*IPRB  |=  0x0e;		/* SCI1の割り込み優先度を上げる */
 	
 	/*************************/
 	/*       初期化          */
 	/*************************/
 	
 	/* システム初期化 */
-	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
-	
+/*	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));	*/
+	System_Initialize((void *)0x00500000, 0x00100000);
 	
 	/*************************/
 	/*     デバドラ登録      */
@@ -90,6 +99,8 @@ void Sample_Startup(VP_INT exinf)
 /* システムプロセス */
 int System_Boot(VPARAM Param)
 {
+	StdIo_PutString("\r\nHOS Application Platform  Ver 0.01\r\n");
+	
 	/* シェル起動 */
 	return Command_Execute("hsh");
 }

@@ -4,12 +4,13 @@ TARGET ?= sample
 
 ifeq ($(ROM),Yes)
 TARGET := $(TARGET)_rom
-ADDR_VECT = 0
-ADDR_ROM  = 0FFC140
-ADDR_RAM  = 0FFE140
+ADDR_VECT = 0000000
+ADDR_ROM  = 0000100
+ADDR_RAM  = 0400000
 else
 ADDR_VECT = 0FFC040
-ADDR_ROM  = 0400000
+#ADDR_ROM  = 0400000
+ADDR_ROM  = 0FFC140
 ADDR_RAM  = 0410000
 endif
 
@@ -25,9 +26,14 @@ KERNEL_BUILD_DIR = $(KERNEL_DIR)/build/h8/h8300ha/ch38
 APLFW_BUILD_DIR  = $(APLFW_DIR)/build/h8/h8300ha/ch38
 
 KERNEL_CFG  = $(OS_DIR)/cfgrtr/build/gcc/h4acfg-h8300ha.exe
+
+ifeq ($(DEBUG),Yes)
+KERNEL_LIB  = $(KERNEL_BUILD_DIR)/libhosv4adbg.lib
+APLFW_LIB   = $(APLFW_BUILD_DIR)/hosaplfwdbg.lib
+else
 KERNEL_LIB  = $(KERNEL_BUILD_DIR)/libhosv4a.lib
 APLFW_LIB   = $(APLFW_BUILD_DIR)/hosaplfw.lib
-
+endif
 
 # Tools
 CC     = ch38
@@ -57,7 +63,7 @@ VPATH = .:..:$(SRC_DIR)/driver/renesas
 all: mkdir_objs mk_kernel mk_aplfw $(TARGET).abs
 
 
-$(TARGET).abs: $(OBJS) $(STD_LIBS) $(OS_LIBS)
+$(TARGET).abs: $(OBJS) $(KERNEL_LIB) $(APLFW_LIB) $(STD_LIBS)
 	echo rom D=R                                      > $(OBJS_DIR)/subcmd.txt
 	echo -OPtimize                                   >> $(OBJS_DIR)/subcmd.txt
 	echo list $(TARGET).map                          >> $(OBJS_DIR)/subcmd.txt

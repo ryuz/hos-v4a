@@ -24,10 +24,14 @@ void _kernel_end_inh(void)
 {
 	/* %jp{割り込みコンテキストを抜ける} */
 	_KERNEL_SYS_CLR_CTX();
-	
+
+	_KERNEL_ENA_INT();			/* %jp{割込み許可} */
+
 	/* %jp{サービスコール処理の実施} */
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
+
+	_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 }
 
 

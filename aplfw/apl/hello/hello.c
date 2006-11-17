@@ -8,11 +8,19 @@ int Hello_Main(int argc, char *argv[])
 {
 	int i;
 
-	StdIo_PutString("Hello!\r\n");
+	StdIo_PutString("Hello!\r\n\r");
+
 	StdIo_PrintFormat("argc = %d\r\n", argc);
-	for ( i = 0; i < argc; i++ )
+	for ( i = 0; i < argc + 1; i++ )
 	{
-		StdIo_PrintFormat("argv[%d](%d) %s\r\n", i, strlen(argv[i]), argv[i]);
+		if ( argv[i] == NULL )
+		{
+			StdIo_PrintFormat("argv[%d] = NULL\r\n", i);
+		}
+		else
+		{
+			StdIo_PrintFormat("argv[%d](%d) %s\r\n", i, (int)strlen(argv[i]), argv[i]);
+		}
 	}
 
 	return 0;

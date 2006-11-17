@@ -130,7 +130,7 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #else					/* %jp{バズロック型の場合} */
 
 #define _KERNEL_ENTER_SVC()					do { _KERNEL_DIS_INT(); } while (0)
-#define _KERNEL_LEAVE_SVC()					do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_DINT)){ _KERNEL_ENA_INT(); } } while (0)
+#define _KERNEL_LEAVE_SVC()					do { if (!(_KERNEL_SYS_GET_STST() & (_KERNEL_TSS_LOC | _KERNEL_TSS_SYS))){ _KERNEL_ENA_INT(); } } while (0)
 
 #endif
 

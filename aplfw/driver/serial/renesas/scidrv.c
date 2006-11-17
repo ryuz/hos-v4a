@@ -148,10 +148,15 @@ int SciDrv_Write(C_SCIDRV *self, const void *pData, int iSize)
 void SciDrv_IsrRecvErr(VPARAM Param)
 {
 	C_SCIDRV *self;
-
+	int c;
+	
 	self = (C_SCIDRV *)Param;
-
-	SciHal_RecvChar(&self->SciHal);
+	
+	while ( (c = SciHal_RecvChar(&self->SciHal)) >= 0 )
+	{
+		StreamBuf_SendChar(&self->StmBuf, c);
+	}
+	SysEvt_Set(self->hEvtRecv);
 }
 
 /* 受信割り込み */
