@@ -1,4 +1,4 @@
-#/usr/bin/sh
+#!/usr/bin/sh
 
 # %jp{リリース用パッケージのようなものを生成}
 
@@ -27,11 +27,11 @@ rm -fr jp-sjis-unix
 
 # unix/cygwin
 rm -fr en-unix
-./dircpy.pl ../.. en-euc-unix jp-euc-unix
+./dircpy.pl ../.. en-euc-unix en-euc-unix
 
 # windows
 rm -fr en-dos
-./dircpy.pl ../.. en-euc-dos jp-euc-dos
+./dircpy.pl ../.. en-euc-dos en-euc-dos
 
 
 

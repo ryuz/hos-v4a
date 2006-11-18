@@ -107,17 +107,17 @@ void MemPol_Free(C_MEMPOL *self, void *pPtr)
 	T_MEMPOL_MEMBLK *mblktmp;
 	T_MEMPOL_MEMBLK *mblknext;
 
-	/* %jp{ポインタ範囲チェック */
+	/* %jp{ポインタ範囲チェック} */
 	if ( pPtr < (void *)self->pBase || pPtr >= (void *)((char *)self->pBase + self->MemSize) )
 	{
 		return;
 	}
 
-	/* %jp{メモリブロック位置を取得 */
+	/* %jp{メモリブロック位置を取得} */
 	mblk = (T_MEMPOL_MEMBLK *)((char *)pPtr - MEMPOL_MEMBLK_SIZE);
 
-	/* %jp{パラメーターチェック */
-	if ( mblk->iFlag != MEMPOL_USING )	/* %jp{使用中で無ければ */
+	/* %jp{パラメーターチェック} */
+	if ( mblk->iFlag != MEMPOL_USING )	/* %jp{使用中で無ければ} */
 	{
 		return;
 	}
@@ -155,22 +155,22 @@ MEMPOL_MEMSIZE  MemPol_GetSize(C_MEMPOL *self, void *pPtr)
 {
 	T_MEMPOL_MEMBLK *mblk;
 
-	/* %jp{ポインタ範囲チェック */
+	/* %jp{ポインタ範囲チェック} */
 	if ( pPtr < (void *)self->pBase || pPtr >= (void *)((char *)self->pBase + self->MemSize) )
 	{
-		return 0;	/* このメモリプールの所属でない */
+		return 0;	/* %jp{このメモリプールの所属でない} */
 	}
 
-	/* %jp{メモリブロック位置を取得 */
+	/* %jp{メモリブロック位置を取得} */
 	mblk = (T_MEMPOL_MEMBLK *)((char *)pPtr - MEMPOL_MEMBLK_SIZE);
 
-	/* %jp{パラメーターチェック */
-	if ( mblk->iFlag != MEMPOL_USING )	/* %jp{使用中で無ければ */
+	/* %jp{パラメーターチェック} */
+	if ( mblk->iFlag != MEMPOL_USING )	/* %jp{使用中で無ければ} */
 	{
-		return 0;	/* 割り当ていない */
+		return 0;	/* %jp{割り当ていない} */
 	}
 
-	/* サイズを返す */
+	/* %jp{サイズを返す} */
 	return mblk->Size;
 }
 

@@ -27,7 +27,7 @@
  void _kernel_dis_int(void)
 ************************************************/
 __kernel_dis_int:
-				orc		#h'c0, ccr				/* 割り込みの禁止 */
+				orc		#0xc0, ccr				/* 割り込みの禁止 */
 				rts
 
 

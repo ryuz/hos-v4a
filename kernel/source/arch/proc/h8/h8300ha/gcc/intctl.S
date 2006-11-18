@@ -31,8 +31,8 @@ __kernel_int_hdr:
 				
 		/* ---- 割り込みをマスク ---- */
 				stc.b	ccr, r1l					/* ccr保存 */
-				orc		#h'c0, ccr					/* 割込み全マスク */
-				and.b	#h'c0, r1l
+				orc		#0xc0, ccr					/* 割込み全マスク */
+				and.b	#0xc0, r1l
 				
 		/* ---- 多重割り込みの判別 ---- */
 				mov.b	@__kernel_int_cnt, r1h
@@ -75,7 +75,7 @@ __kernel_int_hdr:
 				
 		/* ---- 割り込みマスク値の復帰 ---- */
 				mov.b	@(8, er7), r1l
-				and.b	#h'c0, r1l
+				and.b	#0xc0, r1l
 				mov.b	r1l, @__kernel_h83_imsk		/* 割込み前の値に戻す */
 				cmp.b	r1l, r0h
 				bne		return_int					/* 割込み前処理中の多重割り込みなら後処理をカット */
@@ -86,7 +86,7 @@ __kernel_int_hdr:
 		/* ---- コンテキストスイッチの後処理 ---- */
 				mov.b	@__kernel_h83_imsk, r0l		/* マスク値取り出し */
 				mov.b	@(8, er7), r1l
-				and.b	#h'3f, r1l
+				and.b	#0x3f, r1l
 				or.b	r0l, r1l
 				mov.b	r1l, @(8, er7)				/* スタック上のCCRを更新 */
 

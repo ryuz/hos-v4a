@@ -42,15 +42,15 @@
 #define TA_TFIFO				0x00					/**< %jp{タスクの待ち行列をFIFO順に}%en{Task wait queue is in FIFO order} */
 #define TA_TPRI					0x01					/**< %jp{タスクの待ち行列をタスクの優先度順に}%en{Task wait queue is in task priority order} */
 
-#define TA_MFIFO				0x00					/**< %jp{メッセージの待ち行列をFIFO順に%en{Message queue is in FIFO order} */
-#define TA_MPRI					0x02					/**< %jp{メッセージの待ち行列をメッセージの優先度順に%en{Message queue is in message priority order} */
+#define TA_MFIFO				0x00					/**< %jp{メッセージの待ち行列をFIFO順に}%en{Message queue is in FIFO order} */
+#define TA_MPRI					0x02					/**< %jp{メッセージの待ち行列をメッセージの優先度順に}%en{Message queue is in message priority order} */
 
 #define TA_ACT					0x02					/**< %jp{タスクを起動された状態で生成}%en{Task is activated after the creation} */
 #define TA_RSTR					0x04					/**< %jp{制約タスク}%en{Restricted task} */
 
 #define TA_WSGL					0x00					/**< %jp{イベントフラグを複数のタスクが待つことを許さない}%en{Only one task is allowed to be in the waiting state for the eventflag} */
 #define TA_WMUL					0x02					/**< %jp{イベントフラグを複数のタスクが待つことを許す}%en{Multiple tasks are allowed to be in the waiting state for the eventflag} */
-#define TA_CLR					0x04					/* 待ち解除時にイベントフラグをクリア}%en{Eventflag's bit pattern is cleared when a task is released from the waiting state for that eventflag} */
+#define TA_CLR					0x04					/**< %jp{待ち解除時にイベントフラグをクリア}%en{Eventflag's bit pattern is cleared when a task is released from the waiting state for that eventflag} */
 
 #define TA_INHERIT				0x02					/**< %jp{ミューテックスが優先度継承プロトコルをサポート}%en{Mutex uses the priority inheritance protocol} */
 #define TA_CEILING				0x03					/**< %jp{ミューテックスが優先度上限プロトコルをサポート}%en{Mutex uses the priority ceiling protocol} */
