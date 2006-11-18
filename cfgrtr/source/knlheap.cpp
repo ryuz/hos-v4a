@@ -15,13 +15,15 @@
 #include "analyze.h"
 #include "readcfg.h"
 
+#define KNLHEP_HEPSZ		0
+#define KNLHEP_HEP			1
 
 // コンストラクタ
 CApiKernelHeap::CApiKernelHeap()
 {
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
-	m_iParams = 1;
+	m_iParams = 2;
 }
 
 
@@ -73,15 +75,28 @@ void  CApiKernelHeap::WriteCfgDef(FILE* fp)
 		"\n\n\n"
 		"/* ------------------------------------------ */\n"
 		"/*                kernel heap                 */\n"
-		"/* ------------------------------------------ */\n"
+		"/* ------------------------------------------ */\n\n"
 		, fp);
 
 	// ヒープ領域生成
-	fprintf(
-		fp,
-		"\n"
-		"VP _kernel_heap_mem[((%s) + sizeof(VP) - 1) / sizeof(VP)];\t/* kernel heap */\n",
-		m_pParamPacks[0]->GetParam(0));
+	if ( strcmp(m_pParamPacks[0]->GetParam(KNLHEP_HEP), "NULL") == 0 )
+	{
+		fprintf( 
+			fp,
+			"VP_INT _kernel_hep_memblk[((%s) + sizeof(VP_INT) - 1) / sizeof(VP_INT)];\n"
+			"VP     _kernel_hep_mem   = (VP)_kernel_hep_memblk;\n"
+			"SIZE   _kernel_hep_memsz = (SIZE)sizeof(_kernel_hep_memblk);\n",
+			m_pParamPacks[0]->GetParam(KNLHEP_HEPSZ));
+	}
+	else
+	{
+		fprintf( 
+			fp,
+			"VP     _kernel_hep_mem   = (VP)(%s);\n"
+			"SIZE   _kernel_hep_memsz = (SIZE)(%s);\n",
+			m_pParamPacks[0]->GetParam(KNLHEP_HEP),
+			m_pParamPacks[0]->GetParam(KNLHEP_HEPSZ));
+	}	
 }
 
 

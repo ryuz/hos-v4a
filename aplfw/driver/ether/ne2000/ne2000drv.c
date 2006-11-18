@@ -80,7 +80,7 @@ int Ne2000Drv_Read(C_NE2000DRV *self, void *pRecvBuf, int iSize)
 	for ( ; ; )
 	{
 		SysMtx_Lock(self->hMtx);
-		iRecvSize = Ne2000Hal_Recv(&self->Ne2000Hal, pRecvBuf);
+		iRecvSize = Ne2000Hal_Recv(&self->Ne2000Hal, pRecvBuf, iSize);
 		SysMtx_Unlock(self->hMtx);
 
 		if ( iRecvSize > 0 )
