@@ -101,7 +101,7 @@ typedef _KERNEL_T_ISRCB				*_KERNEL_T_ISRCB_PTR;
 /* %jp{割込みサービスルーチンコントロールブロック} */
 typedef struct _kernel_t_isrcb
 {
-	_KERNEL_ISRCB_T_ISRHDL	next		_KERNEL_ISRCB_TBITDEF_ISRHDL;		/**< %jp{次の割込みサービスルーチンコントロールブロックへのリンク */
+	_KERNEL_ISRCB_T_ISRHDL	next		_KERNEL_ISRCB_TBITDEF_ISRHDL;		/**< %jp{次の割込みサービスルーチンコントロールブロックへのリンク} */
 	_KERNEL_ISRCB_T_EXINF	exinf		_KERNEL_ISRCB_TBITDEF_EXINF;		/**< %jp{割込みサービスルーチンの拡張情報} */
 	_KERNEL_ISRCB_T_ISR		isr			_KERNEL_ISRCB_TBITDEF_ISR;			/**< %jp{割込みサービスルーチンの起動番地} */
 } _KERNEL_T_ISRCB;

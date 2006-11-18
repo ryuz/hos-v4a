@@ -91,7 +91,7 @@ void _kernel_cre_ctx(
 	pk_ctxcb->exinf1 = exinf1;
 	pk_ctxcb->exinf2 = exinf2;
 	
-	/* %jp{コンテキストスレッド生成* */
+	/* %jp{コンテキストスレッド生成} */
 	pk_ctxcb->hEvent  = CreateEvent(NULL, FALSE, FALSE, NULL);
 #if 1
 	pk_ctxcb->hThread = CreateThread(NULL, 0, _kernel_ctx_ent, (LPVOID)pk_ctxcb,

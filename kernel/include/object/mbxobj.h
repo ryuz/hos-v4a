@@ -19,7 +19,7 @@
 /* ------------------------------------------ */
 
 /* %jp{メールボックス属性用の型(4bit必要)} */
-#if _KERNEL_MBXCB_BITFIELD		/* %jp{MBXCBにビットフィールドを利用する場合 */
+#if _KERNEL_MBXCB_BITFIELD		/* %jp{MBXCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */
@@ -31,7 +31,7 @@ typedef unsigned int					_KERNEL_MBXCB_T_MBXATR;			/**< %jp{メールボック�
 #define _KERNEL_MBXCB_TBITDEF_MBXATR	: 3								/**< %jp{メールボックス属性のビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{MBXCBにビットフィールドを利用しない場合 */
+#else							/* %jp{MBXCBにビットフィールドを利用しない場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_MBX_T_MBXATR;			/**< %jp{メールボックス属性を演算操作するときの型} */

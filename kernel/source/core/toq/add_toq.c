@@ -57,7 +57,7 @@ void _kernel_add_toq(
 		/* %jp{時間比較} */
 		if ( tmout < tmout_next )
 		{
-			/* %jp{先頭なら */
+			/* %jp{先頭なら} */
 			if ( tskhdl_next == tskhdl_head )
 			{
 				_KERNEL_TOQ_SET_HED_TSK(tskhdl);	/* %jp{先頭ポインタ更新} */

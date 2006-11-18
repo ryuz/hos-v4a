@@ -31,7 +31,7 @@ typedef struct _kernel_t_adtqcb
 {
 	_KERNEL_ADTQCB_T_POSITION	head		_KERNEL_DTQCB_TBITDEF_POSITION;		/**< %jp{データキューの先頭位置} */
 	_KERNEL_ADTQCB_T_POSITION	tail		_KERNEL_DTQCB_TBITDEF_POSITION;		/**< %jp{データキューの末尾位置} */
-	_KERNEL_ADTQCB_T_ADTQCNT	adtqcnt		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキュー領域のサイズ(VP_INT単位) */
+	_KERNEL_ADTQCB_T_ADTQCNT	adtqcnt		_KERNEL_DTQCB_TBITDEF_DTQCNT;		/**< %jp{データキュー領域のサイズ(VP_INT単位)} */
 	VP_INT						*adtq;											/**< %jp{データキュー領域の先頭アドレス} */
 } _KERNEL_T_ADTQCB;
 

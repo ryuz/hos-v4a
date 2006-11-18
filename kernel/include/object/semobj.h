@@ -19,7 +19,7 @@
 /* ------------------------------------------ */
 
 /* %jp{セマフォカウンタ値用の型} */
-#if _KERNEL_SEMCB_BITFIELD		/* %jp{SEMCBにビットフィールドを利用する場合 */
+#if _KERNEL_SEMCB_BITFIELD		/* %jp{SEMCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_OPT_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_SEM_T_SEMCNT;			/**< %jp{セマフォカウンタを演算操作するときの型} */
@@ -31,7 +31,7 @@ typedef unsigned int					_KERNEL_SEMCB_T_SEMCNT;			/**< %jp{セマフォカウ�
 #define _KERNEL_SEMCB_TBITDEF_SEMCNT	: _KERNEL_SEM_TBIT_SEMCNT		/**< %jp{セマフォカウンタのビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{SEMCBにビットフィールドを利用しない場合 */
+#else							/* %jp{SEMCBにビットフィールドを利用しない場合} */
 
 #if (_KERNEL_SEM_TMAX_SEMCNT <= _KERNEL_TMAX_B) && _KERNEL_OPT_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_SEM_T_SEMCNT;			/**< %jp{セマフォカウンタを演算操作するときの型} */
@@ -64,14 +64,14 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_SEMCB_T_SEMCNT;			/**< %jp{セマフォカ
 
 
 /* %jp{セマフォ属性用の型} */
-#if _KERNEL_SEMCB_BITFIELD		/* %jp{SEMCBにビットフィールドを利用する場合 */
+#if _KERNEL_SEMCB_BITFIELD		/* %jp{SEMCBにビットフィールドを利用する場合} */
 
 /* %jp{TA_TFIFO と TA_TPRI の判定に 1bit 必要} */
 typedef unsigned int					_KERNEL_SEM_T_SEMATR;
 typedef unsigned int					_KERNEL_SEMCB_T_SEMATR;
 #define _KERNEL_SEMCB_TBITDEF_SEMATR	: 1
 
-#else							/* %jp{SEMCBにビットフィールドを利用しない場合 */
+#else							/* %jp{SEMCBにビットフィールドを利用しない場合} */
 
 typedef _KERNEL_T_FAST_UB				_KERNEL_SEM_T_SEMATR;
 typedef _KERNEL_T_LEAST_UB				_KERNEL_SEMCB_T_SEMATR;

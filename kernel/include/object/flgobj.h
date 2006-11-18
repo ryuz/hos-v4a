@@ -19,7 +19,7 @@
 /* ------------------------------------------ */
 
 /* %jp{フラグパターン用の型} */
-#if _KERNEL_FLGCB_BITFIELD		/* %jp{FLGCBにビットフィールドを利用する場合 */
+#if _KERNEL_FLGCB_BITFIELD		/* %jp{FLGCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
@@ -31,7 +31,7 @@ typedef unsigned int					_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパター�
 #define _KERNEL_FLGCB_TBITDEF_FLGPTN	: _KERNEL_FLG_TBIT_FLGPTN		/**< %jp{フラグパターンのビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{FLGCBにビットフィールドを利用しない場合 */
+#else							/* %jp{FLGCBにビットフィールドを利用しない場合} */
 
 #if _KERNEL_FLG_TBIT_FLGPTN <= 7 && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_FLG_T_FLGPTN;			/**< %jp{フラグパターンを演算操作するときの型} */
@@ -65,7 +65,7 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_FLGCB_T_FLGPTN;			/**< %jp{フラグパタ
 
 
 /* %jp{イベントフラグ属性用の型(4bit必要)} */
-#if _KERNEL_FLGCB_BITFIELD		/* %jp{FLGCBにビットフィールドを利用する場合 */
+#if _KERNEL_FLGCB_BITFIELD		/* %jp{FLGCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_FLG_T_FLGATR;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
@@ -77,7 +77,7 @@ typedef unsigned int					_KERNEL_FLGCB_T_FLGATR;			/**< %jp{イベントフラ�
 #define _KERNEL_FLGCB_TBITDEF_FLGATR	: 4								/**< %jp{イベントフラグ属性のビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{FLGCBにビットフィールドを利用しない場合 */
+#else							/* %jp{FLGCBにビットフィールドを利用しない場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_FLG_T_FLGATR;			/**< %jp{イベントフラグ属性を演算操作するときの型} */

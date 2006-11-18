@@ -20,13 +20,13 @@
 /* ------------------------------------------ */
 
 /* %jp{周期ハンドラ属性用の型} */
-#if _KERNEL_CYCCB_BITFIELD		/* %jp{CYCCBにビットフィールドを利用する場合 */
+#if _KERNEL_CYCCB_BITFIELD		/* %jp{CYCCBにビットフィールドを利用する場合} */
 
 typedef unsigned int					_KERNEL_CYC_T_CYCATR;
 typedef unsigned int					_KERNEL_CYCCB_T_CYCATR;
 #define _KERNEL_CYCCB_TBITDEF_CYCATR	: 3
 
-#else							/* %jp{CYCCBにビットフィールドを利用しない場合 */
+#else							/* %jp{CYCCBにビットフィールドを利用しない場合} */
 
 typedef _KERNEL_T_FAST_UB				_KERNEL_CYC_T_CYCATR;
 typedef _KERNEL_T_LEAST_UB				_KERNEL_CYCCB_T_CYCATR;

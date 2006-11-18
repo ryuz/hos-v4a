@@ -30,7 +30,7 @@ typedef _KERNEL_T_TSKHDL				_KERNEL_TCB_T_TSKHDL;			/**< %jp{タスクハンド�
 
 
 /* %jp{タスク状態の型}%en{Task-state} */
-#if _KERNEL_TCB_BITFIELD		/* %jp{TCBにビットフィールドを利用する場合 */
+#if _KERNEL_TCB_BITFIELD		/* %jp{TCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_OPT_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_TSK_T_TSKSTAT;			/**< %jp{タスク状態を演算操作するときの型} */
@@ -42,7 +42,7 @@ typedef unsigned int					_KERNEL_TCB_T_TSKSTAT;			/**< %jp{タスク状態をTCB
 #define _KERNEL_TCB_TBITDEF_TSKSTAT		: _KERNEL_TSK_TBIT_TSKSTAT		/**< %jp{タスク状態のビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{TCBにビットフィールドを利用しない場合 */
+#else							/* %jp{TCBにビットフィールドを利用しない場合} */
 
 #if _KERNEL_OPT_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_TSK_T_TSKSTAT;			/**< %jp{タスク状態を演算操作するときの型} */
@@ -343,7 +343,7 @@ typedef VP_INT							_KERNEL_TCB_T_DATA;
 
 
 /*  %jp{エラーコード}%en{Error code} */
-#if _KERNEL_TCB_BITFIELD			/* %jp{TCBにビットフィールドを利用する場合 */
+#if _KERNEL_TCB_BITFIELD			/* %jp{TCBにビットフィールドを利用する場合} */
 
 typedef signed int						_KERNEL_TSK_T_ERCD;
 typedef signed int						_KERNEL_TCB_T_ERCD;

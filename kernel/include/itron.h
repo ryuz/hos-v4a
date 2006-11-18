@@ -101,7 +101,7 @@
 #define TCYC_STA				0x01					/**< %jp{周期ハンドラが動作している}%en{} */
 
 #define TALM_STP				0x00					/**< %jp{アラームハンドラが動作していない}%en{} */
-#define TALM_STA				0x00					/**< %jp{アラームハンドラが動作している */
+#define TALM_STA				0x00					/**< %jp{アラームハンドラが動作している} */
 
 #define TOVR_STP				0x00					/**< %jp{上限プロセッサ時間が設定されていない}%en{} */
 #define TOVR_STA				0x01					/**< %jp{上限プロセッサ時間が設定されている}%en{} */

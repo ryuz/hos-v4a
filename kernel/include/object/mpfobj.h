@@ -19,7 +19,7 @@
 /* ------------------------------------------ */
 
 /* %jp{固定長メモリプールブロック数の型} */
-#if _KERNEL_MPFCB_BITFIELD		/* %jp{MPFCBにビットフィールドを利用する場合 */
+#if _KERNEL_MPFCB_BITFIELD		/* %jp{MPFCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
@@ -31,7 +31,7 @@ typedef unsigned int					_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモリ�
 #define _KERNEL_MPFCB_TBITDEF_BLKCNT	: _KERNEL_MPF_TBIT_BLKCNT		/**< %jp{固定長メモリプールブロック数のビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{MPFCBにビットフィールドを利用しない場合 */
+#else							/* %jp{MPFCBにビットフィールドを利用しない場合} */
 
 #if (_KERNEL_MPF_TMAX_BLKCNT <= _KERNEL_TMAX_B) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_MPF_T_BLKCNT;			/**< %jp{固定長メモリプールブロック数を演算操作するときの型} */
@@ -65,7 +65,7 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_MPFCB_T_BLKCNT;			/**< %jp{固定長メモ
 
 
 /* %jp{固定長メモリプールブロックサイズの型} */
-#if _KERNEL_MPFCB_BITFIELD		/* %jp{MPFCBにビットフィールドを利用する場合 */
+#if _KERNEL_MPFCB_BITFIELD		/* %jp{MPFCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
@@ -77,7 +77,7 @@ typedef unsigned int					_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモリプ
 #define _KERNEL_MPFCB_TBITDEF_BLKSZ	: _KERNEL_MPF_TBIT_BLKSZ			/**< %jp{固定長メモリプールブロックサイズのビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{MPFCBにビットフィールドを利用しない場合 */
+#else							/* %jp{MPFCBにビットフィールドを利用しない場合} */
 
 #if (_KERNEL_MPF_TMAX_BLKSZ <= _KERNEL_TMAX_B) && _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_MPF_T_BLKSZ;			/**< %jp{固定長メモリプールブロックサイズを演算操作するときの型} */
@@ -111,14 +111,14 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_MPFCB_T_BLKSZ;			/**< %jp{固定長メモ�
 
 
 /* %jp{固定長メモリプール属性用の型} */
-#if _KERNEL_MPFCB_BITFIELD		/* %jp{MPFCBにビットフィールドを利用する場合 */
+#if _KERNEL_MPFCB_BITFIELD		/* %jp{MPFCBにビットフィールドを利用する場合} */
 
 /* %jp{TA_TFIFO と TA_TPRI の判定に 1bit 必要} */
 typedef unsigned int					_KERNEL_MPF_T_MPFATR;
 typedef unsigned int					_KERNEL_MPFCB_T_MPFATR;
 #define _KERNEL_MPFCB_TBITDEF_MPFATR	: 1
 
-#else							/* %jp{MPFCBにビットフィールドを利用しない場合 */
+#else							/* %jp{MPFCBにビットフィールドを利用しない場合} */
 
 typedef _KERNEL_T_FAST_UB				_KERNEL_MPF_T_MPFATR;
 typedef _KERNEL_T_LEAST_UB				_KERNEL_MPFCB_T_MPFATR;

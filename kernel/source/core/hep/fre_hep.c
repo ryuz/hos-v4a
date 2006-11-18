@@ -23,17 +23,17 @@ void _kernel_fre_hep(
 	_KERNEL_T_HEPBLK *mblktmp;
 	_KERNEL_T_HEPBLK *mblknext;
 
-	/* %jp{ポインタ範囲チェック */
+	/* %jp{ポインタ範囲チェック} */
 	if ( ptr < (VP)pk_hepcb->base || ptr >= (VP)((UB*)pk_hepcb->base + pk_hepcb->heapsz) )
 	{
 		return;
 	}
 
-	/* %jp{メモリブロック位置を取得 */
+	/* %jp{メモリブロック位置を取得} */
 	mblk = (_KERNEL_T_HEPBLK *)((UB *)ptr - _KERNEL_HEP_BLKSIZE);
 
-	/* %jp{パラメーターチェック */
-	if ( mblk->flag != _KERNEL_HEP_USING )	/* %jp{使用中で無ければ */
+	/* %jp{パラメーターチェック} */
+	if ( mblk->flag != _KERNEL_HEP_USING )	/* %jp{使用中で無ければ} */
 	{
 		return;
 	}

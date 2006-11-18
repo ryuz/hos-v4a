@@ -19,7 +19,7 @@
 /* ------------------------------------------ */
 
 /* %jp{データキューカウンタ値用の型} */
-#if _KERNEL_DTQCB_BITFIELD		/* %jp{DTQCBにビットフィールドを利用する場合 */
+#if _KERNEL_DTQCB_BITFIELD		/* %jp{DTQCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_OPT_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_DTQ_T_DTQCNT;			/**< %jp{データキューカウンタを演算操作するときの型} */
@@ -31,7 +31,7 @@ typedef unsigned int					_KERNEL_DTQCB_T_DTQCNT;			/**< %jp{データキュー�
 #define _KERNEL_DTQCB_TBITDEF_DTQCNT	: _KERNEL_DTQ_TBIT_DTQCNT		/**< %jp{データキューカウンタのビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{DTQCBにビットフィールドを利用しない場合 */
+#else							/* %jp{DTQCBにビットフィールドを利用しない場合} */
 
 #if (_KERNEL_DTQ_TMAX_DTQCNT <= _KERNEL_TMAX_B) && _KERNEL_OPT_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_DTQ_T_DTQCNT;			/**< %jp{データキューカウンタを演算操作するときの型} */
@@ -64,14 +64,14 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_DTQCB_T_DTQCNT;			/**< %jp{データキュ
 
 
 /* %jp{データキュー属性用の型} */
-#if _KERNEL_DTQCB_BITFIELD		/* %jp{DTQCBにビットフィールドを利用する場合 */
+#if _KERNEL_DTQCB_BITFIELD		/* %jp{DTQCBにビットフィールドを利用する場合} */
 
 /* %jp{TA_TFIFO と TA_TPRI の判定に 1bit 必要} */
 typedef unsigned int					_KERNEL_DTQ_T_DTQATR;
 typedef unsigned int					_KERNEL_DTQCB_T_DTQATR;
 #define _KERNEL_DTQCB_TBITDEF_DTQATR	: 1
 
-#else							/* %jp{DTQCBにビットフィールドを利用しない場合 */
+#else							/* %jp{DTQCBにビットフィールドを利用しない場合} */
 
 typedef _KERNEL_T_FAST_UB				_KERNEL_DTQ_T_DTQATR;
 typedef _KERNEL_T_LEAST_UB				_KERNEL_DTQCB_T_DTQATR;

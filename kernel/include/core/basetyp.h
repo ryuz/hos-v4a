@@ -145,7 +145,7 @@ typedef _KERNEL_CMPL_UINT64			_KERNEL_T_UD;
 #define _KERNEL_CONSTNAT_INT64(x)	_KERNEL_CMPL_CONSTNAT_INT64(x)
 #define _KERNEL_CONSTNAT_UINT64(x)	_KERNEL_CMPL_CONSTNAT_UINT64(x)
 
-#else	/* %jp{コンパイラが64bitを未サポートなら */
+#else	/* %jp{コンパイラが64bitを未サポートなら} */
 
 /* %jp{64bit型は無効} */
 #define _KERNEL_ENABLE64			FALSE
