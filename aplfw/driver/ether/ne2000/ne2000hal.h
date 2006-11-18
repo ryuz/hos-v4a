@@ -24,12 +24,13 @@ typedef struct c_ne2000file
 extern "C" {
 #endif
 
-void Ne2000Hal_Create(C_NE2000HAL *self, void *pRegAddr);				/**< コンストラクタ */
-void Ne2000Hal_Delete(C_NE2000HAL *self);								/**< デストラクタ */
-void Ne2000Hal_Setup(C_NE2000HAL *self);								/**< 初期化 */
-void Ne2000Hal_Stop(C_NE2000HAL *self);									/**< 初期化 */
-int  Ne2000Hal_Recv(C_NE2000HAL *self, void *pRecvBuf);					/**< %jp{パケット受信} */
-int  Ne2000Hal_Send(C_NE2000HAL *self, const void *pData, int iSize);	/**< %jp{パケット送信} */
+void    Ne2000Hal_Create(C_NE2000HAL *self, void *pRegAddr);							/**< %jp{コンストラクタ} */
+void    Ne2000Hal_Delete(C_NE2000HAL *self);											/**< %jp{デストラクタ} */
+void    Ne2000Hal_Setup(C_NE2000HAL *self);												/**< %jp{初期化} */
+void    Ne2000Hal_Stop(C_NE2000HAL *self);												/**< %jp{停止} */
+int     Ne2000Hal_Recv(C_NE2000HAL *self, void *pRecvBuf, int iSize);					/**< %jp{パケット受信} */
+int     Ne2000Hal_Send(C_NE2000HAL *self, const void *pData, int iSize);				/**< %jp{パケット送信} */
+#define Ne2000Hal_GetPhysicalAddr(self)	((const unsigned char *)(self->ubPhysicalAddr))	/**< %jp{物理アドレス取得} */
 
 #ifdef __cplusplus
 }

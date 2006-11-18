@@ -260,7 +260,7 @@ unsigned char Ne2000Hal_GetNextPage(C_NE2000HAL *self, unsigned char ubPtr)
 
 
 /* パケット受信 */
-int Ne2000Hal_Recv(C_NE2000HAL *self, void *pBuf)
+int Ne2000Hal_Recv(C_NE2000HAL *self, void *pBuf, int iSize)
 {
 	unsigned char *pubBuf;
 	unsigned char ubBnry;
@@ -303,7 +303,7 @@ int Ne2000Hal_Recv(C_NE2000HAL *self, void *pBuf)
 	/* 折り返し位置までのサイズ */
 	iPStopSize = 0x6000 - iReadAddr;
 	
-	if ( ubHeader[0] & 1 )	/* 正常なら */
+	if ( (ubHeader[0] & 1) && iPacketSize <= iSize )	/* 正常なら */
 	{
 		if ( iPacketSize <= iPStopSize )
 		{
@@ -319,8 +319,9 @@ int Ne2000Hal_Recv(C_NE2000HAL *self, void *pBuf)
 			iReadAddr += (iPacketSize - iPStopSize) - 1;
 		}
 	}
-	else
+	else	/* 異常なら */
 	{
+		/* 読み捨ててポインタのみ進める */
 		if ( iPacketSize <= iPStopSize )
 		{
 			iReadAddr += iPacketSize - 1;
@@ -332,6 +333,7 @@ int Ne2000Hal_Recv(C_NE2000HAL *self, void *pBuf)
 		iPacketSize = 0;
 	}
 	
+	/* ポインタを更新 */
 	NE2000HAL_WRITE_REG(self, NE2000HAL_REG_BNRY, ((iReadAddr >> 8) & 0xff));
 	
 	return iPacketSize;
