@@ -93,7 +93,7 @@ mkdir_objs:
 clean:
 	rm -f $(OBJS) $(TARGET) ../kernel_cfg.c ../kernel_id.h
 
-clean-all: clean
+mostlyclean: clean
 	make -C $(KERNEL_BUILD_DIR) -f gmake.mak clean
 	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
 

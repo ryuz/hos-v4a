@@ -83,20 +83,9 @@ void  CApiKernelHeap::WriteCfgDef(FILE* fp)
 	{
 		fprintf( 
 			fp,
-			"VP_INT _kernel_hep_memblk[((%s) + sizeof(VP_INT) - 1) / sizeof(VP_INT)];\n"
-			"VP     _kernel_hep_mem   = (VP)_kernel_hep_memblk;\n"
-			"SIZE   _kernel_hep_memsz = (SIZE)sizeof(_kernel_hep_memblk);\n",
+			"VP_INT _kernel_hep_memblk[((%s) + sizeof(VP_INT) - 1) / sizeof(VP_INT)];\n",
 			m_pParamPacks[0]->GetParam(KNLHEP_HEPSZ));
 	}
-	else
-	{
-		fprintf( 
-			fp,
-			"VP     _kernel_hep_mem   = (VP)(%s);\n"
-			"SIZE   _kernel_hep_memsz = (SIZE)(%s);\n",
-			m_pParamPacks[0]->GetParam(KNLHEP_HEP),
-			m_pParamPacks[0]->GetParam(KNLHEP_HEPSZ));
-	}	
 }
 
 
@@ -122,7 +111,7 @@ void  CApiKernelHeap::WriteCfgIni(FILE* fp)
 	{
 		fprintf(fp,
 			"\t/* initialize kernel heap */\n"
-			"\t_KERNEL_SYS_INI_MEM((%s), (%s));\n\n",
+			"\t_KERNEL_SYS_INI_MEM((VP)(%s), (SIZE)(%s));\n\n",
 			m_pParamPacks[0]->GetParam(KNLHEP_HEP),
 			m_pParamPacks[0]->GetParam(KNLHEP_HEPSZ));
 	}
