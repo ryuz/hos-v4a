@@ -108,7 +108,7 @@ int Ne2000Drv_Write(C_NE2000DRV *self, const void *pData, int iSize)
 }
 
 
-/* 受信エラー割り込み */
+/* 割り込み処理 */
 void Ne2000Drv_Isr(VPARAM Param)
 {
 	C_NE2000DRV *self;
