@@ -6,27 +6,22 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
-
-
 # %jp{ツール定義}%en{Tools}
-CMD_CC   ?= gcc
-CMD_ASM  ?= gcc
-CMD_LIBR ?= ar
-CMD_LINK ?= ln
+CMD_CC     ?= gcc
+CMD_ASM    ?= gcc
+CMD_LIBR   ?= ar
+CMD_LINK   ?= ln
+CMD_OBJCNV ?= objcopy
 
 # %jp{拡張子定義}
-C_EXT   ?= c
-CPP_EXT ?= cpp
-ASM_EXT ?= S
-OBJ_EXT ?= o
-LIB_EXT ?= l
-EXE_EXT ?= elf
-ASC_EXT ?= mot
-BIN_EXT ?= bin
+EXT_C   ?= c
+EXT_CPP ?= cpp
+EXT_ASM ?= S
+EXT_OBJ ?= o
+EXT_LIB ?= l
+EXT_EXE ?= elf
+EXT_ASC ?= mot
+EXT_BIN ?= bin
 
 
 # ----------------------------------
@@ -40,15 +35,15 @@ CFLAGS +=
 CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
 
 # %jp{マクロ定義オプションの定義}
-CFLAGS_DEF = 
+CFLAGS_DEF = $(patsubst %,-D%,$(C_DEFS))
 
 # %jp{デバッグオプションの定義}
-CFLAGS_DBG = -DEBug
+CFLAGS_DBG = -g
 
 # %jp{最適化オプションの定義}
 CFLAGS_OPT_NONE  = -O0
 CFLAGS_OPT_SIZE  = -O2
-CFLAGS_OPT_SPEED = -O2
+CFLAGS_OPT_SPEED = -Os
 
 
 # ----------------------------------

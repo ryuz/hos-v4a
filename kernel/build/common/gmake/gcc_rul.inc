@@ -6,10 +6,12 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
+$(TARGET_EXE): $(OBJS) $(LIBS)
+	$(CMD_LINK) $(LNFLAGS) $(OBJS) $(LIBS) -o $(TARGET_EXE)
+
+
+$(TARGET_ASC): $(TARGET_EXE)
+	$(CMD_OBJCNV) -O srec $(TARGET_EXE) $(TARGET_ASC)
 
 
 # %jp{ライブラリ生成}
@@ -17,11 +19,11 @@ $(TARGET_LIB): $(OBJS)
 	$(CMD_LIBR) -r $(TARGET_LIB) $(OBJS)
 
 # %jp{Cコンパイル}
-$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(C_EXT)
+$(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
 	$(CMD_CC) $(CFLAGS) -c $< -o $@
 
 # %jp{アセンブル}
-$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(ASM_EXT)
+$(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
 	$(CMD_ASM) $(CFLAGS) -c $< -o $@
 
 

@@ -13,15 +13,16 @@
 #define __HOS__pc16550drv_h__
 
 
-#include "scihal.h"
+#include "pc16550hal.h"
 #include "system/sysapi/sysapi.h"
 #include "library/container/stmbuf/stmbuf.h"
 
 
-/* SCI用ドライバ制御部 */
+/* PC16550用ドライバ制御部 */
 typedef struct c_pc16550drv
 {
 	int           iOpenCount;
+	int           iIntNum;
 	SYSEVT_HANDLE hEvtSend;
 	SYSEVT_HANDLE hEvtRecv;
 	SYSMTX_HANDLE hMtxSend;
@@ -36,14 +37,14 @@ typedef struct c_pc16550drv
 extern "C" {
 #endif
 
-/* SCI用デバイスドライバ */
-void Pc16550Drv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
-void Pc16550Drv_Delete(C_SCIDRV *self);																/**< デストラクタ */
-void Pc16550Drv_Open(C_SCIDRV *self);																/**< オープン初期化 */
-void Pc16550Drv_Close(C_SCIDRV *self);																/**< クローズ */
-int  Pc16550Drv_Read(C_SCIDRV *self, void *pRecvBuf, int iSize);									/**< 書き込み */
-int  Pc16550Drv_Write(C_SCIDRV *self, const void *pData, int iSize);								/**< 読み出し */
-int  Pc16550Drv_SetSpeed(C_SCIDRV *self, long lBps);												/**< bps設定 */
+/* PC16550用デバイスドライバ */
+void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr, int iRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
+void Pc16550Drv_Delete(C_PC16550DRV *self);																/**< デストラクタ */
+void Pc16550Drv_Open(C_PC16550DRV *self);																/**< オープン初期化 */
+void Pc16550Drv_Close(C_PC16550DRV *self);																/**< クローズ */
+int  Pc16550Drv_Read(C_PC16550DRV *self, void *pRecvBuf, int iSize);									/**< 書き込み */
+int  Pc16550Drv_Write(C_PC16550DRV *self, const void *pData, int iSize);								/**< 読み出し */
+int  Pc16550Drv_SetSpeed(C_PC16550DRV *self, long lBps);												/**< bps設定 */
 
 #ifdef __cplusplus
 }

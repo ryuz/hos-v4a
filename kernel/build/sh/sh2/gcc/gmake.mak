@@ -46,9 +46,9 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS += -m2
-CFLAGS += -m2
-LFLAGS += 
+AFLAGS  += -m2
+CFLAGS  += -m2
+ARFLAGS += 
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
@@ -327,12 +327,12 @@ include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 # %jp{ALL}
 .PHONY : all
-all: all_makelib
+all: makelib_all
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
 # %jp{クリーン}
 .PHONY : clean
-clean: clean_makelib
+clean: makelib_clean
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 

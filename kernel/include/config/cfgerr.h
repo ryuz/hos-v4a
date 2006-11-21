@@ -64,7 +64,9 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* sus_tsk */
 /* rsm_tsk */
 /* frsm_tsk */
+
 /* dly_tsk */
+#define _KERNEL_CFG_DLY_TSK_E_CTX		TRUE
 
 
 
@@ -299,12 +301,17 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_GET_MPF_E_CTX		TRUE
 #define _KERNEL_CFG_GET_MPF_E_NOEXS 	TRUE
 #define _KERNEL_CFG_GET_MPF_E_PAR   	TRUE
-#define _KERNEL_CFG_GET_MPF_E_ILUSE 	TRUE
 #define _KERNEL_CFG_GET_MPF_E_RLWAI 	TRUE
 #define _KERNEL_CFG_GET_MPF_E_DLT   	TRUE
 #define _KERNEL_CFG_GET_MPF_E_NOSPT		FALSE
 
 /* pget_mpf */
+#define _KERNEL_CFG_PGET_MPF_E_ID		TRUE	
+#define _KERNEL_CFG_PGET_MPF_E_CTX		TRUE
+#define _KERNEL_CFG_PGET_MPF_E_NOEXS 	TRUE
+#define _KERNEL_CFG_PGET_MPF_E_PAR   	TRUE
+#define _KERNEL_CFG_PGET_MPF_E_NOSPT	FALSE
+
 /* tget_mpf */
 /* rel_mpf */
 /* ref_mpf */

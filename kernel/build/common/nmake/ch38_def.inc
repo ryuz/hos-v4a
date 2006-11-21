@@ -21,14 +21,14 @@ CMD_LIBR = optlnk
 !endif
 
 # %jp{拡張子定義}
-C_EXT   = c
-CPP_EXT = cpp
-ASM_EXT = src
-OBJ_EXT = obj
-LIB_EXT = lib
-EXE_EXT = abs
-ASC_EXT = mot
-BIN_EXT = bin
+EXT_C   = c
+EXT_CPP = cpp
+EXT_ASM = src
+EXT_OBJ = obj
+EXT_LIB = lib
+EXT_EXE = abs
+EXT_ASC = mot
+EXT_BIN = bin
 
 
 # ----------------------------------

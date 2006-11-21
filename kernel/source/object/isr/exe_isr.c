@@ -28,7 +28,9 @@ void _kernel_exe_isr(INTNO intno)
 
 	while ( isrhdl != _KERNEL_ISRHDL_NULL )
 	{
+		_KERNEL_ENA_INT();			/* %jp{多重割込み許可} */
 		_KERNEL_ISR_GET_ISR(isrcb_ro)(_KERNEL_ISR_GET_EXINF(isrcb_ro));
+		_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 		
 		isrhdl = _KERNEL_ISR_GET_NEXT(isrcb);
 	}

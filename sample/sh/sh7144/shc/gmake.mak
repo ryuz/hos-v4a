@@ -1,132 +1,112 @@
+# ----------------------------------------------------------------------------
+# Hyper Operating System V4 Advance
+#  makefile for sh2-sample
+#
+# Copyright (C) 1998-2006 by Project HOS
+# http://sourceforge.jp/projects/hos/
+# ----------------------------------------------------------------------------
 
-
+# %jp{ターゲット名}
 TARGET ?= sample
 
+# %jp{ディレクトリ定義}
+OS_DIR            = ../../../..
+KERNEL_DIR        = $(OS_DIR)/kernel
+KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
+KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/sh/sh2/shc
+OBJS_DIR          = objs_$(TARGET)
 
-ifeq ($(DEBUG),Yes)
-TARGET := $(TARGET)Dbg
-endif
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
+
+
+# %jp{フラグ設定}
+CFLAGS  = -CPu=sh2
+AFLAGS  = -CPu=sh2
+LNFLAGS = 
+
 
 ifeq ($(ROM),Yes)
-TARGET := $(TARGET)Rom
-endif
-
-ifeq ($(SIM),Yes)
-TARGET := $(TARGET)Sim
-endif
-
-
-# 出力ファイル名
-TARGET_ABS = $(TARGET).abs
-TARGET_MOT = $(TARGET).mot
-
-
-
-INC_DIR = ../../../../kernel/include
-
-# Tools
-CC     = shc
-ASM    = asmsh
-LINK   = optlnk
-DEPEND = depend
-LINT   = splint
-AWK    = gawk
-
-CFLAGS = -CPu=sh2 -I=$(INC_DIR)
-AFLAGS = -CPu=sh2 
-LFLAGS = 
-
-ifeq ($(DEBUG),Yes)
-OS_LIBS = ../../../../kernel/build/sh/sh2/shc/libhosv4adbg.lib
-AFLAGS += -DEBug
-CFLAGS += -DEBug -OP=0
-else
-OS_LIBS = ../../../../kernel/build/sh/sh2/shc/libhosv4a.lib
-AFLAGS += 
-CFLAGS += -OP=1
-endif
-
-OS_CFG  = ../../../../cfgrtr/build/gcc/h4acfg-sh2.exe
-
-
-OBJS_DIR = objs
-
-OBJS  = $(OBJS_DIR)/vcttbl.obj		\
-        $(OBJS_DIR)/dbsct.obj		\
-        $(OBJS_DIR)/startup.obj		\
-        $(OBJS_DIR)/kernel_cfg.obj	\
-        $(OBJS_DIR)/main.obj		\
-        $(OBJS_DIR)/sample.obj		\
-        $(OBJS_DIR)/ostimer.obj
-
-# シミュレータ有効時、SCI出力を入れ替える
-ifeq ($(SIM),Yes)
-OBJS += $(OBJS_DIR)/sim_io.obj
-else
-OBJS += $(OBJS_DIR)/sci1.obj
-endif
-
-
-STD_LIBS = stdlib.lib
-
-VPATH = ..
-
-all: mkdir_objs mk_kernel $(TARGET_ABS)
-
-
-# メモリ配置
-ifeq ($(ROM),Yes)
+# %jp{ROM焼きする場合}
+TARGET := $(TARGET)_rom
 SECTION_VECT ?= 000000000
 SECTION_ROM  ?= 000000400
 SECTION_RAM  ?= 0FFFFE000
 else
+# %jp{デフォルトはRAM実行とする(モニタプログラム利用を想定)}
 SECTION_VECT ?= 000400000
 SECTION_ROM  ?= 000400400
 SECTION_RAM  ?= 000410000
 endif
 
 
+# %jp{コンフィギュレータ定義}
+KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-sh2
 
-$(TARGET_ABS): $(OBJS) $(STD_LIBS) $(OS_LIBS)
-	echo rom D=R                         > $(OBJS_DIR)/subcmd.txt
-	echo list sample.map                >> $(OBJS_DIR)/subcmd.txt
-	echo SHow SY,R,X                    >> $(OBJS_DIR)/subcmd.txt
-	echo -Input=$(OBJS) | sed "s/ /,/g" >> $(OBJS_DIR)/subcmd.txt
-	echo -LIB=$(OS_LIBS),$(STD_LIBS)    >> $(OBJS_DIR)/subcmd.txt
-	echo "-start=VECTTBL/$(SECTION_VECT),P,C,C\$$BSEC,C\$$DSEC,D/$(SECTION_ROM),B,R/$(SECTION_RAM),S/0FFFFFBF0" >> $(OBJS_DIR)/subcmd.txt
-	echo -output=$(TARGET_ABS)          >> $(OBJS_DIR)/subcmd.txt
-	echo end                            >> $(OBJS_DIR)/subcmd.txt
-	echo -input=$(TARGET_ABS)           >> $(OBJS_DIR)/subcmd.txt
-	echo form stype                     >> $(OBJS_DIR)/subcmd.txt
-	echo output $(TARGET_MOT)           >> $(OBJS_DIR)/subcmd.txt
-	echo -exit                          >> $(OBJS_DIR)/subcmd.txt
-	$(RM) -f $(TARGET_ABS)
-	$(LINK) -SU=$(OBJS_DIR)/subcmd.txt
+# Cライブラリ名の指定
+STD_LIBS = stdlib.lib
+
+# 出力ファイル名
+TARGET_EXE = $(TARGET).abs
+TARGET_ASC = $(TARGET).mot
+
+
+# %jp{shc用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/shc_def.inc
+
+# ソースディレクトリ
+SRC_DIRS += . ..
+
+# アセンブラファイルの追加
+ASRCS += ./vcttbl.src		\
+         ./startup.src
+
+# %jp{C言語ファイルの追加}
+CSRCS += ./dbsct.c			\
+         ../kernel_cfg.c	\
+         ../main.c			\
+         ../sample.c		\
+         ../ostimer.c		\
+         ../sci1.c
+
+# %jp{ライブラリの追加}
+LIBS  += $(STD_LIBS)
+
+
+
+# --------------------------------------
+#  %jp{ルール}
+# --------------------------------------
+
+.PHONY : all
+all: makeexe_all $(TARGET_EXE) $(TARGET_EXE)
+
+clean: makeexe_clean
+	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 $(STD_LIBS):
-	lbgsh -OUTPut=$(STD_LIBS) $(CFLAGS)
-#	lbgsh -OUTPut=$(STD_LIBS) $(CFLAGS) -REent
-
-mk_kernel:
-	make -C ../../../../kernel/build/sh/sh2/shc -f gmake.mak
-
-mkdir_objs:
-	@mkdir -p $(OBJS_DIR)
-
-clean:
-	rm -f $(OBJS) $(TARGET_ABS) $(TARGET_MOT) ../kernel_cfg.c ../kernel_id.h
+	lbgsh -OUTPut=$(STD_LIBS) -CPu=sh2 -REent
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
-	$(OS_CFG) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
 
-$(OBJS_DIR)/sample.obj: ../kernel_id.h
+# %jp{ライブラリ生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
-$(OBJS_DIR)/%.obj :: %.c
-	$(CC) $(CFLAGS) $< -OB=$@ -List=$(@:%.obj=%.lst)
+# %jp{shc用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/shc_rul.inc
 
-$(OBJS_DIR)/%.obj :: %.src
-	$(ASM) $(AFLAGS) $< -OB=$@
 
+
+# --------------------------------------
+#  %jp{依存関係}
+# --------------------------------------
+
+$(OBJS_DIR)/sample.obj: ../sample.c ../kernel_id.h
+
+
+# end of file
 

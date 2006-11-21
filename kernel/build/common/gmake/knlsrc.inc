@@ -14,7 +14,6 @@ space:= $(empty) $(empty)
 
 
 # Directories
-KERNEL_DIR  = $(TOP_DIR)/kernel
 SRC_DIR     = $(KERNEL_DIR)/source
 INC_DIR     = $(KERNEL_DIR)/include
 

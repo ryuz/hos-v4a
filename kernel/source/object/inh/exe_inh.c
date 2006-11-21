@@ -16,8 +16,6 @@
 /* %jp{割り込みハンドラの処理} */
 void _kernel_exe_inh(INHNO inhno)
 {
-	_KERNEL_ENA_INT();			/* %jp{多重割込み許可} */
-
 	/* %jp{割り込みハンドラの処理} */
 #if _KERNEL_SPT_INH
 	{
@@ -27,17 +25,18 @@ void _kernel_exe_inh(INHNO inhno)
 	
 		if ( pk_inhinf->inthdr != NULL )
 		{
+			_KERNEL_ENA_INT();			/* %jp{多重割込み許可} */
 			pk_inhinf->inthdr(inhno);	/* %jp{割込みハンドラの処理} */
+			_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 		}
 	}
 #endif
-
+	
 	/* %jp{割り込みコントローラの処理} */
 #if _KERNEL_SPT_ISR
 	_KERNEL_EXE_IRC(inhno);
 #endif
 
-	_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 }
 
 

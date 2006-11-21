@@ -260,7 +260,7 @@ extern  _KERNEL_T_MBXCB					*_kernel_mbxcb_tbl[];									/**< %jp{メールボ�
 
 
 /* %jp{タイムアウトキュー操作} */
-#if _KERNEL_SPT_TWAI_MBX	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
+#if _KERNEL_SPT_TRCV_MBX	/* %jp{trcv_mbxサポート時はタイムアウトキューも考慮する} */
 #define _KERNEL_MBX_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
 #define _KERNEL_MBX_RMV_TOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
 #else

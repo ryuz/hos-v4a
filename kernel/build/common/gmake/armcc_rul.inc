@@ -6,23 +6,34 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
+# %jp{実行ファイル生成}%en{Executable file}
+$(TARGET_EXE): $(OBJS) $(LIBS)
+	$(CMD_LINK) $(LNFLAGS) -o $(TARGET_EXE) $(OBJS) $(LIBS)
 
 
-# %jp{ライブラリ生成}
+# %jp{ASCII形式ファイル生成}%en{ASCII file}
+$(TARGET_ASC): $(TARGET_EXE)
+	$(CMD_OBJCNV) --m32 --output $(TARGET_ASC) $(TARGET_EXE)
+
+
+# %jp{プレーンバイナリ形式ファイル生成}%en{Plain Binary}
+$(TARGET_BIN): $(TARGET_EXE)
+	$(CMD_OBJCNV) --bin --output $(TARGET_ASC) $(TARGET_EXE)
+
+
+# %jp{ライブラリ生成}%en{Library}
 $(TARGET_LIB): $(OBJS)
-	$(CMD_LIBR) -r $(TARGET_LIB) $(OBJS)
+	$(CMD_LIBR) $(ARFLAGS) --create $(TARGET_LIB) $(OBJS)
 
-# %jp{Cコンパイル}
-$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(C_EXT)
+
+# %jp{Cコンパイル}%en{C Compile}
+$(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
 	$(CMD_CC) $(CFLAGS) -c $< -o $@
 
-# %jp{アセンブル}
-$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(ASM_EXT)
-	$(CMD_ASM) $(CFLAGS) -c $< -o $@
+
+# %jp{アセンブル}%en{Assemble}
+$(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
+	$(CMD_ASM) $(AFLAGS) $< -o $@
 
 
 # end of file

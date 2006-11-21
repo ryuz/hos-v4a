@@ -7,23 +7,6 @@
 # ----------------------------------------------------------------------------
 
 
-
-# --------------------------------------
-#  %jp{共通設定}
-# --------------------------------------
-
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
-
-# %jp{ツール定義}%en{Tools}
-ECHO  = echo
-MKDIR = mkdir
-RM    = rm
-
-
-
 # --------------------------------------
 #  %jp{オプション解析}
 # --------------------------------------
@@ -86,24 +69,24 @@ AFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
 VPATH = $(subst $(space),:,$(SRC_DIRS))
 
 # %jp{ターゲットライブラリファイル名}
-TARGET_LIB = $(TARGET).$(LIB_EXT)
+TARGET_LIB = $(TARGET).$(EXT_LIB)
 
 # %jp{オブジェクトファイル}
-OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(OBJ_EXT), $(basename $(notdir $(CSRCS)))))   \
-       $(addprefix $(OBJS_DIR)/, $(addsuffix .$(OBJ_EXT), $(basename $(notdir $(ASRCS)))))
+OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))))   \
+       $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(ASRCS)))))
 
 
 # --------------------------------------
 #  %jp{ルール}
 # --------------------------------------
 
-# %jp{all処理}
-.PHONY : all_makelib
-all_makelib: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
+# %jp{ライブラリ生成}
+.PHONY : makelib_all
+makelib_all: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
 
 # %jp{クリーンナップ}
-.PHONY : clean_makelib
-clean_makelib:
+.PHONY : makelib_clean
+makelib_clean:
 	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
 
 # %jp{オブジェクト出力ディレクトリ作成}

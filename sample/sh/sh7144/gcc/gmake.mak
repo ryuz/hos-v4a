@@ -1,95 +1,113 @@
+# ----------------------------------------------------------------------------
+# Hyper Operating System V4 Advance
+#  makefile for sh2-sample
+#
+# Copyright (C) 1998-2006 by Project HOS
+# http://sourceforge.jp/projects/hos/
+# ----------------------------------------------------------------------------
 
-
+# %jp{ターゲット名}
 TARGET ?= sample
 
+# %jp{ツール定義}
+GCC_SYS    ?= elf
+CMD_CC     ?= sh-$(GCC_SYS)-gcc
+CMD_ASM    ?= sh-$(GCC_SYS)-gcc
+CMD_LINK   ?= sh-$(GCC_SYS)-gcc
+CMD_OBJCNV ?= sh-$(GCC_SYS)-objcopy
 
-ifeq ($(DEBUG),Yes)
-TARGET := $(TARGET)Dbg
-endif
+
+# %jp{ディレクトリ定義}
+OS_DIR            = ../../../..
+KERNEL_DIR        = $(OS_DIR)/kernel
+KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
+KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/sh/sh2/gcc
+OBJS_DIR          = objs_$(TARGET)
+
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
+
 
 ifeq ($(ROM),Yes)
-TARGET := $(TARGET)Rom
+# %jp{ROM焼きする場合}
+TARGET := $(TARGET)_rom
+SECTION_VECT ?= 000000000
+SECTION_ROM  ?= 000000400
+SECTION_RAM  ?= 0FFFFE000
+else
+# %jp{デフォルトはRAM実行とする(モニタプログラム利用を想定)}
+SECTION_VECT ?= 000400000
+SECTION_ROM  ?= 000400400
+SECTION_RAM  ?= 000410000
 endif
 
-ifeq ($(SIM),Yes)
-TARGET := $(TARGET)Sim
-endif
 
+# %jp{フラグ設定}
+CFLAGS  = -m2
+AFLAGS  = -m2
+LNFLAGS = -m2 -nostartfiles -Wl,-v,-t,-Map,sample.map,-Tsample.x
+
+
+# %jp{コンフィギュレータ定義}
+KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-sh2
 
 # 出力ファイル名
-TARGET_ELF = $(TARGET).elf
-TARGET_MOT = $(TARGET).mot
-
-INC_DIR = ../../../../kernel/include
+TARGET_EXE = $(TARGET).$(EXT_EXE)
+TARGET_ASC = $(TARGET).$(EXT_ASC)
 
 
-# Tools
-CC     = sh-elf-gcc
-ASM    = sh-elf-gcc
-LINK   = sh-elf-gcc
-DEPEND = sh-elf-gcc -M
-OBJCNV = sh-elf-objcopy
-LINT   = splint
-AWK    = gawk
+# %jp{gcc用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 
-INC_DIR = ../../../../kernel/include
+# ソースディレクトリ
+SRC_DIRS += . ..
 
+# アセンブラファイルの追加
+ASRCS += ./vector.S			\
+         ./crt0.S
 
-CFLAGS = -m2 -c -g -O0 -Wall -std=c89 -I$(INC_DIR)
-AFLAGS = -m2 -c -g
-LFLAGS = -m2 -nostartfiles -Wl,-v,-t,-Map,sample.map,-Tsample.x
+# %jp{C言語ファイルの追加}
+CSRCS += ../kernel_cfg.c	\
+         ../main.c			\
+         ../sample.c		\
+         ../ostimer.c		\
+         ../sci1.c
 
-OBJS = vector.o crt0.o kernel_cfg.o sample.o
-
-OS_CFG  = ../../../../cfgrtr/build/gcc/h4acfg-sh2.exe
-
-OBJS_DIR = objs
-
-OBJS  = $(OBJS_DIR)/vector.o		\
-        $(OBJS_DIR)/crt0.o			\
-        $(OBJS_DIR)/kernel_cfg.o	\
-        $(OBJS_DIR)/main.o			\
-        $(OBJS_DIR)/sample.o		\
-        $(OBJS_DIR)/ostimer.o		\
-        $(OBJS_DIR)/sci1.o			\
-
-VPATH = ..
-
-all: mkdir_objs mk_kernel $(TARGET_ELF)
+# %jp{ライブラリの追加}
+LIBS  +=
 
 
-mk_kernel:
-	make -C ../../../../kernel/build/sh/sh2/gcc -f gmake.mak
 
+# --------------------------------------
+#  %jp{ルール}
+# --------------------------------------
 
-clean:
-	rm -f $(OBJS) $(TARGET_ELF) $(TARGET_MOT) ../kernel_cfg.c ../kernel_id.h
+.PHONY : all
+all: makeexe_all $(TARGET_EXE) $(TARGET_EXE)
 
-
-mkdir_objs:
-	@mkdir -p $(OBJS_DIR)
-
-$(TARGET_ELF): $(OBJS)
-	$(LINK) $(LFLAGS) $(OBJS) ../../../../kernel/build/sh/sh2/gcc/libhosv4a.a -o $(TARGET_ELF)
-	${OBJCNV} -O srec $(TARGET_ELF) ${TARGET_MOT}
+clean: makeexe_clean
+	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
-	$(OS_CFG) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
-
-$(OBJS_DIR)/sample.o: ../kernel_id.h
+	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
 
+# %jp{ライブラリ生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
-
-$(OBJS_DIR)/sample.o: ../kernel_id.h
-
-$(OBJS_DIR)/%.o :: %.c
-	$(CC) $(CFLAGS) $< -o $@
-
-$(OBJS_DIR)/%.o :: %.S
-	$(ASM) $(AFLAGS) $< -o $@
+# %jp{shc用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
 
 
 
+# --------------------------------------
+#  %jp{依存関係}
+# --------------------------------------
+
+$(OBJS_DIR)/sample.$(EXT_OBJ): ../sample.c ../kernel_id.h
+
+
+# end of file
 

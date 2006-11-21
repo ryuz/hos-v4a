@@ -13,17 +13,21 @@ space:= $(empty) $(empty)
 
 
 # %jp{ツール定義}%en{Tools}
-CMD_CC   = shc
-CMD_ASM  = asmsh
-CMD_LIBR = optlnk
+CMD_CC     ?= shc
+CMD_ASM    ?= asmsh
+CMD_LIBR   ?= optlnk
+CMD_LINK   ?= optlnk
+CMD_OBJCNV ?= optlnk
 
 # %jp{拡張子定義}
-C_EXT   = c
-CPP_EXT = cpp
-ASM_EXT = src
-OBJ_EXT = obj
-LIB_EXT = lib
-
+EXT_C   ?= c
+EXT_CPP ?= cpp
+EXT_ASM ?= src
+EXT_OBJ ?= obj
+EXT_LIB ?= lib
+EXT_EXE ?= abs
+EXT_ASC ?= mot
+EXT_BIN ?= bin
 
 
 # ----------------------------------

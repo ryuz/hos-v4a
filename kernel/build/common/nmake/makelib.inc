@@ -65,7 +65,7 @@ AFLAGS = $(AFLAGS) $(AFLAGS_INC) $(AFLAGS_DEF)
 VPATH = $(SRC_DIRS: =,)
 
 # %jp{ターゲットライブラリファイル名}
-TARGET_LIB = $(TARGET).$(LIB_EXT)
+TARGET_LIB = $(TARGET).$(EXT_LIB)
 
 
 # --------------------------------------
@@ -78,7 +78,7 @@ all_makelib: srcobjcp_makelib $(TARGET_LIB)
 # %jp{クリーンナップ}
 clean_makelib:
 	-$(CMD_RM) $(TARGET_LIB)
-	-$(CMD_RM) $(OBJS_DIR)\*.$(OBJ_EXT)
+	-$(CMD_RM) $(OBJS_DIR)\*.$(EXT_OBJ)
 
 # %jp{オブジェクト出力ディレクトリ作成}
 mkdir_objs:

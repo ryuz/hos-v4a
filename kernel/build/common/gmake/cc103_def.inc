@@ -18,12 +18,14 @@ CMD_ASM  ?= cc103S
 CMD_LIBR ?= ar103S
 
 # %jp{拡張子定義}
-C_EXT   ?= c
-CPP_EXT ?= cpp
-ASM_EXT ?= as
-OBJ_EXT ?= ro
-LIB_EXT ?= l
-EXE_EXT ?= x
+EXT_C   ?= c
+EXT_CPP ?= cpp
+EXT_ASM ?= as
+EXT_OBJ ?= ro
+EXT_LIB ?= l
+EXT_EXE ?= x
+EXT_ASC ?= mot
+EXT_BIN ?= bin
 
 
 # ----------------------------------

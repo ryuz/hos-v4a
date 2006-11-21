@@ -13,15 +13,9 @@
 
 static void      SciFile_Delete(HANDLE hFile);				/**< デストラクタ */
 static FILE_ERR  SciFile_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize);
-static FILE_POS  SciFile_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
 static FILE_SIZE SciFile_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 static FILE_SIZE SciFile_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
 
-
-const T_HANDLEOBJ_METHODS SciFile_HandleObjMethods =
-{
-	SciFile_Delete,			/* デストラクタ */
-};
 
 const T_FILEOBJ_METHODS SciFile_FileObjMethods =
 {

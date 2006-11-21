@@ -451,7 +451,7 @@
 
 
 /* ------------------------------------------------------------------ */
-/*  TCB                                                               */
+/*  ID                                                                */
 /* ------------------------------------------------------------------ */
 
 /* ---------------------------------- */
@@ -504,10 +504,11 @@
 
 
 /* ---------------------------------- */
-/*          Task-Handle               */
+/*               Handle               */
 /* ---------------------------------- */
 
-#define _KERNEL_TSKHDL_ID			_KERNEL_CFG_TSKHDL_ID	/* %en{_KERNEL_T_TSKHDL is ID}%jp{タスクポインタにIDを使う} */
+#define _KERNEL_TSKHDL_ID			_KERNEL_CFG_TSKHDL_ID
+#define _KERNEL_ISRHDL_ID			_KERNEL_CFG_ISRHDL_ID
 
 
 

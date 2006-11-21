@@ -1,9 +1,6 @@
 /****************************************************************************
   Hyper Operating System V4 Advance
 
-  @file  armctx.s
-  @brief %en{コンテキスト制御}%jp{}
- 
   Copyright (C) 1998-2006 by Project HOS
   http://sourceforge.jp/projects/hos/
 ****************************************************************************/

@@ -12,5 +12,5 @@
 #include "system/file/stdfile.h"
 
 
-#endif __HOS__hosaplfw_h__
+#endif /* __HOS__hosaplfw_h__ */
 

@@ -6,28 +6,22 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
-
-
 # %jp{ツール定義}%en{Tools}
-CMD_CC   ?= armcc
-CMD_ASM  ?= armasm
-CMD_LIBR ?= armar
-CMD_LINK ?= armlink
-
+CMD_CC     ?= armcc
+CMD_ASM    ?= armasm
+CMD_LIBR   ?= armar
+CMD_LINK   ?= armlink
+CMD_OBJCNV ?= fromelf
 
 # %jp{拡張子定義}
-C_EXT   ?= c
-CPP_EXT ?= cpp
-ASM_EXT ?= s
-OBJ_EXT ?= o
-LIB_EXT ?= l
-EXE_EXT ?= axf
-ASC_EXT ?= mot
-BIN_EXT ?= bin
+EXT_C   ?= c
+EXT_CPP ?= cpp
+EXT_ASM ?= s
+EXT_OBJ ?= o
+EXT_LIB ?= a
+EXT_EXE ?= axf
+EXT_ASC ?= mot
+EXT_BIN ?= bin
 
 
 # ----------------------------------
@@ -35,7 +29,7 @@ BIN_EXT ?= bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-CFLAGS += -c --apcs /interwork
+CFLAGS += -c --apcs /interwork --split_sections
 
 # %jp{インクルードパスオプションの定義}
 CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))

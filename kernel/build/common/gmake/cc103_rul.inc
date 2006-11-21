@@ -13,12 +13,12 @@ $(TARGET_LIB): $(OBJS)
 
 
 # %jp{Cコンパイル}
-$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(C_EXT)
+$(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
 	$(CMD_CC)  $(CFLAGS) $< -o $@
 
 
 # %jp{アセンブル}
-$(OBJS_DIR)/%.$(OBJ_EXT) :: %.$(ASM_EXT)
+$(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
 	$(CMD_ASM) $(AFLAGS) $< -o $@
 
 

@@ -39,10 +39,20 @@ typedef struct _kernel_t_tcb	*_KERNEL_T_TSKHDL;
 /*           Isr-Handle               */
 /* ---------------------------------- */
 
+#if _KERNEL_ISRHDL_ID		/* %jp{ISRハンドルにIDを使う}%en{_KERNEL_T_ISRHDL is ID} */
+
+typedef _KERNEL_T_ISRID			_KERNEL_T_ISRHDL;
+#define _KERNEL_ISRHDL_NULL		0
+#define _KERNEL_TBIT_ISRHDL		_KERNEL_TBIT_ISRID
+
+#else
+
 struct _kernel_t_isrcb;
 typedef struct _kernel_t_isrcb	*_KERNEL_T_ISRHDL;
 #define _KERNEL_ISRHDL_NULL		0
+#define _KERNEL_TBIT_ISRHDL		_KERNEL_TBIT_VP_INT
 
+#endif
 
 
 #endif	/* _KERNEL__core__objhdl_h__ */

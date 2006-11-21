@@ -10,15 +10,9 @@
 # %jp{ターゲット名}
 TARGET ?= libhosv4a
 
-# %jp{アーキテクチャパス}
-ARCH_PROC ?= sh/sh2
-ARCH_IRC  ?= simple
-ARCH_CC   ?= shc
-
-
 # %jp{ディレクトリ定義}
-TOP_DIR           = ../../../../..
-KERNEL_DIR        = $(TOP_DIR)/kernel
+HOSV4A_DIR        = ../../../../..
+KERNEL_DIR        = $(HOSV4A_DIR)/kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 OBJS_DIR          = objs_$(TARGET)
 
@@ -27,7 +21,12 @@ OBJS_DIR          = objs_$(TARGET)
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{アーキテクチャパス定義}
+# %jp{アーキテクチャ定義}
+ARCH_PROC ?= sh/sh2
+ARCH_IRC  ?= simple
+ARCH_CC   ?= shc
+
+# %jp{アーキテクチャパス}
 INC_PROC_DIR     = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
 INC_IRC_DIR      = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
 SRC_PROC_DIR     = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
@@ -40,12 +39,12 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS += -CPu=sh2
-CFLAGS += -CPu=sh2
-LFLAGS += 
+AFLAGS  += -CPu=sh2
+CFLAGS  += -CPu=sh2
+ARFLAGS += 
 
 # %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
+CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-sh2
 
 # %jp{shc用の設定読込み}
@@ -53,7 +52,7 @@ include $(KERNEL_MAKINC_DIR)/shc_def.inc
 
 
 
-# C言語ファイルの追加
+# %jp{C言語ファイルの追加}
 CSRCS += $(SRC_IRC_DIR)/chg_ilv.c			\
          $(SRC_IRC_DIR)/chg_imsk.c			\
          $(SRC_IRC_DIR)/clr_int.c			\
@@ -62,7 +61,7 @@ CSRCS += $(SRC_IRC_DIR)/chg_ilv.c			\
          $(SRC_IRC_DIR)/get_ilv.c			\
          $(SRC_IRC_DIR)/get_imsk.c
 
-# アセンブラファイルの追加
+# %jp{アセンブラファイルの追加}
 ASRCS += $(SRC_PROC_ASM_DIR)/ctxctl.src		\
          $(SRC_PROC_ASM_DIR)/exchdr.src		\
          $(SRC_PROC_ASM_DIR)/inthdr.src     \
@@ -330,19 +329,18 @@ include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 # %jp{ALL}
 .PHONY : all
-all: all_makelib
+all: makelib_all
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
 # %jp{クリーン}
 .PHONY : clean
-clean: clean_makelib
+clean: makelib_clean
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
 
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
-
 
 # %jp{shc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/shc_rul.inc

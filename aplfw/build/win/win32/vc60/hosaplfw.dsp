@@ -198,6 +198,34 @@ SOURCE=..\..\..\..\driver\serial\winsock\winsockfile.c
 SOURCE=..\..\..\..\driver\serial\winsock\winsockfile.h
 # End Source File
 # End Group
+# Begin Group "pc16550"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550file.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550file.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal.h
+# End Source File
+# End Group
 # End Group
 # Begin Group "ether"
 

@@ -50,12 +50,12 @@ MKDIR  = mkdir
 RM     = rm
 
 # %jp{拡張子定義}
-C_EXT   = c
-CPP_EXT = cpp
-ASM_EXT = S
-OBJ_EXT = o
-LIB_EXT = l
-EXE_EXT = exe
+EXT_C   = c
+EXT_CPP = cpp
+EXT_ASM = S
+EXT_OBJ = o
+EXT_LIB = l
+EXT_EXE = exe
 
 
 
