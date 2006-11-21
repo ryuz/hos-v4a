@@ -155,7 +155,6 @@ CORE_HEADERS   = $(KERNEL_INC_DIR)\core\adtq.h			\
                  $(KERNEL_INC_DIR)\core\hep.h			\
                  $(KERNEL_INC_DIR)\core\objhdl.h		\
                  $(KERNEL_INC_DIR)\core\objid.h			\
-                 $(KERNEL_INC_DIR)\core\opttyp.h		\
                  $(KERNEL_INC_DIR)\core\que.h			\
                  $(KERNEL_INC_DIR)\core\rdq.h			\
                  $(KERNEL_INC_DIR)\core\sys.h			\
