@@ -24,7 +24,7 @@ $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
 
 # %jp{アセンブル}
 $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
-	$(CMD_ASM) $(CFLAGS) -c $< -o $@
+	$(CMD_ASM) $(AFLAGS) -c $< -o $@
 
 
 # end of file

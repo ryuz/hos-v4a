@@ -32,18 +32,19 @@ EXT_BIN ?= bin
 CFLAGS +=
 
 # %jp{インクルードパスオプションの定義}
-CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
+CFLAGS_INC ?= $(patsubst %,-I%,$(INC_DIRS))
 
 # %jp{マクロ定義オプションの定義}
-CFLAGS_DEF = $(patsubst %,-D%,$(C_DEFS))
+CFLAGS_DEF ?= $(patsubst %,-D%,$(C_DEFS))
 
 # %jp{デバッグオプションの定義}
-CFLAGS_DBG = -g
+CFLAGS_DBG ?= -g
 
 # %jp{最適化オプションの定義}
-CFLAGS_OPT_NONE  = -O0
-CFLAGS_OPT_SIZE  = -O2
-CFLAGS_OPT_SPEED = -Os
+CFLAGS_OPT_NONE   ?= -O0
+CFLAGS_OPT_NORMAL ?= -O2
+CFLAGS_OPT_SIZE   ?= -Os
+CFLAGS_OPT_SPEED  ?= -O3
 
 
 # ----------------------------------
@@ -54,18 +55,19 @@ CFLAGS_OPT_SPEED = -Os
 AFLAGS +=
 
 # %jp{インクルードパスオプションの定義}
-AFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
+AFLAGS_INC ?= $(patsubst %,-I%,$(INC_DIRS))
 
 # %jp{マクロ定義オプションの定義}
-AFLAGS_DEF = 
+AFLAGS_DEF ?= 
 
 # %jp{デバッグオプションの定義}
-AFLAGS_DBG = -g
+AFLAGS_DBG ?= -g
 
 # %jp{最適化オプションの定義}
-AFLAGS_OPT_NONE  =
-AFLAGS_OPT_SIZE  =
-AFLAGS_OPT_SPEED =
+AFLAGS_OPT_NONE   ?=
+AFLAGS_OPT_NORMAL ?=
+AFLAGS_OPT_SIZE   ?=
+AFLAGS_OPT_SPEED  ?=
 
 
 # end of file
