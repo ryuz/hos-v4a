@@ -13,12 +13,25 @@
 #define _KERNEL__arch__proc__arm__arm_v4__proc_h__
 
 
+#define _KERNEL_IMSK_F		0x40		/**< %jp{FIQ割り込みマスクビット} */
+#define _KERNEL_IMSK_I		0x80		/**< %jp{IRQ割り込みマスクビット} */
+
+#define _KERNEL_IMSK_LV0	0xc0		/**< %jp{割り込みマスクレベル0(すべてマスク)} */
+#define _KERNEL_IMSK_LV1	0x80		/**< %jp{割り込みマスクレベル1(FIQのみ許可)} */
+#define _KERNEL_IMSK_LV2	0x00		/**< %jp{割り込みマスクレベル2(すべて許可)} */
+
+
 
 /** %jp{コンテキスト情報保存ブロック} */
 typedef struct _kernel_t_ctxcb
 {
 	VP_INT  sp;
 } _KERNEL_T_CTXCB;
+
+
+/* %jp{広域変数定義} */
+extern volatile UB _kernel_arm_imsk;			/**< %jp{ARM用割り込みマスク} */
+extern volatile UB _kernel_int_cnt;				/**< %jp{割り込みネストカウンタ} */
 
 
 

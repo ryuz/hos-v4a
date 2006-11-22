@@ -20,16 +20,16 @@ else
 ifeq ($(OPT_SPEED),Yes)
 # %jp{速度最適化指定があれば速度優先}
 AFLAGS += $(AFLAGS_OPT_SPEED)
-CFLAGS += $(AFLAGS_OPT_SPEED)
+CFLAGS += $(CFLAGS_OPT_SPEED)
 else
 ifeq ($(OPT_SIZE),Yes)
 # %jp{サイズ優先適化指定があればサイズ優先}
 AFLAGS += $(AFLAGS_OPT_SIZE)
-CFLAGS += $(AFLAGS_OPT_SIZE)
+CFLAGS += $(CFLAGS_OPT_SIZE)
 else
 # %jp{デフォルトで通常の最適化}
 AFLAGS += $(AFLAGS_OPT_NORMAL)
-CFLAGS += $(AFLAGS_OPT_NORMAL)
+CFLAGS += $(CFLAGS_OPT_NORMAL)
 endif
 endif
 endif

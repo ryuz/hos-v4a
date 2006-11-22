@@ -981,9 +981,10 @@ typedef INT						EXCNO;		/**< %jp{CPU例外ハンドラ番号}%en{} */
 /*         macro definition             */
 /* ------------------------------------ */
 
-/* %jp{エラーコード取り出し} */
-#define	MERCD(ercd)			((ER)((B)(ercd)))		/**< %jp{エラーコードからメインエラーコードを取り出す} */
-#define	SERCD(ercd)			((ercd) >> 8)			/**< %jp{エラーコードからサブエラーコードを取り出す} */
+/* %jp{エラーコード生成・分解マクロ} */
+#define	ERCD(mercd, sercd)		(((mercd) & 0xff) | ((sercd) << 8))		/**< %jp{エラーコードからメインエラーコードを取り出す} */
+#define	MERCD(ercd)				((ER)((B)(ercd)))						/**< %jp{エラーコードからメインエラーコードを取り出す} */
+#define	SERCD(ercd)				((ercd) >> 8)							/**< %jp{エラーコードからサブエラーコードを取り出す} */
 
 
 

@@ -16,9 +16,9 @@
 #define _KERNEL_IMSK_I		0x80		/**< %jp{割り込みマスクビット} */
 #define _KERNEL_IMSK_UI		0x40		/**< %jp{ユーザービット／割り込みマスクビット} */
 
-#define _KERNEL_IMSK_LV0	0x00		/**< %jp{割り込みマスクレベル0(すべて許可)} */
+#define _KERNEL_IMSK_LV0	0xc0		/**< %jp{割り込みマスクレベル0(すべてマスク)} */
 #define _KERNEL_IMSK_LV1	0x80		/**< %jp{割り込みマスクレベル1(高優先割込みのみ許可)} */
-#define _KERNEL_IMSK_LV2	0xc0		/**< %jp{割り込みマスクレベル2(すべてマスク)} */
+#define _KERNEL_IMSK_LV2	0x00		/**< %jp{割り込みマスクレベル2(すべて許可)} */
 
 
 /** %jp{コンテキスト情報保存ブロック} */
