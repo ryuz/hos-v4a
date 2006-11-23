@@ -61,6 +61,7 @@ CSRCS    += $(APLFW_DIR)/system/sysapi/sysevt_clear.c				\
             $(APLFW_DIR)/system/file/file.c							\
             $(APLFW_DIR)/system/file/filefmt.c						\
             $(APLFW_DIR)/system/file/stdfile.c						\
+            $(APLFW_DIR)/system/file/confile.c						\
             $(APLFW_DIR)/system/memory/memory.c						\
             $(APLFW_DIR)/system/process/process.c					\
             $(APLFW_DIR)/system/process/procobj.c					\
