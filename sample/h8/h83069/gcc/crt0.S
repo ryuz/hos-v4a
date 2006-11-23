@@ -4,7 +4,6 @@
 				
 				.global __reset_handler
 				
-				
 				.text
 
 __reset_handler:	
@@ -36,6 +35,5 @@ bss_init_loop:
 	;			jsr		@___main
 				jsr		@_main
 	;			jsr		@_exit
-
 
 				.end

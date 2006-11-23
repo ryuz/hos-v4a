@@ -42,7 +42,7 @@ endif
 # %jp{フラグ設定}
 CFLAGS  = -mh
 AFLAGS  = -mh
-LNFLAGS = -mh -nostartfiles -T$(LINKER_SCRIPT)
+LNFLAGS = -mh -nostartfiles -T$(LINKER_SCRIPT) -Wl,-Map,sample.map
 
 
 # %jp{コンフィギュレータ定義}
@@ -74,7 +74,6 @@ CSRCS += ../kernel_cfg.c	\
 LIBS  +=
 
 
-
 # --------------------------------------
 #  %jp{ルール}
 # --------------------------------------
@@ -83,11 +82,14 @@ LIBS  +=
 all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
 
 clean: makeexe_clean
-	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	rm -f $(TARGET_EXE) $(TARGET_ASC) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+
+mostlyclean: clean clean_kernel
+
 
 
 # %jp{ライブラリ生成用設定読込み}

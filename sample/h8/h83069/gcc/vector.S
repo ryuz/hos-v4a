@@ -2,11 +2,7 @@
 				.h8300h
 
 
-				.global 	__reset_handler
-				.global		__kernel_vector_dmy
-				.global		__kernel_vector_024
-
-				.section	.vector
+				.section	.vectors
 
 				.long		__reset_handler			; ベクタ0   リセット
 				.long		__kernel_vector_dmy		; ベクタ1
