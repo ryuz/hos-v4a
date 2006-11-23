@@ -60,11 +60,11 @@ include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 SRC_DIRS += . ..
 
 # アセンブラファイルの追加
-ASRCS += ./vector.S			\
-         ./crt0.S
+ASRCS += ./crt0.S
 
 # %jp{C言語ファイルの追加}
-CSRCS += ../kernel_cfg.c	\
+CSRCS += ./vector.c			\
+         ../kernel_cfg.c	\
          ../main.c			\
          ../sample.c		\
          ../ostimer.c		\

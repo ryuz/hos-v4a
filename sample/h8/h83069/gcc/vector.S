@@ -2,7 +2,7 @@
 				.h8300h
 
 
-				.section	.vectors
+				.section	.vectors, "a",@progbits
 
 				.long		__reset_handler			; ベクタ0   リセット
 				.long		__kernel_vector_dmy		; ベクタ1

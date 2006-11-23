@@ -2,19 +2,26 @@ OUTPUT_ARCH(h8300h)
 ENTRY("__reset_handler")
 MEMORY
 {
-	vector(r) : o = 0xffc040, l = 0x0100
-	rom(rx)   : o = 0xffc140, l = 0x2000
-	ram(rwx)  : o = 0xffe140, l = 0x1800
+	vectors : o = 0xffc040, l = 0x0100
+	rom     : o = 0xffc140, l = 0x2000
+	ram     : o = 0xffe140, l = 0x1800
 }
 
 SECTIONS
 {
+	.vectors :
+	{
+		___vectors = . ; 
+		*(.vectors)
+		FILL(0xff)
+		___vectors_end = . ; 
+	} > vectors
 	.text :
 	{
 		 ___text = . ; 
 		*(.text)
 		*(.strings)
-		*(.rodata)
+		*(.rodata*)
 		 ___text_end = . ; 
 	}  > rom
 	.tors : {
