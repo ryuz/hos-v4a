@@ -272,16 +272,132 @@ SOURCE=..\..\..\..\system\command\command.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\system\sysapi\sysapi.c
+SOURCE=..\..\..\..\system\sysapi\sysapi.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\sysapi\sysapi.h
+SOURCE=..\..\..\..\system\sysapi\sysapi_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysevt_clear.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysevt_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysevt_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysevt_set.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysevt_wait.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysint_clear.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysint_disable.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysint_enable.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysisr_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysisr_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmem_alloc.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmem_free.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmem_getmemif.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmem_getsize.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmem_realloc.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmtx_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmtx_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmtx_lock.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysmtx_unlock.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_exit.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_getcurrenthandle.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_start.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\system_initialize.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\system_lock.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\system_unlock.c
 # End Source File
 # End Group
 # Begin Group "file"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\confile.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\confile.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\file.c

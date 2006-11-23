@@ -73,10 +73,10 @@ TARGET_LIB = $(TARGET).$(EXT_LIB)
 # --------------------------------------
 
 # %jp{all処理}
-all_makelib: srcobjcp_makelib $(TARGET_LIB)
+makelib_all: srcobjcp_makelib $(TARGET_LIB)
 
 # %jp{クリーンナップ}
-clean_makelib:
+makelib_clean:
 	-$(CMD_RM) $(TARGET_LIB)
 	-$(CMD_RM) $(OBJS_DIR)\*.$(EXT_OBJ)
 

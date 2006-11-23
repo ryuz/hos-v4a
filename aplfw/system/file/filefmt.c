@@ -148,7 +148,7 @@ int File_PrintFormatHex(HANDLE hFile, long lNum, int iWidth, int iPadChar)
 		lNum       >>= 4;
 	} while ( lNum != 0 );
 	
-	iWidth -= (sizeof(szBuf) - i);
+	iWidth -= (sizeof(szBuf) - i - 1);
 	while ( iWidth > 0 )
 	{
 		File_PutChar(hFile, iPadChar);
@@ -156,7 +156,7 @@ int File_PrintFormatHex(HANDLE hFile, long lNum, int iWidth, int iPadChar)
 		iLen++;
 	}
 	
-	iLen += File_PutString(hFile, szBuf);
+	iLen += File_PutString(hFile, &szBuf[i]);
 	
 	return iLen;
 }

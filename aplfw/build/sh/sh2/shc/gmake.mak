@@ -45,9 +45,9 @@ CSRCS += $(DRV_SERIAL_DIR)/scihal.c		\
          $(DRV_SERIAL_DIR)/scifile.c
 
 
-all: all_makelib
+all: makelib_all
 
-clean: clean_makelib
+clean: makelib_clean
 	$(RM) -f *.lst
 
 

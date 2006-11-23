@@ -134,7 +134,7 @@ OBJS   = $(OBJS_DIR)\val_int.obj		\
 
 
 # %jp{ALL}
-all: mkdir_objs srcobjcp all_makelib
+all: mkdir_objs srcobjcp makelib_all
 #	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
 

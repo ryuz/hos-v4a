@@ -20,6 +20,7 @@ space:= $(empty) $(empty)
 CMD_ECHO  ?= echo
 CMD_MKDIR ?= mkdir
 CMD_CP    ?= cp
+CMD_MV    ?= mv
 CMD_RM    ?= rm
 
 

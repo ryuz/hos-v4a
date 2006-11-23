@@ -14,13 +14,15 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
-#include "system/file/filesys.h"
 #include "system/sysapi/sysapi.h"
+#include "system/file/filesys.h"
+#include "system/file/confile.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/shell/shell.h"
 #include "driver/serial/winsock/winsockfile.h"
 #include "apl/hello/hello.h"
+#include "apl/memdump/memdump.h"
 
 
 long         g_SystemHeap[8 * 1024 / sizeof(long)];
@@ -40,7 +42,8 @@ void Sample_Startup(VP_INT exinf)
 {
 	T_SYSFILE_DEVINF DevInf;
 	T_PROCESS_INFO   ProcInfo;
-	HANDLE           hFile;
+	HANDLE           hTty;
+	HANDLE           hCon;
 	
 	/*************************/
 	/*       初期化          */
@@ -68,19 +71,27 @@ void Sample_Startup(VP_INT exinf)
 	/*     コマンド登録      */
 	/*************************/
 	Command_Initialize();
-	Command_AddCommand("hsh",   Shell_Main);
-	Command_AddCommand("hello", Hello_Main);
+	Command_AddCommand("hsh",     Shell_Main);
+	Command_AddCommand("hello",   Hello_Main);
+	Command_AddCommand("memdump", MemDump_Main);
 	
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
 
-	hFile = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
+	hTty = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
 
-	ProcInfo.hTty    = hFile;
-	ProcInfo.hStdIn  = hFile;
-	ProcInfo.hStdOut = hFile;
-	ProcInfo.hStdErr = hFile;
+	strcpy(DevInf.szName, "con");
+	DevInf.pfncCreate = ConsoleFile_Create;
+	DevInf.ObjSize    = sizeof(C_CONSOLEFILE);
+	DevInf.pParam     = hTty;
+	SysFile_AddDevice("/dev", &DevInf);
+	hCon = File_Open("/dev/con", FILE_MODE_READ | FILE_MODE_WRITE);
+	
+	ProcInfo.hTty    = hTty;
+	ProcInfo.hStdIn  = hCon;
+	ProcInfo.hStdOut = hCon;
+	ProcInfo.hStdErr = hCon;
 	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
 
 	return;
