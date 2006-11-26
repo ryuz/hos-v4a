@@ -50,7 +50,9 @@ ER vsta_knl(void)
 	/* %jp{初期化ハンドラ実行} */
 	_kernel_cfg_ini();
 
+#if _KERNEL_SPT_DPC
 	_KERNEL_SYS_INI_DPC(dpc_buf, 32);
+#endif
 	
 	/* %jp{システムコンテキストの生成} */
 	_KERNEL_CRE_CTX(

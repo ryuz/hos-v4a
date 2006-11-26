@@ -1,11 +1,11 @@
-
+OUTPUT_FORMAT("elf32-h8300")
 OUTPUT_ARCH(h8300h)
 ENTRY("__reset_handler")
 MEMORY
 {
-	vectors : o = 0x000000, l = 0x0100
-	rom     : o = 0x000100, l = 0x8000
-	ram     : o = 0xffe140, l = 0x1800
+	vectors(r) : o = 0x000000, l = 0x0100
+	rom(rx)    : o = 0x000100, l = 0x7f00
+	ram(rwx)   : o = 0xffbf20, l = 0x4000
 }
 
 SECTIONS
@@ -26,6 +26,7 @@ SECTIONS
 		 ___text_end = . ; 
 	} > rom
 	.tors : {
+		. = ALIGN(4);
 		___ctors = . ;
 		*(.ctors)
 		___ctors_end = . ;
@@ -33,7 +34,7 @@ SECTIONS
 		*(.dtors)
 		___dtors_end = . ;
 	} > rom
-	data : AT (ADDR(.tors) + SIZEOF(.tors))
+	data :
 	{
 		___data = . ;
 		*(.data)
