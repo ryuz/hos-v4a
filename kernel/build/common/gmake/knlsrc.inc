@@ -25,6 +25,7 @@ QUE_DIR     = $(CORE_DIR)/que
 TOQ_DIR     = $(CORE_DIR)/toq
 HEP_DIR     = $(CORE_DIR)/hep
 DPC_DIR     = $(CORE_DIR)/dpc
+ADTQ_DIR    = $(CORE_DIR)/adtq
 
 SYSOBJ_DIR  = $(OBJ_DIR)/sys
 TSKOBJ_DIR  = $(OBJ_DIR)/tsk
@@ -39,11 +40,9 @@ TIMOBJ_DIR  = $(OBJ_DIR)/tim
 
 INC_DIRS += $(INC_DIR)
 
-SRC_DIRS += $(DSP_DIR) $(QUE_DIR) $(TOQ_DIR) $(HEP_DIR) $(DPC_DIR)	\
-            $(SYSOBJ_DIR) $(TSKOBJ_DIR) $(SEMOBJ_DIR) $(FLGOBJ_DIR)	\
-            $(MBXOBJ_DIR) $(MPFOBJ_DIR) $(INHOBJ_DIR) $(ISROBJ_DIR)	\
-            $(TIMOBJ_DIR)
-
+SRC_DIRS += $(DSP_DIR) $(QUE_DIR) $(TOQ_DIR) $(HEP_DIR) $(DPC_DIR) $(ADTQ_DIR)		\
+            $(SYSOBJ_DIR) $(TSKOBJ_DIR) $(SEMOBJ_DIR) $(FLGOBJ_DIR) $(MBXOBJ_DIR)	\
+            $(MPFOBJ_DIR) $(INHOBJ_DIR) $(ISROBJ_DIR) $(TIMOBJ_DIR)
 
 
 # C source files
@@ -71,10 +70,13 @@ CSRCS         += $(DSP_DIR)/ent_tsk.c			\
                  $(HEP_DIR)/cre_hep.c			\
                  $(HEP_DIR)/alc_hep.c			\
                  $(HEP_DIR)/fre_hep.c			\
-                 $(DPC_DIR)/dpc_fre.c			\
-                 $(DPC_DIR)/dpc_rcv.c			\
-                 $(DPC_DIR)/dpc_snd.c			\
-                 $(DPC_DIR)/lev_svc.c			\
+                 $(DPC_DIR)/exe_dpc.c			\
+                 $(ADTQ_DIR)/frcv_adq.c			\
+                 $(ADTQ_DIR)/fsnd_adq.c			\
+                 $(ADTQ_DIR)/rcv_adq.c			\
+                 $(ADTQ_DIR)/reff_adq.c			\
+                 $(ADTQ_DIR)/refs_adq.c			\
+                 $(ADTQ_DIR)/snd_adq.c			\
                  $(SYSOBJ_DIR)/sta_knl.c		\
                  $(SYSOBJ_DIR)/get_tid.c		\
                  $(SYSOBJ_DIR)/loc_cpu.c		\

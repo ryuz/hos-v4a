@@ -54,9 +54,9 @@ __kernel_wai_int:
 /*  実行コンテキストエントリーアドレス
 ************************************************/
 ctx_entry:	
-				mov.l	er3, er0				/* 実行時パラメータを第一引数に設定 */
-				mov.l	er4, er1				/* 実行時パラメータを第一引数に設定 */
-				jmp		@er2					/* 実行アドレスにジャンプ */
+				mov.l	er5, er0				/* 実行時パラメータを第一引数に設定 */
+				mov.l	er6, er1				/* 実行時パラメータを第一引数に設定 */
+				jmp		@er4					/* 実行アドレスにジャンプ */
 
 
 /************************************************
@@ -64,21 +64,20 @@ ctx_entry:
   _kernel_cre_ctx(
 		_KERNEL_T_CTXCB *pk_ctxcb,				作成するコンテキスト [er0]
 		VP              isp,					初期スタックポインタ [er1]
-		FP              entry,					実行アドレス         [@(4, er7)]
-		VP_INT          par1,					実行時パラメータ1    [@(8, er7)]
-		VP_INT          par2)					実行時パラメータ2    [@(12, er7)]
+		FP              entry,					実行アドレス         [er2]
+		VP_INT          par1,					実行時パラメータ1    [@(4, er7)]
+		VP_INT          par2)					実行時パラメータ2    [@(8, er7)]
 ************************************************/
 __kernel_cre_ctx:
-				sub.l	#24, er1				/* エントリーポイント+er2〜er6 までの退避分 */
+				sub.l	#16, er1				/* エントリーポイント+er4〜er6 までの退避分 */
 				mov.l	er1, @(0, er0)			/* スタックポインタの格納 */
 				mov.l	#ctx_entry, er0
-				mov.l	er0, @(20, er1)			/* 実行エントリーポイントの設定 */
+				mov.l	er0, @(12, er1)			/* 実行エントリーポイントの設定 */
+				mov.l	er2, @(8, er1)			/* 実行アドレスの格納(er4部分) */
 				mov.l	@(4, er7), er0
-				mov.l	er0, @(16, er1)			/* 実行アドレスの格納(er2部分) */
+				mov.l	er0, @(4, er1)			/* 実行時パラメータ1の格納(er5部分) */
 				mov.l	@(8, er7), er0
-				mov.l	er0, @(12, er1)			/* 実行時パラメータ1の格納(er3部分) */
-				mov.l	@(12, er7), er0
-				mov.l	er0, @(8, er1)			/* 実行時パラメータ1の格納(er4部分) */
+				mov.l	er0, @(0, er1)			/* 実行時パラメータ2の格納(er6部分) */
 				rts
 
 
@@ -89,12 +88,10 @@ __kernel_cre_ctx:
 		_KERNEL_T_CTXCB *pk_ctxcb_now)			現在のコンテキスト       [er1]
 ************************************************/
 __kernel_swi_ctx:
-				push.l	er2
-				push.l	er3
 				push.l	er4
 				push.l	er5
 				push.l	er6
-				mov.l	er7,@(0, er1)			/* スタックポインタ保存 */
+				mov.l	er7, @(0, er1)			/* スタックポインタ保存 */
 		/* ---- このまま _kernel_sta_ctx に続ける ---- */
 
 /************************************************
@@ -107,8 +104,6 @@ __kernel_sta_ctx:
 				pop.l	er6
 				pop.l	er5
 				pop.l	er4
-				pop.l	er3
-				pop.l	er2
 				rts
 
 
@@ -117,14 +112,13 @@ __kernel_sta_ctx:
  void _kernel_rst_ctx(
 		VP_INT par1,							実行時パラメータ1    [er0]
 		VP_INT par2,							実行時パラメータ2    [er1]
-		VP     isp,								初期スタックポインタ [@(4, er7)]
-		FP     entry)							実行アドレス         [@(8, er7)]
+		VP     isp,								初期スタックポインタ [er2]
+		FP     entry)							実行アドレス         [@(4, er7)]
 ************************************************/
 __kernel_rst_ctx:
-				mov.l	@(4, er7), er3			/* 初期スタックポインタ */
-				mov.l	@(8, er7), er4			/* 実行アドレス取り出し */
-				mov.l	er3, er7				/* スタックポインタリセット */
-				jmp		@er4					/* 実行アドレスに分岐 */
+				mov.l	@(4, er7), er3			/* 実行アドレス取り出し */
+				mov.l	er2, er7				/* スタックポインタリセット */
+				jmp		@er3					/* 実行アドレスに分岐 */
 
 
 				.comm	__kernel_h83_imsk,1

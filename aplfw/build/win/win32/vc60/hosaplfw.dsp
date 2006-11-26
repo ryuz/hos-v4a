@@ -428,10 +428,6 @@ SOURCE=..\..\..\..\system\file\stdfile.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\system\memory\memif.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\memory\memory.c
 # End Source File
 # Begin Source File
@@ -513,6 +509,14 @@ SOURCE=..\..\..\..\apl\hello\hello.c
 # Begin Source File
 
 SOURCE=..\..\..\..\apl\hello\hello.h
+# End Source File
+# End Group
+# Begin Group "memdump"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\apl\memdump\memdump.c
 # End Source File
 # End Group
 # End Group

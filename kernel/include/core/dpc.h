@@ -13,12 +13,12 @@
 #define _KERNEL__core__dpc_h__
 
 
+#include "core/adtq.h"
+
+
 typedef struct _kernel_t_dpccb
 {
-	VP_INT			*msgq;
-	UINT			msgqsz;
-	volatile UINT	head;
-	volatile UINT	tail;
+	_KERNEL_T_ADTQCB	adtq;					/**< 遅延プロシージャコール用非同期メッセージキュー */
 } _KERNEL_T_DPCCB;
 
 
@@ -26,20 +26,18 @@ typedef struct _kernel_t_dpccb
 extern "C" {
 #endif
 
-void   _kernel_dpc_snd_msg(_KERNEL_T_DPCCB *dcpcb, VP_INT msg);
-VP_INT _kernel_dpc_rcv_msg(_KERNEL_T_DPCCB *dcpcb);
-UINT   _kernel_dpc_ref_dat(_KERNEL_T_DPCCB *dcpcb);
-UINT   _kernel_dpc_ref_fre(_KERNEL_T_DPCCB *dcpcb);
-void   _kernel_dpc_lev_svc(void);
+void   _kernel_exe_dpc(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#define _KERNEL_DPC_SND_MSG(dcpcb, msg)			_kernel_dpc_snd_msg((dcpcb), (msg))
-#define _KERNEL_DPC_RCV_MSG(dcpcb)				_kernel_dpc_rcv_msg((dcpcb))
-#define _KERNEL_DPC_REF_DAT(dcpcb)				_kernel_dpc_ref_dat((dcpcb))			/* データ数参照 */
-#define _KERNEL_DPC_REF_FRE(dcpcb)				_kernel_dpc_ref_fre((dcpcb))			/* 空き領域参照 */
+#define _KERNEL_DPC_INI_DPC(dcpcb, que, quecnt)		_KERNEL_ADTQ_INI_QUE(&(dcpcb)->adtq, que, quecnt)
+#define _KERNEL_DPC_EXE_DPC()						_kernel_exe_dpc()
+#define _KERNEL_DPC_SND_MSG(dcpcb, msg)				_KERNEL_ADTQ_FSND_DAT(&(dcpcb)->adtq, (msg))
+#define _KERNEL_DPC_RCV_MSG(dcpcb)					_KERNEL_ADTQ_FRCV_DAT(&(dcpcb)->adtq)
+#define _KERNEL_DPC_REF_DAT(dcpcb)					_KERNEL_ADTQ_REF_SDTQNT(&(dcpcb)->adtq)			/* データ数参照 */
+#define _KERNEL_DPC_REF_FRE(dcpcb)					_KERNEL_ADTQ_REF_FDTQNT(&(dcpcb)->adtq)			/* 空き領域参照 */
 
 
 #endif	/* _KERNEL__core__dpc_h__ */

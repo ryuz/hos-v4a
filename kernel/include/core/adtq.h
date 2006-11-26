@@ -63,10 +63,13 @@ _KERNEL_ADTQ_T_ADTQCNT _kernel_adtq_ref_sdtqnt(_KERNEL_T_ADTQCB *adtqcb);
 #endif
 
 
-#define _KERNEL_ADTQ_SND_DAT(adtqcb, data)			_kernel_adtq_snd_dat((adtqcb), (data))
-#define _KERNEL_ADTQ_RCV_DAT(adtqcb, p_data)		_kernel_adtq_rcv_dat((adtqcb), (p_data))
-#define _KERNEL_ADTQ_REF_FDTQNT(adtqcb)				_kernel_adtq_ref_fdtqnt(adtqcb)
-#define _KERNEL_ADTQ_REF_SDTQNT(adtqcb)				_kernel_adtq_ref_sdtqnt(adtqcb)
+#define _KERNEL_ADTQ_INI_QUE(adtqcb, adtq, adtqcnt)		do { _KERNEL_ADTQ_SET_ADTQ((adtqcb), (adtq)); _KERNEL_ADTQ_SET_ADTQCNT((adtqcb), (adtqcnt)); } while(0)
+#define _KERNEL_ADTQ_SND_DAT(adtqcb, data)				_kernel_adtq_snd_dat((adtqcb), (data))
+#define _KERNEL_ADTQ_RCV_DAT(adtqcb, p_data)			_kernel_adtq_rcv_dat((adtqcb), (p_data))
+#define _KERNEL_ADTQ_FSND_DAT(adtqcb, data)				_kernel_adtq_fsnd_dat((adtqcb), (data))	
+#define _KERNEL_ADTQ_FRCV_DAT(adtqcb)					_kernel_adtq_frcv_dat(adtqcb)
+#define _KERNEL_ADTQ_REF_SDTQNT(adtqcb)					_kernel_adtq_ref_sdtqnt(adtqcb)
+#define _KERNEL_ADTQ_REF_FDTQNT(adtqcb)					_kernel_adtq_ref_fdtqnt(adtqcb)
 
 
 #endif	/* _KERNEL__core__adtq_h__ */

@@ -29,13 +29,15 @@ OBJS_DIR          = objs_$(TARGET)
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-ifeq ($(ROM),Yes)
-# %jp{ROM焼きする場合}
-TARGET := $(TARGET)_rom
-LINKER_SCRIPT ?= link_rom.x
-else
-# %jp{デフォルトはRAM実行とする(モニタプログラム利用を想定)}
+ifeq ($(RAM),Yes)
+# %jp{RAM実行(モニタプログラム利用を想定)}
+TARGET := $(TARGET)_ram
 LINKER_SCRIPT ?= link_ram.x
+C_DEFS        += _RAM
+else
+# %jp{ROM焼きする場合}
+LINKER_SCRIPT ?= link_rom.x
+C_DEFS        += 
 endif
 
 

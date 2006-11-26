@@ -16,8 +16,8 @@
 #include "readcfg.h"
 
 
-#define IDLSTK_STKSZ		0
-#define IDLSTK_STK			1
+#define SYSSTK_STKSZ		0
+#define SYSSTK_STK			1
 
 
 // コンストラクタ
@@ -45,7 +45,7 @@ int CApiIdleStack::AutoId(void)
 // APIの解析
 int CApiIdleStack::AnalyzeApi(const char* pszApiName, const char* pszParams)
 {
-	if ( strcmp(pszApiName, "KERNEL_IDL_STK") == 0 )
+	if ( strcmp(pszApiName, "KERNEL_SYS_STK") == 0 )
 	{
 		if ( m_iObjs > 0 )
 		{
@@ -69,15 +69,15 @@ void  CApiIdleStack::WriteCfgDef(FILE* fp)
 	fputs(
 		"\n\n\n"
 		"/* ------------------------------------------ */\n"
-		"/*                 idle stack                 */\n"
+		"/*               system stack                 */\n"
 		"/* ------------------------------------------ */\n\n"
 		, fp);
 
 	// パラメータ読み出し
 	if ( m_iObjs > 0 )
 	{
-		pszSize  = m_pParamPacks[0]->GetParam(IDLSTK_STKSZ);
-		pszStack = m_pParamPacks[0]->GetParam(IDLSTK_STK);
+		pszSize  = m_pParamPacks[0]->GetParam(SYSSTK_STKSZ);
+		pszStack = m_pParamPacks[0]->GetParam(SYSSTK_STK);
 	}
 	else
 	{
@@ -90,19 +90,44 @@ void  CApiIdleStack::WriteCfgDef(FILE* fp)
 	{
 		fprintf(
 			fp,
-			"VP         _kernel_idl_stkblk[((%s) + sizeof(VP) - 1) / sizeof(VP)];\t/* idle stack block*/\n"
-			"const VP   _kernel_idl_stk   = (VP)(_kernel_idl_stkblk);\t/* idle stack */\n"
-			"const SIZE _kernel_idl_stksz = (SIZE)sizeof(_kernel_idl_stkblk);\t/* idle stack size */\n",
+			"VP         _kernel_sys_stkblk[((%s) + sizeof(VP) - 1) / sizeof(VP)];\t/* system stack block*/\n\n",
 			pszSize);
+	}
+}
+
+
+// cfgファイル起動部書き出し
+void  CApiIdleStack::WriteCfgIni(FILE* fp)
+{
+	const char* pszSize;
+	const char* pszStack;
+
+	// パラメータ読み出し
+	if ( m_iObjs > 0 )
+	{
+		pszSize  = m_pParamPacks[0]->GetParam(SYSSTK_STKSZ);
+		pszStack = m_pParamPacks[0]->GetParam(SYSSTK_STK);
+	}
+	else
+	{
+		pszSize  = "128";		// 指定が無ければデフォルトサイズ
+		pszStack = "NULL";		// 指定が無ければNULL(自動生成)
+	}
+	
+	if ( strcmp(pszStack, "NULL") == 0 )
+	{
+		fprintf(
+			fp,
+			"\n\t_KERNEL_SYS_INI_SYSSTK((VP)(_kernel_sys_stkblk), (SIZE)sizeof(_kernel_sys_stkblk));\n");
 	}
 	else
 	{
 		fprintf(
 			fp,
-			"const VP   _kernel_idl_stk   = (VP)(%s);\t/* idle stack */\n"
-			"const SIZE _kernel_idl_stksz = (SIZE)(%s);\t/* idle stack */\n",
-			pszStack,pszSize);
+			"\n\t_KERNEL_SYS_INI_SYSSTK((VP)(%s), (SIZE)(%s));\n",
+			pszStack, pszSize);
 	}
+
 }
 
 

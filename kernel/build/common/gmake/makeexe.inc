@@ -13,7 +13,6 @@
 
 ifeq ($(DEBUG),Yes)
 # %jp{デバッグ指定があればデバッグ版作成}
-TARGET := $(TARGET)dbg
 AFLAGS += $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
 CFLAGS += $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
 else
@@ -95,7 +94,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 
 # %jp{ライブラリ生成}
 .PHONY : makeexe_all
-makeexe_all: $(CSRCS) $(ASRCS) mk_kernel mkdir_objs
+makeexe_all: mk_kernel mkdir_objs $(CSRCS) $(ASRCS)
 
 # %jp{クリーンナップ}
 .PHONY : makeexe_clean

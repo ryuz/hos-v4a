@@ -50,10 +50,10 @@ void PrintUsage(void);
 
 
 CApiInclude    g_ApiInclude;
+CApiKernelHeap g_ApiKernelHeap;
 CApiIdleStack  g_ApiIdleStack;
 CApiMaxTpri    g_ApiMaxTpri;
 CApiIntStack   g_IntStack;
-CApiKernelHeap g_ApiKernelHeap;
 CApiCreTsk     g_ApiCreTsk;
 CApiDefTex     g_ApiDefTex;
 CApiCreSem     g_ApiCreSem;
@@ -78,9 +78,9 @@ static const char *s_szCfgFile            = DEFAULT_CFGFILE;
 static CApiDef* g_ApiList[] =
 	{
 		&g_ApiInclude,
+		&g_ApiKernelHeap,
 		&g_ApiIdleStack,
 		&g_IntStack,
-		&g_ApiKernelHeap,
 		&g_ApiCreTsk,
 //		&g_ApiDefTex,
 		&g_ApiCreSem,

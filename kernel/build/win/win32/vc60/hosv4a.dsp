@@ -455,19 +455,7 @@ SOURCE=..\..\..\..\source\core\adtq\snd_adq.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\source\core\dpc\dpc_fre.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\source\core\dpc\dpc_rcv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\source\core\dpc\dpc_snd.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\source\core\dpc\lev_svc.c
+SOURCE=..\..\..\..\source\core\dpc\exe_dpc.c
 # End Source File
 # End Group
 # End Group

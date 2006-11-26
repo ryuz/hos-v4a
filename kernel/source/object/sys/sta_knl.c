@@ -16,9 +16,6 @@
 /**** 暫定の手抜き(ここから) *****/
 _KERNEL_T_SYSCB _kernel_syscb;
 
-extern VP   _kernel_idl_stk;
-extern SIZE _kernel_idl_stksz;
-
 #if _KERNEL_SPT_DPC
 VP_INT dpc_buf[32];
 #endif
@@ -50,15 +47,10 @@ ER vsta_knl(void)
 	/* %jp{IRC固有の初期化} */
 	_KERNEL_INI_IRC();
 	
+	/* %jp{初期化ハンドラ実行} */
+	_kernel_cfg_ini();
 
-#if _KERNEL_SPT_DPC
-	_kernel_syscb.dpccb.msgq   = dpc_buf;
-	_kernel_syscb.dpccb.msgqsz = 32;
-#endif
-
-	_kernel_syscb.proccb[0].sysstk   = _kernel_idl_stk;
-	_kernel_syscb.proccb[0].sysstksz = _kernel_idl_stksz;
-	
+	_KERNEL_SYS_INI_DPC(dpc_buf, 32);
 	
 	/* %jp{システムコンテキストの生成} */
 	_KERNEL_CRE_CTX(
@@ -71,8 +63,6 @@ ER vsta_knl(void)
 			(VP_INT)0
 		);
 	
-	/* %jp{初期化ハンドラ実行} */
-	_kernel_cfg_ini();
 
 	_KERNEL_LEAVE_SVC();
 

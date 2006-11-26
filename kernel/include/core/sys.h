@@ -33,15 +33,16 @@ typedef struct _kernel_t_proccb
 {
 	STAT				stat;				/**< %jp{システムのコンテキスト状態}%en{system state} */
 	UB                  dlydsp;				/**< %jp{ディスパッチのディレイ管理} */
+#if _KERNEL_SPT_DPC
+	UB                  svcent;				/**< %jp{サービスコール実行中管理} */
+#endif
+
 	_KERNEL_T_TSKHDL	tskhdl_run;			/**< %jp{実行中タスク} */
 	_KERNEL_T_CTXCB		sysctxcb;			/**< %jp{システムコンテキスト(アイドル実行等)のコンテキスト} */
 	SIZE				sysstksz;			/**< %jp{システムコンテキストのスタックサイズ} */
 	VP					sysstk;				/**< %jp{システムコンテキストのスタック} */
 	SIZE				intstksz;			/**< %jp{割り込みコンテキストのスタックサイズ} */
 	VP					intstk;				/**< %jp{割り込みコンテキストのスタック} */
-#if _KERNEL_SPT_DPC
-	UINT                svcnst;				/**< %jp{サービスコールネストカウンタ} */
-#endif
 } _KERNEL_T_PROCCB;
 
 
@@ -77,6 +78,9 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_ALC_MEM(size)			_kernel_alc_hep(&_kernel_syscb.memhep, (size))						/**< %jp{カーネルメモリの割当て} */
 #define _KERNEL_SYS_FRE_MEM(ptr)			_kernel_fre_hep(&_kernel_syscb.memhep, (ptr))						/**< %jp{カーネルメモリの開放} */
 #define _KERNEL_SYS_ALG_MEM(size)			_kernel_alg_hep(size)												/**< %jp{カーネルメモリのサイズアライメント} */
+
+#define _KERNEL_SYS_INI_SYSSTK(stk, stksz)	do { _kernel_syscb.proccb[0].sysstk = (stk); _kernel_syscb.proccb[0].sysstksz = (stksz); } while(0)
+																												/**< %jp{システムスタックの初期化} */
 
 #define _KERNEL_SYS_GET_STST()				(_KERNEL_SYS_GET_PRCCB()->stat)										/**< %jp{カレントプロセッサ状態の取得} */
 #define _KERNEL_SYS_SET_STST(x)				do { _KERNEL_SYS_GET_PRCCB()->stat = (x); } while (0)				/**< %jp{カレントプロセッサ状態の設定} */
@@ -114,12 +118,14 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 
 #if _KERNEL_SPT_DPC		/* %jp{遅延プロシージャコールの場合} */
 
-#define _KERNEL_SYS_REF_SVC()				(_kernel_syscb.proccb[0].svcnst)
-#define _KERNEL_SYS_SET_SVC(x)				do { _kernel_syscb.proccb[0].svcnst = (x); } while (0)
+#define _KERNEL_SYS_SET_SVC()				do { _kernel_syscb.proccb[0].svcent = TRUE; } while (0)
+#define _KERNEL_SYS_CLR_SVC()				do { _kernel_syscb.proccb[0].svcent = FALSE; } while (0)
+#define _KERNEL_SYS_SNS_SVC()				(_kernel_syscb.proccb[0].svcent)
 
-#define _KERNEL_ENTER_SVC()					do { _KERNEL_SYS_SET_SVC(_KERNEL_SYS_REF_SVC() + 1); } while (0)
-#define _KERNEL_LEAVE_SVC()					do { _kernel_dpc_lev_svc(); } while (0)
+#define _KERNEL_ENTER_SVC()					do { _KERNEL_SYS_SET_SVC(); } while (0)
+#define _KERNEL_LEAVE_SVC()					do { _KERNEL_DPC_EXE_DPC(); _KERNEL_SYS_CLR_SVC(); } while (0)
 
+#define _KERNEL_SYS_INI_DPC(que, quecnt)	_KERNEL_DPC_INI_DPC(&_kernel_syscb.dpccb, (que), (quecnt))								/**< %jp{SPCの初期化} */
 #define _KERNEL_SYS_LOC_DPC()				do { _KERNEL_DIS_INT(); } while (0)
 #define _KERNEL_SYS_UNL_DPC()				do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_LOC)){ _KERNEL_ENA_INT(); } } while (0)
 #define _KERNEL_SYS_SND_DPC(msg)			_KERNEL_DPC_SND_MSG(&_kernel_syscb.dpccb, (msg))
