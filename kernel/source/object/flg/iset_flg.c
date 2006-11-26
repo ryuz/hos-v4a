@@ -25,13 +25,20 @@ static void _kernel_dpc_set_flg(void);
  * @param  flgptn   %jp{セットするビットパターン}%en{Bit pattern to set}
  * @retval E_OK     %jp{正常終了}%en{Normal completion}
  * @retval E_ID     %jp{不正ID番号(flgidが不正あるいは使用できない)}%en{Invalid ID number(flgid is invalid or unusable)}
- * @retval E_NOEXS  %jp{オブジェクト未生成(対象イベントフラグが未登録)}%en{Non-existant object(specified eventflag is not registerd)}
- * @retval E_PAR    %jp{パラメータエラー(setptnが不正)}%en{Parameter error(setptn is invalid)}
+ * @retval E_NOMEM  %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution}
  */
 ER iset_flg(ID flgid, FLGPTN setptn)
 {
 	ER ercd;
-	
+
+	/* %jp{ID のチェック} */
+#ifdef _KERNEL_SPT_ISET_FLG_E_ID
+	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
+	{
+		return E_ID;		/* %jp{ID不正} */
+	}
+#endif
+
 	_KERNEL_SYS_LOC_DPC();	/* %jp{多重割り込み対策でロックをかける} */
 
 	if (  _KERNEL_SYS_RFR_DPC() >= 3 )
@@ -66,14 +73,6 @@ void _kernel_dpc_set_flg(void)
 	/* %jp{パラメータ取り出し} */
 	flgid  = (ID)_KERNEL_SYS_RCV_DPC();
 	setptn = (FLGPTN)_KERNEL_SYS_RCV_DPC();
-
-	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_ISET_FLG_E_ID
-	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
-	{
-		return;			/* %jp{ID不正} */
-	}
-#endif
 
 	/* %jp{オブジェクト存在チェック} */
 #ifdef _KERNEL_SPT_ISET_FLG_E_NOEXS
