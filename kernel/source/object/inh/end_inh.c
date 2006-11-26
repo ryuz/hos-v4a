@@ -27,9 +27,10 @@ void _kernel_end_inh(void)
 
 	_KERNEL_ENA_INT();			/* %jp{割込み許可} */
 
-	/* %jp{サービスコール処理の実施} */
-	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
-	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
+	if ( !_KERNEL_SYS_SNS_SVC() )
+	{
+		_KERNEL_DPC_EXE_DPC();
+	}
 
 	_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 }

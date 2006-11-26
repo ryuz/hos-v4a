@@ -158,6 +158,10 @@ SOURCE=..\..\source\deftex.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\source\dpcque.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\source\hos4cfg.cpp
 # End Source File
 # Begin Source File

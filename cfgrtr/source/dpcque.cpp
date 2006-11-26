@@ -62,6 +62,7 @@ int CApiDpcQue::AnalyzeApi(const char* pszApiName, const char* pszParams)
 // cfgファイル定義部書き出し
 void  CApiDpcQue::WriteCfgDef(FILE* fp)
 {
+#if _KERNEL_SPT_DPC
 	const char* pszQue;
 	const char* pszQueCnt;
 
@@ -92,12 +93,14 @@ void  CApiDpcQue::WriteCfgDef(FILE* fp)
 			"VP_INT _kernel_dpc_queblk[(%s)];\n\n",
 			pszQueCnt);
 	}
+#endif
 }
 
 
 // cfgファイル起動部書き出し
 void  CApiDpcQue::WriteCfgIni(FILE* fp)
 {
+#if _KERNEL_SPT_DPC
 	const char* pszQue;
 	const char* pszQueCnt;
 
@@ -117,7 +120,7 @@ void  CApiDpcQue::WriteCfgIni(FILE* fp)
 	{
 		fprintf(
 			fp,
-			"\n\t_KERNEL_SYS_INI_DPC((VP)(_kernel_dpc_queblk), (UINT)sizeof(_kernel_dpc_queblk) / szieof(VP_INT));\n");
+			"\n\t_KERNEL_SYS_INI_DPC((VP)(_kernel_dpc_queblk), (UINT)sizeof(_kernel_dpc_queblk) / sizeof(VP_INT));\n");
 	}
 	else
 	{
@@ -126,6 +129,7 @@ void  CApiDpcQue::WriteCfgIni(FILE* fp)
 			"\n\t_KERNEL_SYS_INI_DPC((VP)(%s), (UINT)(%s));\n",
 			pszQue, pszQueCnt);
 	}
+#endif
 }
 
 

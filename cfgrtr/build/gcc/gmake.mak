@@ -31,6 +31,7 @@ OBJS = $(OBJS_DIR)/hos4cfg.o \
        $(OBJS_DIR)/read.o    \
        $(OBJS_DIR)/defercd.o \
        $(OBJS_DIR)/intstk.o  \
+       $(OBJS_DIR)/dpcque.o  \
        $(OBJS_DIR)/idlstk.o  \
        $(OBJS_DIR)/knlheap.o \
        $(OBJS_DIR)/maxtpri.o \

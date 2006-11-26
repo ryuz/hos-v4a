@@ -54,15 +54,83 @@ ER iset_flg(ID flgid, FLGPTN setptn)
 /** %jp{set_flgの遅延実行}%en{service call for delayed execution(set_flg)} */
 void _kernel_dpc_set_flg(void)
 {
-	ID     flgid;
-	FLGPTN setptn;
+	_KERNEL_T_QUE    *pk_que;
+	_KERNEL_T_FLGCB  *flgcb;
+	_KERNEL_T_FLGINF *pk_flginf;
+	_KERNEL_T_TSKHDL tskhdl;
+	_KERNEL_T_TSKHDL tskhdl_next;
+	_KERNEL_T_TCB    *tcb;
+	ID               flgid;
+	FLGPTN           setptn;
 	
 	/* %jp{パラメータ取り出し} */
 	flgid  = (ID)_KERNEL_SYS_RCV_DPC();
 	setptn = (FLGPTN)_KERNEL_SYS_RCV_DPC();
+
+	/* %jp{ID のチェック} */
+#ifdef _KERNEL_SPT_ISET_FLG_E_ID
+	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
+	{
+		return;			/* %jp{ID不正} */
+	}
+#endif
+
+	/* %jp{オブジェクト存在チェック} */
+#ifdef _KERNEL_SPT_ISET_FLG_E_NOEXS
+	if ( !_KERNEL_FLG_CHECK_EXS(flgid) )
+	{
+		return;			/* %jp{オブジェクト未生成} */
+	}
+#endif
+
+	/* %jp{コントロールブロック取得} */
+	flgcb = _KERNEL_FLG_ID2FLGCB(flgid);
+
+	/* %jp{待ち行列取得} */
+	pk_que = _KERNEL_FLG_GET_QUE(flgcb);
 	
-	/* %jp{遅延実行} */
-	set_flg(flgid, setptn);
+	/* %jp{フラグセット} */
+	_KERNEL_FLG_SET_FLGPTN(flgcb, _KERNEL_FLG_GET_FLGPTN(flgcb) | setptn);
+
+	/* %jp{待ちタスクがあれば起床チェック} */
+	tskhdl = _KERNEL_REF_QUE(pk_que);
+	while ( tskhdl != _KERNEL_TSKHDL_NULL )
+	{
+		tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);					/* %jp{TCB取得} */
+
+		tskhdl_next = _KERNEL_NXT_QUE(pk_que, tskhdl);			/* %jp{次の待ちタスクを取得} */
+
+		/* %jp{フラグチェック} */
+		pk_flginf = (_KERNEL_T_FLGINF *)_KERNEL_TSK_GET_DATA(tcb);
+		if ( _kernel_chk_flg(flgcb, pk_flginf) )
+		{
+			/* %jp{起床条件を満たしているなら} */
+			pk_flginf->waiptn = _KERNEL_FLG_GET_FLGPTN(flgcb);	/* %jp{現在のフラグパターンを格納} */
+			
+			/* %jp{待ち解除} */
+			_KERNEL_TSK_SET_ERCD(tcb, E_OK);		/* %jp{エラーコード設定} */
+			_KERNEL_RMV_QUE(pk_que, tskhdl);		/* %jp{待ち行列から取り外す} */
+			_KERNEL_FLG_RMV_TOQ(tskhdl);			
+			_KERNEL_DSP_WUP_TSK(tskhdl);			/* %jp{タスクの待ち解除} */
+			
+			/* %jp{待ち解除発生をマーク} */
+			_KERNEL_SYS_SET_DLY();
+
+#if _KERNEL_SPT_FLG_TA_CLR
+			{
+				const _KERNEL_T_FLGCB_RO *flgcb_ro;
+				flgcb_ro = _KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb);
+
+				if ( _KERNEL_FLG_GET_FLGATR(flgcb_ro) & TA_CLR )
+				{
+					_KERNEL_FLG_SET_FLGPTN(flgcb, 0);			/* %jp{クリア属性があればクリア} */
+					break;
+				}
+			}
+#endif
+		}
+		tskhdl = tskhdl_next;	/* 次のタスクに進める */
+	}
 }
 
 #else	/* _KERNEL_SPT_DPC */

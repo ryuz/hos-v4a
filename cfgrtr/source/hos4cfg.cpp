@@ -17,6 +17,7 @@
 #include "read.h"
 #include "analyze.h"
 #include "apiinc.h"
+#include "dpcque.h"
 #include "idlstk.h"
 #include "intstk.h"
 #include "knlheap.h"
@@ -51,6 +52,7 @@ void PrintUsage(void);
 
 CApiInclude    g_ApiInclude;
 CApiKernelHeap g_ApiKernelHeap;
+CApiDpcQue     g_ApiDpcQue;
 CApiIdleStack  g_ApiIdleStack;
 CApiMaxTpri    g_ApiMaxTpri;
 CApiIntStack   g_IntStack;
@@ -79,6 +81,7 @@ static CApiDef* g_ApiList[] =
 	{
 		&g_ApiInclude,
 		&g_ApiKernelHeap,
+		&g_ApiDpcQue,
 		&g_ApiIdleStack,
 		&g_IntStack,
 		&g_ApiCreTsk,
