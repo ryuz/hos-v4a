@@ -104,14 +104,12 @@ void  CApiKernelHeap::WriteCfgIni(FILE* fp)
 	
 	if ( strcmp(m_pParamPacks[0]->GetParam(KNLHEP_HEP), "NULL") == 0 )
 	{
-		fputs("\t/* initialize kernel heap */\n"
-			  "\t_KERNEL_SYS_INI_MEM(_kernel_hep_memblk, sizeof(_kernel_hep_memblk));\n\n", fp);
+		fputs("\t_KERNEL_SYS_INI_MEM(_kernel_hep_memblk, sizeof(_kernel_hep_memblk));\n", fp);
 	}
 	else
 	{
 		fprintf(fp,
-			"\t/* initialize kernel heap */\n"
-			"\t_KERNEL_SYS_INI_MEM((VP)(%s), (SIZE)(%s));\n\n",
+			"\t_KERNEL_SYS_INI_MEM((VP)(%s), (SIZE)(%s));\n",
 			m_pParamPacks[0]->GetParam(KNLHEP_HEP),
 			m_pParamPacks[0]->GetParam(KNLHEP_HEPSZ));
 	}

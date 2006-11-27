@@ -118,13 +118,13 @@ void  CApiIdleStack::WriteCfgIni(FILE* fp)
 	{
 		fprintf(
 			fp,
-			"\n\t_KERNEL_SYS_INI_SYSSTK((VP)(_kernel_sys_stkblk), (SIZE)sizeof(_kernel_sys_stkblk));\n");
+			"\t_KERNEL_SYS_INI_SYSSTK((VP)(_kernel_sys_stkblk), (SIZE)sizeof(_kernel_sys_stkblk));\n");
 	}
 	else
 	{
 		fprintf(
 			fp,
-			"\n\t_KERNEL_SYS_INI_SYSSTK((VP)(%s), (SIZE)(%s));\n",
+			"\t_KERNEL_SYS_INI_SYSSTK((VP)(%s), (SIZE)(%s));\n",
 			pszStack, pszSize);
 	}
 

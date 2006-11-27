@@ -120,13 +120,13 @@ void  CApiDpcQue::WriteCfgIni(FILE* fp)
 	{
 		fprintf(
 			fp,
-			"\n\t_KERNEL_SYS_INI_DPC((VP)(_kernel_dpc_queblk), (UINT)sizeof(_kernel_dpc_queblk) / sizeof(VP_INT));\n");
+			"\t_KERNEL_SYS_INI_DPC((VP)(_kernel_dpc_queblk), (UINT)sizeof(_kernel_dpc_queblk) / sizeof(VP_INT));\n");
 	}
 	else
 	{
 		fprintf(
 			fp,
-			"\n\t_KERNEL_SYS_INI_DPC((VP)(%s), (UINT)(%s));\n",
+			"\t_KERNEL_SYS_INI_DPC((VP)(%s), (UINT)(%s));\n",
 			pszQue, pszQueCnt);
 	}
 #endif
