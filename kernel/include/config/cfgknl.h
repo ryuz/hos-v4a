@@ -66,7 +66,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* ---------------------------------------------- */
 
 /* %jp{遅延プロシージャーコール} */
-#define _KERNEL_CFG_DPC					TRUE				/**< Deferred Procedure Call */
+#define _KERNEL_CFG_DPC					FALSE				/**< Deferred Procedure Call */
 
 /* %jp{対称型マルチプロセッサ対応[未実装]} */
 #define _KERNEL_CFG_SMP					FALSE				/**< Symmetric Multiple Processor */

@@ -56,6 +56,7 @@ CSRCS    += $(APLFW_DIR)/system/sysapi/sysevt_clear.c				\
             $(APLFW_DIR)/system/sysapi/system_initialize.c			\
             $(APLFW_DIR)/system/sysapi/system_lock.c				\
             $(APLFW_DIR)/system/sysapi/system_unlock.c				\
+            $(APLFW_DIR)/system/sysapi/systim_wait.c				\
             $(APLFW_DIR)/system/handle/handle.c						\
             $(APLFW_DIR)/system/handle/hdlobj.c						\
             $(APLFW_DIR)/system/file/file.c							\

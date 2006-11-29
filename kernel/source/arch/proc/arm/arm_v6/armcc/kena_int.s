@@ -8,12 +8,9 @@
 
 
 
-F_Bit			EQU 	0x40		; F ビット
-I_Bit			EQU 	0x80		; I ビット
+				INCLUDE	arm_v6.inc
 
-
-				IMPORT	_kernel_arm_imsk			; 実行コンテキストの切替
-				
+				IMPORT	_kernel_ictxcb				; 割込みコンテキスト制御ブロック
 
 				PRESERVE8
 				AREA	code, CODE, READONLY
@@ -27,9 +24,9 @@ I_Bit			EQU 	0x80		; I ビット
 ; -----------------------------------------------
 				EXPORT	_kernel_ena_int
 _kernel_ena_int
-				ldr		r1, =_kernel_arm_imsk
+				ldr		r1, =_kernel_ictxcb
 				mrs 	r0, cpsr					; cpsr取得
-				ldrb	r1, [r1]					; 割込みマスク値取得
+				ldrb	r1, [r1, #ICTXCB_IMSK]		; 割込みマスク値取得
 				bic		r0, r0, #F_Bit:OR:I_Bit		; FビットとIビットをクリア
 				orr		r0, r0, r1					; 割込みマスク設定
 				msr 	cpsr_c, r0					; cpsr設定

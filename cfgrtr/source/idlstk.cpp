@@ -81,7 +81,7 @@ void  CApiIdleStack::WriteCfgDef(FILE* fp)
 	}
 	else
 	{
-		pszSize  = "128";		// 指定が無ければデフォルトサイズ
+		pszSize  = "256";
 		pszStack = "NULL";		// 指定が無ければNULL(自動生成)
 	}
 
@@ -110,7 +110,7 @@ void  CApiIdleStack::WriteCfgIni(FILE* fp)
 	}
 	else
 	{
-		pszSize  = "128";		// 指定が無ければデフォルトサイズ
+		pszSize  = "256";
 		pszStack = "NULL";		// 指定が無ければNULL(自動生成)
 	}
 	
@@ -118,14 +118,14 @@ void  CApiIdleStack::WriteCfgIni(FILE* fp)
 	{
 		fprintf(
 			fp,
-			"\t_KERNEL_SYS_INI_SYSSTK((VP)(_kernel_sys_stkblk), (SIZE)sizeof(_kernel_sys_stkblk));\n");
+			"\t_KERNEL_SYS_INI_SYSSTK((SIZE)sizeof(_kernel_sys_stkblk), (VP)(_kernel_sys_stkblk));\n");
 	}
 	else
 	{
 		fprintf(
 			fp,
-			"\t_KERNEL_SYS_INI_SYSSTK((VP)(%s), (SIZE)(%s));\n",
-			pszStack, pszSize);
+			"\t_KERNEL_SYS_INI_SYSSTK((SIZE)(%s), (VP)(%s));\n",
+			pszSize, pszStack);
 	}
 
 }

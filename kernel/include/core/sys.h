@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  knl_sys.h
+ * @file  sys.h
  * @brief %en{system heder file}%jp{システム制御のヘッダファイル}
  *
  * Copyright (C) 1998-2006 by Project HOS
@@ -10,8 +10,8 @@
 
 
 
-#ifndef __HOS_V4a__knl_sys_h__
-#define __HOS_V4a__knl_sys_h__
+#ifndef _KERNEL__core_sys_h__
+#define _KERNEL__core_sys_h__
 
 
 #include "core/hep.h"
@@ -74,13 +74,14 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_GET_TOQ()				(&_kernel_syscb.toq)												/**< %jp{タイムアウトキューの取得} */
 #define _KERNEL_SYS_GET_TMQ()				(&_kernel_syscb.tmq)												/**< %jp{タイマキューの取得} */
 
-#define _KERNEL_SYS_INI_MEM(p_base, size)	_kernel_cre_hep(&_kernel_syscb.memhep, (p_base), (size))			/**< %jp{カーネルメモリヒープの初期化} */
+#define _KERNEL_SYS_INI_MEM(hepsz, hep)		_kernel_cre_hep(&_kernel_syscb.memhep, (hepsz), (hep))				/**< %jp{カーネルメモリヒープの初期化} */
 #define _KERNEL_SYS_ALC_MEM(size)			_kernel_alc_hep(&_kernel_syscb.memhep, (size))						/**< %jp{カーネルメモリの割当て} */
 #define _KERNEL_SYS_FRE_MEM(ptr)			_kernel_fre_hep(&_kernel_syscb.memhep, (ptr))						/**< %jp{カーネルメモリの開放} */
 #define _KERNEL_SYS_ALG_MEM(size)			_kernel_alg_hep(size)												/**< %jp{カーネルメモリのサイズアライメント} */
 
-#define _KERNEL_SYS_INI_SYSSTK(stk, stksz)	do { _kernel_syscb.proccb[0].sysstk = (stk); _kernel_syscb.proccb[0].sysstksz = (stksz); } while(0)
+#define _KERNEL_SYS_INI_SYSSTK(stksz, stk)	do { _KERNEL_SYS_GET_PRCCB()->sysstksz = (stksz); _KERNEL_SYS_GET_PRCCB()->sysstk = (stk); } while(0)
 																												/**< %jp{システムスタックの初期化} */
+#define _KERNEL_SYS_INI_INTSTK(stksz, stk)	_KERNEL_INI_INT((stksz), (stk))										/**< %jp{割込みスタックの初期化} */
 
 #define _KERNEL_SYS_GET_STST()				(_KERNEL_SYS_GET_PRCCB()->stat)										/**< %jp{カレントプロセッサ状態の取得} */
 #define _KERNEL_SYS_SET_STST(x)				do { _KERNEL_SYS_GET_PRCCB()->stat = (x); } while (0)				/**< %jp{カレントプロセッサ状態の設定} */
@@ -118,14 +119,14 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 
 #if _KERNEL_SPT_DPC		/* %jp{遅延プロシージャコールの場合} */
 
-#define _KERNEL_SYS_SET_SVC()				do { _kernel_syscb.proccb[0].svcent = TRUE; } while (0)
-#define _KERNEL_SYS_CLR_SVC()				do { _kernel_syscb.proccb[0].svcent = FALSE; } while (0)
-#define _KERNEL_SYS_SNS_SVC()				(_kernel_syscb.proccb[0].svcent)
+#define _KERNEL_SYS_SET_SVC()				do { _KERNEL_SYS_GET_PRCCB()->svcent = TRUE; } while (0)
+#define _KERNEL_SYS_CLR_SVC()				do { _KERNEL_SYS_GET_PRCCB()->svcent = FALSE; } while (0)
+#define _KERNEL_SYS_SNS_SVC()				(_KERNEL_SYS_GET_PRCCB()->svcent)
 
 #define _KERNEL_ENTER_SVC()					do { _KERNEL_SYS_SET_SVC(); } while (0)
 #define _KERNEL_LEAVE_SVC()					do { _KERNEL_DPC_EXE_DPC(); _KERNEL_SYS_CLR_SVC(); } while (0)
 
-#define _KERNEL_SYS_INI_DPC(que, quecnt)	_KERNEL_DPC_INI_DPC(&_kernel_syscb.dpccb, (que), (quecnt))								/**< %jp{SPCの初期化} */
+#define _KERNEL_SYS_INI_DPC(que, quecnt)	_KERNEL_DPC_INI_DPC(&_kernel_syscb.dpccb, (que), (quecnt))			/**< %jp{DPCの初期化} */
 #define _KERNEL_SYS_LOC_DPC()				do { _KERNEL_DIS_INT(); } while (0)
 #define _KERNEL_SYS_UNL_DPC()				do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_LOC)){ _KERNEL_ENA_INT(); } } while (0)
 #define _KERNEL_SYS_SND_DPC(msg)			_KERNEL_DPC_SND_MSG(&_kernel_syscb.dpccb, (msg))
@@ -154,7 +155,7 @@ void _kernel_idl_lop(void);				/**< %jp{アイドルループ}%en{idle loop} */
 #endif
 
 
-#endif	/* __HOS_V4__knl_sys_h__ */
+#endif	/* _KERNEL__core_sys_h__ */
 
 
 

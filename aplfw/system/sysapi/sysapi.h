@@ -86,7 +86,10 @@ SYSEVT_HANDLE  SysEvt_Create(void);							/* システム用イベント生成 *
 void           SysEvt_Delete(SYSEVT_HANDLE hEvt);			/* システム用イベント削除 */
 void           SysEvt_Wait(SYSEVT_HANDLE hEvt);				/* システム用イベント待ち*/
 void           SysEvt_Set(SYSEVT_HANDLE hEvt);				/* システム用イベントセット */
-void           SysEvt_Clear(SYSEVT_HANDLE hEvt);				/* システム用イベントクリア */
+void           SysEvt_Clear(SYSEVT_HANDLE hEvt);			/* システム用イベントクリア */
+
+/* 時間管理 */
+void           SysTim_Wait(unsigned long ulTime);			/* 時間待ち */
 
 #ifdef __cplusplus
 }

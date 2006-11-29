@@ -11,7 +11,7 @@
 #include "core/core.h"
 
 
-UB volatile _kernel_int_cnt;		/* %jp{割り込みネストカウンタ} */
+_KERNEL_T_ICTXCB _kernel_ictxcb;	/**< %jp{割込みコンテキスト制御ブロック} */
 
 
 /* end of file */

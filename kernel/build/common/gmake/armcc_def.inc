@@ -29,7 +29,7 @@ EXT_BIN ?= bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-CFLAGS += -c --apcs /interwork --split_sections
+CFLAGS += -c --apcs /interwork
 
 # %jp{インクルードパスオプションの定義}
 CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))

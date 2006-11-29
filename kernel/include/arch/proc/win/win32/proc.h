@@ -84,13 +84,12 @@ void    _kernel_unl_red(_KERNEL_T_LOC *loc);
 #endif
 
 
-#define _KERNEL_INI_PRC()	_kernel_ini_prc()
+#define _KERNEL_INI_PRC()				_kernel_ini_prc()
 
-#define _KERNEL_ENA_INT()	_kernel_ena_int()
-
-#define _KERNEL_ENA_INT()	_kernel_ena_int()												/**< 割り込み許可 */
-#define _KERNEL_DIS_INT()	_kernel_dis_int()												/**< 割り込み禁止 */
-#define _KERNEL_WAI_INT()	_kernel_wai_int()												/**< 割り込み待ち(アイドル時の処理) */
+#define _KERNEL_INI_INT(stksz, stk)		do {} while(0)
+#define _KERNEL_ENA_INT()				_kernel_ena_int()												/**< 割り込み許可 */
+#define _KERNEL_DIS_INT()				_kernel_dis_int()												/**< 割り込み禁止 */
+#define _KERNEL_WAI_INT()				_kernel_wai_int()												/**< 割り込み待ち(アイドル時の処理) */
 
 
 #define _KERNEL_CRE_CTX(pk_ctxcb, stksz, stk, isp, entry, par1, par2)		\

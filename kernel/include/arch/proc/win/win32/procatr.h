@@ -23,6 +23,8 @@
 #define _KERNEL_PROCATR_CTX_RST				FALSE		/**< %jp{自コンテキストのリスタートが可能か？} */
 
 #define _KERNEL_PROCATR_TMIN_STKSZ			(4*32)		/**< %jp{最低限必要なスタックサイズ(byte単位)} */
+#define _KERNEL_PROCATR_DEF_SYSSTKSZ		64
+#define _KERNEL_PROCATR_DEF_INTSTKSZ		256
 
 #define _KERNEL_PROCATR_SPT_SMP				FALSE		/**< %jp{SMPに対応しているか？} */
 #define _KERNEL_PROCATR_SPT_MULTINT			FALSE		/**< %jp{多重割り込みに対応しているか？} */

@@ -51,11 +51,11 @@ typedef struct _kernel_t_hepcb
 extern "C" {
 #endif
 
-void    _kernel_cre_hep(_KERNEL_T_HEPCB *pk_hepcb, void *p_base, SIZE size);	/**< %jp{メモリヒープを生成} */
-#define _kernel_del_hep(pk_hepcb)	do {} while(0)								/**< %jp{メモリヒープを削除} */
-VP      _kernel_alc_hep(_KERNEL_T_HEPCB *pk_hepcb, SIZE size);					/**< %jp{メモリの割り当て} */
-void    _kernel_fre_hep(_KERNEL_T_HEPCB *pk_hepcb, VP ptr);						/**< %jp{メモリの解放} */
-#define _kernel_alg_hep(size)		_KERNEL_HEP_ALIGNED(size)					/**< %jp{メモリサイズのアライメントを合わせる} */
+void    _kernel_cre_hep(_KERNEL_T_HEPCB *pk_hepcb, SIZE hepsz, VP hep);		/**< %jp{メモリヒープを生成} */
+#define _kernel_del_hep(pk_hepcb)	do {} while(0)							/**< %jp{メモリヒープを削除} */
+VP      _kernel_alc_hep(_KERNEL_T_HEPCB *pk_hepcb, SIZE size);				/**< %jp{メモリの割り当て} */
+void    _kernel_fre_hep(_KERNEL_T_HEPCB *pk_hepcb, VP ptr);					/**< %jp{メモリの解放} */
+#define _kernel_alg_hep(size)		_KERNEL_HEP_ALIGNED(size)				/**< %jp{メモリサイズのアライメントを合わせる} */
 
 #ifdef __cplusplus
 }

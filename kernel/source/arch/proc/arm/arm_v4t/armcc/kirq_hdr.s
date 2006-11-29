@@ -106,7 +106,7 @@ _kernel_irq_hdr
 				ldrb	r0, [r0]								; この時点でのimsk値取り出し
 				bic		r1, r1, #F_Bit:OR:I_Bit
 				and		r0, r0, #F_Bit:OR:I_Bit
-				orr		r1, r0, r0
+				orr		r1, r1, r0
 				str		r1, [sp, #4]							; spsr_irq にimsk値反映
 
 return_int
