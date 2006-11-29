@@ -1,3 +1,12 @@
+/**
+ *  Hyper Operating System V4 Advance configurator
+ *
+ * @file  parser.cpp
+ * @brief %jp{字句解析のクラス}%en{lexical analyzer class}
+ *
+ * Copyright (C) 1998-2006 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
 
 
 #include <stdio.h>
@@ -5,65 +14,6 @@
 #include "parser.h"
 #include "error.h"
 #include "debug.h"
-
-
-
-// 1文字読む
-int CParser::GetChar(void)
-{
-	int c;
-
-	while ( (c = fgetc(m_fpInput)) == '\r' )
-		;
-
-	if ( c == '\n' )
-	{
-		m_SrcInf.m_iLineNum++;
-		m_SrcInf.m_iColumnNum = 0;
-	}
-	else
-	{
-		m_SrcInf.m_iColumnNum++;
-	}
-
-	if ( c == '\n' )		// 改行文字なら
-	{
-		m_blNewLine = true;		// 行頭フラグON
-	}
-	else if ( isspace(c) )	// 空白文字なら
-	{
-		// 何もしない
-	}
-	else if ( c == '#' )	// 行頭に#がきたらプリプロセッサ行判定
-	{
-		if ( m_blNewLine )
-		{
-			m_blPreProc = true;
-			m_blNewLine = false;
-		}
-	}
-	else	// 通常の文字なら
-	{
-		m_blNewLine = false;	// 行頭フラグクリア
-	}
-
-	return c;
-}
-
-
-// 1文字戻す
-void CParser::UngetChar(int c)
-{
-	ungetc(c, m_fpInput);
-	if ( c == '\n' )
-	{
-		m_SrcInf.m_iLineNum--;
-	}
-	else
-	{
-		m_SrcInf.m_iColumnNum--;
-	}
-}
 
 
 
@@ -81,15 +31,17 @@ void CParser::UngetChar(int c)
 #define PARSER_STATE_API_ERR_1					3001	// エラー発生 API末尾の ";" まで読み飛ばし中
 
 // 字句解析
-bool CParser::Analyze(FILE *fp)
+bool CParser::Analyze(FILE *fp, const TSourceInfo *pSrcInf)
 {
 	int  c;
 
-	m_fpInput = fp;
-
+	// %jp{初期設定}
+	m_fpInput   = fp;
+	m_SrcInf    = *pSrcInf;
 	m_blPreProc = false;
 	m_blNewLine = true;
 	m_iApiState = PARSER_STATE_API_START;
+
 
 	while ( (c = GetChar()) != EOF )
 	{
@@ -270,6 +222,7 @@ bool CParser::AnalyzePreProc(void)
 }
 
 
+
 #define PARSER_STATE_PARAM_START			40000
 #define PARSER_STATE_PARAM_NORMAL			40001
 #define PARSER_STATE_PARAM_STR				40002
@@ -418,11 +371,13 @@ bool CParser::AnalyzeParam(CParamBlock *pParam, int cEndChar)
 }
 
 
+// プリプロセッサ行の処理
 bool CParser::PreProc(void)
 {
 	printf("PRI : %s\n", m_strPre.c_str());
 	return true;
 }
+
 
 bool CParser::ApiProc(void)
 {
@@ -431,6 +386,65 @@ bool CParser::ApiProc(void)
 	m_ApiParam.Clear();
 	return true;
 }
+
+
+// 1文字読む
+int CParser::GetChar(void)
+{
+	int c;
+
+	while ( (c = fgetc(m_fpInput)) == '\r' )
+		;
+
+	if ( c == '\n' )
+	{
+		m_SrcInf.iLineNum++;
+		m_SrcInf.iColumnNum = 0;
+	}
+	else
+	{
+		m_SrcInf.iColumnNum++;
+	}
+
+	if ( c == '\n' )		// 改行文字なら
+	{
+		m_blNewLine = true;		// 行頭フラグON
+	}
+	else if ( isspace(c) )	// 空白文字なら
+	{
+		// 何もしない
+	}
+	else if ( c == '#' )	// 行頭に#がきたらプリプロセッサ行判定
+	{
+		if ( m_blNewLine )
+		{
+			m_blPreProc = true;
+			m_blNewLine = false;
+		}
+	}
+	else	// 通常の文字なら
+	{
+		m_blNewLine = false;	// 行頭フラグクリア
+	}
+
+	return c;
+}
+
+
+// 1文字戻す
+void CParser::UngetChar(int c)
+{
+	ungetc(c, m_fpInput);
+	if ( c == '\n' )
+	{
+		m_SrcInf.iLineNum--;
+	}
+	else
+	{
+		m_SrcInf.iColumnNum--;
+	}
+}
+
 
 
 void CParser::ParseError(int iType, int iCode)

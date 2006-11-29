@@ -14,9 +14,9 @@ using namespace std;
 // ソースファイルの情報
 struct TSourceInfo
 {
-	string m_strFileName;	// 入力ファイル名
-	int    m_iLineNum;		// 処理中の行番号
-	int    m_iColumnNum;	// 処理中の桁番号
+	string strFileName;	// 入力ファイル名
+	int    iLineNum;	// 処理中の行番号
+	int    iColumnNum;	// 処理中の桁番号
 };
 
 
