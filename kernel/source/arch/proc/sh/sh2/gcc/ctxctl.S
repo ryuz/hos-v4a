@@ -28,8 +28,9 @@
 __kernel_dis_int:
 				stc		sr, r0
 				or		#0xf0, r0				/* 全割り込みマスク */
-				rts
 				ldc		r0, sr
+				rts
+				nop
 
 
 
@@ -45,8 +46,9 @@ __kernel_ena_int:
 				or		#0xf0, r0
 				xor		#0xf0, r0
 				or		r1, r0					/* 割り込みマスクの値を設定 */
-				rts
 				ldc		r0, sr
+				rts
+				nop
 
 				.align	2
 addr_sh_imsk:

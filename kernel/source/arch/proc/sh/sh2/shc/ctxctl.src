@@ -31,8 +31,9 @@
 __kernel_dis_int:
 				stc		sr, r0
 				or		#h'f0, r0				; 全割り込みマスク
-				rts
 				ldc		r0, sr
+				rts
+				nop
 
 
 
@@ -49,8 +50,9 @@ __kernel_ena_int:
 				or		#h'f0, r0
 				xor		#h'f0, r0
 				or		r1, r0					; 割り込みマスクの値を設定
-				rts
 				ldc		r0, sr
+				rts
+				nop
 
 				.ALIGN	4
 addr_sh_imsk:
