@@ -155,13 +155,13 @@ string AnalyzeConstantString(const char *pszString)
 }
 
 
-// 数値として有効かチェック
-bool CheckNumber(const char *pszStr)
+// 整数値として有効かチェック
+bool CheckNumber(const char *pszString)
 {
 	char *end;
 	
 	errno = 0;
-	strtol(pszStr, &end, 0);
+	strtol(pszString, &end, 0);
 	if ( errno != 0 || *end != '\0' )
 	{
 		return false;
@@ -171,7 +171,26 @@ bool CheckNumber(const char *pszStr)
 }
 
 // 識別子として有効かチェック
-bool CheckIdentifier(const char *pszStr)
+bool CheckIdentifier(const char *pszString)
 {
-	return true;
+	int c;
+
+	// 先頭は英文字もしくは '_' でなければ違反
+	c = *pszString++;
+	if ( !(isalpha(c) || c == '_') )
+	{
+		return false;
+	}
+
+	// 後続は英数字または '_' でなければ違反
+	while ( (c = *pszString++) != '\0' )
+	{
+		if ( !(isalnum(c) || c == '_' ) )
+		{
+			return false;
+		}
+	}
+
+	return true;	// OK
 }
+
