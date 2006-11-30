@@ -20,24 +20,28 @@ OBJS_DIR          = objs_$(TARGET)
 # %jp{共通定義読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
-
 # %jp{フラグ設定}
 CFLAGS  = -CPu=sh2
 AFLAGS  = -CPu=sh2
 LNFLAGS = 
 
+# デバッグ版のターゲット名変更
+ifeq ($(DEBUG),Yes)
+TARGET := $(TARGET)dbg
+endif
 
-ifeq ($(ROM),Yes)
-# %jp{ROM焼きする場合}
-TARGET := $(TARGET)_rom
-SECTION_VECT ?= 000000000
-SECTION_ROM  ?= 000000400
-SECTION_RAM  ?= 0FFFFE000
-else
-# %jp{デフォルトはRAM実行とする(モニタプログラム利用を想定)}
+ifeq ($(RAM),Yes)
+# %jp{RAM実行(モニタプログラム利用を想定)}
+TARGET := $(TARGET)_ram
 SECTION_VECT ?= 000400000
 SECTION_ROM  ?= 000400400
 SECTION_RAM  ?= 000410000
+else
+# %jp{ROM焼きする場合}
+TARGET := $(TARGET)
+SECTION_VECT ?= 000000000
+SECTION_ROM  ?= 000000400
+SECTION_RAM  ?= 0FFFFE000
 endif
 
 
@@ -60,7 +64,9 @@ SRC_DIRS += . ..
 
 # アセンブラファイルの追加
 ASRCS += ./vcttbl.src		\
-         ./startup.src
+         ./startup.src		\
+
+#         ./sim_io.src
 
 # %jp{C言語ファイルの追加}
 CSRCS += ./dbsct.c			\
@@ -80,7 +86,7 @@ LIBS  += $(STD_LIBS)
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_EXE)
+all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
 
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h

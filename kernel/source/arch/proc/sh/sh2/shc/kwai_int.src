@@ -1,0 +1,32 @@
+; --------------------------------------------------------------------------- 
+;  Hyper Operating System V4 Advance
+;                                                                             
+;                                     Copyright (C) 1998-2006 by Project HOS  
+;                                     http://sourceforge.jp/projects/hos/     
+; --------------------------------------------------------------------------- 
+
+
+
+				.CPU	SH2
+
+
+				.SECTION  P, CODE, ALIGN=4
+
+
+;------------------------------------------------
+; 割り込み待ち
+; void _kernel_wai_int(void)
+;------------------------------------------------
+				.ALIGN	4
+				.EXPORT	__kernel_wai_int
+				.STACK	__kernel_wai_int=0
+__kernel_wai_int:
+		;		sleep
+				bra		__kernel_wai_int
+				nop
+
+
+				.END
+
+
+; end of file

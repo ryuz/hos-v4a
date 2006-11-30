@@ -101,18 +101,18 @@ void Sample_Task(VP_INT exinf)
 {
 	char buf[16];
 	int  num;
-
+	
 	num = (int)exinf;
 	
 	print_state(num, "start");
-
+	
 	/* %jp{いわゆる哲学者の食事の問題} */
 	for ( ; ; )
 	{
 		/* %jp{適当な時間考える} */
 		print_state(num, "thinking");
 		rand_wait();
-
+		
 		/* %jp{左右のフォークを取るまでループ} */
 		for ( ; ; )
 		{
@@ -127,7 +127,7 @@ void Sample_Task(VP_INT exinf)
 			/* %jp{適当な時間待つ} */
 			print_state(num, "hungry");
 			rand_wait();
-
+			
 			/* %jp{右から順に取る} */
 			wai_sem(RIGHT(num));
 			if ( pol_sem(LEFT(num)) == E_OK )
@@ -135,7 +135,7 @@ void Sample_Task(VP_INT exinf)
 				break;	/* %jp{両方取れた} */
 			}
 			sig_sem(RIGHT(num));	/* %jp{取れなければ離す} */
-
+			
 			/* %jp{適当な時間待つ} */
 			print_state(num, "hungry");
 			rand_wait();
@@ -162,7 +162,6 @@ void Sample_Print(VP_INT exinf)
 	for ( ; ; )
 	{
 		rcv_mbx(mbxid, (T_MSG **)&msg);
-/*		sim_puts(msg->text);	*/
 		Sci1_PutString(msg->text);
 		rel_mpf(mpfid, msg);
 	}

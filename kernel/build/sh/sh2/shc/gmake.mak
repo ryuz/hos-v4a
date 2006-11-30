@@ -53,7 +53,8 @@ include $(KERNEL_MAKINC_DIR)/shc_def.inc
 
 
 # %jp{C言語ファイルの追加}
-CSRCS += $(SRC_IRC_DIR)/chg_ilv.c			\
+CSRCS += $(SRC_PROC_DIR)/val_int.c			\
+         $(SRC_IRC_DIR)/chg_ilv.c			\
          $(SRC_IRC_DIR)/chg_imsk.c			\
          $(SRC_IRC_DIR)/clr_int.c			\
          $(SRC_IRC_DIR)/dis_int.c			\
@@ -62,9 +63,14 @@ CSRCS += $(SRC_IRC_DIR)/chg_ilv.c			\
          $(SRC_IRC_DIR)/get_imsk.c
 
 # %jp{アセンブラファイルの追加}
-ASRCS += $(SRC_PROC_ASM_DIR)/ctxctl.src		\
-         $(SRC_PROC_ASM_DIR)/exchdr.src		\
-         $(SRC_PROC_ASM_DIR)/inthdr.src     \
+ASRCS += $(SRC_PROC_ASM_DIR)/kdis_int.src	\
+         $(SRC_PROC_ASM_DIR)/kena_int.src	\
+         $(SRC_PROC_ASM_DIR)/kwai_int.src	\
+         $(SRC_PROC_ASM_DIR)/kcre_ctx.src	\
+         $(SRC_PROC_ASM_DIR)/krst_ctx.src	\
+         $(SRC_PROC_ASM_DIR)/kswi_ctx.src	\
+         $(SRC_PROC_ASM_DIR)/kint_hdr.src	\
+         $(SRC_PROC_ASM_DIR)/kexc_hdr.src	\
          $(SRC_PROC_ASM_DIR)/vect_dmy.src
 
 ifneq ($(FAST_VECTOR),Yes)

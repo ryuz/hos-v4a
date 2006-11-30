@@ -58,6 +58,11 @@ TARGET_ASC = $(TARGET).$(EXT_ASC)
 # %jp{gcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 
+
+# --------------------------------------
+#  %jp{ファイル設定}
+# --------------------------------------
+
 # ソースディレクトリ
 SRC_DIRS += . ..
 
@@ -94,7 +99,7 @@ mostlyclean: clean clean_kernel
 
 
 
-# %jp{ライブラリ生成用設定読込み}
+# %jp{実行ファイル生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
 # %jp{shc用のルール定義読込み}

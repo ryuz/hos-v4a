@@ -55,14 +55,26 @@ CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-sh2
 
 
-# C言語ファイルの追加
-# CSRCS += $(SRC_IRC_DIR)/intc.c
+# %jp{C言語ファイルの追加}
+CSRCS += $(SRC_PROC_DIR)/val_int.c			\
+         $(SRC_IRC_DIR)/chg_ilv.c			\
+         $(SRC_IRC_DIR)/chg_imsk.c			\
+         $(SRC_IRC_DIR)/clr_int.c			\
+         $(SRC_IRC_DIR)/dis_int.c			\
+         $(SRC_IRC_DIR)/ena_int.c			\
+         $(SRC_IRC_DIR)/get_ilv.c			\
+         $(SRC_IRC_DIR)/get_imsk.c
 
 # アセンブラファイルの追加
-ASRCS += $(SRC_PROC_ASM_DIR)/ctxctl.S		\
-         $(SRC_PROC_ASM_DIR)/exchdr.S		\
-         $(SRC_PROC_ASM_DIR)/inthdr.S		\
-         $(SRC_PROC_ASM_DIR)/vect_dmy.S
+ASRCS += $(SRC_PROC_ASM_DIR)/kdis_int.S		\
+         $(SRC_PROC_ASM_DIR)/kena_int.S		\
+         $(SRC_PROC_ASM_DIR)/kwai_int.S		\
+         $(SRC_PROC_ASM_DIR)/kcre_ctx.S		\
+         $(SRC_PROC_ASM_DIR)/krst_ctx.S		\
+         $(SRC_PROC_ASM_DIR)/kswi_ctx.S		\
+         $(SRC_PROC_ASM_DIR)/kint_hdr.S		\
+         $(SRC_PROC_ASM_DIR)/kexc_hdr.S		\
+         $(SRC_PROC_ASM_DIR)/vect_dmy.S	
 
 
 ifneq ($(FAST_VECTOR),Yes)

@@ -19,6 +19,16 @@ typedef struct _kernel_t_ctxcb
 	VP_INT  sp;
 } _KERNEL_T_CTXCB;
 
+/** %jp{割込みコンテキスト制御ブロック} */
+typedef struct _kernel_t_ictxcb
+{
+	H	imsk;
+	B	intcnt;
+	VP	isp;
+} _KERNEL_T_ICTXCB;
+
+
+extern _KERNEL_T_ICTXCB _kernel_ictxcb;		/**< %jp{割込みコンテキスト制御ブロック} */
 
 
 #ifdef __cplusplus
@@ -41,11 +51,12 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxcb_nxt, _KERNEL_T_CTXCB *pk_ctxcb
 
 
 
-#define _KERNEL_INI_PRC()																			/**< %jp{プロセッサの初期化}%en{Initialize processor} */
+#define _KERNEL_INI_PRC()	do{}while(0)															/**< %jp{プロセッサの初期化}%en{Initialize processor} */
 
-#define _KERNEL_ENA_INT()	_kernel_ena_int()														/**< %jp{割り込み許可}%en{Enable interrupt} */
-#define _KERNEL_DIS_INT()	_kernel_dis_int()														/**< %jp{割り込み禁止}%en{Disable interrupt} */
-#define _KERNEL_WAI_INT()	_kernel_wai_int()														/**< %jp{割り込み待ち(アイドル時の処理)}%en{Wait for interrupt(sleep)} */
+#define _KERNEL_INI_INT(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)
+#define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割り込み許可}%en{Enable interrupt} */
+#define _KERNEL_DIS_INT()			_kernel_dis_int()												/**< %jp{割り込み禁止}%en{Disable interrupt} */
+#define _KERNEL_WAI_INT()			_kernel_wai_int()												/**< %jp{割り込み待ち(アイドル時の処理)}%en{Wait for interrupt(sleep)} */
 
 #define _KERNEL_CRE_CTX(pk_ctxcb, stksz, stk, isp, entry, par1, par2)		\
 									_kernel_cre_ctx((pk_ctxcb), (isp), (entry), (par1), (par2))		/**< %jp{実行コンテキスト生成}%en{Create execution context)} */
