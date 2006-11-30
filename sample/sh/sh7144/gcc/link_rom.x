@@ -1,4 +1,5 @@
-OUTPUT_ARCH(sh2)
+OUTPUT_FORMAT("coff-sh")
+OUTPUT_ARCH(sh)
 
 MEMORY
 {
