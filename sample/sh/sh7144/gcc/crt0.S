@@ -8,6 +8,7 @@
 
 
 				.extern		_main
+				.extern		__kernel_int_isp
 				.extern		_DATA_ROM
 				.extern		_DATA_START
 				.extern		_DATA_END
@@ -27,6 +28,9 @@
 				.align		4
 _pwr_reset:
 _man_reset:
+				mov.l	l_int_isp, r0
+				mov.l	@r0, r15
+				
 				/* DATA領域のコピー */
 				mov.l	l_data_rom, r0
 				mov.l	l_data_start, r1
@@ -68,6 +72,9 @@ ___main:
 				nop
 
 				.align	4
+l_int_isp:		
+				.long	__kernel_int_isp;
+
 l_data_rom:		
 				.long	___data_rom
 l_data_start:	

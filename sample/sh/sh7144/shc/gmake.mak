@@ -20,10 +20,6 @@ OBJS_DIR          = objs_$(TARGET)
 # %jp{共通定義読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
-# %jp{フラグ設定}
-CFLAGS  = -CPu=sh2
-AFLAGS  = -CPu=sh2
-LNFLAGS = 
 
 # デバッグ版のターゲット名変更
 ifeq ($(DEBUG),Yes)
@@ -43,6 +39,12 @@ SECTION_VECT ?= 000000000
 SECTION_ROM  ?= 000000400
 SECTION_RAM  ?= 0FFFFE000
 endif
+
+
+# %jp{フラグ設定}
+CFLAGS  = -CPu=sh2
+AFLAGS  = -CPu=sh2
+LNFLAGS = 
 
 
 # %jp{コンフィギュレータ定義}
