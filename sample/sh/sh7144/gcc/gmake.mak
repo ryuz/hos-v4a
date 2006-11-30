@@ -28,25 +28,26 @@ OBJS_DIR          = objs_$(TARGET)
 # %jp{共通定義読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
+# デバッグ版のターゲット名変更
+ifeq ($(DEBUG),Yes)
+TARGET := $(TARGET)dbg
+endif
 
-ifeq ($(ROM),Yes)
-# %jp{ROM焼きする場合}
-TARGET := $(TARGET)_rom
-SECTION_VECT ?= 000000000
-SECTION_ROM  ?= 000000400
-SECTION_RAM  ?= 0FFFFE000
+
+ifeq ($(RAM),Yes)
+# %jp{RAM実行(モニタプログラム利用を想定)}
+TARGET     := $(TARGET)_ram
+LINK_SCRIPT = link_ram.x
 else
-# %jp{デフォルトはRAM実行とする(モニタプログラム利用を想定)}
-SECTION_VECT ?= 000400000
-SECTION_ROM  ?= 000400400
-SECTION_RAM  ?= 000410000
+# %jp{ROM焼きする場合}
+LINK_SCRIPT = link_rom.x
 endif
 
 
 # %jp{フラグ設定}
 CFLAGS  = -m2
 AFLAGS  = -m2
-LNFLAGS = -m2 -nostartfiles -Wl,-v,-t,-Map,sample.map,-Tsample.x
+LNFLAGS = -m2 -nostartfiles -Wl,-v,-t,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
 # %jp{コンフィギュレータ定義}
@@ -84,7 +85,7 @@ LIBS  +=
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_EXE)
+all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
 
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h

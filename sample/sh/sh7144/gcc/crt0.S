@@ -69,15 +69,15 @@ ___main:
 
 				.align	4
 l_data_rom:		
-				.long	_DATA_ROM
+				.long	___data_rom
 l_data_start:	
-				.long	_DATA_START
+				.long	___data
 l_data_end:		
-				.long	_DATA_END
+				.long	___data_end
 l_bss_start:
-				.long	_BSS_START
+				.long	___bss
 l_bss_end:
-				.long	_BSS_END
+				.long	___bss_end
 l_main:			
 				.long	_main
 

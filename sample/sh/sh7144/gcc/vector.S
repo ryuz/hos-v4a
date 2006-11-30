@@ -2,7 +2,7 @@
 /*  Hyper Operating System V4  サンプルプログラム                           */
 /*    割り込みベクタテーブル (日立 SH2 gcc 用)                              */
 /*                                                                          */
-/*                                  Copyright (C) 1998-2002 by Project HOS  */
+/*                                  Copyright (C) 1998-2006 by Project HOS  */
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
@@ -166,9 +166,9 @@
 				.section	.vector
 
 				.long	_pwr_reset			/* パワーオンリセット */
-				.long	_STACK_END
+				.long	___bss_end
 				.long	_man_reset			/* マニュアルリセット */
-				.long	_STACK_END
+				.long	___bss_end
 				.long	__kernel_vector_004
 				.long	__kernel_vector_005
 				.long	__kernel_vector_006
@@ -328,6 +328,4 @@
 				.end
 
 
-/* ------------------------------------------------------------------------ */
-/*  Copyright (C) 1998-2002 by Project HOS                                  */
-/* ------------------------------------------------------------------------ */
+/* end of file */
