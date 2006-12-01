@@ -47,7 +47,7 @@ endif
 # %jp{フラグ設定}
 CFLAGS  = -m2
 AFLAGS  = -m2
-LNFLAGS = -m2 -nostartfiles -Wl,-v,-t,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+LNFLAGS = -m2 -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
 # %jp{コンフィギュレータ定義}

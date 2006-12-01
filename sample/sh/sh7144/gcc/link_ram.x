@@ -1,11 +1,12 @@
-OUTPUT_FORMAT("coff-sh")
+OUTPUT_FORMAT("elf32-sh")
 OUTPUT_ARCH(sh)
+ENTRY(_pwr_reset)
 
 MEMORY
 {
 	vector : o = 0x400000, l = 0x0400
-	rom     : o = 0x400400, l = 0x7c00
-	ram     : o = 0x480000, l = 0x8000
+	rom    : o = 0x400400, l = 0x7c00
+	ram    : o = 0x480000, l = 0x8000
 }
 
 SECTIONS

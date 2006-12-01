@@ -1,11 +1,11 @@
-OUTPUT_FORMAT("coff-sh")
+OUTPUT_FORMAT("elf32-sh")
 OUTPUT_ARCH(sh)
 
 MEMORY
 {
 	vector(r) : o = 0x00000000, l = 0x0400
 	rom(rx)   : o = 0x00000400, l = 0x7c00
-	ram(rwx)  : o = 0xffffe000, l = 0x2000
+	ram(rwx)  : o = 0x00400000, l = 0x2000
 }
 
 SECTIONS
