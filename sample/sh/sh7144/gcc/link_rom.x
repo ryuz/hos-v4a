@@ -1,11 +1,11 @@
-OUTPUT_FORMAT("elf32-sh")
 OUTPUT_ARCH(sh)
+ENTRY(_reset_handler)
 
 MEMORY
 {
-	vector(r) : o = 0x00000000, l = 0x0400
-	rom(rx)   : o = 0x00000400, l = 0x7c00
-	ram(rwx)  : o = 0x00400000, l = 0x2000
+	vector : o = 0x0000000, l = 0x00400
+	rom    : o = 0x0000400, l = 0x07c00
+	ram    : o = 0x0040000, l = 0x80000
 }
 
 SECTIONS
@@ -13,7 +13,7 @@ SECTIONS
 	.vector :
 	{
 		___vector = . ; 
-		*(.vector)
+		*/vector.o(.text)
 		FILL(0xff)
 		___vector_end = . ; 
 	} > vector
@@ -24,7 +24,7 @@ SECTIONS
 		*(.strings)
 		*(.rodata*)
 		 ___text_end = . ; 
-	} > rom
+	}  > rom
 	.tors :
 	{
 		. = ALIGN(4);
@@ -48,6 +48,7 @@ SECTIONS
 		*(.bss)
 		*(COMMON)
 		___bss_end = . ;  
-	} > ram
+	}  >ram
 }
+
 

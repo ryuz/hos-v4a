@@ -7,6 +7,7 @@
 /* ------------------------------------------------------------------------ */
 
 
+				.global	_reset_handler
 				.global	__kernel_vector_004
 				.global	__kernel_vector_005
 				.global	__kernel_vector_006
@@ -165,10 +166,10 @@
 
 				.text
 
-				.long	_pwr_reset			/* パワーオンリセット */
-				.long	___bss_end
-				.long	_man_reset			/* マニュアルリセット */
-				.long	___bss_end
+				.long	_reset_handler		/* パワーオンリセット */
+				.long	0
+				.long	_reset_handler		/* マニュアルリセット */
+				.long	0
 				.long	__kernel_vector_004
 				.long	__kernel_vector_005
 				.long	__kernel_vector_006

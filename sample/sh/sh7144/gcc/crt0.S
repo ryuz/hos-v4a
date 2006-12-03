@@ -15,19 +15,18 @@
 				.extern		_BSS_START
 				.extern		_BSS_END
 
-				.global		_pwr_reset
-				.global		_man_reset
+				.global		_reset_handler
 				.global		___main
 
+
+				.text
 
 
 /************************************************
   リセットハンドラ
 ************************************************/
-				.section	.text
 				.align		4
-_pwr_reset:
-_man_reset:
+_reset_handler:
 				mov.l	l_int_isp, r0
 				mov.l	@r0, r15
 				

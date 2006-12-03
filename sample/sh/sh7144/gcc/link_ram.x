@@ -1,6 +1,5 @@
-OUTPUT_FORMAT("elf32-sh")
 OUTPUT_ARCH(sh)
-ENTRY(_pwr_reset)
+ENTRY(_reset_handler)
 
 MEMORY
 {
