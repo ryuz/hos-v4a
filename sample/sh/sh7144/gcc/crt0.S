@@ -71,10 +71,9 @@ ___main:
 				rts		/* 何もしない */
 				nop
 
-				.align	4
+				.align	2
 l_int_isp:		
-				.long	__kernel_int_isp;
-
+				.long	__kernel_int_isp
 l_data_rom:		
 				.long	___data_rom
 l_data_start:	

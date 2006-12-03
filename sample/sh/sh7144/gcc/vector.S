@@ -163,7 +163,7 @@
 
 
 
-				.section	.vector
+				.text
 
 				.long	_pwr_reset			/* パワーオンリセット */
 				.long	___bss_end

@@ -4,9 +4,9 @@ ENTRY(_pwr_reset)
 
 MEMORY
 {
-	vector : o = 0x400000, l = 0x0400
-	rom    : o = 0x400400, l = 0x7c00
-	ram    : o = 0x480000, l = 0x8000
+	vector : o = 0x400000, l = 0x00400
+	rom    : o = 0x400400, l = 0x0fc00
+	ram    : o = 0x410000, l = 0x10000
 }
 
 SECTIONS
@@ -14,7 +14,7 @@ SECTIONS
 	.vector :
 	{
 		___vector = . ; 
-		*(.vector)
+		*/vector.o(.text)
 		FILL(0xff)
 		___vector_end = . ; 
 	} > vector
