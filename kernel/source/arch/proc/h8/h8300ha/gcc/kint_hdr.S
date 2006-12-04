@@ -24,6 +24,8 @@
 __kernel_int_hdr:
 		/* ---- レジスタ保存 ---- */
 				push.l	er1
+				push.l	er2
+				push.l	er3
 				
 		/* ---- 割り込みをマスク ---- */
 				stc.b	ccr, r1l						/* ccr保存 */
@@ -71,7 +73,7 @@ __kernel_int_hdr:
 				mov.b	r1l, @(__kernel_ictxcb + 1)
 				
 		/* ---- 割り込みマスク値の復帰 ---- */
-				mov.b	@(8, er7), r1l
+				mov.b	@(16, er7), r1l
 				and.b	#0xc0, r1l
 				mov.b	r1l, @(__kernel_ictxcb + 0)		/* 割込み前の値に戻す */
 				cmp.b	r1l, r0h
@@ -82,13 +84,15 @@ __kernel_int_hdr:
 		
 		/* ---- コンテキストスイッチの後処理 ---- */
 				mov.b	@(__kernel_ictxcb + 0), r0l		/* マスク値取り出し */
-				mov.b	@(8, er7), r1l
+				mov.b	@(16, er7), r1l
 				and.b	#0x3f, r1l
 				or.b	r0l, r1l
-				mov.b	r1l, @(8, er7)					/* スタック上のCCRを更新 */
+				mov.b	r1l, @(16, er7)					/* スタック上のCCRを更新 */
 
 return_int:
 		/* ---- 復帰 ---- */
+				pop.l	er3
+				pop.l	er2
 				pop.l	er1
 				pop.l	er0
 				rte

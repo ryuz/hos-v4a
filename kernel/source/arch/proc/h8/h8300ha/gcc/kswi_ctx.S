@@ -22,6 +22,7 @@
 ************************************************/
 				.global	__kernel_swi_ctx		/* 実行コンテキストの切替 */
 __kernel_swi_ctx:
+				push.l	er3
 				push.l	er4
 				push.l	er5
 				push.l	er6
@@ -39,6 +40,7 @@ __kernel_sta_ctx:
 				pop.l	er6
 				pop.l	er5
 				pop.l	er4
+				pop.l	er3
 				rts
 
 
