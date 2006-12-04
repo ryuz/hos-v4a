@@ -28,18 +28,22 @@ typedef struct _kernel_t_ctxcb
 	VP_INT  sp;
 } _KERNEL_T_CTXCB;
 
+/** %jp{割込みコンテキスト制御ブロック} */
+typedef struct _kernel_t_ictxcb
+{
+	UB  imsk;
+	UB	intcnt;
+	VP	isp;
+} _KERNEL_T_ICTXCB;
 
-/* %jp{広域変数定義} */
-extern volatile UB _kernel_arm_imsk;			/**< %jp{ARM用割り込みマスク} */
-extern volatile UB _kernel_int_cnt;				/**< %jp{割り込みネストカウンタ} */
+
+extern _KERNEL_T_ICTXCB _kernel_ictxcb;		/**< %jp{割込みコンテキスト制御ブロック} */
 
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void    _kernel_ini_arc(void);																		/**< %jp{アーキテクチャ固有の初期化} */
 
 void    _kernel_ena_int(void);																		/**< %jp{割込み許可} */
 void    _kernel_dis_int(void);																		/**< %jp{割込み禁止} */
@@ -56,20 +60,23 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 #endif
 
 
-#define _KERNEL_INI_PRC()	do {} while (0)
 
-#define _KERNEL_ENA_INT()	_kernel_ena_int()														/**< %jp{割込み許可} */
-#define _KERNEL_DIS_INT()	_kernel_dis_int()														/**< %jp{割込み禁止} */
-#define _KERNEL_WAI_INT()	_kernel_wai_int()														/**< %jp{割込み待ち(アイドル時の処理)} */
+#define _KERNEL_INI_PRC()			do {} while (0)													/**< %jp{プロセッサ固有の初期化} */
+
+#define _KERNEL_INI_INT(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)	/**< %jp{割込み初期化} */
+#define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割込み許可} */
+#define _KERNEL_DIS_INT()			_kernel_dis_int()												/**< %jp{割込み禁止} */
+#define _KERNEL_WAI_INT()			_kernel_wai_int()												/**< %jp{割込み待ち(アイドル時の処理)} */
 
 #define _KERNEL_CRE_CTX(pk_ctxcb, stksz, stk, isp, entry, exinf1, exinf2)		\
-									_kernel_cre_ctx((pk_ctxcb), (isp), (entry), (exinf1), (exinf2))
-#define _KERNEL_DEL_CTX(pk_ctxcb)	_kernel_del_ctx(pk_ctxcb)
+									_kernel_cre_ctx((pk_ctxcb), (isp), (entry), (exinf1), (exinf2))	/**< %jp{実行コンテキストの作成} */	
+#define _KERNEL_DEL_CTX(pk_ctxcb)	do {} while (0)													/**< %jp{実行コンテキストの削除} */
 #define _KERNEL_RST_CTX(pk_ctxcb, stksz, stk, isp, entry, exinf1, exinf2)		\
-									_kernel_rst_ctx((exinf1), (exinf2), (entry), (isp))
+									_kernel_rst_ctx((exinf1), (exinf2), (entry), (isp))				/**< %jp{実行コンテキストのリスタート} */
 #define _KERNEL_STA_CTX(pk_ctxcb)	_kernel_sta_ctx(pk_ctxcb)
 #define _KERNEL_SWI_CTX(pk_ctxcb_now, pk_ctxinf_nxt)							\
-									_kernel_swi_ctx((pk_ctxinf_nxt), (pk_ctxcb_now))
+									_kernel_swi_ctx((pk_ctxinf_nxt), (pk_ctxcb_now))				/**< %jp{実行コンテキストの切替} */
+
 
 
 #endif	/* _KERNEL__arch__proc__arm__arm_v4__proc_h__ */

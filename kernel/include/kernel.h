@@ -348,7 +348,9 @@ ER      isig_tim(void);										/**< %jp{タイムティックの供給}%en{Sup
 ER      rot_rdq(PRI tskpri);								/**< %jp{タスク優先順位の回転} */
 ER      get_tid(ID *p_tskid);								/**< %jp{実行状態タスクIDの参照} */
 ER      loc_cpu(void);										/**< %jp{CPUロック状態への移行} */
+#define iloc_cpu	loc_cpu
 ER      unl_cpu(void);										/**< %jp{CPUロック状態の解除} */
+#define iunl_cpu	unl_cpu
 ER      dis_dsp(void);										/**< %jp{ディスパッチの禁止} */
 ER      ena_dsp(void);										/**< %jp{ディスパッチの許可} */
 BOOL    sns_ctx(void);										/**< %jp{コンテキストの参照} */

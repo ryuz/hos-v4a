@@ -46,7 +46,6 @@ extern _KERNEL_T_ICTXCB _kernel_ictxcb;		/**< %jp{割込みコンテキスト制
 extern "C" {
 #endif
 
-#define _kernel_ini_int(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)		/**< %jp{割込み許可} */
 void    _kernel_ena_int(void);																		/**< %jp{割込み許可} */
 void    _kernel_dis_int(void);																		/**< %jp{割込み禁止} */
 void    _kernel_wai_int(void);																		/**< %jp{割込み待ち(アイドル時の処理)} */
@@ -64,7 +63,7 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 
 #define _KERNEL_INI_PRC()			do {} while (0)													/**< %jp{プロセッサ固有の初期化} */
 
-#define _KERNEL_INI_INT(stksz, stk)	_kernel_ini_int(stksz, stk)										/**< %jp{割込み初期化} */
+#define _KERNEL_INI_INT(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)	/**< %jp{割込み初期化} */
 #define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割込み許可} */
 #define _KERNEL_DIS_INT()			_kernel_dis_int()												/**< %jp{割込み禁止} */
 #define _KERNEL_WAI_INT()			_kernel_wai_int()												/**< %jp{割込み待ち(アイドル時の処理)} */
