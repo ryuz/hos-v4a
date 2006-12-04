@@ -1,12 +1,13 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  val_imsk.c
- * @brief %jp{割り込みマスク用変数定義}
+ * @file  val_int.c
+ * @brief %jp{割込みコンテキスト用変数定義}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
+
 
 #include "core/core.h"
 
