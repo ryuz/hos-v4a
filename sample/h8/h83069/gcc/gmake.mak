@@ -1,6 +1,5 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for sh2-sample
 #
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -50,7 +49,7 @@ LNFLAGS = -mh -nostartfiles -T$(LINKER_SCRIPT) -Wl,-Map,$(TARGET).map
 # %jp{コンフィギュレータ定義}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-h8300ha
 
-# 出力ファイル名
+# %jp{出力ファイル名}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
 TARGET_ASC = $(TARGET).$(EXT_ASC)
 
@@ -63,10 +62,10 @@ include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 #  %jp{ファイル設定}
 # --------------------------------------
 
-# ソースディレクトリ
+# %jp{ソースディレクトリ}
 SRC_DIRS += . ..
 
-# アセンブラファイルの追加
+# %jp{アセンブラファイルの追加}
 ASRCS += ./vector.S			\
          ./crt0.S
 
@@ -106,7 +105,7 @@ mostlyclean: clean clean_kernel
 # %jp{実行ファイル生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
-# %jp{shc用のルール定義読込み}
+# %jp{gcc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
 
 

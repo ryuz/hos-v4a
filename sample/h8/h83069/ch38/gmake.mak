@@ -1,95 +1,120 @@
+# ----------------------------------------------------------------------------
+# Hyper Operating System V4 Advance
+#
+# Copyright (C) 1998-2006 by Project HOS
+# http://sourceforge.jp/projects/hos/
+# ----------------------------------------------------------------------------
 
-OS_DIR = ../../../..
 
+# %jp{ターゲット名}
 TARGET ?= sample
 
-ifeq ($(ROM),Yes)
-TARGET := $(TARGET)_rom
-ADDR_VECT = 0
-ADDR_ROM  = 0100
-ADDR_RAM  = 0FFE140
+
+# %jp{ディレクトリ定義}
+OS_DIR            = ../../../..
+KERNEL_DIR        = $(OS_DIR)/kernel
+KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
+KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/h8/h8300ha/ch38
+OBJS_DIR          = objs_$(TARGET)
+
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
+
+
+ifeq ($(RAM),Yes)
+# %jp{RAM実行(モニタプログラム利用を想定)}
+TARGET := $(TARGET)_ram
+SECTION_VECT = 0FFC040
+SECTION_ROM  = 0FFC140
+SECTION_RAM  = 0FFE140
 else
-ADDR_VECT = 0FFC040
-ADDR_ROM  = 0FFC140
-ADDR_RAM  = 0FFE140
+SECTION_VECT = 0
+SECTION_ROM  = 0100
+SECTION_RAM  = 0FFE140
 endif
 
+# %jp{フラグ設定}
+CFLAGS  = -CP=300HA -DEBug
+AFLAGS  = -CP=300HA -DEBug
+LNFLAGS = 
 
-INC_DIR = $(OS_DIR)/kernel/include
 
-# Tools
-CC     = ch38
-ASM    = asm38
-LINK   = optlnk
+# %jp{出力ファイル名}
+TARGET_EXE = $(TARGET).$(EXT_EXE)
+TARGET_ASC = $(TARGET).$(EXT_ASC)
 
-CFLAGS = -CP=300HA -DEBug -I=$(INC_DIR)
-AFLAGS = -CP=300HA -DEBug
-LFLAGS = 
+# %jp{標準ライブラリ}
+STD_LIB = stdlib.lib
 
-OBJS_DIR = objs
-
-OBJS = $(OBJS_DIR)/vcttbl.obj		\
-       $(OBJS_DIR)/startup.obj		\
-       $(OBJS_DIR)/dbsct.obj		\
-       $(OBJS_DIR)/kernel_cfg.obj	\
-       $(OBJS_DIR)/main.obj			\
-       $(OBJS_DIR)/sample.obj		\
-       $(OBJS_DIR)/ostimer.obj		\
-       $(OBJS_DIR)/sci1.obj			\
+# %jp{ch38用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/ch38_def.inc
 
 
 
-OS_LIBS = $(OS_DIR)/kernel/build/h8/h8300ha/ch38/libhosv4a.lib
-OS_CFG  = $(OS_DIR)/cfgrtr/build/gcc/h4acfg-h8300ha.exe
+# --------------------------------------
+#  %jp{ファイル設定}
+# --------------------------------------
 
-STD_LIBS = stdlib.lib
+# %jp{ソースディレクトリ}
+SRC_DIRS += . ..
 
-VPATH = ..
+# %jp{アセンブラファイルの追加}
+ASRCS += ./vcttbl.src		\
+         ./startup.src		\
 
-all: mkdir_objs mk_kernel $(TARGET).abs
+
+# %jp{C言語ファイルの追加}
+CSRCS += ./dbsct.c			\
+         ../kernel_cfg.c	\
+         ../main.c			\
+         ../sample.c		\
+         ../ostimer.c		\
+         ../sci1.c
 
 
-$(TARGET).abs: $(OBJS) $(STD_LIBS) $(OS_LIBS)
-	echo rom D=R                         > $(OBJS_DIR)/subcmd.txt
-	echo list $(TARGET).map             >> $(OBJS_DIR)/subcmd.txt
-	echo -Input=$(OBJS) | sed "s/ /,/g" >> $(OBJS_DIR)/subcmd.txt
-	echo -LIB=$(OS_LIBS),$(STD_LIBS)    >> $(OBJS_DIR)/subcmd.txt
-	echo "-start=VECTTBL/$(ADDR_VECT),P,C,C\$$BSEC,C\$$DSEC,D/$(ADDR_ROM),B,R,S/$(ADDR_RAM)" >> $(OBJS_DIR)/subcmd.txt
-	echo -output=$(TARGET).abs          >> $(OBJS_DIR)/subcmd.txt
-	echo end                            >> $(OBJS_DIR)/subcmd.txt
-	echo -input=$(TARGET).abs           >> $(OBJS_DIR)/subcmd.txt
-	echo form stype                     >> $(OBJS_DIR)/subcmd.txt
-	echo output $(TARGET).mot           >> $(OBJS_DIR)/subcmd.txt
-	echo -exit                          >> $(OBJS_DIR)/subcmd.txt
-	$(LINK) -SU=$(OBJS_DIR)/subcmd.txt
+# %jp{ライブラリの追加}
+LIBS  += $(STD_LIB)
 
-$(STD_LIBS):
-	lbg38 -OUTPut=$(STD_LIBS) $(CFLAGS) -REent 
 
-mk_kernel:
-	make -C $(OS_DIR)/kernel/build/h8/h8300ha/ch38 -f gmake.mak
 
-mkdir_objs:
-	@mkdir -p $(OBJS_DIR)
+# --------------------------------------
+#  %jp{ルール}
+# --------------------------------------
 
-clean:
-	rm -f $(OBJS) $(TARGET) ../kernel_cfg.c ../kernel_id.h
+.PHONY : all
+all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
 
-mostlyclean: clean
-	make -C $(OS_DIR)/kernel/build/h8/h8300ha/ch38 -f gmake.mak clean
 
-$(OBJS_DIR)/sample.obj: sample.c ../kernel_id.h
+.PHONY : clean
+clean: makeexe_clean
+	rm -f $(TARGET_EXE) $(TARGET_ASC) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+
+
+.PHONY : mostlyclean
+mostlyclean: clean clean_kernel
+
+$(STD_LIB):
+	lbg38 -OUTPut=$(STD_LIB) $(CFLAGS) -REent 
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
-	$(OS_CFG) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+
+
+# %jp{実行ファイル生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makeexe.inc
+
+# %jp{ch38用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/ch38_rul.inc
+
+
+# --------------------------------------
+#  %jp{依存関係}
+# --------------------------------------
+
+$(OBJS_DIR)/sample.$(EXT_OBJ): ../sample.c ../kernel_id.h
 
 
 
-$(OBJS_DIR)/%.obj :: %.c
-	$(CC) $(CFLAGS) $< -OB=$@ -List=$(@:%.obj=%.lst)
-
-$(OBJS_DIR)/%.obj :: %.src
-	$(ASM) $(AFLAGS) $< -OB=$@
-
-
+# end of file
