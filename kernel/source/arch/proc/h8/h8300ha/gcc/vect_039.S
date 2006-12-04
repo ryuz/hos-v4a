@@ -17,7 +17,7 @@
 __kernel_vector_039:
 				push.l	er0
 				mov.b	#39, r0l
-				bra		__kernel_int_hdr
+				jmp		__kernel_int_hdr
 
 
 				.end

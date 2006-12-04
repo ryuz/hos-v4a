@@ -9,8 +9,8 @@
  */
 
 
-#ifndef _KERNEL__arch__proc__h8__h8300h__proc_h__
-#define _KERNEL__arch__proc__h8__h8300h__proc_h__
+#ifndef _KERNEL__arch__proc__h8__h8300ha__proc_h__
+#define _KERNEL__arch__proc__h8__h8300ha__proc_h__
 
 
 #define _KERNEL_IMSK_I		0x80		/**< %jp{割り込みマスクビット} */
@@ -24,21 +24,27 @@
 /** %jp{コンテキスト情報保存ブロック} */
 typedef struct _kernel_t_ctxcb
 {
-	VP_INT  sp;
+	VP	sp;								/**< %jp{スタックポインタ}%en{Stack pointer} */
 } _KERNEL_T_CTXCB;
+
+
+/** %jp{割込みコンテキスト情報保存ブロック} */
+typedef struct _kernel_t_ictxcb
+{
+	UB	imsk;							/**< %jp{割込みマスク}%en{Interrupt mask} */
+	UB	intcnt;							/**< %jp{割込みネストカウンタ}%en{Interrupt nest counter} */
+	VP	isp;							/**< %jp{割込み初期スタックポインタ}%en{Initial stack pointer for interrupt} */
+} _KERNEL_T_ICTXCB;
 
 
 
 /* %jp{広域変数定義} */
-extern volatile UB _kernel_h83_imsk;				/**< %jp{H8/300用割り込みマスク} */
-extern volatile UB _kernel_int_cnt;				/**< %jp{割り込みネストカウンタ} */
+extern _KERNEL_T_ICTXCB _kernel_ictxcb;	/**< %jp{割込みコンテキスト情報保存ブロック} */
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void    _kernel_ini_prc(void);																		/**< %jp{プロセッサの初期化} */
 
 void    _kernel_ena_int(void);																		/**< %jp{割り込み許可} */
 void    _kernel_dis_int(void);																		/**< %jp{割り込み禁止} */
@@ -57,9 +63,10 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 
 #define _KERNEL_INI_PRC()	do {} while (0)
 
-#define _KERNEL_ENA_INT()	_kernel_ena_int()														/**< %jp{割り込み許可} */
-#define _KERNEL_DIS_INT()	_kernel_dis_int()														/**< %jp{割り込み禁止} */
-#define _KERNEL_WAI_INT()	_kernel_wai_int()														/**< %jp{割り込み待ち(アイドル時の処理)} */
+#define _KERNEL_INI_INT(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)
+#define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割り込み許可} */
+#define _KERNEL_DIS_INT()			_kernel_dis_int()												/**< %jp{割り込み禁止} */
+#define _KERNEL_WAI_INT()			_kernel_wai_int()												/**< %jp{割り込み待ち(アイドル時の処理)} */
 
 #define _KERNEL_CRE_CTX(pk_ctxcb, stksz, stk, isp, entry, exinf1, exinf2)		\
 									_kernel_cre_ctx((pk_ctxcb), (isp), (entry), (exinf1), (exinf2))
@@ -71,7 +78,7 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 									_kernel_swi_ctx((pk_ctxinf_nxt), (pk_ctxcb_now))
 
 
-#endif	/* _KERNEL__arch__proc__h8__h8300h__proc_h__ */
+#endif	/* _KERNEL__arch__proc__h8__h8300ha__proc_h__ */
 
 
 /* end of file */

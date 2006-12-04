@@ -59,7 +59,7 @@ bool CParser::Analyze(FILE *fp, const TSourceInfo *pSrcInf)
 			{
 				// 空白文字ならスルー
 			}
-			else if ( iswalpha(c) || c == '_' )	// 有意文字ならAPI名開始とみなす
+			else if ( isalpha(c) || c == '_' )	// 有意文字ならAPI名開始とみなす
 			{
 				m_strApiName = c;
 				m_iApiState = PARSER_STATE_API_NAME;

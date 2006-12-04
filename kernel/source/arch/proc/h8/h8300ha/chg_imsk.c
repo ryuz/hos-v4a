@@ -21,7 +21,7 @@ ER chg_imsk(INT imsk)
 	}
 	
 	_kernel_dis_int();
-	_kernel_h83_imsk = (UB)imsk;
+	_kernel_ictxcb.imsk = (UB)imsk;
 	_kernel_ena_int();
 	
 	return E_OK;

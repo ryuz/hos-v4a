@@ -7,12 +7,11 @@
 ; --------------------------------------------------------------------------- 
 
 
+				.EXPORT	__kernel_ena_int
+				.IMPORT	__kernel_ictxcb
 
-				.EXPORT	__kernel_ena_int		; 割り込み許可
-				.IMPORT	__kernel_h83_imsk		; 割り込みマスク
 
-
-				.SECTION  P, CODE, ALIGN=2
+				.SECTION P, CODE, ALIGN=2
 
 
 ; -----------------------------------------------
@@ -21,8 +20,8 @@
 ; -----------------------------------------------
 				.STACK	__kernel_ena_int=4
 __kernel_ena_int:
-				mov.b	@__kernel_h83_imsk, r0l
-				ldc.b	r0l, ccr				; 割り込みの許可
+				mov.b	@(__kernel_ictxcb + 0), r0l
+				ldc.b	r0l, ccr						; 割り込みの許可
 				rts
 
 

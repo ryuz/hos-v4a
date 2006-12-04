@@ -51,7 +51,6 @@ CFGRTR     = h4acfg-h8300ha
 
 # C言語ファイルの追加
 CSRCS += $(SRC_PROC_DIR)/val_int.c				\
-         $(SRC_PROC_DIR)/val_imsk.c				\
          $(SRC_PROC_DIR)/chg_imsk.c				\
          $(SRC_PROC_DIR)/get_imsk.c				\
          $(SRC_IRC_DIR)/ena_int.c				\

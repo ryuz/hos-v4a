@@ -1,7 +1,7 @@
 ; --------------------------------------------------------------------------- 
 ;  Hyper Operating System V4  μITRON4.0仕様 Real-Time OS                     
 ;    プロセッサ抽象化コンポーネント (日立 H8/300H 用)                         
-;    割り込みハンドラ                                                         
+;    割込みハンドラ                                                         
 ;                                                                             
 ;                                   Copyright (C) 1998-2006 by Project HOS    
 ;                                   http://sourceforge.jp/projects/hos/       
@@ -10,12 +10,10 @@
 
 
 				.EXPORT	__kernel_int_hdr
-				.IMPORT	__kernel_sta_inh			; 割り込み処理開始
-				.IMPORT	__kernel_end_inh			; 割り込み処理終了
-				.IMPORT	__kernel_exe_inh			; 割り込み処理実行
-				.IMPORT	__kernel_int_isp			; 割り込み用スタックアドレス
-				.IMPORT	__kernel_h83_imsk			; 現在の割り込みマスク値
-				.IMPORT __kernel_int_cnt			; 割り込みネストカウンタ
+				.IMPORT	__kernel_sta_inh			; 割込み処理開始
+				.IMPORT	__kernel_end_inh			; 割込み処理終了
+				.IMPORT	__kernel_exe_inh			; 割込み処理実行
+				.IMPORT __kernel_ictxcb				; 割込みコンテキスト制御情報
 
 
 				.SECTION P, CODE, ALIGN=2
@@ -37,23 +35,23 @@ __kernel_int_hdr:
 				and.b	#h'c0, r1l
 				
 		; -------- 多重割り込みの判別
-				mov.b	@__kernel_int_cnt, r1h
+				mov.b	@(__kernel_ictxcb + 1), r1h	; 割込みネストカウンタ取得
 				bne		multiple_int
 				
 		; ======== 最初の割り込み ========
 		; ---- 割込みマスク値(_kernel_h83_imsk)を設定
-				mov.b	@__kernel_h83_imsk, r0h		; 古い割込みマスク値を保存
-				mov.b	r1l, @__kernel_h83_imsk		; 新しいマスク値を設定
+				mov.b	@(__kernel_ictxcb + 0), r0h	; 古い割込みマスク値を保存
+				mov.b	r1l, @(__kernel_ictxcb + 0)	; 新しいマスク値を設定
 				
 		; ---- 割り込みネストカウンタ設定
 				mov.b	#1, r1h
-				mov.b	r1h, @__kernel_int_cnt
+				mov.b	r1h, @(__kernel_ictxcb + 1); 割込みネストカウンタ設定
 				
 		; ---- スタックポインタの入れ替え
 				mov.l	er7, er1
-				mov.l	@__kernel_int_isp, er7
+				mov.l	@(__kernel_ictxcb + 2), er7
 				push.l	er1							; 直前のスタックポインタを保存
-		
+
 		; ---- 古い割込みマスク値(r0h)と割込み番号(r0l)の保存
 				push.w	r0
 
@@ -74,12 +72,12 @@ __kernel_int_hdr:
 				
 		; -------- 割り込みネストカウンタクリア
 				xor.b	r1l, r1l
-				mov.b	r1l, @__kernel_int_cnt
+				mov.b	r1l, @(__kernel_ictxcb + 1)
 				
 		; -------- 割り込みマスク値の復帰
 				mov.b	@(8, er7), r1l
 				and.b	#h'c0, r1l
-				mov.b	r1l, @__kernel_h83_imsk		; 割込み前の値に戻す
+				mov.b	r1l, @(__kernel_ictxcb + 0)	; 割込み前の値に戻す
 				cmp.b	r1l, r0h
 				bne		return_int					; 割込み前処理中の多重割り込みなら後処理をカット
 				
@@ -87,7 +85,7 @@ __kernel_int_hdr:
 				jsr		@__kernel_end_inh
 		
 		; -------- コンテキストスイッチの後処理
-				mov.b	@__kernel_h83_imsk, r0l		; マスク値取り出し
+				mov.b	@(__kernel_ictxcb + 0), r0l	; マスク値取り出し
 				mov.b	@(8, er7), r1l
 				and.b	#h'3f, r1l					
 				or.b	r0l, r1l
@@ -104,18 +102,18 @@ return_int:
 multiple_int:
 		; -------- 割り込みネストカウンタ加算
 				add.b	#1, r1h
-				mov.b	r1h, @__kernel_int_cnt
+				mov.b	r1h, @(__kernel_ictxcb + 1)
 
 		; ---- 割込みマスク値(_kernel_h83_imsk)を設定
-				mov.b	r1l, @__kernel_h83_imsk		; 新しいマスク値を設定
+				mov.b	r1l, @(__kernel_ictxcb + 0)	; 新しいマスク値を設定
 				
 		; -------- 割り込みハンドラ呼び出し
 				jsr		@__kernel_exe_inh
 				
 		; -------- 割り込みネストカウンタ減算
-				mov.b	@__kernel_int_cnt, r1h
+				mov.b	@(__kernel_ictxcb + 1), r1h
 				dec.b	r1h
-				mov.b	r1h, @__kernel_int_cnt
+				mov.b	r1h, @(__kernel_ictxcb + 1)
 				
 		; -------- 復帰
 				bra		return_int

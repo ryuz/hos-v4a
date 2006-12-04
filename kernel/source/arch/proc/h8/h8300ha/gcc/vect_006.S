@@ -17,7 +17,7 @@
 __kernel_vector_006:
 				push.l	er0
 				mov.b	#6, r0l
-				bra		__kernel_exc_hdr
+				jmp		__kernel_exc_hdr
 
 
 				.end

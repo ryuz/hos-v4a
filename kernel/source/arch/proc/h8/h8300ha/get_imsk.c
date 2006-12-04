@@ -15,7 +15,7 @@
 /* %jp{割り込みマスクの参照(実装依存サービスコール)} */
 ER get_imsk(INT *p_imsk)
 {
-	*p_imsk = (INT)_kernel_h83_imsk;
+	*p_imsk = (INT)_kernel_ictxcb.imsk;
 	return E_OK;
 }
 
