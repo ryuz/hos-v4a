@@ -4,7 +4,7 @@
 @c_file      = ("\.c\$", "\.cpp\$", "\.h\$");
 @binary_file = ("\.dsw\$", "\.dsp\$");
 @ignore_file = ("\.o\$", "\.obj\$", "\.lib\$", "\.l\$", "\.exe\$", "\.elf\$");
-@ignore_dir  = ("^CVS\$", "^tools\$", "^test\$", "^Debug\$", "^Release\$", "^objs");
+@ignore_dir  = ("^CVS\$", "^tools\$", "^test\$", "^Debug\$", "^Release\$", "^objs", "^tmp_");
 
 # %jp{オプション設定}
 $nkf_in     = "nkf -e ";

@@ -33,7 +33,7 @@ bss_init_loop:
 				blo		bss_init_loop
 
 		; main関数へ分岐
-	;			jsr		@___main
+				jsr		@___main
 				jsr		@_main
 	;			jsr		@_exit
 
