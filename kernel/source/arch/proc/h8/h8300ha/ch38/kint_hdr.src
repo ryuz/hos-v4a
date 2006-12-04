@@ -39,7 +39,7 @@ __kernel_int_hdr:
 				bne		multiple_int
 				
 		; ======== 最初の割り込み ========
-		; ---- 割込みマスク値(_kernel_h83_imsk)を設定
+		; ---- 割込みマスク値を設定
 				mov.b	@(__kernel_ictxcb + 0), r0h	; 古い割込みマスク値を保存
 				mov.b	r1l, @(__kernel_ictxcb + 0)	; 新しいマスク値を設定
 				

@@ -56,75 +56,90 @@ CFGRTR     = h4acfg-h8300ha
 
 
 # C言語ファイルの追加
-# CSRCS += $(SRC_IRC_DIR)/intc.c
+CSRCS += $(SRC_PROC_DIR)/val_int.c				\
+         $(SRC_PROC_DIR)/chg_imsk.c				\
+         $(SRC_PROC_DIR)/get_imsk.c				\
+         $(SRC_IRC_DIR)/ena_int.c				\
+         $(SRC_IRC_DIR)/dis_int.c				\
+         $(SRC_IRC_DIR)/clr_int.c				\
+         $(SRC_IRC_DIR)/chg_ilv.c				\
+         $(SRC_IRC_DIR)/get_ilv.c
+
 
 # アセンブラファイルの追加
-ASRCS += $(SRC_PROC_ASM_DIR)/ctxctl.S		\
-         $(SRC_PROC_ASM_DIR)/intctl.S		\
-         $(SRC_PROC_ASM_DIR)/vect_dmy.S		\
-         $(SRC_PROC_ASM_DIR)/vect_001.S		\
-         $(SRC_PROC_ASM_DIR)/vect_002.S		\
-         $(SRC_PROC_ASM_DIR)/vect_003.S		\
-         $(SRC_PROC_ASM_DIR)/vect_004.S		\
-         $(SRC_PROC_ASM_DIR)/vect_005.S		\
-         $(SRC_PROC_ASM_DIR)/vect_006.S		\
-         $(SRC_PROC_ASM_DIR)/vect_007.S		\
-         $(SRC_PROC_ASM_DIR)/vect_008.S		\
-         $(SRC_PROC_ASM_DIR)/vect_009.S		\
-         $(SRC_PROC_ASM_DIR)/vect_010.S		\
-         $(SRC_PROC_ASM_DIR)/vect_011.S		\
-         $(SRC_PROC_ASM_DIR)/vect_012.S		\
-         $(SRC_PROC_ASM_DIR)/vect_013.S		\
-         $(SRC_PROC_ASM_DIR)/vect_014.S		\
-         $(SRC_PROC_ASM_DIR)/vect_015.S		\
-         $(SRC_PROC_ASM_DIR)/vect_016.S		\
-         $(SRC_PROC_ASM_DIR)/vect_017.S		\
-         $(SRC_PROC_ASM_DIR)/vect_018.S		\
-         $(SRC_PROC_ASM_DIR)/vect_019.S		\
-         $(SRC_PROC_ASM_DIR)/vect_020.S		\
-         $(SRC_PROC_ASM_DIR)/vect_021.S		\
-         $(SRC_PROC_ASM_DIR)/vect_022.S		\
-         $(SRC_PROC_ASM_DIR)/vect_023.S		\
-         $(SRC_PROC_ASM_DIR)/vect_024.S		\
-         $(SRC_PROC_ASM_DIR)/vect_025.S		\
-         $(SRC_PROC_ASM_DIR)/vect_026.S		\
-         $(SRC_PROC_ASM_DIR)/vect_027.S		\
-         $(SRC_PROC_ASM_DIR)/vect_028.S		\
-         $(SRC_PROC_ASM_DIR)/vect_029.S		\
-         $(SRC_PROC_ASM_DIR)/vect_030.S		\
-         $(SRC_PROC_ASM_DIR)/vect_031.S		\
-         $(SRC_PROC_ASM_DIR)/vect_032.S		\
-         $(SRC_PROC_ASM_DIR)/vect_033.S		\
-         $(SRC_PROC_ASM_DIR)/vect_034.S		\
-         $(SRC_PROC_ASM_DIR)/vect_035.S		\
-         $(SRC_PROC_ASM_DIR)/vect_036.S		\
-         $(SRC_PROC_ASM_DIR)/vect_037.S		\
-         $(SRC_PROC_ASM_DIR)/vect_038.S		\
-         $(SRC_PROC_ASM_DIR)/vect_039.S		\
-         $(SRC_PROC_ASM_DIR)/vect_040.S		\
-         $(SRC_PROC_ASM_DIR)/vect_041.S		\
-         $(SRC_PROC_ASM_DIR)/vect_042.S		\
-         $(SRC_PROC_ASM_DIR)/vect_043.S		\
-         $(SRC_PROC_ASM_DIR)/vect_044.S		\
-         $(SRC_PROC_ASM_DIR)/vect_045.S		\
-         $(SRC_PROC_ASM_DIR)/vect_046.S		\
-         $(SRC_PROC_ASM_DIR)/vect_047.S		\
-         $(SRC_PROC_ASM_DIR)/vect_048.S		\
-         $(SRC_PROC_ASM_DIR)/vect_049.S		\
-         $(SRC_PROC_ASM_DIR)/vect_050.S		\
-         $(SRC_PROC_ASM_DIR)/vect_051.S		\
-         $(SRC_PROC_ASM_DIR)/vect_052.S		\
-         $(SRC_PROC_ASM_DIR)/vect_053.S		\
-         $(SRC_PROC_ASM_DIR)/vect_054.S		\
-         $(SRC_PROC_ASM_DIR)/vect_055.S		\
-         $(SRC_PROC_ASM_DIR)/vect_056.S		\
-         $(SRC_PROC_ASM_DIR)/vect_057.S		\
-         $(SRC_PROC_ASM_DIR)/vect_058.S		\
-         $(SRC_PROC_ASM_DIR)/vect_059.S		\
-         $(SRC_PROC_ASM_DIR)/vect_060.S		\
-         $(SRC_PROC_ASM_DIR)/vect_061.S		\
-         $(SRC_PROC_ASM_DIR)/vect_062.S		\
+ASRCS += $(SRC_PROC_ASM_DIR)/kini_prc.S			\
+         $(SRC_PROC_ASM_DIR)/kena_int.S			\
+         $(SRC_PROC_ASM_DIR)/kdis_int.S			\
+         $(SRC_PROC_ASM_DIR)/kwai_int.S			\
+         $(SRC_PROC_ASM_DIR)/kcre_ctx.S			\
+         $(SRC_PROC_ASM_DIR)/krst_ctx.S			\
+         $(SRC_PROC_ASM_DIR)/kswi_ctx.S			\
+         $(SRC_PROC_ASM_DIR)/kint_hdr.S			\
+         $(SRC_PROC_ASM_DIR)/vect_dmy.S			\
+         $(SRC_PROC_ASM_DIR)/vect_001.S			\
+         $(SRC_PROC_ASM_DIR)/vect_002.S			\
+         $(SRC_PROC_ASM_DIR)/vect_003.S			\
+         $(SRC_PROC_ASM_DIR)/vect_004.S			\
+         $(SRC_PROC_ASM_DIR)/vect_005.S			\
+         $(SRC_PROC_ASM_DIR)/vect_006.S			\
+         $(SRC_PROC_ASM_DIR)/vect_007.S			\
+         $(SRC_PROC_ASM_DIR)/vect_008.S			\
+         $(SRC_PROC_ASM_DIR)/vect_009.S			\
+         $(SRC_PROC_ASM_DIR)/vect_010.S			\
+         $(SRC_PROC_ASM_DIR)/vect_011.S			\
+         $(SRC_PROC_ASM_DIR)/vect_012.S			\
+         $(SRC_PROC_ASM_DIR)/vect_013.S			\
+         $(SRC_PROC_ASM_DIR)/vect_014.S			\
+         $(SRC_PROC_ASM_DIR)/vect_015.S			\
+         $(SRC_PROC_ASM_DIR)/vect_016.S			\
+         $(SRC_PROC_ASM_DIR)/vect_017.S			\
+         $(SRC_PROC_ASM_DIR)/vect_018.S			\
+         $(SRC_PROC_ASM_DIR)/vect_019.S			\
+         $(SRC_PROC_ASM_DIR)/vect_020.S			\
+         $(SRC_PROC_ASM_DIR)/vect_021.S			\
+         $(SRC_PROC_ASM_DIR)/vect_022.S			\
+         $(SRC_PROC_ASM_DIR)/vect_023.S			\
+         $(SRC_PROC_ASM_DIR)/vect_024.S			\
+         $(SRC_PROC_ASM_DIR)/vect_025.S			\
+         $(SRC_PROC_ASM_DIR)/vect_026.S			\
+         $(SRC_PROC_ASM_DIR)/vect_027.S			\
+         $(SRC_PROC_ASM_DIR)/vect_028.S			\
+         $(SRC_PROC_ASM_DIR)/vect_029.S			\
+         $(SRC_PROC_ASM_DIR)/vect_030.S			\
+         $(SRC_PROC_ASM_DIR)/vect_031.S			\
+         $(SRC_PROC_ASM_DIR)/vect_032.S			\
+         $(SRC_PROC_ASM_DIR)/vect_033.S			\
+         $(SRC_PROC_ASM_DIR)/vect_034.S			\
+         $(SRC_PROC_ASM_DIR)/vect_035.S			\
+         $(SRC_PROC_ASM_DIR)/vect_036.S			\
+         $(SRC_PROC_ASM_DIR)/vect_037.S			\
+         $(SRC_PROC_ASM_DIR)/vect_038.S			\
+         $(SRC_PROC_ASM_DIR)/vect_039.S			\
+         $(SRC_PROC_ASM_DIR)/vect_040.S			\
+         $(SRC_PROC_ASM_DIR)/vect_041.S			\
+         $(SRC_PROC_ASM_DIR)/vect_042.S			\
+         $(SRC_PROC_ASM_DIR)/vect_043.S			\
+         $(SRC_PROC_ASM_DIR)/vect_044.S			\
+         $(SRC_PROC_ASM_DIR)/vect_045.S			\
+         $(SRC_PROC_ASM_DIR)/vect_046.S			\
+         $(SRC_PROC_ASM_DIR)/vect_047.S			\
+         $(SRC_PROC_ASM_DIR)/vect_048.S			\
+         $(SRC_PROC_ASM_DIR)/vect_049.S			\
+         $(SRC_PROC_ASM_DIR)/vect_050.S			\
+         $(SRC_PROC_ASM_DIR)/vect_051.S			\
+         $(SRC_PROC_ASM_DIR)/vect_052.S			\
+         $(SRC_PROC_ASM_DIR)/vect_053.S			\
+         $(SRC_PROC_ASM_DIR)/vect_054.S			\
+         $(SRC_PROC_ASM_DIR)/vect_055.S			\
+         $(SRC_PROC_ASM_DIR)/vect_056.S			\
+         $(SRC_PROC_ASM_DIR)/vect_057.S			\
+         $(SRC_PROC_ASM_DIR)/vect_058.S			\
+         $(SRC_PROC_ASM_DIR)/vect_059.S			\
+         $(SRC_PROC_ASM_DIR)/vect_060.S			\
+         $(SRC_PROC_ASM_DIR)/vect_061.S			\
+         $(SRC_PROC_ASM_DIR)/vect_062.S			\
          $(SRC_PROC_ASM_DIR)/vect_063.S
+
 
 # カーネル共通ソースの追加
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc

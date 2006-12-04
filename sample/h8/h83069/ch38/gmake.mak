@@ -75,6 +75,9 @@ mkdir_objs:
 clean:
 	rm -f $(OBJS) $(TARGET) ../kernel_cfg.c ../kernel_id.h
 
+mostlyclean: clean
+	make -C $(OS_DIR)/kernel/build/h8/h8300ha/ch38 -f gmake.mak clean
+
 $(OBJS_DIR)/sample.obj: sample.c ../kernel_id.h
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg

@@ -26,27 +26,27 @@ __kernel_int_hdr:
 				push.l	er1
 				
 		/* ---- 割り込みをマスク ---- */
-				stc.b	ccr, r1l					/* ccr保存 */
-				orc		#0xc0, ccr					/* 割込み全マスク */
+				stc.b	ccr, r1l						/* ccr保存 */
+				orc		#0xc0, ccr						/* 割込み全マスク */
 				and.b	#0xc0, r1l
 				
 		/* ---- 多重割り込みの判別 ---- */
-				mov.b	@(__kernel_ictxcb + 1), r1h
+				mov.b	@(__kernel_ictxcb + 1), r1h		/* 割込みネストカウンタ取得 */
 				bne		multiple_int
 				
 		/* ======== 最初の割り込み ======== */
 		/* ---- 割込みマスク値を設定 ---- */
-				mov.b	@(__kernel_ictxcb + 0), r0h	/* 古い割込みマスク値を保存 */
-				mov.b	r1l, @(__kernel_ictxcb + 0)	/* 新しいマスク値を設定 */
+				mov.b	@(__kernel_ictxcb + 0), r0h		/* 古い割込みマスク値を保存 */
+				mov.b	r1l, @(__kernel_ictxcb + 0)		/* 新しいマスク値を設定 */
 				
 		/* ---- 割り込みネストカウンタ設定 ---- */
 				mov.b	#1, r1h
-				mov.b	r1h, @(__kernel_ictxcb + 1)
+				mov.b	r1h, @(__kernel_ictxcb + 1)		/* 割込みネストカウンタ設定 */
 				
 		/* ---- スタックポインタの入れ替え ---- */
 				mov.l	er7, er1
-				mov.l	@(__kernel_ictxcb + 2), er7
-				push.l	er1							/* 直前のスタックポインタを保存 */
+				mov.l	@(__kernel_ictxcb + 4), er7
+				push.l	er1								/* 直前のスタックポインタを保存 */
 		
 		/* ---- 古い割込みマスク値(r0h)と割込み番号(r0l)の保存 ---- */
 				push.w	r0
@@ -55,7 +55,7 @@ __kernel_int_hdr:
 				jsr		@__kernel_sta_inh
 				
 		/* ---- 割り込みハンドラの処理 ---- */
-				mov.b	@(1, er7), r0l				/* スタックから割込み番号を取り出す */
+				mov.b	@(1, er7), r0l					/* スタックから割込み番号を取り出す */
 				extu.w	r0
 				extu.l	er0
 				jsr		@__kernel_exe_inh
@@ -64,6 +64,7 @@ __kernel_int_hdr:
 				pop.w	r0
 				
 		/* ---- スタックポインタ復帰 ---- */
+				mov.l	@er7, er7
 				
 		/* ---- 割り込みネストカウンタクリア ---- */
 				xor.b	r1l, r1l
@@ -72,19 +73,19 @@ __kernel_int_hdr:
 		/* ---- 割り込みマスク値の復帰 ---- */
 				mov.b	@(8, er7), r1l
 				and.b	#0xc0, r1l
-				mov.b	r1l, @(__kernel_ictxcb + 0)	/* 割込み前の値に戻す */
+				mov.b	r1l, @(__kernel_ictxcb + 0)		/* 割込み前の値に戻す */
 				cmp.b	r1l, r0h
-				bne		return_int					/* 割込み前処理中の多重割り込みなら後処理をカット */
+				bne		return_int						/* 割込み前処理中の多重割り込みなら後処理をカット */
 				
 		/* ---- コンテキストスイッチ実施 ---- */
 				jsr		@__kernel_end_inh
 		
 		/* ---- コンテキストスイッチの後処理 ---- */
-				mov.b	@(__kernel_ictxcb + 0), r0l	/* マスク値取り出し */
+				mov.b	@(__kernel_ictxcb + 0), r0l		/* マスク値取り出し */
 				mov.b	@(8, er7), r1l
 				and.b	#0x3f, r1l
 				or.b	r0l, r1l
-				mov.b	r1l, @(8, er7)				/* スタック上のCCRを更新 */
+				mov.b	r1l, @(8, er7)					/* スタック上のCCRを更新 */
 
 return_int:
 		/* ---- 復帰 ---- */
@@ -100,7 +101,7 @@ multiple_int:
 				mov.b	r1h, @(__kernel_ictxcb + 1)
 
 		/* ---- 割込みマスク値を設定 ---- */
-				mov.b	r1l, @(__kernel_ictxcb + 0)	/* 新しいマスク値を設定 */
+				mov.b	r1l, @(__kernel_ictxcb + 0)		/* 新しいマスク値を設定 */
 				
 		/* ---- 割り込みハンドラ呼び出し ---- */
 				jsr		@__kernel_exe_inh

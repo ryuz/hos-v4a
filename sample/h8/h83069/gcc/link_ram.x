@@ -1,21 +1,22 @@
 OUTPUT_ARCH(h8300h)
 ENTRY("__reset_handler")
+
 MEMORY
 {
-	vectors : o = 0xffc040, l = 0x0100
-	rom     : o = 0xffc140, l = 0x2000
-	ram     : o = 0xffe140, l = 0x1800
+	vector : o = 0xffc040, l = 0x0100
+	rom    : o = 0xffc140, l = 0x2000
+	ram    : o = 0xffe140, l = 0x1800
 }
 
 SECTIONS
 {
-	.vectors :
+	.vector :
 	{
-		___vectors = . ; 
-		*(.vectors)
+		___vector = . ; 
+		*/vector.o(.text)
 		FILL(0xff)
-		___vectors_end = . ; 
-	} > vectors
+		___vector_end = . ; 
+	} > vector
 	.text :
 	{
 		 ___text = . ; 
@@ -24,7 +25,9 @@ SECTIONS
 		*(.rodata*)
 		 ___text_end = . ; 
 	}  > rom
-	.tors : {
+	.tors :
+	{
+		. = ALIGN(2);
 		___ctors = . ;
 		*(.ctors)
 		___ctors_end = . ;
@@ -34,6 +37,7 @@ SECTIONS
 	} > rom
 	data : AT (ADDR(.tors) + SIZEOF(.tors))
 	{
+	    ___data_rom = ADDR(.tors) + SIZEOF(.tors);
 		___data = . ;
 		*(.data)
 		___data_end = . ;
@@ -43,7 +47,7 @@ SECTIONS
 		___bss = . ;
 		*(.bss)
 		*(COMMON)
-		___bss_end = . ;  
+		___bss_end = . ; 
 	}  >ram
 }
 

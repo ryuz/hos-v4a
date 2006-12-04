@@ -3,16 +3,17 @@
 				
 				
 				.global __reset_handler
+				.global __kernel_int_isp
 				
 				.text
 
 __reset_handler:	
-				mov.l	#0x00FFFF20, sp
+				mov.l	@(__kernel_int_isp), sp
 
 		; data セクションコピー
-				mov.l	#___dtors_end, er0
+				mov.l	#___data_rom, er0
 				mov.l	#___data_end, er1
-				mov.l	#___data,er2
+				mov.l	#___data, er2
 data_copy_loop:	
 				mov.w	@er0, r3
 				mov.w	r3, @er2

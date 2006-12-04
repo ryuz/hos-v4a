@@ -12,9 +12,6 @@
 #include "kernel.h"
 
 
-/** %jp{割込み用スタック初期値} */
-void *_kernel_int_isp = (void *)0x0FFFF20;
-
 
 /** %jp{メイン関数} */
 int main()

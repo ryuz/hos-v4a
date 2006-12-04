@@ -44,7 +44,7 @@ endif
 # %jp{フラグ設定}
 CFLAGS  = -mh
 AFLAGS  = -mh
-LNFLAGS = -mh -nostartfiles -T$(LINKER_SCRIPT) -Wl,-Map,sample.map
+LNFLAGS = -mh -nostartfiles -T$(LINKER_SCRIPT) -Wl,-Map,$(TARGET).map
 
 
 # %jp{コンフィギュレータ定義}
@@ -67,11 +67,11 @@ include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 SRC_DIRS += . ..
 
 # アセンブラファイルの追加
-ASRCS += ./crt0.S
+ASRCS += ./vector.S			\
+         ./crt0.S
 
 # %jp{C言語ファイルの追加}
-CSRCS += ./vector.c			\
-         ../kernel_cfg.c	\
+CSRCS += ../kernel_cfg.c	\
          ../main.c			\
          ../sample.c		\
          ../ostimer.c		\
@@ -88,15 +88,19 @@ LIBS  +=
 .PHONY : all
 all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
 
+
+.PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_ASC) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+
+
+.PHONY : mostlyclean
+mostlyclean: clean clean_kernel
+
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
-
-mostlyclean: clean clean_kernel
-
 
 
 # %jp{実行ファイル生成用設定読込み}
@@ -104,7 +108,6 @@ include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
 # %jp{shc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
-
 
 
 # --------------------------------------
