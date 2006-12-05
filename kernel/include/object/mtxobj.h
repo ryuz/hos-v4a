@@ -24,6 +24,12 @@ typedef _KERNEL_T_TSKHDL				_KERNEL_MTX_T_TSKHDL;			/**< %jp{ミューテック�
 typedef _KERNEL_T_TSKHDL				_KERNEL_MTXCB_T_TSKHDL;			/**< %jp{ミューテックス所持タスクハンドルをMTXCBに格納するときの型} */
 #define _KERNEL_MTXCB_TBITDEF_TSKHDL
 
+/* %jp{ミューテックスハンドル用の型} */
+typedef _KERNEL_T_MTXHDL				_KERNEL_MTX_T_MTXHDL;			/**< %jp{ミューテックス所持タスクハンドルを演算操作するときの型} */
+typedef _KERNEL_T_MTXHDL				_KERNEL_MTXCB_T_MTXHDL;			/**< %jp{ミューテックス所持タスクハンドルをMTXCBに格納するときの型} */
+#define _KERNEL_MTXCB_TBITDEF_MTXHDL
+
+
 /* %jp{ミューテックスの上限優先度型} */
 typedef PRI								_KERNEL_MTX_T_CEILPRI;			/**< %jp{ミューテックスの上限優先度を演算操作するときの型} */
 typedef PRI								_KERNEL_MTXCB_T_CEILPRI;		/**< %jp{ミューテックスの上限優先度をMTXCBに格納するときの型} */
@@ -80,6 +86,13 @@ typedef struct _kernel_t_mtxcb
 	_KERNEL_MTXCB_T_TSKHDL	tskhdl		_KERNEL_MTXCB_TBITDEF_TSKHDL;		/**< %jp{ミューテックスを所持するタスクのハンドル} */
 #endif
 
+#if _KERNEL_MTXCB_NEXT
+	_KERNEL_T_MTXHDL		next;											/**< %jp{次のミューテックスハンドル} */
+#endif
+
+#if _KERNEL_MTXCB_PREV
+	_KERNEL_T_MTXHDL		prev;											/**< %jp{前のミューテックスハンドル} */
+#endif
 
 #if _KERNEL_MTXCB_ALGORITHM == _KERNEL_MTXCB_ALG_PTRARRAY
 	_KERNEL_T_MTXCB_RO_PTR	mtxcb_ro;										/**< %jp{ミューテックスコントロールブロックRO部へのポインタ} */
@@ -101,6 +114,14 @@ typedef struct _kernel_t_mtxcb
 
 #if _KERNEL_MTXCB_TSKHDL
 	_KERNEL_MTXCB_T_TSKHDL	tskhdl		_KERNEL_MTXCB_TBITDEF_TSKHDL;		/**< %jp{ミューテックスを所持するタスクのハンドル} */
+#endif
+
+#if _KERNEL_MTXCB_NEXT
+	_KERNEL_T_MTXHDL		next;											/**< %jp{次のミューテックスハンドル} */
+#endif
+
+#if _KERNEL_MTXCB_PREV
+	_KERNEL_T_MTXHDL		prev;											/**< %jp{前のミューテックスハンドル} */
 #endif
 
 #if _KERNEL_MTXCB_MTXATR
