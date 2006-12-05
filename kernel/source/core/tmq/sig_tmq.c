@@ -15,7 +15,7 @@
 
 
 
-/* タイマオブジェクトをリストから削除 */
+/* タイマオブジェクトの時間を進める */
 void _kernel_sig_tmq(
 		_KERNEL_T_TMQ *pk_tmq,
 		RELTIM        tictim)

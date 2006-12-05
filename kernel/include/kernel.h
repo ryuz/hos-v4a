@@ -166,7 +166,7 @@ typedef struct t_rmbx
 
 
 
-/* ミューテックス生成情報 */
+/** %jp{ミューテックス生成情報} */
 typedef struct t_cmtx
 {
 	ATR		mtxatr;			/* ミューテックス属性 */
@@ -202,7 +202,7 @@ typedef struct t_rmpf
 } T_RMPF;
 
 
-/* %jp{周期ハンドラ生成情報} */
+/** %jp{周期ハンドラ生成情報} */
 typedef struct t_ccyc
 {
 	ATR		cycatr;			/**< %jp{周期ハンドラ属性} */
@@ -212,6 +212,13 @@ typedef struct t_ccyc
 	RELTIM	cycphs;			/**< %jp{周期ハンドラの起動位相} */
 } T_CCYC;
 
+
+/** %jp{周期ハンドラ状態} */
+typedef struct t_rcyc
+{
+	STAT	cycatr;			/**< %jp{周期ハンドラの動作状態} */
+	RELTIM	lefttim;		/**< %jp{周期ハンドラを次に起動するまでの時間} */
+} T_RCYC;
 
 
 /* 割込みハンドラの定義用 */
@@ -343,6 +350,13 @@ ER      set_tim(const SYSTIM *p_system);					/**< %jp{システム時刻の設�
 ER      get_tim(SYSTIM *p_system);							/**< %jp{システム時刻の参照}%en{Reference System Time} */
 ER      isig_tim(void);										/**< %jp{タイムティックの供給}%en{Supply Time Tick} */
 
+/* %jp{周期ハンドラ} */
+ER      cre_cyc(ID cycid, const T_CCYC *pk_ccyc);			/**< %jp{周期ハンドラの生成} */
+ER_ID   acre_cyc(const T_CCYC *pk_ccyc);					/**< %jp{周期ハンドラの生成(ID番号自動割付け)} */
+ER      del_cyc(ID cycid);									/**< %jp{周期ハンドラの削除} */
+ER      sta_cyc(ID cycid);									/**< %jp{周期ハンドラの動作開始} */
+ER      stp_cyc(ID cycid);									/**< %jp{周期ハンドラの動作停止} */
+ER      ref_cyc(ID cycid, T_RCYC *pk_rcyc);					/**< %jp{周期ハンドらの状態参照} */
 
 /* システム状態管理機能 */
 ER      rot_rdq(PRI tskpri);								/**< %jp{タスク優先順位の回転} */

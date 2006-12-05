@@ -13,6 +13,8 @@
 #include "core/dpc.h"
 
 
+#if _KERNEL_SPT_DPC
+
 /* サービスコール退出時の処理 */
 void _kernel_exe_dpc(void)
 {
@@ -29,6 +31,7 @@ void _kernel_exe_dpc(void)
 	_KERNEL_DSP_TSK();
 }
 
+#endif	/* _KERNEL_SPT_DPC */
 
 
 /* end of file */

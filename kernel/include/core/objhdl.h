@@ -36,6 +36,26 @@ typedef struct _kernel_t_tcb	*_KERNEL_T_TSKHDL;
 
 
 /* ---------------------------------- */
+/*         Mutex-Handle               */
+/* ---------------------------------- */
+
+#if _KERNEL_MTXHDL_ID		/* %jp{ミューテックスハンドルにIDを使う}%en{_KERNEL_T_MTXHDL is ID} */
+
+typedef _KERNEL_T_MTXID			_KERNEL_T_MTXHDL;
+#define _KERNEL_MTXHDL_NULL		0
+#define _KERNEL_TBIT_MTXHDL		_KERNEL_TBIT_MTXID
+
+#else						/* %jp{ミューテックスにMTXCBのアドレスを使う}%en{_KERNEL_T_MTXHDL is Pointer} */
+
+struct _kernel_t_mtxcb;
+typedef struct _kernel_t_mtxcb	*_KERNEL_T_MTXHDL;
+#define _KERNEL_MTXHDL_NULL		NULL
+#define _KERNEL_TBIT_MTXHDL		_KERNEL_TBIT_VP_INT
+
+#endif
+
+
+/* ---------------------------------- */
 /*           Isr-Handle               */
 /* ---------------------------------- */
 

@@ -116,6 +116,10 @@ SOURCE=..\..\..\..\include\object\mpfobj.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\include\object\mtxobj.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\include\object\semobj.h
 # End Source File
 # Begin Source File
@@ -816,6 +820,18 @@ SOURCE=..\..\..\..\source\object\dtq\trcv_dtq.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\cyc\kcre_cyc.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\cyc\kcyc_hdr.c
+# End Source File
+# End Group
+# Begin Group "mtx"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mtx\loc_mtx.c
 # End Source File
 # End Group
 # End Group

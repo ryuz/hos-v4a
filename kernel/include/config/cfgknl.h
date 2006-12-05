@@ -232,6 +232,23 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* ---------------------------------------------- */
+/*  Mutex                                         */
+/* ---------------------------------------------- */
+
+/* Attribute */
+#define _KERNEL_CFG_MTX_TA_TFIFO		TRUE				/**< %jp{TA_TFIFO属性に対応する} */
+#define _KERNEL_CFG_MTX_TA_TPRI			TRUE				/**< %jp{TA_TPRI属性に対応する} */
+#define _KERNEL_CFG_MBX_TA_INHERIT		TRUE				/**< %jp{TA_INHERIT属性に対応する} */
+#define _KERNEL_CFG_MBX_TA_CEILING		TRUE				/**< %jp{TA_CEILING属性に対応する} */
+
+/* Control block */
+#define _KERNEL_CFG_MTXCB_ALGORITHM		_KERNEL_MTXCB_ALG_BLKARRAY
+#define _KERNEL_CFG_MTXCB_SPLIT_RO		FALSE				/**< %jp{TCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_MTXCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
+
+
+/* ---------------------------------------------- */
 /*  Fixed-sized Memory Pools                      */
 /* ---------------------------------------------- */
 
@@ -370,14 +387,14 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_REF_MBX 			TRUE				/* ref_mbx */
 
 /* Mutexes */
-#define _KERNEL_CFG_CRE_MTX 			FALSE				/* cre_mtx */
-#define _KERNEL_CFG_ACRE_MTX			FALSE				/* acre_mtx */
-#define _KERNEL_CFG_DEL_MTX 			FALSE				/* del_mtx */
-#define _KERNEL_CFG_LOC_MTX 			FALSE				/* loc_mtx */
-#define _KERNEL_CFG_PLOC_MTX			FALSE				/* ploc_mtx */
-#define _KERNEL_CFG_TLOC_MTX			FALSE				/* tloc_mtx */
-#define _KERNEL_CFG_UNL_MTX 			FALSE				/* unl_mtx */
-#define _KERNEL_CFG_REF_MTX 			FALSE				/* ref_mtx */
+#define _KERNEL_CFG_CRE_MTX 			TRUE				/* cre_mtx */
+#define _KERNEL_CFG_ACRE_MTX			TRUE				/* acre_mtx */
+#define _KERNEL_CFG_DEL_MTX 			TRUE				/* del_mtx */
+#define _KERNEL_CFG_LOC_MTX 			TRUE				/* loc_mtx */
+#define _KERNEL_CFG_PLOC_MTX			TRUE				/* ploc_mtx */
+#define _KERNEL_CFG_TLOC_MTX			TRUE				/* tloc_mtx */
+#define _KERNEL_CFG_UNL_MTX 			TRUE				/* unl_mtx */
+#define _KERNEL_CFG_REF_MTX 			TRUE				/* ref_mtx */
 
 /* Message buffers */
 #define _KERNEL_CFG_CRE_MBF 			FALSE				/* cre_mbf */

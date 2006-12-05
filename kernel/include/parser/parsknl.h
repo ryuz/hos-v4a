@@ -940,6 +940,37 @@
 
 
 
+/* ------------------------------------------------------------------ */
+/*  Mutexes                                                           */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_MTXCB_ALG_BLKARRAY	1
+#define _KERNEL_MTXCB_ALG_PTRARRAY	2
+
+/* Attribute */
+#define _KERNEL_SPT_MTX_TA_TFIFO	_KERNEL_CFG_MTX_TA_TFIFO		/**< %jp{TA_TFIFO属性に対応する} */
+#define _KERNEL_SPT_MTX_TA_TPRI		_KERNEL_CFG_MTX_TA_TPRI			/**< %jp{TA_TPRI属性に対応する} */
+#define _KERNEL_SPT_MTX_TA_INHERIT	_KERNEL_CFG_MBX_TA_INHERIT		/**< %jp{TA_INHERIT属性に対応する} */
+#define _KERNEL_SPT_MTX_TA_CEILING	_KERNEL_CFG_MBX_TA_CEILING		/**< %jp{TA_CEILING属性に対応する} */
+
+/* Control block */
+#define _KERNEL_MTXCB_ALGORITHM		_KERNEL_CFG_MTXCB_ALGORITHM
+#define _KERNEL_MTXCB_BITFIELD		_KERNEL_CFG_MTXCB_BITFIELD		/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
+#if (_KERNEL_MTXCB_ALGORITHM == _KERNEL_MTXCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_MTX || _KERNEL_SPT_ACRE_MTX)
+#define _KERNEL_MTXCB_SPLIT_RO		FALSE
+#else
+#define _KERNEL_MTXCB_SPLIT_RO		_KERNEL_CFG_MTXCB_SPLIT_RO
+#endif
+
+
+#define _KERNEL_MTXCB_QUE			TRUE
+#define _KERNEL_MTXCB_TSKHDL		TRUE
+#define _KERNEL_MTXCB_MTXATR		TRUE
+
+
+
 /* ---------------------------------------------- */
 /*  Fixed-sized memory pools                      */
 /* ---------------------------------------------- */

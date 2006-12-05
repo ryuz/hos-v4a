@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  acre_cyc.c
- * @brief %en{Activate Task}%jp{タスクの起動}
+ * @brief %jp{周期ハンドラの生成}%en{Create cyclic handler}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
