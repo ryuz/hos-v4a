@@ -38,7 +38,7 @@ ASSOC_ERR Assoc_Add(C_ASSOC *self, const char *pszKey, const void *pData, long l
 	int  iKeyLen;
 	void *pMem;
 	
-	iKeyLen = MEMIF_ALIGNSIZE(strlen(pszKey));
+	iKeyLen = MEMIF_ALIGNSIZE(strlen(pszKey) + 1);
 	if ( (pMem = MemIf_Alloc(self->pMemIf, iKeyLen + lSize)) == NULL )
 	{
 		return ASSOC_ERR_NG;
@@ -66,7 +66,7 @@ const void *Assoc_Get(C_ASSOC *self, const char *pszKey)
 		pDataKey = List_GetAt(&self->List, Pos);
 		if ( strcmp(pDataKey, pszKey) == 0 )
 		{
-			return (void *)(pDataKey + MEMIF_ALIGNSIZE(strlen(pszKey)));
+			return (void *)(pDataKey + MEMIF_ALIGNSIZE(strlen(pszKey) + 1));
 		}
 		Pos = List_GetNextPos(&self->List, Pos);
 	}

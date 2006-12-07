@@ -142,6 +142,18 @@ SOURCE=..\..\..\..\library\container\list\list.h
 SOURCE=..\..\..\..\library\container\memif\memif.h
 # End Source File
 # End Group
+# Begin Group "array"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\array\array.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\array\array_add.c
+# End Source File
+# End Group
 # End Group
 # End Group
 # Begin Group "driver"
