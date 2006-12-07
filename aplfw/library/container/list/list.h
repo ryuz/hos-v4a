@@ -1,8 +1,8 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  listbuf.h
- * @brief %jp{リストバッファクラス}
+ * @file  list.h
+ * @brief %jp{リストクラス}
  *
  * Copyright (C) 2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
