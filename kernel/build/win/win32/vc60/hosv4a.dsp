@@ -479,7 +479,15 @@ SOURCE=..\..\..\..\source\object\tsk\act_tsk.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\tsk\can_act.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\tsk\can_wup.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\chg_pri.c
 # End Source File
 # Begin Source File
 
@@ -492,6 +500,14 @@ SOURCE=..\..\..\..\source\object\tsk\dly_tsk.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\tsk\ext_tsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\get_pri.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\iact_tsk.c
 # End Source File
 # Begin Source File
 
@@ -516,6 +532,18 @@ SOURCE=..\..\..\..\source\object\tsk\slp_tsk.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\tsk\sus_tsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\tcb2id.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\ter_tsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\tget_que.c
 # End Source File
 # Begin Source File
 
