@@ -42,8 +42,8 @@ typedef VP_INT							_KERNEL_CYC_T_EXINF;
 typedef VP_INT							_KERNEL_CYCCB_T_EXINF;
 #define _KERNEL_CYCCB_TBITDEF_EXINF
 
-typedef FP								_KERNEL_CYC_T_CYCHDR;
-typedef FP								_KERNEL_CYCCB_T_CYCHDR;
+typedef void (*_KERNEL_CYC_T_CYCHDR)(VP_INT exinf);
+typedef void (*_KERNEL_CYCCB_T_CYCHDR)(VP_INT exinf);
 #define _KERNEL_CYCCB_TBITDEF_CYCHDR
 
 
@@ -164,6 +164,7 @@ extern const ID							_kernel_max_cycid;										/**< %jp{周期ハンドラID�
 extern  _KERNEL_T_CYCCB					_kernel_cyccb_tbl[];									/**< %jp{周期ハンドラコントロールブロックテーブル} */
 extern const _KERNEL_T_CYCCB_RO			_kernel_cyccb_ro_tbl[];									/**< %jp{周期ハンドラコントロールブロック(リードオンリー部)テーブル} */
 #define _KERNEL_CYC_ID2CYCCB(cycid)		(&_kernel_cyccb_tbl[(cycid) - _KERNEL_CYC_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
+#define _KERNEL_CYC_CYCCB2ID(cyccb)		(((cyccb) - _kernel_cyccb_tbl) + _KERNEL_CYC_TMIN_ID])	/**< %jp{IDの取得} */
 #define _KERNEL_CYC_CHECK_EXS(cycid)	(_kernel_cyccb_ro_tbl[(cycid) - _KERNEL_CYC_TMIN_ID].cychdr != NULL)				
 																								/**< %jp{オブジェクトの存在チェック} */
 
@@ -172,6 +173,7 @@ extern const _KERNEL_T_CYCCB_RO			_kernel_cyccb_ro_tbl[];									/**< %jp{周�
 /* %jp{ブロック配列管理の場合}%en{block array} */
 extern  _KERNEL_T_CYCCB					_kernel_cyccb_tbl[];									/**< %jp{周期ハンドラコントロールブロックテーブル} */
 #define _KERNEL_CYC_ID2CYCCB(cycid)		(&_kernel_cyccb_tbl[(cycid) - _KERNEL_CYC_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
+#define _KERNEL_CYC_CYCCB2ID(cyccb)		_kernel_cyccb2id(cyccb)									/**< %jp{IDの取得} */
 #define _KERNEL_CYC_CHECK_EXS(cycid)	(_kernel_cyccb_tbl[(cycid) - _KERNEL_CYC_TMIN_ID].cychdr != NULL)				
 																								/**< %jp{オブジェクトの存在チェック} */
 
@@ -270,10 +272,8 @@ extern  _KERNEL_T_CYCCB					*_kernel_cyccb_tbl[];									/**< %jp{周期ハン�
 extern "C" {
 #endif
 
-
-ER   _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc);	/**< %jp{周期ハンドラ生成}%en{Create Cyclic Handler} */
-void _kernel_cyc_hdr(_KERNEL_T_TIMOBJ *pk_timobj);		/**< %jp{周期ハンドラ}%en{Cyclic Handler} */
-
+ER   _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc);					/**< %jp{周期ハンドラ生成}%en{Create Cyclic Handler} */
+void _kernel_cyc_hdr(_KERNEL_T_TIMOBJ *pk_timobj, RELTIM ovrtim);		/**< %jp{周期ハンドラ}%en{Cyclic Handler} */
 
 #ifdef __cplusplus
 }

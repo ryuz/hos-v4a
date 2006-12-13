@@ -37,7 +37,7 @@ void _kernel_sig_tmq(
 			while ( timobj->lefttim <= tictim )
 			{
 				/* タイマハンドラ呼び出し */
-				timobj->timhdr(timobj);
+				timobj->timhdr(timobj, tictim - timobj->lefttim);
 				
 				/* ハンドラ内で削除された場合 */
 				if ( timobj->next == NULL )

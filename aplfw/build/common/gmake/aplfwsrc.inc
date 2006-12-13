@@ -70,7 +70,15 @@ CSRCS    += $(APLFW_DIR)/system/sysapi/sysevt_clear.c				\
             $(APLFW_DIR)/system/shell/shell.c						\
             $(APLFW_DIR)/library/container/mempol/mempol.c			\
             $(APLFW_DIR)/library/container/stmbuf/stmbuf.c			\
-            $(APLFW_DIR)/library/container/list/list.c				\
+            $(APLFW_DIR)/library/container/list/list_create.c		\
+            $(APLFW_DIR)/library/container/list/list_createex.c		\
+            $(APLFW_DIR)/library/container/list/list_addtail.c		\
+            $(APLFW_DIR)/library/container/list/list_getat.c		\
+            $(APLFW_DIR)/library/container/list/list_getheadpos.c	\
+            $(APLFW_DIR)/library/container/list/list_getnextpos.c	\
+            $(APLFW_DIR)/library/container/list/list_getprevpos.c	\
+            $(APLFW_DIR)/library/container/list/list_gettailpos.c	\
+            $(APLFW_DIR)/library/container/list/list_remove.c		\
             $(APLFW_DIR)/library/container/assoc/assoc.c			\
             $(APLFW_DIR)/driver/serial/pc16550/pc16550hal.c			\
             $(APLFW_DIR)/driver/serial/pc16550/pc16550drv.c			\

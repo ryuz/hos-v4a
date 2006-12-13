@@ -127,11 +127,43 @@ SOURCE=..\..\..\..\library\container\assoc\assoc.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\library\container\list\list.c
+SOURCE=..\..\..\..\library\container\list\list.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\library\container\list\list.h
+SOURCE=..\..\..\..\library\container\list\list_addtail.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_createex.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_getat.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_getheadpos.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_getnextpos.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_getprevpos.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_gettailpos.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\list\list_remove.c
 # End Source File
 # End Group
 # Begin Group "memif"
@@ -152,6 +184,10 @@ SOURCE=..\..\..\..\library\container\array\array.h
 # Begin Source File
 
 SOURCE=..\..\..\..\library\container\array\array_add.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\array\array_setsize.c
 # End Source File
 # End Group
 # End Group
@@ -532,5 +568,9 @@ SOURCE=..\..\..\..\apl\memdump\memdump.c
 # End Source File
 # End Group
 # End Group
+# Begin Source File
+
+SOURCE=..\..\..\..\hosaplfw.h
+# End Source File
 # End Target
 # End Project

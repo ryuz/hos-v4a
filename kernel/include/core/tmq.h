@@ -18,10 +18,10 @@
 /** %jp{タイマオブジェクト構造体} */
 typedef struct _kernel_t_timobj
 {
-	struct _kernel_t_timobj	*next;		/**< %jp{次のオブジェクト} */
-	struct _kernel_t_timobj	*prev;		/**< %jp{前のオブジェクト} */
-	RELTIM                  lefttim;	/**< %jp{残時間} */
-	FP						timhdr;		/**< %jp{タイマハンドラ} */
+	struct _kernel_t_timobj	*next;										/**< %jp{次のオブジェクト} */
+	struct _kernel_t_timobj	*prev;										/**< %jp{前のオブジェクト} */
+	RELTIM                  lefttim;									/**< %jp{残時間} */
+	void (*timhdr)(struct _kernel_t_timobj *timobj, RELTIM ovetim);		/**< %jp{タイマハンドラ} */
 } _KERNEL_T_TIMOBJ;
 
 

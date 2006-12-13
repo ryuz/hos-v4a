@@ -21,7 +21,5 @@ int main()
 	return 0;
 }
 
-void *_kernel_int_isp = (void *)0x0FFFF20;
-
 
 /* end of file */
