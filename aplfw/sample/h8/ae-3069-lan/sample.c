@@ -113,7 +113,7 @@ int System_Boot(VPARAM Param)
 	StdIo_PutString("\r\nHOS Application Platform  Ver 0.01\r\n");
 	
 	/* シェル起動 */
-	return Command_Execute("hsh");
+	return Command_Execute("hsh", NULL);
 }
 
 

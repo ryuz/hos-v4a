@@ -78,7 +78,7 @@ $(TARGET).abs: $(OBJS) $(STD_LIBS) $(OS_LIBS)
 	$(LINK) -SU=$(OBJS_DIR)/subcmd.txt
 
 $(STD_LIBS):
-	lbgsh -OUTPut=$(STD_LIBS) $(CFLAGS) -REent 
+	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2 -REent 
 
 mk_kernel:
 	make -C $(KERNEL_BUILD_DIR) -f gmake.mak

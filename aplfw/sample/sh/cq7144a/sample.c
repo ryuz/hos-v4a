@@ -15,6 +15,7 @@
 #include "kernel_id.h"
 #include "system/sysapi/sysapi.h"
 #include "system/file/filesys.h"
+#include "system/file/confile.h"
 #include "system/sysapi/sysapi.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
@@ -34,9 +35,10 @@ int System_Boot(VPARAM Param);
 
 void Sample_Task(VP_INT exinf)
 {
-	T_SYSFILE_DEVINF devinf;
+	T_SYSFILE_DEVINF DevInf;
 	T_PROCESS_INFO   ProcInfo;
-	HANDLE           hFile;
+	HANDLE           hTty;
+	HANDLE           hCon;
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -61,18 +63,18 @@ void Sample_Task(VP_INT exinf)
 	SciDrv_Create(&g_SciDrv[3], (void *)REG_SCI3_SMR, 172, 24000000L, 64);	/* SCI3 */
 	
 	/* SCI0 を /dev/com0 に登録 */
-	strcpy(devinf.szName, "com0");
-	devinf.pfncCreate = SciFile_Create;
-	devinf.ObjSize    = sizeof(C_SCIFILE);
-	devinf.pParam     = &g_SciDrv[0];
-	SysFile_AddDevice("/dev", &devinf);
+	strcpy(DevInf.szName, "com0");
+	DevInf.pfncCreate = SciFile_Create;
+	DevInf.ObjSize    = sizeof(C_SCIFILE);
+	DevInf.pParam     = &g_SciDrv[0];
+	SysFile_AddDevice("/dev", &DevInf);
 	
 	/* SCI1 を /dev/com1 に登録 */
-	strcpy(devinf.szName, "com1");
-	devinf.pfncCreate = SciFile_Create;
-	devinf.ObjSize    = sizeof(C_SCIFILE);
-	devinf.pParam     = &g_SciDrv[1];
-	SysFile_AddDevice("/dev", &devinf);
+	strcpy(DevInf.szName, "com1");
+	DevInf.pfncCreate = SciFile_Create;
+	DevInf.ObjSize    = sizeof(C_SCIFILE);
+	DevInf.pParam     = &g_SciDrv[1];
+	SysFile_AddDevice("/dev", &DevInf);
 	
 	/*************************/
 	/*     コマンド登録      */
@@ -84,13 +86,19 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
+	hTty = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
 	
-	hFile = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
+	strcpy(DevInf.szName, "con1");
+	DevInf.pfncCreate = ConsoleFile_Create;
+	DevInf.ObjSize    = sizeof(C_CONSOLEFILE);
+	DevInf.pParam     = hTty;
+	SysFile_AddDevice("/dev", &DevInf);
+	hCon = File_Open("/dev/con1", FILE_MODE_READ | FILE_MODE_WRITE);
 	
-	ProcInfo.hTty    = hFile;
-	ProcInfo.hStdIn  = hFile;
-	ProcInfo.hStdOut = hFile;
-	ProcInfo.hStdErr = hFile;
+	ProcInfo.hTty    = hTty;
+	ProcInfo.hStdIn  = hCon;
+	ProcInfo.hStdOut = hCon;
+	ProcInfo.hStdErr = hCon;
 	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
 	
 	return;
@@ -101,7 +109,7 @@ void Sample_Task(VP_INT exinf)
 int System_Boot(VPARAM Param)
 {
 	/* シェル起動 */
-	return Command_Execute("hsh");
+	return Command_Execute("hsh", NULL);
 }
 
 
