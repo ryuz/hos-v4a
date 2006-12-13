@@ -17,7 +17,8 @@
 
 /* タイムアウトにタイムティック供給 */
 void _kernel_sig_toq(
-		RELTIM tictim)		/* 追加するタイムティック */
+		_KERNEL_T_TOQCB *toqcb,
+		RELTIM          tictim)		/* 追加するタイムティック */
 {
 	_KERNEL_T_TSKHDL tskhdl_next;
 	_KERNEL_T_TSKHDL tskhdl_prev;
@@ -28,7 +29,7 @@ void _kernel_sig_toq(
 	_KERNEL_TSK_T_RELTIM diftim;
 
 	/* %jp{先頭タスク取得} */
-	tskhdl = _KERNEL_TOQ_GET_HED_TSK();
+	tskhdl = _KERNEL_TOQ_GET_HEAD(toqcb);
 
 	/* %jp{タイムアウトキューが空ならリターン} */
 	if ( tskhdl == _KERNEL_TSKHDL_NULL )
@@ -82,7 +83,7 @@ void _kernel_sig_toq(
 	}
 	
 	/* %jp{メモリに書き戻す} */
-	_KERNEL_TOQ_SET_HED_TSK(tskhdl);
+	_KERNEL_TOQ_SET_HEAD(toqcb, tskhdl);
 }
 
 #endif	/* _KERNEL_SPT_TOQ */

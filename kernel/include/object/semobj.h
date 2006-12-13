@@ -282,14 +282,14 @@ extern  _KERNEL_T_SEMCB					*_kernel_semcb_tbl[];									/**< %jp{セマフォ�
 
 /* %jp{タイムアウトキュー接続} */
 #if _KERNEL_SPT_TWAI_SEM	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_SEM_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
+#define _KERNEL_SEM_ADD_TOQ(tskhdl, tmout)	_KERNEL_SYS_ADD_TOQ(tskhdl, tmout)
 #else
 #define _KERNEL_SEM_ADD_TOQ(tskhdl)			do { } while (0)
 #endif
 
 /* %jp{タイムアウトキュー取り外し} */
 #if _KERNEL_SPT_TWAI_SEM	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_SEM_RMV_TOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
+#define _KERNEL_SEM_RMV_TOQ(tskhdl)			_KERNEL_SYS_RMV_TOQ(tskhdl)
 #else
 #define _KERNEL_SEM_RMV_TOQ(tskhdl)			do { } while (0)
 #endif

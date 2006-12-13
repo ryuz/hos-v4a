@@ -16,14 +16,55 @@
 
 #if _KERNEL_SPT_ISIG_TIM
 
+static void _kernel_sig_tim(void);
+
+
+#if _KERNEL_SPT_DPC
+
 /** %jp{タイムティックの供給}%en{Supply Time Tick}
  * @retval E_OK     %jp{正常終了}%en{Normal completion}
  */
 ER isig_tim(void)
 {
-	RELTIM tictim;
+	ER ercd;
 
+	_KERNEL_SYS_LOC_DPC();	/* %jp{多重割り込み対策でロックをかける} */
+
+	if (  _KERNEL_SYS_RFR_DPC() >= 1 )
+	{
+		_KERNEL_SYS_SND_DPC((VP_INT)_kernel_sig_tim);
+		ercd = E_OK;		/* %jp{正常終了}%en{Normal completion} */
+	}
+	else
+	{
+		ercd = E_NOMEM;		/* %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution} */
+	}
+	
+	_KERNEL_SYS_UNL_DPC();	/* jp{ロック解除} */
+	
+	return ercd;
+}
+
+#else	/* _KERNEL_SPT_DPC */
+
+/** %jp{タイムティックの供給}%en{Supply Time Tick}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ */
+ER isig_tim(void)
+{
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
+	_kernel_sig_tim();
+	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
+
+	return E_OK;	
+}
+
+#endif	/* _KERNEL_SPT_DPC */
+
+/** %jp{タイムティックの供給}%en{Supply Time Tick} */
+void _kernel_sig_tim(void)
+{
+	RELTIM tictim;
 
 	/* %jp{加算するタイムティックを算出} */
 #if _KERNEL_CFG_FRACTIONAL_TIMTIC
@@ -31,7 +72,7 @@ ER isig_tim(void)
 		RELTIM ticcnt;
 
 		ticcnt = _KERNEL_TIM_GET_TICCNT();
-		if ( ticcnt == 0 )
+		if ( ticcnt <= 0 )
 		{
 			ticcnt = _KERNEL_TIM_GET_TICDENO();
 		}
@@ -52,22 +93,21 @@ ER isig_tim(void)
 	tictim = _KERNEL_TIM_GET_TICDIV();
 #endif
 
+
 	/* %jp{システム時刻を進める} */
 	_KERNEL_TIM_ADD_SYSTIM(tictim);
 
+
 	/* %jp{タイムキューの処理を行う} */
 #if _KERNEL_SPT_TMQ
-	_kernel_sig_tmq(tictim);
+	_KERNEL_SYS_SIG_TMQ(tictim);
 #endif
+
 
 	/* %jp{タイムアウトキューの処理を行う} */
 #if _KERNEL_SPT_TOQ
-	_kernel_sig_toq(tictim);
+	_KERNEL_SYS_SIG_TOQ(tictim);
 #endif
-
-	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
-
-	return E_OK;
 }
 
 

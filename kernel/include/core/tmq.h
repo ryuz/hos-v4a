@@ -1,8 +1,8 @@
 /**
  *  Hyper Operating System V4 Advance
  *
- * @file  toq.h
- * @brief %jp{タイムアウトキューのヘッダファイル}%en{time-out queue heder file}
+ * @file  tmq.h
+ * @brief %jp{タイマキューのヘッダファイル}%en{timer queue heder file}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -26,20 +26,20 @@ typedef struct _kernel_t_timobj
 
 
 /** %jp{タイマキュー} */
-typedef struct _kernel_t_tmq
+typedef struct _kernel_t_tmqcb
 {
 	_KERNEL_T_TIMOBJ		*head;
 	_KERNEL_T_TIMOBJ		*next;
-} _KERNEL_T_TMQ;
+} _KERNEL_T_TMQCB;
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void _kernel_add_tmq(_KERNEL_T_TMQ *pk_tmq, _KERNEL_T_TIMOBJ *pk_timobj);
-void _kernel_rmv_tmq(_KERNEL_T_TMQ *pk_tmq, _KERNEL_T_TIMOBJ *pk_timobj);
-void _kernel_tic_tmq(_KERNEL_T_TMQ *pk_tmq, RELTIM tictim);
+void _kernel_add_tmq(_KERNEL_T_TMQCB *tmqcb, _KERNEL_T_TIMOBJ *pk_timobj);
+void _kernel_rmv_tmq(_KERNEL_T_TMQCB *tmqcb, _KERNEL_T_TIMOBJ *pk_timobj);
+void _kernel_sig_tmq(_KERNEL_T_TMQCB *tmqcb, RELTIM tictim);
 
 #ifdef __cplusplus
 }
@@ -53,14 +53,9 @@ void _kernel_tic_tmq(_KERNEL_T_TMQ *pk_tmq, RELTIM tictim);
 #define _KERNEL_TIMOBJ_SET_TIMHDR(pk_timobj, x)		do { (pk_timobj)->timhdr = (x); } while (0)
 #define _KERNEL_TIMOBJ_GET_TIMHDR(pk_timobj)		((pk_timobj)->timhdr)
 
-#define _KERNEL_TMQ_ADD_TMQ(pk_tmq, pk_timobj)		_kernel_add_tmq((pk_tmq), (pk_timobj));
-#define _KERNEL_TMQ_RMV_TMQ(pk_tmq, pk_timobj)		_kernel_rmv_tmq((pk_tmq), (pk_timobj));
-#define _KERNEL_TMQ_TIC_TMQ(pk_tmq, tictim)			_kernel_tic_tmq((pk_tmq), (tictim));
-
-
-#define _KERNEL_ADD_TMQ(pk_timobj)					_KERNEL_TMQ_ADD_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj));
-#define _KERNEL_RMV_TMQ(pk_timobj)					_KERNEL_TMQ_RMV_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj));
-#define _KERNEL_TIC_TMQ(tictim)						_KERNEL_TMQ_TIC_TMQ(_KERNEL_SYS_GET_TMQ(), (tictim));
+#define _KERNEL_ADD_TMQ(tmqcb, pk_timobj)			_kernel_add_tmq((tmqcb), (pk_timobj))
+#define _KERNEL_RMV_TMQ(tmqcb, pk_timobj)			_kernel_rmv_tmq((tmqcb), (pk_timobj))
+#define _KERNEL_SIG_TMQ(tmqcb, tictim)				_kernel_sig_tmq((tmqcb), (tictim))
 
 
 

@@ -411,7 +411,6 @@
 
 /* %jp{タイムアウトサポートの判定} */
 #if (_KERNEL_SPT_TSLP_TSK)			\
-	|| (_KERNEL_SPT_DLY_TSK)		\
 	|| (_KERNEL_SPT_TWAI_SEM)		\
 	|| (_KERNEL_SPT_TWAI_FLG)		\
 	|| (_KERNEL_SPT_TSND_DTQ)		\
@@ -432,7 +431,7 @@
 
 
 /* ------------------------------------------------------------------ */
-/*  Task-queue                                                        */
+/*  Task queue                                                        */
 /* ------------------------------------------------------------------ */
 
 #define _KERNEL_QUE_ALG_ONEWAYLIST		1
@@ -442,11 +441,17 @@
 
 
 /* ------------------------------------------------------------------ */
-/*  Timeout-queue                                                     */
+/*  Timeout queue                                                     */
 /* ------------------------------------------------------------------ */
 
-#define _KERNEL_SPT_TOQ					_KERNEL_SPT_TMOUT
+#define _KERNEL_SPT_TOQ					_KERNEL_SPT_TMOUT || _KERNEL_SPT_DLY_TSK
 
+
+/* ------------------------------------------------------------------ */
+/*  Timer queue                                                       */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_SPT_TMQ					TRUE
 
 
 

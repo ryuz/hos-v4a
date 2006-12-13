@@ -333,16 +333,16 @@ extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 
 /* %jp{タイムアウトキュー操作} */
 #if _KERNEL_SPT_TSND_DTQ	/* %jp{tsnd_dtqサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_DTQ_ADD_STOQ(tskhdl, tmout)		_KERNEL_ADD_TOQ(tskhdl, tmout)
-#define _KERNEL_DTQ_RMV_STOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
+#define _KERNEL_DTQ_ADD_STOQ(tskhdl, tmout)		_KERNEL_SYS_ADD_TOQ(tskhdl, tmout)
+#define _KERNEL_DTQ_RMV_STOQ(tskhdl)			_KERNEL_SYS_RMV_TOQ(tskhdl)
 #else
 #define _KERNEL_DTQ_ADD_STOQ(tskhdl)			do { } while (0)
 #define _KERNEL_DTQ_RMV_STOQ(tskhdl)			do { } while (0)
 #endif
 
 #if _KERNEL_SPT_TRCV_DTQ	/* %jp{trcv_dtqサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_DTQ_ADD_RTOQ(tskhdl, tmout)		_KERNEL_ADD_TOQ(tskhdl, tmout)
-#define _KERNEL_DTQ_RMV_RTOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
+#define _KERNEL_DTQ_ADD_RTOQ(tskhdl, tmout)		_KERNEL_SYS_ADD_TOQ(tskhdl, tmout)
+#define _KERNEL_DTQ_RMV_RTOQ(tskhdl)			_KERNEL_SYS_RMV_TOQ(tskhdl)
 #else
 #define _KERNEL_DTQ_ADD_RTOQ(tskhdl)			do { } while (0)
 #define _KERNEL_DTQ_RMV_RTOQ(tskhdl)			do { } while (0)

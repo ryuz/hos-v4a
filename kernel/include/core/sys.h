@@ -49,9 +49,9 @@ typedef struct _kernel_t_proccb
 /** %jp{システム制御情報}%en{system control block} */
 typedef struct _kernel_t_syscb
 {
-	_KERNEL_T_RDQ		rdq;				/**< %jp{レディーキュー}%en{ready-queue} */
-	_KERNEL_T_TOQ		toq;				/**< %jp{タイムアウトキュー}%en{timeout-queue} */
-	_KERNEL_T_TMQ		tmq;				/**< %jp{タイマキュー}%en{timer-queue} */
+	_KERNEL_T_RDQCB		rdqcb;				/**< %jp{レディーキュー}%en{ready-queue} */
+	_KERNEL_T_TOQCB		toqcb;				/**< %jp{タイムアウトキュー}%en{timeout-queue} */
+	_KERNEL_T_TMQCB		tmqcb;				/**< %jp{タイマキュー}%en{timer-queue} */
 	_KERNEL_T_HEPCB		memhep;				/**< %jp{カーネルメモリヒープ}%en{kernel heap-memory control block} */
 
 #if _KERNEL_SPT_DPC
@@ -70,9 +70,28 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_GET_PRC()				(0)																	/**< %jp{プロセッサ番号取得} */
 #define _KERNEL_SYS_GET_PRCCB()				(&_kernel_syscb.proccb[_KERNEL_SYS_GET_PRC()])						/**< %jp{プロセッサ制御ブロックの取得} */
 
-#define _KERNEL_SYS_GET_RDQ()				(&_kernel_syscb.rdq)												/**< %jp{レディーキューの取得} */
-#define _KERNEL_SYS_GET_TOQ()				(&_kernel_syscb.toq)												/**< %jp{タイムアウトキューの取得} */
-#define _KERNEL_SYS_GET_TMQ()				(&_kernel_syscb.tmq)												/**< %jp{タイマキューの取得} */
+/* ready queue */
+#define _KERNEL_SYS_GET_RDQ()				(&_kernel_syscb.rdqcb)												/**< %jp{レディーキューの取得} */
+#define _KERNEL_SYS_CRE_RDQ()				_KERNEL_CRE_RDQ(_KERNEL_SYS_GET_RDQ())								/**< %en{create ready-queue}%jp{レディーキューの生成} */
+#define _KERNEL_SYS_DEL_RDQ()				_KERNEL_DEL_RDQ(_KERNEL_SYS_GET_RDQ())								/**< %en{delete ready-queue}%jp{レディーキューの削除} */
+#define _KERNEL_SYS_ADD_RDQ(tskhdl)			_KERNEL_ADD_RDQ(_KERNEL_SYS_GET_RDQ(), (tskhdl))					/**< %jp{タスクをレディーキューに追加} */
+#define _KERNEL_SYS_RMV_RDQ(tskhdl)			_KERNEL_RMV_RDQ(_KERNEL_SYS_GET_RDQ(), (tskhdl))					/**< %jp{タスクをレディーから取り外し} */
+#define _KERNEL_SYS_RMH_RDQ()				_KERNEL_RMH_RDQ(_KERNEL_SYS_GET_RDQ())								/**< %jp{キューの先頭タスクの取り外し} */
+#define _KERNEL_SYS_REF_RDQ()				_KERNEL_REF_RDQ(_KERNEL_SYS_GET_RDQ())								/**< %jp{キューの先頭タスクの参照} */
+#define _KERNEL_SYS_ROT_RDQ(tskpri)			_KERNEL_ROT_RDQ(_KERNEL_SYS_GET_RDQ(), (tskpri))					/**< %jp{レディーキューの回転} */
+
+/* timeout queue */
+#define _KERNEL_SYS_GET_TOQCB()				(&_kernel_syscb.toqcb)												/**< %jp{タイムアウトキューの取得} */
+#define _KERNEL_SYS_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(_KERNEL_SYS_GET_TOQCB(), (tskhdl), (tmout))	
+#define _KERNEL_SYS_RMV_TOQ(tskhd)			_KERNEL_RMV_TOQ(_KERNEL_SYS_GET_TOQCB(), (tskhd))				
+#define _KERNEL_SYS_SIG_TOQ(tictim)			_KERNEL_SIG_TOQ(_KERNEL_SYS_GET_TOQCB(), (tictim))					
+
+/* timer queue */
+#define _KERNEL_SYS_GET_TMQ()				(&_kernel_syscb.tmqcb)												/**< %jp{タイマキューの取得} */
+#define _KERNEL_SYS_ADD_TMQ(pk_timobj)		_KERNEL_ADD_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj))
+#define _KERNEL_SYS_RMV_TMQ(pk_timobj)		_KERNEL_RMV_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj))
+#define _KERNEL_SYS_SIG_TMQ(tictim)			_KERNEL_SIG_TMQ(_KERNEL_SYS_GET_TMQ(), (tictim))
+
 
 #define _KERNEL_SYS_INI_MEM(hepsz, hep)		_kernel_cre_hep(&_kernel_syscb.memhep, (hepsz), (hep))				/**< %jp{カーネルメモリヒープの初期化} */
 #define _KERNEL_SYS_ALC_MEM(size)			_kernel_alc_hep(&_kernel_syscb.memhep, (size))						/**< %jp{カーネルメモリの割当て} */

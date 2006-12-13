@@ -28,7 +28,7 @@ void _kernel_dsp_rsm_tsk(_KERNEL_T_TSKHDL tskhdl)
 	if ( !(tskstat & _KERNEL_TTS_WAI) )
 	{
 		/* %jp{レディーキューに接続} */
-		_KERNEL_ADD_RDQ(tskhdl);
+		_KERNEL_SYS_ADD_RDQ(tskhdl);
 	}
 	
 	/* %jp{強制待ち状態を解除} */

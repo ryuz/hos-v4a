@@ -31,6 +31,7 @@ void _kernel_exe_dpc(void)
 	_KERNEL_DSP_TSK();
 }
 
+
 #endif	/* _KERNEL_SPT_DPC */
 
 

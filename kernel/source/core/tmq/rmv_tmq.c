@@ -17,7 +17,7 @@
 
 /* タイマオブジェクトをリストから削除 */
 void _kernel_rmv_tmq(
-		_KERNEL_T_TMQ    *pk_tmq,
+		_KERNEL_T_TMQCB  *tmqcb,
 		_KERNEL_T_TIMOBJ *pk_timobj)
 {
 	/* 未登録なら何もしない */
@@ -27,24 +27,24 @@ void _kernel_rmv_tmq(
 	}
 	
 	/* 検索中のタイマならポインタをずらす(再入対策) */
-	if ( pk_timobj == pk_tmq->next )
+	if ( pk_timobj == tmqcb->next )
 	{
-		pk_tmq->next = pk_timobj->next;		/* 次のオブジェクトに移動 */
+		tmqcb->next = pk_timobj->next;		/* 次のオブジェクトに移動 */
 	}
 	
 	/* リストから削除 */
 	if ( pk_timobj == pk_timobj->next )
 	{
 		/* リストが空になる場合 */
-		pk_tmq->head = NULL;
-		pk_tmq->next = NULL;
+		tmqcb->head = NULL;
+		tmqcb->next = NULL;
 	}
 	else
 	{
 		/* 先頭なら先頭位置をずらす */
-		if ( pk_timobj == pk_tmq->head )
+		if ( pk_timobj == tmqcb->head )
 		{
-			pk_tmq->head = pk_timobj->next;
+			tmqcb->head = pk_timobj->next;
 		}
 		
 		/* リストから削除 */

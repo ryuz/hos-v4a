@@ -31,7 +31,7 @@ ER get_tim(SYSTIM *p_system)
 
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 
-	_KERNEL_TIM_SET_SYSTIM(p_system);
+	*p_system = *_KERNEL_TIM_GET_SYSTIM();
 
 	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 

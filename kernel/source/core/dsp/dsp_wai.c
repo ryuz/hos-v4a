@@ -26,7 +26,7 @@ void _kernel_dsp_wai_tsk(_KERNEL_T_TSKHDL tskhdl)
 
 #if _KERNEL_RUNTSK_ON_RDQ
 	/* %jp{レディーキューから取り外す} */
-	_KERNEL_RMV_RDQ(tskhdl);
+	_KERNEL_SYS_RMV_RDQ(tskhdl);
 #endif
 }
 

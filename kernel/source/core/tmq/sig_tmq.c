@@ -17,22 +17,22 @@
 
 /* タイマオブジェクトの時間を進める */
 void _kernel_sig_tmq(
-		_KERNEL_T_TMQ *pk_tmq,
-		RELTIM        tictim)
+		_KERNEL_T_TMQCB *tmqcb,
+		RELTIM          tictim)
 {
 	_KERNEL_T_TIMOBJ *timobj;
 	
 	/* タイマオブジェクトのハンドラ呼び出し */
-	if ( pk_tmq->head != NULL )
+	if ( tmqcb->head != NULL )
 	{
 		/* 検索ポインタ設定 */
-		pk_tmq->next = pk_tmq->head;
+		tmqcb->next = tmqcb->head;
 		
 		do /* リスト末尾まで繰り返し */
 		{
 			/* 次のポインタを事前に設定 */
-			timobj       = pk_tmq->next;
-			pk_tmq->next = timobj->next;
+			timobj      = tmqcb->next;
+			tmqcb->next = timobj->next;
 			
 			while ( timobj->lefttim <= tictim )
 			{
@@ -49,10 +49,10 @@ void _kernel_sig_tmq(
 
 loop_continue:
 			;
-		} while ( pk_tmq->next != pk_tmq->head );
+		} while ( tmqcb->next != tmqcb->head );
 		
 		/* 検索ポインタのクリア */
-		pk_tmq->next = NULL;
+		tmqcb->next = NULL;
 	}
 }
 

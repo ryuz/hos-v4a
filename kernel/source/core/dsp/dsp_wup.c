@@ -29,7 +29,7 @@ void _kernel_dsp_wup_tsk(_KERNEL_T_TSKHDL tskhdl)
 	if ( !(tskstat & _KERNEL_TTS_SUS) )
 	{
 		/* %jp{レディーキューに接続} */
-		_KERNEL_ADD_RDQ(tskhdl);
+		_KERNEL_SYS_ADD_RDQ(tskhdl);
 		tskstat = _KERNEL_TTS_RDY;
 	}
 	else

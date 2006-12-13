@@ -251,7 +251,8 @@ ER      vsta_knl(void);										/* カーネルの開始(独自サービスコ�
 ER      cre_tsk(ID tskid, const T_CTSK *pk_ctsk);			/* タスクの生成 */
 ER_ID   acre_tsk(const T_CTSK *pk_ctsk);					/* タスクの生成(ID番号自動割付け) */
 ER      del_tsk(ID tskid);									/* タスクの削除 */
-ER      act_tsk(ID tskid);									/* タスクの起動 */
+ER      act_tsk(ID tskid);									/* タスクの起動(非タスクコンテキスト用) */
+ER      iact_tsk(ID tskid);									/* タスクの起動 */
 ER_UINT can_act(ID tskid);									/* タスク起動要求のキャンセル */
 ER      sta_tsk(ID tskid, VP_INT stacd);					/* タスクの起動(起動コード指定) */
 void    ext_tsk(void);										/* 自タスクの終了 */

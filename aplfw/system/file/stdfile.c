@@ -6,7 +6,7 @@ int StdIo_PrintFormat(const char *pszFormat, ...)
 	int iRet;
 
 	va_start(argptr, pszFormat);
-	iRet = File_PrintFormatVL(Process_GetStdOut(), pszFormat, argptr);
+	iRet = File_PrintFormatV(Process_GetStdOut(), pszFormat, argptr);
 	va_end(argptr);
 
 	return iRet;

@@ -1,4 +1,7 @@
 
+/* Shellのようなもの (現状てきとーー) */
+/* そのうちちゃんとリダイレクトとか Ctrl+C とかいろいろつける予定... (--; */
+
 
 #include <string.h>
 #include "shell.h"
@@ -28,10 +31,13 @@ void Shell_Create(C_SHELL *self);
 void Shell_Delete(C_SHELL *self);
 int  Shell_InputLineVt100(C_SHELL *self, char *pszBuf, int  iBufSize);
 
+void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand);
+
 
 int Shell_Main(int argc, char *argv[])
 {
 	C_SHELL *pShell;
+	int     iExitCode;
 
 	/* メモリ確保 */
 	if ( (pShell = Memory_Alloc(sizeof(C_SHELL))) == NULL )	{ return 1;	}
@@ -44,7 +50,13 @@ int Shell_Main(int argc, char *argv[])
 		{
 			break;
 		}
-		Command_Execute(pShell->szCommanBuf);
+#if 0
+		if ( Command_Execute(pShell->szCommanBuf, &iExitCode) != COMMAND_ERR_OK )
+		{
+			File_PutString(pShell->hTty, "command is not found.\r\n");
+		}
+#endif
+		Shell_ExecuteCommand(pShell, pShell->szCommanBuf);
 	}
 
 	/* メモリ開放 */
@@ -52,6 +64,44 @@ int Shell_Main(int argc, char *argv[])
 	Memory_Free(pShell);
 	
 	return 0;
+}
+
+
+int Shell_ExecEntry(VPARAM Param)
+{
+	int iExitCode;
+	char *pszCommand;
+	
+	pszCommand = (char *)Param;
+	if ( Command_Execute(pszCommand, &iExitCode) != COMMAND_ERR_NG )
+	{
+		iExitCode = -1;
+	}
+	
+	Memory_Free(pszCommand);
+	
+	return iExitCode;
+}
+
+void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
+{
+	int iLen;
+	iLen = strlen(pszCommand);
+	if ( iLen > 1 && pszCommand[iLen - 1] == '&' )
+	{
+		char *pszBuf;
+		pszBuf = Memory_Alloc(iLen);
+		strcpy(pszBuf, pszCommand);
+		pszBuf[iLen - 1] = '\0';
+		Process_CreateEx(Shell_ExecEntry, (VPARAM)pszBuf, 1024, PROCESS_PRIORITY_NORMAL, NULL);
+	}
+	else
+	{
+		if ( Command_Execute(pszCommand, NULL) != COMMAND_ERR_OK )
+		{
+			File_PutString(self->hTty, "command is not found.\r\n");
+		}
+	}
 }
 
 

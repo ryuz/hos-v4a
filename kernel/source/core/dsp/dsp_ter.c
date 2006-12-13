@@ -24,7 +24,7 @@ void _kernel_dsp_ter_tsk(_KERNEL_T_TSKHDL tskhdl)
 	_KERNEL_TSK_SET_TSKSTAT(tcb, _KERNEL_TTS_DMT);
 	
 	/* %jp{レディーキューから取り外す} */
-	_KERNEL_RMV_RDQ(tskhdl);
+	_KERNEL_SYS_RMV_RDQ(tskhdl);
 }
 
 

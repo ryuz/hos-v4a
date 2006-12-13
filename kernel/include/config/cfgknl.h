@@ -448,12 +448,12 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ISIG_TIM			TRUE				/* isig_tim */
 
 /* Cyclic handlers */
-#define _KERNEL_CFG_CRE_CYC 			FALSE				/* cre_cyc */
-#define _KERNEL_CFG_ACRE_CYC			FALSE				/* acre_cyc */
-#define _KERNEL_CFG_DEL_CYC 			FALSE				/* del_cyc */
-#define _KERNEL_CFG_STA_CYC 			FALSE				/* sta_cyc */
-#define _KERNEL_CFG_STP_CYC 			FALSE				/* stp_cyc */
-#define _KERNEL_CFG_REF_CYC 			FALSE				/* ref_cyc */
+#define _KERNEL_CFG_CRE_CYC 			TRUE				/* cre_cyc */
+#define _KERNEL_CFG_ACRE_CYC			TRUE				/* acre_cyc */
+#define _KERNEL_CFG_DEL_CYC 			TRUE				/* del_cyc */
+#define _KERNEL_CFG_STA_CYC 			TRUE				/* sta_cyc */
+#define _KERNEL_CFG_STP_CYC 			TRUE				/* stp_cyc */
+#define _KERNEL_CFG_REF_CYC 			TRUE				/* ref_cyc */
 
 /* Alarm handlers */
 #define _KERNEL_CFG_CRE_ALM 			FALSE				/* cre_alm */

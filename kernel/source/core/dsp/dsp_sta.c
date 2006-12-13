@@ -25,7 +25,7 @@ void _kernel_dsp_sta_tsk(_KERNEL_T_TSKHDL tskhdl)
 	_KERNEL_TSK_SET_TSKSTAT(tcb, _KERNEL_TTS_RDY);
 
 	/* %jp{レディーキューに接続} */
-	_KERNEL_ADD_RDQ(tskhdl);
+	_KERNEL_SYS_ADD_RDQ(tskhdl);
 }
 
 

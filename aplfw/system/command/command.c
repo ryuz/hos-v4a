@@ -22,14 +22,15 @@ void Command_AddCommand(const char *pszName, COMMAND_FUNC pfncMain)
 
 
 /* コマンドを実行する */
-int Command_Execute(const char *pszCommandLine)
+COMMAND_ERR Command_Execute(const char *pszCommandLine, int *piExitCode)
 {
 	const COMMAND_FUNC *ppfncMain;
+	COMMAND_ERR Ret = COMMAND_ERR_NG;
+	int  iExitCode;
 	char *pszBuf;
 	char **ppszArgv;
 	int  iLen;
 	int  iArgc = 0;
-	int  iRet = 0;
 	int  i;
 
 	iLen = strlen(pszCommandLine);
@@ -74,17 +75,18 @@ int Command_Execute(const char *pszCommandLine)
 		ppfncMain = (const COMMAND_FUNC *)Assoc_Get(&Command_Assoc, ppszArgv[0]);
 		if ( ppfncMain != NULL )
 		{
-			iRet = (*ppfncMain)(iArgc, ppszArgv);
-		}
-		else
-		{
-			iRet = 1;
+			iExitCode = (*ppfncMain)(iArgc, ppszArgv);
+			if ( piExitCode != NULL )
+			{
+				*piExitCode = iExitCode;
+			}
+			Ret = COMMAND_ERR_OK;
 		}
 	}
 
 	SysMem_Free(pszBuf);
 	SysMem_Free(ppszArgv);
 
-	return iRet;
+	return Ret;
 }
 

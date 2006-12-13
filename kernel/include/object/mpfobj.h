@@ -402,8 +402,8 @@ extern  _KERNEL_T_MPFCB					*_kernel_mpfcb_tbl[];									/**< %jp{固定長メ�
 
 /* %jp{タイムアウトキュー操作} */
 #if _KERNEL_SPT_TGET_MPF	/* %jp{tget_mpfサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_MPF_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
-#define _KERNEL_MPF_RMV_TOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
+#define _KERNEL_MPF_ADD_TOQ(tskhdl, tmout)	_KERNEL_SYS_ADD_TOQ(tskhdl, tmout)
+#define _KERNEL_MPF_RMV_TOQ(tskhdl)			_KERNEL_SYS_RMV_TOQ(tskhdl)
 #else
 #define _KERNEL_MPF_ADD_TOQ(tskhdl)			do { } while (0)
 #define _KERNEL_MPF_RMV_TOQ(tskhdl)			do { } while (0)

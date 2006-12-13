@@ -45,7 +45,7 @@ ER dly_tsk(RELTIM dlytim)
 	_KERNEL_TSK_SET_TSKWAIT(tcb, _KERNEL_TTW_DLY);
 
 	/* %jp{タイムアウトキューに繋ぐ} */
-	_KERNEL_ADD_TOQ(tskhdl, dlytim);
+	_KERNEL_SYS_ADD_TOQ(tskhdl, dlytim);
 	
 	/* %jp{タスクディスパッチの実行} */
 	_KERNEL_DSP_TSK();

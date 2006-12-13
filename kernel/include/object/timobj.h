@@ -74,7 +74,7 @@ typedef struct _kernel_t_timcb
 /*  Control block tables                      */
 /* ------------------------------------------ */
 
-extern const _KERNEL_T_TIMCB_RO	_kernel_timcb_ro;
+extern const _KERNEL_T_TIMCB_RO		_kernel_timcb_ro;
 extern _KERNEL_T_TIMCB				_kernel_timcb;
 
 

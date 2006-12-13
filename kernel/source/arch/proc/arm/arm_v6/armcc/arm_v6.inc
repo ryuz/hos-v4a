@@ -34,5 +34,6 @@ F_Bit			EQU 	0x40		; F ビット
 I_Bit			EQU 	0x80		; I ビット
 
 
+				END
 
 ;  end of file

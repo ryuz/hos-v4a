@@ -273,14 +273,14 @@ extern  _KERNEL_T_FLGCB					*_kernel_flgcb_tbl[];									/**< %jp{イベント�
 
 /* %jp{タイムアウトキュー接続} */
 #if _KERNEL_SPT_TWAI_FLG	/* %jp{twai_semサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_FLG_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
+#define _KERNEL_FLG_ADD_TOQ(tskhdl, tmout)	_KERNEL_SYS_ADD_TOQ(tskhdl, tmout)
 #else
 #define _KERNEL_FLG_ADD_TOQ(tskhdl)			do { } while (0)
 #endif
 
 /* %jp{タイムアウトキュー解除} */
 #if _KERNEL_SPT_TWAI_FLG	/* %jp{twai_flgサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_FLG_RMV_TOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
+#define _KERNEL_FLG_RMV_TOQ(tskhdl)			_KERNEL_SYS_RMV_TOQ(tskhdl)
 #else
 #define _KERNEL_FLG_RMV_TOQ(tskhdl)			do { } while (0)
 #endif

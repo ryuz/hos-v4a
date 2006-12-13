@@ -90,6 +90,8 @@ void           SysEvt_Clear(SYSEVT_HANDLE hEvt);			/* システム用イベン�
 
 /* 時間管理 */
 void           SysTim_Wait(unsigned long ulTime);			/* 時間待ち */
+TIME           SysTim_GetCurrentTime(void);					/*  */
+
 
 #ifdef __cplusplus
 }

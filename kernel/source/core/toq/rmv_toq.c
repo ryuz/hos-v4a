@@ -17,6 +17,7 @@
 
 /* タイムアウト待ち行列からタスクを取り除く */
 void _kernel_rmv_toq(
+		_KERNEL_T_TOQCB  *toqcb,
 		_KERNEL_T_TSKHDL tskhdl)	/* 待ち行列から削除するタスク */
 {
 	_KERNEL_T_TSKHDL tskhdl_prev;
@@ -39,7 +40,7 @@ void _kernel_rmv_toq(
 	/* キューの最後の１つタスクなら */
 	if ( tskhdl_prev == tskhdl )
 	{
-		_KERNEL_TOQ_SET_HED_TSK(_KERNEL_TSKHDL_NULL);		/* タイムアウトキューを空にする */
+		_KERNEL_TOQ_SET_HEAD(toqcb, _KERNEL_TSKHDL_NULL);		/* タイムアウトキューを空にする */
 	}
 	else
 	{
@@ -49,16 +50,16 @@ void _kernel_rmv_toq(
 		tcb_prev    = _KERNEL_TSK_TSKHDL2TCB(tskhdl_prev);
 
 		/* 末尾でなければ */
-		if ( tskhdl_next != _KERNEL_TOQ_GET_HED_TSK() )
+		if ( tskhdl_next != _KERNEL_TOQ_GET_HEAD(toqcb) )
 		{
 			/* 時間差分を清算 */
 			_KERNEL_TSK_SET_TOQDIFTIM(tcb_next, _KERNEL_TSK_GET_TOQDIFTIM(tcb_next) + _KERNEL_TSK_GET_TOQDIFTIM(tcb));
 		}
 		
 		/* 先頭なら */
-		if ( tskhdl == _KERNEL_TOQ_GET_HED_TSK() )
+		if ( tskhdl == _KERNEL_TOQ_GET_HEAD(toqcb) )
 		{
-			_KERNEL_TOQ_SET_HED_TSK(tskhdl_next);	/* 先頭位置更新 */
+			_KERNEL_TOQ_SET_HEAD(toqcb, tskhdl_next);	/* 先頭位置更新 */
 		}
 		
 		/* キューから外す */

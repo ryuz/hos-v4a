@@ -17,6 +17,7 @@
 
 /** %jp{タイムアウト待ち行列にタスクを追加} */
 void _kernel_add_toq(
+		_KERNEL_T_TOQCB  *toqcb,
 		_KERNEL_T_TSKHDL tskhdl,
 		RELTIM           tmout)
 {
@@ -32,14 +33,14 @@ void _kernel_add_toq(
 	tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
 
 	/* %jp{先頭タスク取得} */
-	tskhdl_head = _KERNEL_TOQ_GET_HED_TSK();
+	tskhdl_head = _KERNEL_TOQ_GET_HEAD(toqcb);
 
 	if ( tskhdl_head == _KERNEL_TSKHDL_NULL )
 	{
 		/* %jp{最初の１つをキューに登録} */
 		_KERNEL_TSK_SET_TOQNEXT(tcb, tskhdl);
 		_KERNEL_TSK_SET_TOQPREV(tcb, tskhdl);
-		_KERNEL_TOQ_SET_HED_TSK(tskhdl);
+		_KERNEL_TOQ_SET_HEAD(toqcb, tskhdl);
 
 		/* %jp{タイムアウト時刻を設定} */
 		_KERNEL_TSK_SET_TOQDIFTIM(tcb, tmout);
@@ -60,7 +61,7 @@ void _kernel_add_toq(
 			/* %jp{先頭なら} */
 			if ( tskhdl_next == tskhdl_head )
 			{
-				_KERNEL_TOQ_SET_HED_TSK(tskhdl);	/* %jp{先頭ポインタ更新} */
+				_KERNEL_TOQ_SET_HEAD(toqcb, tskhdl);	/* %jp{先頭ポインタ更新} */
 				tskhdl_prev = _KERNEL_TSK_GET_TOQPREV(tcb_next);
 				tcb_prev    = _KERNEL_TSK_TSKHDL2TCB(tskhdl_prev);
 			}

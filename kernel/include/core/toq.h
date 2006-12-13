@@ -14,12 +14,16 @@
 #define __HOS_V4a__core__toq_h__
 
 
-/** %jp{タイムアウトキューオブジェクト} */
-typedef _KERNEL_T_TSKHDL						_KERNEL_T_TOQ;
+/** %jp{タイムアウトキュー} */
+typedef struct _kernel_t_toqcb
+{
+	_KERNEL_T_TSKHDL	head;
+} _KERNEL_T_TOQCB;
 
 
-#define _KERNEL_TOQ_GET_HED_TSK()				(*_KERNEL_SYS_GET_TOQ())
-#define _KERNEL_TOQ_SET_HED_TSK(x)				do { (*_KERNEL_SYS_GET_TOQ()) = x; } while (0) 
+#define _KERNEL_TOQ_SET_HEAD(toqcb, x)		do { ((toqcb)->head) = (x); } while (0) 
+#define _KERNEL_TOQ_GET_HEAD(toqcb)			((toqcb)->head)
+
 
 
 /** %jp{タイムアウトキュー接続用オブジェクト} */
@@ -42,17 +46,17 @@ typedef _KERNEL_T_TSKHDL						_KERNEL_T_TOQ;
 extern "C" {
 #endif
 
-void _kernel_add_toq(_KERNEL_T_TSKHDL tskhdl, RELTIM tmout);
-void _kernel_rmv_toq(_KERNEL_T_TSKHDL tskhdl);
-void _kernel_sig_toq(RELTIM tictim);
+void _kernel_add_toq(_KERNEL_T_TOQCB *toqcb, _KERNEL_T_TSKHDL tskhdl, RELTIM tmout);
+void _kernel_rmv_toq(_KERNEL_T_TOQCB *toqcb, _KERNEL_T_TSKHDL tskhdl);
+void _kernel_sig_toq(_KERNEL_T_TOQCB *toqcb, RELTIM tictim);
 
 #ifdef __cplusplus
 }
 #endif
 
-#define _KERNEL_ADD_TOQ		_kernel_add_toq					
-#define _KERNEL_RMV_TOQ		_kernel_rmv_toq					
-#define _KERNEL_SIG_TOQ		_kernel_sig_toq					
+#define _KERNEL_ADD_TOQ(toqcb, tskhdl, tmout)	_kernel_add_toq(toqcb, tskhdl, tmout)				
+#define _KERNEL_RMV_TOQ(toqcb, tskhd)			_kernel_rmv_toq(toqcb, tskhd)				
+#define _KERNEL_SIG_TOQ(toqcb, tictim)			_kernel_sig_toq(toqcb, tictim)					
 
 
 
