@@ -32,7 +32,16 @@ void _kernel_cyc_hdr(_KERNEL_T_TIMOBJ *pk_timobj, RELTIM ovrtim)
 
 	for ( ; ; )
 	{
+		/* %jp{ ハンドラ呼び出し} */
 		cychdr(exinf);
+
+		/* %jp{ ハンドラ内で自身が停止されていたら処理を打ち切る} */
+		if ( !_KERNEL_SYS_BSY_TMQ(pk_timobj) )
+		{
+			return;	
+		}
+		
+		/* %jp{周期以上にticが進んでいる場合は複数回ハンドラを呼ぶ} */
 		if ( ovrtim < cyctim )
 		{
 			break;
@@ -40,7 +49,7 @@ void _kernel_cyc_hdr(_KERNEL_T_TIMOBJ *pk_timobj, RELTIM ovrtim)
 		ovrtim -= cyctim;
 	}
 	
-	/* 次の時刻を設定 */
+	/* %jp{次の時刻を設定} */
 	_KERNEL_TIMOBJ_SET_LEFTTIM(pk_timobj, cyctim - ovrtim);
 }
 

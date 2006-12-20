@@ -30,29 +30,29 @@ void _kernel_sig_tmq(
 		
 		do /* リスト末尾まで繰り返し */
 		{
-			/* 次のポインタを事前に設定 */
 			timobj      = tmqcb->next;
-			tmqcb->next = timobj->next;
+			tmqcb->busy = timobj->next;		/* %jp{処理中オブジェクト設定} */
+			tmqcb->next = timobj->next;		/* %jp{次のポインタを事前に設定} */
 			
-			while ( timobj->lefttim <= tictim )
+			if ( timobj->lefttim > tictim )
 			{
-				/* タイマハンドラ呼び出し */
+				/* %jp{残時間減算} */
+				timobj->lefttim -= tictim;
+			}
+			else
+			{
+				/* %jp{タイマハンドラ呼び出し} */
 				timobj->timhdr(timobj, tictim - timobj->lefttim);
-				
-				/* ハンドラ内で削除された場合 */
-				if ( timobj->next == NULL )
+				if ( tmqcb->next == NULL )
 				{
-					goto loop_continue;
+					break;
 				}
 			}
-			timobj->lefttim -= tictim;
-
-loop_continue:
-			;
 		} while ( tmqcb->next != tmqcb->head );
 		
 		/* 検索ポインタのクリア */
 		tmqcb->next = NULL;
+		tmqcb->busy = NULL;
 	}
 }
 

@@ -32,7 +32,7 @@ void _kernel_add_tmq(
 		/* リストが空の場合の追加 */
 		pk_timobj->next = pk_timobj;
 		pk_timobj->prev = pk_timobj;
-		tmqcb->head    = pk_timobj;
+		tmqcb->head     = pk_timobj;
 	}
 	else
 	{

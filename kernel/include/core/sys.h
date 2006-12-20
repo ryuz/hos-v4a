@@ -90,6 +90,7 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_GET_TMQ()				(&_kernel_syscb.tmqcb)												/**< %jp{タイマキューの取得} */
 #define _KERNEL_SYS_ADD_TMQ(pk_timobj)		_KERNEL_ADD_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj))
 #define _KERNEL_SYS_RMV_TMQ(pk_timobj)		_KERNEL_RMV_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj))
+#define _KERNEL_SYS_BSY_TMQ(pk_timobj)		_KERNEL_BSY_TMQ(_KERNEL_SYS_GET_TMQ(), (tictim))
 #define _KERNEL_SYS_SIG_TMQ(tictim)			_KERNEL_SIG_TMQ(_KERNEL_SYS_GET_TMQ(), (tictim))
 
 

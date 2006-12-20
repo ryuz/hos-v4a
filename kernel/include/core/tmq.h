@@ -28,8 +28,9 @@ typedef struct _kernel_t_timobj
 /** %jp{タイマキュー} */
 typedef struct _kernel_t_tmqcb
 {
-	_KERNEL_T_TIMOBJ		*head;
-	_KERNEL_T_TIMOBJ		*next;
+	_KERNEL_T_TIMOBJ		*head;										/**< %jp{先頭のオブジェクト} */
+	_KERNEL_T_TIMOBJ		*busy;										/**< %jp{処理中のオブジェクト} */
+	_KERNEL_T_TIMOBJ		*next;										/**< %jp{次の処理予定オブジェクト} */
 } _KERNEL_T_TMQCB;
 
 
@@ -55,8 +56,8 @@ void _kernel_sig_tmq(_KERNEL_T_TMQCB *tmqcb, RELTIM tictim);
 
 #define _KERNEL_ADD_TMQ(tmqcb, pk_timobj)			_kernel_add_tmq((tmqcb), (pk_timobj))
 #define _KERNEL_RMV_TMQ(tmqcb, pk_timobj)			_kernel_rmv_tmq((tmqcb), (pk_timobj))
+#define _KERNEL_BSY_TMQ(tmqcb, pk_timobj)			((tmqcb)->busy == (pk_timobj))
 #define _KERNEL_SIG_TMQ(tmqcb, tictim)				_kernel_sig_tmq((tmqcb), (tictim))
-
 
 
 #endif	/* _KERNEL__core__tmq_h__ */
