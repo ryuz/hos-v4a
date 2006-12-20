@@ -14,8 +14,6 @@
 
 
 /**** 暫定の手抜き(ここから) *****/
-_KERNEL_T_SYSCB _kernel_syscb;
-
 #if _KERNEL_SPT_DPC
 VP_INT dpc_buf[32];
 #endif

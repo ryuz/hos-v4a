@@ -55,7 +55,7 @@ typedef struct _kernel_t_timcb_ro
 #endif
 } _KERNEL_T_TIMCB_RO;
 
-typedef _KERNEL_T_TIMCB_RO*	_KERNEL_T_TIMCB_RO_PTR;
+typedef const _KERNEL_T_TIMCB_RO*	_KERNEL_T_TIMCB_RO_PTR;
 
 
 /** %jp{時間管理コントロールブロック}%en{Time-Manegement Control Block} */
@@ -124,8 +124,8 @@ typedef _KERNEL_T_TIMCB*	_KERNEL_T_TIMCB_PTR;
 
 /* ticnxt */
 #if _KERNEL_TIMCB_TICNXT
-#define _KERNEL_TIM_GET_TICNXT(timcb)			((timcb)->ticcnt)
-#define _KERNEL_TIM_SET_TICNXT(timcb, cnt)		do { (timcb)->ticcnt = (cnt); } while (0)
+#define _KERNEL_TIM_GET_TICNXT(timcb)			((timcb)->ticnxt)
+#define _KERNEL_TIM_SET_TICNXT(timcb, cnt)		do { (timcb)->ticnxt = (cnt); } while (0)
 #else
 #define _KERNEL_TIM_GET_TICNXT(timcb)			(1)
 #define _KERNEL_TIM_SET_TICNXT(timcb, cnt)		do {} while (0)
@@ -137,7 +137,7 @@ typedef _KERNEL_T_TIMCB*	_KERNEL_T_TIMCB_PTR;
 extern "C" {
 #endif
 
-RELTIM _kernel_sig_tim(_KERNEL_T_TIMCB_PTR timcb, _KERNEL_T_TIMCB_RO timcb_ro);
+RELTIM _kernel_sig_tim(_KERNEL_T_TIMCB_PTR timcb, _KERNEL_T_TIMCB_RO_PTR timcb_ro);
 
 #ifdef __cplusplus
 }

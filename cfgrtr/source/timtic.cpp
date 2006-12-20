@@ -105,25 +105,27 @@ void  CApiTimTic::WriteCfgDef(FILE* fp)
 	fputs(
 		"\n\n\n"
 		"/* ------------------------------------------ */\n"
-		"/*               set time tic                 */\n"
+		"/*                 system                     */\n"
 		"/* ------------------------------------------ */\n"
 		"\n"
-		"const _KERNEL_T_TIMCB_RO _kernel_timcb_ro =\n"
+		"const _KERNEL_T_SYSCB_RO _kernel_syscb_ro =\n"
 		"\t{\n"
+		"\t\t{\n"
 #ifdef _KERNEL_TIMCB_TICDIV
-		"\t\tTIC_NUME / TIC_DENO,\n"
+		"\t\t\tTIC_NUME / TIC_DENO,\n"
 #endif
 #ifdef _KERNEL_TIMCB_TICMOD
-		"\t\tTIC_NUME % TIC_DENO,\n"
+		"\t\t\tTIC_NUME % TIC_DENO,\n"
 #endif
 #ifdef _KERNEL_TIMCB_TICDENO
-		"\t\tTIC_DENO,\n"
+		"\t\t\tTIC_DENO,\n"
 #endif		
+		"\t\t},\n"
 		"\t};\n\n",
 		fp);
 
 #if _KERNEL_TIMCB_SYSTIM || _KERNEL_TIMCB_TICCNT
-	fputs("_KERNEL_T_TIMCB _kernel_timcb;\n\n", fp);
+	fputs("_KERNEL_T_SYSCB _kernel_syscb;\n\n", fp);
 #endif
 }
 

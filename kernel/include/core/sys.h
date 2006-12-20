@@ -15,6 +15,7 @@
 
 
 #include "core/hep.h"
+#include "core/tim.h"
 #include "core/toq.h"
 #include "core/tmq.h"
 #include "core/dpc.h"
@@ -52,6 +53,8 @@ typedef struct _kernel_t_syscb
 {
 	_KERNEL_T_RDQCB		rdqcb;				/**< %jp{レディーキュー}%en{ready-queue} */
 
+	_KERNEL_T_TIMCB		timcb;				
+
 #if _KERNEL_SPT_TOQ
 	_KERNEL_T_TOQCB		toqcb;				/**< %jp{タイムアウトキュー}%en{timeout-queue} */
 #endif
@@ -72,9 +75,16 @@ typedef struct _kernel_t_syscb
 } _KERNEL_T_SYSCB;
 
 
-/** %jp{システム制御情報}%en{system control block} */
-extern _KERNEL_T_SYSCB _kernel_syscb;
+/** %jp{システム制御情報(リードオンリー)}%en{system control block(read only)} */
+typedef struct _kernel_t_syscb_ro
+{
+	_KERNEL_T_TIMCB_RO timcb_ro;
+} _KERNEL_T_SYSCB_RO;
 
+
+/** %jp{システム制御情報}%en{system control block} */
+extern       _KERNEL_T_SYSCB		_kernel_syscb;
+extern const _KERNEL_T_SYSCB_RO		_kernel_syscb_ro;
 
 /* system */
 #define _KERNEL_SYS_INI_SYS()				do {} while (0)														/**< %jp{システムの初期化} */
@@ -90,6 +100,15 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_RMH_RDQ()				_KERNEL_RMH_RDQ(_KERNEL_SYS_GET_RDQ())								/**< %jp{キューの先頭タスクの取り外し} */
 #define _KERNEL_SYS_REF_RDQ()				_KERNEL_REF_RDQ(_KERNEL_SYS_GET_RDQ())								/**< %jp{キューの先頭タスクの参照} */
 #define _KERNEL_SYS_ROT_RDQ(tskpri)			_KERNEL_ROT_RDQ(_KERNEL_SYS_GET_RDQ(), (tskpri))					/**< %jp{レディーキューの回転} */
+
+/* time */
+#define _KERNEL_SYS_GET_TIMCB()				(&_kernel_syscb.timcb)
+#define _KERNEL_SYS_GET_TIMCB_RO()			(&_kernel_syscb_ro.timcb_ro)
+#define	_KERNEL_SYS_INI_TIM()				_KERNEL_INI_TIM(_KERNEL_SYS_GET_TIMCB(), _KERNEL_SYS_GET_TIMCB_RO())
+#define	_KERNEL_SYS_SIG_TIM()				_KERNEL_SIG_TIM(_KERNEL_SYS_GET_TIMCB(), _KERNEL_SYS_GET_TIMCB_RO())
+#define	_KERNEL_SYS_GET_TIC()				_KERNEL_GET_TIC(_KERNEL_SYS_GET_TIMCB(), _KERNEL_SYS_GET_TIMCB_RO())
+#define	_KERNEL_SYS_SET_TIM(p_tim)			_KERNEL_SET_TIM(_KERNEL_SYS_GET_TIMCB(), (p_tim))	
+#define	_KERNEL_SYS_GET_TIM()				_KERNEL_GET_TIM(_KERNEL_SYS_GET_TIMCB())			
 
 /* timeout queue */
 #define _KERNEL_SYS_GET_TOQCB()				(&_kernel_syscb.toqcb)												/**< %jp{タイムアウトキューの取得} */

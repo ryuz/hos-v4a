@@ -344,7 +344,6 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/flgobj.h\"\n");
 	fprintf(fp, "#include \"object/mbxobj.h\"\n");
 	fprintf(fp, "#include \"object/mpfobj.h\"\n");
-	fprintf(fp, "#include \"object/timobj.h\"\n");
 	fprintf(fp, "#include \"object/inhobj.h\"\n");
 	fprintf(fp, "#include \"object/isrobj.h\"\n");
 	

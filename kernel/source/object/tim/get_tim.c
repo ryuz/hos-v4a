@@ -11,7 +11,6 @@
 
 
 #include "core/core.h"
-#include "object/timobj.h"
 
 
 #if _KERNEL_SPT_GET_TIM
@@ -31,7 +30,7 @@ ER get_tim(SYSTIM *p_system)
 
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 
-	*p_system = *_KERNEL_TIM_GET_SYSTIM();
+	*p_system = *_KERNEL_SYS_GET_TIM();
 
 	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 

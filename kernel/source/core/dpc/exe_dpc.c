@@ -19,14 +19,14 @@
 void _kernel_exe_dpc(void)
 {
 	FP fncSvc;
-
+	
 	/* 遅延プロシージャ呼び出し */
 	while ( _KERNEL_SYS_RDT_DPC() > 0 )
 	{
 		fncSvc = (FP)_KERNEL_SYS_RCV_DPC();
 		fncSvc();
 	}
-
+	
 	/* タスクディスパッチの実施 */
 	_KERNEL_DSP_TSK();
 }

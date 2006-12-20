@@ -466,6 +466,14 @@ SOURCE=..\..\..\..\source\core\adtq\snd_adq.c
 SOURCE=..\..\..\..\source\core\dpc\exe_dpc.c
 # End Source File
 # End Group
+# Begin Group "tim_core"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\tim\sig_tim.c
+# End Source File
+# End Group
 # End Group
 # Begin Group "object"
 
