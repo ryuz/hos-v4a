@@ -61,9 +61,6 @@ bool CExpression::Calc(const char *pszExpression, int &piValue)
 
 bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &piValue)
 {
-
-}
-
 	vector<TTerm> vectTerm;
 	TTerm Term;
 	int   c;
