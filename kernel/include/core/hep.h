@@ -51,15 +51,21 @@ typedef struct _kernel_t_hepcb
 extern "C" {
 #endif
 
-void    _kernel_cre_hep(_KERNEL_T_HEPCB *pk_hepcb, SIZE hepsz, VP hep);		/**< %jp{メモリヒープを生成} */
-#define _kernel_del_hep(pk_hepcb)	do {} while(0)							/**< %jp{メモリヒープを削除} */
-VP      _kernel_alc_hep(_KERNEL_T_HEPCB *pk_hepcb, SIZE size);				/**< %jp{メモリの割り当て} */
-void    _kernel_fre_hep(_KERNEL_T_HEPCB *pk_hepcb, VP ptr);					/**< %jp{メモリの解放} */
-#define _kernel_alg_hep(size)		_KERNEL_HEP_ALIGNED(size)				/**< %jp{メモリサイズのアライメントを合わせる} */
+void    _kernel_cre_hep(_KERNEL_T_HEPCB *hepcb, SIZE hepsz, VP hep);					/**< %jp{メモリヒープを生成} */
+VP      _kernel_alc_hep(_KERNEL_T_HEPCB *hepcb, SIZE size);								/**< %jp{メモリの割り当て} */
+void    _kernel_fre_hep(_KERNEL_T_HEPCB *hepcb, VP ptr);								/**< %jp{メモリの解放} */
 
 #ifdef __cplusplus
 }
 #endif
+
+
+#define _KERNEL_CRE_HEP(hepcb, hepsz, hep)	_kernel_cre_hep((hepcb), (hepsz), (hep))	/**< %jp{メモリヒープを生成} */
+#define _KERNEL_DEL_HEP(hepcb)				do {} while(0)								/**< %jp{メモリヒープを削除} */
+#define _KERNEL_ALC_HEP(hepcb, size)		_kernel_alc_hep((hepcb), (size))			/**< %jp{メモリの割り当て} */
+#define _KERNEL_FRE_HEP(hepcb, ptr)			_kernel_fre_hep((hepcb), (ptr))				/**< %jp{メモリの解放} */
+#define _KERNEL_ALG_HEP(hepcb, size)		_KERNEL_HEP_ALIGNED(size)					/**< %jp{メモリサイズのアライメントを合わせる} */
+
 
 
 #endif	/* _KERNEL__core__hep_h_ */

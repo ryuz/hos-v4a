@@ -35,7 +35,7 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		/* %jp{スタックの確保} */
 		if ( pk_ctsk->stk == NULL )
 		{
-			stk = _KERNEL_SYS_ALC_MEM(pk_ctsk->stksz);
+			stk = _KERNEL_SYS_ALC_HEP(pk_ctsk->stksz);
 			if ( stk == NULL )
 			{
 				return E_NOMEM;
@@ -59,15 +59,15 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_TCB))
-					+ _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_TCB_RO));
+		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB))
+					+ _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB_RO));
 		if ( pk_ctsk->stk == NULL )
 		{
 			memsz += pk_ctsk->stksz;
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(pk_ctsk->stksz);
+		mem = _KERNEL_SYS_ALC_HEP(pk_ctsk->stksz);
 		if ( mem == NULL )
 		{
 			return E_NOMEM;
@@ -75,10 +75,10 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 
 		/* %jp{メモリ割り当て} */
 		_KERNEL_TSK_ID2TCB(tskid) = tcb    = (_KERNEL_T_TCB *)mem;
-		tcb->tcb_ro               = tcb_ro = (_KERNEL_T_TCB_RO *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_TCB)));
+		tcb->tcb_ro               = tcb_ro = (_KERNEL_T_TCB_RO *)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)));
 		if ( pk_ctsk->stk == NULL )
 		{
-			stk = (VP)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_TCB)) + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_TCB)));
+			stk = (VP)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)) + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)));
 		}
 		else
 		{
@@ -92,14 +92,14 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		SIZE memsz;
 		
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_TCB));
+		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB));
 		if ( pk_ctsk->stk == NULL )
 		{
 			memsz += pk_ctsk->stksz;
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(pk_ctsk->stksz);
+		mem = _KERNEL_SYS_ALC_HEP(pk_ctsk->stksz);
 		if ( mem == NULL )
 		{
 			return E_NOMEM;
@@ -109,7 +109,7 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		_KERNEL_TSK_ID2TCB(tskid) = tcb_ro = tcb = (_KERNEL_T_TCB *)mem;
 		if ( pk_ctsk->stk == NULL )
 		{
-			stk = (VP)((VB *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_TCB)));
+			stk = (VP)((VB *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)));
 		}
 		else
 		{

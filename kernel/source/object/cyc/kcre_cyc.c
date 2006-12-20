@@ -49,11 +49,11 @@ ER _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_CYCCB))
-					+ _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_CYCCB_RO));
+		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_CYCCB))
+					+ _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_CYCCB_RO));
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_CYC_E_NOMEM
@@ -65,7 +65,7 @@ ER _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 		
 		/* %jp{メモリ割り当て} */
 		cyccb    = (_KERNEL_T_CYCCB *)mem;
-		cyccb_ro = (_KERNEL_T_CYCCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_CYCCB)));
+		cyccb_ro = (_KERNEL_T_CYCCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_CYCCB)));
 		_KERNEL_CYC_ID2CYCCB(cycid)           = cyccb;
 		_KERNEL_CYC_ID2CYCCB(cycid)->cyccb_ro = (const _KERNEL_T_CYCCB_RO *)cyccb_ro;
 	}
@@ -74,7 +74,7 @@ ER _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 		VP   mem;
 		
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(sizeof(_KERNEL_T_CYCCB));
+		mem = _KERNEL_SYS_ALC_HEP(sizeof(_KERNEL_T_CYCCB));
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_CYC_E_NOMEM

@@ -40,7 +40,7 @@ ER _kernel_cre_flg(ID flgid, const T_CFLG *pk_cflg)
 		VP   mem;
 		
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(sizeof(_KERNEL_T_FLGCB));
+		mem = _KERNEL_SYS_ALC_HEP(sizeof(_KERNEL_T_FLGCB));
 
 #if _KERNEL_SPT_KCRE_FLG_E_NOMEM
 		if ( mem == NULL )

@@ -48,11 +48,11 @@ ER _kernel_cre_sem(ID semid, const T_CSEM *pk_csem)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_SEMCB))
-					+ _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_SEMCB_RO));
+		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_SEMCB))
+					+ _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_SEMCB_RO));
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_SEM_E_NOMEM
@@ -64,7 +64,7 @@ ER _kernel_cre_sem(ID semid, const T_CSEM *pk_csem)
 		
 		/* %jp{メモリ割り当て} */
 		semcb    = (_KERNEL_T_SEMCB *)mem;
-		semcb_ro = (_KERNEL_T_SEMCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_SEMCB)));
+		semcb_ro = (_KERNEL_T_SEMCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_SEMCB)));
 		_KERNEL_SEM_ID2SEMCB(semid)           = semcb;
 		_KERNEL_SEM_ID2SEMCB(semid)->semcb_ro = (const _KERNEL_T_SEMCB_RO *)semcb_ro;
 	}
@@ -73,7 +73,7 @@ ER _kernel_cre_sem(ID semid, const T_CSEM *pk_csem)
 		VP   mem;
 		
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(sizeof(_KERNEL_T_SEMCB));
+		mem = _KERNEL_SYS_ALC_HEP(sizeof(_KERNEL_T_SEMCB));
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_SEM_E_NOMEM

@@ -40,11 +40,11 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_ISRCB))
-					+ _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_ISRCB_RO));
+		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_ISRCB))
+					+ _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_ISRCB_RO));
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_ISR_E_NOMEM
@@ -56,7 +56,7 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 		
 		/* %jp{メモリ割り当て} */
 		isrcb    = (_KERNEL_T_ISRCB *)mem;
-		isrcb_ro = (_KERNEL_T_ISRCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_ISRCB)));
+		isrcb_ro = (_KERNEL_T_ISRCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_ISRCB)));
 		_KERNEL_ISR_ID2ISRCB(isrid)           = isrcb;
 		_KERNEL_ISR_ID2ISRCB(isrid)->isrcb_ro = (const _KERNEL_T_ISRCB_RO *)isrcb_ro;
 	}
@@ -65,7 +65,7 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 		VP   mem;
 		
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(sizeof(_KERNEL_T_ISRCB));
+		mem = _KERNEL_SYS_ALC_HEP(sizeof(_KERNEL_T_ISRCB));
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_ISR_E_NOMEM

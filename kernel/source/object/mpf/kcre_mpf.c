@@ -44,7 +44,7 @@ ER _kernel_cre_mpf(ID mpfid, const T_CMPF *pk_cmpf)
 		/* メモリ確保 */
 		if ( pk_cmpf->mpf == NULL )
 		{
-			mpf = _KERNEL_SYS_ALC_MEM(TSZ_MPF(pk_cmpf->blkcnt, pk_cmpf->blksz));
+			mpf = _KERNEL_SYS_ALC_HEP(TSZ_MPF(pk_cmpf->blkcnt, pk_cmpf->blksz));
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_MPF_E_NOMEM
 			if ( mpf == NULL )
@@ -67,15 +67,15 @@ ER _kernel_cre_mpf(ID mpfid, const T_CMPF *pk_cmpf)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz  = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MPFCB));
-		memsz += _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MPFCB_ROM));
+		memsz  = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MPFCB));
+		memsz += _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MPFCB_ROM));
 		if ( pk_cmpf->mpf == NULL )
 		{
 			memsz += TSZ_MPF(pk_cmpf->blkcnt, pk_cmpf->blksz);
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_MPF_E_NOMEM
@@ -87,12 +87,12 @@ ER _kernel_cre_mpf(ID mpfid, const T_CMPF *pk_cmpf)
 		
 		/* %jp{メモリ割り当て} */
 		mpfcb    = (_KERNEL_T_MPFCB *)mem;
-		mpfcb_ro = (_KERNEL_T_MPFCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MPFCB)));
+		mpfcb_ro = (_KERNEL_T_MPFCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MPFCB)));
 		mpfcb->mpfcb_ro = mpfcb_ro;
 		_KERNEL_TSK_ID2MPFCB(mpfid) = mpfcb;
 		if ( pk_cmpf->mpf == NULL )
 		{
-			mpf = (_KERNEL_T_MPFCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MPFCB)) + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MPFCB_ROM)));
+			mpf = (_KERNEL_T_MPFCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MPFCB)) + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MPFCB_ROM)));
 		}
 		else
 		{
@@ -105,14 +105,14 @@ ER _kernel_cre_mpf(ID mpfid, const T_CMPF *pk_cmpf)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MPFCB));
+		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MPFCB));
 		if ( pk_cmpf->mpf == NULL )
 		{
 			memsz += TSZ_MPF(pk_cmpf->blkcnt, pk_cmpf->blksz)
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_MPF_E_NOMEM
@@ -128,7 +128,7 @@ ER _kernel_cre_mpf(ID mpfid, const T_CMPF *pk_cmpf)
 		_KERNEL_MPF_ID2MPFCB(mpfid) = mpfcb;
 		if ( pk_cmpf->mpf == NULL )
 		{
-			mpf = (_KERNEL_T_MPFCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MPFCB)));
+			mpf = (_KERNEL_T_MPFCB_ROM *)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MPFCB)));
 		}
 		else
 		{

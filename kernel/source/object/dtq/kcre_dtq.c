@@ -49,11 +49,11 @@ ER _kernel_cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_DTQCB))
-					+ _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_DTQCB_RO));
+		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_DTQCB))
+					+ _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_DTQCB_RO));
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_DTQ_E_NOMEM
@@ -65,7 +65,7 @@ ER _kernel_cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq)
 		
 		/* %jp{メモリ割り当て} */
 		dtqcb    = (_KERNEL_T_DTQCB *)mem;
-		dtqcb_ro = (_KERNEL_T_DTQCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_DTQCB)));
+		dtqcb_ro = (_KERNEL_T_DTQCB_RO *)((VB *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_DTQCB)));
 		_KERNEL_DTQ_ID2DTQCB(dtqid)           = dtqcb;
 		_KERNEL_DTQ_ID2DTQCB(dtqid)->dtqcb_ro = (const _KERNEL_T_DTQCB_RO *)dtqcb_ro;
 	}
@@ -74,7 +74,7 @@ ER _kernel_cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq)
 		VP   mem;
 		
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(sizeof(_KERNEL_T_DTQCB));
+		mem = _KERNEL_SYS_ALC_HEP(sizeof(_KERNEL_T_DTQCB));
 
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_DTQ_E_NOMEM

@@ -45,15 +45,15 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 		SIZE memsz;
 
 		/* %jp{メモリサイズ決定} */
-		memsz  = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB));			/* %jp{コントロールブロックのサイズ} */
-		memsz += _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB_RO));		/* %jp{コントロールブロック(RO部)のサイズ} */
+		memsz  = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MBXCB));			/* %jp{コントロールブロックのサイズ} */
+		memsz += _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MBXCB_RO));		/* %jp{コントロールブロック(RO部)のサイズ} */
 		if ( (pk_cmbx->mbxatr & TA_MPRI) && pk_cmbx->mprihd == NULL )
 		{
-			memsz += _KERNEL_SYS_ALG_MEM(TSZ_MPRIHD(pk_cmbx->maxmpri));
+			memsz += _KERNEL_SYS_ALG_HEP(TSZ_MPRIHD(pk_cmbx->maxmpri));
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 #if _KERNEL_SPT_KCRE_MBX_E_NOMEM
 		if ( mem == NULL )
@@ -63,10 +63,10 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 #endif
 		/* %jp{メモリ割り当て} */
 		mbxcb    = (_KERNEL_T_MBXCB *)mem;
-		mbxcb_ro = (_KERNEL_T_MBXCB_RO *)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)));
+		mbxcb_ro = (_KERNEL_T_MBXCB_RO *)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MBXCB)));
 		if ( pk_cmbx->mprihd == NULL )
 		{
-			mprihd = (VP)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)) + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB_RO)));
+			mprihd = (VP)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MBXCB)) + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MBXCB_RO)));
 		}
 		else
 		{
@@ -82,14 +82,14 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 		SIZE memsz;
 		
 		/* %jp{メモリサイズ決定} */
-		memsz  = _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB));			/* %jp{コントロールブロックのサイズ} */
+		memsz  = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MBXCB));			/* %jp{コントロールブロックのサイズ} */
 		if ( (pk_cmbx->mbxatr & TA_MPRI) && pk_cmbx->mprihd == NULL )
 		{
-			memsz += _KERNEL_SYS_ALG_MEM(TSZ_MPRIHD(pk_cmbx->maxmpri));
+			memsz += _KERNEL_SYS_ALG_HEP(TSZ_MPRIHD(pk_cmbx->maxmpri));
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_MEM(memsz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 
 #if _KERNEL_SPT_KCRE_MBX_E_NOMEM
 		if ( mem == NULL )
@@ -102,7 +102,7 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 		mbxcb  = (_KERNEL_T_MBXCB *)mem;
 		if ( pk_cmbx->mprihd == NULL )
 		{
-			mprihd = (VP)((B *)mem + _KERNEL_SYS_ALG_MEM(sizeof(_KERNEL_T_MBXCB)));
+			mprihd = (VP)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_MBXCB)));
 		}
 		else
 		{
@@ -117,7 +117,7 @@ ER _kernel_cre_mbx(ID mbxid, const T_CMBX *pk_cmbx)
 
 		if ( (pk_cmbx->mbxatr & TA_MPRI) && pk_cmbx->mprihd == NULL )
 		{
-			mprihd = _KERNEL_SYS_ALC_MEM(TSZ_MPRIHD(pk_cmbx->maxmpri));
+			mprihd = _KERNEL_SYS_ALC_HEP(TSZ_MPRIHD(pk_cmbx->maxmpri));
 		}
 		else
 		{

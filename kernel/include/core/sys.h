@@ -33,6 +33,7 @@ typedef struct _kernel_t_proccb
 {
 	STAT				stat;				/**< %jp{システムのコンテキスト状態}%en{system state} */
 	UB                  dlydsp;				/**< %jp{ディスパッチのディレイ管理} */
+
 #if _KERNEL_SPT_DPC
 	UB                  svcent;				/**< %jp{サービスコール実行中管理} */
 #endif
@@ -50,9 +51,18 @@ typedef struct _kernel_t_proccb
 typedef struct _kernel_t_syscb
 {
 	_KERNEL_T_RDQCB		rdqcb;				/**< %jp{レディーキュー}%en{ready-queue} */
+
+#if _KERNEL_SPT_TOQ
 	_KERNEL_T_TOQCB		toqcb;				/**< %jp{タイムアウトキュー}%en{timeout-queue} */
+#endif
+
+#if _KERNEL_SPT_TMQ
 	_KERNEL_T_TMQCB		tmqcb;				/**< %jp{タイマキュー}%en{timer-queue} */
-	_KERNEL_T_HEPCB		memhep;				/**< %jp{カーネルメモリヒープ}%en{kernel heap-memory control block} */
+#endif
+
+#if _KERNEL_SPT_HEP
+	_KERNEL_T_HEPCB		hepcb;				/**< %jp{カーネルメモリヒープ}%en{kernel heap-memory control block} */
+#endif
 
 #if _KERNEL_SPT_DPC
 	_KERNEL_T_DPCCB		dpccb;				/**< %jp{遅延プロシージャコール用メッセージキュー} */
@@ -66,6 +76,7 @@ typedef struct _kernel_t_syscb
 extern _KERNEL_T_SYSCB _kernel_syscb;
 
 
+/* system */
 #define _KERNEL_SYS_INI_SYS()				do {} while (0)														/**< %jp{システムの初期化} */
 #define _KERNEL_SYS_GET_PRC()				(0)																	/**< %jp{プロセッサ番号取得} */
 #define _KERNEL_SYS_GET_PRCCB()				(&_kernel_syscb.proccb[_KERNEL_SYS_GET_PRC()])						/**< %jp{プロセッサ制御ブロックの取得} */
@@ -90,14 +101,16 @@ extern _KERNEL_T_SYSCB _kernel_syscb;
 #define _KERNEL_SYS_GET_TMQ()				(&_kernel_syscb.tmqcb)												/**< %jp{タイマキューの取得} */
 #define _KERNEL_SYS_ADD_TMQ(pk_timobj)		_KERNEL_ADD_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj))
 #define _KERNEL_SYS_RMV_TMQ(pk_timobj)		_KERNEL_RMV_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj))
-#define _KERNEL_SYS_BSY_TMQ(pk_timobj)		_KERNEL_BSY_TMQ(_KERNEL_SYS_GET_TMQ(), (tictim))
+#define _KERNEL_SYS_BSY_TMQ(pk_timobj)		_KERNEL_BSY_TMQ(_KERNEL_SYS_GET_TMQ(), (pk_timobj))
 #define _KERNEL_SYS_SIG_TMQ(tictim)			_KERNEL_SIG_TMQ(_KERNEL_SYS_GET_TMQ(), (tictim))
 
+/* kernel memory heap */
+#define _KERNEL_SYS_GET_HEP()				(&_kernel_syscb.hepcb)												/**< %jp{タイマキューの取得} */
+#define _KERNEL_SYS_INI_HEP(hepsz, hep)		_KERNEL_CRE_HEP(_KERNEL_SYS_GET_HEP(), (hepsz), (hep))				/**< %jp{カーネルメモリヒープの初期化} */
+#define _KERNEL_SYS_ALC_HEP(size)			_KERNEL_ALC_HEP(_KERNEL_SYS_GET_HEP(), (size))						/**< %jp{カーネルメモリの割当て} */
+#define _KERNEL_SYS_FRE_HEP(ptr)			_KERNEL_FRE_HEP(_KERNEL_SYS_GET_HEP(), (ptr))						/**< %jp{カーネルメモリの開放} */
+#define _KERNEL_SYS_ALG_HEP(size)			_KERNEL_ALG_HEP(_KERNEL_SYS_GET_HEP(), (size))						/**< %jp{カーネルメモリのサイズアライメント} */
 
-#define _KERNEL_SYS_INI_MEM(hepsz, hep)		_kernel_cre_hep(&_kernel_syscb.memhep, (hepsz), (hep))				/**< %jp{カーネルメモリヒープの初期化} */
-#define _KERNEL_SYS_ALC_MEM(size)			_kernel_alc_hep(&_kernel_syscb.memhep, (size))						/**< %jp{カーネルメモリの割当て} */
-#define _KERNEL_SYS_FRE_MEM(ptr)			_kernel_fre_hep(&_kernel_syscb.memhep, (ptr))						/**< %jp{カーネルメモリの開放} */
-#define _KERNEL_SYS_ALG_MEM(size)			_kernel_alg_hep(size)												/**< %jp{カーネルメモリのサイズアライメント} */
 
 #define _KERNEL_SYS_INI_SYSSTK(stksz, stk)	do { _KERNEL_SYS_GET_PRCCB()->sysstksz = (stksz); _KERNEL_SYS_GET_PRCCB()->sysstk = (stk); } while(0)
 																												/**< %jp{システムスタックの初期化} */

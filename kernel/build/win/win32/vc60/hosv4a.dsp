@@ -188,6 +188,10 @@ SOURCE=..\..\..\..\include\core\sys.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\include\core\tim.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\include\core\tmq.h
 # End Source File
 # Begin Source File
