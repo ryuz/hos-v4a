@@ -26,6 +26,9 @@ void _kernel_add_tmq(
 		return;
 	}
 	
+	/* 次のティックまでの時間を加算しておく */
+	pk_timobj->lefttim += _KERNEL_SYS_GET_TIC();
+	
 	/* リストに登録 */
 	if ( tmqcb->head == NULL )
 	{

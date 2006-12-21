@@ -177,6 +177,7 @@ CORE_HEADERS   = $(INC_DIR)/core/adtq.h			\
                  $(INC_DIR)/core/que.h			\
                  $(INC_DIR)/core/rdq.h			\
                  $(INC_DIR)/core/sys.h			\
+                 $(INC_DIR)/core/tim.h			\
                  $(INC_DIR)/core/tmq.h			\
                  $(INC_DIR)/core/toq.h			\
                  $(INC_DIR)/core/dpc.h
@@ -199,7 +200,7 @@ MBXOBJ_HEADERS = $(INC_DIR)/object/mbxobj.h
 
 MPFOBJ_HEADERS = $(INC_DIR)/object/mpfobj.h
 
-TIMOBJ_HEADERS = $(INC_DIR)/object/timobj.h
+TIMOBJ_HEADERS = 
 
 INHOBJ_HEADERS = $(INC_DIR)/object/inhobj.h
 

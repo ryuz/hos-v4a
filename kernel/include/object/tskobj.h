@@ -326,6 +326,11 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_TCB_T_SUSCNT;			/**< %jp{強制待ち要�
 #endif
 
 
+typedef _KERNEL_T_MTXHDL				_KERNEL_TSK_T_MTXHDL;
+typedef _KERNEL_T_MTXHDL				_KERNEL_TCB_T_MTXHDL;
+#define _KERNEL_TCB_TBITDEF_MTXHDL
+
+
 /*  %jp{タスクデータ}%en{Task data} */
 #if _KERNEL_TCB_BITFIELD			/* %jp{TCBにビットフィールドを利用する場合} */
 
@@ -544,6 +549,9 @@ typedef struct _kernel_t_tcb
 	_KERNEL_TCB_T_SUSCNT	suscnt		_KERNEL_TCB_TBITDEF_SUSCNT;		/**< %jp{強制待ち要求ネスト回数}%en{Suspension count} */
 #endif
 
+#if _KERNEL_TCB_MTXHDL
+	_KERNEL_TCB_T_MTXHDL	mtxhdl		_KERNEL_TCB_TBITDEF_MTXHDL;		/**< %jp{所有するミューテックスのリスト} */	
+#endif
 
 #if _KERNEL_TCB_ERCD
 	_KERNEL_TCB_T_ERCD		ercd		_KERNEL_TCB_TBITDEF_ERCD;		/**< %jp{待ち解除時のエラーコード}%en{error code} */
@@ -621,6 +629,9 @@ typedef struct _kernel_t_tcb
 	_KERNEL_TCB_T_SUSCNT	suscnt		_KERNEL_TCB_TBITDEF_SUSCNT;		/**< %jp{強制待ち要求ネスト回数}%en{Suspension count} */
 #endif
 
+#if _KERNEL_TCB_MTXHDL
+	_KERNEL_TCB_T_MTXHDL	mtxhdl		_KERNEL_TCB_TBITDEF_MTXHDL;		/**< %jp{所有するミューテックスのリスト} */	
+#endif
 
 #if _KERNEL_TCB_ERCD
 	_KERNEL_TCB_T_ERCD		ercd		_KERNEL_TCB_TBITDEF_ERCD;		/**< %jp{待ち解除時のエラーコード}%en{error code} */
@@ -847,6 +858,15 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 #else
 #define _KERNEL_TSK_SET_SUSCNT(tcb, x)		do { } while(0)
 #define _KERNEL_TSK_GET_SUSCNT(tcb)			(0)
+#endif
+
+/* mtxhdl */
+#if _KERNEL_TCB_MTXHDL
+#define _KERNEL_TSK_SET_MTXHDL(tcb, x)		do { (tcb)->mtxhdl = (x); } while(0)
+#define _KERNEL_TSK_GET_MTXHDLtcb)			((tcb)->mtxhdl)
+#else
+#define _KERNEL_TSK_SET_MTXHDL(tcb, x)		do { } while(0)
+#define _KERNEL_TSK_GET_MTXHDL(tcb)			_KERNEL_MTXHDL_NULL
 #endif
 
 /* ercd */
