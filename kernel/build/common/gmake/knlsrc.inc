@@ -24,6 +24,7 @@ DSP_DIR     = $(CORE_DIR)/dsp
 QUE_DIR     = $(CORE_DIR)/que
 TOQ_DIR     = $(CORE_DIR)/toq
 TMQ_DIR     = $(CORE_DIR)/tmq
+TIM_DIR     = $(CORE_DIR)/tim
 HEP_DIR     = $(CORE_DIR)/hep
 DPC_DIR     = $(CORE_DIR)/dpc
 ADTQ_DIR    = $(CORE_DIR)/adtq
@@ -41,7 +42,7 @@ TIMOBJ_DIR  = $(OBJ_DIR)/tim
 
 INC_DIRS += $(INC_DIR)
 
-SRC_DIRS += $(DSP_DIR) $(QUE_DIR) $(TOQ_DIR) $(TMQ_DIR) $(HEP_DIR) $(DPC_DIR) $(ADTQ_DIR)		\
+SRC_DIRS += $(DSP_DIR) $(QUE_DIR) $(TOQ_DIR) $(TMQ_DIR) $(HEP_DIR) $(DPC_DIR) $(ADTQ_DIR) $(TIM_DIR)	\
             $(SYSOBJ_DIR) $(TSKOBJ_DIR) $(SEMOBJ_DIR) $(FLGOBJ_DIR) $(MBXOBJ_DIR)	\
             $(MPFOBJ_DIR) $(INHOBJ_DIR) $(ISROBJ_DIR) $(TIMOBJ_DIR)
 
@@ -65,6 +66,7 @@ CSRCS         += $(DSP_DIR)/ent_tsk.c			\
                  $(QUE_DIR)/trm_que.c			\
                  $(QUE_DIR)/nxt_que.c			\
                  $(QUE_DIR)/rot_que.c			\
+                 $(TIM_DIR)/sig_tim.c			\
                  $(TOQ_DIR)/sig_toq.c			\
                  $(TOQ_DIR)/add_toq.c			\
                  $(TOQ_DIR)/rmv_toq.c			\

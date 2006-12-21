@@ -17,6 +17,7 @@ KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/h8/h8300ha/ch38
 OBJS_DIR          = objs_$(TARGET)
+KERNEL_CFGRTR     = $(KERNEL_CFGRTR_DIR)/h4acfg-h8300ha
 
 # %jp{共通定義読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
