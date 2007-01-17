@@ -543,6 +543,10 @@ SOURCE=..\..\..\..\source\object\tsk\slp_tsk.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\tsk\sta_tsk.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\tsk\sus_tsk.c
 # End Source File
 # Begin Source File
@@ -859,11 +863,27 @@ SOURCE=..\..\..\..\source\object\dtq\trcv_dtq.c
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\cyc\acre_cyc.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\cyc\cre_cyc.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\cyc\kcre_cyc.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\cyc\kcyc_hdr.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\cyc\sta_cyc.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\cyc\stp_cyc.c
 # End Source File
 # End Group
 # Begin Group "mtx"

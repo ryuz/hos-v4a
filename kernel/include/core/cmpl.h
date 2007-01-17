@@ -16,7 +16,7 @@
 #define __STDC_VERSION__	0
 #endif
 
-#if __STDC_VERSION__ >= 199901L
+#if __STDC_VERSION__ >= 199901L && !defined(SDCC)
 
 /* C99(ISO/IEC 9899:1999) */
 #define _KERNEL_CMPL_STDINT_H			TRUE						/**< %jp{stdint.hは利用可能か？} */

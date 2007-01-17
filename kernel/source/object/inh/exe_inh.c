@@ -26,7 +26,7 @@ void _kernel_exe_inh(INHNO inhno)
 		if ( pk_inhinf->inthdr != NULL )
 		{
 			_KERNEL_ENA_INT();			/* %jp{多重割込み許可} */
-			pk_inhinf->inthdr(inhno);	/* %jp{割込みハンドラの処理} */
+			pk_inhinf->inthdr();		/* %jp{割込みハンドラの処理} */
 			_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 		}
 	}

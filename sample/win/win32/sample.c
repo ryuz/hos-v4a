@@ -32,11 +32,18 @@ typedef struct t_print_msg
 } T_PRINT_MSG;
 
 
+void CycHdr(VP_INT exinf)
+{
+	printf("hoge\n");
+}
+
+
 /** %jp{初期化ハンドラ} */
 void Sample_Initialize(VP_INT exinf)
 {
 	T_CMPF cmpf;
 	T_CMBX cmbx;
+	T_CCYC ccyc;
 	
 	/* %jp{固定長メモリプール生成} */
 	cmpf.mpfatr = TA_TFIFO;					
@@ -58,6 +65,17 @@ void Sample_Initialize(VP_INT exinf)
 	act_tsk(TSKID_SAMPLE3);
 	act_tsk(TSKID_SAMPLE4);
 	act_tsk(TSKID_SAMPLE5);
+
+	{
+		ER_ID erid;
+		ccyc.cycatr = TA_HLNG;
+		ccyc.cychdr = (FP)CycHdr;
+		ccyc.cycphs = 0;
+		ccyc.cyctim = 1000;
+		ccyc.exinf  = 0;
+		erid = acre_cyc(&ccyc);
+		sta_cyc(erid);
+	}
 }
 
 

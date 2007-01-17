@@ -93,7 +93,7 @@ static CApiDef* g_ApiList[] =
 //		&g_ApiCreMbf,
 		&g_ApiCreMpf,
 		&g_ApiTimTic,
-//		&g_ApiCreCyc,
+		&g_ApiCreCyc,
 //		&g_ApiCreAlm,
 		&g_ApiDefInh,
 		&g_ApiAttIsr,
@@ -346,6 +346,7 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/mpfobj.h\"\n");
 	fprintf(fp, "#include \"object/inhobj.h\"\n");
 	fprintf(fp, "#include \"object/isrobj.h\"\n");
+	fprintf(fp, "#include \"object/cycobj.h\"\n");
 	
 //	fprintf(fp, "#include \"%s\"\n", s_szIdFile);
 	fprintf(fp, "#include \"kernel_id.h\"\n", s_szIdFile);

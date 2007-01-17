@@ -48,18 +48,13 @@ int CApiCreCyc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		return AddParams(pszParams);
 	}
-	else if ( strcmp(pszApiName, "HOS_MAX_CYCID") == 0 )
+	else if ( strcmp(pszApiName, "KERNEL_MAX_CYCID") == 0 )
 	{
 		int iId;
 
 		if ( m_iMaxId > 0 )
 		{
 			return CFG_ERR_MULTIDEF;
-		}
-
-		if ( m_iResObj > 0 )
-		{
-			return CFG_ERR_DEF_CONFLICT;
 		}
 
 		if ( (iId = atoi(pszParams)) <= 0 )
@@ -71,25 +66,7 @@ int CApiCreCyc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 
 		return CFG_ERR_OK;
 	}
-	else if ( strcmp(pszApiName, "HOS_RES_CYCOBJ") == 0 )
-	{
-		int iId;
-
-                if ( m_iMaxId > 0 )
-		{
-                        return CFG_ERR_DEF_CONFLICT;
-		}
-
-                if ( (iId = atoi(pszParams)) <= 0 )
-		{
-                        return CFG_ERR_PARAM;
-		}
-
-                m_iResObj += iId;
-
-                return CFG_ERR_OK;
-        }
-
+	
 	return CFG_ERR_NOPROC;
 }
 
@@ -99,20 +76,11 @@ void CApiCreCyc::WriteId(FILE* fp)
 {
 	int i;
 
-	// ID 直接指定でないオブジェクトが在るかどうかサーチ
-	for ( i = 0; i < m_iObjs; i++ )
-	{
-		if ( atoi(m_pParamPacks[i]->GetParam(CRECYC_CYCID)) == 0 )
-		{
-			break;
-		}
-	}
-	if ( i == m_iObjs )
-	{
-		return;
-	}
+	// %jp{コメントを出力}
+	fputs("\n\n/* Semaphore object ID definetion */\n\n", fp);
 
-	fputs("\n\n/* cyclic handler ID definetion */\n", fp);
+
+	// %jp{ID定義を出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
 		if ( atoi(m_pParamPacks[i]->GetParam(CRECYC_CYCID)) == 0 )
@@ -124,8 +92,15 @@ void CApiCreCyc::WriteId(FILE* fp)
 				m_iId[i]);
 		}
 	}
-
-	fprintf( fp,"\n#define TMAX_CYCID\t\t%d\n", m_iMaxId );
+	
+	// %jp{ID最大値定義を出力}
+	fprintf( fp,
+		"\n"
+		"#ifdef  TMAX_CYCID\n"
+		"#undef  TMAX_CYCID\n"
+		"#endif\n"
+		"\n"
+		"#define TMAX_CYCID\t\t%d\n\n", m_iMaxId );
 }
 
 
@@ -142,114 +117,199 @@ void  CApiCreCyc::WriteCfgDef(FILE* fp)
 		"/* ------------------------------------------ */\n"
 		, fp);
 
-	if ( m_iObjs > 0 )
-	{
-		fprintf(
-			fp,
-			"\n/* cyclic handler control block for rom area */\n"
-			"const T_KERNEL_CYCCB_ROM kernel_cyccb_rom[%d] =\n"
-			"\t{\n",
-			m_iObjs);
-
-		// コントロールブロック(ROM部)出力
-		for ( i = 0; i < m_iObjs; i++ )
-		{
-			fprintf(
-				fp,
-				"\t\t{(ATR)(%s), (VP_INT)(%s), (FP)(%s), (RELTIM)(%s)},\n",
-				m_pParamPacks[i]->GetParam(CRECYC_CYCATR),
-				m_pParamPacks[i]->GetParam(CRECYC_EXINF),
-				m_pParamPacks[i]->GetParam(CRECYC_CYCHDR),
-				m_pParamPacks[i]->GetParam(CRECYC_CYCTIM));
-		}
-		fprintf(fp, "\t};\n");
-	}
-
-	// コントロールブロック(RAM部)出力
-	if ( m_iObjs > 0 )
-	{
-		fprintf(
-			fp,
-			"\n/* cyclic handler control block for ram area */\n"
-			"T_KERNEL_CYCCB_RAM kernel_cyccb_ram[%d];\n",
-			m_iObjs);
-	}
-
-	// コントロールブロックテーブル出力
 	if ( m_iMaxId > 0 )
 	{
-		fprintf(
-			fp,
-			"\n/* cyclic handler control block table */\n"
-			"T_KERNEL_CYCCB_RAM *kernel_cyccb_ram_tbl[%d] =\n"
-			"\t{\n",
-			m_iMaxId);
-
-		for ( i = 0; i < m_iMaxId; i++ )
+#if _KERNEL_CYCCB_ALGORITHM == _KERNEL_CYCCB_ALG_BLKARRAY
+#if _KERNEL_CYCCB_SPLIT_RO
+	// %jp{ブロック配列＆ROM分離}
+	{
+		// %jp{RAM部出力}
+		fprintf(fp, "\n_KERNEL_T_CYCCB _kernel_cyccb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
 		{
-			// ID検索
-			for ( j = 0; j < m_iObjs; j++ )
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
 			{
-				if ( m_iId[j] == i + 1 )
-				{
-					break;
-				}
-			}
-			if ( j < m_iObjs )
-			{
-				// オブジェクトが存在した場合
-				fprintf(fp, "\t\t&kernel_cyccb_ram[%d],\n", j);
+				fprintf(fp, "\t\t{");
+				WriteSemcbRam(fp, iObjNum);
+				fprintf(fp, "},\n");
 			}
 			else
 			{
-				// オブジェクトが無い場合
-				fputs("\t\tNULL,\n", fp);
+				fprintf(fp, "\t\t{0},\n");
 			}
 		}
-		fputs("\t};\n", fp);
+		fprintf(fp, "\t};\n");
+
+		// %jp{ROM部出力}
+		fprintf(fp, "\nconst _KERNEL_T_CYCCB_RO _kernel_cyccb_ro_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t{");
+				WriteSemcbRom(fp, iObjNum);
+				fprintf(fp, "},\n");
+			}
+			else
+			{
+				fprintf(fp, "\t\t{0},\n");
+			}
+		}
+		fprintf(fp, "\t};\n\n");
+	}
+#else
+	// %jp{ブロック配列＆統合CYCCB}
+	{
+		// %jp{RAM部出力}
+		fprintf(fp, "\n_KERNEL_T_CYCCB _kernel_cyccb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t{");
+				WriteCyccbRam(fp, iObjNum);
+				WriteCyccbRom(fp, iObjNum);
+				fprintf(fp, "},\n");
+			}
+			else
+			{
+				fprintf(fp, "\t\t{{0}, },\n");
+			}
+		}
+		fprintf(fp, "\t};\n");
+	}
+#endif
+#elif _KERNEL_CYCCB_ALGORITHM == _KERNEL_CYCCB_ALG_PTRARRAY
+#if _KERNEL_CYCCB_SPLIT_RO
+	// %jp{ポインタ配列＆ROM分離}
+	{
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "const _KERNEL_T_CYCCB_RO _kernel_cyccb_ro_blk_%d = {", m_iId[i]);
+			WriteCyccbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_CYCCB _kernel_cyccb_blk_%d = {", m_iId[i]);
+			WriteCyccbRam(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_CYCCB *_kernel_cyccb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t&_kernel_cyccb_blk_%d,\n", i);
+			}
+			else
+			{
+				fprintf(fp, "\t\tNULL,\n");
+			}
+		}
+		fprintf(fp, "\t};\n");		
+	}
+#else
+	// %jp{ポインタ配列＆統合CYCCB}
+	{
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_CYCCB _kernel_cyccb_blk_%d = {", m_iId[i]);
+			WriteCyccbRam(fp, i);
+			WriteCyccbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_CYCCB *_kernel_cyccb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t&_kernel_cyccb_blk_%d,\n", i);
+			}
+			else
+			{
+				fprintf(fp, "\t\tNULL,\n");
+			}
+		}
+		fprintf(fp, "\t};\n");		
+	}
+#endif
+#endif
 	}
 
 	// テーブルサイズ情報出力
 	fprintf(
 		fp,
-		"\n/* cyclic handler control block count */\n"
-		"const INT kernel_cyccb_cnt = %d;\n",
+		"\nconst ID	_kernel_max_cycid = %d;\n",
 		m_iMaxId);
 }
+
+
+
+void CApiCreCyc::WriteCyccbRam(FILE *fp, int iObj)
+{
+#if _KERNEL_CYCCB_TIMOBJ
+	fprintf(fp, "{0}, ");														/* %jp{タイムオブジェクト} */
+#endif
+}
+
+
+void CApiCreCyc::WriteCyccbRom(FILE *fp, int iObj)
+{
+#if _KERNEL_CYCCB_CYCATR
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CRECYC_CYCATR));	/**< %jp{周期ハンドラ属性} */
+#endif
+
+#if _KERNEL_CYCCB_EXINF
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CRECYC_EXINF));		/**< %jp{周期ハンドラの拡張情報} */
+#endif
+
+#if _KERNEL_CYCCB_CYCHDR
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CRECYC_CYCHDR));	/**< %jp{周期ハンドラ} */
+#endif
+
+#if _KERNEL_CYCCB_CYCTIM
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CRECYC_CYCTIM));	/**< %jp{周期ハンドラの起動周期} */
+#endif
+
+#if _KERNEL_CYCCB_CYCPHS
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CRECYC_CYCPHS));	/**< %jp{周期ハンドラの起動位相} */
+#endif
+}
+
 
 
 // cfgファイル初期化部書き出し
 void  CApiCreCyc::WriteCfgIni(FILE* fp)
 {
-	// オブジェクト存在チェック
-	if ( m_iObjs == 0 )
+#if _KERNEL_CYCCB_ALGORITHM == _KERNEL_CYCCB_ALG_PTRARRAY && _KERNEL_CYCCB_SPLIT_RO
+	if ( m_iObjs <= 0 )
 	{
 		return;
 	}
 
-	// 初期化部出力
-	fprintf(
-		fp,
-		"\t\n\t\n"
-		"\t/* initialize cyclic handler control block */\n"
-		"\tfor ( i = 0; i < %d; i++ )\n"
-		"\t{\n"
-		"\t\tkernel_cyccb_ram[i].cyccb_rom = &kernel_cyccb_rom[i];\n"
-		"\t}\n",
-		m_iObjs);
+	fprintf(fp, "\n\t/* cycaphores */\n");
+	for ( int i = 0; i < m_iObjs; i++ )
+	{
+		fprintf(fp, "\t_kernel_cyccb_blk_%d.cyccb_ro = &_kernel_cyccb_ro_blk_%d;\n", m_iId[i], m_iId[i]);
+	}	
+#endif
 }
 
 
 // cfgファイル起動部書き出し
 void  CApiCreCyc::WriteCfgStart(FILE* fp)
 {
-	// オブジェクト存在チェック
-	if ( m_iObjs == 0 )
-	{
-		return;
-	}
-
-	fputs("\tkernel_ini_cyc();\t\t/* initialize cyclic handler */\n", fp);
 }
 
 

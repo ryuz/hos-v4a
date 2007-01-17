@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string>
 #include <vector>
+#include <list>
 using namespace std;
 
 
@@ -36,8 +37,8 @@ using namespace std;
 
 struct TTerm
 {
-	int iType;
-	int iValue;
+	int  iType;
+	long lValue;
 };
 
 
@@ -45,23 +46,108 @@ struct TTerm
 class CExpression
 {
 public:
-	static bool Calc(const char *pszExpression, int &piValue);					// 計算する
+	static bool Calc(const char *pszExpression, long &lValue);					// 計算する
 
 protected:
 	static bool Scanner(vector<TTerm> &vectTerm, const char *pszExpression);	// レキシカルアナライザ
-	static bool Parser(vector<TTerm> &vectTerm, int iIndex);					// パーサー
+	static bool Parser(vector<TTerm> &vectTerm, int &iIndex, TTerm &Term);		// パーサー
 };
 
 
 // 計算する
-bool CExpression::Calc(const char *pszExpression, int &piValue)
-{
-
-}
-
-bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &piValue)
+bool CExpression::Calc(const char *pszExpression, long &lValue)
 {
 	vector<TTerm> vectTerm;
+	TTerm         Term;
+
+//	Term.iType = TYPE_LP;
+//	vectTerm.push_back(Term);
+	
+	// スキャナを通す
+	if ( !Scanner(vectTerm, pszExpression) )
+	{
+		return false;
+	}
+
+	Term.iType = TYPE_RP;
+	vectTerm.push_back(Term);
+	
+	
+
+	return true;
+}
+
+
+// パーサー
+static bool Parser(vector<TTerm> &vectTerm, int &iIndex, TTerm &RetVal)
+{
+	TTerm Term;
+	list<TTerm>           listTerm;
+	list<TTerm>::iterator it;
+
+	for ( ; ; )
+	{
+		if ( iIndex >= vectTerm.size() )
+		{
+			return false;	// エラー
+		}
+		
+		// 右括弧で抜ける
+		Term = vectTerm.at(iIndex++);
+		if ( Term.iType == TYPE_RP )
+		{
+			break;
+		}
+		
+		// 左括弧なら再帰処理
+		if ( Term.iType == TYPE_LP )
+		{
+			if ( !Parser(vectTerm, iIndex, Term) == 0 )
+			{
+				return false;
+			}
+		}
+
+		listTerm.push_back(Term);
+	}
+	
+	if ( listTerm.size() <= 0 )
+	{
+		return false;
+	}
+	
+	// 単項演算子(右結合)
+	{
+		list<int>::reverse_iterator it;
+
+		for ( it = listTerm.rbegin(); it != listTerm.rend(); it++ )
+		{
+
+	for ( i = vectWork.size() - 1; i >= 0; i-- )
+	{
+		if ( Term.iType == TYPE_PLUS )
+		{
+			if ( i == 0 || vectWork.at(i - 1).iType != TYPE_INT )
+			{
+				if ( i + 1 >= vectWork.size() || vectWork.at(i + 1).iType != TYPE_INT )
+				{
+					return false;	// エラーー
+				}
+				Term = vectWork.at(i + 1);
+				Term.lValue = -Term.lValue;
+				vectWork.erase(i);
+				vectWork.erase(i + 1);
+				vectWork.insert(i, Term);
+			}
+		}
+		if ( Term.iType == TYPE_MINUS
+	}
+#endif
+}
+
+
+bool CExpression::Scanner(vector<TTerm> &vectTerm, const char *pszExpression)
+{
 	TTerm Term;
 	int   c;
 
@@ -74,7 +160,7 @@ bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &
 			if ( (c == 'x' || c == 'X') && isxdigit(*pszExpression) )	/* HEX */
 			{
 				Term.iType  = TYPE_INT;
-				Term.iValue = 0;
+				Term.lValue = 0;
 				for ( ; ; )
 				{
 					c = *pszExpression++;
@@ -84,18 +170,18 @@ bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &
 						pszExpression--;
 						break;
 					}
-					Term.iValue *= 16;
+					Term.lValue *= 16;
 					if ( c >= 'a' && c <= 'f' )
 					{
-						Term.iValue += c - 'a' + 10;
+						Term.lValue += c - 'a' + 10;
 					}
 					else if ( c >= 'A' && c <= 'F' )
 					{
-						Term.iValue += c - 'A' + 10;
+						Term.lValue += c - 'A' + 10;
 					}
 					else
 					{
-						Term.iValue += c - '0';
+						Term.lValue += c - '0';
 					}
 				}
 				continue;
@@ -103,7 +189,7 @@ bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &
 			else if ( c >= '0' && c <= '9' )	/* OCT */
 			{
 				Term.iType  = TYPE_INT;
-				Term.iValue = 0;
+				Term.lValue = 0;
 				for ( ; ; )
 				{
 					c = *pszExpression++;
@@ -113,8 +199,8 @@ bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &
 						pszExpression--;
 						break;
 					}
-					Term.iValue *= 8;
-					Term.iValue += c - '0';
+					Term.lValue *= 8;
+					Term.lValue += c - '0';
 				}
 				continue;
 			}
@@ -126,7 +212,7 @@ bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &
 		else if ( isdigit(c) )		/* DEC */
 		{
 			Term.iType  = TYPE_INT;
-			Term.iValue = c - '0';
+			Term.lValue = c - '0';
 			for ( ; ; )
 			{
 				c = *pszExpression++;
@@ -136,8 +222,8 @@ bool CExpression::Calc(vector<TTerm> &vectTerm, const char *pszExpression, int &
 					pszExpression--;
 					break;
 				}
-				Term.iValue *= 10;
-				Term.iValue += c - '0';
+				Term.lValue *= 10;
+				Term.lValue += c - '0';
 			}
 			continue;
 		}
