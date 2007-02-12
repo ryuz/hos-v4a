@@ -1,60 +1,94 @@
+# ----------------------------------------------------------------------------
+# Hyper Operating System V4 Advance
+#  makefile for sh2-sample
+#
+# Copyright (C) 1998-2006 by Project HOS
+# http://sourceforge.jp/projects/hos/
+# ----------------------------------------------------------------------------
+
+# %jp{ターゲット名}
+TARGET ?= sample
+
+EXT_EXE = exe
+
+# %jp{ディレクトリ定義}
+OS_DIR            = ../../../..
+KERNEL_DIR        = $(OS_DIR)/kernel
+KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
+KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/win/win32/gcc
+OBJS_DIR          = objs_$(TARGET)
+
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-TARGET ?= sample.exe
-
-INC_DIR = ../../../../kernel/include
-
-# Tools
-CC     = gcc
-ASM    = gcc
-LINK   = gcc
-DEPEND = gcc -M
-LINT   = splint
-AWK    = gawk
-
-CFLAGS = -c -g -O0 -Wall -I$(INC_DIR)
-AFLAGS = -c -g
-LFLAGS = 
-
-OBJS_DIR = objs
-
-OBJS = $(OBJS_DIR)/main.o			\
-       $(OBJS_DIR)/sample.o			\
-       $(OBJS_DIR)/ostimer.o		\
-       $(OBJS_DIR)/wintimer.o		\
-       $(OBJS_DIR)/kernel_cfg.o
-
-OS_LIBS = ../../../../kernel/build/win/win32/gcc/libhosv4a.a
-OS_CFG  = ../../../../cfgrtr/build/gcc/h4acfg-win32.exe
-
-VPATH = ..
-
-all: mkdir_objs mk_kernel $(TARGET)
+# %jp{フラグ設定}
+CFLAGS   = 
+AFLAGS   = 
+LNFLAGS  = 
+LNFLAGS2 = -lwinmm
 
 
-$(TARGET): $(OBJS)
-	$(LINK) $(LFLAGS) $(OBJS) $(OS_LIBS) -lwinmm -o $(TARGET)
+# %jp{コンフィギュレータ定義}
+KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-win32
 
-mk_kernel:
-	make -C ../../../../kernel/build/win/win32/gcc -f gmake.mak
+# 出力ファイル名
+TARGET_EXE = $(TARGET).$(EXT_EXE)
+TARGET_ASC = $(TARGET).$(EXT_ASC)
 
-mkdir_objs:
-	@mkdir -p $(OBJS_DIR)
 
-clean:
-	rm -f $(OBJS) $(TARGET) ../kernel_cfg.c ../kernel_id.h
+# %jp{gcc用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 
-distclean: clean
-	make -C ../../../../kernel/build/win/win32/gcc -f gmake.mak clean
+# %jp{ソースディレクトリ}
+SRC_DIRS += . ..
+
+# %jp{アセンブラファイルの追加}
+ASRCS += 
+
+# %jp{C言語ファイルの追加}
+CSRCS += ../kernel_cfg.c	\
+         ../main.c			\
+         ../sample.c		\
+         ../ostimer.c		\
+         ../wintimer.c
+
+
+# %jp{ライブラリの追加}
+LIBS += 
+
+
+
+# --------------------------------------
+#  %jp{ルール}
+# --------------------------------------
+
+.PHONY : all
+all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
+
+clean: makeexe_clean
+	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
-	$(OS_CFG) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
 
-$(OBJS_DIR)/sample.o: ../kernel_id.h
+# %jp{ライブラリ生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
-$(OBJS_DIR)/%.o :: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# %jp{shc用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
 
+
+
+# --------------------------------------
+#  %jp{依存関係}
+# --------------------------------------
+
+$(OBJS_DIR)/sample.$(EXT_OBJ): ../sample.c ../kernel_id.h
+
+
+# end of file
 

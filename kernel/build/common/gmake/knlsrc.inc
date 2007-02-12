@@ -7,11 +7,6 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
-
 
 # Directories
 SRC_DIR     = $(KERNEL_DIR)/source
@@ -38,13 +33,15 @@ MPFOBJ_DIR  = $(OBJ_DIR)/mpf
 INHOBJ_DIR  = $(OBJ_DIR)/inh
 ISROBJ_DIR  = $(OBJ_DIR)/isr
 TIMOBJ_DIR  = $(OBJ_DIR)/tim
+CYCOBJ_DIR  = $(OBJ_DIR)/cyc
+
 
 
 INC_DIRS += $(INC_DIR)
 
 SRC_DIRS += $(DSP_DIR) $(QUE_DIR) $(TOQ_DIR) $(TMQ_DIR) $(HEP_DIR) $(DPC_DIR) $(ADTQ_DIR) $(TIM_DIR)	\
             $(SYSOBJ_DIR) $(TSKOBJ_DIR) $(SEMOBJ_DIR) $(FLGOBJ_DIR) $(MBXOBJ_DIR)	\
-            $(MPFOBJ_DIR) $(INHOBJ_DIR) $(ISROBJ_DIR) $(TIMOBJ_DIR)
+            $(MPFOBJ_DIR) $(INHOBJ_DIR) $(ISROBJ_DIR) $(TIMOBJ_DIR) $(CYCOBJ_DIR)
 
 
 # C source files
@@ -148,7 +145,13 @@ CSRCS         += $(DSP_DIR)/ent_tsk.c			\
                  $(INHOBJ_DIR)/end_inh.c		\
                  $(ISROBJ_DIR)/acre_isr.c		\
                  $(ISROBJ_DIR)/kcre_isr.c		\
-                 $(ISROBJ_DIR)/exe_isr.c
+                 $(ISROBJ_DIR)/exe_isr.c		\
+                 $(CYCOBJ_DIR)/cre_cyc.c		\
+                 $(CYCOBJ_DIR)/acre_cyc.c		\
+                 $(CYCOBJ_DIR)/kcre_cyc.c		\
+                 $(CYCOBJ_DIR)/sta_cyc.c		\
+                 $(CYCOBJ_DIR)/stp_cyc.c		\
+                 $(CYCOBJ_DIR)/kcyc_hdr.c		\
 
 
 # Header files

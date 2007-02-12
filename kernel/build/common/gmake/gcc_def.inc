@@ -10,7 +10,7 @@
 CMD_CC     ?= gcc
 CMD_ASM    ?= gcc
 CMD_LIBR   ?= ar
-CMD_LINK   ?= ln
+CMD_LINK   ?= gcc
 CMD_OBJCNV ?= objcopy
 
 # %jp{拡張子定義}
