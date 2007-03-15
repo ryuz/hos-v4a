@@ -10,14 +10,8 @@
 
 
 #include <stdio.h>
-#include "hdlobj.h"
+#include "handleobj.h"
 
-
-/* コンストラクタ */
-void HandleObj_Create(C_HANDLEOBJ *self, const T_HANDLEOBJ_METHODS *pMethods)
-{
-	self->pMethods = pMethods;
-}
 
 /* デストラクタ */
 void HandleObj_Delete(C_HANDLEOBJ *self)

@@ -8,11 +8,14 @@
  * http://sourceforge.jp/projects/hos/
  */
 
-
-#include "filesys.h"
-#include "system/sysapi/sysapi.h"
-#include "system/memory/memory.h"
+#include "fileobj.h"
 
 
+void FileObj_Delete(C_FILEOBJ *self)
+{
+	HandleObj_Delete(&self->HandleObj);
+}
 
 
+
+/* end of file */

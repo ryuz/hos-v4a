@@ -12,6 +12,7 @@ CMD_ASM    ?= armasm
 CMD_LIBR   ?= armar
 CMD_LINK   ?= armlink
 CMD_OBJCNV ?= fromelf
+CMD_DEPEND ?= gcc
 
 # %jp{拡張子定義}
 EXT_C   ?= c
@@ -41,9 +42,10 @@ CFLAGS_DEF =
 CFLAGS_DBG = -g
 
 # %jp{最適化オプションの定義}
-CFLAGS_OPT_NONE  = -O0
-CFLAGS_OPT_SIZE  = -O3 -Ospace
-CFLAGS_OPT_SPEED = -O3 -Otime
+CFLAGS_OPT_NONE   = -O0
+CFLAGS_OPT_SIZE   = -O3 -Ospace
+CFLAGS_OPT_SPEED  = -O3 -Otime
+CFLAGS_OPT_NORMAL = -O3
 
 
 # ----------------------------------
@@ -66,6 +68,14 @@ AFLAGS_DBG = -g
 AFLAGS_OPT_NONE  =
 AFLAGS_OPT_SIZE  =
 AFLAGS_OPT_SPEED =
+
+
+# ----------------------------------
+#  makedepend
+# ----------------------------------
+
+# %jp{オプションの設定}
+DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 
 
 # end of file

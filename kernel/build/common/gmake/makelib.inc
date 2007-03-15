@@ -101,5 +101,6 @@ srccpy:
 	$(CMD_CP) -t $(SRCCPYDIR) $(ASRCS) $(CSRCS)
 endif
 
+-include $(OBJS_DIR)/depend.inc
 
 # end of file

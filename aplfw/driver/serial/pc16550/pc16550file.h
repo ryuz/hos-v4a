@@ -20,9 +20,9 @@
 /* PC16550用ドライバ制御部 */
 typedef struct c_pc16550file
 {
-	C_FILEOBJ FileObj;		/* ファイルオブジェクトを継承 */
+	C_FILEOBJ		FileObj;		/* ファイルオブジェクトを継承 */
 
-	C_PC16550DRV  *pPc16550Drv;		/* Pc16550Drvクラスの参照 */
+	C_PC16550DRV	*pPc16550Drv;	/* Pc16550Drvクラスの参照 */
 } C_PC16550FILE;
 
 
@@ -32,7 +32,7 @@ extern "C" {
 #endif
 
 /* PC16550用デバイスドライバ */
-FILE_ERR Pc16550File_Create(HANDLE hFile, void *pParam);			/**< コンストラクタ */
+FILE_ERR Pc16550File_Create(HANDLE hFile, void *pParam, int iMode);			/**< コンストラクタ */
 
 #ifdef __cplusplus
 }

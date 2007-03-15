@@ -13,6 +13,12 @@ C_PROCESSOBJ *Process_pProcTable[PROCESS_MAX_PROCESS];
 static void Process_Entry(VPARAM Param);
 
 
+HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority)
+{
+	return Process_CreateEx(pfncEntry, Param, StackSize, Priority, NULL);
+}
+
+
 HANDLE Process_CreateEx(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INFO *pInfo)
 {
 	C_PROCESSOBJ *self;

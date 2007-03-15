@@ -30,7 +30,7 @@ typedef struct c_consolefile
 extern "C" {
 #endif
 
-FILE_ERR ConsoleFile_Create(HANDLE hFile, void *pParam);			/**< コンストラクタ */
+FILE_ERR ConsoleFile_Create(HANDLE hFile, void *pParam, const char *pszName, int iMode);			/**< コンストラクタ */
 
 #ifdef __cplusplus
 }

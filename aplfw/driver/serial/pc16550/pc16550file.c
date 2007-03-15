@@ -28,10 +28,10 @@ const T_FILEOBJ_METHODS Pc16550File_FileObjMethods =
 
 
 /** コンストラクタ */
-FILE_ERR Pc16550File_Create(HANDLE hFile, void *pParam)
+FILE_ERR Pc16550File_Create(HANDLE hFile, void *pParam, int iMode)
 {
 	C_PC16550FILE *self;
-
+	
 	self = (C_PC16550FILE *)hFile;
 	
 	/* 親クラスコンストラクタ呼び出し */

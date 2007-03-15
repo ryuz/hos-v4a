@@ -11,9 +11,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "file.h"
+#include "file_local.h"
 #include "fileobj.h"
-#include "filesys.h"
 #include "system/sysapi/sysapi.h"
 #include "system/memory/memory.h"
 

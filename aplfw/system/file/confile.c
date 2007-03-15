@@ -28,7 +28,7 @@ const T_FILEOBJ_METHODS ConsoleFile_FileObjMethods =
 
 
 /** コンストラクタ */
-FILE_ERR ConsoleFile_Create(HANDLE hFile, void *pParam)
+FILE_ERR ConsoleFile_Create(HANDLE hFile, void *pParam, const char *pszName, int iMode)
 {
 	C_CONSOLEFILE *self;
 

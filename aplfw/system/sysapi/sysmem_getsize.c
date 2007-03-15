@@ -24,5 +24,4 @@ MEMSIZE SysMem_GetSize(void *pMem)
 }
 
 
-
 /* end of file */

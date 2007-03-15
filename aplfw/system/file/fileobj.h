@@ -14,7 +14,7 @@
 
 
 #include "system/file/file.h"
-#include "system/handle/hdlobj.h"
+#include "system/handle/handleobj.h"
 
 
 /* ファイルオブジェクトクラス基本メソッドテーブル */
