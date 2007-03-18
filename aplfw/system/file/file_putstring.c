@@ -9,6 +9,7 @@
  */
 
 
+#include <string.h>
 #include <stdio.h>
 #include "file_local.h"
 

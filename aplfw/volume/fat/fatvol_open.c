@@ -65,16 +65,16 @@ HANDLE FatVol_Open(C_FATVOL *self, const char *pszPath, int iMode)
 				{
 					break;
 				}
-				szEntryName[iEntryNameLen++] == (char)ubBuf[0+j];
+				szEntryName[iEntryNameLen++] = (char)ubBuf[0+j];
 			}
-			szEntryName[iEntryNameLen++] == '.';
+			szEntryName[iEntryNameLen++] = '.';
 			for ( j = 0; j < 3; j++ )
 			{
 				if ( ubBuf[8+j] == ' ' || ubBuf[8+j] == '\0' )
 				{
 					break;
 				}
-				szEntryName[iEntryNameLen++] == (char)ubBuf[8+j];
+				szEntryName[iEntryNameLen++] = (char)ubBuf[8+j];
 			}
 			szEntryName[iEntryNameLen++] = '\0';
 			if ( iEntryNameLen > 2 && szEntryName[iEntryNameLen-1] == '.' )

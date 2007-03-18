@@ -15,7 +15,7 @@
 #include "kernel.h"
 #include "kernel_id.h"
 #include "system/sysapi/sysapi.h"
-#include "system/file/filesys.h"
+#include "system/file/file.h"
 #include "system/file/confile.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
@@ -40,10 +40,10 @@ void Sample_Initialize(VP_INT exinf)
 /* 初期化タスク */
 void Sample_Startup(VP_INT exinf)
 {
-	T_SYSFILE_DEVINF DevInf;
-	T_PROCESS_INFO   ProcInfo;
-	HANDLE           hTty;
-	HANDLE           hCon;
+	T_FILE_DEVINF  DevInf;
+	T_PROCESS_INFO ProcInfo;
+	HANDLE         hTty;
+	HANDLE         hCon;
 	
 	/*************************/
 	/*       初期化          */
@@ -51,6 +51,7 @@ void Sample_Startup(VP_INT exinf)
 	
 	/* システム初期化 */
 	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
+	File_Initialize();
 
 
 	/*************************/
@@ -65,7 +66,7 @@ void Sample_Startup(VP_INT exinf)
 	DevInf.pfncCreate = WinSockFile_Create;
 	DevInf.ObjSize    = sizeof(C_WINSOCKFILE);
 	DevInf.pParam     = &g_WinSockDrv[0];
-	SysFile_AddDevice("/dev", &DevInf);
+	File_AddDevice(&DevInf);
 
 	/*************************/
 	/*     コマンド登録      */
@@ -85,7 +86,7 @@ void Sample_Startup(VP_INT exinf)
 	DevInf.pfncCreate = ConsoleFile_Create;
 	DevInf.ObjSize    = sizeof(C_CONSOLEFILE);
 	DevInf.pParam     = hTty;
-	SysFile_AddDevice("/dev", &DevInf);
+	File_AddDevice(&DevInf);
 	hCon = File_Open("/dev/con", FILE_MODE_READ | FILE_MODE_WRITE);
 	
 	ProcInfo.hTty    = hTty;
@@ -102,7 +103,7 @@ void Sample_Startup(VP_INT exinf)
 int System_Boot(VPARAM Param)
 {
 	/* シェル起動 */
-	return Command_Execute("hsh");
+	return Command_Execute("hsh", NULL);
 }
 
 

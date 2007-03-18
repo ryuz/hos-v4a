@@ -448,11 +448,59 @@ SOURCE=..\..\..\..\system\file\confile.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\file.c
+SOURCE=..\..\..\..\system\file\file.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\file.h
+SOURCE=..\..\..\..\system\file\file_adddevice.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_addvolume.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_getchar.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_getstring.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_initialize.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_iocontrol.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_open.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_putchar.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_putstring.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_read.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_seek.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_write.c
 # End Source File
 # Begin Source File
 
@@ -464,11 +512,35 @@ SOURCE=..\..\..\..\system\file\fileobj.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\fileobj_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\fileobj_delete.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\stdfile.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\stdfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volume.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volume_openfile.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volumeobj.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volumeobj_create.c
 # End Source File
 # End Group
 # Begin Group "memory"
@@ -488,19 +560,23 @@ SOURCE=..\..\..\..\system\memory\memory.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\system\handle\handle.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\handle\handle.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\handle\hdlobj.c
+SOURCE=..\..\..\..\system\handle\handle_close.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\handle\hdlobj.h
+SOURCE=..\..\..\..\system\handle\handleobj.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\handleobj_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\handleobj_delete.c
 # End Source File
 # End Group
 # Begin Group "shell"
@@ -565,6 +641,106 @@ SOURCE=..\..\..\..\apl\hello\hello.h
 # Begin Source File
 
 SOURCE=..\..\..\..\apl\memdump\memdump.c
+# End Source File
+# End Group
+# End Group
+# Begin Group "volume"
+
+# PROP Default_Filter ""
+# Begin Group "dev"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\dev\devvol.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\dev\devvol_adddevice.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\dev\devvol_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\dev\devvol_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\dev\devvol_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\dev\devvol_openfile.c
+# End Source File
+# End Group
+# Begin Group "fat"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatfile_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatfile_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatfile_read.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_clusterread.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_clusterwrite.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_createfile.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_flushfat.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_getclusterbuf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_getnextcluster.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_open.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_relclusterbuf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\volume\fat\fatvol_setnextcluster.c
 # End Source File
 # End Group
 # End Group
