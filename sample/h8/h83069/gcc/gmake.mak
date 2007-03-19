@@ -51,7 +51,7 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-h8300ha
 
 # %jp{出力ファイル名}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
-TARGET_ASC = $(TARGET).$(EXT_ASC)
+TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 
 # %jp{gcc用の設定読込み}
@@ -85,12 +85,12 @@ LIBS  +=
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
+all: makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
 
 .PHONY : clean
 clean: makeexe_clean
-	rm -f $(TARGET_EXE) $(TARGET_ASC) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	rm -f $(TARGET_EXE) $(TARGET_MOT) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 
 .PHONY : mostlyclean

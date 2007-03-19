@@ -40,8 +40,8 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  += --cpu 4T --apcs /interwork --thumb
-CFLAGS  += --cpu 4T --apcs /interwork
+AFLAGS  += --cpu 4T --apcs=inter --thumb
+CFLAGS  += --cpu 4T --apcs=inter --thumb
 ARFLAGS += 
 
 # %jp{コンフィギュレータ定義}

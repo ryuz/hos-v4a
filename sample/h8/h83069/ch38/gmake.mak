@@ -43,7 +43,7 @@ LNFLAGS =
 
 # %jp{出力ファイル名}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
-TARGET_ASC = $(TARGET).$(EXT_ASC)
+TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 # %jp{標準ライブラリ}
 STD_LIB = stdlib.lib
@@ -84,12 +84,12 @@ LIBS  += $(STD_LIB)
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
+all: makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
 
 .PHONY : clean
 clean: makeexe_clean
-	rm -f $(TARGET_EXE) $(TARGET_ASC) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	rm -f $(TARGET_EXE) $(TARGET_MOT) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 
 .PHONY : mostlyclean

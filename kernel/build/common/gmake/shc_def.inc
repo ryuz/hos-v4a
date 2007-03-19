@@ -26,7 +26,8 @@ EXT_ASM ?= src
 EXT_OBJ ?= obj
 EXT_LIB ?= lib
 EXT_EXE ?= abs
-EXT_ASC ?= mot
+EXT_MOT ?= mot
+EXT_HEX ?= hex
 EXT_BIN ?= bin
 
 

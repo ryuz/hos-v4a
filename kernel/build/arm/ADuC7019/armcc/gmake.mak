@@ -1,116 +1,102 @@
 # ----------------------------------------------------------------------------
+# Hyper Operating System V4 Advance
+#  makefile for ADuC7019
 #
-#
-#
+# Copyright (C) 1998-2007 by Project HOS
+# http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
-
 
 
 # ターゲット名
 TARGET    ?= libhosv4a
 
-# アーキテクチャパス
-ARCH_PROC ?= arm_v4t
-ARCH_IRC  ?= arm/ADuC7026
-
-
 
 # ディレクトリ定義
-TOP_DIR      = ../../../../..
-KNL_DIR      = $(TOP_DIR)/kernel
-OBJS_DIR     = objs_$(TARGET)
-
-# インクルードディレクトリ定義
-INC_KNL_DIR  = $(KNL_DIR)/include
-INC_PROC_DIR = $(INC_KNL_DIR)/arch/proc/$(ARCH_PROC)
-INC_IRC_DIR  = $(INC_KNL_DIR)/arch/irc/$(ARCH_IRC)
-
-# ソースディレクトリ定義
-SRC_KNL_DIR  = $(KNL_DIR)/source
-SRC_PROC_DIR = $(SRC_KNL_DIR)/arch/proc/$(ARCH_PROC)
-SRC_IRC_DIR  = $(SRC_KNL_DIR)/arch/irc/$(ARCH_IRC)
-
-# コンフィギュレータ定義
-CFGRTR_DIR   = $(TOP_DIR)/cfgrtr/build/gcc
-CFGRTR       = h4acfg-$(ARCH_PROC)
+HOSV4A_DIR        = ../../../../..
+KERNEL_DIR        = $(HOSV4A_DIR)/kernel
+KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+OBJS_DIR          = objs_$(TARGET)
 
 
-# 共通設定インクルード
-include $(TOP_DIR)/kernel/build/common/gmake.inc
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# ターゲットライブラリファイル名
-TARGET_LIB = $(TARGET).a
+# %jp{アーキテクチャ定義}
+ARCH_PROC ?= arm/arm_v4t
+ARCH_IRC  ?= arm/ADuC7019
+ARCH_CC   ?= armcc
 
-# アセンブラファイルの追加
-ASRCS += $(SRC_PROC_DIR)/rvds/armctx.s		\
-         $(SRC_PROC_DIR)/rvds/armirq.s
+# %jp{アーキテクチャパス}
+INC_PROC_DIR    = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
+INC_IRC_DIR     = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
+SRC_PROC_DIR    = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
+SRC_PROC_CC_DIR = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
+SRC_IRC_DIR     = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
+SRC_IRC_CC_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
+
+# %jp{パス設定}
+INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
+SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
+
+# %jp{オプションフラグ}
+AFLAGS  += --cpu=ARM7TDMI --apcs=inter --thumb
+CFLAGS  += --cpu=ARM7TDMI --apcs=inter --thumb
+ARFLAGS += 
+
+# %jp{コンフィギュレータ定義}
+CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
+CFGRTR     = h4acfg-ADuC7019
+
+
+# %jp{armccc用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/armcc_def.inc
+
 
 
 # C言語ファイルの追加
-CSRCS += $(SRC_IRC_DIR)/armintc.c
+CSRCS += $(SRC_PROC_DIR)/val_int.c			\
+         $(SRC_IRC_DIR)/intc.c
 
 
-# 検索パスの追加
-VPATH := $(VPATH):$(SRC_PROC_DIR):$(SRC_PROC_DIR)/rvct:$(SRC_IRC_DIR)
+# アセンブラファイルの追加
+ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.s		\
+         $(SRC_PROC_CC_DIR)/kdis_int.s		\
+         $(SRC_PROC_CC_DIR)/kena_int.s		\
+         $(SRC_PROC_CC_DIR)/kirq_hdr.s		\
+         $(SRC_PROC_CC_DIR)/kfiq_hdr.s		\
+         $(SRC_PROC_CC_DIR)/krst_ctx.s		\
+         $(SRC_PROC_CC_DIR)/kswi_ctx.s		\
+         $(SRC_PROC_CC_DIR)/kwai_int.s
 
 
-# Tools
-CC     = armcc --thumb
-ASM    = armasm
-LIBR   = armar
-DEPEND = armcc -M
-LINT   = splint
-MKDIR  = mkdir
-RM     = rm
+
+# カーネル共通ソースの追加
+include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 
-# オプションフラグ
-AFLAGS    += --cpu=ARM7TDMI
-CFLAGS    += -I$(INC_KNL_DIR) -I$(INC_PROC_DIR) -I$(INC_IRC_DIR) --thumb --apcs /interwork --cpu=ARM7TDMI
-LFLAGS    += 
-LINTFLAGS += -I$(INC_KNL_DIR) -I$(INC_PROC_DIR) -I$(INC_IRC_DIR) -weak 
+
+# %jp{ALL}
+.PHONY : all
+all: makelib_all
+	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
+
+# %jp{クリーン}
+.PHONY : clean
+clean: makelib_clean
+	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
+	$(RM) -f *.lst
 
 
-# オブジェクトファイル
-OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(basename $(notdir $(CSRCS)))))   \
-       $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(basename $(notdir $(ASRCS)))))
+# %jp{ライブラリ生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makelib.inc
 
+# %jp{armcc用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/armcc_rul.inc
 
-all: $(TARGET_LIB) $(CFGRTR)
+# %jp{カーネル依存関係読込み}
+include $(KERNEL_MAKINC_DIR)/knldep.inc
 
-
-$(TARGET_LIB): mkdir_objs $(OBJS)
-	$(LIBR) -r $(TARGET_LIB) $(OBJS)
-
-mkdir_objs:
-	$(MKDIR) -p $(OBJS_DIR)
-
-
-$(CFGRTR):
-	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC)
-	cp $(CFGRTR_DIR)/$(CFGRTR) .
-
-clean:
-	$(RM) -f $(TARGET) $(OBJS) $(CFGRTR)
-	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) clean
-
-lint:
-	$(LINT) $(LINTFLAGS) $(CSRCS)
-
-depend:
-	$(DEPEND) $(CFLAGS) $(CSRCS) | sed 's?: ?:\t?' | sed 's?\\?\/?g' | sed 's?^?$(OBJS_DIR)\/?' | sed 's?:[\t ]+?\t?' | sed 's? ?\\ ?' > $(OBJS_DIR)/depend.inc
-
-
--include $(OBJS_DIR)/depend.inc
-
-
-# 推論規則
-$(OBJS_DIR)/%.o :: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJS_DIR)/%.o :: %.s
-	$(ASM) $(AFLAGS) $< -o $@
 
 
 # end of file

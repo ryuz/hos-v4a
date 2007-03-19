@@ -40,8 +40,8 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  += --cpu ARM7TDMI-S --apcs /interwork --thumb
-CFLAGS  += --cpu ARM7TDMI-S --apcs /interwork
+AFLAGS  += --cpu ARM7TDMI-S --apcs=inter --thumb
+CFLAGS  += --cpu ARM7TDMI-S --apcs=inter --thumb
 ARFLAGS += 
 
 # %jp{コンフィギュレータ定義}

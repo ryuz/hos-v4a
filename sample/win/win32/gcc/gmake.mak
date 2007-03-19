@@ -35,7 +35,7 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-win32
 
 # 出力ファイル名
 TARGET_EXE = $(TARGET).$(EXT_EXE)
-TARGET_ASC = $(TARGET).$(EXT_ASC)
+TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 
 # %jp{gcc用の設定読込み}
@@ -65,7 +65,7 @@ LIBS +=
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
+all: makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h

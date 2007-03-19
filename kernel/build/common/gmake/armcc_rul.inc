@@ -11,14 +11,19 @@ $(TARGET_EXE): $(OBJS) $(LIBS)
 	$(CMD_LINK) $(LNFLAGS) -o $(TARGET_EXE) $(OBJS) $(LIBS)
 
 
-# %jp{ASCII形式ファイル生成}%en{ASCII file}
-$(TARGET_ASC): $(TARGET_EXE)
-	$(CMD_OBJCNV) --m32 --output $(TARGET_ASC) $(TARGET_EXE)
+# %jp{モトローラS形式ファイル生成}%en{Motorola S format file}
+$(TARGET_MOT): $(TARGET_EXE)
+	$(CMD_OBJCNV) --m32 --output $(TARGET_MOT) $(TARGET_EXE)
+
+
+# %jp{インテルHEX形式ファイル生成}%en{Intel HEX format file}
+$(TARGET_HEX): $(TARGET_EXE)
+	$(CMD_OBJCNV) --i32 --output $(TARGET_HEX) $(TARGET_EXE)
 
 
 # %jp{プレーンバイナリ形式ファイル生成}%en{Plain Binary}
 $(TARGET_BIN): $(TARGET_EXE)
-	$(CMD_OBJCNV) --bin --output $(TARGET_ASC) $(TARGET_EXE)
+	$(CMD_OBJCNV) --bin --output $(TARGET_BIN) $(TARGET_EXE)
 
 
 # %jp{ライブラリ生成}%en{Library}

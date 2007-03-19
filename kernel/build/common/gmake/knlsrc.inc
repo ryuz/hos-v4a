@@ -81,7 +81,7 @@ CSRCS      += $(DSP_DIR)/ent_tsk.c			\
               $(DSP_DIR)/dsp_wai.c			\
               $(DSP_DIR)/dsp_wup.c			\
               $(DSP_DIR)/dsp_sus.c			\
-              $(DSP_DIR)/dsp_rsm.c			\
+              $(DSP_DIR)/dsp_rsm.c
 
 
 
@@ -96,6 +96,12 @@ CSRCS      += $(QUE_DIR)/add_que.c			\
               $(QUE_DIR)/trm_que.c			\
               $(QUE_DIR)/nxt_que.c			\
               $(QUE_DIR)/rot_que.c
+
+
+# Time management
+TIM_DIR     = $(CORE_DIR)/tim
+SRC_DIRS   += $(TIM_DIR) 
+CSRCS      += $(TIM_DIR)/sig_tim.c
 
 
 # Timeout-queue

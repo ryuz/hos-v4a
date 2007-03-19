@@ -21,7 +21,8 @@ EXT_ASM ?= s
 EXT_OBJ ?= o
 EXT_LIB ?= a
 EXT_EXE ?= axf
-EXT_ASC ?= mot
+EXT_MOT ?= mot
+EXT_HEX ?= hex
 EXT_BIN ?= bin
 
 

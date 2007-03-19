@@ -26,11 +26,11 @@ $(TARGET_EXE): $(OBJS) $(LIBS)
 	$(CMD_LINK) -SU=$(OBJS_DIR)/linksub.txt
 
 
-# %jp{ASCII形式ファイル生成}%en{ASCII file}
-$(TARGET_ASC): $(TARGET_EXE)
+# %jp{モトローラS形式ファイル生成}%en{Motorola S format file}
+$(TARGET_MOT): $(TARGET_EXE)
 	$(CMD_ECHO) "-input=$(TARGET_EXE)"     > $(OBJS_DIR)/ascsub.txt
 	$(CMD_ECHO) "-form stype"             >> $(OBJS_DIR)/ascsub.txt
-	$(CMD_ECHO) "-output $(TARGET_ASC)"   >> $(OBJS_DIR)/ascsub.txt
+	$(CMD_ECHO) "-output $(TARGET_MOT)"   >> $(OBJS_DIR)/ascsub.txt
 	$(CMD_OBJCNV) -SU=$(OBJS_DIR)/ascsub.txt
 
 

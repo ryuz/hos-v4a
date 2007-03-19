@@ -15,10 +15,12 @@
 
 #if _KERNEL_SPT_ISIG_TIM
 
-static void _kernel_dpc_sig_tim(void);
-
 
 #if _KERNEL_SPT_DPC
+
+
+static void _kernel_dpc_sig_tim(void);
+
 
 /** %jp{タイムティックの供給}%en{Supply Time Tick}
  * @retval E_OK     %jp{正常終了}%en{Normal completion}

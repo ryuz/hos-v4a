@@ -55,7 +55,7 @@ STD_LIBS = stdlib.lib
 
 # 出力ファイル名
 TARGET_EXE = $(TARGET).abs
-TARGET_ASC = $(TARGET).mot
+TARGET_MOT = $(TARGET).mot
 
 
 # %jp{shc用の設定読込み}
@@ -88,7 +88,7 @@ LIBS  += $(STD_LIBS)
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_ASC)
+all: makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h

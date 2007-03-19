@@ -15,8 +15,8 @@ $(TARGET_EXE): $(OBJS) $(LIBS)
 	$(CMD_LINK) $(LNFLAGS) $(OBJS) $(LIBS) -o $(TARGET_EXE)
 
 
-$(TARGET_ASC): $(TARGET_EXE)
-	$(CMD_OBJCNV) -O srec $(TARGET_EXE) $(TARGET_ASC)
+$(TARGET_MOT): $(TARGET_EXE)
+	$(CMD_OBJCNV) -O srec $(TARGET_EXE) $(TARGET_MOT)
 
 
 # %jp{ライブラリ生成}
