@@ -10,12 +10,16 @@
 
 
 #include "kernel.h"
-
+#include "uart.h"
 
 
 /** %jp{メイン関数} */
 int main()
 {
+	Uart_Initialize();
+	for ( ;; )
+		Uart_PutChar('X');
+
 	/* %jp{カーネルの動作開始} */
 	vsta_knl();
 	

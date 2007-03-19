@@ -20,7 +20,7 @@ __user_initial_stackheap	FUNCTION
 				add		r2, r2, r0					; Heap Limit
 				
 				ldr		r1, =_kernel_int_isp
-				ldr		r1, [r3]					; Stack Base
+				ldr		r1, [r1]					; Stack Base
 				ldr		r3, =_kernel_int_stkblk		; Stack Limit
 
 				bx		lr

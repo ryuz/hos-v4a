@@ -12,15 +12,35 @@
 #include "kernel.h"
 
 
+#define GP1CON		((volatile UB *)0xfffff404)
+#define COMTX		((volatile UB *)0xffff0700)
+#define COMDIV0		((volatile UB *)0xffff0700)
+#define COMDIV1		((volatile UB *)0xffff0704)
+#define COMCON0		((volatile UB *)0xffff070c)
+#define COMSTA0		((volatile UB *)0xffff0714)
+
+
 /* %jp{UARTの初期化} */
 void Uart_Initialize(void)
 {
+	*GP1CON  = 0x11;
+
+	*COMCON0 = 0x80;
+	*COMDIV0 = 0x44;
+	*COMDIV1 = 0x00;
+	*COMCON0 = 0x07;
 }
+
 
 /* %jp{1文字出力} */
 void Uart_PutChar(int c)
 {
+	while ( !(*COMSTA0 & 0x20) )
+		;
+
+	*COMTX = c;
 }
+
 
 /* %jp{文字列出力} */
 void Uart_PutString(const char *text)
