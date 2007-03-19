@@ -34,7 +34,7 @@ SECTION_RAM  ?= 0x00010000
 # %jp{フラグ設定}
 CFLAGS  = --cpu=ARM7TDMI --apcs=inter --thumb
 AFLAGS  = --cpu=ARM7TDMI --apcs=inter --thumb
-LNFLAGS = 
+LNFLAGS = --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --entry=$(SECTION_ROM)
 
 
 # %jp{コンフィギュレータ定義}
