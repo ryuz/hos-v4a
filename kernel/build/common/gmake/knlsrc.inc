@@ -253,7 +253,7 @@ CSRCS      += $(MPFOBJ_DIR)/acre_mpf.c		\
 
 # System Time Management
 TIMOBJ_DIR  = $(OBJ_DIR)/tim
-TIMOBJ_HDRS = $(INC_DIR)/object/timobj.h
+TIMOBJ_HDRS = 
 SRC_DIRS   += $(TIMOBJ_DIR)
 CSRCS      += $(TIMOBJ_DIR)/set_tim.c		\
               $(TIMOBJ_DIR)/get_tim.c		\

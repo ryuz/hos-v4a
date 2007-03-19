@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for ARM V4T
+#  makefile for ARM V4T (none IRC)
 #
 # Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -8,7 +8,7 @@
 
 
 # ターゲット名
-TARGET    ?= libhosv4a
+TARGET ?= libhosv4a
 
 
 # ディレクトリ定義
@@ -49,7 +49,7 @@ CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-arm_v4t
 
 
-# %jp{armccc用の設定読込み}
+# %jp{armcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_def.inc
 
 
