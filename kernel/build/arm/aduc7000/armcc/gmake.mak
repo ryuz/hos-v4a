@@ -56,7 +56,11 @@ include $(KERNEL_MAKINC_DIR)/armcc_def.inc
 
 # C言語ファイルの追加
 CSRCS += $(SRC_PROC_DIR)/val_int.c			\
-         $(SRC_IRC_DIR)/intc.c
+         $(SRC_IRC_DIR)/kini_irc.c			\
+         $(SRC_IRC_DIR)/karm_irq.c			\
+         $(SRC_IRC_DIR)/karm_fiq.c			\
+         $(SRC_IRC_DIR)/ena_int.c			\
+         $(SRC_IRC_DIR)/dis_int.c
 
 
 # アセンブラファイルの追加
@@ -97,6 +101,13 @@ include $(KERNEL_MAKINC_DIR)/armcc_rul.inc
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
+
+# %jp{固有の依存関係}
+$(OBJS_DIR)/kini_irc.(EXT_OBJ):	$(SRC_IRC_DIR)/kini_irc.c $(SRC_IRC_DIR)/aduc7000.h
+$(OBJS_DIR)/karm_irq.(EXT_OBJ):	$(SRC_IRC_DIR)/karm_irq.c $(SRC_IRC_DIR)/aduc7000.h
+$(OBJS_DIR)/karm_fiq.(EXT_OBJ):	$(SRC_IRC_DIR)/karm_fiq.c $(SRC_IRC_DIR)/aduc7000.h
+$(OBJS_DIR)/ena_int.(EXT_OBJ):	$(SRC_IRC_DIR)/ena_int.c $(SRC_IRC_DIR)/aduc7000.h
+$(OBJS_DIR)/dis_int.(EXT_OBJ):	$(SRC_IRC_DIR)/dis_int.c $(SRC_IRC_DIR)/aduc7000.h
 
 
 # end of file
