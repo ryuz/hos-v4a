@@ -26,9 +26,9 @@ void Uart_Initialize(void)
 	*GP1CON  = 0x11;
 
 	*COMCON0 = 0x80;
-	*COMDIV0 = 0x44;
+	*COMDIV0 = 0x22;	/* 38400bps */
 	*COMDIV1 = 0x00;
-	*COMCON0 = 0x07;
+	*COMCON0 = 0x03;
 }
 
 

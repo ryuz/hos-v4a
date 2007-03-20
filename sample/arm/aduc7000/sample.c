@@ -37,6 +37,9 @@ void Sample_Initialize(VP_INT exinf)
 	T_CMPF cmpf;
 	T_CMBX cmbx;
 	
+	/* %jp{UART初期化} */
+	Uart_Initialize();
+	
 	/* %jp{固定長メモリプール生成} */
 	cmpf.mpfatr = TA_TFIFO;					
 	cmpf.blkcnt = 3;						
