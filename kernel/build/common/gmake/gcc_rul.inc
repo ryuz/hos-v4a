@@ -22,8 +22,8 @@ $(TARGET_HEX): $(TARGET_EXE)
 
 
 # %jp{プレーンバイナリ形式ファイル生成}%en{Plain Binary}
-$(TARGET_HEX): $(TARGET_EXE)
-	$(CMD_OBJCNV) -O binary $(TARGET_EXE) $(TARGET_HEX)
+$(TARGET_BIN): $(TARGET_EXE)
+	$(CMD_OBJCNV) -O binary $(TARGET_EXE) $(TARGET_BIN)
 
 
 # %jp{ライブラリ生成}%en{Library}
