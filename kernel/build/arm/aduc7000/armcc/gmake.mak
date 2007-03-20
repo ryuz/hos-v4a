@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for ADuC7000 series
+#  makefile for Analog Devices ADuC7000 series
 #
 # Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
