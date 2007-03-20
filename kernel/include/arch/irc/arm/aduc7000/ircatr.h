@@ -16,8 +16,8 @@
 
 #define _KERNEL_IRCATR_IRC					TRUE		/**< %jp{IRCの有無} */
 
-#define _KERNEL_IRCATR_TMIN_INTNO			1			/**< %jp{割込み番号の最小値} */
-#define _KERNEL_IRCATR_TMAX_INTNO			23			/**< %jp{割込み番号の最大値} */
+#define _KERNEL_IRCATR_TMIN_INTNO			0			/**< %jp{割込み番号の最小値} */
+#define _KERNEL_IRCATR_TMAX_INTNO			31			/**< %jp{割込み番号の最大値} */
 
 
 #endif	/* _KERNEL__arch__irc__aduc7000__ircatr_h__ */

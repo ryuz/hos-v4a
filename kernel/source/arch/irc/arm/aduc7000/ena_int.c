@@ -12,13 +12,12 @@
 #include "core/core.h"
 #include "object/inhobj.h"
 #include "object/isrobj.h"
-#include "aduc7000.h"
 
 
 /* 割り込みの許可 */
 ER ena_int(INTNO intno)
 {
-	IRQEN |= (1 << intno);
+	*_KERNEL_IRC_IRQEN |= (1 << intno);
 	
 	return E_OK;
 }

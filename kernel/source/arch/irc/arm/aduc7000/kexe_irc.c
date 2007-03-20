@@ -12,7 +12,6 @@
 #include "core/core.h"
 #include "object/inhobj.h"
 #include "object/isrobj.h"
-#include "aduc7000.h"
 
 
 /** %jp{割込みコントローラの割込み処理} */
@@ -24,11 +23,11 @@ void _kernel_exe_irc(INHNO inhno)
 	switch ( inhno )
 	{
 	case _KERNEL_ARM_INHNO_IRQ:
-		intsta = IRQSTA;
+		intsta = *_KERNEL_IRC_IRQSTA;
 		break;
 
 	case _KERNEL_ARM_INHNO_FIQ:
-		intsta = FIQSTA;
+		intsta = *_KERNEL_IRC_FIQSTA;
 		break;
 	
 	default:

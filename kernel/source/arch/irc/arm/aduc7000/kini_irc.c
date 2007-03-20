@@ -12,14 +12,13 @@
 #include "core/core.h"
 #include "object/inhobj.h"
 #include "object/isrobj.h"
-#include "aduc7000.h"
 
 
 /** %jp{割込みコントローラの初期化} */
 void _kernel_ini_irc(void)
 {
-	IRQCLR = 0x00ffffff;
-	FIQCLR = 0x00ffffff;
+	*_KERNEL_IRC_IRQCLR = 0x00ffffff;
+	*_KERNEL_IRC_FIQCLR = 0x00ffffff;
 }
 
 

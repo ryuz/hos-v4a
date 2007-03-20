@@ -101,11 +101,4 @@ include $(KERNEL_MAKINC_DIR)/armcc_rul.inc
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
 
-# %jp{固有の依存関係}
-$(OBJS_DIR)/kini_irc.(EXT_OBJ):	$(SRC_IRC_DIR)/kini_irc.c $(SRC_IRC_DIR)/aduc7000.h
-$(OBJS_DIR)/kexe_irc.(EXT_OBJ):	$(SRC_IRC_DIR)/kexe_irc.c $(SRC_IRC_DIR)/aduc7000.h
-$(OBJS_DIR)/ena_int.(EXT_OBJ):	$(SRC_IRC_DIR)/ena_int.c $(SRC_IRC_DIR)/aduc7000.h
-$(OBJS_DIR)/dis_int.(EXT_OBJ):	$(SRC_IRC_DIR)/dis_int.c $(SRC_IRC_DIR)/aduc7000.h
-
-
 # end of file

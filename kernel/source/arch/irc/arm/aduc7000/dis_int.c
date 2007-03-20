@@ -12,14 +12,12 @@
 #include "core/core.h"
 #include "object/inhobj.h"
 #include "object/isrobj.h"
-#include "aduc7000.h"
-
 
 
 /* 割り込みの禁止 */
 ER dis_int(INTNO intno)
 {
-	IRQCLR = (1 << intno);
+	*_KERNEL_IRC_IRQCLR = (1 << intno);
 
 	return E_OK;
 }
