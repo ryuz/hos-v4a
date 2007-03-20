@@ -38,13 +38,13 @@ void _kernel_exe_irc(INHNO inhno)
 	/* %jp{割り込み番号取得} */
 	for ( intno = 0; intno <= 23; intno++ )
 	{
-		if ( irqsta & 1 )
+		if ( intsta & 1 )
 		{
 			/* %jp{割込みサービスルーチン呼び出し} */
 			_kernel_exe_isr(intno);
 		}
 		
-		irqsta >>= 1;
+		intsta >>= 1;
 	}
 }
 

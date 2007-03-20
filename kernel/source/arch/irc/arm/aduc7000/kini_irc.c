@@ -20,25 +20,7 @@ void _kernel_ini_irc(void)
 {
 	IRQCLR = 0x00ffffff;
 	FIQCLR = 0x00ffffff;
-	
-	_kernel_inh_tbl[_KERNEL_ARM_INHNO_IRQ].inthdr = (FP)_kernel_arm_irq;
-	_kernel_inh_tbl[_KERNEL_ARM_INHNO_FIQ].inthdr = (FP)_kernel_arm_fiq;
 }
-
-void _kernel_exe_irc(INHNO inhno)
-{
-	switch ( inhno )
-	{
-	case _KERNEL_ARM_INHNO_IRQ:
-		_kernel_arm_irq();
-		break;
-
-	case _KERNEL_ARM_INHNO_FIQ:
-		_kernel_arm_fiq();
-		break;
-	}
-}
-
 
 
 /* end of file */
