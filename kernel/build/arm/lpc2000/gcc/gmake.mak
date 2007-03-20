@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for LPC2214
+#  makefile for Philips LPC2000 family
 #
 # Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -9,6 +9,13 @@
 
 # ターゲット名
 TARGET ?= libhosv4a
+
+
+# %jp{ツール定義}
+GCC_ARCH ?= arm-elf-
+CMD_CC   ?= $(GCC_ARCH)gcc
+CMD_ASM  ?= $(GCC_ARCH)gcc
+CMD_LIBR ?= $(GCC_ARCH)ar
 
 
 # ディレクトリ定義
@@ -25,7 +32,7 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 # %jp{アーキテクチャ定義}
 ARCH_PROC ?= arm/arm_v4t
 ARCH_IRC  ?= none
-ARCH_CC   ?= armcc
+ARCH_CC   ?= gcc
 
 # %jp{アーキテクチャパス}
 INC_PROC_DIR    = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
@@ -40,17 +47,17 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  += --cpu ARM7TDMI-S --apcs=inter --thumb
-CFLAGS  += --cpu ARM7TDMI-S --apcs=inter --thumb
+AFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
+CFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
 ARFLAGS += 
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
-CFGRTR     = h4acfg-lpc2214
+CFGRTR     = h4acfg-lpc2000
 
 
-# %jp{armccc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/armcc_def.inc
+# %jp{gcc用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 
 
 
@@ -89,8 +96,8 @@ clean: makelib_clean
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
-# %jp{armcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/armcc_rul.inc
+# %jp{gcc用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc

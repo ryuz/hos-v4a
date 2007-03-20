@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  intc.h
- * @brief %jp{ADuC7000シリーズ用割込みコントローラ操作}%en{ADuC7000 series}
+ * @brief %jp{Analog Devices ADuC7000シリーズ用割込みコントローラ操作}%en{Analog Devices ADuC7000 series}
  *
  * Copyright (C) 1998-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
