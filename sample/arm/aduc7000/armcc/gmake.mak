@@ -48,7 +48,7 @@ TARGET_HEX = $(TARGET).hex
 
 
 # %jp{armcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/armcc_def.inc
+include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
 # ソースディレクトリ
 SRC_DIRS += . ..
@@ -87,7 +87,7 @@ clean: makeexe_clean
 include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
 # %jp{armcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/armcc_rul.inc
+include $(KERNEL_MAKINC_DIR)/armcc_r.inc
 
 
 

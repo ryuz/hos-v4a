@@ -59,7 +59,7 @@ TARGET_MOT = $(TARGET).mot
 
 
 # %jp{shc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/shc_def.inc
+include $(KERNEL_MAKINC_DIR)/shc_d.inc
 
 # ソースディレクトリ
 SRC_DIRS += . ..
@@ -105,7 +105,7 @@ $(STD_LIBS):
 include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
 # %jp{shc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/shc_rul.inc
+include $(KERNEL_MAKINC_DIR)/shc_r.inc
 
 
 

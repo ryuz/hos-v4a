@@ -51,7 +51,6 @@ CFGRTR     = h4acfg-h8300ha
 
 # %jp{オブジェクトファイル定義}
 OBJS   = $(OBJS_DIR)\val_int.obj		\
-         $(OBJS_DIR)\val_imsk.obj		\
          $(OBJS_DIR)\chg_imsk.obj		\
          $(OBJS_DIR)\get_imsk.obj		\
          $(OBJS_DIR)\ena_int.obj		\

@@ -39,7 +39,7 @@ TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 
 # %jp{gcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_def.inc
+include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 # %jp{ソースディレクトリ}
 SRC_DIRS += . ..
@@ -79,7 +79,7 @@ clean: makeexe_clean
 include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
 # %jp{shc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
+include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 
 

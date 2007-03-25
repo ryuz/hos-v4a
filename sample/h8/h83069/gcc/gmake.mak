@@ -55,7 +55,7 @@ TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 
 # %jp{gcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_def.inc
+include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 
 # --------------------------------------
@@ -106,7 +106,7 @@ mostlyclean: clean clean_kernel
 include $(KERNEL_MAKINC_DIR)/makeexe.inc
 
 # %jp{gcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
+include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 
 # --------------------------------------

@@ -351,14 +351,14 @@ clean: makelib_clean
 
 
 # %jp{gcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_def.inc
+include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 
 # %jp{ch38用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
+include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc

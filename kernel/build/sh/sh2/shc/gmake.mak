@@ -50,7 +50,7 @@ CFGRTR     = h4acfg-sh2
 
 
 # %jp{shc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/shc_def.inc
+include $(KERNEL_MAKINC_DIR)/shc_d.inc
 
 
 
@@ -351,7 +351,7 @@ clean: makelib_clean
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 # %jp{shc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/shc_rul.inc
+include $(KERNEL_MAKINC_DIR)/shc_r.inc
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc

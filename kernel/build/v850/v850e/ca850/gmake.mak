@@ -50,7 +50,7 @@ CFGRTR     = h4acfg-arm_v4t
 
 
 # %jp{armcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_def.inc
+include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 
 
 # C言語ファイルの追加
@@ -81,7 +81,7 @@ clean: makelib_clean
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 # %jp{armcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_rul.inc
+include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
