@@ -49,8 +49,8 @@ CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-arm_v4t
 
 
-# %jp{armcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/armcc_def.inc
+# %jp{コンパイラ依存の設定読込み}
+include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 
 
 
@@ -89,8 +89,10 @@ clean: makelib_clean
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
-# %jp{armcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/armcc_rul.inc
+
+# %jp{コンパイラ依存ルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
+
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc

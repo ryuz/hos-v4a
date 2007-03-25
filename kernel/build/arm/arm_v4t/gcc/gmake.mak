@@ -92,15 +92,17 @@ clean: makelib_clean
 
 
 
-# %jp{gcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_def.inc
+# %jp{コンパイラ依存の設定読込み}
+include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
+
 
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 
-# %jp{gcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
+# %jp{コンパイラ依存ルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
+
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc

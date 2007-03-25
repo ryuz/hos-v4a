@@ -145,7 +145,7 @@ clean: clean_makelib
 
 
 # %jp{ch38用の設定読込み}
-!include $(KERNEL_MAKINC_DIR)/ch38_def.inc
+!include $(KERNEL_MAKINC_DIR)/ch38_d.inc
 
 # カーネル共通ソースの追加
 !include $(KERNEL_MAKINC_DIR)\knlsrc.inc
@@ -154,7 +154,7 @@ clean: clean_makelib
 !include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 # %jp{ch38用のルール定義読込み}
-!include $(KERNEL_MAKINC_DIR)/ch38_rul.inc
+!include $(KERNEL_MAKINC_DIR)/ch38_r.inc
 
 # %jp{カーネル依存関係読込み}
 !include $(KERNEL_MAKINC_DIR)/knldep.inc

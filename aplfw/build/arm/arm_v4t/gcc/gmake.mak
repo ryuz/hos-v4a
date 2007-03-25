@@ -54,7 +54,7 @@ clean: makelib_clean
 
 
 # %jp{gcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_def.inc
+include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 # %jp{共通設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
@@ -62,7 +62,7 @@ include $(APLFW_MKINK_DIR)/aplfwsrc.inc
 
 
 # %jp{gcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
+include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 # %jp{依存関係定義読込み}
 include $(APLFW_MKINK_DIR)/aplfwdep.inc

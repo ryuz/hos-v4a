@@ -52,7 +52,7 @@ clean: makelib_clean
 
 
 # %jp{shc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/shc_def.inc
+include $(KERNEL_MAKINC_DIR)/shc_d.inc
 
 # %jp{共通設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
@@ -60,7 +60,7 @@ include $(APLFW_MKINK_DIR)/aplfwsrc.inc
 
 
 # %jp{shc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/shc_rul.inc
+include $(KERNEL_MAKINC_DIR)/shc_r.inc
 
 # %jp{依存関係定義読込み}
 include $(APLFW_MKINK_DIR)/aplfwdep.inc

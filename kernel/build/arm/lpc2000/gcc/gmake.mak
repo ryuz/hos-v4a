@@ -57,7 +57,7 @@ CFGRTR     = h4acfg-lpc2000
 
 
 # %jp{gcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_def.inc
+include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 
 
@@ -97,7 +97,7 @@ clean: makelib_clean
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 # %jp{gcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
+include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
