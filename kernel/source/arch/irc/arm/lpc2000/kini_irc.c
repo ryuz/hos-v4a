@@ -17,6 +17,14 @@
 /** %jp{割込みコントローラの初期化} */
 void _kernel_ini_irc(void)
 {
+	int i;
+	
+	*_KERNEL_IRC_VICIntEnClr = 0xffffffff;
+	
+	for ( i = _KERNEL_IRCATR_TMIN_INTNO; i <= _KERNEL_IRCATR_TMAX_INTNO; i++ )
+	{
+		*_KERNEL_IRC_VICVectAddrN(i) = (UW)_kernel_irq_hdr;
+	}
 }
 
 

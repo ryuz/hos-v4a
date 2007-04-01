@@ -25,8 +25,8 @@
 #define _KERNEL_IRC_VICProtection		((volatile UW *)0xfffff020)
 #define _KERNEL_IRC_VICVectAddr			((volatile UW *)0xfffff030)
 #define _KERNEL_IRC_VICDefVectAddr		((volatile UW *)0xfffff034)
-#define _KERNEL_IRC_VICVectAddrN(n)		((volatile UW *)0xfffff100 + ((n) * 4)
-#define _KERNEL_IRC_VICVectCntlN(n)		((volatile UW *)0xfffff200 + ((n) * 4)
+#define _KERNEL_IRC_VICVectAddrN(n)		((volatile UW *)0xfffff100 + ((n) * 4))
+#define _KERNEL_IRC_VICVectCntlN(n)		((volatile UW *)0xfffff200 + ((n) * 4))
 
 
 

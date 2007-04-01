@@ -55,6 +55,13 @@ void    _kernel_rst_ctx(VP_INT par1, VP_INT par2, FP entry, VP isp);								/**<
 void    _kernel_sta_ctx(_KERNEL_T_CTXCB *pk_ctxcb);													/**< %jp{実行コンテキストの開始} */
 void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxcb_now);				/**< %jp{実行コンテキストの切替} */
 
+void    _kernel_und_hdr(void);
+void    _kernel_swi_hdr(void);
+void    _kernel_pre_hdr(void);
+void    _kernel_abt_hdr(void);
+void    _kernel_irq_hdr(void);
+void    _kernel_fiq_hdr(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -62,10 +62,11 @@ CSRCS += $(SRC_PROC_DIR)/val_int.c
 ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.s		\
          $(SRC_PROC_CC_DIR)/kdis_int.s		\
          $(SRC_PROC_CC_DIR)/kena_int.s		\
-         $(SRC_PROC_CC_DIR)/kirq_hdr.s		\
          $(SRC_PROC_CC_DIR)/krst_ctx.s		\
          $(SRC_PROC_CC_DIR)/kswi_ctx.s		\
-         $(SRC_PROC_CC_DIR)/kwai_int.s
+         $(SRC_PROC_CC_DIR)/kwai_int.s		\
+         $(SRC_PROC_CC_DIR)/kirq_hdr.s		\
+         $(SRC_PROC_CC_DIR)/kfiq_hdr.s
 
 
 
