@@ -72,7 +72,7 @@ void rand_wait(void)
 	r = rand();
 	sig_sem(SEMID_RAND);
 
-	dly_tsk((r % 1000) + 10);
+	dly_tsk((r % 100) + 10);
 }
 
 

@@ -31,7 +31,7 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 # %jp{アーキテクチャ定義}
 ARCH_PROC ?= arm/arm_v4t
-ARCH_IRC  ?= none
+ARCH_IRC  ?= arm/lpc2000
 ARCH_CC   ?= gcc
 
 # %jp{アーキテクチャパス}
@@ -62,17 +62,27 @@ include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 
 # C言語ファイルの追加
-CSRCS += $(SRC_PROC_DIR)/val_int.c
+CSRCS += $(SRC_PROC_DIR)/val_int.c			\
+         $(SRC_IRC_DIR)/kini_irc.c			\
+         $(SRC_IRC_DIR)/kexe_irc.c			\
+         $(SRC_IRC_DIR)/ena_int.c			\
+         $(SRC_IRC_DIR)/dis_int.c			\
+         $(SRC_IRC_DIR)/vclr_int.c
 
 
 # アセンブラファイルの追加
-ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.s		\
-         $(SRC_PROC_CC_DIR)/kdis_int.s		\
-         $(SRC_PROC_CC_DIR)/kena_int.s		\
-         $(SRC_PROC_CC_DIR)/kirq_hdr.s		\
-         $(SRC_PROC_CC_DIR)/krst_ctx.s		\
-         $(SRC_PROC_CC_DIR)/kswi_ctx.s		\
-         $(SRC_PROC_CC_DIR)/kwai_int.s
+ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S		\
+         $(SRC_PROC_CC_DIR)/kena_int.S		\
+         $(SRC_PROC_CC_DIR)/kcre_ctx.S		\
+         $(SRC_PROC_CC_DIR)/krst_ctx.S		\
+         $(SRC_PROC_CC_DIR)/kswi_ctx.S		\
+         $(SRC_PROC_CC_DIR)/kwai_int.S		\
+         $(SRC_PROC_CC_DIR)/kund_hdr.S		\
+         $(SRC_PROC_CC_DIR)/kswi_hdr.S		\
+         $(SRC_PROC_CC_DIR)/kpre_hdr.S		\
+         $(SRC_PROC_CC_DIR)/kabt_hdr.S		\
+         $(SRC_PROC_CC_DIR)/kirq_hdr.S		\
+         $(SRC_PROC_CC_DIR)/kfiq_hdr.S
 
 
 

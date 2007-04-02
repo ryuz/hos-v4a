@@ -51,7 +51,7 @@ void OsTimer_Initialize(VP_INT exinf)
 	ena_int(INTNO_TIMER0);
 
 	/* %jp{タイマ動作開始} */
-	*T0MR0 = 142000;
+	*T0MR0 = 142000 / 4;
 	*T0MCR = 0x0003;
 	*T0TCR = 1; 
 	

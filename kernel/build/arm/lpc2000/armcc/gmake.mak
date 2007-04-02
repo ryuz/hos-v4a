@@ -24,7 +24,7 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 # %jp{アーキテクチャ定義}
 ARCH_PROC ?= arm/arm_v4t
-ARCH_IRC  ?= none
+ARCH_IRC  ?= arm/lpc2000
 ARCH_CC   ?= armcc
 
 # %jp{アーキテクチャパス}
@@ -55,7 +55,12 @@ include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
 
 # C言語ファイルの追加
-CSRCS += $(SRC_PROC_DIR)/val_int.c
+CSRCS += $(SRC_PROC_DIR)/val_int.c			\
+         $(SRC_IRC_DIR)/kini_irc.c			\
+         $(SRC_IRC_DIR)/kexe_irc.c			\
+         $(SRC_IRC_DIR)/ena_int.c			\
+         $(SRC_IRC_DIR)/dis_int.c			\
+         $(SRC_IRC_DIR)/vclr_int.c
 
 
 # アセンブラファイルの追加
