@@ -32,7 +32,7 @@ extern "C" {
 #endif
 
 /* SCI用デバイスドライバ */
-FILE_ERR SciFile_Create(HANDLE hFile, void *pParam);			/**< コンストラクタ */
+FILE_ERR SciFile_Create(HANDLE hFile, void *pParam, int iMode);			/**< コンストラクタ */
 
 #ifdef __cplusplus
 }

@@ -25,6 +25,7 @@ static void OsTimer_IrqHandler(void);						/**< %jp{タイマ割り込みハン�
 void OsTimer_Initialize(VP_INT exinf)
 {
 	T_DINH dfinh;
+	return;
 	
 	/* %jp{割り込みハンドラ定義} */
 	dfinh.inthdr = (FP)OsTimer_IrqHandler;

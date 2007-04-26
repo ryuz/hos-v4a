@@ -1,4 +1,4 @@
-/** 
+/**
  *  Sample program for Hyper Operating System V4 Advance
  *
  * @file  sample.c
@@ -13,10 +13,10 @@
 #include <stdlib.h>
 #include "kernel.h"
 #include "kernel_id.h"
+#include "hosaplfw.h"
 #include "system/sysapi/sysapi.h"
-#include "system/file/filesys.h"
+#include "system/file/file.h"
 #include "system/file/confile.h"
-#include "system/sysapi/sysapi.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/shell/shell.h"
@@ -35,7 +35,7 @@ int System_Boot(VPARAM Param);
 
 void Sample_Task(VP_INT exinf)
 {
-	T_SYSFILE_DEVINF DevInf;
+	T_FILE_DEVINF    DevInf;
 	T_PROCESS_INFO   ProcInfo;
 	HANDLE           hTty;
 	HANDLE           hCon;
@@ -55,6 +55,9 @@ void Sample_Task(VP_INT exinf)
 	
 	/* システム初期化 */
 	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
+	File_Initialize();
+	Command_Initialize();
+	
 	
 	/* SCIデバドラ生成 */
 	SciDrv_Create(&g_SciDrv[0], (void *)REG_SCI0_SMR, 128, 24000000L, 64);	/* SCI0 */
@@ -67,19 +70,19 @@ void Sample_Task(VP_INT exinf)
 	DevInf.pfncCreate = SciFile_Create;
 	DevInf.ObjSize    = sizeof(C_SCIFILE);
 	DevInf.pParam     = &g_SciDrv[0];
-	SysFile_AddDevice("/dev", &DevInf);
+	File_AddDevice(&DevInf);
 	
 	/* SCI1 を /dev/com1 に登録 */
 	strcpy(DevInf.szName, "com1");
 	DevInf.pfncCreate = SciFile_Create;
 	DevInf.ObjSize    = sizeof(C_SCIFILE);
 	DevInf.pParam     = &g_SciDrv[1];
-	SysFile_AddDevice("/dev", &DevInf);
+	File_AddDevice(&DevInf);
+	
 	
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
-	Command_Initialize();
 	Command_AddCommand("hsh",   Shell_Main);
 	Command_AddCommand("hello", Hello_Main);
 	
@@ -88,11 +91,12 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	hTty = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
 	
+	
 	strcpy(DevInf.szName, "con1");
 	DevInf.pfncCreate = ConsoleFile_Create;
 	DevInf.ObjSize    = sizeof(C_CONSOLEFILE);
 	DevInf.pParam     = hTty;
-	SysFile_AddDevice("/dev", &DevInf);
+	File_AddDevice(&DevInf);
 	hCon = File_Open("/dev/con1", FILE_MODE_READ | FILE_MODE_WRITE);
 	
 	ProcInfo.hTty    = hTty;
@@ -108,6 +112,14 @@ void Sample_Task(VP_INT exinf)
 /* システムプロセス */
 int System_Boot(VPARAM Param)
 {
+	StdIo_PutString("\n\n"
+		"-------------------------------------------------------------\n"
+		" HOS-V4 Advance\n"
+		"  HOS Application Framework\n"
+		"\n"
+		"                      Copyright (C) 1996-2007 by Project HOS \n"
+		"-------------------------------------------------------------\n");
+	
 	/* シェル起動 */
 	return Command_Execute("hsh", NULL);
 }

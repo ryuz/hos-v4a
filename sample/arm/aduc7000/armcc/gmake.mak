@@ -21,7 +21,7 @@ OBJS_DIR          = objs_$(TARGET)
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# デバッグ版のターゲット名変更
+# %jp{デバッグ版のターゲット名変更}
 ifeq ($(DEBUG),Yes)
 TARGET := $(TARGET)dbg
 endif
@@ -41,7 +41,7 @@ LNFLAGS = --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-aduc7000
 
 
-# 出力ファイル名
+# %jp{出力ファイル名}
 TARGET_EXE = $(TARGET).axf
 TARGET_MOT = $(TARGET).mot
 TARGET_HEX = $(TARGET).hex
@@ -50,14 +50,15 @@ TARGET_HEX = $(TARGET).hex
 # %jp{armcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
-# ソースディレクトリ
+
+# %jp{ソースディレクトリ}
 SRC_DIRS += . ..
 
-# アセンブラファイルの追加
+
+# %jp{アセンブラファイルの追加}
 ASRCS += ./vectors.s		\
          ./startup.s		\
          ./uish.s
-
 
 # %jp{C言語ファイルの追加}
 CSRCS += ../kernel_cfg.c	\

@@ -28,10 +28,10 @@ const T_FILEOBJ_METHODS SciFile_FileObjMethods =
 
 
 /** コンストラクタ */
-FILE_ERR SciFile_Create(HANDLE hFile, void *pParam)
+FILE_ERR SciFile_Create(HANDLE hFile, void *pParam, int iMode)
 {
 	C_SCIFILE *self;
-
+	
 	self = (C_SCIFILE *)hFile;
 	
 	/* 親クラスコンストラクタ呼び出し */
