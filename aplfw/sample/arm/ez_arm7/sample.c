@@ -57,7 +57,7 @@ void Sample_Task(VP_INT exinf)
 
 	
 	/* 16550デバドラ生成 */
-	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe0004000, 4, 1, (14700000/4), 64);
+	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, (14700000/4), 64);
 	
 	/* 16550 を /dev/com0 に登録 */
 	strcpy(DevInf.szName, "com0");
