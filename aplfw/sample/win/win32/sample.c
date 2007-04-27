@@ -21,7 +21,7 @@
 #include "system/command/command.h"
 #include "system/shell/shell.h"
 #include "driver/serial/winsock/winsockfile.h"
-#include "driver/terminal/vt100/vt100con.h"
+#include "driver/console/vt100/vt100con.h"
 #include "apl/hello/hello.h"
 #include "apl/memdump/memdump.h"
 

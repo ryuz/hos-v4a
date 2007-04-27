@@ -19,7 +19,7 @@ HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE Stac
 }
 
 
-HANDLE Process_CreateEx(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INFO *pInfo)
+HANDLE Process_CreateEx(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INF *pInfo)
 {
 	C_PROCESSOBJ *self;
 	int          i;
@@ -108,7 +108,7 @@ int Process_GetExitCode(HANDLE hProcess)
 }
 
 
-const T_PROCESS_INFO *Process_GetInfo(HANDLE hProcess)
+const T_PROCESS_INF *Process_GetInfo(HANDLE hProcess)
 {
 	C_PROCESSOBJ *self;
 

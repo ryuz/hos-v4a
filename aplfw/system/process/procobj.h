@@ -17,7 +17,7 @@ typedef struct c_processobj
 	int            (*pfncEntry)(VPARAM pParam);	/* エントリーアドレス */
 	VPARAM         Param;						/* 起動パラメータ */
 	
-	T_PROCESS_INFO Info;
+	T_PROCESS_INF  Info;
 
 	int         iExitCode;						/* 終了コード */
 
