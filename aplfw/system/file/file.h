@@ -4,7 +4,7 @@
  * @file  file.h
  * @brief %jp{ファイルシステム}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -73,7 +73,6 @@
 #define FILE_IOCTL_USER				0x6000		/* 0x6000〜0x7fff あたりを使ってね */
 
 
-
 /* 型定義 */
 typedef char			FILE_ATTR;				/* ファイル属性 */
 typedef int				FILE_ERR;				/* ファイルのエラー型 */
@@ -137,6 +136,8 @@ FILE_ERR  File_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE 
 FILE_POS  File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
 FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
+FILE_ERR  File_Flush(HANDLE hFile);
+
 
 /* 文字列用API */
 int       File_GetChar(HANDLE hFile);

@@ -144,7 +144,7 @@ int File_PrintFormatHex(HANDLE hFile, long lNum, int iWidth, int iPadChar)
 	do
 	{
 		szBuf[--i]   = (lNum & 0xf) < 10 ? (lNum & 0xf) + '0' : (lNum & 0xf) - 10 + 'a';
-		lNum       >>= 4;
+		lNum = ((unsigned long)lNum >> 4);
 	} while ( lNum != 0 );
 	
 	iWidth -= (sizeof(szBuf) - i - 1);

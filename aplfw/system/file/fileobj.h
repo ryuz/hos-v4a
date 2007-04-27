@@ -25,13 +25,14 @@ typedef struct t_fileobj_methods
 	FILE_POS  (*pfncSeek)(HANDLE hFile, FILE_POS Offset, int iOrign);
 	FILE_SIZE (*pfncRead)(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 	FILE_SIZE (*pfncWrite)(HANDLE hFile, const void *pData, FILE_SIZE Size);
+	FILE_ERR  (*pfncFlush)(HANDLE hFile);
 } T_FILEOBJ_METHODS;
 
 
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_fileobj
 {
-	C_HANDLEOBJ HandleObj;								/* ハンドルオブジェクトを継承 */
+	C_HANDLEOBJ	HandleObj;								/* ハンドルオブジェクトを継承 */
 } C_FILEOBJ;
 
 

@@ -28,14 +28,14 @@ const T_FILEOBJ_METHODS WinSockFile_FileObjMethods =
 {
 	{ WinSockFile_Delete },		/* デストラクタ */
 	WinSockFile_IoControl,		/* IoControl */
-	NULL,					/* Seek */
+	NULL,						/* Seek */
 	WinSockFile_Read,			/* Read */
 	WinSockFile_Write,			/* Write */
 };
 
 
 /** コンストラクタ */
-FILE_ERR WinSockFile_Create(HANDLE hFile, void *pParam)
+FILE_ERR WinSockFile_Create(HANDLE hFile, void *pParam, int iMode)
 {
 	C_WINSOCKFILE *self;
 

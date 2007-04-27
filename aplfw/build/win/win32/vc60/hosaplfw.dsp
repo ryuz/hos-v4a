@@ -299,6 +299,42 @@ SOURCE=..\..\..\..\driver\ether\ne2000\ne2000hal.h
 # End Source File
 # End Group
 # End Group
+# Begin Group "terminal"
+
+# PROP Default_Filter ""
+# Begin Group "vt100"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\terminal\vt100\vt100con.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\terminal\vt100\vt100con_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_getch.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_read.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_write.c
+# End Source File
+# End Group
+# End Group
 # End Group
 # Begin Group "system"
 
@@ -445,6 +481,18 @@ SOURCE=..\..\..\..\system\file\confile.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\confile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\console.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\console_getch.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\consoleobj.h
 # End Source File
 # Begin Source File
 

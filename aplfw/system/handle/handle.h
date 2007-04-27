@@ -13,11 +13,7 @@
 #define __HOS__handle_h__
 
 
-/* 無効ハンドルの定義 */
-#define HANDLE_NULL		(0)
-
-/* ハンドル型の定義 */
-typedef void*	HANDLE;
+#include "system/type/type.h"
 
 
 #ifdef __cplusplus

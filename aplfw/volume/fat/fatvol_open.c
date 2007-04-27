@@ -49,7 +49,7 @@ HANDLE FatVol_Open(C_FATVOL *self, const char *pszPath, int iMode)
 		
 		/* ディレクトリエントリを検索 */
 		iDirEntry = -1;
-		for ( i = 0; File_Read(hDir, ubBuf, 32) == 32; i++ )
+		for ( i = 0; File_Read(hDir, ubBuf, 32, 0) == 32; i++ )
 		{
 			/* 0なら打ち切り */
 			if ( ubBuf[0] == 0x00 )

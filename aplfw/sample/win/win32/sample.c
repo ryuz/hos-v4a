@@ -21,12 +21,14 @@
 #include "system/command/command.h"
 #include "system/shell/shell.h"
 #include "driver/serial/winsock/winsockfile.h"
+#include "driver/terminal/vt100/vt100con.h"
 #include "apl/hello/hello.h"
 #include "apl/memdump/memdump.h"
 
 
 long         g_SystemHeap[8 * 1024 / sizeof(long)];
 C_WINSOCKDRV g_WinSockDrv[1];
+C_VT100DRV   g_Vt100Drv[1];
 
 
 int System_Boot(VPARAM Param);
@@ -41,7 +43,7 @@ void Sample_Initialize(VP_INT exinf)
 void Sample_Startup(VP_INT exinf)
 {
 	T_FILE_DEVINF  DevInf;
-	T_PROCESS_INFO ProcInfo;
+	T_PROCESS_INF  ProcInf;
 	HANDLE         hTty;
 	HANDLE         hCon;
 	
@@ -68,6 +70,21 @@ void Sample_Startup(VP_INT exinf)
 	DevInf.pParam     = &g_WinSockDrv[0];
 	File_AddDevice(&DevInf);
 
+
+	/* /dev/com0 の上に VT100コンソールを形成 */
+	hTty = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
+	Vt100Drv_Create(&g_Vt100Drv[1], hTty);
+
+	/*  /dev/con0 に登録 */
+	strcpy(DevInf.szName, "con0");
+	DevInf.pfncCreate = Vt100Con_Create;
+	DevInf.ObjSize    = sizeof(C_VT100CON);
+	DevInf.pParam     = &g_Vt100Drv[1];
+	File_AddDevice(&DevInf);
+
+	hCon = File_Open("/dev/con0", FILE_MODE_READ | FILE_MODE_WRITE);
+
+	
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
@@ -76,24 +93,17 @@ void Sample_Startup(VP_INT exinf)
 	Command_AddCommand("hello",   Hello_Main);
 	Command_AddCommand("memdump", MemDump_Main);
 	
+	
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
-
-	hTty = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
-
-	strcpy(DevInf.szName, "con");
-	DevInf.pfncCreate = ConsoleFile_Create;
-	DevInf.ObjSize    = sizeof(C_CONSOLEFILE);
-	DevInf.pParam     = hTty;
-	File_AddDevice(&DevInf);
-	hCon = File_Open("/dev/con", FILE_MODE_READ | FILE_MODE_WRITE);
 	
-	ProcInfo.hTty    = hTty;
-	ProcInfo.hStdIn  = hCon;
-	ProcInfo.hStdOut = hCon;
-	ProcInfo.hStdErr = hCon;
-	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
+	ProcInf.hTty     = hTty;
+	ProcInf.hConsole = hCon;
+	ProcInf.hStdIn   = hCon;
+	ProcInf.hStdOut  = hCon;
+	ProcInf.hStdErr  = hCon;
+	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInf);
 
 	return;
 }

@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include "pc16550file.h"
 
-static void      Pc16550File_Delete(HANDLE hFile);				/**< デストラクタ */
+static void      Pc16550File_Delete(HANDLE hFile);										/**< デストラクタ */
 static FILE_ERR  Pc16550File_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize);
 static FILE_SIZE Pc16550File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 static FILE_SIZE Pc16550File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);

@@ -107,7 +107,7 @@ void CApiCreCyc::WriteId(FILE* fp)
 // cfgファイル定義部書き出し
 void  CApiCreCyc::WriteCfgDef(FILE* fp)
 {
-	int  i, j;
+	int  i;
 
 	// コメント出力
 	fputs(

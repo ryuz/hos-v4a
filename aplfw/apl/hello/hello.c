@@ -8,6 +8,23 @@ int Hello_Main(int argc, char *argv[])
 {
 	int i;
 
+	{
+		HANDLE hTty;
+		StdIo_PutString("\nKeyTest\n");
+		hTty = Process_GetTty();
+		for ( ; ; )
+		{
+			int c;
+			c = File_GetChar(hTty);
+			File_PrintFormat(hTty, "%02x  ", c);
+			if ( c >= 0x20 )
+			{
+				File_PutChar(hTty, c);
+			}
+			File_PrintFormat(hTty, "\r\n");			
+		}
+	}
+
 	StdIo_PutString("\nHello!\n");
 
 	StdIo_PrintFormat("argc = %d\n", argc);

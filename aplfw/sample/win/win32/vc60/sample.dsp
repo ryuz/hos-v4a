@@ -98,10 +98,6 @@ SOURCE=..\ostimer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\process\procobj.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\sample.c
 # End Source File
 # Begin Source File
