@@ -13,13 +13,13 @@
 
 
 /* 読込み */
-FILE_SIZE DrvFile_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size)
+FILE_SIZE DrvFile_Write(HANDLE hFile, const void *pData, FILE_SIZE Size)
 {
 	C_DRVFILE *self;
 
 	self = DRVFILE_HANDLE2OBJ(hFile);
 	
-	return DrvObj_Read(self->pDrvObj, hFile, pBuf, Size);
+	return DrvObj_Write(self->pDrvObj, hFile, pData, Size);
 }
 
 

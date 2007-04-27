@@ -4,7 +4,7 @@
  * @file  drvfile_seek.c
  * @brief %jp{デバイスドライバファイルの基本クラス}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

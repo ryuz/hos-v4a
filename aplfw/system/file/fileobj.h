@@ -13,8 +13,9 @@
 #define __HOS__fileobj_h__
 
 
-#include "system/file/file.h"
 #include "system/handle/handleobj.h"
+#include "system/file/file.h"
+#include "system/file/drvobj.h"
 
 
 /* ファイルオブジェクトクラス基本メソッドテーブル */
@@ -32,12 +33,13 @@ typedef struct t_fileobj_methods
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_fileobj
 {
-	C_HANDLEOBJ	HandleObj;								/* ハンドルオブジェクトを継承 */
+	C_HANDLEOBJ	HandleObj;				/* ハンドルオブジェクトを継承 */
+	C_DRVOBJ    *pDrvObj;				/* デバイスドライバ本体への参照 */
 } C_FILEOBJ;
 
 
 /* ハンドル変換 */
-#define FILE_HANDLE2OBJ(hFile)		((C_FILEOBJ *)hFile)
+#define FILE_HANDLE2OBJ(hFile)		((C_FILEOBJ *)(hFile))
 
 
 #ifdef __cplusplus
