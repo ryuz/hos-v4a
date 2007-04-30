@@ -12,22 +12,19 @@
 #include "pc16550drv.h"
 
 
-static void Pc16550Drv_Isr(VPARAM Param);		/* 割込み処理 */
-
-
 /** コンストラクタ */
 void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr,  unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize)
 {
 	void *pMem;
-
+	
 	self->iOpenCount = 0;
-
+	
 	/* Pc16550Hal 初期化 */
 	Pc16550Hal_Create(&self->Pc16550Hal, pRegAddr, uiRegStep, lSysClock);
 
 	/* バッファ確保 */
 	pMem = SysMem_Alloc(iBufSize);
-	StreamBuf_Create(&self->StmBuf, iBufSize, pMem);
+	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
 
 	/* イベント生成 */
 	self->hEvtRecv = SysEvt_Create();
