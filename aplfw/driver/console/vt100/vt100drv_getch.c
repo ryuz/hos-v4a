@@ -10,12 +10,8 @@
 
 
 #include "vt100drv_local.h"
+#include "system/sysapi/sysapi.h"
 
-/**< コンストラクタ */
-void Vt100Drv_Create(C_VT100DRV *self, HANDLE hTty)
-{
-	self->hTty = hTty;
-}
 
 
 /* １文字取得 */

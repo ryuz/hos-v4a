@@ -1,3 +1,13 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  devvol.h
+ * @brief %jp{デバイスドライバをファイルとして管理するボリューム}
+ *
+ * Copyright (C) 2006-2007 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
 
 #ifndef __HOS__devvol_h__
 #define __HOS__devvol_h__

@@ -28,7 +28,6 @@ typedef struct c_file
 extern C_FILE	g_File;
 
 
-
 #endif	/* __HOS__file_local_h__ */
 
 

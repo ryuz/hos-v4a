@@ -1,7 +1,19 @@
 
 
 
-#include "winsockdrv.h"
+#include "winsockdrv_local.h"
+
+
+const T_DRVOBJ_METHODS  WinSockDrv_Methods = 
+	{
+		WinSockDrv_Open,
+		WinSockDrv_Close,
+		WinSockDrv_IoControl,
+		WinSockDrv_Seek,
+		WinSockDrv_Read,
+		WinSockDrv_Write,
+		WinSockDrv_Flush,
+	};
 
 
 /** コンストラクタ */
@@ -9,6 +21,9 @@ void WinSockDrv_Create(C_WINSOCKDRV *self, int iPortNum, int iIntNum, int iBufSi
 {
 	WSADATA wsaData;
 	struct sockaddr_in addr;
+	
+	/* 親クラス初期化 */
+	DrvObj_Create(&self->DrvObj, &WinSockDrv_Methods);
 
 	WSAStartup(MAKEWORD(2,0), &wsaData);
 	
@@ -32,36 +47,89 @@ void WinSockDrv_Delete(C_WINSOCKDRV *self)
 
 
 /** オープン */
-void WinSockDrv_Open(C_WINSOCKDRV *self)
+HANDLE WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
-	struct sockaddr_in client;
-	int len;
+	C_WINSOCKDRV		*self;
+	C_FILEOBJ			*pFileObj;
+	struct sockaddr_in	client;
+	int					len;
 
+	/* upper cast */
+	self = (C_WINSOCKDRV *)pDrvObj;
+
+	/* create file descriptor */
+	if ( (pFileObj = SysMem_Alloc(sizeof(*pFileObj))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
+	FileObj_Create(pFileObj, pDrvObj, NULL);
+
+	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
 	{
 		len = sizeof(client);
 		self->sock = accept(self->sock0, (struct sockaddr *)&client, &len);
 	}
+
+	return (HANDLE)pFileObj;
 }
 
 
 /** クローズ */
-void WinSockDrv_Close(C_WINSOCKDRV *self)
+FILE_ERR WinSockDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
-	closesocket(self->sock);
+	C_WINSOCKDRV *self;
+
+	/* upper cast */
+	self = (C_WINSOCKDRV *)pDrvObj;
+
+	if ( --self->iOpenCount == 0 )
+	{
+		closesocket(self->sock);
+	}
+
+	return FILE_ERR_OK;
+}
+
+
+FILE_ERR  WinSockDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize)
+{
+	return FILE_ERR_NG;
+}
+
+
+FILE_POS  WinSockDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+{
+	return FILE_ERR_NG;
 }
 
 
 /** 読み出し */
-int WinSockDrv_Read(C_WINSOCKDRV *self, void *pRecvBuf, int iSize)
+FILE_SIZE WinSockDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
-	return recv(self->sock, pRecvBuf, iSize, 0);
+	C_WINSOCKDRV *self;
+
+	/* upper cast */
+	self = (C_WINSOCKDRV *)pDrvObj;
+
+	return recv(self->sock, pBuf, Size, 0);
 }
+
 
 /** 書き込み */
-int WinSockDrv_Write(C_WINSOCKDRV *self, const void *pData, int iSize)
+FILE_SIZE WinSockDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
-	return send(self->sock, pData, iSize, 0);
+	C_WINSOCKDRV *self;
+
+	/* upper cast */
+	self = (C_WINSOCKDRV *)pDrvObj;
+
+	return send(self->sock, pData, Size, 0);
 }
 
+
+FILE_ERR  WinSockDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+{
+	return FILE_ERR_OK;
+}
 

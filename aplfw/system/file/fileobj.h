@@ -4,6 +4,8 @@
  * @file  fileobj.h
  * @brief %jp{ファイルオブジェクト}
  *
+ * %jp{ファイルディスクリプタとして機能するクラス}
+ *
  * Copyright (C) 2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
@@ -15,27 +17,25 @@
 
 #include "system/handle/handleobj.h"
 #include "system/file/file.h"
-#include "system/file/drvobj.h"
 
+struct c_drvobj;
 
 /* ファイルオブジェクトクラス基本メソッドテーブル */
 typedef struct t_fileobj_methods
 {
-	T_HANDLEOBJ_METHODS HandlObjMethods;
-	FILE_ERR  (*pfncIoControl)(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize);
-	FILE_POS  (*pfncSeek)(HANDLE hFile, FILE_POS Offset, int iOrign);
-	FILE_SIZE (*pfncRead)(HANDLE hFile, void *pBuf, FILE_SIZE Size);
-	FILE_SIZE (*pfncWrite)(HANDLE hFile, const void *pData, FILE_SIZE Size);
-	FILE_ERR  (*pfncFlush)(HANDLE hFile);
+	T_HANDLEOBJ_METHODS	HandlObjMethods;	/* ハンドルオブジェクトを継承 */
 } T_FILEOBJ_METHODS;
 
 
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_fileobj
 {
-	C_HANDLEOBJ	HandleObj;				/* ハンドルオブジェクトを継承 */
-	C_DRVOBJ    *pDrvObj;				/* デバイスドライバ本体への参照 */
+	C_HANDLEOBJ		HandleObj;				/* ハンドルオブジェクトを継承 */
+	struct c_drvobj	*pDrvObj;				/* デバイスドライバへの参照 */
 } C_FILEOBJ;
+
+
+#include "drvobj.h"
 
 
 /* ハンドル変換 */
@@ -46,13 +46,14 @@ typedef struct c_fileobj
 extern "C" {
 #endif
 
-void     FileObj_Create(C_FILEOBJ *self, const T_FILEOBJ_METHODS* pMethods);
-void     FileObj_Delete(C_FILEOBJ *self);
-#define  FileObj_GetMethods(self)			((T_FILEOBJ_METHODS *)HandleObj_GetMethods(&(self)->HandleObj))
+void FileObj_Create(C_FILEOBJ *self, struct c_drvobj *pDrvObj, const T_FILEOBJ_METHODS *pMethods);
+void FileObj_Delete(HANDLE self);
 
 #ifdef __cplusplus
 }
 #endif
+
+
 
 
 #endif	/* __HOS__file_h__ */

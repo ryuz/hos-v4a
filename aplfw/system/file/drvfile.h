@@ -31,7 +31,7 @@ typedef struct c_drvfile
 extern "C" {
 #endif
 
-void DrvFile_Create(C_DRVFILE *self, C_DRVOBJ *pDrvObj, int iMode, const T_FILEOBJ_METHODS *pMethods);		/**< コンストラクタ */
+void DrvFile_Create(C_DRVFILE *self, C_DRVOBJ *pDrvObj, int iMode);		/**< コンストラクタ */
 
 #ifdef __cplusplus
 }

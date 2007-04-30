@@ -23,14 +23,10 @@ const T_FILEOBJ_METHODS DrvFile_FileObjMethods =
 
 
 /** コンストラクタ */
-void DrvFile_Create(C_DRVFILE *self, C_DRVOBJ *pDrvObj, int iMode, const T_FILEOBJ_METHODS *pMethods)
+void DrvFile_Create(C_DRVFILE *self, C_DRVOBJ *pDrvObj, int iMode)
 {
 	/* 親クラスの初期化 */
-	if ( pMethods == NULL )
-	{
-		pMethods = &DrvFile_FileObjMethods;
-	}
-	FileObj_Create(&self->FileObj, pMethods);
+	FileObj_Create(&self->FileObj, &DrvFile_FileObjMethods);
 	
 	/* メンバ初期化 */
 	self->pDrvObj = pDrvObj;

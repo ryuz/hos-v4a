@@ -18,7 +18,6 @@
 HANDLE File_Open(const char *pszPatah, int iMode)
 {
 	C_FILE *self;
-	HANDLE hFile;
 	int    iNameLen;
 	int    i;
 	

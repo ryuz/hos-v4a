@@ -110,6 +110,10 @@ SOURCE=..\wintimer.c
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\drvobj.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\kernel_id.h
 # End Source File
 # Begin Source File

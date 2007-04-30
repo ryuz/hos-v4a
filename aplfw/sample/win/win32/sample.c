@@ -65,11 +65,8 @@ void Sample_Startup(VP_INT exinf)
 	
 	/*  /dev/com0 に登録 */
 	strcpy(DevInf.szName, "com0");
-	DevInf.pfncCreate = WinSockFile_Create;
-	DevInf.ObjSize    = sizeof(C_WINSOCKFILE);
-	DevInf.pParam     = &g_WinSockDrv[0];
+	DevInf.pDrvObj = (C_DRVOBJ *)&g_WinSockDrv[0];
 	File_AddDevice(&DevInf);
-
 
 	/* /dev/com0 の上に VT100コンソールを形成 */
 	hTty = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
@@ -77,9 +74,7 @@ void Sample_Startup(VP_INT exinf)
 
 	/*  /dev/con0 に登録 */
 	strcpy(DevInf.szName, "con0");
-	DevInf.pfncCreate = Vt100Con_Create;
-	DevInf.ObjSize    = sizeof(C_VT100CON);
-	DevInf.pParam     = &g_Vt100Drv[1];
+	DevInf.pDrvObj = (C_DRVOBJ *)&g_Vt100Drv[1];
 	File_AddDevice(&DevInf);
 
 	hCon = File_Open("/dev/con0", FILE_MODE_READ | FILE_MODE_WRITE);

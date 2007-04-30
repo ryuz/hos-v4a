@@ -5,7 +5,6 @@
 
 const T_VOLUMEOBJ_METHODS DevVol_VolumeObjMethods =
 {
-	{ DevVol_Delete },			/* デストラクタ */
 	DevVol_OpenFile,
 	NULL,
 	NULL,
@@ -22,7 +21,7 @@ void DevVol_Create(C_DEVVOL *self)
 	/* 初期化 */
 	for ( i = 0; i < DEVVOL_MAX_DEVICE; i++ )
 	{
-		self->DevTable[i].ObjSize = 0;
+		self->DevTable[i].pDrvObj = NULL;
 	}
 }
 

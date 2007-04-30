@@ -201,30 +201,6 @@ SOURCE=..\..\..\..\library\container\array\array_setsize.c
 # Begin Group "renesus"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\renesas\scidrv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\renesas\scidrv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\renesas\scifile.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\renesas\scifile.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\renesas\scihal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\renesas\scihal.h
-# End Source File
 # End Group
 # Begin Group "winsock"
 
@@ -239,40 +215,12 @@ SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\driver\serial\winsock\winsockfile.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\winsock\winsockfile.h
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_local.h
 # End Source File
 # End Group
 # Begin Group "pc16550"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\pc16550\pc16550file.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\pc16550\pc16550file.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal.h
-# End Source File
 # End Group
 # End Group
 # Begin Group "ether"
@@ -281,25 +229,9 @@ SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal.h
 # Begin Group "ne2000"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000\ne2000drv.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000\ne2000drv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000\ne2000hal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\ether\ne2000\ne2000hal.h
-# End Source File
 # End Group
 # End Group
-# Begin Group "terminal"
+# Begin Group "console"
 
 # PROP Default_Filter ""
 # Begin Group "vt100"
@@ -307,31 +239,23 @@ SOURCE=..\..\..\..\driver\ether\ne2000\ne2000hal.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\driver\terminal\vt100\vt100con.h
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\driver\terminal\vt100\vt100con_create.c
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_getch.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv.h
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_local.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_getch.c
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_read.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_local.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_read.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\terminal\vt100\vt100drv_write.c
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_write.c
 # End Source File
 # End Group
 # End Group
@@ -476,14 +400,6 @@ SOURCE=..\..\..\..\system\sysapi\system_unlock.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\confile.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\confile.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\file\console.h
 # End Source File
 # Begin Source File
@@ -493,6 +409,18 @@ SOURCE=..\..\..\..\system\file\console_getch.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\consoleobj.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_local.h
 # End Source File
 # Begin Source File
 
@@ -726,75 +654,31 @@ SOURCE=..\..\..\..\volume\dev\devvol_openfile.c
 # Begin Group "fat"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatfile.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatfile_create.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatfile_local.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatfile_read.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_clusterread.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_clusterwrite.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_create.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_createfile.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_flushfat.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_getclusterbuf.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_getnextcluster.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_local.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_open.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_relclusterbuf.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\fat\fatvol_setnextcluster.c
-# End Source File
 # End Group
 # End Group
 # Begin Source File
 
 SOURCE=..\..\..\..\hosaplfw.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_close.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_iocontrol.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_open.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_seek.c
 # End Source File
 # End Target
 # End Project

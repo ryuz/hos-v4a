@@ -47,7 +47,7 @@
 extern "C" {
 #endif
 
-FILE_ERR Console_GetCh(HANDLE hConsole);					/**< コンストラクタ */
+FILE_ERR Console_GetCh(HANDLE hConsole);
 
 #ifdef __cplusplus
 }

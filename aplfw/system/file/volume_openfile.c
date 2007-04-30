@@ -10,11 +10,11 @@ HANDLE Volume_OpenFile(HANDLE hVolume, const char *pszPath, int iMode)
 	
 	self = (C_VOLUMEOBJ *)hVolume;
 	
-	if ( VolumeObj_GetMethods(self)->pfncOpenFile != NULL )
+	if ( self->pMethods->pfncOpenFile == NULL )
 	{
-		return VolumeObj_GetMethods(self)->pfncOpenFile(hVolume, pszPath, iMode);
+		return HANDLE_NULL;
 	}
 
-	return HANDLE_NULL;
+	return self->pMethods->pfncOpenFile(hVolume, pszPath, iMode);
 }
 

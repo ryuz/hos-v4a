@@ -2,18 +2,16 @@
 
 
 
-FILE_ERR Console_GetCh(HANDLE hConsole)
+int Console_GetCh(HANDLE hFile)
 {
-	C_CONSOLEOBJ *self;
+	int c;
 
-	self = (C_CONSOLEOBJ *)hConsole;
-
-	if ( ConsoleObj_GetMethods(self)->pfncGetCh != NULL )
+	if ( File_IoControl(hFile, FILE_IOCTL_CON_GETCH, &c, sizeof(c), NULL, 0) != FILE_ERR_OK )
 	{
-		return ConsoleObj_GetMethods(self)->pfncGetCh(hConsole);
+		return FILE_ERR_NG;
 	}
 
-	return FILE_ERR_NG;
+	return c;
 }
 
 

@@ -12,9 +12,23 @@
 #include "fileobj.h"
 
 
-void FileObj_Create(C_FILEOBJ *self, const T_FILEOBJ_METHODS* pMethods)
+static const T_FILEOBJ_METHODS FileObj_FileObjMethods =
+	{
+		{FileObj_Delete},	/* デストラクタ */
+	};
+
+
+void FileObj_Create(C_FILEOBJ *self, C_DRVOBJ *pDrvObj, const T_FILEOBJ_METHODS *pMethods)
 {
+	if ( pMethods == NULL )	/* オーバーライド無しなら */
+	{
+		pMethods = &FileObj_FileObjMethods;
+	}
+
+	/* 親クラスコンストラクタ */
 	HandleObj_Create(&self->HandleObj, &pMethods->HandlObjMethods);
+	
+	self->pDrvObj = pDrvObj;
 }
 
 

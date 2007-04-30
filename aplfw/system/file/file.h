@@ -43,8 +43,9 @@
 #define FILE_SEEK_CUR				1
 #define FILE_SEEK_END				2
 
+
 /* IoControl機能コード(共通) */
-#define FILE_IOCTL_GETDEVTYPE		0x0000		/* デバイスタイプを得る */
+#define FILE_IOCTL_GETDEVINF		0x0000		/* デバイス情報を得る */
 #define FILE_IOCTL_SYNC				0x0001		/* 同期する */
 #define FILE_IOCTL_GETSIZE			0x0010		/* ファイルサイズを取得 */
 #define FILE_IOCTL_GETREADSIZE		0x0010		/* 読み込み可能サイズ(受信バッファ内のデータ量)を取得 */
@@ -53,7 +54,10 @@
 #define FILE_IOCTL_RELREADBUF		0x0021		/* リードバッファ返却(省コピー版Read) */
 #define FILE_IOCTL_GETWRITEBUF		0x0030		/* ライトバッファ取得(省コピー版Write) */
 #define FILE_IOCTL_SENDWRITEBUF		0x0031		/* ライトバッファ送信(省コピー版Write) */
-#define FILE_IOCTL_RELWRITEBUF		0x0032		/* ライトバッファ破棄(省コピー版Write) */
+#define FILE_IOCTL_CANWRITEBUF		0x0032		/* ライトバッファ破棄(省コピー版Write) */
+
+/* IoControl機能コード(コンソール) */
+#define FILE_IOCTL_CON_GETCH		0x0101		/* 文字読込み */
 
 /* IoControl機能コード(シリアル通信) */
 #define FILE_IOCTL_COM_GETSPEED		0x2101		/* BPS取得 */
@@ -70,7 +74,8 @@
 #define FILE_IOCTL_IP_SETMASK		0x2304		/* IPサブネットマスク設定 */
 
 /* IoControl機能コード(ユーザー定義) */
-#define FILE_IOCTL_USER				0x6000		/* 0x6000〜0x7fff あたりを使ってね */
+#define FILE_IOCTL_USER				0x6000		/* 0x6000〜0x7fff */
+
 
 
 /* 型定義 */
@@ -90,12 +95,11 @@ typedef struct t_file_volinf
 
 
 /* デバイス情報 */
+struct c_drvobj;
 typedef struct t_file_devinf
 {
-	char		szName[FILE_MAX_NAME];									/* ファイル名 */
-	FILE_ERR	(*pfncCreate)(HANDLE hFile, void *pParam, int iMode);	/* コンストラクタアドレス */
-	int     	ObjSize;												/* オブジェクトのサイズ */
-	void    	*pParam;												/* オブジェクトの生成パラメータ */
+	char			szName[FILE_MAX_NAME];			/* デバイス名 */
+	struct c_drvobj	*pDrvObj;						/* デバイスドライバへの参照 */
 } T_FILE_DEVINF;
 
 
@@ -120,19 +124,19 @@ extern "C" {
 #endif
 
 /* システム */
-void     File_Initialize(void);									/* ファイルシステムの初期化 */
+void      File_Initialize(void);								/* ファイルシステムの初期化 */
 
-FILE_ERR File_AddVolume(const T_FILE_VOLINF *pVolInf);			/* ボリュームのマウント */
-FILE_ERR File_RemoveVolume(const T_FILE_VOLINF *pVolInf);		/* ボリュームのマウント */
+FILE_ERR  File_AddVolume(const T_FILE_VOLINF *pVolInf);			/* ボリュームのマウント */
+FILE_ERR  File_RemoveVolume(const T_FILE_VOLINF *pVolInf);		/* ボリュームのマウント */
 
-FILE_ERR File_AddDevice(const T_FILE_DEVINF *pDevInf);			/* デバイスファイルの追加 */
-FILE_ERR File_RemoveDevice(const char *pszName);				/* デバイスファイルの削除 */
+FILE_ERR  File_AddDevice(const T_FILE_DEVINF *pDevInf);			/* デバイスファイルの追加 */
+FILE_ERR  File_RemoveDevice(const char *pszName);				/* デバイスファイルの削除 */
 
 
 /* 基本API */
 HANDLE    File_Open(const char *pszPatah, int iMode);
 #define   File_Close(hFile)		Handle_Close(hFile)
-FILE_ERR  File_IoControl(HANDLE hFile, int iFunc, const void *pInBuf, FILE_SIZE InSize, void *pOutBuf, FILE_SIZE OutSize);
+FILE_ERR  File_IoControl(HANDLE hFile, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 FILE_POS  File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
 FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
@@ -156,7 +160,6 @@ int       File_PrintFormatVL(HANDLE hFile, const char *pszFormat, va_list argptr
 
 
 /* 拡張操作 */
-FILE_ERR  File_Sync(HANDLE hFile);
 FILE_POS  File_GetFileSize(HANDLE hFile);
 FILE_SIZE File_GetReadSize(HANDLE hFile);
 FILE_SIZE File_GetWriteSize(HANDLE hFile);

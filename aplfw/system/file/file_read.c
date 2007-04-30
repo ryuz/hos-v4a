@@ -20,13 +20,9 @@ FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size)
 	C_FILEOBJ *self;
 
 	self = FILE_HANDLE2OBJ(hFile);
-
-	if ( FileObj_GetMethods(self)->pfncRead != NULL )
-	{
-		return FileObj_GetMethods(self)->pfncRead(hFile, pBuf, Size);
-	}
-
-	return FILE_ERR_NG;
+	self->pDrvObj;
+	
+	return DrvObj_Read(self->pDrvObj, self, pBuf, Size);
 }
 
 

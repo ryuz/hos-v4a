@@ -5,7 +5,7 @@
 
 const T_FILEOBJ_METHODS FatFile_FileObjMethods =
 {
-	{ FatFile_Delete },		/* デストラクタ */
+/*	{ FatFile_Delete },	*/	/* デストラクタ */
 	FatFile_IoControl,		/* IoControl */
 	FatFile_Seek,			/* Seek */
 	FatFile_Read,			/* Read */

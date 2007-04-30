@@ -3,11 +3,15 @@
 #include "vt100drv_local.h"
 
 
-FILE_SIZE Vt100Drv_Read(C_VT100DRV *self, void *pBuf, FILE_SIZE Size)
+FILE_SIZE Vt100Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
+	C_VT100DRV *self;
 	char       *pcBuf;
 	FILE_SIZE  i;
 	int        c;
+
+	/* upper cast */
+	self = (C_VT100DRV *)pDrvObj;
 
 	pcBuf = (char *)pBuf;
 	
