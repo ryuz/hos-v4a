@@ -1,5 +1,5 @@
-#include "consoleobj.h"
 
+#include "console.h"
 
 
 int Console_GetCh(HANDLE hFile)

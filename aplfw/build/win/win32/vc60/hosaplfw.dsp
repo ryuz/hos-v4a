@@ -243,7 +243,23 @@ SOURCE=..\..\..\..\driver\console\vt100\vt100drv.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_close.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_flush.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\driver\console\vt100\vt100drv_getch.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_iocontrol.c
 # End Source File
 # Begin Source File
 
@@ -251,7 +267,15 @@ SOURCE=..\..\..\..\driver\console\vt100\vt100drv_local.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_open.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\driver\console\vt100\vt100drv_read.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_seek.c
 # End Source File
 # Begin Source File
 
@@ -659,26 +683,6 @@ SOURCE=..\..\..\..\volume\dev\devvol_openfile.c
 # Begin Source File
 
 SOURCE=..\..\..\..\hosaplfw.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\console\vt100\vt100drv_close.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\console\vt100\vt100drv_create.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\console\vt100\vt100drv_iocontrol.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\console\vt100\vt100drv_open.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\driver\console\vt100\vt100drv_seek.c
 # End Source File
 # End Target
 # End Project
