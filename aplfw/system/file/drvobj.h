@@ -20,6 +20,7 @@ struct c_drvobj;
 /* デバイスドライバオブジェクト基本クラス メソッドテーブル */
 typedef struct t_drvobj_methods
 {
+	void      (*pfncDelete)(struct c_drvobj *self);
 	HANDLE    (*pfncOpen)(struct c_drvobj *self, const char *pszPath, int iMode);
 	FILE_ERR  (*pfncClose)(struct c_drvobj *self, C_FILEOBJ *pFileObj);
 	FILE_ERR  (*pfncIoControl)(struct c_drvobj *self, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);

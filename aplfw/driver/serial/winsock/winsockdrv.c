@@ -6,6 +6,7 @@
 
 const T_DRVOBJ_METHODS  WinSockDrv_Methods = 
 	{
+		WinSockDrv_Delete,
 		WinSockDrv_Open,
 		WinSockDrv_Close,
 		WinSockDrv_IoControl,
@@ -40,7 +41,7 @@ void WinSockDrv_Create(C_WINSOCKDRV *self, int iPortNum, int iIntNum, int iBufSi
 
 
 /** デストラクタ */
-void WinSockDrv_Delete(C_WINSOCKDRV *self)
+void WinSockDrv_Delete(C_DRVOBJ *pDrvObj)
 {
 	WSACleanup();
 }

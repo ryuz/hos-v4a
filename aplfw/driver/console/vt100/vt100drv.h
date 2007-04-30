@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 void      Vt100Drv_Create(C_VT100DRV *self, HANDLE hTty);					/**< コンストラクタ */
-void      Vt100Drv_Delete(C_VT100DRV *self);								/**< デストラクタ */
+void      Vt100Drv_Delete(C_DRVOBJ *pDrvObj);								/**< デストラクタ */
 
 #ifdef __cplusplus
 }

@@ -44,6 +44,7 @@ extern "C" {
 #endif
 
 void WinSockDrv_Create(C_WINSOCKDRV *self, int iPortNum, int iIntNum, int iBufSize);		/**< コンストラクタ */
+void WinSockDrv_Delete(C_DRVOBJ *pDrvObj);													/**< デストラクタ */
 
 #ifdef __cplusplus
 }
