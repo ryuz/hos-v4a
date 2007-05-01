@@ -13,7 +13,7 @@
 
 
 /** クローズ */
-void Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_PC16550DRV	*self;
 	
@@ -28,6 +28,8 @@ void Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 		Pc16550Hal_Stop(&self->Pc16550Hal);
 		StreamBuf_ClearBuf(&self->StmBufRecv);
 	}
+
+	return FILE_ERR_OK;
 }
 
 

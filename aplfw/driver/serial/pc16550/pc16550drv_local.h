@@ -22,7 +22,7 @@ extern "C" {
 
 void      Pc16550Drv_Delete(C_DRVOBJ *pDrvObj);
 HANDLE    Pc16550Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+FILE_ERR  Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 FILE_ERR  Pc16550Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 FILE_POS  Pc16550Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
 FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
