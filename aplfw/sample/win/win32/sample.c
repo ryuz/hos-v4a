@@ -25,10 +25,13 @@
 #include "apl/hello/hello.h"
 #include "apl/memdump/memdump.h"
 
+#include "driver/serial/pc16550/pc16550drv.h"
+
 
 long         g_SystemHeap[8 * 1024 / sizeof(long)];
 C_WINSOCKDRV g_WinSockDrv[1];
 C_VT100DRV   g_Vt100Drv[1];
+C_PC16550DRV g_Pc16550Drv[1];
 
 
 int System_Boot(VPARAM Param);
@@ -69,17 +72,26 @@ void Sample_Startup(VP_INT exinf)
 	File_AddDevice(&DevInf);
 
 	/* /dev/com0 の上に VT100コンソールを形成 */
-	hTty = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
-	Vt100Drv_Create(&g_Vt100Drv[1], hTty);
+	hTty = File_Open("/dev/com0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	Vt100Drv_Create(&g_Vt100Drv[0], hTty);
 
 	/*  /dev/con0 に登録 */
 	strcpy(DevInf.szName, "con0");
-	DevInf.pDrvObj = (C_DRVOBJ *)&g_Vt100Drv[1];
+	DevInf.pDrvObj = (C_DRVOBJ *)&g_Vt100Drv[0];
 	File_AddDevice(&DevInf);
 
-	hCon = File_Open("/dev/con0", FILE_MODE_READ | FILE_MODE_WRITE);
+	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
 
+	/* 16550デバドラ生成 */
+	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, (14700000/4), 64);
 	
+	/* 16550 を /dev/com0 に登録 */
+	strcpy(DevInf.szName, "com0");
+	DevInf.pDrvObj = (C_DRVOBJ *)&g_Pc16550Drv[0];
+	File_AddDevice(&DevInf);
+
+
+
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/

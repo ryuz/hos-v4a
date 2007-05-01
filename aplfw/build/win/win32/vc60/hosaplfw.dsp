@@ -221,6 +221,102 @@ SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_local.h
 # Begin Group "pc16550"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_close.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_flush.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_iocontrol.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_isr.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_open.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_read.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_seek.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550drv_write.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_enableinterrupt.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_getinterruptstatus.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_getstatus.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_recvchar.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_sendchar.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_setspeed.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_setup.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\pc16550\pc16550hal_stop.c
+# End Source File
 # End Group
 # End Group
 # Begin Group "ether"
@@ -248,6 +344,10 @@ SOURCE=..\..\..\..\driver\console\vt100\vt100drv_close.c
 # Begin Source File
 
 SOURCE=..\..\..\..\driver\console\vt100\vt100drv_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_delete.c
 # End Source File
 # Begin Source File
 
@@ -424,6 +524,18 @@ SOURCE=..\..\..\..\system\sysapi\system_unlock.c
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\chrdrv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrdrv_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrfile.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\console.h
 # End Source File
 # Begin Source File
@@ -441,6 +553,10 @@ SOURCE=..\..\..\..\system\file\drvobj.h
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\drvobj_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_delete.c
 # End Source File
 # Begin Source File
 
@@ -680,6 +796,14 @@ SOURCE=..\..\..\..\volume\dev\devvol_openfile.c
 # PROP Default_Filter ""
 # End Group
 # End Group
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrdrv_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrfile_create.c
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\hosaplfw.h

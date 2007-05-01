@@ -29,19 +29,25 @@
 #define FILE_EOF					(-1)
 
 /* Openモード定義 */
-#define FILE_MODE_READ				0x01		/* 読込み許可 */
-#define FILE_MODE_WRITE				0x02		/* 書込み許可 */
-#define FILE_MODE_CREATE			0x04		/* 常に新規作成 */
-#define FILE_MODE_EXIST				0x08		/* 存在しなければエラー */
-#define FILE_MODE_SHARE_READ		0x10		/* 読込み共有許可 */
-#define FILE_MODE_SHARE_WRITE		0x20		/* 書込み共有許可 */
-#define FILE_MODE_TEXT				0x40		/* テキストモード */
-#define FILE_MODE_DIR				0x80		/* ディレクトリをオープン */
+#define FILE_OPEN_READ				0x01		/* 読込み許可 */
+#define FILE_OPEN_WRITE				0x02		/* 書込み許可 */
+#define FILE_OPEN_CREATE			0x04		/* 常に新規作成 */
+#define FILE_OPEN_EXIST				0x08		/* 存在しなければエラー */
+#define FILE_OPEN_SHARE_READ		0x10		/* 読込み共有許可 */
+#define FILE_OPEN_SHARE_WRITE		0x20		/* 書込み共有許可 */
+#define FILE_OPEN_TEXT				0x40		/* テキストモード */
+#define FILE_OPEN_DIR				0x80		/* ディレクトリをオープン */
 
 /* シーク */
 #define FILE_SEEK_SET				0
 #define FILE_SEEK_CUR				1
 #define FILE_SEEK_END				2
+
+/* 同期モード */
+#define FILE_WMODE_BLOCKING			0x00		/* 書込み ブロッキングモード */
+#define FILE_WMODE_POLING			0x01		/* 書込み ポーリングモード */
+#define FILE_RMODE_BLOCKING			0x00		/* 読込み ブロッキングモード */
+#define FILE_RMODE_POLING			0x01		/* 読込み ポーリングモード */
 
 
 /* IoControl機能コード(共通) */
@@ -77,7 +83,6 @@
 #define FILE_IOCTL_USER				0x6000		/* 0x6000〜0x7fff */
 
 
-
 /* 型定義 */
 typedef char			FILE_ATTR;				/* ファイル属性 */
 typedef int				FILE_ERR;				/* ファイルのエラー型 */
@@ -92,15 +97,6 @@ typedef struct t_file_volinf
 	char		szName[FILE_MAX_NAME];
 	HANDLE		hVolume;
 } T_FILE_VOLINF;
-
-
-/* デバイス情報 */
-struct c_drvobj;
-typedef struct t_file_devinf
-{
-	char			szName[FILE_MAX_NAME];			/* デバイス名 */
-	struct c_drvobj	*pDrvObj;						/* デバイスドライバへの参照 */
-} T_FILE_DEVINF;
 
 
 /* ファイル情報 */
@@ -118,6 +114,9 @@ typedef struct t_file_fileinf
 } T_FILE_FILEINF;
 
 
+#include "fileobj.h"
+#include "drvobj.h"
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -127,10 +126,10 @@ extern "C" {
 void      File_Initialize(void);								/* ファイルシステムの初期化 */
 
 FILE_ERR  File_AddVolume(const T_FILE_VOLINF *pVolInf);			/* ボリュームのマウント */
-FILE_ERR  File_RemoveVolume(const T_FILE_VOLINF *pVolInf);		/* ボリュームのマウント */
+FILE_ERR  File_RemoveVolume(const T_FILE_VOLINF *pVolInf);		/* ボリュームのアンマウント */
 
-FILE_ERR  File_AddDevice(const T_FILE_DEVINF *pDevInf);			/* デバイスファイルの追加 */
-FILE_ERR  File_RemoveDevice(const char *pszName);				/* デバイスファイルの削除 */
+FILE_ERR  File_AddDevice(const char *pszName, struct c_drvobj *pDrvObj);	/* デバイスドライバの登録 */
+FILE_ERR  File_RemoveDevice(const char *pszName);							/* デバイスドライバの削除 */
 
 
 /* 基本API */
@@ -141,6 +140,14 @@ FILE_POS  File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
 FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
 FILE_ERR  File_Flush(HANDLE hFile);
+
+/* 同期制御API */
+FILE_ERR  File_SetWriteMode(HANDLE hFile, int iWriteMode);
+FILE_ERR  File_GetWriteStatus(HANDLE hFile);
+FILE_ERR  File_SetWriteMonitor(HANDLE hFile, HANDLE hEvent);
+FILE_ERR  File_SetReadMode(HANDLE hFile, int iReadMode);
+FILE_ERR  File_GetReadStatus(HANDLE hFile);
+FILE_ERR  File_SetReadMonitor(HANDLE hFile, HANDLE hEvent);
 
 
 /* 文字列用API */

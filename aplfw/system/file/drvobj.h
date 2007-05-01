@@ -4,7 +4,7 @@
  * @file  drvobj.h
  * @brief %jp{デバイスドライバオブジェクトの基本クラス}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -13,21 +13,23 @@
 #define __HOS__drvobj_h__
 
 
-#include "system/file/fileobj.h"
+#include "file.h"
+
 
 struct c_drvobj;
+struct c_fileobj;
 
 /* デバイスドライバオブジェクト基本クラス メソッドテーブル */
 typedef struct t_drvobj_methods
 {
 	void      (*pfncDelete)(struct c_drvobj *self);
 	HANDLE    (*pfncOpen)(struct c_drvobj *self, const char *pszPath, int iMode);
-	FILE_ERR  (*pfncClose)(struct c_drvobj *self, C_FILEOBJ *pFileObj);
-	FILE_ERR  (*pfncIoControl)(struct c_drvobj *self, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-	FILE_POS  (*pfncSeek)(struct c_drvobj *self, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-	FILE_SIZE (*pfncRead)(struct c_drvobj *self, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-	FILE_SIZE (*pfncWrite)(struct c_drvobj *self, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-	FILE_ERR  (*pfncFlush)(struct c_drvobj *self, C_FILEOBJ *pFileObj);
+	FILE_ERR  (*pfncClose)(struct c_drvobj *self, struct c_fileobj *pFileObj);
+	FILE_ERR  (*pfncIoControl)(struct c_drvobj *self, struct c_fileobj *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+	FILE_POS  (*pfncSeek)(struct c_drvobj *self, struct c_fileobj *pFileObj, FILE_POS Offset, int iOrign);
+	FILE_SIZE (*pfncRead)(struct c_drvobj *self, struct c_fileobj *pFileObj, void *pBuf, FILE_SIZE Size);
+	FILE_SIZE (*pfncWrite)(struct c_drvobj *self, struct c_fileobj *pFileObj, const void *pData, FILE_SIZE Size);
+	FILE_ERR  (*pfncFlush)(struct c_drvobj *self, struct c_fileobj *pFileObj);
 } T_DRVOBJ_METHODS;
 
 
@@ -36,6 +38,9 @@ typedef struct c_drvobj
 {
 	const T_DRVOBJ_METHODS *pMethods;
 } C_DRVOBJ;
+
+
+#include "system/file/fileobj.h"
 
 
 #ifdef __cplusplus

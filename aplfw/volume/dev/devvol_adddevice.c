@@ -1,8 +1,9 @@
 
+#include <string.h>
 #include "devvol_local.h"
 
 
-FILE_ERR DevVol_AddDevice(C_DEVVOL *self, const T_FILE_DEVINF *pDevInf)
+FILE_ERR DevVol_AddDevice(C_DEVVOL *self, const char *pszName, struct c_drvobj *pDrvObj)
 {
 	int i;
 	
@@ -11,7 +12,8 @@ FILE_ERR DevVol_AddDevice(C_DEVVOL *self, const T_FILE_DEVINF *pDevInf)
 	{
 		if ( self->DevTable[i].pDrvObj == NULL )
 		{
-			self->DevTable[i] = *pDevInf;
+			strcpy(self->DevTable[i].szName, pszName);
+			self->DevTable[i].pDrvObj = pDrvObj;
 			return FILE_ERR_OK;
 		}
 	}

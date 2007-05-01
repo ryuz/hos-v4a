@@ -14,7 +14,6 @@
 
 
 #include "winsockdrv.h"
-#include "system/file/drvobj.h"
 
 
 #ifdef __cplusplus

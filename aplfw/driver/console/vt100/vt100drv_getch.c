@@ -4,7 +4,7 @@
  * @file  vt100drv.h
  * @brief %jp{VT100 ターミナルドライバ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

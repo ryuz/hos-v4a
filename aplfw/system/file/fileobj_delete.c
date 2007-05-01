@@ -4,16 +4,20 @@
  * @file  file.c
  * @brief %jp{ファイルシステム}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 #include "fileobj.h"
 
 
-void FileObj_Delete(C_FILEOBJ *self)
+void FileObj_Delete(HANDLE hFile)
 {
-	HandleObj_Delete(&self->HandleObj);
+	C_FILEOBJ *self;
+	
+	self = (C_FILEOBJ *)hFile;
+
+	DrvObj_Close(self->pDrvObj, self);
 }
 
 

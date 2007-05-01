@@ -21,7 +21,7 @@ FILE_ERR Pc16550Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	self     = (C_PC16550DRV *)pDrvObj;
 	pChrFile = (C_CHRFILE *)pFileObj;
 
-	return FILE_ERR_NG;
+	return FILE_ERR_OK;
 }
 
 

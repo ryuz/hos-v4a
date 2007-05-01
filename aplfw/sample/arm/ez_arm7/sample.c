@@ -15,17 +15,19 @@
 #include "kernel.h"
 #include "kernel_id.h"
 #include "system/sysapi/sysapi.h"
-#include "system/file/confile.h"
+#include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/shell/shell.h"
-#include "driver/serial/pc16550/pc16550file.h"
+#include "driver/serial/pc16550/pc16550drv.h"
+#include "driver/console/vt100/vt100drv.h"
 #include "apl/hello/hello.h"
 
 
 
 long         g_SystemHeap[1 * 1024 / sizeof(long)];
 C_PC16550DRV g_Pc16550Drv[1];
+C_VT100DRV   g_Vt100Drv[1];
 
 
 int System_Boot(VPARAM Param);
@@ -35,10 +37,9 @@ int System_Boot(VPARAM Param);
 
 void Sample_Task(VP_INT exinf)
 {
-	T_FILE_DEVINF   DevInf;
-	T_PROCESS_INFO  ProcInfo;
-	HANDLE          hTty;
-	HANDLE          hCon;
+	T_PROCESS_INF	ProcInfo;
+	HANDLE			hTty;
+	HANDLE			hCon;
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -55,16 +56,19 @@ void Sample_Task(VP_INT exinf)
 	File_Initialize();
 	Command_Initialize();
 
+
+	/*************************/
+	/*   デバイスドライバ    */
+	/*************************/
 	
-	/* 16550デバドラ生成 */
+	/* 16550デバドラ生成 (/dev/com0 に登録) */
 	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, (14700000/4), 64);
-	
-	/* 16550 を /dev/com0 に登録 */
-	strcpy(DevInf.szName, "com0");
-	DevInf.pfncCreate = Pc16550File_Create;
-	DevInf.ObjSize    = sizeof(C_PC16550FILE);
-	DevInf.pParam     = &g_Pc16550Drv[0];
-	File_AddDevice(&DevInf);
+	File_AddDevice("com0", (C_DRVOBJ *)&g_Pc16550Drv[0]);
+
+	/* シリアル上にコンソールを生成( /dev/com0 に登録) */
+	hTty = File_Open("/dev/com0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	Vt100Drv_Create(&g_Vt100Drv[0], hTty);
+	File_AddDevice("con0", (C_DRVOBJ *)&g_Vt100Drv[0]);
 	
 	
 	/*************************/
@@ -73,22 +77,17 @@ void Sample_Task(VP_INT exinf)
 	Command_AddCommand("hsh",   Shell_Main);
 	Command_AddCommand("hello", Hello_Main);
 	
+	
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
-	hTty = File_Open("/dev/com0", FILE_MODE_READ | FILE_MODE_WRITE);
 	
-	strcpy(DevInf.szName, "con0");
-	DevInf.pfncCreate = ConsoleFile_Create;
-	DevInf.ObjSize    = sizeof(C_CONSOLEFILE);
-	DevInf.pParam     = hTty;
-	File_AddDevice(&DevInf);
-	hCon = File_Open("/dev/con0", FILE_MODE_READ | FILE_MODE_WRITE);
-	
-	ProcInfo.hTty    = hTty;
-	ProcInfo.hStdIn  = hCon;
-	ProcInfo.hStdOut = hCon;
-	ProcInfo.hStdErr = hCon;
+	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	ProcInfo.hTty     = hTty;
+	ProcInfo.hConsole = hCon;
+	ProcInfo.hStdIn   = hCon;
+	ProcInfo.hStdOut  = hCon;
+	ProcInfo.hStdErr  = hCon;
 	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
 	
 	return;

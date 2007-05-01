@@ -19,13 +19,21 @@
 
 #define DEVVOL_MAX_DEVICE		16
 
+/* デバイス情報 */
+struct c_drvobj;
+typedef struct t_devvol_devinf
+{
+	char			szName[FILE_MAX_NAME];			/* デバイス名 */
+	struct c_drvobj	*pDrvObj;						/* デバイスドライバへの参照 */
+} T_DEVVOL_DEVINF;
+
 
 /*  */
 typedef struct c_devvol
 {
 	C_VOLUMEOBJ		VolumeObj;		/* ボリュームオブジェクトを継承 */
 	
-	T_FILE_DEVINF DevTable[DEVVOL_MAX_DEVICE];
+	T_DEVVOL_DEVINF DevTable[DEVVOL_MAX_DEVICE];
 } C_DEVVOL;
 
 
@@ -34,7 +42,7 @@ extern "C" {
 #endif
 
 void     DevVol_Create(C_DEVVOL *self);
-FILE_ERR DevVol_AddDevice(C_DEVVOL *self, const T_FILE_DEVINF *pDevInf);
+FILE_ERR DevVol_AddDevice(C_DEVVOL *self, const char *pszName, struct c_drvobj *pDrvObj);
 
 #ifdef __cplusplus
 }
