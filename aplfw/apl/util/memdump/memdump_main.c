@@ -1,3 +1,12 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  memdump.h
+ * @brief %jp{メモリダンプコマンド}
+ *
+ * Copyright (C) 2006-2007 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
 
 #include <stdlib.h>
 #include <string.h>
@@ -14,6 +23,11 @@ int MemDump_Main(int argc, char *argv[])
 
 	if ( argc < 2 )
 	{
+		StdIo_PrintFormat(
+				"<usage>\n"
+				" %s addrress [size] [b|h|w]\n\n",
+				argv[0]
+			);
 		return 1;
 	}
 	
