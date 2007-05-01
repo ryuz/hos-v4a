@@ -22,7 +22,10 @@
 #include "driver/serial/pc16550/pc16550drv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "apl/hello/hello.h"
-
+#include "apl/util/memdump/memdump.h"
+#include "apl/util/memwrite/memwrite.h"
+#include "apl/util/memtest/memtest.h"
+#include "apl/util/keytest/keytest.h"
 
 
 long         g_SystemHeap[1 * 1024 / sizeof(long)];
@@ -74,8 +77,12 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
-	Command_AddCommand("hsh",   Shell_Main);
-	Command_AddCommand("hello", Hello_Main);
+	Command_AddCommand("hsh",      Shell_Main);
+	Command_AddCommand("hello",    Hello_Main);
+	Command_AddCommand("memdump",  MemDump_Main);
+	Command_AddCommand("memwrite", MemWrite_Main);
+	Command_AddCommand("memtest",  MemTest_Main);
+	Command_AddCommand("keytest",  KeyTest_Main);
 	
 	
 	/*************************/
@@ -88,7 +95,7 @@ void Sample_Task(VP_INT exinf)
 	ProcInfo.hStdIn   = hCon;
 	ProcInfo.hStdOut  = hCon;
 	ProcInfo.hStdErr  = hCon;
-	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
+	Process_CreateEx(System_Boot, 0, 4096, PROCESS_PRIORITY_NORMAL, &ProcInfo);
 	
 	return;
 }
