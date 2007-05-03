@@ -5,7 +5,7 @@ MEMORY
 {
 	vector : o = 0x80000000, l = 0x00000040
 	rom    : o = 0x80000040, l = 0x0000ffc0
-	ram    : o = 0x80010000, l = 0x00002000
+	ram    : o = 0x80010000, l = 0x000f0000
 }
 
 SECTIONS

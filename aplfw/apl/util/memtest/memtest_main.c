@@ -18,11 +18,11 @@
 static int MemTest_PatternTest(void *pAddrStart, void *pAddrEnd, unsigned long ulPattern);
 
 
-
 int MemTest_Main(int argc, char *argv[])
 {
 	void			*pAddrStart;
 	void			*pAddrEnd;
+	int				iAuto = 0;
 	unsigned long	ulSize;
 	unsigned long	i;
 	
@@ -37,8 +37,18 @@ int MemTest_Main(int argc, char *argv[])
 	}
 	
 	/* コマンドライン解析 */
-	pAddrStart  = (void *)strtoul(argv[1], 0, 0);
-	ulSize      = (int)strtol(argv[2], 0, 0);
+	pAddrStart = (void *)strtoul(argv[1], 0, 0);
+	ulSize     = (int)strtol(argv[2], 0, 0);
+	
+	/* 自動確保 */
+	if ( strcmp(argv[1], "auto") == 0 )
+	{
+		if ( (pAddrStart = (void *)Memory_Alloc(ulSize)) == NULL )
+		{
+			return 1;
+		}
+		iAuto = 1;
+	}
 	
 	pAddrEnd = (char *)pAddrStart + ulSize - 1;
 	
@@ -137,6 +147,11 @@ int MemTest_Main(int argc, char *argv[])
 		return 1;
 	}
 
+	if ( iAuto )
+	{
+		Memory_Free(pAddrStart);
+	}
+	
 	return 0;
 }
 

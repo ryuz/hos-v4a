@@ -48,7 +48,7 @@ int MemWrite_Main(int argc, char *argv[])
 			pubAddr = (unsigned char *)pAddr;
 			ubData  = (unsigned char)ulData;
 			*pubAddr = ubData;
-			StdIo_PrintFormat("[memwrite] (unsigned char *)0x%08x <= 0x%02x (%d)\n", ubData, (int)(signed char)ubData);
+			StdIo_PrintFormat("[memwrite] (unsigned char *)0x%08lx <= 0x%02x (%d)\n", (unsigned long)pubAddr, ubData, (int)(signed char)ubData);
 		}
 		break;
 
@@ -59,16 +59,16 @@ int MemWrite_Main(int argc, char *argv[])
 			puhAddr = (unsigned short *)pAddr;
 			uhData  = (unsigned short)ulData;
 			*puhAddr = uhData;
-			StdIo_PrintFormat("[memwrite] (unsigned short *)0x%08x <= 0x%04x (%d)\n", uhData, (int)(signed short)uhData);
+			StdIo_PrintFormat("[memwrite] (unsigned short *)0x%08lx <= 0x%04x (%d)\n", (unsigned long)puhAddr, uhData, (int)(signed short)uhData);
 		}
 		break;
 
 	case 'w':
 		{
-			unsigned long *pulAddr;
-			pulAddr = (unsigned long *)pAddr;
-			*pulAddr = ulData;
-			StdIo_PrintFormat("[memwrite] (unsigned long *)0x%08lx <= 0x%08lx (%ld)\n", ulData, (signed long)ulData);
+			unsigned long *puwAddr;
+			puwAddr = (unsigned long *)pAddr;
+			*puwAddr = ulData;
+			StdIo_PrintFormat("[memwrite] (unsigned long *)0x%08lx <= 0x%08lx (%ld)\n", (unsigned long)puwAddr, ulData, (signed long)ulData);
 		}
 		break;
 	}

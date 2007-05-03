@@ -34,9 +34,8 @@ C_PC16550DRV g_Pc16550Drv[1];
 C_VT100DRV   g_Vt100Drv[1];
 
 
-
-
-#define PINSEL0		((volatile UW *)0xe002c000)
+#define REG_PINSEL0		((volatile UW *)0xe002c000)
+#define REG_BCFG0		((volatile UW *)0xffe00000)
 
 
 void Sample_Task(VP_INT exinf)
@@ -47,8 +46,9 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	/*    固有初期設定       */
 	/*************************/
-	*PINSEL0 = (*PINSEL0 & 0xfffffff0) | 0x05;
-
+	*REG_PINSEL0 = (*REG_PINSEL0 & 0xfffffff0) | 0x05;
+	*REG_BCFG0   = ((0x1 << 28) | (0x01 << 11) | (0x01 << 5) | (0x01 << 0));
+	
 	
 	/*************************/
 	/*       初期化          */
@@ -56,9 +56,8 @@ void Sample_Task(VP_INT exinf)
 	
 	/* システム初期化 */
 	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
-
-
-
+	
+	
 	/*************************/
 	/*   デバイスドライバ    */
 	/*************************/

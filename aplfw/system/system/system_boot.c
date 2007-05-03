@@ -45,9 +45,10 @@ int System_ProcessEntry(VPARAM Param)
 	StdIo_PutString(
 			"\n\n"
 			"================================================================\n"
-			" Hyper Operating System  Application Flamework  --Alpha version\n"
+			" Hyper Operating System  Application Flamework"
+			"  Alpha version\n"
 			"\n"
-			"                          Copyright (C) 1998-2006 by Project HOS\n"
+			"                          Copyright (C) 1998-2007 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");
