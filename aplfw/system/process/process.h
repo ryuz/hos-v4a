@@ -19,7 +19,7 @@
 /* プロセス固有情報 */
 typedef struct t_process_inf
 {
-	HANDLE      hTty;							/* ターミナル */
+	HANDLE      hTerminal;						/* ターミナル */
 	HANDLE      hConsole;						/* コンソール */
 	HANDLE      hStdIn;							/* 標準入力 */
 	HANDLE      hStdOut;						/* 標準出力 */
@@ -39,7 +39,7 @@ HANDLE Process_GetCurrentHandle(void);
 int    Process_GetExitCode(HANDLE hProcess);
 const T_PROCESS_INF *Process_GetInfo(HANDLE hProcess);
 
-#define Process_GetTty()		(Process_GetInfo(Process_GetCurrentHandle())->hTty)
+#define Process_GetTerminal()	(Process_GetInfo(Process_GetCurrentHandle())->hTerminal)
 #define Process_GetConsole()	(Process_GetInfo(Process_GetCurrentHandle())->hConsole)
 #define Process_GetStdIn()		(Process_GetInfo(Process_GetCurrentHandle())->hStdIn)
 #define Process_GetStdOut()		(Process_GetInfo(Process_GetCurrentHandle())->hStdOut)

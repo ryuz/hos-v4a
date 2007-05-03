@@ -13,9 +13,9 @@
 
 
 /* システム全体のロック解除 */
-void System_Unlock(void)
+void SysLoc_Unlock(void)
 {
-	SysMtx_Unlock(System_hMtx);
+	unl_cpu();
 }
 
 

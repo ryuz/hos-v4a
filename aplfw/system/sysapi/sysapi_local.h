@@ -18,7 +18,6 @@
 #include "library/container/mempol/mempol.h"
 
 
-extern SYSMTX_HANDLE System_hMtx;
 extern SYSMTX_HANDLE SysMem_hMtx;
 extern C_MEMPOL      SysMem_MemPol;
 

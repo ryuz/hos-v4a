@@ -16,10 +16,19 @@ INC_DIRS += $(APLFW_DIR)
 #  Systems
 # --------------------------------------------------
 
+SYSTEM_DIR     = $(APLFW_DIR)/system/system
+SRC_DIRS      += $(SYSTEM_DIR)
+CSRCS         += $(SYSTEM_DIR)/system_initialize.c					\
+                 $(SYSTEM_DIR)/system_boot.c
+
+
 # System API
 SYSAPI_DIR     = $(APLFW_DIR)/system/sysapi
 SRC_DIRS      += $(SYSAPI_DIR)
-CSRCS         += $(SYSAPI_DIR)/sysevt_clear.c						\
+CSRCS         += $(SYSAPI_DIR)/sysapi_initialize.c					\
+                 $(SYSAPI_DIR)/sysloc_lock.c						\
+                 $(SYSAPI_DIR)/sysloc_unlock.c						\
+                 $(SYSAPI_DIR)/sysevt_clear.c						\
                  $(SYSAPI_DIR)/sysevt_create.c						\
                  $(SYSAPI_DIR)/sysevt_delete.c						\
                  $(SYSAPI_DIR)/sysevt_set.c							\
@@ -43,9 +52,6 @@ CSRCS         += $(SYSAPI_DIR)/sysevt_clear.c						\
                  $(SYSAPI_DIR)/sysprc_exit.c						\
                  $(SYSAPI_DIR)/sysprc_getcurrenthandle.c			\
                  $(SYSAPI_DIR)/sysprc_start.c						\
-                 $(SYSAPI_DIR)/system_initialize.c					\
-                 $(SYSAPI_DIR)/system_lock.c						\
-                 $(SYSAPI_DIR)/system_unlock.c						\
                  $(SYSAPI_DIR)/systim_wait.c
 
 

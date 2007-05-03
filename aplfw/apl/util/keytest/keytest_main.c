@@ -19,7 +19,7 @@ int KeyTest_Main(int argc, char *argv[])
 	HANDLE hTty;
 
 	StdIo_PutString("\n[KeyTest] start\n");
-	hTty = Process_GetTty();
+	hTty = Process_GetTerminal();
 
 	for ( ; ; )
 	{

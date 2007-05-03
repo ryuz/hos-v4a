@@ -44,11 +44,11 @@ extern "C" {
 #endif
 
 /* 初期化 */
-void           System_Initialize(void *pMem, MEMSIZE lSize);	/* システムの初期化処理 */
+void           SysApi_Initialize(void *pMem, MEMSIZE lSize);	/* システムの初期化処理 */
 
 /* システムロック */
-void           System_Lock(void);								/* システム全体のロック */
-void           System_Unlock(void);								/* システム全体のロック解除 */
+void           SysLoc_Lock(void);								/* システム全体のロック */
+void           SysLok_Unlock(void);								/* システム全体のロック解除 */
 
 /* システム用メモリ制御API */
 void          *SysMem_Alloc(MEMSIZE Size);						/* システムメモリの割り当て */

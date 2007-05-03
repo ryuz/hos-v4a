@@ -14,6 +14,7 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
+#include "system/system/system.h"
 #include "system/sysapi/sysapi.h"
 #include "system/file/console.h"
 #include "system/process/process.h"
@@ -33,14 +34,13 @@ C_PC16550DRV g_Pc16550Drv[1];
 C_VT100DRV   g_Vt100Drv[1];
 
 
-int System_Boot(VPARAM Param);
 
 
 #define PINSEL0		((volatile UW *)0xe002c000)
 
+
 void Sample_Task(VP_INT exinf)
 {
-	T_PROCESS_INF	ProcInfo;
 	HANDLE			hTty;
 	HANDLE			hCon;
 	
@@ -56,8 +56,7 @@ void Sample_Task(VP_INT exinf)
 	
 	/* システム初期化 */
 	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
-	File_Initialize();
-	Command_Initialize();
+
 
 
 	/*************************/
@@ -68,10 +67,16 @@ void Sample_Task(VP_INT exinf)
 	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, (14700000/4), 64);
 	File_AddDevice("com0", (C_DRVOBJ *)&g_Pc16550Drv[0]);
 
-	/* シリアル上にコンソールを生成( /dev/com0 に登録) */
+	/* シリアルを開く */
 	hTty = File_Open("/dev/com0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	
+	/* シリアル上にコンソールを生成( /dev/com0 に登録) */
 	Vt100Drv_Create(&g_Vt100Drv[0], hTty);
 	File_AddDevice("con0", (C_DRVOBJ *)&g_Vt100Drv[0]);
+	
+	/* コンソールを開く */
+	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	
 	
 	
 	/*************************/
@@ -88,24 +93,7 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
-	
-	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
-	ProcInfo.hTty     = hTty;
-	ProcInfo.hConsole = hCon;
-	ProcInfo.hStdIn   = hCon;
-	ProcInfo.hStdOut  = hCon;
-	ProcInfo.hStdErr  = hCon;
-	Process_CreateEx(System_Boot, 0, 4096, PROCESS_PRIORITY_NORMAL, &ProcInfo);
-	
-	return;
-}
-
-
-/* システムプロセス */
-int System_Boot(VPARAM Param)
-{
-	/* シェル起動 */
-	return Command_Execute("hsh", NULL);
+	System_Boot(hTty, hCon, "hsh", 4096);
 }
 
 

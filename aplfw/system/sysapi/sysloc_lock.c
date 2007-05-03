@@ -10,12 +10,13 @@
 
 
 #include "sysapi_local.h"
+#include "kernel.h"
 
 
 /* システム全体のロック */
-void System_Lock(void)
+void SysLoc_Lock(void)
 {
-	SysMtx_Lock(System_hMtx);
+	loc_cpu();
 }
 
 
