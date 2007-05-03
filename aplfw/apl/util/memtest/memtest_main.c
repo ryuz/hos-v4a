@@ -39,11 +39,11 @@ int MemTest_Main(int argc, char *argv[])
 	/* コマンドライン解析 */
 	pAddrStart  = (void *)strtoul(argv[1], 0, 0);
 	ulSize      = (int)strtol(argv[2], 0, 0);
-
+	
 	pAddrEnd = (char *)pAddrStart + ulSize - 1;
-
-	StdIo_PrintFormat("[MemTest] 0x%08x - 0x%08x\n\n", (unsigned long)pAddrStart, (unsigned long)pAddrEnd);
-
+	
+	StdIo_PrintFormat("[MemTest] 0x%08lx - 0x%08lx\n\n", (unsigned long)pAddrStart, (unsigned long)pAddrEnd);
+	
 	/* Word write & read */
 	StdIo_PrintFormat("32bit read & write : ");
 	{
@@ -60,7 +60,7 @@ int MemTest_Main(int argc, char *argv[])
 		{
 			if ( *puwAddr != i )
 			{
-				StdIo_PrintFormat("NG (addr:%0x08x)\n", (unsigned long)puwAddr);
+				StdIo_PrintFormat("NG (addr:0x%08lx)\n", (unsigned long)puwAddr);
 				return 1;
 			}
 		}
@@ -83,7 +83,7 @@ int MemTest_Main(int argc, char *argv[])
 		{
 			if ( *puhAddr != (unsigned short)((i >> 16) ^ i) )
 			{
-				StdIo_PrintFormat("NG (addr:%0x08x)\n", (unsigned long)puhAddr);
+				StdIo_PrintFormat("NG (addr:0x%08lx)\n", (unsigned long)puhAddr);
 				return 1;
 			}
 		}
@@ -104,9 +104,9 @@ int MemTest_Main(int argc, char *argv[])
 		/* read */
 		for ( pubAddr = pAddrStart, i = 0; pubAddr <= pAddrEnd; pubAddr++, i++ )
 		{
-			if ( *pubAddr != (unsigned char)((i >> 16) | i) )
+			if ( *pubAddr != (unsigned char)((i >> 24) ^ (i >> 16) ^ (i >> 8) ^ i) )
 			{
-				StdIo_PrintFormat("NG (addr:%0x08x)\n", (unsigned long)pubAddr);
+				StdIo_PrintFormat("NG (addr:0x%08lx)\n", (unsigned long)pubAddr);
 				return 1;
 			}
 		}
@@ -158,7 +158,7 @@ int MemTest_PatternTest(void *pAddrStart, void *pAddrEnd, unsigned long ulPatter
 	{
 		if ( *puwAddr != ulPattern )
 		{
-			StdIo_PrintFormat("NG (addr:%0x08x)\n", (unsigned long)puwAddr);
+			StdIo_PrintFormat("NG (addr:%0x08lx)\n", (unsigned long)puwAddr);
 			return 1;
 		}
 	}
