@@ -34,6 +34,10 @@ C_PC16550DRV g_Pc16550Drv[1];
 C_VT100DRV   g_Vt100Drv[1];
 
 
+#define REG_PLLCON		((volatile UB *)0xe01fc080)
+#define REG_PLLCFG		((volatile UB *)0xe01fc084)
+#define REG_PLLSTAT		((volatile UH *)0xe01fc088)
+#define REG_PLLFEED		((volatile UB *)0xe01fc08c)
 #define REG_PINSEL0		((volatile UW *)0xe002c000)
 #define REG_BCFG0		((volatile UW *)0xffe00000)
 
@@ -46,8 +50,21 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	/*    固有初期設定       */
 	/*************************/
+	
+	/* PLL設定 */
+	*REG_PLLCFG   = ((0x1 << 5) | (0x3 << 0));	/* M=4, P=2 (Fosc=14.7MHz, Fcco=235.2MHz, cclk=58.8MHz) */
+	*REG_PLLCON  |= 0x01;
+	*REG_PLLFEED  = 0xaa;
+	*REG_PLLFEED  = 0x55;
+	while ( !(*REG_PLLSTAT & 0x0400) )
+		;
+	*REG_PLLCON  |= 0x02;
+	*REG_PLLFEED  = 0xaa;
+	*REG_PLLFEED  = 0x55;
+	
+	/* Pin設定 */	
 	*REG_PINSEL0 = (*REG_PINSEL0 & 0xfffffff0) | 0x05;
-	*REG_BCFG0   = ((0x1 << 28) | (0x01 << 11) | (0x01 << 5) | (0x01 << 0));
+	*REG_BCFG0   = ((0x1 << 28) | (0x08 << 11) | (0x08 << 5) | (0x08 << 0));
 	
 	
 	/*************************/
@@ -63,7 +80,7 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	
 	/* 16550デバドラ生成 (/dev/com0 に登録) */
-	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, (14700000/4), 64);
+	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, 14700000, 64);
 	File_AddDevice("com0", (C_DRVOBJ *)&g_Pc16550Drv[0]);
 
 	/* シリアルを開く */
