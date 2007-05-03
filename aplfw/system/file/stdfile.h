@@ -27,10 +27,10 @@ extern "C" {
 #define StdIo_PutString(str)	File_PutString(Process_GetStdOut(), (str));
 int     StdIo_PrintFormat(const char *pszFormat, ...);
 
-#define ConIo_GetCh()			Console_GetCh(Process_GetConsole());
-#define ConIo_GetChar()			File_GetChar(Process_GetConsole());
-#define ConIo_PutChar(c)		File_PutChar(Process_GetConsole(), (c));
-#define ConIo_PutString(str)	File_PutString(Process_GetConsole(), (str));
+#define StdCon_GetCh()			Console_GetCh(Process_GetConsole());
+#define StdCon_GetChar()		File_GetChar(Process_GetConsole());
+#define StdCon_PutChar(c)		File_PutChar(Process_GetConsole(), (c));
+#define StdCon_PutString(str)	File_PutString(Process_GetConsole(), (str));
 
 #ifdef __cplusplus
 }

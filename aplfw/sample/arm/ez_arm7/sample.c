@@ -28,7 +28,7 @@
 #include "apl/util/keytest/keytest.h"
 
 
-long         g_SystemHeap[1 * 1024 / sizeof(long)];
+long         g_SystemHeap[64 * 1024 / sizeof(long)];
 C_PC16550DRV g_Pc16550Drv[1];
 C_VT100DRV   g_Vt100Drv[1];
 

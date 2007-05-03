@@ -14,26 +14,30 @@
 
 
 #define SHELL_MAX_COMMAND		256
+#define SHELL_MAX_HISTORY		4
 
 
 typedef struct c_shell
 {
-	char szCommanBuf[SHELL_MAX_COMMAND];
-	int  iCommandLen;						/* コマンドの文字列長 */
-	int  iCurPos;							/* カーソルの文字列上の位置 */
-	int  iCurScreenX;						/* カーソルのスクリーンのX位置 */
-	int  iScreenWidth;						/* スクリーンの幅 */
+	int		iCurPos;											/* カーソルの文字列上の位置 */
+	int		iCurScreenX;										/* カーソルのスクリーンのX位置 */
+	int		iScreenWidth;										/* スクリーンの幅 */
+	int		iCommandLen;										/* コマンドの文字列長 */
+	char	szCommanBuf[SHELL_MAX_COMMAND];						/* コマンドラインバッファ */
+	char	szHistory[SHELL_MAX_HISTORY][SHELL_MAX_COMMAND];	/* ヒストリバッファ */
+	int		iHistoryNum;
 } C_SHELL;
 
 
 void Shell_Create(C_SHELL *self);
 void Shell_Delete(C_SHELL *self);
+int  Shell_Execute(C_SHELL *self, int argc, char *argv[]);
 int  Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize);
 void Shell_PutChar(C_SHELL *self, int c);
 void Shell_CurRight(C_SHELL *self);
 void Shell_CurLeft(C_SHELL *self);
 void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand);
-
+void Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine);	/* ラインを置き換える */
 
 
 
@@ -42,43 +46,71 @@ int Shell_Main(int argc, char *argv[])
 	C_SHELL *pShell;
 	int     iExitCode;
 
-	/* メモリ確保 */
-	if ( (pShell = Memory_Alloc(sizeof(C_SHELL))) == NULL )	{ return 1;	}
+	/* オブジェクト生成 */
+	if ( (pShell = Memory_Alloc(sizeof(C_SHELL))) == NULL )
+	{
+		StdIo_PutString("Memory error\n");
+		return 1;
+	}
 	Shell_Create(pShell);
 	
-	
-	for ( ; ; )
-	{
-		Shell_InputLine(pShell, pShell->szCommanBuf, SHELL_MAX_COMMAND);
-		if ( strcmp(pShell->szCommanBuf, "exit") == 0 )
-		{
-			break;
-		}
-#if 0
-		if ( Command_Execute(pShell->szCommanBuf, &iExitCode) != COMMAND_ERR_OK )
-		{
-			File_PutString(pShell->hTty, "command is not found.\r\n");
-		}
-#endif
-		Shell_ExecuteCommand(pShell, pShell->szCommanBuf);
-	}
-
-	/* メモリ開放 */
+	/* 実行 */
+	iExitCode = Shell_Execute(pShell, argc, argv);
+		
+	/* オブジェクト開放 */
 	Shell_Delete(pShell);
 	Memory_Free(pShell);
 	
-	return 0;
+	return iExitCode;
 }
 
 
+/* コンストラクタ */
 void Shell_Create(C_SHELL *self)
 {
 	self->iScreenWidth = 80;
+	self->iHistoryNum  = 0;
 }
 
 
+/* デストラクタ */
 void Shell_Delete(C_SHELL *self)
 {
+}
+
+
+int Shell_Execute(C_SHELL *self, int argc, char *argv[])
+{
+	for ( ; ; )
+	{
+		/* コマンド入力 */
+		Shell_InputLine(self, self->szCommanBuf, SHELL_MAX_COMMAND);
+
+		/* exit なら抜ける */
+		if ( strcmp(self->szCommanBuf, "exit") == 0 )
+		{
+			break;
+		}
+
+		/* 空行なら無視 */
+		if ( self->szCommanBuf[0] == 0 )
+		{
+			continue;
+		}
+		
+		/* ヒストリ記憶 */
+		memmove(self->szHistory[1], self->szHistory[0], (SHELL_MAX_HISTORY-1)*(SHELL_MAX_COMMAND));
+		strcpy(self->szHistory[0], self->szCommanBuf);
+		if ( self->iHistoryNum < SHELL_MAX_HISTORY )
+		{
+			self->iHistoryNum++;
+		}
+
+		/* コマンド実行 */
+		Shell_ExecuteCommand(self, self->szCommanBuf);
+	}
+	
+	return 0;
 }
 
 
@@ -97,6 +129,7 @@ int Shell_ExecEntry(VPARAM Param)
 	
 	return iExitCode;
 }
+
 
 void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 {
@@ -120,44 +153,46 @@ void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 }
 
 
-
-/* インタラクティブモードでの１行入力 */
+/* １行入力 */
 int Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize)
 {
-	int  iPos = 0;
-	int  iLen = 0;
+	int  iHistoryPos = -1;
 	int  i;
 	int  c;
+
 
 	/* プロンプトを出す */
 	StdIo_PutString("\r% ");
 	self->iCurScreenX = 2;
+
+	self->iCommandLen = 0;
+	self->iCurPos     = 0;
 	
 	for ( ; ; )
 	{
-		c = ConIo_GetCh();
+		c = StdCon_GetCh();
 		
 		switch ( c )
 		{
 		case '\n':		/* 改行なら入力完了 */
-			pszBuf[iLen] = '\0';
-			ConIo_PutString("\r\n");
-			return iLen;
+			pszBuf[self->iCommandLen] = '\0';
+			StdCon_PutString("\r\n");
+			return self->iCommandLen;
 		
 		
 		case CONSOLE_KEY_BACKSPACE:	/* バックスペースなら */
-			if ( iPos > 0 )
+			if ( self->iCurPos > 0 )
 			{
-				memmove(&pszBuf[iPos - 1], &pszBuf[iPos], iLen - iPos);
-				iPos--;
-				iLen--;
+				memmove(&pszBuf[self->iCurPos - 1], &pszBuf[self->iCurPos], self->iCommandLen - self->iCurPos);
+				self->iCurPos--;
+				self->iCommandLen--;
 				Shell_CurLeft(self);
-				for ( i = 0; i < iLen - iPos; i++ )
+				for ( i = 0; i < self->iCommandLen - self->iCurPos; i++ )
 				{
-					Shell_PutChar(self, pszBuf[iPos + i]);
+					Shell_PutChar(self, pszBuf[self->iCurPos + i]);
 				}
 				Shell_PutChar(self, ' ');
-				for ( i = 0; i < iLen - iPos + 1; i++ )
+				for ( i = 0; i < self->iCommandLen - self->iCurPos + 1; i++ )
 				{
 					Shell_CurLeft(self);
 				}
@@ -165,49 +200,60 @@ int Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize)
 			break;
 
 		case CONSOLE_KEY_UP:	/* 上 */
-			ConIo_PutString("\x1b[1A");
+			if ( iHistoryPos + 1 < self->iHistoryNum )
+			{
+				iHistoryPos++;
+				Shell_ReplaceLine(self, self->szHistory[iHistoryPos]);
+			}
 			break;
 
 		case CONSOLE_KEY_DOWN:	/* 下 */
-			ConIo_PutString("\x1b[1B");
+			if ( iHistoryPos > 0 )
+			{
+				iHistoryPos--;
+				Shell_ReplaceLine(self, self->szHistory[iHistoryPos]);
+			}
 			break;
 		
 		case CONSOLE_KEY_RIGHT:	/* 右 */
-			if ( iPos < iLen )
+			if ( self->iCurPos < self->iCommandLen )
 			{
 				Shell_CurRight(self);
-				iPos++;
+				self->iCurPos++;
 			}
 			break;
 		
 		case CONSOLE_KEY_LEFT:	/* 左 */
-			if ( iPos > 0 )
+			if ( self->iCurPos > 0 )
 			{
 				Shell_CurLeft(self);
-				iPos--;
+				self->iCurPos--;
 			}
+			break;
+
+		case '\t':				/* TAB */
 			break;
 
 		default:		/* カーソル位置に文字設定 */
 			if ( c >= 0x20 && c <= 255 )
 			{
-				if ( iPos < iBufSize - 1 )
+				if ( self->iCurPos < iBufSize - 1 )
 				{
-					memmove(&pszBuf[iPos + 1], &pszBuf[iPos], iLen - iPos);
-					pszBuf[iPos++] = (char)c;
-					iLen++;
-					for ( i = 0; i < iLen - iPos + 1; i++ )
+					memmove(&pszBuf[self->iCurPos + 1], &pszBuf[self->iCurPos], self->iCommandLen - self->iCurPos);
+					pszBuf[self->iCurPos++] = (char)c;
+					self->iCommandLen++;
+					for ( i = 0; i < self->iCommandLen - self->iCurPos + 1; i++ )
 					{
-						Shell_PutChar(self, pszBuf[iPos + i - 1]);
+						Shell_PutChar(self, pszBuf[self->iCurPos + i - 1]);
 					}
-					for ( i = 0; i < iLen - iPos; i++ )
+					for ( i = 0; i < self->iCommandLen - self->iCurPos; i++ )
 					{
 						Shell_CurLeft(self);
 					}
 				}
 				else
 				{
-					ConIo_PutChar('\a');
+					StdCon_PutChar('\a');
 				}
 			}
 			break;
@@ -220,12 +266,12 @@ int Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize)
 /* スクリーンに１文字出力 */
 void Shell_PutChar(C_SHELL *self, int c)
 {
-	ConIo_PutChar(c);	
+	StdCon_PutChar(c);	
 	self->iCurScreenX++;
 	if ( self->iCurScreenX >= self->iScreenWidth )
 	{
 		self->iCurScreenX = 0;
-		ConIo_PutString("\n");
+		StdCon_PutString("\n");
 	}	
 }
 
@@ -236,11 +282,11 @@ void Shell_CurRight(C_SHELL *self)
 	if ( self->iCurScreenX >= self->iScreenWidth )
 	{
 		self->iCurScreenX = 0;
-		ConIo_PutString("\n");
+		StdCon_PutString("\n");
 	}
 	else
 	{
-		ConIo_PutString("\x1b[1C");		/* カーソル右 */
+		StdCon_PutString("\x1b[1C");		/* カーソル右 */
 	}
 }
 
@@ -250,13 +296,49 @@ void Shell_CurLeft(C_SHELL *self)
 	if ( self->iCurScreenX == 0 )
 	{
 		self->iCurScreenX = self->iScreenWidth - 1;
-		ConIo_PutString("\x1b[1A\x1b[80C");
+		StdCon_PutString("\x1b[1A\x1b[80C");
 	}
 	else
 	{
 		self->iCurScreenX--;
-		ConIo_PutString("\x1b[1D");		/* カーソル左 */
+		StdCon_PutString("\x1b[1D");		/* カーソル左 */
 	}
+}
+
+/* ラインを置き換える */
+void Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine)
+{
+	int iOldLen;
+	int i;
+	
+	/* 前回の長さを保存 */
+	iOldLen = self->iCommandLen;
+	
+	/* 行先頭まで移動 */
+	while ( self->iCurPos > 0 )
+	{
+		Shell_CurLeft(self);
+		self->iCurPos--;
+	}
+	
+	/* 新しい文字列を出力 */
+	for ( i = 0; pszNewLine[i] != '\0'; i++ )
+	{
+		Shell_PutChar(self, pszNewLine[i]);
+		self->szCommanBuf[i] = pszNewLine[i];
+		self->iCurPos++;
+	}
+	self->iCommandLen = i;
+	
+	/* 末尾削除 */
+	for ( i = self->iCommandLen; i < iOldLen; i++ )
+	{
+		Shell_PutChar(self, ' ');
+	}
+	for ( i = self->iCommandLen; i < iOldLen; i++ )
+	{
+		Shell_CurLeft(self);
+	}	
 }
 
 
