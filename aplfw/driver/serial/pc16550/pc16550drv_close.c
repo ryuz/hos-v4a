@@ -28,7 +28,10 @@ FILE_ERR Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 		Pc16550Hal_Stop(&self->Pc16550Hal);
 		StreamBuf_ClearBuf(&self->StmBufRecv);
 	}
-
+	
+	/* ディスクリプタ削除 */
+	SysMem_Free(pFileObj);
+	
 	return FILE_ERR_OK;
 }
 

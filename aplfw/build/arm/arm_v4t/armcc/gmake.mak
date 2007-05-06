@@ -16,18 +16,17 @@ APLFW_DIR         = $(TOP_DIR)/aplfw
 KERNEL_DIR        = $(TOP_DIR)/kernel
 APLFW_MKINK_DIR   = $(APLFW_DIR)/build/common/gmake
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
+MAKE_INC_DIR      = $(KERNEL_DIR)/build/common/gmake
+OBJS_DIR          = objs_$(TARGET)
+
 
 # %jp{共通設定読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
-MAKE_INC_DIR   = $(KERNEL_DIR)/build/common/gmake
-OBJS_DIR       = objs_$(TARGET)
-DRV_SERIAL_DIR = $(APLFW_DIR)/driver/serial/renesas
 
-
-# %jp{パス設定}
+# %jp{インクルードパス設定}
 INC_DIRS += $(APLFW_DIR) $(KERNEL_DIR)/include
-SRC_DIRS += $(DRV_SERIAL_DIR)
+
 
 # %jp{オプションフラグ}
 AFLAGS += --cpu=4T --apcs=inter --thumb
@@ -35,11 +34,6 @@ CFLAGS += --cpu=4T --apcs=inter --thumb
 LFLAGS += 
 
 
-# アセンブラファイルの追加
-ASRCS += 
-
-# C言語ファイルの追加
-CSRCS += 
 
 all: makelib_all
 

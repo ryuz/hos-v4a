@@ -11,34 +11,36 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
-#include "hosaplfw.h"
+#include "system/system/system.h"
 #include "system/sysapi/sysapi.h"
-#include "system/file/file.h"
-#include "system/file/confile.h"
+#include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/shell/shell.h"
-#include "driver/serial/renesas/scifile.h"
+#include "driver/serial/renesas/scidrv.h"
+#include "driver/console/vt100/vt100drv.h"
 #include "apl/hello/hello.h"
+#include "apl/util/memdump/memdump.h"
+#include "apl/util/memwrite/memwrite.h"
+#include "apl/util/memtest/memtest.h"
+#include "apl/util/keytest/keytest.h"
 #include "regs_sh7144.h"
 
 
-long     g_SystemHeap[16 * 1024 / sizeof(long)];
-C_SCIDRV g_SciDrv[4];
-
-
-int System_Boot(VPARAM Param);
+long		g_SystemHeap[16 * 1024 / sizeof(long)];
+C_SCIDRV	g_SciDrv[4];
+C_VT100DRV	g_Vt100Drv[1];
 
 
 
 void Sample_Task(VP_INT exinf)
 {
-	T_FILE_DEVINF    DevInf;
-	T_PROCESS_INFO   ProcInfo;
-	HANDLE           hTty;
-	HANDLE           hCon;
+	HANDLE			hTty;
+	HANDLE			hCon;
+	
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -55,9 +57,12 @@ void Sample_Task(VP_INT exinf)
 	
 	/* システム初期化 */
 	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
-	File_Initialize();
-	Command_Initialize();
 	
+	
+	
+	/*************************/
+	/*   デバイスドライバ    */
+	/*************************/
 	
 	/* SCIデバドラ生成 */
 	SciDrv_Create(&g_SciDrv[0], (void *)REG_SCI0_SMR, 128, 24000000L, 64);	/* SCI0 */
@@ -65,63 +70,40 @@ void Sample_Task(VP_INT exinf)
 	SciDrv_Create(&g_SciDrv[2], (void *)REG_SCI2_SMR, 168, 24000000L, 64);	/* SCI2 */
 	SciDrv_Create(&g_SciDrv[3], (void *)REG_SCI3_SMR, 172, 24000000L, 64);	/* SCI3 */
 	
-	/* SCI0 を /dev/com0 に登録 */
-	strcpy(DevInf.szName, "com0");
-	DevInf.pfncCreate = SciFile_Create;
-	DevInf.ObjSize    = sizeof(C_SCIFILE);
-	DevInf.pParam     = &g_SciDrv[0];
-	File_AddDevice(&DevInf);
+	File_AddDevice("com0", (C_DRVOBJ *)&g_SciDrv[0]);	/* SCI0 を /dev/com0 に登録 */
+	File_AddDevice("com1", (C_DRVOBJ *)&g_SciDrv[1]);	/* SCI1 を /dev/com0 に登録 */
+	File_AddDevice("com2", (C_DRVOBJ *)&g_SciDrv[2]);	/* SCI2 を /dev/com0 に登録 */
+	File_AddDevice("com3", (C_DRVOBJ *)&g_SciDrv[3]);	/* SCI3 を /dev/com0 に登録 */
 	
-	/* SCI1 を /dev/com1 に登録 */
-	strcpy(DevInf.szName, "com1");
-	DevInf.pfncCreate = SciFile_Create;
-	DevInf.ObjSize    = sizeof(C_SCIFILE);
-	DevInf.pParam     = &g_SciDrv[1];
-	File_AddDevice(&DevInf);
+	
+	/* シリアルを開く */
+	hTty = File_Open("/dev/com0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	
+	/* シリアル上にコンソールを生成( /dev/con0 に登録) */
+	Vt100Drv_Create(&g_Vt100Drv[0], hTty);
+	File_AddDevice("con0", (C_DRVOBJ *)&g_Vt100Drv[0]);
+	
+	/* コンソールを開く */
+	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	
 	
 	
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
-	Command_AddCommand("hsh",   Shell_Main);
-	Command_AddCommand("hello", Hello_Main);
+	Command_AddCommand("hsh",      Shell_Main);
+	Command_AddCommand("hello",    Hello_Main);
+	Command_AddCommand("memdump",  MemDump_Main);
+	Command_AddCommand("memwrite", MemWrite_Main);
+	Command_AddCommand("memtest",  MemTest_Main);
+	Command_AddCommand("keytest",  KeyTest_Main);
+	
+	
 	
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
-	hTty = File_Open("/dev/com1", FILE_MODE_READ | FILE_MODE_WRITE);
-	
-	
-	strcpy(DevInf.szName, "con1");
-	DevInf.pfncCreate = ConsoleFile_Create;
-	DevInf.ObjSize    = sizeof(C_CONSOLEFILE);
-	DevInf.pParam     = hTty;
-	File_AddDevice(&DevInf);
-	hCon = File_Open("/dev/con1", FILE_MODE_READ | FILE_MODE_WRITE);
-	
-	ProcInfo.hTty    = hTty;
-	ProcInfo.hStdIn  = hCon;
-	ProcInfo.hStdOut = hCon;
-	ProcInfo.hStdErr = hCon;
-	Process_CreateEx(System_Boot, 0, 1024, PROCESS_PRIORITY_NORMAL, &ProcInfo);
-	
-	return;
-}
-
-
-/* システムプロセス */
-int System_Boot(VPARAM Param)
-{
-	StdIo_PutString("\n\n"
-		"-------------------------------------------------------------\n"
-		" HOS-V4 Advance\n"
-		"  HOS Application Framework\n"
-		"\n"
-		"                      Copyright (C) 1996-2007 by Project HOS \n"
-		"-------------------------------------------------------------\n");
-	
-	/* シェル起動 */
-	return Command_Execute("hsh", NULL);
+	System_Boot(hTty, hCon, "hsh", 4096);
 }
 
 

@@ -87,8 +87,7 @@ CSRCS += ./dbsct.c			\
          ../kernel_cfg.c	\
          ../main.c			\
          ../sample.c		\
-         ../ostimer.c		\
-         ../debug.c
+         ../ostimer.c
 
 
 # %jp{ライブラリファイルの追加}
@@ -112,6 +111,10 @@ make_aplfw:
 .PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+
+.PHONY : mostlyclean
+mostlyclean: clean clean_kernel
+	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
 
 
 $(STD_LIBS):

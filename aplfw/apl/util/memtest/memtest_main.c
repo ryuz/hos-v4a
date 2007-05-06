@@ -60,13 +60,13 @@ int MemTest_Main(int argc, char *argv[])
 		unsigned long *puwAddr;
 		
 		/* write */
-		for ( puwAddr = pAddrStart, i = 0; puwAddr <= pAddrEnd; puwAddr++, i++ )
+		for ( puwAddr = pAddrStart, i = 0; puwAddr <= (unsigned long *)pAddrEnd; puwAddr++, i++ )
 		{
 			*puwAddr = i;
 		}
 		
 		/* read */
-		for ( puwAddr = pAddrStart, i = 0; puwAddr <= pAddrEnd; puwAddr++, i++ )
+		for ( puwAddr = pAddrStart, i = 0; puwAddr <= (unsigned long *)pAddrEnd; puwAddr++, i++ )
 		{
 			if ( *puwAddr != i )
 			{
@@ -83,13 +83,13 @@ int MemTest_Main(int argc, char *argv[])
 		unsigned short *puhAddr;
 		
 		/* write */
-		for ( puhAddr = pAddrStart, i = 0; puhAddr <= pAddrEnd; puhAddr++, i++ )
+		for ( puhAddr = pAddrStart, i = 0; puhAddr <= (unsigned short *)pAddrEnd; puhAddr++, i++ )
 		{
 			*puhAddr = (unsigned short)((i >> 16) ^ i);
 		}
 		
 		/* read */
-		for ( puhAddr = pAddrStart, i = 0; puhAddr <= pAddrEnd; puhAddr++, i++ )
+		for ( puhAddr = pAddrStart, i = 0; puhAddr <= (unsigned short *)pAddrEnd; puhAddr++, i++ )
 		{
 			if ( *puhAddr != (unsigned short)((i >> 16) ^ i) )
 			{
@@ -106,13 +106,13 @@ int MemTest_Main(int argc, char *argv[])
 		unsigned char *pubAddr;
 		
 		/* write */
-		for ( pubAddr = pAddrStart, i = 0; pubAddr <= pAddrEnd; pubAddr++, i++ )
+		for ( pubAddr = pAddrStart, i = 0; pubAddr <= (unsigned char *)pAddrEnd; pubAddr++, i++ )
 		{
 			*pubAddr = (unsigned char)((i >> 24) ^ (i >> 16) ^ (i >> 8) ^ i);
 		}
 		
 		/* read */
-		for ( pubAddr = pAddrStart, i = 0; pubAddr <= pAddrEnd; pubAddr++, i++ )
+		for ( pubAddr = pAddrStart, i = 0; pubAddr <= (unsigned char *)pAddrEnd; pubAddr++, i++ )
 		{
 			if ( *pubAddr != (unsigned char)((i >> 24) ^ (i >> 16) ^ (i >> 8) ^ i) )
 			{
@@ -163,13 +163,13 @@ int MemTest_PatternTest(void *pAddrStart, void *pAddrEnd, unsigned long ulPatter
 	StdIo_PrintFormat("0x%08lx read & write : ", ulPattern);
 		
 	/* write */
-	for ( puwAddr = pAddrStart; puwAddr <= pAddrEnd; puwAddr++)
+	for ( puwAddr = pAddrStart; puwAddr <= (unsigned long *)pAddrEnd; puwAddr++)
 	{
 		*puwAddr = ulPattern;
 	}
 	
 	/* read */
-	for ( puwAddr = pAddrStart; puwAddr <= pAddrEnd; puwAddr++)
+	for ( puwAddr = pAddrStart; puwAddr <= (unsigned long *)pAddrEnd; puwAddr++)
 	{
 		if ( *puwAddr != ulPattern )
 		{
