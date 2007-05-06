@@ -4,7 +4,7 @@
  * @file  scidrv.h
  * @brief %jp{SCI用デバイスドライバ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -13,21 +13,24 @@
 #define __HOS__renesas_scidrv_h__
 
 
-#include "scihal.h"
 #include "system/sysapi/sysapi.h"
+#include "system/file/chrdrv.h"
+#include "scihal.h"
 #include "library/container/stmbuf/stmbuf.h"
 
 
 /* SCI用ドライバ制御部 */
 typedef struct c_scidrv
 {
-	int           iOpenCount;
-	SYSEVT_HANDLE hEvtSend;
-	SYSEVT_HANDLE hEvtRecv;
-	SYSMTX_HANDLE hMtxSend;
-	SYSMTX_HANDLE hMtxRecv;
-	C_SCIHAL      SciHal;
-	C_STREAMBUF   StmBuf;
+	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+
+	C_SCIHAL		SciHal;			/* ハードウェア制御クラス */
+	int				iOpenCount;		/* オープンカウンタ */
+	SYSEVT_HANDLE	hEvtSend;		/* 送信イベント */
+	SYSEVT_HANDLE	hEvtRecv;		/* 受信イベント */
+	SYSMTX_HANDLE	hMtxSend;		/* 送信排他制御ミューテックス */
+	SYSMTX_HANDLE	hMtxRecv;		/* 受信排他制御ミューテックス */
+	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
 } C_SCIDRV;
 
 
@@ -37,13 +40,7 @@ extern "C" {
 #endif
 
 /* SCI用デバイスドライバ */
-void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
-void SciDrv_Delete(C_SCIDRV *self);																/**< デストラクタ */
-void SciDrv_Open(C_SCIDRV *self);																/**< オープン初期化 */
-void SciDrv_Close(C_SCIDRV *self);																/**< クローズ */
-int  SciDrv_Read(C_SCIDRV *self, void *pRecvBuf, int iSize);									/**< 書き込み */
-int  SciDrv_Write(C_SCIDRV *self, const void *pData, int iSize);								/**< 読み出し */
-int  SciDrv_SetSpeed(C_SCIDRV *self, long lBps);												/**< bps設定 */
+void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, unsigned long ulSysClock, int iBufSize);	/**< コンストラクタ */
 
 #ifdef __cplusplus
 }

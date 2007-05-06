@@ -21,10 +21,10 @@
 
 
 /** コンストラクタ */
-void SciHal_Create(C_SCIHAL *self, void *pRegAddr, long lSysClock)
+void SciHal_Create(C_SCIHAL *self, void *pRegAddr, unsigned long ulSysClock)
 {
-	self->pRegBase  = pRegAddr;
-	self->lSysClock = lSysClock;
+	self->pRegBase   = pRegAddr;
+	self->ulSysClock = ulSysClock;
 }
 
 /** デストラクタ */
@@ -33,12 +33,12 @@ void SciHal_Delete(C_SCIHAL *self)
 }
 
 /* %jp{SCIの初期化} */
-void SciHal_Setup(C_SCIHAL *self, long bps)
+void SciHal_Setup(C_SCIHAL *self, unsigned long ulSpeed)
 {
 	*SCIHAL_REG_SCR(self) = 0;
 	*SCIHAL_REG_SMR(self) = 0;
-	*SCIHAL_REG_BRR(self) = (self->lSysClock + (16 * bps)) / (32 * bps) - 1;		/* %jp{ボーレート設定} */
-	*SCIHAL_REG_SCR(self) = 0x30;													/* %jp{送受信許可} */
+	*SCIHAL_REG_BRR(self) = (self->ulSysClock + (16 * ulSpeed)) / (32 * ulSpeed) - 1;	/* %jp{ボーレート設定} */
+	*SCIHAL_REG_SCR(self) = 0x30;														/* %jp{送受信許可} */
 }
 
 /* %jp{SCIの停止} */

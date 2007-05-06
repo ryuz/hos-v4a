@@ -23,6 +23,7 @@ void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, long lSysClock, 
 {
 	void *pMem;
 
+	/* メンバ変数初期化 */
 	self->iOpenCount = 0;
 
 	/* SciHal 初期化 */
