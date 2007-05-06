@@ -118,7 +118,8 @@ mostlyclean: clean clean_kernel
 
 
 $(STD_LIBS):
-	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2 -REent 
+	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2
+#	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2 -REent 
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i

@@ -19,6 +19,14 @@ void ChrFile_Create(C_CHRFILE *self, struct c_drvobj *pDrvObj, const T_FILEOBJ_M
 {
 	/* 親クラスコンストラクタ呼び出し */
 	FileObj_Create(&self->FileObj, pDrvObj, pMethods);
+
+	/* メンバ初期化 */	
+	self->pMonNext   = NULL;	
+	self->pMonPrev   = NULL;
+	self->hEvntWrite = HANDLE_NULL;	
+	self->hEvntRead  = HANDLE_NULL;	
+	self->cWriteMode = FILE_WMODE_BLOCKING;
+	self->cReadMode  = FILE_RMODE_BLOCKING;
 }
 
 

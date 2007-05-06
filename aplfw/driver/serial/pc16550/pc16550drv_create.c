@@ -34,6 +34,7 @@ void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr,  unsigned int uiRegSt
 	/* 親クラスコンストラクタ呼び出し */
 	ChrDrv_Create(&self->ChrDrv, &Pc16550Drv_Methods);
 
+	/* メンバ変数初期化 */
 	self->iOpenCount = 0;
 	
 	/* Pc16550Hal 初期化 */

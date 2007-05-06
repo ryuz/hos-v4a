@@ -27,6 +27,7 @@ HANDLE Pc16550Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		return HANDLE_NULL;
 	}
 	ChrFile_Create(pChrFile, pDrvObj, NULL);
+
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
