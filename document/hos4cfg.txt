@@ -1,0 +1,264 @@
+------------------------------------------------------------------------------
+  Hyper Operating System V4 Advance μITRON4.0仕様                            
+    コンフィギュレーター ドキュメント                                         
+                                                                              
+                                       Copyright (C) 1998-2007 by Project HOS 
+                                       http://sourceforge.jp/projects/hos/    
+------------------------------------------------------------------------------
+
+
+（注意）
+   現時点では未実装の機能も含みます。
+
+
+
+1. 概要
+
+  本ドキュメントは Hyper Operating System V4 Advance (以下 HOS-V4a)の
+コンフィギュレーター(h4acfg)についての説明を記載します。
+
+
+
+2. コンフィギュレーターのメイク
+
+  cfgrtr ディレクトリ以下にコンフィギュレーターのビルド用ファイル一式が
+あります。
+  コンフィギュレーターはターゲットプロセッサ毎に生成され、カーネル
+ビルド時に連動してビルドされます。
+
+
+
+2. コンフィギュレーターの使い方
+
+  コンフィギュレーターの仕様自体も、μITRON4.0 仕様によって定められて
+おります。
+  本ドキュメントはμITRON4.0仕様をご理解いただいていいることを前提と
+しております。μITRON4.0仕様書はインターネットで無償公開されて
+おりますので、別途入手の上、ご確認ください。
+
+  基本的な処理の流れとしては、静的APIを記載した、system.cfg を
+Cプリプロセッサで処理した後に、h4acfg で処理することにより、
+kernel_id.h(IDなどを宣言したヘッダファイル)と、kernel_cfg.c(カーネル
+オブジェクトの静的生成など）を得ます。
+  その後に後は、kernel_cfg.c をコンパイルしてリンクすることで、HOS-V4aが
+利用可能となります。
+
+
+3. HOS-V4a 独自の静的API
+
+  h4acfgでは μITRON4.0仕様 で定める静的APIの他に下記のAPIを
+備えております。
+
+    KERNEL_HEP_MEM, KERNEL_SYS_STK, KERNEL_INT_STK, KERNEL_INT_SP,
+    KERNEL_TIM_TIC, KERNEL_MIN_INTNO, KERNEL_MAX_INTNO,
+    KERNEL_MAX_TSKID, KERNEL_MAX_SEMID, KERNEL_MAX_FLGID,
+    KERNEL_MAX_DTQID, KERNEL_MAX_MBFID, KERNEL_MAX_MBXID,
+    KERNEL_MAX_MPFID, KERNEL_MAX_CYCID, KERNEL_MAX_ISRID
+
+
+
+4. 静的APIの説明
+
+  μITRON4.0 標準 API については μITRON4.0 仕様 をご参照ください。
+   ここでは HOS 独自 API についてのみ説明いたします。
+
+
+
+4.1 カーネルのヒープメモリの指定
+
+  【API】
+      KERNEL_HEP_MEM(SIZE hepsz, VP hep);
+
+  【パラメータ】
+      SIZE   hepsz        カーネルのヒープメモリのサイズ
+      VP     sysstk       カーネルのヒープメモリ
+
+  【機能】
+      カーネルは各種動的オブジェクト生成(cre_xxxやacre_xxx)にて、
+    オブジェクトを生成する場合、カーネルのヒープからメモリを
+    割り当てます。
+      本APIではカーネルのヒープメモリを指定します。
+      hep に指定されたアドレスから、hepsz で指定されたサイズ分の
+    メモリ領域をアイドル時のスタックに割り当てます。
+      hep に NULL を指定した場合、hepsz で指定されたサイズを
+    コンフィギュレーターが自動的に確保します。
+
+
+4.2 システムタスクのスタックの指定
+
+  【API】
+      KERNEL_SYS_STK(SIZE sysstksz, VP sysstk);
+
+  【パラメータ】
+      SIZE   sysstksz     システムタスクのスタックのサイズ
+      VP     sysstk       システムタスクのスタック
+
+  【機能】
+      カーネルは実行するタスクがない場合のアイドルループ実行や、必要に応じて
+    一部の処理をカーネル内部のシステムタスクにて実行します。
+    本APIではシステムタスクのスタックを指定します。
+      sysstk に指定されたアドレスから、sysstksz で指定されたサイズ分の
+    メモリ領域をアイドル時のスタックに割り当てます。
+      sysstk に NULL を指定した場合、sysstksz で指定されたサイズをコンフィ
+    ギュレーターが自動的に確保します。
+      未指定の場合、デフォルトでプロセッサ毎に最低限必要なサイズが割り当て
+    られますが、アイドル時の例外処理等でスタックを大量に消費する場合は
+    本APIにて調整することが可能です。
+
+
+4.3 割込み時のスタックの指定
+
+  【API】
+      KERNEL_INT_STK(SIZE intstksz, VP intstk);
+      KERNEL_INT_SP(VP intsp);
+
+  【パラメータ】
+      SIZE   intstksz     割込み時のスタックのサイズ
+      VP     intstk       割込み時のスタック
+      VP     intsp        割込み時の初期スタックポインタ値
+
+  【機能】
+      割り込みが発生した場合、スタックは割込み用スタックに切り替わります。
+      本APIでは割込み時に切り替えるスタックを指定します。
+      KERNEL_INT_STK と KERNEL_INT_SP は同時には利用できず、どちらか片方を
+    利用して指定を行います。
+      KERNEL_INT_STK では、intstk に指定されたアドレスから、intstksz で指定
+    されたサイズ分のメモリ領域を割込み時のスタックに割り当てます。
+      intstk に NULL を指定した場合、intstksz で指定されたサイズをコンフィ
+    ギュレーターが自動的に確保します。
+      KERNEL_INT_SP では、intsp に割込み発生時のスタックポインタ値を直接指定
+    できます。
+
+  【補足】
+      割込み用のスタックポインタ初期値は _kernel_int_isp の名称で生成されます。
+    通常、起動時のスタートアップルーチン実行時のスタックと割込み用のスタックは
+    共有できる為、スタートアップルーチンにて、_kernel_int_sp を参照して利用する
+    ことが可能です。
+
+
+4.4 タイムティックの周期の指定
+
+  【API】
+      KERNEL_TIM_TIC(UW nume, UW deno);
+
+  【パラメータ】
+      UW      nume        タイムティックの周期の分子
+      UW      deno        タイムティックの周期の分母
+
+  【機能】
+      isig_tim にてカーネルに供給するタイムティックの周期を指定します。
+      例えば、周期に 10/1 を指定した場合、isig_tim を１回呼び出すごとに
+    カーネルのシステム時刻は10進みます。
+      逆に 1/3 などを指定した場合には、isig_tim を 3回呼び出して初めて
+    システム時刻は1進みます。
+      指定しない場合デフォルトで 1/1 となります。
+
+  【補足】
+      例えば 周期が 3.333... ms のインターバルタイマにて、isig_tim を
+    呼び出し、システムの単位時間を ms に統一したい場合などは 10/3 を
+    指定すれば、isig_tim を 呼び出すごとに、3, 3, 4, 3, 3, 3, 4...
+    といった順序で3回の isig_tim の呼び出しで、システム時刻が 10 進む
+    ようになります。
+
+
+4.5 割り込み番号の範囲の指定
+
+  【API】
+      KERNEL_MIN_INTNO(INTNO minintno);
+      KERNEL_MAX_INTNO(INTNO maxintno);
+
+  【パラメータ】
+      INTNO   minintno    割り込み番号の最小値
+      INTNO   maxintno    割り込み番号の最大値
+
+  【機能】
+      割り込み番号の最大値と最小値を指定します。
+      プロセッサのリビジョンにより利用できる割り込み範囲が異なったり、
+    用途として使う範囲が狭い場合、本APIで範囲を限定し、割込み管理テーブルの
+    メモリ量を抑制することが可能となります。
+
+  【補足】
+     プロセッサによっては、前半がプロセッサ例外やリセットなどに
+    割り当てられており、割り込み番号が後半の番号から始まることが
+    あるものもある為、最小値も指定できるようになっております。
+      指定した範囲の分しか、割り込み管理テーブルを生成しませんの
+    で、プロセッサでは定義されていても利用しない範囲を外すなどで
+    メモリの削減を行うことも可能です。
+
+
+4.6 オブジェクトの最大IDの指定
+
+  【API】
+      KERNEL_MAX_TSKID(ID maxtskid);
+      KERNEL_MAX_SEMID(ID maxsemid);
+      KERNEL_MAX_FLGID(ID maxflgid);
+      KERNEL_MAX_DTQID(ID maxdtqid);
+      KERNEL_MAX_MBXID(ID maxmbxid);
+      KERNEL_MAX_MBFID(ID maxmbfid);
+      KERNEL_MAX_MPFID(ID maxmpfid);
+      KERNEL_MAX_CYCID(ID maxcycid);
+      KERNEL_MAX_ISRID(ID maxisrid);
+
+  【パラメータ】
+      ID      maxtskid    タスクIDの最大値
+      ID      maxsemid    セマフォIDの最大値
+      ID      maxflgid    フラグIDの最大値
+      ID      maxdtqid    データキューIDの最大値
+      ID      maxmbxid    メールボックスIDの最大値
+      ID      maxmbfid    メッセージバッファIDの最大値
+      ID      maxmpfid    固定長メモリプールIDの最大値
+      ID      maxcycid    周期ハンドラIDの最大値
+      ID      maxisrid    割込みサービスルーチンIDの最大値
+
+  【機能】
+      各オブジェクトのIDの最大値を指定します。
+      指定しない場合デフォルトでコンフィギュレーターで生成した
+    オブジェクトが利用している最大のID番号になります。
+
+  【補足】
+      cre_tsk や cre_sem といった、動的にオブジェクトを生成する
+    場合、ここで指定した範囲を超えるIDは利用出来ません。
+      利用するID範囲を適切な範囲に設定することで、メモリを有効に
+    利用することが可能です。
+
+
+4.8 オブジェクトの予約
+
+  【API】
+      KERNEL_RES_TSKOBJ(ID tskobjno);
+      KERNEL_RES_SEMOBJ(ID semobjno);
+      KERNEL_RES_FLGOBJ(ID flgobjno);
+      KERNEL_RES_DTQOBJ(ID dtqobjno);
+      KERNEL_RES_MBXOBJ(ID mbxobjno);
+      KERNEL_RES_MBFOBJ(ID mbfobjno);
+      KERNEL_RES_MPFOBJ(ID mpfobjno);
+      KERNEL_RES_CYCOBJ(ID cycobjno);
+
+  【パラメータ】
+      ID      tskobjno    予約するタスクオブジェクト数
+      ID      semobjno    予約するセマフォオブジェクト数
+      ID      flgobjno    予約するセマフォオブジェクト数
+      ID      dtqobjno    予約するデータキューオブジェクト数
+      ID      mbxobjno    予約するメールボックスオブジェクト数
+      ID      mbfobjno    予約するメッセージバッファオブジェクト数
+      ID      mpfobjno    予約するメモリプールオブジェクト数
+      ID      cycobjno    予約する周期ハンドラオブジェクト数
+
+  【機能】
+      予約するオブジェクト数の指定を行ないます。この指定があると、
+    静的生成分に加えて予約数 xxxobjnoのオブジェクトがカーネルに登録
+    可能になります。
+
+  【補足】
+      基本的にはHOS_MAX_XXXIDと同じ用途のAPIですが、IDの最大値では
+    なく予約数(=静的生成分を除く利用可能なID数)を指定する点が異なり
+    ます。また、本APIは複数指定が許され、実際に予約されるオブジェクト
+    数は指定された予約数の総和となります。
+      HOS_MAX_XXXIDとは排他的な関係にあります。両方を同時に使用するこ
+    とは出来ません。
+
+
+
+------------------------------------------------------------------------------
+ end of file
+------------------------------------------------------------------------------
