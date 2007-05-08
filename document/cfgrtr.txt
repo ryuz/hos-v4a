@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
-  Hyper Operating System V4 Advance μITRON4.0仕様                            
+  Hyper Operating System V4 Advance  --μITRON4.0仕様OS                       
     コンフィギュレーター ドキュメント                                         
                                                                               
                                        Copyright (C) 1998-2007 by Project HOS 
