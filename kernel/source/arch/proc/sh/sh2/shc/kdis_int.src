@@ -22,9 +22,8 @@
 __kernel_dis_int:
 				stc		sr, r0
 				or		#h'f0, r0				; 全割り込みマスク
-				ldc		r0, sr
 				rts
-				nop
+				ldc		r0, sr
 
 
 				.END

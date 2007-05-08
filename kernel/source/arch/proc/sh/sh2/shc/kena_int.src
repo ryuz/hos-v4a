@@ -28,9 +28,8 @@ __kernel_ena_int:
 				or		#h'f0, r0
 				xor		#h'f0, r0
 				or		r1, r0					; 割り込みマスクの値を設定
-				ldc		r0, sr
 				rts
-				nop
+				ldc		r0, sr
 
 
 				.ALIGN	4

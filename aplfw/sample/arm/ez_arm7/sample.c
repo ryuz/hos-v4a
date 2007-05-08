@@ -52,7 +52,7 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	
 	/* PLL設定 */
-#if 0
+#if 1
 	*REG_PLLCFG   = ((0x1 << 5) | (0x3 << 0));	/* M=4, P=2 (Fosc=14.7MHz, Fcco=235.2MHz, cclk=58.8MHz) */
 	*REG_PLLCON  |= 0x01;
 	*REG_PLLFEED  = 0xaa;
@@ -66,7 +66,7 @@ void Sample_Task(VP_INT exinf)
 	
 	/* Pin設定 */
 	*REG_PINSEL0 = (*REG_PINSEL0 & 0xfffffff0) | 0x05;
-	*REG_BCFG0   = ((0x1 << 28) | (0x02 << 11) | (0x02 << 5) | (0x02 << 0));
+//	*REG_BCFG0   = ((0x1 << 28) | (0x03 << 11) | (0x03 << 5) | (0x03 << 0));
 //	*REG_BCFG0   = ((0x1 << 28) | (0x0f << 11) | (0x0f << 5) | (0x0f << 0));
 	
 	
@@ -83,7 +83,7 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	
 	/* 16550デバドラ生成 (/dev/com0 に登録) */
-	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, 14700000/4, 64);
+	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, 14700000, 64);
 	File_AddDevice("com0", (C_DRVOBJ *)&g_Pc16550Drv[0]);
 
 	/* シリアルを開く */
