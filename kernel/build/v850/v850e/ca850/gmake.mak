@@ -57,7 +57,11 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 CSRCS += 
 
 # アセンブラファイルの追加
-ASRCS += 
+ASRCS += $(SRC_PROC_CC_DIR)/kena_int.s		\
+         $(SRC_PROC_CC_DIR)/kdis_int.s		\
+         $(SRC_PROC_CC_DIR)/kwai_int.s		\
+         $(SRC_PROC_CC_DIR)/kswi_ctx.s		\
+         $(SRC_PROC_CC_DIR)/kcre_ctx.s
 
 
 # カーネル共通ソースの追加

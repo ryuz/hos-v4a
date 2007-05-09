@@ -36,7 +36,7 @@ $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
 
 # %jp{アセンブル}%en{Assemble}
 $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
-	$(CMD_ASM) $(AFLAGS) -c $< -Fo=$@
+	$(CMD_ASM) $(AFLAGS) -o $@ $<
 
 
 # %jp{依存関係}%en{makedepend}

@@ -56,7 +56,7 @@ CFLAGS_OPT_SPEED  ?= -Ot
 AFLAGS +=
 
 # %jp{インクルードパスオプションの定義}
-AFLAGS_INC ?= $(patsubst %,-I%,$(INC_DIRS))
+AFLAGS_INC ?= 
 
 # %jp{マクロ定義オプションの定義}
 AFLAGS_DEF ?= 

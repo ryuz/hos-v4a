@@ -63,7 +63,7 @@ endif
 
 # 基本オプション設定
 CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
-AFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
+AFLAGS += $(AFLAGS_INC) $(AFLAGS_DEF)
 
 # %jp{サーチパス設定}
 VPATH = $(subst $(space),:,$(SRC_DIRS))
