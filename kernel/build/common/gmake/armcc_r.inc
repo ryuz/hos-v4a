@@ -41,9 +41,4 @@ $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
 	$(CMD_ASM) $(AFLAGS) $< -o $@
 
 
-# %jp{依存関係}%en{makedepend}
-depend:
-	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
-
-
 # end of file

@@ -7,6 +7,7 @@
 # ----------------------------------------------------------------------------
 
 
+
 # --------------------------------------
 #  %jp{オプション解析}
 # --------------------------------------
@@ -46,6 +47,7 @@ ifeq ($(KERNEL_DEBUG),Yes)
 OS_LIB := $(OS_LIB)dbg
 endif
 
+
 # %jp{エラーレベル指定}
 ifeq ($(KERNEL_ERRLEVEL),0)
 OS_LIB := $(OS_LIB)er0
@@ -64,12 +66,14 @@ OS_LIB := $(OS_LIB)er4
 endif
 
 
+
 # --------------------------------------
 #  %jp{カーネル利用の設定}
 # --------------------------------------
 
 INC_DIRS += $(KERNEL_DIR)/include
 LIBS     += $(KERNEL_BUILD_DIR)/$(OS_LIB).$(EXT_LIB)
+
 
 
 # --------------------------------------
@@ -80,12 +84,15 @@ LIBS     += $(KERNEL_BUILD_DIR)/$(OS_LIB).$(EXT_LIB)
 CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
 AFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
 
+
 # %jp{サーチパス設定}
 VPATH = $(subst $(space),:,$(SRC_DIRS))
+
 
 # %jp{オブジェクトファイル}
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(ASRCS)))))	\
        $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))))
+
 
 
 # --------------------------------------
@@ -96,25 +103,27 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 .PHONY : makeexe_all
 makeexe_all: mk_kernel mkdir_objs $(CSRCS) $(ASRCS)
 
-# %jp{クリーンナップ}
-.PHONY : makeexe_clean
-makeexe_clean:
-	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
-
-# %jp{カーネル生成}
-.PHONY : mk_kernel
-mk_kernel:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL)
-
-# %jp{カーネル生成}
-.PHONY : clean_kernel
-clean_kernel:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
 
 # %jp{オブジェクト出力ディレクトリ作成}
 .PHONY : mkdir_objs
 mkdir_objs:
 	$(CMD_MKDIR) -p $(OBJS_DIR)
+
+
+# %jp{クリーンナップ}
+.PHONY : makeexe_clean
+makeexe_clean:
+	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
+
+
+# %jp{依存関係の生成}
+DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
+.PHONY : depend
+depend:
+	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
+
+-include $(OBJS_DIR)/depend.inc
+
 
 # %jp{ソースのコピー}
 ifdef SRCCPYDIR
@@ -122,6 +131,19 @@ ifdef SRCCPYDIR
 srccpy:
 	$(CMD_CP) -t $(SRCCPYDIR) $(ASRCS) $(CSRCS)
 endif
+
+
+# %jp{カーネル生成}
+.PHONY : mk_kernel
+mk_kernel:
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL)
+
+
+# %jp{カーネル生成}
+.PHONY : clean_kernel
+clean_kernel:
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
+
 
 
 # end of file

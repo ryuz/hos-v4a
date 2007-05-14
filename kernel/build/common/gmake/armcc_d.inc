@@ -12,7 +12,7 @@ CMD_ASM    ?= armasm
 CMD_LIBR   ?= armar
 CMD_LINK   ?= armlink
 CMD_OBJCNV ?= fromelf
-CMD_DEPEND ?= gcc
+
 
 # %jp{拡張子定義}
 EXT_C   ?= c
@@ -69,14 +69,6 @@ AFLAGS_DBG = -g
 AFLAGS_OPT_NONE  =
 AFLAGS_OPT_SIZE  =
 AFLAGS_OPT_SPEED =
-
-
-# ----------------------------------
-#  makedepend
-# ----------------------------------
-
-# %jp{オプションの設定}
-DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 
 
 # end of file

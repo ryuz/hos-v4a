@@ -2,9 +2,10 @@
 #  Hyper Operating System V4 Advance
 #    common file for GNU make
 #
-#  Copyright (C) 1998-2006 by Project HOS
+#  Copyright (C) 1998-2007 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
+
 
 
 # --------------------------------------
@@ -34,6 +35,7 @@ endif
 endif
 endif
 
+
 # %jp{エラーレベル指定}
 ifeq ($(ERRLEVEL),0)
 TARGET := $(TARGET)er0
@@ -57,6 +59,7 @@ C_DEFS += _KERNEL_ERRLEVEL=4
 endif
 
 
+
 # --------------------------------------
 #  %jp{各種設定}
 # --------------------------------------
@@ -65,15 +68,19 @@ endif
 CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
 AFLAGS += $(AFLAGS_INC) $(AFLAGS_DEF)
 
+
 # %jp{サーチパス設定}
 VPATH = $(subst $(space),:,$(SRC_DIRS))
+
 
 # %jp{ターゲットライブラリファイル名}
 TARGET_LIB = $(TARGET).$(EXT_LIB)
 
+
 # %jp{オブジェクトファイル}
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))))   \
        $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(ASRCS)))))
+
 
 
 # --------------------------------------
@@ -84,15 +91,27 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 .PHONY : makelib_all
 makelib_all: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
 
-# %jp{クリーンナップ}
-.PHONY : makelib_clean
-makelib_clean:
-	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
 
 # %jp{オブジェクト出力ディレクトリ作成}
 .PHONY : mkdir_objs
 mkdir_objs:
 	$(CMD_MKDIR) -p $(OBJS_DIR)
+
+
+# %jp{クリーンナップ}
+.PHONY : makelib_clean
+makelib_clean:
+	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
+
+
+# %jp{依存関係の生成}
+DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
+.PHONY : depend
+depend:
+	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
+
+-include $(OBJS_DIR)/depend.inc
+
 
 # %jp{ソースのコピー}
 ifdef SRCCPYDIR
@@ -101,6 +120,5 @@ srccpy:
 	$(CMD_CP) -t $(SRCCPYDIR) $(ASRCS) $(CSRCS)
 endif
 
--include $(OBJS_DIR)/depend.inc
 
 # end of file
