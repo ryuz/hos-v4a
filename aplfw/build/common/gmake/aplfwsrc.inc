@@ -237,27 +237,28 @@ CSRCS         += $(PC16550_DIR)/pc16550drv_create.c					\
 
 
 # Hello World
-SRC_DIRS      += $(APLFW_DIR)/apl/hello
-CSRCS         += $(APLFW_DIR)/apl/hello/hello.c
+HELLO_DIR      = $(APLFW_DIR)/application/example/hello
+SRC_DIRS      += $(HELLO_DIR)
+CSRCS         += $(HELLO_DIR)/hello.c
 
 
 # Memory Dump
-MEMDUMP_DIR    = $(APLFW_DIR)/apl/util/memdump
+MEMDUMP_DIR    = $(APLFW_DIR)/application/utility/memdump
 SRC_DIRS      += $(MEMDUMP_DIR)
 CSRCS         += $(MEMDUMP_DIR)/memdump_main.c
 
 # Memory Write
-MEMWRITE_DIR   = $(APLFW_DIR)/apl/util/memwrite
+MEMWRITE_DIR   = $(APLFW_DIR)/application/utility/memwrite
 SRC_DIRS      += $(MEMWRITE_DIR)
 CSRCS         += $(MEMWRITE_DIR)/memwrite_main.c
 
 # Memory Test
-MEMTEST_DIR    = $(APLFW_DIR)/apl/util/memtest
+MEMTEST_DIR    = $(APLFW_DIR)/application/utility/memtest
 SRC_DIRS      += $(MEMTEST_DIR)
 CSRCS         += $(MEMTEST_DIR)/memtest_main.c
 
 # Key Test
-KEYTEST_DIR    = $(APLFW_DIR)/apl/util/keytest
+KEYTEST_DIR    = $(APLFW_DIR)/application/utility/keytest
 SRC_DIRS      += $(KEYTEST_DIR)
 CSRCS         += $(KEYTEST_DIR)/keytest_main.c
 
