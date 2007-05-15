@@ -116,6 +116,10 @@ clean: makeexe_clean
 mostlyclean: clean clean_kernel
 	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
 
+.PHONY : mostlydepend
+mostlydepend: depend
+	make -C $(APLFW_BUILD_DIR) -f gmake.mak depend
+
 
 $(STD_LIBS):
 	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2

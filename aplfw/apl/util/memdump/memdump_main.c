@@ -16,16 +16,17 @@
 
 int MemDump_Main(int argc, char *argv[])
 {
-	void *pAddr;
-	int  iCount = 16;
-	int  iWidth = 'b';
-	int  i;
-
+	void			*pAddr;
+	int				iWidth = 'b';
+	unsigned long	ulSize = 256;
+	unsigned long	i;
+	
+	
 	if ( argc < 2 )
 	{
 		StdIo_PrintFormat(
 				"<usage>\n"
-				" %s addrress [size] [b|h|w]\n\n",
+				" %s addrress [b|h|w] [size]\n\n",
 				argv[0]
 			);
 		return 1;
@@ -35,11 +36,11 @@ int MemDump_Main(int argc, char *argv[])
 	pAddr = (void *)strtoul(argv[1], 0, 0);
 	if ( argc >= 3 )
 	{
-		iCount = (int)strtol(argv[2], 0, 0);
+		iWidth = argv[2][0];
 	}
 	if ( argc >= 4 )
 	{
-		iWidth = argv[3][0];
+		ulSize = (int)strtoul(argv[3], 0, 0);
 	}
 
 	switch ( iWidth )
@@ -48,7 +49,7 @@ int MemDump_Main(int argc, char *argv[])
 		{
 			unsigned char *pubAddr;
 			pubAddr = (unsigned char *)pAddr;
-			for ( i = 0; i < iCount; i++ )
+			for ( i = 0; i < ulSize; i++ )
 			{
 				if ( i % 16 == 0 )
 				{
@@ -68,7 +69,8 @@ int MemDump_Main(int argc, char *argv[])
 		{
 			unsigned short *puhAddr;
 			puhAddr = (unsigned short *)pAddr;
-			for ( i = 0; i < iCount; i++ )
+			ulSize = (ulSize + 1) / 2;
+			for ( i = 0; i < ulSize; i++ )
 			{
 				if ( i % 8 == 0 )
 				{
@@ -88,7 +90,8 @@ int MemDump_Main(int argc, char *argv[])
 		{
 			unsigned long *puwAddr;
 			puwAddr = (unsigned long *)pAddr;
-			for ( i = 0; i < iCount; i++ )
+			ulSize = (ulSize + 3) / 4;
+			for ( i = 0; i < ulSize; i++ )
 			{
 				if ( i % 4 == 0 )
 				{

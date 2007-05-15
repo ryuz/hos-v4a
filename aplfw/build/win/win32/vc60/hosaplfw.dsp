@@ -408,6 +408,10 @@ SOURCE=..\..\..\..\system\sysapi\sysapi.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\sysapi\sysapi_initialize.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\sysapi\sysapi_local.h
 # End Source File
 # Begin Source File
@@ -449,6 +453,14 @@ SOURCE=..\..\..\..\system\sysapi\sysisr_create.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\sysapi\sysisr_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysloc_lock.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysloc_unlock.c
 # End Source File
 # Begin Source File
 
@@ -508,15 +520,7 @@ SOURCE=..\..\..\..\system\sysapi\sysprc_start.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\sysapi\system_initialize.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\sysapi\system_lock.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\sysapi\system_unlock.c
+SOURCE=..\..\..\..\system\sysapi\systim_wait.c
 # End Source File
 # End Group
 # Begin Group "file"
@@ -735,10 +739,42 @@ SOURCE=..\..\..\..\system\process\procobj.h
 SOURCE=..\..\..\..\system\type\type.h
 # End Source File
 # End Group
+# Begin Group "system_"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\system\system.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\system\system_boot.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\system\system_initialize.c
+# End Source File
+# End Group
 # End Group
 # Begin Group "apl"
 
 # PROP Default_Filter ""
+# Begin Group "util"
+
+# PROP Default_Filter ""
+# Begin Group "memdump"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\apl\util\memdump\memdump.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\apl\util\memdump\memdump_main.c
+# End Source File
+# End Group
+# End Group
 # Begin Group "hello"
 
 # PROP Default_Filter ""
@@ -749,14 +785,6 @@ SOURCE=..\..\..\..\apl\hello\hello.c
 # Begin Source File
 
 SOURCE=..\..\..\..\apl\hello\hello.h
-# End Source File
-# End Group
-# Begin Group "memdump"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\apl\memdump\memdump.c
 # End Source File
 # End Group
 # End Group
