@@ -22,11 +22,11 @@
 #include "system/shell/shell.h"
 #include "driver/serial/pc16550/pc16550drv.h"
 #include "driver/console/vt100/vt100drv.h"
-#include "apl/hello/hello.h"
-#include "apl/util/memdump/memdump.h"
-#include "apl/util/memwrite/memwrite.h"
-#include "apl/util/memtest/memtest.h"
-#include "apl/util/keytest/keytest.h"
+#include "application/example/hello/hello.h"
+#include "application/utility/memdump/memdump.h"
+#include "application/utility/memwrite/memwrite.h"
+#include "application/utility/memtest/memtest.h"
+#include "application/utility/keytest/keytest.h"
 
 
 long         g_SystemHeap[64 * 1024 / sizeof(long)];

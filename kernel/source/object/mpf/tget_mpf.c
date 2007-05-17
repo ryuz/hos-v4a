@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  get_mpf.c
- * @brief %jp{固定長メモリプール資源の獲得(ポーリング)}%en{Acquired Fixed-Sized Memory Block(Poling)}
+ * @file  tget_mpf.c
+ * @brief %jp{固定長メモリプール資源の獲得(タイムアウトあり)}%en{Acquired Fixed-Sized Memory Block(with Timeout)}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -15,12 +15,12 @@
 
 
 
-#if _KERNEL_SPT_PGET_MPF
+#if _KERNEL_SPT_TGET_MPF
 
 
 #if _KERNEL_SPT_TGET_MPF && (_KERNEL_OPT_CODE_SIZE <= _KERNEL_OPT_SPEED)	/* %jp{tget_mpfありで、サイズ優先なら} */
 
-/** %jp{固定長メモリプールの獲得(ポーリング)}%en{Acquired Fixed-Sized Memory Block(Poling)}
+/** %jp{固定長メモリプールの獲得(タイムアウトあり)}%en{Acquired Fixed-Sized Memory Block(with Timeout)}
  * @param  mpfid	%jp{メモリブロック獲得対象の固定長メモリプールのID番号}%en{ID number of the fixed-sized memory pool from which resource is acquired}
  * @param  p_blkf	%jp{固定長メモリプール生成情報を入れたパケットへのポインタ}%en{Start address of the acquired memory block}
  * @retval E_OK     %jp{正常終了}%en{Normal completion}
@@ -30,35 +30,25 @@
  * @retval E_RLWAI  %jp{待ち状態の強制解除(待ち状態の間にrel_waiを受付)}%en{Forced release from waiting(accept rel_wai while waiting)}
  * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に固定長メモリプールが削除)}%en{Waiting object deleted(fixed-sized memory pool is deleted waiting)}
  */
-ER pget_mpf(ID mpfid, VP *p_blk)
-{
-	/* %jp{tget_mpfで代替する} */
-	return tget_mpf(mpfid, p_blk, TMO_POL);
-}
-
-#else
-
-
-/** %jp{固定長メモリプールの獲得(ポーリング)}%en{Acquired Fixed-Sized Memory Block(Poling)}
- * @param  mpfid	%jp{メモリブロック獲得対象の固定長メモリプールのID番号}%en{ID number of the fixed-sized memory pool from which resource is acquired}
- * @param  p_blkf	%jp{固定長メモリプール生成情報を入れたパケットへのポインタ}%en{Start address of the acquired memory block}
- * @retval E_OK     %jp{正常終了}%en{Normal completion}
- * @retval E_ID     %jp{不正ID番号(mpfidが不正あるいは使用できない)}%en{Invalid ID number(mpfid is invalid or unusable)}
- * @retval E_NOEXS  %jp{オブジェクト未生成(対象固定長メモリプールが未登録)}%en{Non-existant object(specified fixed-sized memory pool is not registerd)}
- * @retval E_PAR    %jp{パラメータエラー(p_blk, tmoutが不正)}%en{Forced release from waiting(accept rel_wai while waiting)}
- * @retval E_RLWAI  %jp{待ち状態の強制解除(待ち状態の間にrel_waiを受付)}%en{Forced release from waiting(accept rel_wai while waiting)}
- * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に固定長メモリプールが削除)}%en{Waiting object deleted(fixed-sized memory pool is deleted waiting)}
- */
-ER pget_mpf(ID mpfid, VP *p_blk)
+ER tget_tmpf(ID mpfid, VP *p_blk, TMO tmout)
 {
 	_KERNEL_T_MPFCB_PTR  mpfcb;
+	_KERNEL_T_TSKHDL     tskhdl;
+	_KERNEL_T_TCB        *tcb;
 	_KERNEL_MPF_T_BLKHDL blkhdl;
 	VP                   blkptr;
 	ER                   ercd;
 	
+	/* %jp{コンテキストチェック} */
+#if _KERNEL_SPT_GET_MPF_E_CTX
+	if ( _KERNEL_SYS_SNS_DPN() )
+	{
+		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
+	}
+#endif
 	
 	/* %jp{ID のチェック} */
-#if _KERNEL_SPT_PGET_MPF_E_ID
+#if _KERNEL_SPT_GET_MPF_E_ID
 	if ( !_KERNEL_MPF_CHECK_MPFID(mpfid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -68,7 +58,7 @@ ER pget_mpf(ID mpfid, VP *p_blk)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#if _KERNEL_SPT_PGET_MPF_E_NOEXS
+#if _KERNEL_SPT_GET_MPF_E_NOEXS
 	if ( !_KERNEL_MPF_CHECK_EXS(mpfid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
@@ -93,13 +83,43 @@ ER pget_mpf(ID mpfid, VP *p_blk)
 	}
 	else
 	{
-		ercd = E_TMOUT;
+#if _KERNEL_SPT_TGET_MPF || _KERNEL_SPT_PGET_MPF
+		if ( tmout == TMO_POL )
+		{
+			ercd = E_TMOUT;  /* %jp{タイムアウト}%en{Timeout} */
+		}
+		else
+#endif
+		{
+				/* %jp{タスクを待ち状態にする} */
+			tskhdl = _KERNEL_SYS_GET_RUNTSK();
+			tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);				/* %jp{TCB取得} */
+			_KERNEL_TSK_SET_TSKWAIT(tcb, _KERNEL_TTW_MPF);
+			_KERNEL_TSK_SET_WOBJID(tcb, mpfid);
+			_KERNEL_TSK_SET_DATA(tcb, (VP_INT)p_blk);
+			_KERNEL_DSP_WAI_TSK(tskhdl);
+			_KERNEL_MPF_ADD_QUE(mpfcb, _KERNEL_MPF_GET_MPFCB_RO(mpfid, mpfcb), tskhdl);		/* %jp{待ち行列に追加} */
+
+#if _KERNEL_SPT_TGET_MPF
+			if ( tmout != TMO_FEVR )
+			{
+				_KERNEL_SEM_ADD_TOQ(tskhdl, tmout);				/* %jp{タイムアウトキューに追加} */
+			}
+#endif
+
+			/* %jp{タスクディスパッチの実行} */
+			_KERNEL_DSP_TSK();
+
+			/* %jp{エラーコードの取得} */
+			ercd = _KERNEL_TSK_GET_ERCD(tcb);
+		}
 	}
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{オブジェクト未生成}%en{Non-existant object} */
 	
 	return ercd;
 }
+
 
 #endif
 
@@ -109,12 +129,12 @@ ER pget_mpf(ID mpfid, VP *p_blk)
 
 #if _KERNEL_SPT_PGET_MPF_E_NOSPT
 
-/** %jp{固定長メモリプールの獲得(ポーリング)}%en{Acquired Fixed-Sized Memory Block(Poling)}
+/** %jp{固定長メモリプールの獲得(タイムアウトあり)}%en{Acquired Fixed-Sized Memory Block(with Timeout)}
  * @param  mpfid	%jp{メモリブロック獲得対象の固定長メモリプールのID番号}%en{ID number of the fixed-sized memory pool from which resource is acquired}
  * @param  p_blkf	%jp{固定長メモリプール生成情報を入れたパケットへのポインタ}%en{Start address of the acquired memory block}
  * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
  */
-ER pget_mpf(ID mpfid)
+ER tget_mpf(ID mpfid)
 {
 	return E_NOSPT;
 }

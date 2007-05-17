@@ -13,8 +13,8 @@
 #include "system/command/command.h"
 
 
-#define SHELL_MAX_COMMAND		256
-#define SHELL_MAX_HISTORY		4
+#define SHELL_MAX_COMMAND		128
+#define SHELL_MAX_HISTORY		8
 
 
 typedef struct c_shell
@@ -81,6 +81,8 @@ void Shell_Delete(C_SHELL *self)
 
 int Shell_Execute(C_SHELL *self, int argc, char *argv[])
 {
+	int i;
+
 	for ( ; ; )
 	{
 		/* コマンド入力 */
@@ -96,6 +98,16 @@ int Shell_Execute(C_SHELL *self, int argc, char *argv[])
 		if ( self->szCommanBuf[0] == 0 )
 		{
 			continue;
+		}
+		
+		/* ヒストリ重複削除 */
+		for ( i = 0; i < self->iHistoryNum; i++ )
+		{
+			if ( strcmp(self->szHistory[i], self->szCommanBuf) == 0 )
+			{
+				memmove(self->szHistory[i], self->szHistory[i+1], (SHELL_MAX_HISTORY-i-1)*(SHELL_MAX_COMMAND));
+				self->iHistoryNum--;
+			}
 		}
 		
 		/* ヒストリ記憶 */

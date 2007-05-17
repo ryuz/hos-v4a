@@ -21,6 +21,16 @@
 #if _KERNEL_SPT_TGET_MPF && (_KERNEL_OPT_CODE_SIZE <= _KERNEL_OPT_SPEED)	/* %jp{tget_mpfありで、サイズ優先なら} */
 
 
+/** %jp{固定長メモリプールの獲得}%en{Acquired Fixed-Sized Memory Block}
+ * @param  mpfid	%jp{メモリブロック獲得対象の固定長メモリプールのID番号}%en{ID number of the fixed-sized memory pool from which resource is acquired}
+ * @param  p_blkf	%jp{固定長メモリプール生成情報を入れたパケットへのポインタ}%en{Start address of the acquired memory block}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(mpfidが不正あるいは使用できない)}%en{Invalid ID number(mpfid is invalid or unusable)}
+ * @retval E_NOEXS  %jp{オブジェクト未生成(対象固定長メモリプールが未登録)}%en{Non-existant object(specified fixed-sized memory pool is not registerd)}
+ * @retval E_PAR    %jp{パラメータエラー(p_blk, tmoutが不正)}%en{Forced release from waiting(accept rel_wai while waiting)}
+ * @retval E_RLWAI  %jp{待ち状態の強制解除(待ち状態の間にrel_waiを受付)}%en{Forced release from waiting(accept rel_wai while waiting)}
+ * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に固定長メモリプールが削除)}%en{Waiting object deleted(fixed-sized memory pool is deleted waiting)}
+ */
 ER get_mpf(ID mpfid, VP *p_blk)
 {
 	/* %jp{tget_mpfで代替する} */
@@ -30,6 +40,16 @@ ER get_mpf(ID mpfid, VP *p_blk)
 #else
 
 
+/** %jp{固定長メモリプールの獲得}%en{Acquired Fixed-Sized Memory Block}
+ * @param  mpfid	%jp{メモリブロック獲得対象の固定長メモリプールのID番号}%en{ID number of the fixed-sized memory pool from which resource is acquired}
+ * @param  p_blkf	%jp{固定長メモリプール生成情報を入れたパケットへのポインタ}%en{Start address of the acquired memory block}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(mpfidが不正あるいは使用できない)}%en{Invalid ID number(mpfid is invalid or unusable)}
+ * @retval E_NOEXS  %jp{オブジェクト未生成(対象固定長メモリプールが未登録)}%en{Non-existant object(specified fixed-sized memory pool is not registerd)}
+ * @retval E_PAR    %jp{パラメータエラー(p_blk, tmoutが不正)}%en{Forced release from waiting(accept rel_wai while waiting)}
+ * @retval E_RLWAI  %jp{待ち状態の強制解除(待ち状態の間にrel_waiを受付)}%en{Forced release from waiting(accept rel_wai while waiting)}
+ * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に固定長メモリプールが削除)}%en{Waiting object deleted(fixed-sized memory pool is deleted waiting)}
+ */
 ER get_mpf(ID mpfid, VP *p_blk)
 {
 	_KERNEL_T_MPFCB_PTR  mpfcb;
@@ -114,6 +134,11 @@ ER get_mpf(ID mpfid, VP *p_blk)
 #if _KERNEL_SPT_GET_MPF_E_NOSPT
 
 
+/** %jp{固定長メモリプールの獲得}%en{Acquired Fixed-Sized Memory Block}
+ * @param  mpfid	%jp{メモリブロック獲得対象の固定長メモリプールのID番号}%en{ID number of the fixed-sized memory pool from which resource is acquired}
+ * @param  p_blkf	%jp{固定長メモリプール生成情報を入れたパケットへのポインタ}%en{Start address of the acquired memory block}
+ * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
+ */
 ER get_mpf(ID mpfid)
 {
 	return E_NOSPT;
