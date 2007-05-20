@@ -62,8 +62,12 @@
 #define FILE_IOCTL_SENDWRITEBUF		0x0031		/* ライトバッファ送信(省コピー版Write) */
 #define FILE_IOCTL_CANWRITEBUF		0x0032		/* ライトバッファ破棄(省コピー版Write) */
 
+
+/* IoControl機能コード(ディレクトリ) */
+#define FILE_IOCTL_DIR_READ			0x0101		/* デバイス情報を得る */
+
 /* IoControl機能コード(コンソール) */
-#define FILE_IOCTL_CON_GETCH		0x0101		/* 文字読込み */
+#define FILE_IOCTL_CON_GETCH		0x0201		/* 文字読込み */
 
 /* IoControl機能コード(シリアル通信) */
 #define FILE_IOCTL_COM_GETSPEED		0x2101		/* BPS取得 */
@@ -83,20 +87,23 @@
 #define FILE_IOCTL_USER				0x6000		/* 0x6000〜0x7fff */
 
 
+/* ファイル属性 */
+#define FILE_ATTR_READONLY			0x01
+#define FILE_ATTR_DIR				0x08
+#define FILE_ATTR_DEVICE			0x80
+
+
+
 /* 型定義 */
 typedef char			FILE_ATTR;				/* ファイル属性 */
 typedef int				FILE_ERR;				/* ファイルのエラー型 */
 typedef long			FILE_POS;				/* ファイル位置の型定義 */
-typedef int				FILE_SIZE;				/* 読み書き時のサイズ用の型定義 */
+typedef long			FILE_SIZE;				/* 読み書き時のサイズ用の型定義 */
 typedef unsigned long	FILE_TIME;				/* 読み書き時のサイズ用の時刻型定義 */
 
+struct c_drvobj;
+struct c_volobj;
 
-/* ボリューム情報 */
-typedef struct t_file_volinf
-{
-	char		szName[FILE_MAX_NAME];
-	HANDLE		hVolume;
-} T_FILE_VOLINF;
 
 
 /* ファイル情報 */
@@ -123,18 +130,18 @@ extern "C" {
 #endif
 
 /* システム */
-void      File_Initialize(void);								/* ファイルシステムの初期化 */
-
-FILE_ERR  File_AddVolume(const T_FILE_VOLINF *pVolInf);			/* ボリュームのマウント */
-FILE_ERR  File_RemoveVolume(const T_FILE_VOLINF *pVolInf);		/* ボリュームのアンマウント */
+void      File_Initialize(void);											/* ファイルシステムの初期化 */
 
 FILE_ERR  File_AddDevice(const char *pszName, struct c_drvobj *pDrvObj);	/* デバイスドライバの登録 */
 FILE_ERR  File_RemoveDevice(const char *pszName);							/* デバイスドライバの削除 */
 
+FILE_ERR  File_AddVolume(const char *pszName, struct c_volobj *pVolObj);	/* ボリュームのマウント */
+FILE_ERR  File_RemoveVolume(const char *pszName);							/* ボリュームのアンマウント */
+
 
 /* 基本API */
 HANDLE    File_Open(const char *pszPatah, int iMode);
-#define   File_Close(hFile)		Handle_Close(hFile)
+void      File_Close(HANDLE hFile);
 FILE_ERR  File_IoControl(HANDLE hFile, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 FILE_POS  File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
 FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
@@ -163,7 +170,11 @@ int       File_PrintFormat(HANDLE hFile, const char *pszFormat, ...);
 int       File_PrintHexNibble(HANDLE hFile, unsigned char c);		/* 4bitの16進数を出力 */
 
 int       File_PrintFormatDecimal(HANDLE hFile, long lNum, int iWidth, int iPadChar);		/* 書式付き10進数出力 */
-int       File_PrintFormatVL(HANDLE hFile, const char *pszFormat, va_list argptr);		/* 書式付き出力軽量版 */
+int       File_PrintFormatVL(HANDLE hFile, const char *pszFormat, va_list argptr);			/* 書式付き出力軽量版 */
+
+
+/* ディレクトリ読み出し */
+FILE_ERR  File_ReadDir(HANDLE hFile, T_FILE_FILEINF *pFileInf);
 
 
 /* 拡張操作 */
@@ -178,7 +189,7 @@ FILE_ERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
 
 /* ディレクトリ操作 */
 HANDLE    File_OpenDir(const char *pszName);						/* ディレクトリを開く */
-FILE_ERR  File_FindNext(HANDLE hDir, T_FILE_FILEINF *pFileInf);		/* ディレクトリからファイルを検索 */
+FILE_ERR  File_ReadDir(HANDLE hDir, T_FILE_FILEINF *pFileInf);		/* ディレクトリからファイルを検索 */
 HANDLE    File_MakeDir(const char *pszName);						/* サブディレクトリを作成 */
 HANDLE    File_Remove(const char *pszName);							/* ファイルを削除 */
 

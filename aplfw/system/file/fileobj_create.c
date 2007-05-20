@@ -14,7 +14,7 @@
 
 static const T_FILEOBJ_METHODS FileObj_FileObjMethods =
 	{
-		{FileObj_Delete},	/* デストラクタ */
+		{File_Close},	/* デストラクタ */
 	};
 
 

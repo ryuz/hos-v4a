@@ -19,7 +19,7 @@ FILE_ERR File_IoControl(HANDLE hFile, int iFunc, void *pInBuf, FILE_SIZE InSize,
 
 	self = FILE_HANDLE2OBJ(hFile);
 
-	return DrvObj_IoControl(self->pDrvObj, self, iFunc, pInBuf, InSize, pOutBuf, OutSize);
+	return DrvObj_vIoControl(self->pDrvObj, self, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 }
 
 

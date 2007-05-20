@@ -19,7 +19,7 @@
 /* ハンドルオブジェクトクラスのメソッドテーブル定義 */
 typedef struct t_handleobj_methods
 {
-	void (*pfncDelete)(HANDLE handle);		/* デストラクタ */
+	void (*pfncClose)(HANDLE handle);		/* 閉じる */
 } T_HANDLEOBJ_METHODS;
 
 
@@ -36,9 +36,6 @@ extern "C" {
 
 void    HandleObj_Create(C_HANDLEOBJ *self, const T_HANDLEOBJ_METHODS *pMethods);	/* コンストラクタ */
 void    HandleObj_Delete(C_HANDLEOBJ *self);										/* デストラクタ */
-#define HandleObj_GetMethods(self)		((self)->pMethods)
-
-void Handle_Close(HANDLE handle);			/* ハンドルを閉じる */
 
 #ifdef __cplusplus
 }

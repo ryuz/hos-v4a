@@ -40,7 +40,8 @@ typedef struct c_chrfile
 extern "C" {
 #endif
 
-void ChrFile_Create(C_CHRFILE *self, struct c_drvobj *pDrvObj, const T_FILEOBJ_METHODS *pMethods);
+void    ChrFile_Create(C_CHRFILE *self, struct c_drvobj *pDrvObj, const T_FILEOBJ_METHODS *pMethods);
+#define ChrFile_Delete(self)	FileObj_Delete(&(self)->FileObj)
 
 #ifdef __cplusplus
 }

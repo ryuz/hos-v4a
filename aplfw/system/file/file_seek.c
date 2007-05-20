@@ -20,7 +20,7 @@ FILE_POS File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign)
 	
 	self = FILE_HANDLE2OBJ(hFile);
 
-	return DrvObj_Seek(self->pDrvObj, self, Offset, iOrign);
+	return DrvObj_vSeek(self->pDrvObj, self, Offset, iOrign);
 }
 
 

@@ -19,15 +19,19 @@ C_DEVVOL g_DevVol;
 
 void File_Initialize(void)
 {
-	const static T_FILE_VOLINF VolInf = {"dev", (HANDLE)&g_DevVol};
-
 	C_FILE *self;
 
 	self = &g_File;
-
-	DevVol_Create(&g_DevVol);	
-	File_AddVolume(&VolInf);
-
-	self->hDevVol = (HANDLE)&g_DevVol;	
+	
+	/* ルートボリューム生成 */
+	SysVol_Create(&self->RootVol);
+	
+	/* デバイスボリューム生成 */
+	SysVol_Create(&self->DevVol);
+	
+	/* ルートディレクトリの下に /dev ディレクトリを登録 */
+	SysVol_AddDevice(&self->RootVol, "dev", (C_DRVOBJ *)&self->DevVol, FILE_ATTR_DIR);
 }
 
+
+/* end of file */

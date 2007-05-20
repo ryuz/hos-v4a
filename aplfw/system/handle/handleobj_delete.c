@@ -16,11 +16,7 @@
 /* デストラクタ */
 void HandleObj_Delete(C_HANDLEOBJ *self)
 {
-	/* デストラクタが登録されていれば呼ぶ */
-	if ( self->pMethods->pfncDelete != NULL )
-	{
-		self->pMethods->pfncDelete((HANDLE)self);
-	}
+	/* プロセスの紐付け解除(予定) */
 }
 
 

@@ -22,11 +22,12 @@
 #include "system/shell/shell.h"
 #include "driver/serial/renesas/scidrv.h"
 #include "driver/console/vt100/vt100drv.h"
-#include "apl/hello/hello.h"
-#include "apl/util/memdump/memdump.h"
-#include "apl/util/memwrite/memwrite.h"
-#include "apl/util/memtest/memtest.h"
-#include "apl/util/keytest/keytest.h"
+#include "application/example/hello/hello.h"
+#include "application/filecmd/filelist/filelist.h"
+#include "application/utility/memdump/memdump.h"
+#include "application/utility/memwrite/memwrite.h"
+#include "application/utility/memtest/memtest.h"
+#include "application/utility/keytest/keytest.h"
 #include "regs_sh7144.h"
 
 
@@ -89,6 +90,7 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	Command_AddCommand("hsh",      Shell_Main);
 	Command_AddCommand("hello",    Hello_Main);
+	Command_AddCommand("ls",       FileList_Main);
 	Command_AddCommand("memdump",  MemDump_Main);
 	Command_AddCommand("memwrite", MemWrite_Main);
 	Command_AddCommand("memtest",  MemTest_Main);

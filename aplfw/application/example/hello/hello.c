@@ -1,3 +1,4 @@
+/* 磁七磁磁邪磁 */
 
 #include <string.h>
 #include "hosaplfw.h"

@@ -21,7 +21,7 @@ FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size)
 
 	self = FILE_HANDLE2OBJ(hFile);
 	
-	return DrvObj_Read(self->pDrvObj, self, pBuf, Size);
+	return DrvObj_vRead(self->pDrvObj, self, pBuf, Size);
 }
 
 

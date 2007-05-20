@@ -81,27 +81,44 @@ FILE_DIR       = $(APLFW_DIR)/system/file
 SRC_DIRS      += $(FILE_DIR)
 CSRCS         += $(FILE_DIR)/file_initialize.c						\
                  $(FILE_DIR)/file_open.c							\
+                 $(FILE_DIR)/file_close.c							\
                  $(FILE_DIR)/file_iocontrol.c						\
                  $(FILE_DIR)/file_seek.c							\
                  $(FILE_DIR)/file_read.c							\
                  $(FILE_DIR)/file_write.c							\
+                 $(FILE_DIR)/file_readdir.c							\
                  $(FILE_DIR)/file_getchar.c							\
                  $(FILE_DIR)/file_getstring.c						\
                  $(FILE_DIR)/file_putchar.c							\
                  $(FILE_DIR)/file_putstring.c						\
                  $(FILE_DIR)/file_adddevice.c						\
                  $(FILE_DIR)/file_addvolume.c						\
-                 $(FILE_DIR)/filefmt.c								\
-                 $(FILE_DIR)/fileobj_create.c						\
-                 $(FILE_DIR)/fileobj_delete.c						\
-                 $(FILE_DIR)/stdfile.c								\
-                 $(FILE_DIR)/console_getch.c						\
                  $(FILE_DIR)/drvobj_create.c						\
                  $(FILE_DIR)/drvobj_delete.c						\
+                 $(FILE_DIR)/drvobj_open.c							\
+                 $(FILE_DIR)/drvobj_close.c							\
+                 $(FILE_DIR)/drvobj_iocontrol.c						\
+                 $(FILE_DIR)/drvobj_seek.c							\
+                 $(FILE_DIR)/drvobj_read.c							\
+                 $(FILE_DIR)/drvobj_write.c							\
+                 $(FILE_DIR)/drvobj_flush.c							\
+                 $(FILE_DIR)/fileobj_create.c						\
+                 $(FILE_DIR)/fileobj_delete.c						\
+                 $(FILE_DIR)/volumeobj_create.c						\
+                 $(FILE_DIR)/volumeobj_makedir.c					\
+                 $(FILE_DIR)/volumeobj_remove.c						\
                  $(FILE_DIR)/chrdrv_create.c						\
+                 $(FILE_DIR)/chrdrv_delete.c						\
                  $(FILE_DIR)/chrfile_create.c						\
-                 $(FILE_DIR)/volume_openfile.c						\
-                 $(FILE_DIR)/volumeobj_create.c
+                 $(FILE_DIR)/sysvol_create.c						\
+                 $(FILE_DIR)/sysvol_delete.c						\
+                 $(FILE_DIR)/sysvol_open.c							\
+                 $(FILE_DIR)/sysvol_close.c							\
+                 $(FILE_DIR)/sysvol_iocontrol.c						\
+                 $(FILE_DIR)/sysvol_adddevice.c						\
+                 $(FILE_DIR)/console_getch.c						\
+                 $(FILE_DIR)/filefmt.c								\
+                 $(FILE_DIR)/stdfile.c
 
 
 # Command
@@ -151,36 +168,6 @@ CSRCS         += $(LIST_DIR)/list_create.c							\
                  $(LIST_DIR)/list_getprevpos.c						\
                  $(LIST_DIR)/list_gettailpos.c						\
                  $(LIST_DIR)/list_remove.c
-
-
-
-# --------------------------------------------------
-#  Volumes
-# --------------------------------------------------
-
-# Device Volume
-DEVVOL_DIR     = $(APLFW_DIR)/volume/dev
-SRC_DIRS      += $(DEVVOL_DIR)
-CSRCS         += $(DEVVOL_DIR)/devvol_create.c						\
-                 $(DEVVOL_DIR)/devvol_delete.c						\
-                 $(DEVVOL_DIR)/devvol_adddevice.c					\
-                 $(DEVVOL_DIR)/devvol_openfile.c
-
-
-# FAT Device
-#SRC_DIRS += $(APLFW_DIR)/volume/fat
-#CSRCS    += $(APLFW_DIR)/volume/fat/fatvol_clusterread.c			\
-#            $(APLFW_DIR)/volume/fat/fatvol_clusterwrite.c			\
-#            $(APLFW_DIR)/volume/fat/fatvol_create.c				\
-#            $(APLFW_DIR)/volume/fat/fatvol_open.c					\
-#            $(APLFW_DIR)/volume/fat/fatvol_getclusterbuf.c			\
-#            $(APLFW_DIR)/volume/fat/fatvol_getnextcluster.c		\
-#            $(APLFW_DIR)/volume/fat/fatvol_relclusterbuf.c			\
-#            $(APLFW_DIR)/volume/fat/fatvol_setnextcluster.c		\
-#            $(APLFW_DIR)/volume/fat/fatvol_flushfat.c				\
-#            $(APLFW_DIR)/volume/fat/fatfile_create.c				\
-#            $(APLFW_DIR)/volume/fat/fatfile_read.c					\
-
 
 
 
@@ -240,6 +227,12 @@ CSRCS         += $(PC16550_DIR)/pc16550drv_create.c					\
 HELLO_DIR      = $(APLFW_DIR)/application/example/hello
 SRC_DIRS      += $(HELLO_DIR)
 CSRCS         += $(HELLO_DIR)/hello.c
+
+
+# File List
+FILELIST_DIR   = $(APLFW_DIR)/application/filecmd/filelist
+SRC_DIRS      += $(FILELIST_DIR)
+CSRCS         += $(FILELIST_DIR)/filelist_main.c
 
 
 # Memory Dump

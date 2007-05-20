@@ -18,16 +18,22 @@
 /* ハンドルを閉じる */
 void Handle_Close(HANDLE handle)
 {
+	C_HANDLEOBJ *pHandleObj;
+	
+	/* 有効チェック */
 	if ( handle == HANDLE_NULL )
 	{
 		return;
 	}
-
-	/* デストラクタ呼び出し */
-	HandleObj_Delete((C_HANDLEOBJ *)handle);
 	
-	/* メモリ開放 */
-	SysMem_Free((void *)handle);
+	/* ハンドル変換 */
+	pHandleObj = (C_HANDLEOBJ *)handle;
+
+	/* クローズ処理 */
+	if ( pHandleObj->pMethods->pfncClose != NULL )
+	{
+		pHandleObj->pMethods->pfncClose(handle);
+	}
 }
 
 

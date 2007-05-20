@@ -6,7 +6,7 @@
  *
  * %jp{ファイルディスクリプタとして機能するクラス}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -31,7 +31,7 @@ typedef struct t_fileobj_methods
 typedef struct c_fileobj
 {
 	C_HANDLEOBJ		HandleObj;				/* ハンドルオブジェクトを継承 */
-	struct c_drvobj	*pDrvObj;				/* デバイスドライバへの参照 */
+	struct c_drvobj	*pDrvObj;				/* ドライバへの参照 */
 } C_FILEOBJ;
 
 

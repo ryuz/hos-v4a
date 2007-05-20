@@ -34,7 +34,7 @@ extern "C" {
 #endif
 
 void ChrDrv_Create(C_CHRDRV *self, const T_DRVOBJ_METHODS *pMethods);		/**< コンストラクタ */
-void ChrDrv_Delete(C_DRVOBJ *self);											/**< デストラクタ */
+void ChrDrv_Delete(C_CHRDRV *self);											/**< デストラクタ */
 
 void ChrDrv_WriteSignal(C_CHRDRV *self);		/**< 書込み可能になったことを通知 */
 void ChrDrv_ReadSignal(C_CHRDRV *self);			/**< 読込み可能になったことを通知 */

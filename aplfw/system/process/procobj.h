@@ -11,19 +11,19 @@
 /* プロセスオブジェクト基本クラス定義 */
 typedef struct c_processobj
 {
-	C_HANDLEOBJ    HandleObj;					/* ハンドルオブジェクトを継承(そのうちC_FILEOBJからの継承に拡張してもいいかも？) */
-	SYSPRC_HANDLE  hSysPrc;
-
-	int            (*pfncEntry)(VPARAM pParam);	/* エントリーアドレス */
-	VPARAM         Param;						/* 起動パラメータ */
+	C_HANDLEOBJ		HandleObj;						/* ハンドルオブジェクトを継承 */
+	SYSPRC_HANDLE	hSysPrc;
 	
-	T_PROCESS_INF  Info;
+	int				(*pfncEntry)(VPARAM pParam);	/* エントリーアドレス */
+	VPARAM			Param;							/* 起動パラメータ */
+	
+	T_PROCESS_INF 	Info;
 
-	int         iExitCode;						/* 終了コード */
+	int				iExitCode;						/* 終了コード */
 
 #if 0	/* まあ、そのうちやりたいなっと */
-	HANDLE		*pHandleList;					/* 所有するハンドルのリスト(終了時に開放) */
-	char		szCurrentDir[FILE_MAX_PATH];	/* カレントディレクトリ */
+	HANDLE			*pHandleList;					/* 所有するハンドルのリスト(終了時に開放) */
+	char			szCurrentDir[FILE_MAX_PATH];	/* カレントディレクトリ */
 #endif
 } C_PROCESSOBJ;
 

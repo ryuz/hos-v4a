@@ -41,6 +41,7 @@ extern "C" {
 #endif
 
 void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
+void Pc16550Drv_Delete(C_DRVOBJ *pDrvObj);
 
 #ifdef __cplusplus
 }

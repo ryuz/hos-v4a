@@ -30,7 +30,7 @@ HANDLE DevVol_OpenFile(HANDLE hVolume, const char *pszPath, int iMode)
 		return HANDLE_NULL;
 	}
 	
-	return DrvObj_Open(self->DevTable[i].pDrvObj, pszPath, iMode);
+	return DrvObj_vOpen(self->DevTable[i].pDrvObj, pszPath, iMode);
 }
 
 

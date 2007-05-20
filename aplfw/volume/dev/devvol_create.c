@@ -5,7 +5,11 @@
 
 const T_VOLUMEOBJ_METHODS DevVol_VolumeObjMethods =
 {
-	DevVol_OpenFile,
+	{
+		DevVol_Delete,
+		DevVol_OpenFile,
+		
+	},
 	NULL,
 	NULL,
 };

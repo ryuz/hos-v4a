@@ -15,7 +15,10 @@
 /* コンストラクタ */
 void HandleObj_Create(C_HANDLEOBJ *self, const T_HANDLEOBJ_METHODS *pMethods)
 {
+	/* 仮想関数テーブルの登録 */
 	self->pMethods = pMethods;
+
+	/* プロセスに紐付け(予定) */
 }
 
 

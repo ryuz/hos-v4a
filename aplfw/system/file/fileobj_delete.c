@@ -17,8 +17,7 @@ void FileObj_Delete(HANDLE hFile)
 	
 	self = (C_FILEOBJ *)hFile;
 
-	/* クローズ処理 */
-	DrvObj_Close(self->pDrvObj, self);
+	HandleObj_Delete(&self->HandleObj);
 }
 
 

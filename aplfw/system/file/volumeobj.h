@@ -1,8 +1,8 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  driveobj.h
- * @brief %jp{ディレクトリオブジェクト}
+ * @file  volumeobj.h
+ * @brief %jp{ボリュームオブジェクト基本クラス}
  *
  * Copyright (C) 2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -14,20 +14,22 @@
 
 
 #include "system/handle/handleobj.h"
-#include "file.h"
+#include "system/file/drvobj.h"
 
 
 /* ボリューム操作オブジェクトクラス基本メソッドテーブル */
+struct c_volumeobj;
 typedef struct t_volumeobj_methods
 {
-	HANDLE   (*pfncOpenFile)(HANDLE hVolume, const char *pszPath, int iMode);		/* ファイルを開く */
-	FILE_ERR (*pfncMakeDir)(HANDLE hVolume, const char *pszPath);					/* サブディレクトリを作成 */
-	FILE_ERR (*pfncRemove)(HANDLE hVolume, const char *pszPath);					/* ファイルを削除 */
+	T_DRVOBJ_METHODS	DrvObjMethods;			/* DrvObjを継承 */
+
+	FILE_ERR (*pfncMakeDir)(struct c_volumeobj *self, const char *pszPath);		/* サブディレクトリを作成 */
+	FILE_ERR (*pfncRemove)(struct c_volumeobj *self, const char *pszPath);		/* ファイルを削除 */
 } T_VOLUMEOBJ_METHODS;
 
 typedef struct c_volumeobj
 {
-	const T_VOLUMEOBJ_METHODS *pMethods;
+	C_DRVOBJ	DrvObj;							/* DrvObjを継承 */
 } C_VOLUMEOBJ;
 
 
@@ -39,15 +41,17 @@ typedef struct c_volumeobj
 extern "C" {
 #endif
 
-void    VolumeObj_Create(C_VOLUMEOBJ *self, const T_VOLUMEOBJ_METHODS *pVolumeObjMethods);
-void    VolumeObj_Delete(C_VOLUMEOBJ *self);
+void     VolumeObj_Create(C_VOLUMEOBJ *self, const T_VOLUMEOBJ_METHODS *pVolumeObjMethods);		/**< コンストラクタ */
+void     VolumeObj_Delete(C_VOLUMEOBJ *self);													/**< デストラクタ */
 
-#define VolumeObj_GetMethods(self)		((T_VOLUMEOBJ_METHODS *)HandleObj_GetMethods(&(self)->HandleObj))
-
+FILE_ERR VolumeObj_MakeDir(C_VOLUMEOBJ *self, const char *pszPath);				/* サブディレクトリを作成 */
+FILE_ERR VolumeObj_Remove(C_VOLUMEOBJ *self, const char *pszPath);				/* ファイルを削除 */
 
 #ifdef __cplusplus
 }
 #endif
+
+#define VolumeObj_GetMethods(self)		((T_VOLUMEOBJ_METHODS *)HandleObj_GetMethods(&(self)->DrvObjMethods))
 
 
 

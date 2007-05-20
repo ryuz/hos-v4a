@@ -14,15 +14,13 @@
 
 
 #include "file.h"
-
-#define FILE_MAX_VOLUME		16
-
+#include "sysvol.h"
 
 
 typedef struct c_file
 {
-	T_FILE_VOLINF VolumeTable[FILE_MAX_VOLUME];
-	HANDLE        hDevVol;
+	C_SYSVOL	RootVol;		/* ルートボリューム(ルートディレクトリ) */
+	C_SYSVOL	DevVol;			/* デバイスボリューム(/dev ディレクトリ) */
 } C_FILE;
 
 extern C_FILE	g_File;

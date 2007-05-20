@@ -20,7 +20,7 @@ FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size)
 
 	self = FILE_HANDLE2OBJ(hFile);
 	
-	return DrvObj_Write(self->pDrvObj, self, pData, Size);
+	return DrvObj_vWrite(self->pDrvObj, self, pData, Size);
 }
 
 
