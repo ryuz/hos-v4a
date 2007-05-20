@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "file_local.h"
-#include "volume.h"
 
 
 /* ファイルのオープン */

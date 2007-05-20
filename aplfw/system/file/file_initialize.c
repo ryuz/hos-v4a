@@ -10,11 +10,9 @@
 
 
 #include "file_local.h"
-#include "volume/dev/devvol.h"
 
 
 C_FILE	 g_File;
-C_DEVVOL g_DevVol;
 
 
 void File_Initialize(void)
