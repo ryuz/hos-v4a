@@ -44,7 +44,7 @@ endif
 ifeq ($(MEMMAP),ext)
 # %jp{外部メモリ}
 TARGET       := $(TARGET)ext
-SECTION_ROM  ?= 0x80000000
+SECTION_ROM  ?= 0x80008000
 SECTION_RAM  ?= 0x80010000
 else
 ifeq ($(MEMMAP),ram)
@@ -53,6 +53,7 @@ SECTION_ROM  ?= 0x00000000
 SECTION_RAM  ?= 0x80010000
 else
 # %jp{内蔵ROM}
+AFLAGS       += --predefine="ROM_AT_ADDRESS_ZERO SETL {TRUE}"
 SECTION_ROM  ?= 0x00000000
 SECTION_RAM  ?= 0x80010000
 endif
@@ -60,9 +61,9 @@ endif
 
 
 # %jp{フラグ設定}
-CFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
-AFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
-LNFLAGS = --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --entry=$(SECTION_ROM)
+CFLAGS  += --cpu=ARM7TDMI-S --apcs=inter --thumb
+AFLAGS  += --cpu=ARM7TDMI-S --apcs=inter --thumb
+LNFLAGS += --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --entry=$(SECTION_ROM)
 
 
 # %jp{出力ファイル名}
