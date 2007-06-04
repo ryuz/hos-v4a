@@ -12,7 +12,7 @@
 #include "lan9000drv_local.h"
 
 
-FILE_ERR  Lan9000Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR Lan9000Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_LAN9000DRV	*self;
 	C_CHRFILE		*pChrFile;
@@ -20,6 +20,21 @@ FILE_ERR  Lan9000Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc
 	/* upper cast */
 	self     = (C_LAN9000DRV *)pDrvObj;
 	pChrFile = (C_CHRFILE *)pFileObj;
+
+	switch ( iFunc )
+	{
+	case FILE_IOCTL_ETHER_GETPHA:
+		if ( InSize >= 6 )
+		{
+			Lan9000Hal_GetPhysicalAddr(&self->Lan9000Hal, (unsigned char *)pInBuf);
+			return FILE_ERR_OK;
+		}
+		break;
+	
+	default:
+		break;
+/*		return ChrDrv_IoControl(pDrvObj, pFileObj, pInBuf, InSize, pOutBuf, OutSize);	*/
+	}
 
 	return FILE_ERR_NG;
 }
