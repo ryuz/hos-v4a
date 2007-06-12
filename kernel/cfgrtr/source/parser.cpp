@@ -21,8 +21,8 @@
 #define PARSER_STATE_API_START					2000	// API探索中
 #define PARSER_STATE_API_END					2001	// APIの終結探索
 #define PARSER_STATE_API_NAME					2002	// API名部分解析中
-#define PARSER_STATE_API_S_PARAM				2003	// 
-#define PARSER_STATE_API_PARAM					2004	// 
+#define PARSER_STATE_API_S_PARAM				2003	// パラメータ部開始待ち
+#define PARSER_STATE_API_PARAM					2004	// パラメータ部解析中
 #define PARSER_STATE_API_PARAM_STR				2005	// パラメータ内の文字列部読み込み中
 #define PARSER_STATE_API_PARAM_STR_ESC			2006	// パラメータ内の文字列部読み込み中で且つESC
 #define PARSER_STATE_API_PARAM_CHAR				2007	// パラメータ内の文字列部読み込み中
@@ -366,7 +366,7 @@ bool CParser::AnalyzeParam(CParamBlock *pParam, int cEndChar)
 	}
 
 	// エラー
-	ParseError(ERRTYPE_FATAL, FATAL_EOF);		// エラーー
+	ParseError(ERRTYPE_FATAL, FATAL_EOF);		//致命エラー
 	return false;
 }
 
@@ -374,11 +374,27 @@ bool CParser::AnalyzeParam(CParamBlock *pParam, int cEndChar)
 // プリプロセッサ行の処理
 bool CParser::PreProc(void)
 {
+	// debug
 	printf("PRI : %s\n", m_strPre.c_str());
+	
+	int  iNum;
+	int  iLine;
+	char szPath[512];
+	iNum = sscanf(m_strPre.c_str(), "# %d %s", &iLine, szPath);
+	if ( iNum >= 1 )
+	{
+		m_SrcInf.iLineNum = iLine;
+	}
+	if ( iNum >= 2 && szPath[0] == '\"' )
+	{
+		m_SrcInf.strFileName = szPath;
+	}
+
 	return true;
 }
 
 
+// API部の処理
 bool CParser::ApiProc(void)
 {
 	printf("API : %s\n", m_strApiName.c_str());

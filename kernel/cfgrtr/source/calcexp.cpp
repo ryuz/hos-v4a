@@ -85,6 +85,7 @@ static bool Parser(vector<TTerm> &vectTerm, int &iIndex, TTerm &RetVal)
 	list<TTerm>           listTerm;
 	list<TTerm>::iterator it;
 
+#if 0
 	for ( ; ; )
 	{
 		if ( iIndex >= vectTerm.size() )
