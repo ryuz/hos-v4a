@@ -16,15 +16,14 @@
 /* 仮想関数テーブル */
 static const T_DRVOBJ_METHODS TcpIp_Methods = 
 	{
-		0,
-/*		Tcpip_Delete,
+		Tcpip_Delete,
 		Tcpip_Open,
 		Tcpip_Close,
 		Tcpip_IoControl,
 		Tcpip_Seek,
 		Tcpip_Read,
 		Tcpip_Write,
-		Tcpip_Flush,*/
+		Tcpip_Flush,
 	};
 
 
@@ -32,8 +31,8 @@ static const T_DRVOBJ_METHODS TcpIp_Methods =
 void Tcpip_Create(C_TCPIP *self, HANDLE hIp)
 {
 	/* 親クラスコンストラクタ呼び出し */
-//	ChrDrv_Create(&self->ChrDrv, &IpEther_Methods);
-
+	ChrDrv_Create(&self->ChrDrv, &TcpIp_Methods);
+	
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;
 	self->hIp        = hIp;

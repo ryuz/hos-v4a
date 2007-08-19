@@ -71,7 +71,7 @@ _kernel_fiq_hdr
 			; ---- 割込みマスク値復帰処理
 				ldr		r1, [sp, #4]							; spsr_fiq 値取り出し
 				and		r1, r1, #F_Bit:OR:I_Bit
-				cmp		r1, r3									; 旧imsk値と比較
+				cmp		r1, r3									; 旧imsk値と比較(IRQ処理前のFIQ発生をケアする)
 				bne		return_int								; 不一致なら終了処理スキップ
 				strb	r3, [r0, #ICTXCB_IMSK]					; マスク値復帰
 				

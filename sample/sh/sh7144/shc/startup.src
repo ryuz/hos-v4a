@@ -8,7 +8,7 @@
 				.SECTION	P, CODE, ALIGN=4
 _ResetHandler:	
 				mov.l	addr_VECTTBL, r1
-				ldc		r1, VBR
+	;			ldc		r1, VBR
 				mov.l	addr_INITSCT, r0
 				jsr		@r0
 				nop

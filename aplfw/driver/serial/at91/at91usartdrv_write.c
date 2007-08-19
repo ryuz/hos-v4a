@@ -51,7 +51,7 @@ FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 		AT91USART_REG_WRITE(self, AT91USART_US_THR, c);
 	}
 loop_end:
-
+	
 	/* クリティカルセクションを出る */
 	SysMtx_Unlock(self->hMtxSend);
 

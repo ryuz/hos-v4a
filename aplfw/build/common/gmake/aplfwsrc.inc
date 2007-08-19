@@ -216,6 +216,20 @@ CSRCS         += $(PC16550_DIR)/pc16550drv_create.c					\
                  $(PC16550_DIR)/pc16550hal_getstatus.c
 
 
+# ARMUART (PL011)
+ARMUART_DIR    = $(APLFW_DIR)/driver/serial/arm
+SRC_DIRS      += $(ARMUART_DIR)
+CSRCS         += $(ARMUART_DIR)/armuartdrv_create.c					\
+                 $(ARMUART_DIR)/armuartdrv_delete.c					\
+                 $(ARMUART_DIR)/armuartdrv_open.c					\
+                 $(ARMUART_DIR)/armuartdrv_close.c					\
+                 $(ARMUART_DIR)/armuartdrv_iocontrol.c				\
+                 $(ARMUART_DIR)/armuartdrv_seek.c					\
+                 $(ARMUART_DIR)/armuartdrv_read.c					\
+                 $(ARMUART_DIR)/armuartdrv_write.c					\
+                 $(ARMUART_DIR)/armuartdrv_flush.c					\
+                 $(ARMUART_DIR)/armuartdrv_isr.c					\
+
 
 
 # --------------------------------------------------
@@ -254,6 +268,13 @@ CSRCS         += $(MEMTEST_DIR)/memtest_main.c
 KEYTEST_DIR    = $(APLFW_DIR)/application/utility/keytest
 SRC_DIRS      += $(KEYTEST_DIR)
 CSRCS         += $(KEYTEST_DIR)/keytest_main.c
+
+
+# Ether Snoopt
+ETHERSNOOP_DIR = $(APLFW_DIR)/application/netcmd/ethersnoop
+SRC_DIRS      += $(ETHERSNOOP_DIR)
+CSRCS         += $(ETHERSNOOP_DIR)/ethersnoop_main.c
+
 
 
 # end of file

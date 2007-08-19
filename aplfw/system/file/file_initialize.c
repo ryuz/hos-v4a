@@ -10,6 +10,7 @@
 
 
 #include "file_local.h"
+#include "sysvol.h"
 
 
 C_FILE	 g_File;

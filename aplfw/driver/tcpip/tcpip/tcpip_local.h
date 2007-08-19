@@ -14,6 +14,40 @@
 
 
 #include "tcpip.h"
+#include "system/file/chrfile.h"
+#include "library/container/stmbuf/stmbuf.h"
+
+
+#define TCP_FLAG_FIN			0x01
+#define TCP_FLAG_SYN			0x02
+#define TCP_FLAG_RST			0x04
+#define TCP_FLAG_PSH			0x08
+#define TCP_FLAG_ACK			0x10
+#define TCP_FLAG_URG			0x20
+
+
+#define TCPIPFILE_TYPE_TCP		6
+#define TCPIPFILE_TYPE_UDP		17
+
+#define TCPIPFILE_RECV_BUFSIZE	2048
+
+
+typedef struct c_tcpipfile
+{
+	C_CHRFILE			ChrFile;		/* キャラクタ型ファイルオブジェクトを継承 */
+
+	char				iType;
+	unsigned char		ubIpAddr[4];
+	unsigned short		uhPortNum;
+	
+	struct c_tcpipfile	*pNext;
+	struct c_tcpipfile	*pPrev;
+	
+	C_STREAMBUF			RecvBuf;
+	unsigned char		ubRecvBuf[TCPIPFILE_RECV_BUFSIZE];
+	
+} C_TCPIPFILE;
+
 
 
 #ifdef __cplusplus
@@ -28,7 +62,10 @@ FILE_SIZE Tcpip_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SI
 FILE_SIZE Tcpip_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
 FILE_ERR  Tcpip_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
-void      Tcpip_Recv(VPARAM Param);																			/* 受信プロセス */
+int       Tcpip_GetSendBuf(C_TCPIP *self, void **ppBuf);		/* IPデータグラム送信バッファ取得 */
+void      Tcpip_SendBuf(C_TCPIP *self, void **ppBuf);			/* IPデータグラムバッファ送信 */
+void      Tcpip_Recv(VPARAM Param);								/* IPパケット受信プロセス */
+
 
 #ifdef __cplusplus
 }
