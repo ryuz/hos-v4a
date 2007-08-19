@@ -33,7 +33,7 @@ FILE_SIZE At91UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *
 	for ( i = 0; i < Size; i++ )
 	{
 		c = *pubBuf++;
-		while ( AT91UART_REG_READ(self, AT91UART_US_CSR) & 0x0002 )
+		while ( !(AT91UART_REG_READ(self, AT91UART_US_CSR) & 0x0002) )
 		{
 			if ( pChrFile->cWriteMode == FILE_WMODE_BLOCKING )
 			{
