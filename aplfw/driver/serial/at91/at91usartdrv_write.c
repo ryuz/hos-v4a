@@ -1,28 +1,28 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  at91uartdrv_write.c
- * @brief %jp{ATMEL AT91シリーズUART用デバイスドライバ}
+ * @file  at91usartdrv_write.c
+ * @brief %jp{ATMEL AT91シリーズUSART用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "at91uartdrv_local.h"
+#include "at91usartdrv_local.h"
 
 
 /** %jp{送信} */
-FILE_SIZE At91UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
-	C_AT91UARTDRV		*self;
+	C_AT91USARTDRV		*self;
 	C_CHRFILE			*pChrFile;
 	const unsigned char	*pubBuf;
 	FILE_SIZE			i;
 	int					c;
 	
 	/* upper cast */
-	self     = (C_AT91UARTDRV *)pDrvObj;
+	self     = (C_AT91USARTDRV *)pDrvObj;
 	pChrFile = (C_CHRFILE *)pFileObj;
 	
 	pubBuf = (const unsigned char *)pData;
@@ -33,12 +33,12 @@ FILE_SIZE At91UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *
 	for ( i = 0; i < Size; i++ )
 	{
 		c = *pubBuf++;
-		while ( !(AT91UART_REG_READ(self, AT91UART_US_CSR) & 0x0002) )
+		while ( !(AT91USART_REG_READ(self, AT91USART_US_CSR) & 0x0002) )
 		{
 			if ( pChrFile->cWriteMode == FILE_WMODE_BLOCKING )
 			{
 				/* ブロッキングなら送信割り込みを待つ */
-				AT91UART_REG_WRITE(self, AT91UART_US_IER, 0x00000002);	/* 送信割り込み許可 */		
+				AT91USART_REG_WRITE(self, AT91USART_US_IER, 0x00000002);	/* 送信割り込み許可 */		
 				SysEvt_Wait(self->hEvtSend);
 				SysEvt_Clear(self->hEvtSend);
 			}
@@ -48,7 +48,7 @@ FILE_SIZE At91UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *
 				goto loop_end;
 			}
 		}
-		AT91UART_REG_WRITE(self, AT91UART_US_THR, c);
+		AT91USART_REG_WRITE(self, AT91USART_US_THR, c);
 	}
 loop_end:
 

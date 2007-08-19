@@ -1,25 +1,25 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  at91uartdrv_delete.c
- * @brief %jp{ATMEL AT91シリーズUART用デバイスドライバ}
+ * @file  at91usartdrv_delete.c
+ * @brief %jp{ATMEL AT91シリーズUSART用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "at91uartdrv_local.h"
+#include "at91usartdrv_local.h"
 
 
 /** デストラクタ */
-void At91UartDrv_Delete(C_DRVOBJ *pDrvObj)
+void At91UsartDrv_Delete(C_DRVOBJ *pDrvObj)
 {
-	C_AT91UARTDRV	*self;
+	C_AT91USARTDRV	*self;
 	void			*pMem;
 	
 	/* upper cast */
-	self = (C_AT91UARTDRV *)pDrvObj;
+	self = (C_AT91USARTDRV *)pDrvObj;
 
 	/* 同期オブジェクト削除 */
 	SysEvt_Delete(self->hEvtRecv);

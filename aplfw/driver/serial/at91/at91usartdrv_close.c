@@ -1,25 +1,25 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  at91uartdrv_close.c
- * @brief %jp{ATMEL AT91シリーズUART用デバイスドライバ}
+ * @file  at91usartdrv_close.c
+ * @brief %jp{ATMEL AT91シリーズUSART用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "at91uartdrv_local.h"
+#include "at91usartdrv_local.h"
 
 
 /** クローズ */
-void At91UartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void At91UsartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
-	C_AT91UARTDRV	*self;
+	C_AT91USARTDRV	*self;
 	C_CHRFILE		*pChrFile;
 	
 	/* upper cast */
-	self     = (C_AT91UARTDRV *)pDrvObj;
+	self     = (C_AT91USARTDRV *)pDrvObj;
 	pChrFile = (C_CHRFILE *)pFileObj;
 
 	/* クローズ処理 */

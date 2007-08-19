@@ -1,25 +1,25 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  at91uartdrv_open.c
- * @brief %jp{ATMEL AT91シリーズUART用デバイスドライバ}
+ * @file  at91usartdrv_open.c
+ * @brief %jp{ATMEL AT91シリーズUSART用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "at91uartdrv_local.h"
+#include "at91usartdrv_local.h"
 
 
 /** オープン */
-HANDLE At91UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE At91UsartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
-	C_AT91UARTDRV	*self;
+	C_AT91USARTDRV	*self;
 	C_CHRFILE		*pChrFile;
 	
 	/* upper cast */
-	self = (C_AT91UARTDRV *)pDrvObj;
+	self = (C_AT91USARTDRV *)pDrvObj;
 
 	/* create file descriptor */
 	if ( (pChrFile = SysMem_Alloc(sizeof(*pChrFile))) == NULL )
@@ -32,9 +32,9 @@ HANDLE At91UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
 	{
-		AT91UART_REG_WRITE(self, AT91UART_US_MR,   0x000008c0);	/* 8bit, non-paroty */
-		AT91UART_REG_WRITE(self, AT91UART_US_CR,   0x00000050);	/* enable */
-		AT91UART_REG_WRITE(self, AT91UART_US_BRGR, 0x00000034);
+		AT91USART_REG_WRITE(self, AT91USART_US_MR,   0x000008c0);	/* 8bit, non-paroty */
+		AT91USART_REG_WRITE(self, AT91USART_US_CR,   0x00000050);	/* enable */
+		AT91USART_REG_WRITE(self, AT91USART_US_BRGR, 0x00000034);
 
 		SysInt_Enable(self->iIntNum);
 	}

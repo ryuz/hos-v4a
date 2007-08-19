@@ -1,28 +1,28 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  at91uartdrv_read.c
- * @brief %jp{ATMEL AT91シリーズUART用デバイスドライバ}
+ * @file  at91usartdrv_read.c
+ * @brief %jp{ATMEL AT91シリーズUSART用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "at91uartdrv_local.h"
+#include "at91usartdrv_local.h"
 
 
 /** %jp{受信} */
-FILE_SIZE At91UartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE At91UsartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
-	C_AT91UARTDRV	*self;
+	C_AT91USARTDRV	*self;
 	C_CHRFILE		*pChrFile;
 	unsigned char	*pubBuf;
 	FILE_SIZE		i;
 	int				c;
 	
 	/* upper cast */
-	self     = (C_AT91UARTDRV *)pDrvObj;
+	self     = (C_AT91USARTDRV *)pDrvObj;
 	pChrFile = (C_CHRFILE *)pFileObj;
 
 	pubBuf = (unsigned char *)pBuf;
