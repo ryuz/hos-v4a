@@ -39,6 +39,7 @@ typedef struct c_tcpipfile
 	char				iType;
 	unsigned char		ubIpAddr[4];
 	unsigned short		uhPortNum;
+	SYSEVT_HANDLE		hEvtRecv;
 	
 	struct c_tcpipfile	*pNext;
 	struct c_tcpipfile	*pPrev;

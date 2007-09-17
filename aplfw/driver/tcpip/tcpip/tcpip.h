@@ -18,6 +18,16 @@
 
 
 
+typedef struct t_tcpip_address
+{
+	unsigned char	ubAddress[4];
+	unsigned short	uhPort;
+} T_TCPIP_ADDRESS;
+
+
+
+struct c_tcpipfile;
+
 typedef struct c_tcpip
 {
 	C_CHRDRV			ChrDrv;					/* キャラクタ型デバイスドライバを継承 */
@@ -27,13 +37,18 @@ typedef struct c_tcpip
 	int					iOpenCount;				/* オープンカウンタ */
 
 	SYSPRC_HANDLE		hPrcRecv;				/* 受信プロセス */
-
+	
+	struct c_tcpipfile	*pUdpHead;
+	struct c_tcpipfile	*pTcpHead;
+	
 	unsigned short		uhPacketId;
 
 //	unsigned char		ubSendBuf[IPETHER_MAXPACKET_SIZE];
 	unsigned char		ubRecvBuf[2048];
 	unsigned char		ubSendBuf[2048];
 } C_TCPIP;
+
+
 
 
 #ifdef __cplusplus

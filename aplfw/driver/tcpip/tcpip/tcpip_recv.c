@@ -10,13 +10,75 @@
 
 
 #include <string.h>
+#include "hosaplfw.h"
 #include "tcpip_local.h"
 #include "library/algorithm/ipchecksum/ipchecksum.h"
 
 
+static void Tcpip_IcmpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
 
-void Tcpip_IcmpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
 
+
+
+void Tcpip_UdpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
+{
+	const unsigned char ubDumy[2] = {0, 17};
+	C_TCPIPFILE		*pFile;
+	T_TCPIP_ADDRESS	Addr;
+	C_IPCHECKSUM	ics;
+	unsigned short	uhDstPort;
+	unsigned short	uhSrcPort;
+	unsigned short	uhUdpSize;
+	unsigned short	uhCheckSum;
+	unsigned short	uhSum;
+	
+	uhDstPort  = IP_GET_HALFWORD(&pubBuf[20]);
+	uhSrcPort  = IP_GET_HALFWORD(&pubBuf[22]);
+	uhUdpSize  = IP_GET_HALFWORD(&pubBuf[24]);
+	uhCheckSum = IP_GET_HALFWORD(&pubBuf[26]);
+	
+	
+	/* ---------------------- */
+	/*    チェックサム計算    */	
+	/* ---------------------- */
+	
+	IpCheckSum_Create(&ics);
+	
+	/* UDP擬似ヘッダ（pseudo header）*/
+	IpCheckSum_Update(&ics, &pubBuf[12], 8);	/* 送信元アドレス＆ 送信先アドレス */
+	IpCheckSum_Update(&ics, ubDumy, 2);
+	IpCheckSum_Update(&ics, &pubBuf[24], 2);	/* パケット長 */
+	
+	/* パケット */
+	IpCheckSum_Update(&ics, &pubBuf[20], 6);
+	IpCheckSum_Update(&ics, &pubBuf[28], uhUdpSize - 8);
+	
+	uhSum = IpCheckSum_GetDigest(&ics);
+	
+	IpCheckSum_Delete(&ics);
+
+	if ( uhCheckSum != 0x0000 && uhCheckSum != uhSum )
+	{
+		return;
+	}
+	
+	
+	/* 受信ポート探索 */
+	pFile = self->pUdpHead;
+	if ( pFile != NULL )
+	{
+		do
+		{
+			if ( pFile->uhPortNum == uhDstPort )
+			{
+
+			}
+		
+			pFile = pFile->pNext;
+		} while ( pFile == self->pUdpHead );
+	}
+	
+}
 
 
 void Tcpip_TcpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
@@ -94,10 +156,6 @@ void Tcpip_TcpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
 }
 
 
-void Tcpip_UdpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
-{
-	
-}
 
 
 /* 受信プロセス */
