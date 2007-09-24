@@ -101,7 +101,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 
 # %jp{ライブラリ生成}
 .PHONY : makeexe_all
-makeexe_all: mk_kernel mkdir_objs $(CSRCS) $(ASRCS)
+makeexe_all: kernel_make mkdir_objs $(CSRCS) $(ASRCS)
 
 
 # %jp{オブジェクト出力ディレクトリ作成}
@@ -134,14 +134,14 @@ endif
 
 
 # %jp{カーネル生成}
-.PHONY : mk_kernel
-mk_kernel:
+.PHONY : kernel_make
+kernel_make:
 	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL)
 
 
 # %jp{カーネル生成}
-.PHONY : clean_kernel
-clean_kernel:
+.PHONY : kernel_clean
+kernel_clean:
 	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
 
 

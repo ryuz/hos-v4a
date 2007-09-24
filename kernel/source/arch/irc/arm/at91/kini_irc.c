@@ -25,8 +25,13 @@ void _kernel_ini_irc(void)
 	for ( i = 0; i < 32; i++ )
 	{
 		*_KERNEL_IRC_AIC_SMR(i) = 0x00000007;
-		*_KERNEL_IRC_AIC_SVR(i) = (UW)_kernel_irq_hdr;
+		*_KERNEL_IRC_AIC_SVR(i) = (UW)i;
 	}
+	
+	for ( i = 0; i < 32; i++ )
+	{
+		*_KERNEL_IRC_AIC_EOICR = i;
+	}	
 }
 
 

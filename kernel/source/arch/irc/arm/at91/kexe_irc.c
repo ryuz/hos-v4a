@@ -20,7 +20,7 @@ void _kernel_exe_irc(INHNO inhno)
 	INTNO intno;
 	
 	/* %jp{割り込み番号取得} */
-	inhno = (*_KERNEL_IRC_AIC_ISR & 0x0000001f);
+	intno = *_KERNEL_IRC_AIC_IVR;
 	
 	/* %jp{割込みサービスルーチン呼び出し} */
 	_kernel_exe_isr(intno);

@@ -18,9 +18,9 @@ void At91UsartDrv_Isr(VPARAM Param)
 	C_AT91USARTDRV	*self;
 	unsigned long	uwCsr;
 	int				c;
-
+	
 	self = (C_AT91USARTDRV *)Param;
-
+	
 	uwCsr = AT91USART_REG_READ(self, AT91USART_US_CSR);
 	
 	/* 受信 */	
@@ -39,9 +39,11 @@ void At91UsartDrv_Isr(VPARAM Param)
 	/* 送信チェック */	
 	if ( uwCsr & 0x00000002 )
 	{
-		AT91USART_REG_WRITE(self, AT91USART_US_IDR, 0x00000002);	/* 送信割り込み禁止 */		
+		AT91USART_REG_WRITE(self, AT91USART_US_IDR, 0x00000002);	/* 送信割り込み禁止 */
 		SysEvt_Set(self->hEvtSend);
 	}
+	
+	SysInt_Clear(self->iIntNum);
 }
 
 

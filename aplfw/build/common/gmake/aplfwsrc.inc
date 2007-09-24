@@ -52,7 +52,8 @@ CSRCS         += $(SYSAPI_DIR)/sysapi_initialize.c					\
                  $(SYSAPI_DIR)/sysprc_exit.c						\
                  $(SYSAPI_DIR)/sysprc_getcurrenthandle.c			\
                  $(SYSAPI_DIR)/sysprc_start.c						\
-                 $(SYSAPI_DIR)/systim_wait.c
+                 $(SYSAPI_DIR)/systim_wait.c						\
+                 $(SYSAPI_DIR)/systim_getsystemtime.c
 
 
 # Handle Object
@@ -74,6 +75,13 @@ PROCESS_DIR    = $(APLFW_DIR)/system/process
 SRC_DIRS      += $(PROCESS_DIR)
 CSRCS         += $(PROCESS_DIR)/process.c							\
                  $(PROCESS_DIR)/procobj.c
+
+
+# Time
+TIME_DIR       = $(APLFW_DIR)/system/time
+SRC_DIRS      += $(TIME_DIR)
+CSRCS         += $(TIME_DIR)/time_getsystemtime.c					\
+                 $(TIME_DIR)/time_wait.c
 
 
 # File
@@ -216,19 +224,19 @@ CSRCS         += $(PC16550_DIR)/pc16550drv_create.c					\
                  $(PC16550_DIR)/pc16550hal_getstatus.c
 
 
-# ARMUART (PL011)
-ARMUART_DIR    = $(APLFW_DIR)/driver/serial/arm
-SRC_DIRS      += $(ARMUART_DIR)
-CSRCS         += $(ARMUART_DIR)/armuartdrv_create.c					\
-                 $(ARMUART_DIR)/armuartdrv_delete.c					\
-                 $(ARMUART_DIR)/armuartdrv_open.c					\
-                 $(ARMUART_DIR)/armuartdrv_close.c					\
-                 $(ARMUART_DIR)/armuartdrv_iocontrol.c				\
-                 $(ARMUART_DIR)/armuartdrv_seek.c					\
-                 $(ARMUART_DIR)/armuartdrv_read.c					\
-                 $(ARMUART_DIR)/armuartdrv_write.c					\
-                 $(ARMUART_DIR)/armuartdrv_flush.c					\
-                 $(ARMUART_DIR)/armuartdrv_isr.c					\
+# Atmel AT91 USART
+AT91USRAT_DIR  = $(APLFW_DIR)/driver/serial/at91
+SRC_DIRS      += $(AT91USRAT_DIR)
+CSRCS         += $(AT91USRAT_DIR)/at91usartdrv_create.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_delete.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_open.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_close.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_iocontrol.c			\
+                 $(AT91USRAT_DIR)/at91usartdrv_flush.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_seek.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_read.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_write.c				\
+                 $(AT91USRAT_DIR)/at91usartdrv_isr.c
 
 
 
@@ -263,6 +271,11 @@ CSRCS         += $(MEMWRITE_DIR)/memwrite_main.c
 MEMTEST_DIR    = $(APLFW_DIR)/application/utility/memtest
 SRC_DIRS      += $(MEMTEST_DIR)
 CSRCS         += $(MEMTEST_DIR)/memtest_main.c
+
+# Time Command
+TIMECMD_DIR    = $(APLFW_DIR)/application/utility/timecmd
+SRC_DIRS      += $(TIMECMD_DIR)
+CSRCS         += $(TIMECMD_DIR)/timecmd_main.c
 
 # Key Test
 KEYTEST_DIR    = $(APLFW_DIR)/application/utility/keytest
