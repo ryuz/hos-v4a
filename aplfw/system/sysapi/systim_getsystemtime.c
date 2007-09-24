@@ -12,10 +12,12 @@
 #include "sysapi_local.h"
 
 
-/* 時間待ち */
-void SysTim_Wait(unsigned long ulTime)
+/* システム時刻取得 */
+TIME SysTim_GetSystemTime(void)
 {
-	dly_tsk((RELTIM)ulTime);
+	SYSTIM tim;
+	get_tim(&tim);	
+	return tim;
 }
 
 
