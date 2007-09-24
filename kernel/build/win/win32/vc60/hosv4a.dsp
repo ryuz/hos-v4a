@@ -1,19 +1,21 @@
 # Microsoft Developer Studio Project File - Name="hosv4a" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** •ÿÿW‚ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ**
+# ** •ÒW‚µ‚È‚¢‚Å‚­‚¾‚³‚¢ **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
 CFG=hosv4a - Win32 Debug
-!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”Ð‰¶–¥‰×‚ÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–ÊàzŽÜ…¶ÿÿèÉŸ×’Ü‚ÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
-!MESSAGE [™°ŒÊ„Qÿÿ–²Œ»—ÝˆÂ] ÍŸcÿÿðŽg—p‚ÿÿÄŽÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
+!MESSAGE ‚±‚ê‚Í—LŒø‚ÈÒ²¸Ì§²Ù‚Å‚Í‚ ‚è‚Ü‚¹‚ñB ‚±‚ÌÌßÛ¼Þª¸Ä‚ðËÞÙÄÞ‚·‚é‚½‚ß‚É‚Í NMAKE ‚ðŽg—p‚µ‚Ä‚­‚¾‚³‚¢B
+!MESSAGE [Ò²¸Ì§²Ù‚Ì´¸½Îß°Ä] ºÏÝÄÞ‚ðŽg—p‚µ‚ÄŽÀs‚µ‚Ä‚­‚¾‚³‚¢
+!MESSAGE 
 !MESSAGE NMAKE /f "hosv4a.mak".
 !MESSAGE 
-!MESSAGE NMAKE ‚ÌŽÿÿsŽž‚ÿÿ\ÿÿðŽw’ÿÿÿÿÿÿÿÿÿÿ!MESSAGE ÍŸcÿÿœQÿÿÿÿ“nŒÙ‚ÿÿÿÿÿÿÿÿÿÿ`‚ÿÿÿÿÿÿB—ÿÿ
+!MESSAGE NMAKE ‚ÌŽÀsŽž‚É\¬‚ðŽw’è‚Å‚«‚Ü‚·
+!MESSAGE ºÏÝÄÞ ×²Ýã‚ÅÏ¸Û‚ÌÝ’è‚ð’è‹`‚µ‚Ü‚·B—á:
 !MESSAGE 
 !MESSAGE NMAKE /f "hosv4a.mak" CFG="hosv4a - Win32 Debug"
 !MESSAGE 
-!MESSAGE ‘I‘ÿÿÿÿ\‚”ÉŸ×’Ü šO’Ü:
+!MESSAGE ‘I‘ð‰Â”\‚ÈËÞÙÄÞ Ó°ÄÞ:
 !MESSAGE 
 !MESSAGE "hosv4a - Win32 Release" ("Win32 (x86) Static Library" —p)
 !MESSAGE "hosv4a - Win32 Debug" ("Win32 (x86) Static Library" —p)
