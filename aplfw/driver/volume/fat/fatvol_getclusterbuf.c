@@ -15,9 +15,9 @@ int FatVol_GetClusterBuf(
 	for ( i = 0; i < self->iClusterBufNum; i++ )
 	{
 		/* 見つかれば既存バッファを返す */
-		if ( self->pClusterBuf[i].uiClusterNum == uiCluster )
+		if ( self->ppClusterBuf[i]->uiClusterNum == uiCluster )
 		{
-			*ppBuf = self->pClusterBuf[i].pubBuf;
+			*ppBuf = (char *)self->ppClusterBuf[i] + sizeof(T_FATVOL_CLUSTERBUF);
 			return FATVOL_ERR_OK;
 		}
 	}
@@ -25,7 +25,7 @@ int FatVol_GetClusterBuf(
 	/* 空のバッファを探す */
 	for ( i = 0; i < self->iClusterBufNum; i++ )
 	{
-		if ( self->pClusterBuf[i].uiClusterNum == FATVOL_CLUSTER_ENDMARKER )
+		if ( self->ppClusterBuf[i]->uiClusterNum == FATVOL_CLUSTER_ENDMARKER )
 		{
 			break;
 		}
@@ -38,27 +38,31 @@ int FatVol_GetClusterBuf(
 		i = self->iClusterBufIndex++;
 		
 		/* dirtyなら吐き出す */
-		if ( self->pClusterBuf[i].iDirty )
+		if ( self->ppClusterBuf[i]->iDirty )
 		{
-			if ( FatVol_ClusterWrite(self, self->pClusterBuf[i].uiClusterNum, self->pClusterBuf[i].pubBuf) != FATVOL_ERR_OK )
+			if ( FatVol_ClusterWrite(self, self->ppClusterBuf[i]->uiClusterNum, (char *)self->ppClusterBuf[i] + sizeof(T_FATVOL_CLUSTERBUF)) != FATVOL_ERR_OK )
 			{
 				return FATVOL_ERR_NG;
 			}
-			self->pClusterBuf[i].iDirty = 0;
+			self->ppClusterBuf[i]->iDirty = 0;
 		}
-		self->pClusterBuf[i].uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
+		self->ppClusterBuf[i]->uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
 	}
 	
 	/* バッファに読み込み */
 	if ( iRead )
 	{
-		if ( FatVol_ClusterRead(self, self->pClusterBuf[i].uiClusterNum, self->pClusterBuf[i].pubBuf) != FATVOL_ERR_OK )
+		if ( FatVol_ClusterRead(self, uiCluster, (char *)self->ppClusterBuf[i] + sizeof(T_FATVOL_CLUSTERBUF)) != FATVOL_ERR_OK )
 		{
 			return FATVOL_ERR_NG;
 		}
 	}
-	self->pClusterBuf[i].iDirty       = 0;
-	self->pClusterBuf[i].uiClusterNum = uiCluster;
+	self->ppClusterBuf[i]->iDirty       = 0;
+	self->ppClusterBuf[i]->uiClusterNum = uiCluster;
+	
+	/* バッファ割り当て */
+	*ppBuf = (char *)self->ppClusterBuf[i] + sizeof(T_FATVOL_CLUSTERBUF);
+	
 	
 	return FATVOL_ERR_OK;	
 }

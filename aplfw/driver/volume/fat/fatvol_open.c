@@ -8,29 +8,33 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	C_FATVOL 		*self;
 	unsigned char	ubBuf[32];
 	FATVOL_UINT		uiCluster;
-	HANDLE hDir;
-	HANDLE hFile;
-	char   szEntryName[8+3+1];
-	int    iEntryNameLen;
-	char   szName[8+3+1];
-	int    iNameLen;
-	int    iDirEntry;
-	int    i, j;
+	HANDLE 			hDir;
+	HANDLE 			hFile;
+	char   			szEntryName[8+3+1];
+	int    			iEntryNameLen;
+	char   			szName[8+3+1];
+	int    			iNameLen;
+	int    			iDirEntry;
+	int    			i, j;
 	
 	/* upper cast */
 	self = (C_FATVOL *)pDrvObj;
 	
 	/* ルートディレクトリを開く */
-	hDir = FatVol_CreateFile(self, self->RootDirCluster, 0, 0, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_DIR);
+	hDir = FatVol_FileCreate(self, self->RootDirCluster, HANDLE_NULL, 0, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_DIR);
 	
 	for ( ; ; )
 	{
+		if ( pszPath[iNameLen] == '\0' )
+		{
+			break;
+		}
+		
 		/* 名前の部分を検索 */
 		for ( iNameLen = 0; pszPath[iNameLen] != '\0'; iNameLen++ )
 		{
 			if ( pszPath[iNameLen] == '/' )
 			{
-				szName[iNameLen] = '\0';
 				break;
 			}
 			
@@ -44,6 +48,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 				szName[iNameLen] = pszPath[iNameLen];
 			}
 		}
+		szName[iNameLen] = '\0';
 		
 		/* ディレクトリエントリを検索 */
 		iDirEntry = -1;
@@ -74,12 +79,13 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 				}
 				szEntryName[iEntryNameLen++] = (char)ubBuf[8+j];
 			}
-			szEntryName[iEntryNameLen++] = '\0';
+			szEntryName[iEntryNameLen] = '\0';
 			if ( iEntryNameLen > 2 && szEntryName[iEntryNameLen-1] == '.' )
 			{
 				szEntryName[--iEntryNameLen] = '\0';
 			}
 			
+			/* 名前比較 */
 			if ( strcmp(szEntryName, szName) == 0 )
 			{
 				iDirEntry = i;
@@ -100,7 +106,9 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 			break;
 		}
 		
-		File_Close(hDir);
+		
+		/* ディレクトリを閉じる */
+		FatVol_FileDelete(self, hDir);
 		
 		/* サブディレクトリがなければエラー */
 		if ( iDirEntry < 0 || !(ubBuf[0x0b] & 0x10) )
@@ -109,23 +117,29 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		}
 		
 		/* サブディレクトリを開く */
-		hDir = FatVol_CreateFile(self, uiCluster, 0, 0, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_DIR);
+		hDir = FatVol_FileCreate(self, uiCluster, HANDLE_NULL, 0, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_DIR);
 		
 		pszPath += iNameLen;
 	}
 	
+	/* ディレクトリを開くなら */
+	if ( iMode & FILE_OPEN_DIR )
+	{
+		return hDir;
+	}
+	
+	
 	/* 既存ファイルがあれば */
 	if ( iDirEntry >= 0 )
 	{
-		hFile = FatVol_CreateFile(self, uiCluster, hDir, iDirEntry, iMode);
+		hFile = FatVol_FileCreate(self, uiCluster, hDir, iDirEntry, iMode);
 		if ( hFile == HANDLE_NULL )
 		{
-			File_Close(hDir);
+			FatVol_FileDelete(self, hDir);
 		}
 		return hFile;
 	}
 	
-	File_Close(hDir);
 	return HANDLE_NULL;
 }
 

@@ -12,9 +12,12 @@ int FatVol_RelClusterBuf(
 	T_FATVOL_CLUSTERBUF	*pClusterBuf;
 	
 	/* バッファ情報取得 */
-	pClusterBuf = (T_FATVOL_CLUSTERBUF *)((char *)pBuf - offsetof(T_FATVOL_CLUSTERBUF, pubBuf));
+	pClusterBuf = (T_FATVOL_CLUSTERBUF *)((char *)pBuf - sizeof(T_FATVOL_CLUSTERBUF));
 	
-	pClusterBuf->iDirty = iDirty;
+	if ( iDirty )
+	{
+		pClusterBuf->iDirty = iDirty;
+	}
 	
 	return FATVOL_ERR_OK;	
 }

@@ -1,6 +1,17 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  fatvol.h
+ * @brief %jp{FATボリューム用デバイスドライバ}
+ *
+ * Copyright (C) 2006-2007 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
 
 #include <string.h>
 #include "fatvol_local.h"
+
 
 
 /* 仮想関数テーブル */
@@ -22,17 +33,19 @@ const T_VOLUMEOBJ_METHODS FatVol_VolumeObjMethods =
 
 
 /* コンストラクタ */
-int FatVol_Create(C_FATVOL *self, HANDLE hBlockFile)
+int FatVol_Create(C_FATVOL *self, const char *pszPath)
 {
 	unsigned char ubBuf[512];
 	int           i;
+		
+	/* ブロックデバイスのオープン */
+	self->hBlockFile = File_Open(pszPath, FILE_OPEN_READ | FILE_OPEN_WRITE);
+	if ( self->hBlockFile == HANDLE_NULL )
+	{
+		return FATVOL_ERR_NG;
+	}
 	
-	/* 親クラスコンストラクタ呼び出し */
-	VolumeObj_Create(&self->VolumeObj, &FatVol_VolumeObjMethods);	
 	
-	
-	/* ドライブの設定 */
-	self->hBlockFile = hBlockFile;
 	self->Offset   = 0x33*512;	/* 一時的に ちょいインチキ */
 	
 	
@@ -79,16 +92,18 @@ int FatVol_Create(C_FATVOL *self, HANDLE hBlockFile)
 		self->Cluster0Sector    = self->RootDirSector
 										+ (((self->RootDirEntryNum * 32) + self->BytesPerSector - 1) / self->BytesPerSector)
 										- (2 * self->SectorsPerCluster);	/**< クラスタ0の開始セクタ */
-				
+		
+		self->RootDirCluster    = 0xf0000000;
+		
 		/* FATバッファ準備 */
 		self->pubFatBuf   = (unsigned char *)SysMem_Alloc(self->SectorPerFat * self->BytesPerSector);
 		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
 
-		/* FATバッファ準備 */
-		File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector, FILE_SEEK_SET);
+		/* FAT読み出し */
+		File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector  + self->Offset, FILE_SEEK_SET);
 		File_Read(self->hBlockFile, self->pubFatBuf, self->SectorPerFat * self->BytesPerSector);
 		memset(self->pubFatDirty, 0, self->SectorPerFat);
-
+		
 		break;
 
 	case FATVOL_TYPE_FAT32:
@@ -124,14 +139,17 @@ int FatVol_Create(C_FATVOL *self, HANDLE hBlockFile)
 	
 	/* クラスタバッファ取得 */
 	self->iClusterBufIndex = 0;
-	self->iClusterBufNum   = 32;
-	self->pClusterBuf = (T_FATVOL_CLUSTERBUF *)SysMem_Alloc(sizeof(T_FATVOL_CLUSTERBUF) * self->iClusterBufNum);
+	self->iClusterBufNum   = 8;
+	self->ppClusterBuf = (T_FATVOL_CLUSTERBUF **)SysMem_Alloc(sizeof(T_FATVOL_CLUSTERBUF *) * self->iClusterBufNum);
 	for ( i = 0; i < self->iClusterBufNum; i++ )
 	{
-		self->pClusterBuf[i].uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
-		self->pClusterBuf[i].iDirty       = 0;
-		self->pClusterBuf[i].pubBuf       = SysMem_Alloc(self->SectorsPerCluster * self->BytesPerSector);
+		self->ppClusterBuf[i] = SysMem_Alloc(sizeof(T_FATVOL_CLUSTERBUF) + self->SectorsPerCluster * self->BytesPerSector);
+		self->ppClusterBuf[i]->uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
+		self->ppClusterBuf[i]->iDirty       = 0;
 	}
+
+	/* 親クラスコンストラクタ呼び出し */
+	VolumeObj_Create(&self->VolumeObj, &FatVol_VolumeObjMethods);	
 	
 	return FATVOL_ERR_OK;
 }

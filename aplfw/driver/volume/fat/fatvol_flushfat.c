@@ -9,7 +9,7 @@ void FatVol_FlushFat(C_FATVOL *self)
 	unsigned long i;
 	
 	/* FAT先頭へ移動 */
-	File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector, FILE_SEEK_SET);
+	File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector + self->Offset, FILE_SEEK_SET);
 	
 	for ( i = 0; i < self->FatNum; i++ )
 	{

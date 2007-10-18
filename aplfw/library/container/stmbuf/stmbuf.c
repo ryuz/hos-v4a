@@ -19,7 +19,7 @@ void StreamBuf_Create(
 /* データの送信 */
 int StreamBuf_SendData(
 		C_STREAMBUF *self,		/* クラスポインタ */
-		void        *data,		/* 送信データ */
+		const void  *data,		/* 送信データ */
 		int         len)		/* 送信データサイズ */
 {
 	void *buf;			/* バッファアドレス */
@@ -174,7 +174,7 @@ int StreamBuf_RecvBuf(
 {
 	int tail;
 
-	*p_buf = (void *)(self->buf + self->tail);	/* 受信バッファ先頭番地の格納 */
+	*p_buf = (void *)(self->buf + self->head);	/* 受信バッファ先頭番地の格納 */
 
 	tail = self->tail;
 	if ( tail < self->head )	/* データがバッファ末尾で折り返されているか */
@@ -240,7 +240,31 @@ int StreamBuf_RecvChar(
 void StreamBuf_ClearBuf(
 		C_STREAMBUF *self)		/* クラスポインタ */
 {
-	self->head = 0;
-	self->tail = 0;
+	self->head = self->tail;
+}
+
+
+int StreamBuf_RefDataSize(C_STREAMBUF *self)
+{
+	int head;
+	int tail;
+	
+	head = self->head;
+	tail = self->tail;
+	
+	if ( head <= tail )
+	{
+		return tail - head;
+	}
+	else
+	{
+		return self->bufsz + tail - head;
+	}
+}
+
+
+int StreamBuf_RefFreeSize(C_STREAMBUF *self)
+{
+	return StreamBuf_RefMaxSize(self) - StreamBuf_RefDataSize(self);
 }
 

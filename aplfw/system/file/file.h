@@ -102,8 +102,6 @@ typedef long			FILE_SIZE;				/* 読み書き時のサイズ用の型定義 */
 typedef unsigned long	FILE_TIME;				/* 読み書き時のサイズ用の時刻型定義 */
 
 struct c_drvobj;
-struct c_volobj;
-
 
 
 /* ファイル情報 */
@@ -135,7 +133,7 @@ void      File_Initialize(void);											/* ファイルシステムの初期�
 FILE_ERR  File_AddDevice(const char *pszName, struct c_drvobj *pDrvObj);	/* デバイスドライバの登録 */
 FILE_ERR  File_RemoveDevice(const char *pszName);							/* デバイスドライバの削除 */
 
-FILE_ERR  File_AddVolume(const char *pszName, struct c_volobj *pVolObj);	/* ボリュームのマウント */
+FILE_ERR  File_AddVolume(const char *pszName, struct c_drvobj *pVolObj);	/* ボリュームのマウント */
 FILE_ERR  File_RemoveVolume(const char *pszName);							/* ボリュームのアンマウント */
 
 

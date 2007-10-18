@@ -10,8 +10,8 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 	switch ( self->iFatType )
 	{
 	case FATVOL_TYPE_FAT12:
-		/* 0xffff0000 からルートディレクトリをマップ */
-		if ( uiCluster >= 0xffff0000 )
+		/* 0xf0000000 からルートディレクトリをマップ */
+		if ( uiCluster >= 0xf0000000 )
 		{
 			return uiCluster + 1;
 		}
@@ -35,8 +35,8 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 		break;
 	
 	case FATVOL_TYPE_FAT16:
-		/* 0xffff0000 からルートディレクトリをマップ */
-		if ( uiCluster >= 0xffff0000 )
+		/* 0xf0000000 からルートディレクトリをマップ */
+		if ( uiCluster >= 0xf0000000 )
 		{
 			return uiCluster + 1;
 		}

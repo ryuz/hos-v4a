@@ -1,3 +1,12 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  fatvol.h
+ * @brief %jp{FATボリューム用デバイスドライバ}
+ *
+ * Copyright (C) 2006-2007 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
 
 
 #ifndef __HOS__fatvol_h__
@@ -21,7 +30,6 @@ typedef struct t_fatvol_clusterbuf
 {
 	FATVOL_UINT		uiClusterNum;
 	int				iDirty;
-	unsigned char	*pubBuf;
 } T_FATVOL_CLUSTERBUF;
 
 
@@ -31,7 +39,9 @@ typedef struct c_fatvol
 	C_VOLUMEOBJ			VolumeObj;					/* ボリュームオブジェクトを継承 */
 
 	HANDLE				hBlockFile;					/**< ブロックデバイスドライバのハンドル */
-
+	
+	int					iOpenCount;
+	
 	int					iFatType;					/**< FATのタイプ */
 	FILE_POS			Offset;						/**< ディスクのオフセット */
 	FILE_POS			DriveSize;					/**< ドライブの総サイズ */
@@ -49,7 +59,7 @@ typedef struct c_fatvol
 	unsigned char		*pubFatBuf;					/**< FATのバッファリングメモリ */
 	unsigned char		*pubFatDirty;				/**< FATの更新フラグ */
 	
-	T_FATVOL_CLUSTERBUF	*pClusterBuf;
+	T_FATVOL_CLUSTERBUF	**ppClusterBuf;
 	int					iClusterBufNum;
 	int					iClusterBufIndex;
 } C_FATVOL;
@@ -59,7 +69,7 @@ typedef struct c_fatvol
 extern "C" {
 #endif
 
-int    FatVol_Create(C_FATVOL *self, HANDLE hBlockFile);
+int    FatVol_Create(C_FATVOL *self, const char *pszPath);
 void   FatVol_Delete(C_DRVOBJ *self);
 
 HANDLE FatVol_CreateFile(C_FATVOL *self, FATVOL_UINT uiCluster, HANDLE hDir, int iDirEntry, int iMode);
@@ -70,5 +80,4 @@ HANDLE FatVol_CreateFile(C_FATVOL *self, FATVOL_UINT uiCluster, HANDLE hDir, int
 
 
 #endif	/* __HOS__fatdrive_h__ */
-
 
