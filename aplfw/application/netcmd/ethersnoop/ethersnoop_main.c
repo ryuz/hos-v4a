@@ -38,7 +38,7 @@ int EtherSnoop_Main(int argc, char *argv[])
 		return 1;
 	}
 	
-	/* ディレクトリを読み出す */	
+	/* 受信 */	
 	while ( (Size = File_Read(hEther, pubBuf, 4096)) > 0 )
 	{
 		for ( i = 0; i < Size; i++ )

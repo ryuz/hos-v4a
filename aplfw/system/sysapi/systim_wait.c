@@ -19,4 +19,12 @@ void SysTim_Wait(unsigned long ulTime)
 }
 
 
+TIME SysTim_GetCurrentTime(void)
+{
+	SYSTIM tim;
+	get_tim(&tim);	
+	return tim;
+}
+
+
 /* end of file */

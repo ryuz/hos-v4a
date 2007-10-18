@@ -12,8 +12,6 @@
 /* ITRONをマイクロカーネルとして、依存性はこのモジュールで極力隠蔽する */
 /* いわゆるシステムモード(デバドラとか)のみに許すAPIを定義する */
 /* ユーザーモード用APIは別途作成予定 */
-/* 本ファイルのAPIはデバイスドライバなどいわゆるスーパバイザーモード相当の */
-/* プログラムのみが呼び出すものとする */
 
 
 #ifndef __HOS__sysapi_h__
@@ -92,7 +90,7 @@ void           SysEvt_Clear(SYSEVT_HANDLE hEvt);			/* システム用イベン�
 
 /* 時間管理 */
 void           SysTim_Wait(unsigned long ulTime);			/* 時間待ち */
-TIME           SysTim_GetSystemTime(void);					/* システム時刻取得 */
+TIME           SysTim_GetCurrentTime(void);					/*  */
 
 
 #ifdef __cplusplus

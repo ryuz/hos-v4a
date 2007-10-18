@@ -22,6 +22,11 @@ void IpCheckSum_Update(C_IPCHECKSUM *self, const void *pData, unsigned int uiSiz
 	{
 		self->uwSum += (unsigned short)(pubData[i*2]*256 + pubData[i*2 + 1]);
 	}
+	
+	if ( uiSize % 2 == 1 )
+	{
+		self->uwSum += (unsigned short)(pubData[i*2]*256 + 0);
+	}
 }
 
 

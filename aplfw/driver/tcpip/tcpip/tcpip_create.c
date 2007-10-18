@@ -37,14 +37,9 @@ void Tcpip_Create(C_TCPIP *self, HANDLE hIp)
 	self->iOpenCount = 0;
 	self->hIp        = hIp;
 	
-	/* イベント生成 */
-//	self->hEvtRecv = SysEvt_Create();
-//	self->hEvtArp  = SysEvt_Create();
-	
 	/* ミューテックス生成 */
-//	self->hMtxSend = SysMtx_Create();
-//	self->hMtxRecv = SysMtx_Create();
-//	self->hMtxArp  = SysMtx_Create();
+	self->hMtxLock = SysMtx_Create();
+	self->hMtxSend = SysMtx_Create();
 	
 	/* 受信プロセス生成 */
 	self->hPrcRecv = SysPrc_Create(Tcpip_Recv, (VPARAM)self, 1024, 2);

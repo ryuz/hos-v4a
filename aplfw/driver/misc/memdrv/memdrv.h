@@ -26,7 +26,7 @@ typedef struct c_memdrv
 	unsigned char	*pubMemAddr;	/* メモリの先頭アドレス */
 	FILE_POS		MemSize;		/* メモリサイズ */
 	FILE_POS		FileSize;		/* ファイルとしてのサイズ */
-	int				iAttr;			/* サイズを可変にするか */
+	int				iAttr;			/* 属性 */
 	
 	SYSMTX_HANDLE	hMtx;			/* 排他制御用ミューテックス */
 } C_MEMDRV;
@@ -37,8 +37,8 @@ typedef struct c_memdrv
 extern "C" {
 #endif
 
-void MemDrv_Create(C_MEMDRV *self, void *pMemAddr, FILE_POS MemSize, FILE_POS IniSize, int iValiable);		/**< コンストラクタ */
-void MemDrv_Delete(C_DRVOBJ *self);																			/**< デストラクタ */
+void MemDrv_Create(C_MEMDRV *self, void *pMemAddr, FILE_POS MemSize, FILE_POS IniSize, int iAttr);		/**< コンストラクタ */
+void MemDrv_Delete(C_DRVOBJ *self);																		/**< デストラクタ */
 
 #ifdef __cplusplus
 }

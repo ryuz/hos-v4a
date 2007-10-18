@@ -34,6 +34,9 @@ typedef struct c_tcpip
 
 	HANDLE				hIp;					/* IP層 */
 	
+	SYSMTX_HANDLE		hMtxLock;
+	SYSMTX_HANDLE		hMtxSend;
+	
 	int					iOpenCount;				/* オープンカウンタ */
 
 	SYSPRC_HANDLE		hPrcRecv;				/* 受信プロセス */
@@ -42,6 +45,8 @@ typedef struct c_tcpip
 	struct c_tcpipfile	*pTcpHead;
 	
 	unsigned short		uhPacketId;
+
+	unsigned char		ubMyIpAddr[4];
 
 //	unsigned char		ubSendBuf[IPETHER_MAXPACKET_SIZE];
 	unsigned char		ubRecvBuf[2048];

@@ -72,7 +72,6 @@ FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pDat
 	pubSendBuf[12] = 0x08;
 	pubSendBuf[13] = 0x00;
 	
-	
 	/* IPデータグラムコピー */
 	memcpy(&pubSendBuf[14], pubData, Size);
 	
@@ -94,7 +93,6 @@ FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pDat
 	pubSendBuf[14 + 14] = self->ubMyIpAddr[2];
 	pubSendBuf[14 + 15] = self->ubMyIpAddr[3];
 	
-	
 	/* IPヘッダ部のチェックサム計算 */
 	IpCheckSum_Create(&ics);
 	IpCheckSum_Update(&ics, &pubSendBuf[14], (pubSendBuf[14 + 0] & 0x0f) * 4);
@@ -102,7 +100,6 @@ FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pDat
 	IpCheckSum_Delete(&ics);
 	pubSendBuf[14 + 10] =uhSum / 256;
 	pubSendBuf[14 + 11] =uhSum % 256;
-	
 	
 	/* パディング */
 	iPacketSize = Size + 14;
@@ -122,7 +119,6 @@ FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pDat
 	
 	return Size;
 }
-
 
 
 /* endof file */

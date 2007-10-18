@@ -60,7 +60,7 @@ STD_LIBS = stdlib.lib
 VPATH = .:..:$(SRC_DIR)/driver/renesas
 
 
-all: mkdir_objs kernel_make aplfw_make $(TARGET).abs
+all: mkdir_objs mk_kernel mk_aplfw $(TARGET).abs
 
 
 $(TARGET).abs: $(OBJS) $(KERNEL_LIB) $(APLFW_LIB) $(STD_LIBS)
@@ -81,10 +81,10 @@ $(TARGET).abs: $(OBJS) $(KERNEL_LIB) $(APLFW_LIB) $(STD_LIBS)
 $(STD_LIBS):
 	lbg38 -OUTPut=$(STD_LIBS) $(CFLAGS) -REent 
 
-kernel_make:
+mk_kernel:
 	make -C $(KERNEL_BUILD_DIR) -f gmake.mak
 
-aplfw_make:
+mk_aplfw:
 	make -C $(APLFW_BUILD_DIR) -f gmake.mak
 
 mkdir_objs:
