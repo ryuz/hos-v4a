@@ -153,7 +153,7 @@ void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		pszBuf = Memory_Alloc(iLen);
 		strcpy(pszBuf, pszCommand);
 		pszBuf[iLen - 1] = '\0';
-		Process_CreateEx(Shell_ExecEntry, (VPARAM)pszBuf, 1024, PROCESS_PRIORITY_NORMAL+1, NULL);
+		Process_Create(Shell_ExecEntry, (VPARAM)pszBuf, 1024, PROCESS_PRIORITY_NORMAL+1, NULL);
 	}
 	else
 	{

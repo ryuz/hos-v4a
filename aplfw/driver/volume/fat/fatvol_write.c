@@ -4,9 +4,10 @@
  * @file  fatvol.c
  * @brief %jp{FATボリューム用デバイスドライバ}
  *
- * Copyright (C) 2007 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
+
 
 
 #include "fatvol_local.h"
@@ -21,7 +22,16 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 	/* upper cast */
 	self  = (C_FATVOL *)pDrvObj;
 	pFile = (C_FATFILE *)pFileObj;
-
+	
+	/* モードチェック */
+	if ( !(pFile->iMode & FILE_OPEN_WRITE) )
+	{
+		return 0;
+	}
+	
+	
+	
+	
 	return 0;
 }
 

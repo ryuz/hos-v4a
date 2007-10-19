@@ -29,19 +29,27 @@
 
 
 /* クラスタバッファ */
+typedef struct t_fatvol_clusterbuf
+{
+	FATVOL_UINT		uiClusterNum;
+	int				iDirty;
+	unsigned char	*pubBuf;
+} T_FATVOL_CLUSTERBUF;
+
+
+/* ファイルディスクリプタ */
 typedef struct c_fatfile
 {
 	C_FILEOBJ	FileObj;			/* ボリュームオブジェクトを継承 */
 		
 	int			iMode;				/* ファイルのモード */
 	FATVOL_UINT	uiStartCluster;		/* ファイルの先頭クラスタ */
-	HANDLE		hDir;				/* 所属するディレクトリのハンドル */
-	int			iDirEntry;			/* ディレクトリ内のエントリ位置 */
+	
+	FATVOL_UINT	uiDirCluster;		/* 所属するディレクトリのクラスタ位置 */
+	FATVOL_UINT	uiDirEntryPos;		/* ディレクトリ内のエントリ位置 */
 	
 	FILE_POS	FilePos;			/* ファイルポインタ */
 	FILE_POS	FileSize;			/* ファイルサイズ */
-	
-	FATVOL_UINT	uiCurrentCluster;	/* 現在のクラスタ */
 } C_FATFILE;
 
 
@@ -60,7 +68,7 @@ FILE_ERR    FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 FILE_ERR    FatVol_MakeDir(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/* サブディレクトリを作成 */
 FILE_ERR    FatVol_Remove(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/* ファイルを削除 */
 
-HANDLE      FatVol_FileCreate(C_FATVOL *self, FATVOL_UINT uiCluster, HANDLE hDir, int iDirEntry, int iMode);
+HANDLE      FatVol_FileCreate(C_FATVOL *self, FATVOL_UINT uiStartCluster, FATVOL_UINT uiDirCluster, FATVOL_UINT uiDirEntryPos, FILE_POS FileSize, int iMode);
 void        FatVol_FileDelete(C_FATVOL *self, HANDLE hFile);
 
 FILE_POS    FatVol_GetFileSize(HANDLE hDir, int iDirEntry);
@@ -68,8 +76,9 @@ void        FatVol_SetFileSize(HANDLE hDir, int iDirEntry, FILE_POS Size);
 
 int         FatVol_ClusterWrite(C_FATVOL *self, FATVOL_UINT uiCluster, const void *pBuf);				/**< クラスタ書き込み */
 int         FatVol_ClusterRead(C_FATVOL *self, FATVOL_UINT uiCluster, void *pBuf);						/**< クラスタ読み込み */
-int         FatVol_GetClusterBuf(C_FATVOL *self, FATVOL_UINT uiCluster, void **ppBuf, int iRead);
-int         FatVol_RelClusterBuf(C_FATVOL *self, void *ppBuf, int iDirty);							
+
+T_FATVOL_CLUSTERBUF *FatVol_GetClusterBuf(C_FATVOL *self, FATVOL_UINT uiCluster, int iRead);
+void                FatVol_RelClusterBuf(C_FATVOL *self, T_FATVOL_CLUSTERBUF *pClusterBuf, int iDirty);							
 
 FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster);
 void        FatVol_SetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster, FATVOL_UINT uiNextCluster);

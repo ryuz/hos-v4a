@@ -4,9 +4,10 @@
  * @file  fatvol.c
  * @brief %jp{FATボリューム用デバイスドライバ}
  *
- * Copyright (C) 2007 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
+
 
 
 #include <string.h>
@@ -18,15 +19,20 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 {
 	C_FATVOL		*self;
 	C_FATFILE		*pFile;
-	unsigned char	*pubBuf;
 	FILE_SIZE		ReqSize;
+	unsigned char	*pubBuf;
 	FATVOL_UINT		uiCluster;
+	FATVOL_UINT		i;
 	
 	/* upper cast */
 	self  = (C_FATVOL *)pDrvObj;
 	pFile = (C_FATFILE *)pFileObj;
 	
 	pubBuf = (unsigned char *)pBuf;
+
+
+	/* クリティカルセクションに入る */
+	SysMtx_Lock(self->hMtx);
 	
 	/* サイズチェック */
 	if ( !(pFile->iMode & FILE_OPEN_DIR) )
@@ -43,13 +49,19 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	/* 要求読み出し量保存 */
 	ReqSize = Size;
 	
+	/* クラスタを検索 */
+	uiCluster = pFile->uiStartCluster;
+	for ( i = 0; pFile->FilePos >= (i + 1) * self->BytesPerCluster; i++ )
+	{
+		uiCluster = FatVol_GetNextCluster(self, uiCluster);
+	}
+	
 	/* 読み出し */
-	uiCluster = pFile->uiCurrentCluster;
 	while ( Size > 0 && (pFile->FilePos < pFile->FileSize || (pFile->iMode & FILE_OPEN_DIR)) )
 	{
-		FILE_POS 		ReadStart;
-		FILE_SIZE		ReadSize;
-		unsigned char	*pubClusterBuf;
+		FILE_POS 			ReadStart;
+		FILE_SIZE			ReadSize;
+		T_FATVOL_CLUSTERBUF *pClusterBuf;
 		
 		/* クラスタチェック */
 		if ( uiCluster == FATVOL_CLUSTER_ENDMARKER )
@@ -58,25 +70,25 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 		}
 		
 		/* 転送位置計算 */
-		ReadStart = pFile->FilePos % self->BytesPerSector;
-		ReadSize  = self->BytesPerSector - ReadStart;
+		ReadStart = (pFile->FilePos & (self->BytesPerCluster) - 1);
+		ReadSize  = self->BytesPerCluster - ReadStart;
 		if ( ReadSize > Size )
 		{
-			ReadSize = Size;
+			ReadSize     = Size;
 		}
 		
 		/* バッファ取得 */
-		if ( FatVol_GetClusterBuf(self, uiCluster, (void **)&pubClusterBuf, 1) != FATVOL_ERR_OK )
+		if ( (pClusterBuf = FatVol_GetClusterBuf(self, uiCluster, 1)) == NULL )
 		{
+			SysMtx_Unlock(self->hMtx);
 			break;
 		}
-		pFile->uiCurrentCluster = uiCluster;
 
 		/* 転送 */
-		memcpy(pubBuf, &pubClusterBuf[ReadStart], ReadSize);
+		memcpy(pubBuf, &pClusterBuf->pubBuf[ReadStart], ReadSize);
 
 		/* バッファ開放 */
-		FatVol_RelClusterBuf(self, pubClusterBuf, 0);
+		FatVol_RelClusterBuf(self, pClusterBuf, 0);
 		
 		/* サイズ更新 */
 		pFile->FilePos += ReadSize;
@@ -85,7 +97,14 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 		
 		/* 次のクラスタに進む */
 		uiCluster = FatVol_GetNextCluster(self, uiCluster);
+		
+		/* 一旦ロックを放す */
+		SysMtx_Unlock(self->hMtx);
+		SysMtx_Lock(self->hMtx);
 	}
+
+	/* クリティカルセクションを出る */
+	SysMtx_Unlock(self->hMtx);
 	
 	return ReqSize - Size;
 }

@@ -17,13 +17,14 @@ typedef struct c_processobj
 	int				(*pfncEntry)(VPARAM pParam);	/* エントリーアドレス */
 	VPARAM			Param;							/* 起動パラメータ */
 	
-	T_PROCESS_INF 	Info;
+	T_PROCESS_INF 	Inf;
 
 	int				iExitCode;						/* 終了コード */
 
+	char			szCurrentDir[FILE_MAX_PATH];	/* カレントディレクトリ */
+
 #if 0	/* まあ、そのうちやりたいなっと */
 	HANDLE			*pHandleList;					/* 所有するハンドルのリスト(終了時に開放) */
-	char			szCurrentDir[FILE_MAX_PATH];	/* カレントディレクトリ */
 #endif
 } C_PROCESSOBJ;
 

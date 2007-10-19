@@ -1,6 +1,7 @@
 
 
 #include <stdio.h>
+#include <string.h>
 #include "procobj.h"
 #include "system/sysapi/sysapi.h"
 
@@ -13,13 +14,7 @@ C_PROCESSOBJ *Process_pProcTable[PROCESS_MAX_PROCESS];
 static void Process_Entry(VPARAM Param);
 
 
-HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority)
-{
-	return Process_CreateEx(pfncEntry, Param, StackSize, Priority, NULL);
-}
-
-
-HANDLE Process_CreateEx(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INF *pInfo)
+HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INF *pInf)
 {
 	C_PROCESSOBJ *self;
 	int          i;
@@ -45,11 +40,11 @@ HANDLE Process_CreateEx(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE St
 	ProcessObj_Create(self);
 
 	/* ハンドルの継承 */
-	if ( pInfo == NULL )
+	if ( pInf == NULL )
 	{
-		pInfo = Process_GetInfo(Process_GetCurrentHandle());
+		pInf = Process_GetInf(Process_GetCurrentHandle());
 	}
-	self->Info = *pInfo;
+	self->Inf = *pInf;
 
 	/* テーブルに登録 */
 	for ( i = 0; i < PROCESS_MAX_PROCESS; i++ )
@@ -108,11 +103,38 @@ int Process_GetExitCode(HANDLE hProcess)
 }
 
 
-const T_PROCESS_INF *Process_GetInfo(HANDLE hProcess)
+const T_PROCESS_INF *Process_GetInf(HANDLE hProcess)
 {
 	C_PROCESSOBJ *self;
 
 	self = (C_PROCESSOBJ *)hProcess;
-	return &self->Info;
+	return &self->Inf;
 }
+
+
+int Process_SetCurrentDir(const char *pszPath)
+{
+	C_PROCESSOBJ *self;
+
+	self = (C_PROCESSOBJ *)Process_GetCurrentHandle();
+	
+	strncpy(self->szCurrentDir, pszPath, FILE_MAX_PATH);
+	self->szCurrentDir[FILE_MAX_PATH-1] = '\0';
+	
+	return strlen(self->szCurrentDir);
+}
+
+
+int Process_GetCurrentDir(char *pszBuf, int iBufSize)
+{
+	C_PROCESSOBJ *self;
+
+	self = (C_PROCESSOBJ *)Process_GetCurrentHandle();
+
+	strncpy(pszBuf, self->szCurrentDir, iBufSize);
+	pszBuf[iBufSize-1] = '\0';
+
+	return strlen(pszBuf);
+}
+
 

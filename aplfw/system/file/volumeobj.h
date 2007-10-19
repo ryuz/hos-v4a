@@ -42,7 +42,7 @@ extern "C" {
 #endif
 
 void     VolumeObj_Create(C_VOLUMEOBJ *self, const T_VOLUMEOBJ_METHODS *pVolumeObjMethods);		/**< コンストラクタ */
-void     VolumeObj_Delete(C_VOLUMEOBJ *self);													/**< デストラクタ */
+#define	 VolumeObj_Delete(self)																	/**< デストラクタ */
 
 FILE_ERR VolumeObj_MakeDir(C_VOLUMEOBJ *self, const char *pszPath);				/* サブディレクトリを作成 */
 FILE_ERR VolumeObj_Remove(C_VOLUMEOBJ *self, const char *pszPath);				/* ファイルを削除 */

@@ -44,9 +44,27 @@ int FatVol_Create(C_FATVOL *self, const char *pszPath)
 	{
 		return FATVOL_ERR_NG;
 	}
-	
-	
-	self->Offset   = 0x33*512;	/* 一時的に ちょいインチキ */
+
+	self->Offset = 0;
+		
+	/* パーティーションテーブルチェック */
+	File_Seek(self->hBlockFile, 0, FILE_SEEK_SET);
+	File_Read(self->hBlockFile, ubBuf, 512);
+	if ( ubBuf[0x1fe] == 0x55 && ubBuf[0x1ff] == 0xaa )	/* シグネチャコードチェック */
+	{
+		/* パーティーションテーブル０のみ確認 */
+		if ( ubBuf[0x1be + 0x04] == 0x01			/* FAT12 */
+				|| ubBuf[0x1be + 0x04] == 0x04		/* FAT16(32MB未満) */
+				|| ubBuf[0x1be + 0x04] == 0x06		/* FAT16(32MB以上) */
+				|| ubBuf[0x1be + 0x04] == 0x0b )	/* FAT32 */
+		{
+			self->Offset = ubBuf[0x1be + 0x08]
+							+ (ubBuf[0x1be + 0x09] << 8)
+							+ (ubBuf[0x1be + 0x0a] << 16)
+							+ (ubBuf[0x1be + 0x0b] << 24);
+			self->Offset *= 512;
+		}
+	}
 	
 	
 	/* サイズ取得 */
@@ -83,6 +101,8 @@ int FatVol_Create(C_FATVOL *self, const char *pszPath)
 	case FATVOL_TYPE_FAT16:
 		self->BytesPerSector    = ubBuf[0x0b] + ubBuf[0x0c] * 256;			/**< セクタサイズ */
 		self->SectorsPerCluster = ubBuf[0x0d];								/**< 1クラスタのセクタ数 */
+		self->BytesPerCluster   = self->BytesPerSector * self->SectorsPerCluster;
+																			/**< 1クラスタサイズ */
 		self->RootDirEntryNum   = ubBuf[0x11] + ubBuf[0x12] * 256;			/**< ルートディレクトリ最大エントリ数 */
 		self->FatStartSector    = ubBuf[0x0e] + ubBuf[0x0f] * 256;			/**< FATの開始セクタ番号 */
 		self->SectorPerFat      = ubBuf[0x16] + ubBuf[0x17] * 256;			/**< FATあたりのセクタ数 */
@@ -138,18 +158,20 @@ int FatVol_Create(C_FATVOL *self, const char *pszPath)
 	}
 	
 	/* クラスタバッファ取得 */
-	self->iClusterBufIndex = 0;
 	self->iClusterBufNum   = 8;
-	self->ppClusterBuf = (T_FATVOL_CLUSTERBUF **)SysMem_Alloc(sizeof(T_FATVOL_CLUSTERBUF *) * self->iClusterBufNum);
+	self->pClusterBuf = (T_FATVOL_CLUSTERBUF *)SysMem_Alloc(sizeof(T_FATVOL_CLUSTERBUF) * self->iClusterBufNum);
 	for ( i = 0; i < self->iClusterBufNum; i++ )
 	{
-		self->ppClusterBuf[i] = SysMem_Alloc(sizeof(T_FATVOL_CLUSTERBUF) + self->SectorsPerCluster * self->BytesPerSector);
-		self->ppClusterBuf[i]->uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
-		self->ppClusterBuf[i]->iDirty       = 0;
+		self->pClusterBuf[i].uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
+		self->pClusterBuf[i].iDirty       = 0;
+		self->pClusterBuf[i].pubBuf       = SysMem_Alloc(self->BytesPerCluster);
 	}
 
 	/* 親クラスコンストラクタ呼び出し */
 	VolumeObj_Create(&self->VolumeObj, &FatVol_VolumeObjMethods);	
+	
+	/* ミューテックス生成 */
+	self->hMtx = SysMtx_Create();
 	
 	return FATVOL_ERR_OK;
 }

@@ -22,16 +22,10 @@
 
 
 /* 型定義 */
+typedef	long			FATVOL_INT;
 typedef unsigned long	FATVOL_UINT;
 
-
-/* クラスタバッファ */
-typedef struct t_fatvol_clusterbuf
-{
-	FATVOL_UINT		uiClusterNum;
-	int				iDirty;
-} T_FATVOL_CLUSTERBUF;
-
+struct t_fatvol_clusterbuf;
 
 /* クラスタバッファ */
 typedef struct c_fatvol
@@ -40,13 +34,16 @@ typedef struct c_fatvol
 
 	HANDLE				hBlockFile;					/**< ブロックデバイスドライバのハンドル */
 	
-	int					iOpenCount;
+	SYSMTX_HANDLE		hMtx;						/**< ロック用ミューテックス */
+	
+	int					iOpenCount;					/**< オープンカウンタ */
 	
 	int					iFatType;					/**< FATのタイプ */
 	FILE_POS			Offset;						/**< ディスクのオフセット */
 	FILE_POS			DriveSize;					/**< ドライブの総サイズ */
 	FATVOL_UINT			BytesPerSector;				/**< セクタサイズ */
-	FATVOL_UINT			SectorsPerCluster;			/**< クラスタサイズ */
+	FATVOL_UINT			SectorsPerCluster;			/**< クラスタあたりのセクタ数 */
+	FATVOL_UINT			BytesPerCluster;			/**< クラスタサイズ */
 	FATVOL_UINT			FatStartSector;				/**< FATの開始セクタ番号 */
 	FATVOL_UINT			SectorPerFat;				/**< FATあたりのセクタ数 */
 	FATVOL_UINT			FatNum;						/**< FATの個数 */
@@ -59,9 +56,9 @@ typedef struct c_fatvol
 	unsigned char		*pubFatBuf;					/**< FATのバッファリングメモリ */
 	unsigned char		*pubFatDirty;				/**< FATの更新フラグ */
 	
-	T_FATVOL_CLUSTERBUF	**ppClusterBuf;
-	int					iClusterBufNum;
-	int					iClusterBufIndex;
+	struct t_fatvol_clusterbuf	*pClusterBuf;
+	int							iClusterBufNum;
+//	int							iClusterBufIndex;
 } C_FATVOL;
 
 

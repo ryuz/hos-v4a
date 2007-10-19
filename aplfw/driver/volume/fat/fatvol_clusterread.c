@@ -1,3 +1,14 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  fatvol.c
+ * @brief %jp{FATボリューム用デバイスドライバ}
+ *
+ * Copyright (C) 2006-2007 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
+
 #include "fatvol_local.h"
 
 
@@ -23,7 +34,7 @@ int FatVol_ClusterRead(
 		}
 		
 		/* 読み出し */
-		uiSize = self->BytesPerSector * self->SectorsPerCluster;
+		uiSize = self->BytesPerCluster;
 		if ( File_Read(self->hBlockFile, pBuf, uiSize) != uiSize )
 		{
 			return FATVOL_ERR_NG;
@@ -39,7 +50,7 @@ int FatVol_ClusterRead(
 		}
 
 		/* 読み出し */
-		uiSize = self->BytesPerSector * self->SectorsPerCluster;
+		uiSize = self->BytesPerCluster;
 		if ( File_Read(self->hBlockFile, pBuf, uiSize) != uiSize )
 		{
 			return FATVOL_ERR_NG;

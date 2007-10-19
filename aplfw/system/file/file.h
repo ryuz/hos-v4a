@@ -89,9 +89,11 @@
 
 /* ファイル属性 */
 #define FILE_ATTR_READONLY			0x01
-#define FILE_ATTR_DIR				0x08
+#define FILE_ATTR_HIDDEN			0x02
+#define FILE_ATTR_SYSTEM			0x04
+#define FILE_ATTR_DIR				0x10
+#define FILE_ATTR_ARCHIVE			0x20
 #define FILE_ATTR_DEVICE			0x80
-
 
 
 /* 型定義 */

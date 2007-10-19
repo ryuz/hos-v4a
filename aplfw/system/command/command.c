@@ -35,7 +35,7 @@ COMMAND_ERR Command_Execute(const char *pszCommandLine, int *piExitCode)
 
 	iLen = strlen(pszCommandLine);
 	pszBuf   = (char *)SysMem_Alloc(iLen+1);
-	ppszArgv = (char **)SysMem_Alloc(iLen/2+1 * sizeof(char *));
+	ppszArgv = (char **)SysMem_Alloc((iLen/2+1) * sizeof(char *));
 
 	/* パラメータ分解 */
 	strcpy(pszBuf, pszCommandLine);

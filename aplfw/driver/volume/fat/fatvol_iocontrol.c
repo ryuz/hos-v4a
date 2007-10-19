@@ -4,9 +4,10 @@
  * @file  fatvol.c
  * @brief %jp{FATボリューム用デバイスドライバ}
  *
- * Copyright (C) 2007 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
+
 
 
 #include "fatvol_local.h"
@@ -79,7 +80,7 @@ FILE_ERR FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 			p = pFileInf->szFileName;			
 			for ( i = 0; p[i] != '\0'; i++ )
 			{
-				if ( p[i] >= 'A' && p[i] >= 'Z' )
+				if ( p[i] >= 'A' && p[i] <= 'Z' )
 				{
 					p[i] += ('a' - 'A');
 				}
@@ -87,7 +88,10 @@ FILE_ERR FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 			
 			/* ファイルサイズ */
 			pFileInf->FileSize = ubBuf[28] + (ubBuf[29] << 8) + (ubBuf[30] << 16) + (ubBuf[31] << 24);
-						
+			
+			/* ファイル属性 */
+			pFileInf->Attribute = ubBuf[11];
+			
 			return FILE_ERR_OK;
 		}
 		break;

@@ -1,25 +1,25 @@
+/** 
+ *  Hyper Operating System  Application Framework
+ *
+ * @file  fatvol.c
+ * @brief %jp{FATボリューム用デバイスドライバ}
+ *
+ * Copyright (C) 2006-2007 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
 
 #include <stddef.h>
 #include "fatvol_local.h"
 
 
-/**< クラスタ読み込み */
-int FatVol_RelClusterBuf(
-		C_FATVOL    *self,
-		void        *pBuf,
-		int         iDirty)
+/** クラスタバッファ開放 */
+void FatVol_RelClusterBuf(C_FATVOL *self, T_FATVOL_CLUSTERBUF *pClusterBuf, int iDirty)
 {
-	T_FATVOL_CLUSTERBUF	*pClusterBuf;
-	
-	/* バッファ情報取得 */
-	pClusterBuf = (T_FATVOL_CLUSTERBUF *)((char *)pBuf - sizeof(T_FATVOL_CLUSTERBUF));
-	
 	if ( iDirty )
 	{
 		pClusterBuf->iDirty = iDirty;
 	}
-	
-	return FATVOL_ERR_OK;	
 }
 
 

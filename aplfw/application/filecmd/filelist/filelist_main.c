@@ -18,7 +18,7 @@ int FileList_Main(int argc, char *argv[])
 {
 	T_FILE_FILEINF	FileInf;
 	HANDLE			hDir;
-	char			*pPath = NULL;
+	char			*pPath = "";
 	int				iFlagL = 0;
 	int				i;
 	
@@ -35,22 +35,23 @@ int FileList_Main(int argc, char *argv[])
 		}
 		else
 		{
-			if ( pPath == NULL )
-			{
-				pPath = argv[i];
-			}
+			pPath = argv[i];
 		}
 	}
-	if ( pPath == NULL )
-	{
-		return 1;
-	}
-
+	
 	
 	/* ディレクトリを開く */	
 	if ( (hDir = File_Open(pPath, FILE_OPEN_READ | FILE_OPEN_DIR)) == HANDLE_NULL )
 	{
 		return 0;
+	}
+
+	
+	if ( iFlagL )
+	{
+		/* 詳細表示 */
+		StdIo_PutString("filename   size      attr\n");
+		StdIo_PutString("----------+--------+------\n");
 	}
 	
 	/* ディレクトリを読み出す */	
@@ -58,7 +59,13 @@ int FileList_Main(int argc, char *argv[])
 	{
 		if ( iFlagL )
 		{
-			StdIo_PrintFormat("%s %8ld\n", FileInf.szFileName, (long)FileInf.FileSize);
+			StdIo_PrintFormat("%-10s %8ld ", FileInf.szFileName, (long)FileInf.FileSize);
+			if ( FileInf.Attribute & FILE_ATTR_READONLY )	{ StdIo_PutChar('r'); } else { StdIo_PutChar('-'); }
+			if ( FileInf.Attribute & FILE_ATTR_SYSTEM )		{ StdIo_PutChar('s'); } else { StdIo_PutChar('-'); }
+			if ( FileInf.Attribute & FILE_ATTR_HIDDEN )		{ StdIo_PutChar('h'); } else { StdIo_PutChar('-'); }
+			if ( FileInf.Attribute & FILE_ATTR_DIR )		{ StdIo_PutChar('d'); } else { StdIo_PutChar('-'); }
+			if ( FileInf.Attribute & FILE_ATTR_ARCHIVE )	{ StdIo_PutChar('a'); } else { StdIo_PutChar('-'); }
+			StdIo_PutChar('\n');
 		}
 		else
 		{
@@ -73,3 +80,4 @@ int FileList_Main(int argc, char *argv[])
 }
 
 
+/* end of file */

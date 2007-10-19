@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  fatvol.c
+ * @file  fatvol_delete.c
  * @brief %jp{FATボリューム用デバイスドライバ}
  *
- * Copyright (C) 2007 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -15,6 +15,23 @@
 /** デストラクタ */
 void FatVol_Delete(C_DRVOBJ *pDrvObj)
 {
+	C_FATVOL	*self;
+	int			i;
+
+	self = (C_FATVOL *)pDrvObj;
+
+	/* クラスタバッファ開放 */
+	for ( i = 0; i < self->iClusterBufNum; i++ )
+	{
+		SysMem_Free(self->pClusterBuf[i].pubBuf);
+	}
+	SysMem_Free(self->pClusterBuf[i].pubBuf);
+	
+	/* ミューテックス削除 */
+	SysMtx_Delete(self->hMtx);
+
+	/* 親クラスデコンストラクタ呼び出し */
+	VolumeObj_Delete(&self->VolumeObj);
 }
 
 
