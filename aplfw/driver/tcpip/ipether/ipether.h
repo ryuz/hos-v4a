@@ -22,7 +22,7 @@
 #define IPETHER_MAXPACKET_SIZE		2048
 
 
-/*  */
+/* IP-Ether生成情報 */
 typedef struct t_ipether_inf
 {
 	unsigned char	ubIpAddr[4];			/* IPアドレス */
@@ -78,8 +78,8 @@ typedef struct c_ipether
 extern "C" {
 #endif
 
-void IpEther_Create(C_IPETHER *self, HANDLE hEther, const T_IPETHER_INF *pInf);	/**< コンストラクタ */
-void IpEther_Delete(C_DRVOBJ *pDrvObj);											/**< デストラクタ */
+FILE_ERR IpEther_Create(C_IPETHER *self, const char *pszEther, const T_IPETHER_INF *pInf);	/**< コンストラクタ */
+void     IpEther_Delete(C_DRVOBJ *pDrvObj);													/**< デストラクタ */
 
 #ifdef __cplusplus
 }

@@ -115,16 +115,18 @@ all: aplfw_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 aplfw_make:
 	make -C $(APLFW_BUILD_DIR) -f gmake.mak
 
-.PHONY : aplfw_clean
-aplfw_clean:
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
-
 .PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 .PHONY : mostlyclean
-mostlyclean: clean kernel_clean aplfw_clean
+mostlyclean: clean kernel_clean
+	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
+
+.PHONY : mostlydepend
+mostlydepend: depend kernel_depend
+	make -C $(APLFW_BUILD_DIR) -f gmake.mak depend
+
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i

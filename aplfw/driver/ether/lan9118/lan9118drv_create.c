@@ -27,10 +27,8 @@ const T_DRVOBJ_METHODS Lan9118Drv_Methods =
 
 
 /** コンストラクタ */
-void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum, int iBufSize)
+void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum)
 {
-	void *pMem;
-	
 	/* 親クラスコンストラクタ呼び出し */
 	ChrDrv_Create(&self->ChrDrv, &Lan9118Drv_Methods);
 
@@ -38,11 +36,7 @@ void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum, int iBuf
 	self->pRegBase    = pRegBase;
 	self->iIntNum     = iIntNum;
 	self->iOpenCount  = 0;
-
-	/* バッファ確保 */
-	pMem = SysMem_Alloc(iBufSize);
-	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
-
+	
 	/* イベント生成 */
 	self->hEvtRecv = SysEvt_Create();
 	self->hEvtSend = SysEvt_Create();

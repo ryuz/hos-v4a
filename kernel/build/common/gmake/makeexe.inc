@@ -144,6 +144,11 @@ kernel_make:
 kernel_clean:
 	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
 
+# %jp{カーネルdepend}
+.PHONY : kernel_depend
+kernel_depend:
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) depend
+
 
 
 # end of file

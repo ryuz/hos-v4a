@@ -60,6 +60,9 @@ FILE_ERR  Lan9118Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
 void      Lan9118Drv_Isr(VPARAM Param);			/* 割込み処理 */
 
+void          Lan9118Drv_CsrRegWrite(unsigned short uhAddr, unsigned long ulData);
+unsigned long Lan9118Drv_CsrRegRead(unsigned short uhAddr);
+
 
 #ifdef __cplusplus
 }

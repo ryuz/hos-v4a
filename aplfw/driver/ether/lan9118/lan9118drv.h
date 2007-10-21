@@ -31,7 +31,6 @@ typedef struct c_lan9118drv
 	SYSEVT_HANDLE	hEvtRecv;		/* 受信イベント */
 	SYSMTX_HANDLE	hMtxSend;		/* 送信排他制御ミューテックス */
 	SYSMTX_HANDLE	hMtxRecv;		/* 受信排他制御ミューテックス */
-	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
 } C_LAN9118DRV;
 
 
@@ -40,8 +39,8 @@ typedef struct c_lan9118drv
 extern "C" {
 #endif
 
-void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum, int iBufSize);	/**< コンストラクタ */
-void Lan9118Drv_Delete(C_DRVOBJ *pDrvObj);												/**< デストラクタ */
+void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum);	/**< コンストラクタ */
+void Lan9118Drv_Delete(C_DRVOBJ *pDrvObj);									/**< デストラクタ */
 
 #ifdef __cplusplus
 }

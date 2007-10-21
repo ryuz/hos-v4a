@@ -15,13 +15,13 @@
 #include "library/algorithm/ipchecksum/ipchecksum.h"
 
 
-static void Tcpip_IcmpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
-static void Tcpip_UdpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
-static void Tcpip_TcpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
+static void TcpIp_IcmpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
+static void TcpIp_UdpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
+static void TcpIp_TcpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize);
 
 
 /* 受信プロセス */
-void Tcpip_Recv(VPARAM Param)
+void TcpIp_Recv(VPARAM Param)
 {
 	C_TCPIP			*self;
 	unsigned char	*pubRecvBuf;
@@ -44,15 +44,15 @@ void Tcpip_Recv(VPARAM Param)
 		switch ( pubRecvBuf[9] )
 		{
 		case 0x01:	/* ICMP */
-			Tcpip_IcmpRecv(self, pubRecvBuf, iSize);
+			TcpIp_IcmpRecv(self, pubRecvBuf, iSize);
 			break;
 
 		case 0x06:	/* TCP */
-			Tcpip_TcpRecv(self, pubRecvBuf, iSize);
+			TcpIp_TcpRecv(self, pubRecvBuf, iSize);
 			break;
 
 		case 0x11:	/* UDP */
-			Tcpip_UdpRecv(self, pubRecvBuf, iSize);
+			TcpIp_UdpRecv(self, pubRecvBuf, iSize);
 			break;
 		}
 	}
@@ -60,7 +60,7 @@ void Tcpip_Recv(VPARAM Param)
 
 
 /* ICMP受信処理 */
-void Tcpip_IcmpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
+void TcpIp_IcmpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
 {
 	C_IPCHECKSUM	ics;
 	unsigned short	uhSum;
@@ -146,7 +146,7 @@ void Tcpip_IcmpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
 
 
 /* UDP受信処理 */
-void Tcpip_UdpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
+void TcpIp_UdpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
 {
 	const unsigned char ubDumy[2] = {0, 17};
 	C_TCPIPFILE		*pFile;
@@ -222,7 +222,7 @@ void Tcpip_UdpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
 }
 
 
-void Tcpip_TcpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
+void TcpIp_TcpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
 {
 	const unsigned char *pubRecvTcp;
 	unsigned short		uhMyPort;

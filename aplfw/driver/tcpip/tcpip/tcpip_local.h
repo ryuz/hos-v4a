@@ -55,17 +55,17 @@ typedef struct c_tcpipfile
 extern "C" {
 #endif
 
-HANDLE    Tcpip_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      Tcpip_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  Tcpip_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  Tcpip_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE Tcpip_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE Tcpip_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  Tcpip_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    TcpIp_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
+void      TcpIp_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+FILE_ERR  TcpIp_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  TcpIp_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
+FILE_SIZE TcpIp_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
+FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
+FILE_ERR  TcpIp_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
-int       Tcpip_GetSendBuf(C_TCPIP *self, void **ppBuf);		/* IPデータグラム送信バッファ取得 */
-void      Tcpip_SendBuf(C_TCPIP *self, void **ppBuf);			/* IPデータグラムバッファ送信 */
-void      Tcpip_Recv(VPARAM Param);								/* IPパケット受信プロセス */
+int       TcpIp_GetSendBuf(C_TCPIP *self, void **ppBuf);		/* IPデータグラム送信バッファ取得 */
+void      TcpIp_SendBuf(C_TCPIP *self, void **ppBuf);			/* IPデータグラムバッファ送信 */
+void      TcpIp_Recv(VPARAM Param);								/* IPパケット受信プロセス */
 
 
 #ifdef __cplusplus
@@ -73,7 +73,7 @@ void      Tcpip_Recv(VPARAM Param);								/* IPパケット受信プロセス *
 #endif
 
 
-#endif	/* __HOS__Tcpip_local_h__ */
+#endif	/* __HOS__tcpip_local_h__ */
 
 
 /* endof file */

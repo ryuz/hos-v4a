@@ -16,7 +16,7 @@
 
 void IpEther_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
-	C_IPETHER			*self;
+	C_IPETHER *self;
 	
 	/* upper cast */
 	self = (C_IPETHER *)pDrvObj;

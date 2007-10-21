@@ -27,15 +27,21 @@ static const T_DRVOBJ_METHODS IpEther_Methods =
 	};
 
 
-/**< コンストラクタ */
-void IpEther_Create(C_IPETHER *self, HANDLE hEther, const T_IPETHER_INF *pInf)
+/** コンストラクタ */
+FILE_ERR IpEther_Create(C_IPETHER *self, const char *pszEther, const T_IPETHER_INF *pInf)
 {
+	/* Etherポートオープン */
+	self->hEther = File_Open(pszEther, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_EXIST);
+	if ( self->hEther == HANDLE_NULL )
+	{
+		return FILE_ERR_NG;
+	}
+
 	/* 親クラスコンストラクタ呼び出し */
 	ChrDrv_Create(&self->ChrDrv, &IpEther_Methods);
 
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;
-	self->hEther     = hEther;
 	self->iRecvHead  = 0;
 	self->iRecvNum   = 0;
 	
@@ -55,6 +61,8 @@ void IpEther_Create(C_IPETHER *self, HANDLE hEther, const T_IPETHER_INF *pInf)
 	/* 受信プロセス生成 */
 	self->hPrcRecv = SysPrc_Create(IpEther_Recv, (VPARAM)self, 1024, 2);
 	SysPrc_Start(self->hPrcRecv);
+
+	return FILE_ERR_OK;
 }
 
 

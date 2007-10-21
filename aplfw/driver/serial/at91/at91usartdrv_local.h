@@ -18,19 +18,19 @@
 
 #define AT91USART_US_CR			0x00		/* Control Register */
 #define AT91USART_US_MR			0x04		/* Mode Register */
-#define AT91USART_US_IER			0x08		/* Interrupt Enable Register */
-#define AT91USART_US_IDR			0x0c		/* Interrupt Disable Register */
-#define AT91USART_US_IMR			0x10		/* Interrupt Mask Register */
-#define AT91USART_US_CSR			0x14		/* Channel Status Register */
-#define AT91USART_US_RHR			0x18		/* Receiver Holding Register */
-#define AT91USART_US_THR			0x1c		/* Transmitter Holding Register */
+#define AT91USART_US_IER		0x08		/* Interrupt Enable Register */
+#define AT91USART_US_IDR		0x0c		/* Interrupt Disable Register */
+#define AT91USART_US_IMR		0x10		/* Interrupt Mask Register */
+#define AT91USART_US_CSR		0x14		/* Channel Status Register */
+#define AT91USART_US_RHR		0x18		/* Receiver Holding Register */
+#define AT91USART_US_THR		0x1c		/* Transmitter Holding Register */
 #define AT91USART_US_BRGR		0x20		/* Baud Rate Generator Register */
 #define AT91USART_US_RTOR		0x24		/* Receiver Time-out Register */
 #define AT91USART_US_TTGR		0x28		/* Transmitter Time-guard Register */
-#define AT91USART_US_RPR			0x30		/* Receive Pointer Register */
-#define AT91USART_US_RCR			0x34		/* Receive Counter Register */
-#define AT91USART_US_TPR			0x38		/* Transmit Pointer Register */
-#define AT91USART_US_TCR			0x3c		/* Transmit Counter Register */
+#define AT91USART_US_RPR		0x30		/* Receive Pointer Register */
+#define AT91USART_US_RCR		0x34		/* Receive Counter Register */
+#define AT91USART_US_TPR		0x38		/* Transmit Pointer Register */
+#define AT91USART_US_TCR		0x3c		/* Transmit Counter Register */
 
 #define AT91USART_REG_WRITE(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
 #define AT91USART_REG_READ(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
