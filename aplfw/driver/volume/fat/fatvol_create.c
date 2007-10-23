@@ -99,20 +99,22 @@ int FatVol_Create(C_FATVOL *self, const char *pszPath)
 	{
 	case FATVOL_TYPE_FAT12:
 	case FATVOL_TYPE_FAT16:
-		self->BytesPerSector    = ubBuf[0x0b] + ubBuf[0x0c] * 256;			/**< セクタサイズ */
-		self->SectorsPerCluster = ubBuf[0x0d];								/**< 1クラスタのセクタ数 */
-		self->BytesPerCluster   = self->BytesPerSector * self->SectorsPerCluster;
-																			/**< 1クラスタサイズ */
-		self->RootDirEntryNum   = ubBuf[0x11] + ubBuf[0x12] * 256;			/**< ルートディレクトリ最大エントリ数 */
-		self->FatStartSector    = ubBuf[0x0e] + ubBuf[0x0f] * 256;			/**< FATの開始セクタ番号 */
-		self->SectorPerFat      = ubBuf[0x16] + ubBuf[0x17] * 256;			/**< FATあたりのセクタ数 */
-		self->FatNum            = ubBuf[0x10];								/**< FAT個数 */
+		self->BytesPerSector    = ubBuf[0x0b] + (ubBuf[0x0c] << 8);					/**< セクタサイズ */
+		self->SectorsPerCluster = ubBuf[0x0d];										/**< 1クラスタのセクタ数 */
+		self->FatStartSector    = ubBuf[0x0e] + (ubBuf[0x0f] << 8);					/**< FATの開始セクタ番号 */
+		self->RootDirEntryNum   = ubBuf[0x11] + (ubBuf[0x12] << 8);					/**< ルートディレクトリ最大エントリ数 */
+		self->SectorNum         = ubBuf[0x13] + (ubBuf[0x14] << 8);					/**< 総セクタ数 */
+		self->SectorPerFat      = ubBuf[0x16] + (ubBuf[0x17] << 8);					/**< FATあたりのセクタ数 */
+		self->FatNum            = ubBuf[0x10];										/**< FAT個数 */
 		self->RootDirSector     = self->FatStartSector + (self->SectorPerFat * self->FatNum);
-																			/**< ルートディレクトリ開始位置 */
+																					/**< ルートディレクトリ開始位置 */
+
+		self->BytesPerCluster   = self->BytesPerSector * self->SectorsPerCluster;	/**< 1クラスタサイズ */
 		self->Cluster0Sector    = self->RootDirSector
 										+ (((self->RootDirEntryNum * 32) + self->BytesPerSector - 1) / self->BytesPerSector)
-										- (2 * self->SectorsPerCluster);	/**< クラスタ0の開始セクタ */
-		
+										- (2 * self->SectorsPerCluster);			/**< クラスタ0の開始セクタ */
+		self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster;
+																					/**< 総クラスタ数 */
 		self->RootDirCluster    = 0xf0000000;
 		
 		/* FATバッファ準備 */
@@ -131,30 +133,6 @@ int FatVol_Create(C_FATVOL *self, const char *pszPath)
 	
 	default:
 		return FATVOL_ERR_NG;
-	}
-	
-	/* 最大クラスタ番号算出 */
-	switch ( self->iFatType )
-	{
-	case FATVOL_TYPE_FAT12:
-		self->MaxClusterNum = (self->SectorPerFat * self->BytesPerSector) / 3 * 2;
-		if ( self->MaxClusterNum >= 0x0ff7 )
-		{
-			self->MaxClusterNum = 0x0ff6;
-		}
-		break;
-
-	case FATVOL_TYPE_FAT16:
-		self->MaxClusterNum = (self->SectorPerFat * self->BytesPerSector) / 2;
-		if ( self->MaxClusterNum >= 0xfff7 )
-		{
-			self->MaxClusterNum = 0xfff6;
-		}
-		break;
-
-	case FATVOL_TYPE_FAT32:
-		self->MaxClusterNum = (self->SectorPerFat * self->BytesPerSector) / 4;
-		break;
 	}
 	
 	/* クラスタバッファ取得 */

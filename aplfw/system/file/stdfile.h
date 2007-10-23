@@ -20,9 +20,11 @@
 extern "C" {
 #endif
 
+#define StdIo_Read(buf, len)	File_Read(Process_GetStdIn(), (buf), (len));
 #define StdIo_GetChar()			File_GetChar(Process_GetStdIn());
 #define StdIo_GetString(str)	File_GetString(Process_GetStdIn(), (str));
 
+#define StdIo_Write(buf, len)	File_Write(Process_GetStdIn(), (buf), (len));
 #define StdIo_PutChar(c)		File_PutChar(Process_GetStdOut(), (c));
 #define StdIo_PutString(str)	File_PutString(Process_GetStdOut(), (str));
 int     StdIo_PrintFormat(const char *pszFormat, ...);

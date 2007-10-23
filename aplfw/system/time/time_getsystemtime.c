@@ -2,7 +2,7 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  time.h
- * @brief %jp{時刻管理API定義}
+ * @brief %jp{サ込理APIトチ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -13,7 +13,7 @@
 #include "system/sysapi/sysapi.h"
 
 
-/* システム時刻(起動からのミリ秒)を得る */
+/* ・キ・ケ・ニ・狃刻(オッニー、ォ、鬢ホ・゜・テ)、る */
 TIME_SYSTEM Time_GetSystemTime(void)
 {
 	return SysTim_GetSystemTime();

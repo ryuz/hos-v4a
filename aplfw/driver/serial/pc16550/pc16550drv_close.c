@@ -16,11 +16,11 @@
 void Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_PC16550DRV	*self;
-	C_CHRFILE		*pChrFile;
+	C_CHRFILE		*pFile;
 	
 	/* upper cast */
-	self     = (C_PC16550DRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_PC16550DRV *)pDrvObj;
+	pFile = (C_CHRFILE *)pFileObj;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )
@@ -32,7 +32,7 @@ void Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	}
 	
 	/* ディスクリプタ削除 */
-	ChrFile_Delete(pChrFile);	
+	ChrFile_Delete(pFile);	
 	SysMem_Free(pFileObj);
 }
 

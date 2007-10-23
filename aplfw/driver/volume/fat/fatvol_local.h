@@ -71,17 +71,20 @@ FILE_ERR    FatVol_Remove(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/*
 HANDLE      FatVol_FileCreate(C_FATVOL *self, FATVOL_UINT uiStartCluster, FATVOL_UINT uiDirCluster, FATVOL_UINT uiDirEntryPos, FILE_POS FileSize, int iMode);
 void        FatVol_FileDelete(C_FATVOL *self, HANDLE hFile);
 
-FILE_POS    FatVol_GetFileSize(HANDLE hDir, int iDirEntry);
-void        FatVol_SetFileSize(HANDLE hDir, int iDirEntry, FILE_POS Size);
+void        FatVol_SyncFileSize(C_FATVOL *self, C_FATFILE *pFile);										/* サイズ同期 */
 
 int         FatVol_ClusterWrite(C_FATVOL *self, FATVOL_UINT uiCluster, const void *pBuf);				/**< クラスタ書き込み */
 int         FatVol_ClusterRead(C_FATVOL *self, FATVOL_UINT uiCluster, void *pBuf);						/**< クラスタ読み込み */
 
 T_FATVOL_CLUSTERBUF *FatVol_GetClusterBuf(C_FATVOL *self, FATVOL_UINT uiCluster, int iRead);
 void                FatVol_RelClusterBuf(C_FATVOL *self, T_FATVOL_CLUSTERBUF *pClusterBuf, int iDirty);							
+void                FatVol_FlushClusterBuf(C_FATVOL *self);
 
+FATVOL_UINT FatVol_GetNewCluster(C_FATVOL *self);
 FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster);
 void        FatVol_SetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster, FATVOL_UINT uiNextCluster);
+
+void        FatVol_FlushFat(C_FATVOL *self);
 
 
 #ifdef __cplusplus

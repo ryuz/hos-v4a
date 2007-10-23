@@ -16,17 +16,17 @@
 HANDLE SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_SCIDRV	*self;
-	C_CHRFILE		*pChrFile;
+	C_CHRFILE	*pFile;
 	
 	/* upper cast */
 	self = (C_SCIDRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pChrFile = SysMem_Alloc(sizeof(*pChrFile))) == NULL )
+	if ( (pFile = SysMem_Alloc(sizeof(*pFile))) == NULL )
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pChrFile, pDrvObj, NULL);
+	ChrFile_Create(pFile, pDrvObj, NULL);
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
@@ -36,7 +36,7 @@ HANDLE SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_RIE);
 	}
 
-	return (HANDLE)pChrFile;
+	return (HANDLE)pFile;
 }
 
 

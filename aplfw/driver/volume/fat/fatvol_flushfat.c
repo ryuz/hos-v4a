@@ -37,7 +37,7 @@ void FatVol_FlushFat(C_FATVOL *self)
 			}
 		}
 	}
-
+	
 	/* 更新フラグクリア */
 	memset(self->pubFatDirty, 0, self->SectorPerFat);
 }

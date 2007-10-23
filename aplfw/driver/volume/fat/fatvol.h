@@ -45,12 +45,13 @@ typedef struct c_fatvol
 	FATVOL_UINT			SectorsPerCluster;			/**< クラスタあたりのセクタ数 */
 	FATVOL_UINT			BytesPerCluster;			/**< クラスタサイズ */
 	FATVOL_UINT			FatStartSector;				/**< FATの開始セクタ番号 */
+	FATVOL_UINT			SectorNum;					/**< 総セクタ数 */
 	FATVOL_UINT			SectorPerFat;				/**< FATあたりのセクタ数 */
 	FATVOL_UINT			FatNum;						/**< FATの個数 */
 	FATVOL_UINT			RootDirEntryNum;			/**< ルートディレクトリのエントリ数 */
 	FATVOL_UINT			RootDirSector;				/**< ルートディレクトリのセクタ */
 	FATVOL_UINT			Cluster0Sector;				/**< クラスタ0のセクタ番号 */
-	FATVOL_UINT			MaxClusterNum;				/**< 最大クラスタ番号 */
+	FATVOL_UINT			ClusterNum;					/**< 総クラスタ数 */
 	FATVOL_UINT			RootDirCluster;				/**< ルートディレクトリのクラスタ番号 */
 	
 	unsigned char		*pubFatBuf;					/**< FATのバッファリングメモリ */

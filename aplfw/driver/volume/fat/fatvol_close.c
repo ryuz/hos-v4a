@@ -17,18 +17,22 @@ void FatVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_FATVOL	*self;
 	C_FATFILE	*pFile;
+
+	/* フラッシュしておく */
+	FatVol_Flush(pDrvObj, pFileObj);
 	
 	/* upper cast */
 	self  = (C_FATVOL *)pDrvObj;
 	pFile = (C_FATFILE *)pFileObj;
-
+	
+	
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )
 	{
 	}
 	
 	/* ディスクリプタ削除 */
-	SysMem_Free(pFile);
+	FatVol_FileDelete(self, pFile);
 }
 
 

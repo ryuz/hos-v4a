@@ -55,7 +55,7 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		for ( iLen =0; pszPath[iLen] != '\0' && pszPath[iLen] != '/'; iLen++ )
 			;
 		
-		if ( strncmp(pszPath, self->DevTable[i].szName, iLen) == 0 )
+		if ( strncmp(pszPath, self->DevTable[i].szName, iLen) == 0 && self->DevTable[i].szName[iLen] == '\0' )
 		{
 			break;
 		}

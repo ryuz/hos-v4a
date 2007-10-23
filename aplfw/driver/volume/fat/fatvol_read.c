@@ -80,7 +80,6 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 		/* バッファ取得 */
 		if ( (pClusterBuf = FatVol_GetClusterBuf(self, uiCluster, 1)) == NULL )
 		{
-			SysMtx_Unlock(self->hMtx);
 			break;
 		}
 
@@ -102,7 +101,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 		SysMtx_Unlock(self->hMtx);
 		SysMtx_Lock(self->hMtx);
 	}
-
+	
 	/* クリティカルセクションを出る */
 	SysMtx_Unlock(self->hMtx);
 	

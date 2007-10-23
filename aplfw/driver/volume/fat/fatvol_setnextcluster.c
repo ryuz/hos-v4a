@@ -36,8 +36,8 @@ void FatVol_SetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster, FATVOL_UINT ui
 		
 	case FATVOL_TYPE_FAT16:
 		/* FAT更新 */
-		self->pubFatBuf[uiCluster * 2 + 0] = uiNextCluster % 256;
-		self->pubFatBuf[uiCluster * 2 + 1] = uiNextCluster / 256;
+		self->pubFatBuf[uiCluster * 2 + 0] = ((uiNextCluster >> 0) & 0xff);
+		self->pubFatBuf[uiCluster * 2 + 1] = ((uiNextCluster >> 8) & 0xff);
 
 		/* 更新フラグ設定 */
 		self->pubFatDirty[(uiCluster * 2) / self->BytesPerSector] = 1;
@@ -45,10 +45,10 @@ void FatVol_SetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster, FATVOL_UINT ui
 
 	case FATVOL_TYPE_FAT32:
 		/* FAT更新 */
-		self->pubFatBuf[uiCluster * 2 + 0] = uiNextCluster % 256;
-		self->pubFatBuf[uiCluster * 2 + 1] = (uiNextCluster / 256) % 256;
-		self->pubFatBuf[uiCluster * 2 + 2] = (uiNextCluster / 256 / 256) % 256;
-		self->pubFatBuf[uiCluster * 2 + 3] = (uiNextCluster / 256 / 256 / 256) % 256;
+		self->pubFatBuf[uiCluster * 2 + 0] = ((uiNextCluster >>  0) & 0xff);
+		self->pubFatBuf[uiCluster * 2 + 1] = ((uiNextCluster >>  8) & 0xff);
+		self->pubFatBuf[uiCluster * 2 + 2] = ((uiNextCluster >> 16) & 0xff);
+		self->pubFatBuf[uiCluster * 2 + 3] = ((uiNextCluster >> 24) & 0xff);
 
 		/* 更新フラグ設定 */
 		self->pubFatDirty[(uiCluster * 4) / self->BytesPerSector] = 1;

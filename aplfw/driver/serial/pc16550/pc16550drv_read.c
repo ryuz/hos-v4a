@@ -16,14 +16,14 @@
 FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
 	C_PC16550DRV	*self;
-	C_CHRFILE		*pChrFile;
+	C_CHRFILE		*pFile;
 	unsigned char	*pubBuf;
 	FILE_SIZE		i;
 	int				c;
 	
 	/* upper cast */
-	self     = (C_PC16550DRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_PC16550DRV *)pDrvObj;
+	pFile = (C_CHRFILE *)pFileObj;
 
 	pubBuf = (unsigned char *)pBuf;
 
@@ -34,7 +34,7 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	{
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
-			if ( pChrFile->cReadMode == FILE_RMODE_BLOCKING )
+			if ( pFile->cReadMode == FILE_RMODE_BLOCKING )
 			{
 				/* ブロッキングなら受信イベントを待つ */
 				SysEvt_Wait(self->hEvtRecv);

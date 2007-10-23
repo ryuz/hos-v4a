@@ -27,6 +27,10 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 		/* 0xf0000000 からルートディレクトリをマップ */
 		if ( uiCluster >= 0xf0000000 )
 		{
+			if ( uiCluster >= 0xf000001f )
+			{
+				return FATVOL_CLUSTER_ENDMARKER;
+			}
 			return uiCluster + 1;
 		}
 		
@@ -52,6 +56,10 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 		/* 0xf0000000 からルートディレクトリをマップ */
 		if ( uiCluster >= 0xf0000000 )
 		{
+			if ( uiCluster >= 0xf000001f )
+			{
+				return FATVOL_CLUSTER_ENDMARKER;
+			}
 			return uiCluster + 1;
 		}
 		
@@ -68,6 +76,12 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 				+ (self->pubFatBuf[uiCluster * 4 + 1] << 8)
 				+ (self->pubFatBuf[uiCluster * 4 + 2] << 16)
 				+ (self->pubFatBuf[uiCluster * 4 + 3] << 24);
+		
+		if ( uiCluster >= 0xfffffff7 )
+		{
+			return FATVOL_CLUSTER_ENDMARKER;
+		}
+
 		break;
 	}
 	

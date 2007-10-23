@@ -7,6 +7,7 @@
 
 #include "system/handle/handle.h"
 #include "system/memory/memory.h"
+#include "system/time/time.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/file/file.h"

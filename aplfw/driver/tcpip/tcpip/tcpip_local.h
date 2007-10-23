@@ -15,7 +15,7 @@
 
 #include "tcpip.h"
 #include "system/file/chrfile.h"
-#include "library/container/stmbuf/stmbuf.h"
+#include "library/container/streambuf/streambuf.h"
 
 
 #define TCP_FLAG_FIN			0x01

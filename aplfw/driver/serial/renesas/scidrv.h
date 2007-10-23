@@ -16,7 +16,7 @@
 #include "system/sysapi/sysapi.h"
 #include "system/file/chrdrv.h"
 #include "scihal.h"
-#include "library/container/stmbuf/stmbuf.h"
+#include "library/container/streambuf/streambuf.h"
 
 
 /* SCI用ドライバ制御部 */

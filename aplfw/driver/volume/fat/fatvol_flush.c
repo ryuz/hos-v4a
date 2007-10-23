@@ -21,6 +21,19 @@ FILE_ERR FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	self  = (C_FATVOL *)pDrvObj;
 	pFile = (C_FATFILE *)pFileObj;
 
+	/* クリティカルセクションに入る */
+	SysMtx_Lock(self->hMtx);
+	
+	/* FATの書き出し */
+	FatVol_FlushFat(self);
+	
+	/* バッファのフラッシュ */
+	FatVol_FlushClusterBuf(self);
+	
+	
+	/* クリティカルセクションを出る */
+	SysMtx_Unlock(self->hMtx);
+
 	return FILE_ERR_OK;
 }
 

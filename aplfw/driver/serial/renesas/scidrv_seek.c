@@ -15,11 +15,11 @@
 FILE_POS SciDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
 {
 	C_SCIDRV	*self;
-	C_CHRFILE		*pChrFile;
+	C_CHRFILE	*pFile;
 	
 	/* upper cast */
-	self     = (C_SCIDRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_SCIDRV *)pDrvObj;
+	pFile = (C_CHRFILE *)pFileObj;
 
 	return FILE_ERR_NG;
 }

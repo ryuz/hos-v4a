@@ -117,9 +117,11 @@ void Boot_Task(VP_INT exinf)
 	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
 	
 	
+	
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
+	
 	Command_AddCommand("hsh",      Shell_Main);
 	Command_AddCommand("hello",    Hello_Main);
 	Command_AddCommand("memdump",  MemDump_Main);
@@ -129,9 +131,12 @@ void Boot_Task(VP_INT exinf)
 	Command_AddCommand("time",     TimeCmd_Main);
 	Command_AddCommand("ethsnoop", EtherSnoop_Main);
 	
+	
+	
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
+	
 	System_Boot(hTty, hCon, "hsh", 4096);
 }
 

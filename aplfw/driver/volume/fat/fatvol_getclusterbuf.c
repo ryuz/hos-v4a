@@ -44,6 +44,11 @@ int FatVol_AlloctClusterBuf(C_FATVOL *self, FATVOL_UINT uiCluster, int iRead)
 {
 	int iIndex;
 	
+	if ( uiCluster < 2 || uiCluster >= 0xfffffff7 )
+	{
+		return -1;
+	}
+	
 	/* 既にバッファに居ないか探索 */
 	for ( iIndex = 0; iIndex < self->iClusterBufNum; iIndex++ )
 	{

@@ -15,15 +15,15 @@
 /** %jp{送信} */
 FILE_SIZE SciDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
-	C_SCIDRV		*self;
-	C_CHRFILE			*pChrFile;
+	C_SCIDRV			*self;
+	C_CHRFILE			*pFile;
 	const unsigned char	*pubBuf;
 	FILE_SIZE			i;
 	int					c;
 	
 	/* upper cast */
-	self     = (C_SCIDRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_SCIDRV *)pDrvObj;
+	pFile = (C_CHRFILE *)pFileObj;
 
 	pubBuf = (const unsigned char *)pData;
 
@@ -35,7 +35,7 @@ FILE_SIZE SciDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 		c = *pubBuf++;
 		while ( SciHal_SendChar(&self->SciHal, c) < 0 )
 		{
-			if ( pChrFile->cWriteMode == FILE_WMODE_BLOCKING )
+			if ( pFile->cWriteMode == FILE_WMODE_BLOCKING )
 			{
 				/* ブロッキングなら送信割り込みを待つ */
 				SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_TIE | SCIHAL_INT_RIE);

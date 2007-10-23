@@ -16,14 +16,14 @@
 FILE_SIZE Pc16550Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
 	C_PC16550DRV		*self;
-	C_CHRFILE			*pChrFile;
+	C_CHRFILE			*pFile;
 	const unsigned char	*pubBuf;
 	FILE_SIZE			i;
 	int					c;
 	
 	/* upper cast */
-	self     = (C_PC16550DRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_PC16550DRV *)pDrvObj;
+	pFile = (C_CHRFILE *)pFileObj;
 
 	pubBuf = (const unsigned char *)pData;
 
@@ -35,7 +35,7 @@ FILE_SIZE Pc16550Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 		c = *pubBuf++;
 		while ( Pc16550Hal_SendChar(&self->Pc16550Hal, c) < 0 )
 		{
-			if ( pChrFile->cWriteMode == FILE_WMODE_BLOCKING )
+			if ( pFile->cWriteMode == FILE_WMODE_BLOCKING )
 			{
 				/* ブロッキングなら送信割り込みを待つ */
 				Pc16550Hal_EnableInterrupt(&self->Pc16550Hal, PC16550HAL_IER_ERBFI | PC16550HAL_IER_ETBEI);

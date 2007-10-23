@@ -16,7 +16,7 @@
 #include "system/sysapi/sysapi.h"
 #include "system/file/chrdrv.h"
 #include "pc16550hal.h"
-#include "library/container/stmbuf/stmbuf.h"
+#include "library/container/streambuf/streambuf.h"
 
 
 /* PC16550用ドライバ制御部 */

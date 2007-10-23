@@ -15,15 +15,15 @@
 /** %jp{受信} */
 FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
-	C_SCIDRV	*self;
-	C_CHRFILE		*pChrFile;
+	C_SCIDRV		*self;
+	C_CHRFILE		*pFile;
 	unsigned char	*pubBuf;
 	FILE_SIZE		i;
 	int				c;
 	
 	/* upper cast */
-	self     = (C_SCIDRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_SCIDRV *)pDrvObj;
+	pFile = (C_CHRFILE *)pFileObj;
 
 	pubBuf = (unsigned char *)pBuf;
 
@@ -34,7 +34,7 @@ FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	{
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
-			if ( pChrFile->cReadMode == FILE_RMODE_BLOCKING )
+			if ( pFile->cReadMode == FILE_RMODE_BLOCKING )
 			{
 				/* ブロッキングなら受信イベントを待つ */
 				SysEvt_Wait(self->hEvtRecv);

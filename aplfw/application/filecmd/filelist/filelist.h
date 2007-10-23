@@ -24,8 +24,7 @@ int FileList_Main(int argc, char *argv[]);
 #endif
 
 
-#endif	/* __HOS__filelist_h__
- */
+#endif	/* __HOS__filelist_h__ */
 
 
 /* end of file */

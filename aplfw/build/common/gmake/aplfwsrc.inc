@@ -52,6 +52,7 @@ CSRCS         += $(SYSAPI_DIR)/sysapi_initialize.c					\
                  $(SYSAPI_DIR)/sysprc_exit.c						\
                  $(SYSAPI_DIR)/sysprc_getcurrenthandle.c			\
                  $(SYSAPI_DIR)/sysprc_start.c						\
+                 $(SYSAPI_DIR)/systim_getsystemtime.c				\
                  $(SYSAPI_DIR)/systim_wait.c
 
 
@@ -67,6 +68,13 @@ CSRCS         += $(HANDLE_DIR)/handle_close.c						\
 MEMORY_DIR     = $(APLFW_DIR)/system/memory
 SRC_DIRS      += $(MEMORY_DIR)
 CSRCS         += $(MEMORY_DIR)/memory.c
+
+
+# Time
+TIME_DIR       = $(APLFW_DIR)/system/time
+SRC_DIRS      += $(TIME_DIR)
+CSRCS         += $(TIME_DIR)/time_getsystemtime.c					\
+                 $(TIME_DIR)/time_wait.c
 
 
 # Process
@@ -145,16 +153,11 @@ SRC_DIRS      += $(MEMPOL_DIR)
 CSRCS         += $(MEMPOL_DIR)/mempol.c	
 
 
-# Stream Buffer
-STMBUF_DIR     = $(APLFW_DIR)/library/container/stmbuf
-SRC_DIRS      += $(STMBUF_DIR)
-CSRCS         += $(STMBUF_DIR)/stmbuf.c
-
-
 # Association Array
 ASSOC_DIR      = $(APLFW_DIR)/library/container/assoc
 SRC_DIRS      += $(ASSOC_DIR)
 CSRCS         += $(ASSOC_DIR)/assoc.c
+
 
 # List
 LIST_DIR       = $(APLFW_DIR)/library/container/list
@@ -168,6 +171,36 @@ CSRCS         += $(LIST_DIR)/list_create.c							\
                  $(LIST_DIR)/list_getprevpos.c						\
                  $(LIST_DIR)/list_gettailpos.c						\
                  $(LIST_DIR)/list_remove.c
+
+
+# Stream Buffer
+STREAMBUF_DIR  = $(APLFW_DIR)/library/container/streambuf
+SRC_DIRS      += $(STREAMBUF_DIR)
+CSRCS         += $(STREAMBUF_DIR)/streambuf_create.c				\
+                 $(STREAMBUF_DIR)/streambuf_getbuf.c				\
+                 $(STREAMBUF_DIR)/streambuf_sendbuf.c				\
+                 $(STREAMBUF_DIR)/streambuf_senddata.c				\
+                 $(STREAMBUF_DIR)/streambuf_sendchar.c				\
+                 $(STREAMBUF_DIR)/streambuf_recvbuf.c				\
+                 $(STREAMBUF_DIR)/streambuf_relbuf.c				\
+                 $(STREAMBUF_DIR)/streambuf_recvdata.c				\
+                 $(STREAMBUF_DIR)/streambuf_recvchar.c				\
+                 $(STREAMBUF_DIR)/streambuf_clear.c					\
+                 $(STREAMBUF_DIR)/streambuf_refdatasize.c			\
+                 $(STREAMBUF_DIR)/streambuf_reffreesize.c
+
+
+# Packet Buffer
+PACKETBUF_DIR  = $(APLFW_DIR)/library/container/packetbuf
+SRC_DIRS      += $(PACKETBUF_DIR)
+CSRCS         += $(PACKETBUF_DIR)/packetbuf_create.c				\
+                 $(PACKETBUF_DIR)/packetbuf_getbuf.c				\
+                 $(PACKETBUF_DIR)/packetbuf_sendbuf.c				\
+                 $(PACKETBUF_DIR)/packetbuf_senddata.c				\
+                 $(PACKETBUF_DIR)/packetbuf_recvbuf.c				\
+                 $(PACKETBUF_DIR)/packetbuf_relbuf.c				\
+                 $(PACKETBUF_DIR)/packetbuf_recvdata.c				\
+                 $(PACKETBUF_DIR)/packetbuf_clear.c
 
 
 
@@ -248,6 +281,21 @@ FILELIST_DIR   = $(APLFW_DIR)/application/filecmd/filelist
 SRC_DIRS      += $(FILELIST_DIR)
 CSRCS         += $(FILELIST_DIR)/filelist_main.c
 
+# File Cat
+FILECAT_DIR    = $(APLFW_DIR)/application/filecmd/filecat
+SRC_DIRS      += $(FILECAT_DIR)
+CSRCS         += $(FILECAT_DIR)/filecat_main.c
+
+# File Copy
+FILECOPY_DIR   = $(APLFW_DIR)/application/filecmd/filecopy
+SRC_DIRS      += $(FILECOPY_DIR)
+CSRCS         += $(FILECOPY_DIR)/filecopy_main.c
+
+# File Dump
+FILEDUMP_DIR   = $(APLFW_DIR)/application/filecmd/filedump
+SRC_DIRS      += $(FILEDUMP_DIR)
+CSRCS         += $(FILEDUMP_DIR)/filedump_main.c
+
 
 # Memory Dump
 MEMDUMP_DIR    = $(APLFW_DIR)/application/utility/memdump
@@ -268,6 +316,11 @@ CSRCS         += $(MEMTEST_DIR)/memtest_main.c
 KEYTEST_DIR    = $(APLFW_DIR)/application/utility/keytest
 SRC_DIRS      += $(KEYTEST_DIR)
 CSRCS         += $(KEYTEST_DIR)/keytest_main.c
+
+# Time Command
+TIMECMD_DIR    = $(APLFW_DIR)/application/utility/timecmd
+SRC_DIRS      += $(TIMECMD_DIR)
+CSRCS         += $(TIMECMD_DIR)/timecmd_main.c
 
 
 # Ether Snoopt
