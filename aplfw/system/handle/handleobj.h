@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  handle.h
+ * @file  handleobj.h
  * @brief %jp{ハンドルオブジェクト}
  *
  * Copyright (C) 2006 by Project HOS
@@ -9,8 +9,8 @@
  */
 
 
-#ifndef __HOS__hdlobj_h__
-#define __HOS__hdlobj_h__
+#ifndef __HOS__handleobj_h__
+#define __HOS__handleobj_h__
 
 
 #include "system/handle/handle.h"
@@ -42,7 +42,7 @@ void    HandleObj_Delete(C_HANDLEOBJ *self);										/* デストラクタ */
 #endif
 
 
-#endif	/* __HOS__hdlobj_h__ */
+#endif	/* __HOS__handleobj_h__ */
 
 
 /* end of file */

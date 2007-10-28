@@ -26,11 +26,11 @@ typedef struct c_chrfile
 {
 	C_FILEOBJ			FileObj;		/* ファイルオブジェクトを継承 */
 	
-	struct c_chrfile	*pMonNext;		/* イベント監視リスト連結用 */
-	struct c_chrfile	*pMonPrev;		/* イベント監視リスト連結用 */
+	struct c_chrfile	*pNext;			/* イベント監視リスト連結用 */
+	struct c_chrfile	*pPrev;			/* イベント監視リスト連結用 */
 	
-	HANDLE				hEvntWrite;		/* 書込みイベント */
-	HANDLE				hEvntRead;		/* 読込みイベント */
+	HANDLE				hEventWrite;	/* 書込みイベント */
+	HANDLE				hEventRead;		/* 読込みイベント */
 	char				cWriteMode;		/* 書込みモード */
 	char				cReadMode;		/* 読込みモード */
 } C_CHRFILE;

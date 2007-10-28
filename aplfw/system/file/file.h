@@ -63,6 +63,13 @@
 #define FILE_IOCTL_CANWRITEBUF		0x0032		/* ライトバッファ破棄(省コピー版Write) */
 
 
+/* IoControl機能コード(キャラクタ系デバイスドライバ共通) */
+#define FILE_IOCTL_SETWRITEMODE		0x0081		/* 書込みモードを設定 */
+#define FILE_IOCTL_SETREADEMODE		0x0082		/* 読込みモードを設定 */
+#define FILE_IOCTL_SETWRITEVENT		0x0084		/* 書込みイベントを設定 */
+#define FILE_IOCTL_SETREADEVENT		0x0085		/* 読込みイベントを設定 */
+
+
 /* IoControl機能コード(ディレクトリ) */
 #define FILE_IOCTL_DIR_READ			0x0101		/* デバイス情報を得る */
 

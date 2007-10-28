@@ -23,6 +23,7 @@ extern "C" {
 
 void System_Initialize(void *pMem, MEMSIZE Size);
 void System_Boot(HANDLE hTerminal, HANDLE hConsole, const char *pszCommand, int iStackSize);
+int  System_RequestProc(void (*pfncProc)(VPARAM Param), VPARAM Param);
 
 #ifdef __cplusplus
 }

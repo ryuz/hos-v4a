@@ -7,6 +7,8 @@
 
 #include "system/handle/handle.h"
 #include "system/memory/memory.h"
+#include "system/event/event.h"
+#include "system/mutex/mutex.h"
 #include "system/time/time.h"
 #include "system/process/process.h"
 #include "system/command/command.h"

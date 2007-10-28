@@ -7,16 +7,16 @@
 #define MUTEX_ERR_NG			(-1)
 
 /* エラー型 */
-typedef int		MUTEXERR;		
+typedef int		MUTEX_ERR;		
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-HANDLE   Mutex_Create(void);
-MUTEXERR Mutex_Delete(HANDLE hMutex);
-MUTEXERR Mutex_Lock(HANDLE hMutex);
-MUTEXERR Mutex_Unlock(HANDLE hMutex);
+HANDLE    Mutex_Create(void);
+MUTEX_ERR Mutex_Delete(HANDLE hMutex);
+MUTEX_ERR Mutex_Lock(HANDLE hMutex);
+MUTEX_ERR Mutex_Unlock(HANDLE hMutex);
 
 
 #ifdef __cplusplus

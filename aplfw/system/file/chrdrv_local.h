@@ -10,7 +10,7 @@
 
 
 #ifndef __HOS__chrdrv_local_h__
-#define __HOS__drvobj_local_h__
+#define __HOS__chrdrv_local_h__
 
 
 #include "system/file/chrdrv.h"

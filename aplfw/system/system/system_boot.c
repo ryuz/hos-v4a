@@ -10,8 +10,8 @@
 
 
 #include "hosaplfw.h"
-#include "system/system/system.h"
 #include "system/sysapi/sysapi.h"
+#include "system/system/system_local.h"
 #include "system/process/process.h"
 #include "system/file/stdfile.h"
 
@@ -24,6 +24,7 @@ void System_Boot(HANDLE hTerminal, HANDLE hConsole, const char *pszCommand, int 
 {
 	T_PROCESS_INF	ProcInf;
 	
+	/* システムプロセスのブート */
 	ProcInf.hTerminal   = hTerminal;
 	ProcInf.hConsole    = hConsole;
 	ProcInf.hStdIn      = hConsole;
