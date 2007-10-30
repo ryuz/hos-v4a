@@ -45,8 +45,8 @@ void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, unsigned long ul
 	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
 
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create();
-	self->hEvtSend = SysEvt_Create();
+	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtSend = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
 
 	/* ミューテックス生成 */
 	self->hMtxSend = SysMtx_Create();

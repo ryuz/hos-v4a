@@ -40,8 +40,8 @@ void Ne2000Drv_Create(C_NE2000DRV *self, void *pRegAddr, int iIntNum)
 	Ne2000Hal_Create(&self->Ne2000Hal, pRegAddr);
 
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create();
-	self->hEvtSend = SysEvt_Create();
+	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtSend = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
 
 	/* ミューテックス生成 */
 	self->hMtx = SysMtx_Create();
@@ -83,7 +83,7 @@ HANDLE Ne2000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, pDrvObj, NULL);
+	ChrFile_Create(pFile, &self->ChrDrv, NULL);
 	
 	
 	/* オープン処理 */

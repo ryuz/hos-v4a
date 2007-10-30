@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  scidrv.h
+ * @file  pc16550drv.h
  * @brief %jp{16550互換シリアル用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
@@ -27,8 +27,6 @@ typedef struct c_pc16550drv
 	C_PC16550HAL	Pc16550Hal;		/* ハードウェア制御クラス */
 	int				iOpenCount;		/* オープンカウンタ */
 	int				iIntNum;		/* 割込み番号 */
-	SYSEVT_HANDLE	hEvtSend;		/* 送信イベント */
-	SYSEVT_HANDLE	hEvtRecv;		/* 受信イベント */
 	SYSMTX_HANDLE	hMtxSend;		/* 送信排他制御ミューテックス */
 	SYSMTX_HANDLE	hMtxRecv;		/* 受信排他制御ミューテックス */
 	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */

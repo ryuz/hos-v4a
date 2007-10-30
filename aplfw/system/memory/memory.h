@@ -9,9 +9,9 @@
 extern "C" {
 #endif
 
-void          *Memory_Alloc(long lSize);		/* メモリの割り当て */
-void           Memory_Free(void *pMem);			/* メモリの割り当て */
-const T_MEMIF *Memory_GetMemIf(void);			/* メモリインターフェースの取得 */
+void    *Memory_Alloc(long lSize);		/* メモリの割り当て */
+void     Memory_Free(void *pMem);		/* メモリの割り当て */
+C_MEMIF *Memory_GetMemIf(void);			/* メモリインターフェースの取得 */
 
 
 #ifdef __cplusplus

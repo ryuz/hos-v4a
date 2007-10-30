@@ -37,9 +37,10 @@ FILE_SIZE Lan9000Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 		
 		uhStatus = Lan9000Hal_GetInterruptStatus(&self->Lan9000Hal);
 		Lan9000Hal_SetInterruptMask(&self->Lan9000Hal, (uhStatus | LAN9000HAL_IMASK_RCVINT));
-
+		
 		/* ブロッキングなら受信イベントを待つ */
 		SysMtx_Unlock(self->hMtx);
+		
 		SysEvt_Wait(self->hEvtRecv);
 		SysEvt_Clear(self->hEvtRecv);
 		SysMtx_Lock(self->hMtx);

@@ -22,8 +22,6 @@ void Pc16550Drv_Delete(C_DRVOBJ *pDrvObj)
 	self = (C_PC16550DRV *)pDrvObj;
 
 	/* 同期オブジェクト削除 */
-	SysEvt_Delete(self->hEvtRecv);
-	SysEvt_Delete(self->hEvtSend);
 	SysMtx_Delete(self->hMtxRecv);
 	SysMtx_Delete(self->hMtxSend);
 

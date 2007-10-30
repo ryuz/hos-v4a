@@ -26,7 +26,7 @@ HANDLE SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, pDrvObj, NULL);
+	ChrFile_Create(pFile, &self->ChrDrv, NULL);
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )

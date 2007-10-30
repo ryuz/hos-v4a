@@ -28,7 +28,7 @@ void Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 		SysInt_Disable(self->iIntNum);
 		Pc16550Hal_EnableInterrupt(&self->Pc16550Hal, 0);
 		Pc16550Hal_Stop(&self->Pc16550Hal);
-		StreamBuf_ClearBuf(&self->StmBufRecv);
+		StreamBuf_Clear(&self->StmBufRecv);
 	}
 	
 	/* ディスクリプタ削除 */

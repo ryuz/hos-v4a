@@ -18,7 +18,7 @@
 #include "system/handle/handleobj.h"
 #include "system/file/fileobj.h"
 
-struct c_drvobj;
+struct c_chrdrv;
 
 
 /* ファイルブジェクト基本クラス定義 */
@@ -40,8 +40,8 @@ typedef struct c_chrfile
 extern "C" {
 #endif
 
-void    ChrFile_Create(C_CHRFILE *self, struct c_drvobj *pDrvObj, const T_FILEOBJ_METHODS *pMethods);
-#define ChrFile_Delete(self)	FileObj_Delete(&(self)->FileObj)
+void    ChrFile_Create(C_CHRFILE *self, struct c_chrdrv *pChrDrv, const T_FILEOBJ_METHODS *pMethods);
+void    ChrFile_Delete(C_CHRFILE *self);
 
 #ifdef __cplusplus
 }

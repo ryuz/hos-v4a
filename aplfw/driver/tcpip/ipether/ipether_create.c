@@ -50,8 +50,8 @@ FILE_ERR IpEther_Create(C_IPETHER *self, const char *pszEther, const T_IPETHER_I
 	memcpy(self->ubGateWayIpAddr, pInf->ubGateWayIpAddr, 4);
 	
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create();
-	self->hEvtArp  = SysEvt_Create();
+	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtArp  = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
 
 	/* ミューテックス生成 */
 	self->hMtxSend = SysMtx_Create();

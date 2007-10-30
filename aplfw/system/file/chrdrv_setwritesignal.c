@@ -12,15 +12,41 @@
 
 
 
+#include "hosaplfw.h"
 #include "chrdrv.h"
+#include "system/system/system.h"
 
 
-/** 読込み可能になったことを通知 */
+static void ChrDrv_SetWriteSignalProc(VPARAM Param);
+
+
+/** 書込み可能になったことを通知 */
 void ChrDrv_SetWriteSignal(C_CHRDRV *self)
 {
-	C_CHRFILE *pFile;
+	if ( SysCtx_IsIsr() )
+	{
+		/* ISRからの呼び出しなら、システムプロセス経由で発動 */
+		System_RequestProc(ChrDrv_SetWriteSignalProc, (VPARAM)self);	
+	}
+	else
+	{
+		/* そうでなければ直接実行 */
+		ChrDrv_SetWriteSignalProc((VPARAM)self);
+	}
+}
+
+
+/** 書込み可能になったことを通知 */
+void ChrDrv_SetWriteSignalProc(VPARAM Param)
+{
+	C_CHRDRV	*self;
+	C_CHRFILE	*pFile;
+	
+	self = (C_CHRDRV *)Param;
 	
 	SysEvt_Set(self->hEvtWrite);
+		
+	SysMtx_Lock(self->hMtx);
 	
 	pFile = self->pFileHead;
 	if ( pFile != NULL )
@@ -37,7 +63,11 @@ void ChrDrv_SetWriteSignal(C_CHRDRV *self)
 			pFile = pFile->pNext;
 		} while ( pFile != self->pFileHead);
 	}
+	
+	SysMtx_Unlock(self->hMtx);
 }
+
+
 
 
 /* end of file */

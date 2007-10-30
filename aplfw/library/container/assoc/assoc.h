@@ -24,8 +24,8 @@ typedef int     ASSOC_ERR;
 /* ストリームバッファクラス */
 typedef struct c_assocbuf
 {
-	C_LIST  List;	/* とりあえず手抜き(そのうちB-Treeとかに....) */
-	const T_MEMIF *pMemIf;
+	C_LIST	List;	/* とりあえず手抜き(そのうちB-Treeとかに....) */
+	C_MEMIF	*pMemIf;
 } C_ASSOC;
 
 
@@ -35,7 +35,7 @@ extern "C" {
 
 /* 生成／削除 */
 void        Assoc_Create(C_ASSOC *self);													/* 連想バッファの生成 */
-void        Assoc_CreateEx(C_ASSOC *self,  const T_MEMIF *pMemIf);							/* 連想バッファの生成 */
+void        Assoc_CreateEx(C_ASSOC *self, C_MEMIF *pMemIf);									/* 連想バッファの生成 */
 void        Assoc_Delete(C_ASSOC *self);													/* 連想バッファの削除 */
 
 /* 操作 */

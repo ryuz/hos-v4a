@@ -29,20 +29,21 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 
 	/* クリティカルセクションに入る */
 	SysMtx_Lock(self->hMtxRecv);
-
+	
 	for ( i = 0; i < Size; i++ )
 	{
+		/* 受信ストリームバッファを読み出す */
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
-			if ( pFile->cReadMode == FILE_RMODE_BLOCKING )
+			FILE_ERR err;
+		
+			/* バッファが空なら読込み可能シグナルを待つ */
+			SysMtx_Unlock(self->hMtxRecv);
+			err = ChrDrv_WaitReadSignal(&self->ChrDrv, pFile);
+			SysMtx_Lock(self->hMtxRecv);
+			
+			if ( err != FILE_ERR_OK )
 			{
-				/* ブロッキングなら受信イベントを待つ */
-				SysEvt_Wait(self->hEvtRecv);
-				SysEvt_Clear(self->hEvtRecv);
-			}
-			else
-			{
-				/* ノンブロッキングなら終了 */
 				goto loop_end;
 			}
 		}
@@ -52,7 +53,7 @@ loop_end:
 	
 	/* クリティカルセクションを出る */
 	SysMtx_Unlock(self->hMtxRecv);
-
+	
 	return i;
 }
 

@@ -11,14 +11,14 @@
 #define MEMIF_ALIGNSIZE(x)		(((x) + MEMIF_MEMALIGN - 1) & ~(MEMIF_MEMALIGN - 1))
 
 
-/* メモリインターフェース */
-typedef struct t_memif
+/* メモリインターフェースクラス */
+typedef struct c_memif
 {
 	void    *(*pfncAlloc)(MEMSIZE Size);				/* メモリの割り当て */
 	void    *(*pfncReAlloc)(void *pMem, MEMSIZE Size);	/* メモリの再割り当て */
 	void    (*pfncFree)(void *pMem);					/* メモリの開放 */
 	MEMSIZE (*pfncGetSize)(void *pMem);					/* メモリのサイズ取得 */
-} T_MEMIF;
+} C_MEMIF;
 
 
 #define MemIf_Alloc(pMemIf, Size)			((pMemIf)->pfncAlloc((Size)))

@@ -14,13 +14,13 @@
 
 
 /* システム用イベント生成 */
-SYSEVT_HANDLE SysEvt_Create(void)
+SYSEVT_HANDLE SysEvt_Create(int iMode)
 {
 	T_CFLG cflg;
 	ER_ID  erid;
 
 	/* ロック用セマフォ生成 */
-	cflg.flgatr  = TA_TFIFO;
+	cflg.flgatr  = TA_TFIFO | ((iMode & SYSEVT_MODE_AUTOCLEAR) ? TA_CLR : 0);
 	cflg.iflgptn = 0;
 	erid = acre_flg(&cflg);
 	if ( erid < 0 )

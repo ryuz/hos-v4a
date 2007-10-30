@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  scidrv.h
+ * @file  pc16550drv_local.h
  * @brief %jp{16550互換シリアル用デバイスドライバ ローカルヘッダファイル}
  *
  * Copyright (C) 2006-2007 by Project HOS

@@ -43,11 +43,7 @@ void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr,  unsigned int uiRegSt
 	/* バッファ確保 */
 	pMem = SysMem_Alloc(iBufSize);
 	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
-
-	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create();
-	self->hEvtSend = SysEvt_Create();
-
+	
 	/* ミューテックス生成 */
 	self->hMtxSend = SysMtx_Create();
 	self->hMtxRecv = SysMtx_Create();

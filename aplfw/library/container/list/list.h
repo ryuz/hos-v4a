@@ -27,8 +27,8 @@ typedef void*	LIST_POS;
 /* ストリームバッファクラス */
 typedef struct c_list
 {
-	const T_MEMIF *pMemIf;		/* 利用するメモリI/F */
-	void          *pHead;		/* 先頭要素へのポインタ */
+	C_MEMIF		*pMemIf;		/* 利用するメモリI/F */
+	void		*pHead;			/* 先頭要素へのポインタ */
 } C_LIST;
 
 
@@ -38,7 +38,7 @@ extern "C" {
 
 /* 生成／削除 */
 void      List_Create(C_LIST *self);													/* 連想バッファの生成 */
-void      List_CreateEx(C_LIST *self, const T_MEMIF *pMemIf);							/* 連想バッファの生成 */
+void      List_CreateEx(C_LIST *self, C_MEMIF *pMemIf);							/* 連想バッファの生成 */
 void      List_Delete(C_LIST *self);													/* 連想バッファの削除 */
 
 /* 操作 */

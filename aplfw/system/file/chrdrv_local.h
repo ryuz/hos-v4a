@@ -20,8 +20,6 @@
 extern "C" {
 #endif
 
-void ChrDrv_WriteSignal(C_DRVOBJ *self);		/**< 書込み可能になったことを通知 */
-void ChrDrv_ReadSignal(C_DRVOBJ *self);			/**< 読込み可能になったことを通知 */
 
 #ifdef __cplusplus
 }

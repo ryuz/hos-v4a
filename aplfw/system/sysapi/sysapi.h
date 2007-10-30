@@ -17,9 +17,9 @@
 #ifndef __HOS__sysapi_h__
 #define __HOS__sysapi_h__
 
+
 #include "system/type/type.h"
 #include "library/container/memif/memif.h"
-
 
 
 /* システム用プロセスハンドル */
@@ -38,6 +38,10 @@ typedef void* SYSEVT_HANDLE;
 #define SYSISR_HANDLE_NULL			(0)
 typedef void* SYSISR_HANDLE;
 
+/* システム用イベントモード */
+#define	SYSEVT_MODE_NORMAL			0x00
+#define	SYSEVT_MODE_AUTOCLEAR		0x01
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,6 +49,9 @@ extern "C" {
 
 /* 初期化 */
 void           SysApi_Initialize(void *pMem, MEMSIZE lSize);	/* システムの初期化処理 */
+
+/* システム状態取得 */
+int            SysCtx_IsIsr(void);								/* ISRコンテキストかどうか調べる */
 
 /* システムロック */
 void           SysLoc_Lock(void);								/* システム全体のロック */
@@ -55,7 +62,7 @@ void          *SysMem_Alloc(MEMSIZE Size);						/* システムメモリの割�
 void          *SysMem_ReAlloc(void *pMem, MEMSIZE Size);		/* システムメモリの再割り当て */
 void           SysMem_Free(void *pMem);							/* システムメモリの返却 */
 MEMSIZE        SysMem_GetSize(void *pMem);						/* システムメモリのサイズ取得 */
-const T_MEMIF *SysMem_GetMemIf(void);							/* メモリインターフェースの取得 */
+C_MEMIF       *SysMem_GetMemIf(void);							/* メモリインターフェースの取得 */
 
 /* システム用割り込み制御API */
 void           SysInt_Enable(int iIntNum);
@@ -65,7 +72,6 @@ void           SysInt_Clear(int iIntNum);
 /* 割り込みサービスルーチン制御API */
 SYSISR_HANDLE  SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param);
 void           SysIsr_Delete(SYSISR_HANDLE hIsr);
-
 
 /* システム用プロセス制御API */
 SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority);
@@ -82,7 +88,7 @@ void           SysMtx_Lock(SYSMTX_HANDLE hMtx);				/* システム用ミュー�
 void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);			/* システム用ミューテックスロック解除*/
 
 /* システム用イベント制御API */
-SYSEVT_HANDLE  SysEvt_Create(void);							/* システム用イベント生成 */
+SYSEVT_HANDLE  SysEvt_Create(int iMode);					/* システム用イベント生成 */
 void           SysEvt_Delete(SYSEVT_HANDLE hEvt);			/* システム用イベント削除 */
 void           SysEvt_Wait(SYSEVT_HANDLE hEvt);				/* システム用イベント待ち*/
 void           SysEvt_Set(SYSEVT_HANDLE hEvt);				/* システム用イベントセット */

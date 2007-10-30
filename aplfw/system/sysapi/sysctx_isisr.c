@@ -12,20 +12,11 @@
 #include "sysapi_local.h"
 
 
-static const C_MEMIF SysMem_MemIf =
+/* ISRコンテキストかどうか調べる */
+int SysCtx_IsIsr(void)
 {
-	SysMem_Alloc,
-	SysMem_ReAlloc,
-	SysMem_Free,
-	SysMem_GetSize,
-};
-
-
-/* メモリインターフェースの取得 */
-C_MEMIF *SysMem_GetMemIf(void)
-{
-	return (C_MEMIF *)&SysMem_MemIf;
-}
+	return sns_ctx();
+}			
 
 
 /* end of file */

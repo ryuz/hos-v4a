@@ -14,7 +14,7 @@
 
 
 /* コンストラクタ */
-void List_CreateEx(C_LIST *self, const T_MEMIF *pMemIf)
+void List_CreateEx(C_LIST *self, C_MEMIF *pMemIf)
 {
 	self->pMemIf = pMemIf;
 	self->pHead  = NULL;

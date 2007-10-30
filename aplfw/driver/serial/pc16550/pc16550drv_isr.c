@@ -9,10 +9,11 @@
  */
 
 
+
 #include "pc16550drv_local.h"
 
 
-/* 受信割り込み */
+/* 割り込みサービスルーチン */
 void Pc16550Drv_Isr(VPARAM Param)
 {
 	C_PC16550DRV	*self;
@@ -27,16 +28,22 @@ void Pc16550Drv_Isr(VPARAM Param)
 	{
 	case PC16550HAL_IIR_RDA:
 	case PC16550HAL_IIR_CTI:
+		/* 文字読み出しのみISR内で行う */
 		while ( (c = Pc16550Hal_RecvChar(&self->Pc16550Hal)) >= 0 )
 		{
 			StreamBuf_SendChar(&self->StmBufRecv, c);
 		}
-		SysEvt_Set(self->hEvtRecv);
+		
+		/* 読込みシグナルを発生 */
+		ChrDrv_SetReadSignal(&self->ChrDrv);
 		break;
 
 	case PC16550HAL_IIR_THRE:
+		/* 送信割込み停止 */
 		Pc16550Hal_EnableInterrupt(&self->Pc16550Hal, PC16550HAL_IER_ERBFI);
-		SysEvt_Set(self->hEvtSend);
+		
+		/* 書込みシグナルを発生 */
+		ChrDrv_SetWriteSignal(&self->ChrDrv);
 	}
 	
 	SysInt_Clear(self->iIntNum);

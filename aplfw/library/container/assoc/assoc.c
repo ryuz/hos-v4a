@@ -19,7 +19,7 @@ void Assoc_Create(C_ASSOC *self)
 }
 
 /* 連想バッファの生成 */
-void Assoc_CreateEx(C_ASSOC *self, const T_MEMIF *pMemIf)
+void Assoc_CreateEx(C_ASSOC *self, C_MEMIF *pMemIf)
 {
 	self->pMemIf = pMemIf;
 	List_CreateEx(&self->List, pMemIf);

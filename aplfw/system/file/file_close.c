@@ -19,7 +19,7 @@ void File_Close(HANDLE hFile)
 	C_FILEOBJ *self;
 	
 	self = FILE_HANDLE2OBJ(hFile);
-
+	
 	DrvObj_vClose(self->pDrvObj, self);
 }
 

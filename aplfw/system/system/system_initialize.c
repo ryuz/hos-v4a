@@ -30,7 +30,7 @@ void System_Initialize(void *pMem, MEMSIZE Size)
 	SysApi_Initialize(pMem, Size);
 	
 	/* システムクラスの初期化 */
-	g_System.hEvtProc  = SysEvt_Create();
+	g_System.hEvtProc  = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
 	g_System.iProcHead = 0;
 	g_System.iProcTail = 0;
 	
