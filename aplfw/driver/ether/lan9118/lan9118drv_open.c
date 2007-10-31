@@ -25,23 +25,23 @@ HANDLE Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	if ( self->iOpenCount == 0 )
 	{
 		/* Ready待ち */
-		if ( !(LAN9118_REG_READ(self, LAN9118_PMT_CTRL) & 0x00000001) )
+		if ( !(Lan9118Drv_RegRead(self, LAN9118_PMT_CTRL) & 0x00000001) )
 		{
 			return HANDLE_NULL;
 		}
 		
 		/* Soft Reset */
-		LAN9118_REG_WRITE(self, LAN9118_HW_CFG, 0x00000001);
-		while ( (LAN9118_REG_READ(self, LAN9118_HW_CFG) & 0x00000001) )
+		Lan9118Drv_RegWrite(self, LAN9118_HW_CFG, 0x00000001);
+		while ( (Lan9118Drv_RegRead(self, LAN9118_HW_CFG) & 0x00000001) )
 		{
 			SysTim_Wait(1);
 		} 
 		
 		/* set LED */
-		LAN9118_REG_WRITE(self, LAN9118_GPIO_CFG, 0x70000000);
+		Lan9118Drv_RegWrite(self, LAN9118_GPIO_CFG, 0x70000000);
 		
 		/* set SF */
-		LAN9118_REG_WRITE(self, LAN9118_HW_CFG, LAN9118_REG_READ(self, LAN9118_HW_CFG) | 0x00100000);
+		Lan9118Drv_RegWrite(self, LAN9118_HW_CFG, Lan9118Drv_RegRead(self, LAN9118_HW_CFG) | 0x00100000);
 		
 		
 		

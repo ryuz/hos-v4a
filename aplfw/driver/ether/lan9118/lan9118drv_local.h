@@ -42,26 +42,24 @@
 #define LAN9118_E2P_DATA		0xb4
 
 
-#define LAN9118_REG_WRITE(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
-#define LAN9118_REG_READ(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-HANDLE    Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      Lan9118Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  Lan9118Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  Lan9118Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE Lan9118Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  Lan9118Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE        Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
+void          Lan9118Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+FILE_ERR      Lan9118Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS      Lan9118Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
+FILE_SIZE     Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
+FILE_SIZE     Lan9118Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
+FILE_ERR      Lan9118Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
-void      Lan9118Drv_Isr(VPARAM Param);			/* 割込み処理 */
+void          Lan9118Drv_Isr(VPARAM Param);			/* 割込み処理 */
 
-void          Lan9118Drv_CsrRegWrite(unsigned short uhAddr, unsigned long ulData);
-unsigned long Lan9118Drv_CsrRegRead(unsigned short uhAddr);
+#define       Lan9118Drv_RegWrite(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
+#define       Lan9118Drv_RegRead(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
+void          Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned short uhAddr, unsigned long ulData);
+unsigned long Lan9118Drv_CsrRegRead(C_LAN9118DRV *self, unsigned short uhAddr);
 
 
 #ifdef __cplusplus

@@ -16,7 +16,6 @@
 void Lan9118Drv_Delete(C_DRVOBJ *pDrvObj)
 {
 	C_LAN9118DRV	*self;
-	void			*pMem;
 	
 	/* upper cast */
 	self = (C_LAN9118DRV *)pDrvObj;
