@@ -16,7 +16,7 @@
 #include "lan9118drv.h"
 
 
-#define LAN9118_ID_REV			0x50		
+#define LAN9118_ID_REV			0x50
 #define LAN9118_IRQ_CFG			0x54
 #define LAN9118_INT_STS			0x58
 #define LAN9118_INT_EN			0x5c
@@ -41,26 +41,43 @@
 #define LAN9118_E2P_CMD			0xb0
 #define LAN9118_E2P_DATA		0xb4
 
+#define LAN9118_CSR_MAC_CR		0x01
+#define LAN9118_CSR_ADDRH		0x02
+#define LAN9118_CSR_ADDRL		0x03
+#define LAN9118_CSR_HASHH		0x04
+#define LAN9118_CSR_HASHL		0x05
+#define LAN9118_CSR_MII_ACC		0x06
+#define LAN9118_CSR_MII_DATA	0x07
+#define LAN9118_CSR_FLOW		0x08
+#define LAN9118_CSR_VLAN1		0x09
+#define LAN9118_CSR_VLAN2		0x0a
+#define LAN9118_CSR_WUFF		0x0b
+#define LAN9118_CSR_WUCSR		0x0c
+
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-HANDLE        Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void          Lan9118Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR      Lan9118Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS      Lan9118Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE     Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE     Lan9118Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR      Lan9118Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE         Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
+void           Lan9118Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+FILE_ERR       Lan9118Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS       Lan9118Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
+FILE_SIZE      Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
+FILE_SIZE      Lan9118Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
+FILE_ERR       Lan9118Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
-void          Lan9118Drv_Isr(VPARAM Param);			/* 割込み処理 */
+void           Lan9118Drv_Isr(VPARAM Param);			/* 割込み処理 */
 
-#define       Lan9118Drv_RegWrite(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
-#define       Lan9118Drv_RegRead(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
-void          Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned char ubAddr, unsigned long ulData);
-unsigned long Lan9118Drv_CsrRegRead(C_LAN9118DRV *self, unsigned char ubAddr);
-void          Lan9118Drv_GetMacAddress(C_LAN9118DRV *self, unsigned char ubAddr[6]);	/* MACアドレス取得 */
+#define        Lan9118Drv_RegWrite(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
+#define        Lan9118Drv_RegRead(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
+void           Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned char ubAddr, unsigned long uwData);
+unsigned long  Lan9118Drv_CsrRegRead(C_LAN9118DRV *self, unsigned char ubAddr);
+void           Lan9118Drv_PhyRegWrite(C_LAN9118DRV *self, unsigned char ubAddr, unsigned short uhData);
+unsigned short Lan9118Drv_PhyRegRead(C_LAN9118DRV *self, unsigned char ubAddr);
+
+void           Lan9118Drv_GetMacAddress(C_LAN9118DRV *self, unsigned char ubAddr[6]);		/* MACアドレス取得 */
 
 #ifdef __cplusplus
 }
