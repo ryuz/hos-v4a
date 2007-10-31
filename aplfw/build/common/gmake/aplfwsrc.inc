@@ -19,7 +19,9 @@ INC_DIRS += $(APLFW_DIR)
 SYSTEM_DIR     = $(APLFW_DIR)/system/system
 SRC_DIRS      += $(SYSTEM_DIR)
 CSRCS         += $(SYSTEM_DIR)/system_initialize.c					\
-                 $(SYSTEM_DIR)/system_boot.c
+                 $(SYSTEM_DIR)/system_boot.c						\
+                 $(SYSTEM_DIR)/system_requestproc.c					\
+                 $(SYSTEM_DIR)/system_process.c
 
 
 # System API
@@ -208,6 +210,51 @@ CSRCS         += $(PACKETBUF_DIR)/packetbuf_create.c				\
 #  Device Drivers
 # --------------------------------------------------
 
+# TCP/IP
+TCPIP_DIR      = $(APLFW_DIR)/driver/tcpip/tcpip
+SRC_DIRS      += $(TCPIP_DIR)
+CSRCS         += $(TCPIP_DIR)/tcpip_create.c						\
+                 $(TCPIP_DIR)/tcpip_delete.c						\
+                 $(TCPIP_DIR)/tcpip_open.c							\
+                 $(TCPIP_DIR)/tcpip_clese.c							\
+                 $(TCPIP_DIR)/tcpip_iocontrol.c						\
+                 $(TCPIP_DIR)/tcpip_seek.c							\
+                 $(TCPIP_DIR)/tcpip_read.c							\
+                 $(TCPIP_DIR)/tcpip_write.c							\
+                 $(TCPIP_DIR)/tcpip_flush.c							\
+                 $(TCPIP_DIR)/tcpip_recv.c
+
+
+# IpEther
+IPETHER_DIR    = $(APLFW_DIR)/driver/tcpip/ipether
+SRC_DIRS      += $(IPETHER_DIR)
+CSRCS         += $(IPETHER_DIR)/ipether_create.c					\
+                 $(IPETHER_DIR)/ipether_delete.c					\
+                 $(IPETHER_DIR)/ipether_open.c						\
+                 $(IPETHER_DIR)/ipether_clese.c						\
+                 $(IPETHER_DIR)/ipether_iocontrol.c					\
+                 $(IPETHER_DIR)/ipether_seek.c						\
+                 $(IPETHER_DIR)/ipether_read.c						\
+                 $(IPETHER_DIR)/ipether_write.c						\
+                 $(IPETHER_DIR)/ipether_recv.c						\
+                 $(IPETHER_DIR)/ipether_flush.c						\
+                 $(IPETHER_DIR)/ipether_getmacaddr.c				\
+
+
+# LAN9118
+LAN9118DRV_DIR = $(APLFW_DIR)/driver/ether/lan9118
+SRC_DIRS      += $(LAN9118DRV_DIR)
+CSRCS         += $(LAN9118DRV_DIR)/lan9118drv_create.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_delete.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_open.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_close.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_iocontrol.c			\
+                 $(LAN9118DRV_DIR)/lan9118drv_seek.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_read.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_write.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_flush.c				\
+                 $(LAN9118DRV_DIR)/lan9118drv_isr.c
+
 
 # VT100
 VT100_DIR      = $(APLFW_DIR)/driver/console/vt100
@@ -249,19 +296,19 @@ CSRCS         += $(PC16550_DIR)/pc16550drv_create.c					\
                  $(PC16550_DIR)/pc16550hal_getstatus.c
 
 
-# ARMUART (PL011)
-ARMUART_DIR    = $(APLFW_DIR)/driver/serial/arm
-SRC_DIRS      += $(ARMUART_DIR)
-CSRCS         += $(ARMUART_DIR)/armuartdrv_create.c					\
-                 $(ARMUART_DIR)/armuartdrv_delete.c					\
-                 $(ARMUART_DIR)/armuartdrv_open.c					\
-                 $(ARMUART_DIR)/armuartdrv_close.c					\
-                 $(ARMUART_DIR)/armuartdrv_iocontrol.c				\
-                 $(ARMUART_DIR)/armuartdrv_seek.c					\
-                 $(ARMUART_DIR)/armuartdrv_read.c					\
-                 $(ARMUART_DIR)/armuartdrv_write.c					\
-                 $(ARMUART_DIR)/armuartdrv_flush.c					\
-                 $(ARMUART_DIR)/armuartdrv_isr.c					\
+# AT91USART
+AT91USART_DIR  = $(APLFW_DIR)/driver/serial/at91
+SRC_DIRS      += $(AT91USART_DIR)
+CSRCS         += $(AT91USART_DIR)/at91usartdrv_create.c				\
+                 $(AT91USART_DIR)/at91usartdrv_delete.c				\
+                 $(AT91USART_DIR)/at91usartdrv_open.c				\
+                 $(AT91USART_DIR)/at91usartdrv_close.c				\
+                 $(AT91USART_DIR)/at91usartdrv_iocontrol.c			\
+                 $(AT91USART_DIR)/at91usartdrv_seek.c				\
+                 $(AT91USART_DIR)/at91usartdrv_read.c				\
+                 $(AT91USART_DIR)/at91usartdrv_write.c				\
+                 $(AT91USART_DIR)/at91usartdrv_flush.c				\
+                 $(AT91USART_DIR)/at91usartdrv_isr.c				\
 
 
 
@@ -327,7 +374,6 @@ CSRCS         += $(TIMECMD_DIR)/timecmd_main.c
 ETHERSNOOP_DIR = $(APLFW_DIR)/application/netcmd/ethersnoop
 SRC_DIRS      += $(ETHERSNOOP_DIR)
 CSRCS         += $(ETHERSNOOP_DIR)/ethersnoop_main.c
-
 
 
 # end of file
