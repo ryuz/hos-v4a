@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for MN103S
+#  makefile for H8/300H
 #
 # Copyright (C) 1998-2006 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -10,6 +10,12 @@
 
 # %jp{ターゲット名}
 TARGET ?= hosaplfw
+
+# %jp{ツール定義}
+GCC_SYS  ?= elf
+CMD_CC   ?= h8300-$(GCC_SYS)-gcc
+CMD_ASM  ?= h8300-$(GCC_SYS)-gcc
+CMD_LIBR ?= h8300-$(GCC_SYS)-ar
 
 # %jp{ディレクトリ定義}
 TOP_DIR           = ../../../../..
@@ -50,7 +56,7 @@ clean: makelib_clean
 
 
 # %jp{ch38用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/ch38_d.inc
+include $(KERNEL_MAKINC_DIR)/gcc_def.inc
 
 # %jp{共通設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
@@ -58,7 +64,7 @@ include $(APLFW_MKINK_DIR)/aplfwsrc.inc
 
 
 # %jp{ch38用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/ch38_r.inc
+include $(KERNEL_MAKINC_DIR)/gcc_rul.inc
 
 # %jp{依存関係定義読込み}
 include $(APLFW_MKINK_DIR)/aplfwdep.inc

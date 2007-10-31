@@ -249,18 +249,18 @@ CSRCS         += $(IPETHER_DIR)/ipether_create.c					\
 
 
 # LAN9118
-LAN9118DRV_DIR = $(APLFW_DIR)/driver/ether/lan9118
-SRC_DIRS      += $(LAN9118DRV_DIR)
-CSRCS         += $(LAN9118DRV_DIR)/lan9118drv_create.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_delete.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_open.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_close.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_iocontrol.c			\
-                 $(LAN9118DRV_DIR)/lan9118drv_seek.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_read.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_write.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_flush.c				\
-                 $(LAN9118DRV_DIR)/lan9118drv_isr.c
+LAN9118_DIR    = $(APLFW_DIR)/driver/ether/lan9118
+SRC_DIRS      += $(LAN9118_DIR)
+CSRCS         += $(LAN9118_DIR)/lan9118drv_create.c					\
+                 $(LAN9118_DIR)/lan9118drv_delete.c					\
+                 $(LAN9118_DIR)/lan9118drv_open.c					\
+                 $(LAN9118_DIR)/lan9118drv_close.c					\
+                 $(LAN9118_DIR)/lan9118drv_iocontrol.c				\
+                 $(LAN9118_DIR)/lan9118drv_seek.c					\
+                 $(LAN9118_DIR)/lan9118drv_read.c					\
+                 $(LAN9118_DIR)/lan9118drv_write.c					\
+                 $(LAN9118_DIR)/lan9118drv_flush.c					\
+                 $(LAN9118_DIR)/lan9118drv_isr.c
 
 
 # VT100
@@ -316,6 +316,29 @@ CSRCS         += $(AT91USART_DIR)/at91usartdrv_create.c				\
                  $(AT91USART_DIR)/at91usartdrv_write.c				\
                  $(AT91USART_DIR)/at91usartdrv_flush.c				\
                  $(AT91USART_DIR)/at91usartdrv_isr.c				\
+
+
+# Renesas SCI
+RENESASSCI_DIR = $(APLFW_DIR)/driver/serial/renesas
+SRC_DIRS      += $(RENESASSCI_DIR)
+CSRCS         += $(RENESASSCI_DIR)/scidrv_create.c					\
+                 $(RENESASSCI_DIR)/scidrv_delete.c					\
+                 $(RENESASSCI_DIR)/scidrv_open.c					\
+                 $(RENESASSCI_DIR)/scidrv_close.c					\
+                 $(RENESASSCI_DIR)/scidrv_iocontrol.c				\
+                 $(RENESASSCI_DIR)/scidrv_seek.c					\
+                 $(RENESASSCI_DIR)/scidrv_read.c					\
+                 $(RENESASSCI_DIR)/scidrv_write.c					\
+                 $(RENESASSCI_DIR)/scidrv_flush.c					\
+                 $(RENESASSCI_DIR)/scidrv_isr.c						\
+                 $(RENESASSCI_DIR)/scihal_create.c					\
+                 $(RENESASSCI_DIR)/scihal_delete.c					\
+                 $(RENESASSCI_DIR)/scihal_enableinterrupt.c			\
+                 $(RENESASSCI_DIR)/scihal_recvchar.c				\
+                 $(RENESASSCI_DIR)/scihal_sendchar.c				\
+                 $(RENESASSCI_DIR)/scihal_setspeed.c				\
+                 $(RENESASSCI_DIR)/scihal_setup.c					\
+                 $(RENESASSCI_DIR)/scihal_stop.c					\
 
 
 
