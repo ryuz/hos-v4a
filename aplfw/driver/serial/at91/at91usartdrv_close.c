@@ -26,7 +26,7 @@ void At91UsartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	if ( --self->iOpenCount == 0 )
 	{
 		SysInt_Disable(self->iIntNum);
-		StreamBuf_ClearBuf(&self->StmBufRecv);
+		StreamBuf_Clear(&self->StmBufRecv);
 	}
 	
 	/* ディスクリプタ削除 */

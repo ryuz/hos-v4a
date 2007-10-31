@@ -120,6 +120,7 @@ CSRCS         += $(FILE_DIR)/file_initialize.c						\
                  $(FILE_DIR)/chrdrv_create.c						\
                  $(FILE_DIR)/chrdrv_delete.c						\
                  $(FILE_DIR)/chrfile_create.c						\
+                 $(FILE_DIR)/chrfile_delete.c						\
                  $(FILE_DIR)/sysvol_create.c						\
                  $(FILE_DIR)/sysvol_delete.c						\
                  $(FILE_DIR)/sysvol_open.c							\
@@ -204,6 +205,12 @@ CSRCS         += $(PACKETBUF_DIR)/packetbuf_create.c				\
                  $(PACKETBUF_DIR)/packetbuf_recvdata.c				\
                  $(PACKETBUF_DIR)/packetbuf_clear.c
 
+
+# IP check-sum
+IPCHECKSUM_DIR = $(APLFW_DIR)/library/algorithm/ipchecksum
+SRC_DIRS      += $(IPCHECKSUM_DIR)
+CSRCS         += $(IPCHECKSUM_DIR)/ipchecksum_getdigest.c			\
+                 $(IPCHECKSUM_DIR)/ipchecksum_update.c				\
 
 
 # --------------------------------------------------
