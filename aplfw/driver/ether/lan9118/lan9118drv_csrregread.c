@@ -12,8 +12,8 @@
 #include "lan9118drv_local.h"
 
 
-/* write SCR register */
-void Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned char ubAddr, unsigned long ulData)
+/* read SCR register */
+unsigned long Lan9118Drv_CsrRegRead(C_LAN9118DRV *self, unsigned char ubAddr)
 {
 	volatile unsigned long ulDummy;
 	
@@ -23,15 +23,23 @@ void Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned char ubAddr, unsigned l
 	/* busy check */
 	if ( Lan9118Drv_RegRead(self, LAN9118_MAC_CSR_CMD) & 0x80000000 )
 	{
-		return;
+		return 0;
 	}
 	
-	/* write */
-	Lan9118Drv_CsrRegWrite(self, LAN9118_MAC_CSR_DATA, ulData);
-	Lan9118Drv_CsrRegWrite(self, LAN9118_MAC_CSR_CMD,  ubAddr | 0x80000000);
-		
+	/* read command */
+	Lan9118Drv_CsrRegWrite(self, LAN9118_MAC_CSR_CMD,  ubAddr | 0xc0000000);
+
 	/* dummy read (wait) */
 	ulDummy = Lan9118Drv_RegRead(self, LAN9118_BYTE_TEST);
+
+	/* busy check */
+	if ( Lan9118Drv_RegRead(self, LAN9118_MAC_CSR_CMD) & 0x80000000 )
+	{
+		return 0;
+	}
+
+	/* read */	
+	return Lan9118Drv_RegRead(self, LAN9118_MAC_CSR_DATA);
 }
 
 

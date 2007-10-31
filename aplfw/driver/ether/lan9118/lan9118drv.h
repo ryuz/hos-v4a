@@ -26,10 +26,14 @@ typedef struct c_lan9118drv
 	int				iIntNum;		/* 割込み番号 */
 	
 	int				iOpenCount;		/* オープンカウンタ */
+	
 	SYSEVT_HANDLE	hEvtSend;		/* 送信イベント */
 	SYSEVT_HANDLE	hEvtRecv;		/* 受信イベント */
 	SYSMTX_HANDLE	hMtxSend;		/* 送信排他制御ミューテックス */
 	SYSMTX_HANDLE	hMtxRecv;		/* 受信排他制御ミューテックス */
+	
+	unsigned char	ubMacAddr[6];	/* MACアドレス */
+	
 } C_LAN9118DRV;
 
 

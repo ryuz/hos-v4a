@@ -58,9 +58,9 @@ void          Lan9118Drv_Isr(VPARAM Param);			/* 割込み処理 */
 
 #define       Lan9118Drv_RegWrite(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
 #define       Lan9118Drv_RegRead(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
-void          Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned short uhAddr, unsigned long ulData);
-unsigned long Lan9118Drv_CsrRegRead(C_LAN9118DRV *self, unsigned short uhAddr);
-
+void          Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned char ubAddr, unsigned long ulData);
+unsigned long Lan9118Drv_CsrRegRead(C_LAN9118DRV *self, unsigned char ubAddr);
+void          Lan9118Drv_GetMacAddress(C_LAN9118DRV *self, unsigned char ubAddr[6]);	/* MACアドレス取得 */
 
 #ifdef __cplusplus
 }
