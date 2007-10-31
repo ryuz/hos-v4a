@@ -79,6 +79,10 @@ CSRCS += ../kernel_cfg.c	\
 LIBS  +=
 
 
+# %jp{リンク制御対象制御}
+LINK_RENESASSCI = Yes
+
+
 
 # --------------------------------------
 #  %jp{ルール}

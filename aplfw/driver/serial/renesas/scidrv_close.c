@@ -25,7 +25,7 @@ FILE_ERR SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	{
 		SciHal_EnableInterrupt(&self->SciHal, 0);
 		SciHal_Stop(&self->SciHal);
-		StreamBuf_ClearBuf(&self->StmBufRecv);
+		StreamBuf_Clear(&self->StmBufRecv);
 	}
 	
 	/* ディスクリプタ削除 */

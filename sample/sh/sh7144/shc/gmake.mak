@@ -85,6 +85,10 @@ CSRCS += ./dbsct.c			\
 LIBS  += $(STD_LIBS)
 
 
+# %jp{リンク制御対象制御}
+LINK_RENESASSCI = Yes
+
+
 
 # --------------------------------------
 #  %jp{ルール}%en{rule}
