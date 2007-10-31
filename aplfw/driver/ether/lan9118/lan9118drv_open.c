@@ -44,7 +44,7 @@ HANDLE Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		Lan9118Drv_RegWrite(self, LAN9118_HW_CFG, Lan9118Drv_RegRead(self, LAN9118_HW_CFG) | 0x00100000);
 		
 		/* MAC取得 */
-		Lan9118Drv_GetMacAddress(self, self->);
+		Lan9118Drv_GetMacAddress(self, self->ubMacAddr);
 		
 		
 		SysInt_Enable(self->iIntNum);
