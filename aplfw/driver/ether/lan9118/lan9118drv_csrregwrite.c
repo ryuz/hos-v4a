@@ -27,8 +27,8 @@ void Lan9118Drv_CsrRegWrite(C_LAN9118DRV *self, unsigned char ubAddr, unsigned l
 	}
 	
 	/* write */
-	Lan9118Drv_CsrRegWrite(self, LAN9118_MAC_CSR_DATA, ulData);
-	Lan9118Drv_CsrRegWrite(self, LAN9118_MAC_CSR_CMD,  ubAddr | 0x80000000);
+	Lan9118Drv_RegWrite(self, LAN9118_MAC_CSR_DATA, ulData);
+	Lan9118Drv_RegWrite(self, LAN9118_MAC_CSR_CMD,  ubAddr | 0x80000000);
 		
 	/* dummy read (wait) */
 	ulDummy = Lan9118Drv_RegRead(self, LAN9118_BYTE_TEST);
