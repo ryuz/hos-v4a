@@ -29,10 +29,10 @@ typedef int		ARRAY_INDEX;
 /* ストリームバッファクラス */
 typedef struct c_array
 {
-	const T_MEMIF *pMemIf;		/* 利用するメモリI/F */
-	void          **ppArray;	/* データ配列 */
-	ARRAY_INDEX   ArraySize;	/* 配列サイズ */
-	ARRAY_INDEX   Size;			/* 配列要素のサイズ */
+	C_MEMIF		*pMemIf;	/* 利用するメモリI/F */
+	void		**ppArray;	/* データ配列 */
+	ARRAY_INDEX	ArraySize;	/* 配列サイズ */
+	ARRAY_INDEX	Size;		/* 配列要素のサイズ */
 } C_ARRAY;
 
 
@@ -42,7 +42,7 @@ extern "C" {
 
 /* 生成／削除 */
 void        Array_Create(C_ARRAY *self);													/* 配列クラスの生成 */
-void        Array_CreateEx(C_ARRAY *self, const T_MEMIF *pMemIf);							/* 配列クラスの生成 */
+void        Array_CreateEx(C_ARRAY *self, C_MEMIF *pMemIf);							/* 配列クラスの生成 */
 void        Array_Delete(C_ARRAY *self);													/* 配列クラスの削除 */
 
 /* 操作 */

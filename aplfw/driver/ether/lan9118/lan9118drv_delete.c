@@ -26,11 +26,6 @@ void Lan9118Drv_Delete(C_DRVOBJ *pDrvObj)
 	SysEvt_Delete(self->hEvtSend);
 	SysMtx_Delete(self->hMtxRecv);
 	SysMtx_Delete(self->hMtxSend);
-
-	/* バッファ削除 */
-	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);
-	StreamBuf_Delete(&self->StmBuf);
-	SysMem_Free(pMem);
 }
 
 
