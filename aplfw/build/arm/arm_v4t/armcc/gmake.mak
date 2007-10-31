@@ -34,6 +34,9 @@ CFLAGS += --cpu=4T --apcs=inter --thumb
 LFLAGS += 
 
 
+# %jp{リンク制御対象制御}
+LINK_AT91USART = Yes
+
 
 all: makelib_all
 
