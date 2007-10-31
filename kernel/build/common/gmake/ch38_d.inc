@@ -60,7 +60,7 @@ CFLAGS_OPT_SPEED = -OP=1
 AFLAGS += -NOLOGO
 
 # %jp{インクルードパスオプションの定義}
-AFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(A_INC)))
+AFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
 
 # %jp{マクロ定義オプションの定義}
 AFLAGS_DEF = 
