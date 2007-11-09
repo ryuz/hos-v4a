@@ -1,19 +1,21 @@
 # Microsoft Developer Studio Project File - Name="test_que" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** •ÿÿW‚ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ**
+# ** •ÒW‚µ‚È‚¢‚Å‚­‚¾‚³‚¢ **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=test_que - Win32 Debug
-!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”ÿÿÿÿÿÿÿÿÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–•ÿÿÿÿÿÿÿâÅŸÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
-!MESSAGE [™ÿÿÿÿQÿÿ–ÿÿÿÿÿÿÿÿ ÿÿcÿÿðŽg—p‚ÿÿÄŽÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
+!MESSAGE ‚±‚ê‚Í—LŒø‚ÈÒ²¸Ì§²Ù‚Å‚Í‚ ‚è‚Ü‚¹‚ñB ‚±‚ÌÌßÛ¼Þª¸Ä‚ðËÞÙÄÞ‚·‚é‚½‚ß‚É‚Í NMAKE ‚ðŽg—p‚µ‚Ä‚­‚¾‚³‚¢B
+!MESSAGE [Ò²¸Ì§²Ù‚Ì´¸½Îß°Ä] ºÏÝÄÞ‚ðŽg—p‚µ‚ÄŽÀs‚µ‚Ä‚­‚¾‚³‚¢
+!MESSAGE 
 !MESSAGE NMAKE /f "test_que.mak".
 !MESSAGE 
-!MESSAGE NMAKE ‚ÌŽÿÿsŽž‚ÿÿ\ÿÿðŽw’ÿÿÿÿÿÿÿÿÿÿ!MESSAGE ÿÿcÿÿœQÿÿÿÿ“nŒÿÿÿÿÿÿÿÿÿÿÿÿ`‚ÿÿÿÿÿÿB—ÿÿ
+!MESSAGE NMAKE ‚ÌŽÀsŽž‚É\¬‚ðŽw’è‚Å‚«‚Ü‚·
+!MESSAGE ºÏÝÄÞ ×²Ýã‚ÅÏ¸Û‚ÌÝ’è‚ð’è‹`‚µ‚Ü‚·B—á:
 !MESSAGE 
 !MESSAGE NMAKE /f "test_que.mak" CFG="test_que - Win32 Debug"
 !MESSAGE 
-!MESSAGE ‘I‘ÿÿÿÿ\‚”ÿÿÿÿÿÿšO’ÿÿ
+!MESSAGE ‘I‘ð‰Â”\‚ÈËÞÙÄÞ Ó°ÄÞ:
 !MESSAGE 
 !MESSAGE "test_que - Win32 Release" ("Win32 (x86) Console Application" —p)
 !MESSAGE "test_que - Win32 Debug" ("Win32 (x86) Console Application" —p)
