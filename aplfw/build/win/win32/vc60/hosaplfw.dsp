@@ -86,18 +86,6 @@ LIB32=link.exe -lib
 # Begin Group "container"
 
 # PROP Default_Filter ""
-# Begin Group "stmbuf"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\library\container\stmbuf\stmbuf.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\library\container\stmbuf\stmbuf.h
-# End Source File
-# End Group
 # Begin Group "mempol"
 
 # PROP Default_Filter ""
@@ -188,6 +176,66 @@ SOURCE=..\..\..\..\library\container\array\array_add.c
 # Begin Source File
 
 SOURCE=..\..\..\..\library\container\array\array_setsize.c
+# End Source File
+# End Group
+# Begin Group "streambuf"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_clear.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_getbuf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_recvbuf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_recvchar.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_recvdata.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_refdatasize.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_reffreesize.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_relbuf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_sendbuf.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_sendchar.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\container\streambuf\streambuf_senddata.c
 # End Source File
 # End Group
 # End Group
@@ -532,11 +580,47 @@ SOURCE=..\..\..\..\system\file\chrdrv.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\chrdrv_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrdrv_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrdrv_iocontrol.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\chrdrv_local.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\chrdrv_setreadsignal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrdrv_setwritesignal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrdrv_waitreadsignal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrdrv_waitwritesignal.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\chrfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrfile_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\chrfile_delete.c
 # End Source File
 # Begin Source File
 
@@ -548,11 +632,7 @@ SOURCE=..\..\..\..\system\file\console_getch.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\consoleobj.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\drvobj.h
+SOURCE=..\..\..\..\system\file\drvobj_close.c
 # End Source File
 # Begin Source File
 
@@ -564,7 +644,31 @@ SOURCE=..\..\..\..\system\file\drvobj_delete.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\drvobj_flush.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_iocontrol.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\drvobj_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_open.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_read.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_seek.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\drvobj_write.c
 # End Source File
 # Begin Source File
 
@@ -577,6 +681,10 @@ SOURCE=..\..\..\..\system\file\file_adddevice.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\file_addvolume.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_close.c
 # End Source File
 # Begin Source File
 
@@ -616,6 +724,10 @@ SOURCE=..\..\..\..\system\file\file_read.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\file_readdir.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\file_seek.c
 # End Source File
 # Begin Source File
@@ -640,6 +752,10 @@ SOURCE=..\..\..\..\system\file\fileobj_delete.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\fileobj_local.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\stdfile.c
 # End Source File
 # Begin Source File
@@ -648,11 +764,39 @@ SOURCE=..\..\..\..\system\file\stdfile.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\volume.h
+SOURCE=..\..\..\..\system\file\sysvol.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\volume_openfile.c
+SOURCE=..\..\..\..\system\file\sysvol_adddevice.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvol_close.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvol_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvol_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvol_iocontrol.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvol_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvol_open.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volume.h
 # End Source File
 # Begin Source File
 
@@ -661,6 +805,14 @@ SOURCE=..\..\..\..\system\file\volumeobj.h
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\volumeobj_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volumeobj_makedir.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volumeobj_remove.c
 # End Source File
 # End Group
 # Begin Group "memory"
@@ -756,82 +908,6 @@ SOURCE=..\..\..\..\system\system\system_initialize.c
 # End Source File
 # End Group
 # End Group
-# Begin Group "apl"
-
-# PROP Default_Filter ""
-# Begin Group "util"
-
-# PROP Default_Filter ""
-# Begin Group "memdump"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\apl\util\memdump\memdump.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\apl\util\memdump\memdump_main.c
-# End Source File
-# End Group
-# End Group
-# Begin Group "hello"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\apl\hello\hello.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\apl\hello\hello.h
-# End Source File
-# End Group
-# End Group
-# Begin Group "volume"
-
-# PROP Default_Filter ""
-# Begin Group "dev"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\dev\devvol.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\dev\devvol_adddevice.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\dev\devvol_create.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\dev\devvol_delete.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\dev\devvol_local.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\volume\dev\devvol_openfile.c
-# End Source File
-# End Group
-# Begin Group "fat"
-
-# PROP Default_Filter ""
-# End Group
-# End Group
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_create.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrfile_create.c
-# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\hosaplfw.h

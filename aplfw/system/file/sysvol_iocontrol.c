@@ -9,7 +9,7 @@
  */
 
 
-
+#include <string.h>
 #include "sysvol_local.h"
 #include "system/sysapi/sysapi.h"
 

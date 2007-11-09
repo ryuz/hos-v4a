@@ -17,7 +17,7 @@
 #include <winsock2.h>
 #include "system/file/drvobj.h"
 #include "system/sysapi/sysapi.h"
-#include "library/container/stmbuf/stmbuf.h"
+#include "library/container/streambuf/streambuf.h"
 
 
 /* WinSock用ドライバ制御部 */

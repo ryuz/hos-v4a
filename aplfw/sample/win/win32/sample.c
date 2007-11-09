@@ -24,7 +24,7 @@
 #include "system/shell/shell.h"
 #include "driver/serial/winsock/winsockfile.h"
 #include "driver/console/vt100/vt100drv.h"
-#include "apl/hello/hello.h"
+#include "application/example/hello/hello.h"
 
 
 long         g_SystemHeap[8 * 1024 / sizeof(long)];
