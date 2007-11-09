@@ -48,7 +48,7 @@ typedef struct c_tcpip
 
 	unsigned char		ubMyIpAddr[4];
 
-//	unsigned char		ubSendBuf[IPETHER_MAXPACKET_SIZE];
+/*	unsigned char		ubSendBuf[IPETHER_MAXPACKET_SIZE];	*/
 	unsigned char		ubRecvBuf[2048];
 	unsigned char		ubSendBuf[2048];
 } C_TCPIP;

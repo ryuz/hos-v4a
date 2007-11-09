@@ -13,9 +13,8 @@
 #include "system/sysapi/sysapi.h"
 
 
-FILE_ERR  Vt100Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void Vt100Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
-	return FILE_ERR_OK;
 }
 
 

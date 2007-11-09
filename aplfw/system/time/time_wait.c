@@ -2,7 +2,7 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  time.h
- * @brief %jp{サ込理APIトチ}
+ * @brief %jp{時刻管理API定義}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -13,7 +13,7 @@
 #include "system/sysapi/sysapi.h"
 
 
-/* ー込*/
+/* 一定時刻待つ */
 void Time_Wait(TIME_SYSTEM Millisecond)
 {
 	SysTim_Wait(Millisecond);

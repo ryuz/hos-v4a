@@ -50,8 +50,8 @@ int FileList_Main(int argc, char *argv[])
 	if ( iFlagL )
 	{
 		/* 詳細表示 */
-		StdIo_PutString("filename   size      attr\n");
-		StdIo_PutString("----------+--------+------\n");
+		StdIo_PutString("filename        size      attr\n");
+		StdIo_PutString("------------+-----------+------\n");
 	}
 	
 	/* ディレクトリを読み出す */	
@@ -59,7 +59,7 @@ int FileList_Main(int argc, char *argv[])
 	{
 		if ( iFlagL )
 		{
-			StdIo_PrintFormat("%-10s %8ld ", FileInf.szFileName, (long)FileInf.FileSize);
+			StdIo_PrintFormat("%-12s%12ld ", FileInf.szFileName, (long)FileInf.FileSize);
 			if ( FileInf.Attribute & FILE_ATTR_READONLY )	{ StdIo_PutChar('r'); } else { StdIo_PutChar('-'); }
 			if ( FileInf.Attribute & FILE_ATTR_SYSTEM )		{ StdIo_PutChar('s'); } else { StdIo_PutChar('-'); }
 			if ( FileInf.Attribute & FILE_ATTR_HIDDEN )		{ StdIo_PutChar('h'); } else { StdIo_PutChar('-'); }

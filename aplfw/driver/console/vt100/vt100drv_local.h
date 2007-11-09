@@ -15,7 +15,7 @@ extern "C" {
 #endif
 
 HANDLE    Vt100Drv_Open(struct c_drvobj *self, const char *pszPath, int iMode);
-FILE_ERR  Vt100Drv_Close(struct c_drvobj *self, C_FILEOBJ *pFileObj);
+void      Vt100Drv_Close(struct c_drvobj *self, C_FILEOBJ *pFileObj);
 FILE_ERR  Vt100Drv_IoControl(struct c_drvobj *self, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 FILE_POS  Vt100Drv_Seek(struct c_drvobj *self, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
 FILE_SIZE Vt100Drv_Read(struct c_drvobj *self, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);

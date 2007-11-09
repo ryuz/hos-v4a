@@ -13,7 +13,7 @@
 
 
 /** クローズ */
-FILE_ERR SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_SCIDRV	*self;
 	
@@ -30,8 +30,6 @@ FILE_ERR SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	
 	/* ディスクリプタ削除 */
 	SysMem_Free(pFileObj);
-	
-	return FILE_ERR_OK;
 }
 
 

@@ -5,15 +5,15 @@
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
 CFG=hosv4a - Win32 Debug
-!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”Ð‰¶–¥‰×‚ÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–ÊàzŽÜ…¶ÿÿèÉŸ×’Ü‚ÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
-!MESSAGE [™°ŒÊ„Qÿÿ–²Œ»—ÝˆÂ] ÍŸcÿÿðŽg—p‚ÿÿÄŽÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
+!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”ÿÿÿÿÿÿÿÿÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–•ÞzÜ…ÿÿÿäÇŸÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
+!MESSAGE [™ÿÿÿÿQÿÿ–ÿÿÿÿÿÿÿÿ ÿÿcÿÿðŽg—p‚ÿÿÄŽÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
 !MESSAGE NMAKE /f "hosv4a.mak".
 !MESSAGE 
-!MESSAGE NMAKE ‚ÌŽÿÿsŽž‚ÿÿ\ÿÿðŽw’ÿÿÿÿÿÿÿÿÿÿ!MESSAGE ÍŸcÿÿœQÿÿÿÿ“nŒÙ‚ÿÿÿÿÿÿÿÿÿÿ`‚ÿÿÿÿÿÿB—ÿÿ
+!MESSAGE NMAKE ‚ÌŽÿÿsŽž‚ÿÿ\ÿÿðŽw’ÿÿÿÿÿÿÿÿÿÿ!MESSAGE ÿÿcÿÿœQÿÿÿÿ“nŒÿÿÿÿÿÿÿÿÿÿÿÿ`‚ÿÿÿÿÿÿB—ÿÿ
 !MESSAGE 
 !MESSAGE NMAKE /f "hosv4a.mak" CFG="hosv4a - Win32 Debug"
 !MESSAGE 
-!MESSAGE ‘I‘ÿÿÿÿ\‚”ÉŸ×’Ü šO’Ü:
+!MESSAGE ‘I‘ÿÿÿÿ\‚”ÿÿÿÿÿÿšO’ÿÿ
 !MESSAGE 
 !MESSAGE "hosv4a - Win32 Release" ("Win32 (x86) Static Library" —p)
 !MESSAGE "hosv4a - Win32 Debug" ("Win32 (x86) Static Library" —p)

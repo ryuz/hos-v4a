@@ -18,6 +18,7 @@ LINK_SYSAPI      ?= Yes
 LINK_HANDLE      ?= Yes
 LINK_MEMORY      ?= Yes
 LINK_TIME        ?= Yes
+LINK_EVENT       ?= Yes
 LINK_PROCESS     ?= Yes
 LINK_FILE        ?= Yes
 LINK_COMMAND     ?= Yes
@@ -32,7 +33,6 @@ LINK_PACKETBUF   ?= Yes
 LINK_IPCHECKSUM  ?= Yes
 LINK_CRC16       ?= Yes
 
-
 # Device drivers
 LINK_VT100       ?= Yes
 LINK_TCPIP       ?= Yes
@@ -43,6 +43,7 @@ LINK_LAN9118     ?= Yes
 LINK_PC16550     ?= Yes
 LINK_AT91USART   ?= No
 LINK_RENESASSCI  ?= No
+LINK_FATVOL      ?= Yes
 
 # Applications
 LINK_MEMDUMP     ?= Yes
@@ -116,6 +117,7 @@ CSRCS += $(SYSAPI_DIR)/sysprc_getcurrenthandle.c
 CSRCS += $(SYSAPI_DIR)/sysprc_start.c
 CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
 CSRCS += $(SYSAPI_DIR)/systim_wait.c
+CSRCS += $(SYSAPI_DIR)/sysctx_isisr.c
 endif
 
 
@@ -155,6 +157,17 @@ CSRCS += $(PROCESS_DIR)/procobj.c
 endif
 
 
+# Event
+ifeq ($(LINK_EVENT),Yes)
+EVENT_DIR = $(APLFW_DIR)/system/event
+SRC_DIRS += $(EVENT_DIR)
+CSRCS += $(EVENT_DIR)/event_create.c
+CSRCS += $(EVENT_DIR)/event_delete.c
+CSRCS += $(EVENT_DIR)/event_set.c
+CSRCS += $(EVENT_DIR)/event_wait.c
+endif
+
+
 # File
 ifeq ($(LINK_FILE),Yes)
 FILE_DIR = $(APLFW_DIR)/system/file
@@ -162,44 +175,49 @@ SRC_DIRS += $(FILE_DIR)
 CSRCS += $(FILE_DIR)/file_initialize.c
 CSRCS += $(FILE_DIR)/file_open.c
 CSRCS += $(FILE_DIR)/file_close.c
-CSRCS += (FILE_DIR)/file_iocontrol.c
-CSRCS += (FILE_DIR)/file_seek.c
-CSRCS += (FILE_DIR)/file_read.c
-CSRCS += (FILE_DIR)/file_write.c
-CSRCS += (FILE_DIR)/file_readdir.c
-CSRCS += (FILE_DIR)/file_getchar.c
-CSRCS += (FILE_DIR)/file_getstring.c
-CSRCS += (FILE_DIR)/file_putchar.c
-CSRCS += (FILE_DIR)/file_putstring.c
-CSRCS += (FILE_DIR)/file_adddevice.c
-CSRCS += (FILE_DIR)/file_addvolume.c
-CSRCS += (FILE_DIR)/drvobj_create.c
-CSRCS += (FILE_DIR)/drvobj_delete.c
-CSRCS += (FILE_DIR)/drvobj_open.c
-CSRCS += (FILE_DIR)/drvobj_close.c
-CSRCS += (FILE_DIR)/drvobj_iocontrol.c
-CSRCS += (FILE_DIR)/drvobj_seek.c
-CSRCS += (FILE_DIR)/drvobj_read.c
-CSRCS += (FILE_DIR)/drvobj_write.c
-CSRCS += (FILE_DIR)/drvobj_flush.c
-CSRCS += (FILE_DIR)/fileobj_create.c
-CSRCS += (FILE_DIR)/fileobj_delete.c
-CSRCS += (FILE_DIR)/volumeobj_create.c
-CSRCS += (FILE_DIR)/volumeobj_makedir.c
-CSRCS += (FILE_DIR)/volumeobj_remove.c
-CSRCS += (FILE_DIR)/chrdrv_create.c
-CSRCS += (FILE_DIR)/chrdrv_delete.c
-CSRCS += (FILE_DIR)/chrfile_create.c
-CSRCS += (FILE_DIR)/chrfile_delete.c
-CSRCS += (FILE_DIR)/sysvol_create.c
-CSRCS += (FILE_DIR)/sysvol_delete.c
-CSRCS += (FILE_DIR)/sysvol_open.c
-CSRCS += (FILE_DIR)/sysvol_close.c
-CSRCS += (FILE_DIR)/sysvol_iocontrol.c
-CSRCS += (FILE_DIR)/sysvol_adddevice.c
-CSRCS += (FILE_DIR)/console_getch.c
-CSRCS += (FILE_DIR)/filefmt.c
-CSRCS += (FILE_DIR)/stdfile.c
+CSRCS += $(FILE_DIR)/file_iocontrol.c
+CSRCS += $(FILE_DIR)/file_seek.c
+CSRCS += $(FILE_DIR)/file_read.c
+CSRCS += $(FILE_DIR)/file_write.c
+CSRCS += $(FILE_DIR)/file_readdir.c
+CSRCS += $(FILE_DIR)/file_getchar.c
+CSRCS += $(FILE_DIR)/file_getstring.c
+CSRCS += $(FILE_DIR)/file_putchar.c
+CSRCS += $(FILE_DIR)/file_putstring.c
+CSRCS += $(FILE_DIR)/file_adddevice.c
+CSRCS += $(FILE_DIR)/file_addvolume.c
+CSRCS += $(FILE_DIR)/drvobj_create.c
+CSRCS += $(FILE_DIR)/drvobj_delete.c
+CSRCS += $(FILE_DIR)/drvobj_open.c
+CSRCS += $(FILE_DIR)/drvobj_close.c
+CSRCS += $(FILE_DIR)/drvobj_iocontrol.c
+CSRCS += $(FILE_DIR)/drvobj_seek.c
+CSRCS += $(FILE_DIR)/drvobj_read.c
+CSRCS += $(FILE_DIR)/drvobj_write.c
+CSRCS += $(FILE_DIR)/drvobj_flush.c
+CSRCS += $(FILE_DIR)/fileobj_create.c
+CSRCS += $(FILE_DIR)/fileobj_delete.c
+CSRCS += $(FILE_DIR)/volumeobj_create.c
+CSRCS += $(FILE_DIR)/volumeobj_makedir.c
+CSRCS += $(FILE_DIR)/volumeobj_remove.c
+CSRCS += $(FILE_DIR)/chrdrv_create.c
+CSRCS += $(FILE_DIR)/chrdrv_delete.c
+CSRCS += $(FILE_DIR)/chrdrv_iocontrol.c
+CSRCS += $(FILE_DIR)/chrdrv_setreadsignal.c
+CSRCS += $(FILE_DIR)/chrdrv_setwritesignal.c
+CSRCS += $(FILE_DIR)/chrdrv_waitreadsignal.c
+CSRCS += $(FILE_DIR)/chrdrv_waitwritesignal.c
+CSRCS += $(FILE_DIR)/chrfile_create.c
+CSRCS += $(FILE_DIR)/chrfile_delete.c
+CSRCS += $(FILE_DIR)/sysvol_create.c
+CSRCS += $(FILE_DIR)/sysvol_delete.c
+CSRCS += $(FILE_DIR)/sysvol_open.c
+CSRCS += $(FILE_DIR)/sysvol_close.c
+CSRCS += $(FILE_DIR)/sysvol_iocontrol.c
+CSRCS += $(FILE_DIR)/sysvol_adddevice.c
+CSRCS += $(FILE_DIR)/console_getch.c
+CSRCS += $(FILE_DIR)/filefmt.c
+CSRCS += $(FILE_DIR)/stdfile.c
 endif
 
 
@@ -489,6 +507,36 @@ CSRCS += $(RENESASSCI_DIR)/scihal_sendchar.c
 CSRCS += $(RENESASSCI_DIR)/scihal_setspeed.c
 CSRCS += $(RENESASSCI_DIR)/scihal_setup.c
 CSRCS += $(RENESASSCI_DIR)/scihal_stop.c
+endif
+
+
+# FAT volume
+ifeq ($(LINK_FATVOL),Yes)
+FATVOL_DIR = $(APLFW_DIR)/driver/volume/fat
+SRC_DIRS += $(FATVOL_DIR)
+CSRCS += $(FATVOL_DIR)/fatvol_create.c
+CSRCS += $(FATVOL_DIR)/fatvol_delete.c
+CSRCS += $(FATVOL_DIR)/fatvol_open.c
+CSRCS += $(FATVOL_DIR)/fatvol_close.c
+CSRCS += $(FATVOL_DIR)/fatvol_iocontrol.c
+CSRCS += $(FATVOL_DIR)/fatvol_seek.c
+CSRCS += $(FATVOL_DIR)/fatvol_read.c
+CSRCS += $(FATVOL_DIR)/fatvol_write.c
+CSRCS += $(FATVOL_DIR)/fatvol_flush.c
+CSRCS += $(FATVOL_DIR)/fatvol_makedir.c
+CSRCS += $(FATVOL_DIR)/fatvol_remove.c
+CSRCS += $(FATVOL_DIR)/fatvol_clusterread.c
+CSRCS += $(FATVOL_DIR)/fatvol_clusterwrite.c
+CSRCS += $(FATVOL_DIR)/fatvol_filecreate.c
+CSRCS += $(FATVOL_DIR)/fatvol_filedelete.c
+CSRCS += $(FATVOL_DIR)/fatvol_flushclusterbuf.c
+CSRCS += $(FATVOL_DIR)/fatvol_flushfat.c
+CSRCS += $(FATVOL_DIR)/fatvol_getclusterbuf.c
+CSRCS += $(FATVOL_DIR)/fatvol_relclusterbuf.c
+CSRCS += $(FATVOL_DIR)/fatvol_getnewcluster.c
+CSRCS += $(FATVOL_DIR)/fatvol_getnextcluster.c
+CSRCS += $(FATVOL_DIR)/fatvol_setnextcluster.c
+CSRCS += $(FATVOL_DIR)/fatvol_syncfilesize.c
 endif
 
 

@@ -2,7 +2,7 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  time.h
- * @brief %jp{サ込理APIトチ}
+ * @brief %jp{サ轆玄忙Iトチ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -13,7 +13,7 @@
 #define __HOS__time_h__
 
 
-/* ・キ・ケ・ニ・狃込*/
+/* ・キ・ケ・ニ・狃轆サ/
 typedef long		TIME_SYSTEM;
 
 #ifdef __cplusplus

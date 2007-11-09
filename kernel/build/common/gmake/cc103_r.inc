@@ -6,6 +6,11 @@
 # ----------------------------------------------------------------------------
 
 
+# %jp{実行ファイル生成}%en{Executable file}
+$(TARGET_EXE): $(OBJS) $(LIBS)
+	$(CMD_LINK) $(LNFLAGS) -o $(TARGET_EXE) $(OBJS) $(patsubst %,-l%,$(LIBS)) $(patsubst %,-l%,$(STD_LIBS))
+
+
 # %jp{ライブラリ生成}
 $(TARGET_LIB): $(OBJS)
 	$(CMD_RM) -f $(TARGET_LIB)

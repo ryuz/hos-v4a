@@ -15,7 +15,7 @@
 
 #include "system/sysapi/sysapi.h"
 #include "system/file/chrdrv.h"
-#include "library/container/streambuf/streambuf.h"
+#include "library/container/stmbuf/stmbuf.h"
 
 
 /* UARTドライバ制御部 */

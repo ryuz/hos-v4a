@@ -5,7 +5,7 @@
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=test_que - Win32 Debug
-!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”ÿÿÿÿÿÿÿÿÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–•ÞzÜ…ÿÿÿäÇŸÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
+!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”ÿÿÿÿÿÿÿÿÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–•ÿÿÿÿÿÿÿâÅŸÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
 !MESSAGE [™ÿÿÿÿQÿÿ–ÿÿÿÿÿÿÿÿ ÿÿcÿÿðŽg—p‚ÿÿÄŽÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
 !MESSAGE NMAKE /f "test_que.mak".
 !MESSAGE 

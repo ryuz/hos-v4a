@@ -36,7 +36,6 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 		pAddr   = (const T_TCPIP_ADDRESS *)pData;
 		pubData = (const unsigned char *)pData + sizeof(T_TCPIP_ADDRESS);
 		
-	//	iSendSize = 
 		
 		SysMtx_Lock(self->hMtxSend);
 		
@@ -74,7 +73,7 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 		pubSendBuf[11] = 0;
 		
 		/* 送信元IPアドレス */
-//		memcpy(&pubSendBuf[12],  self->ubMyIpAddr, 4);
+/*		memcpy(&pubSendBuf[12],  self->ubMyIpAddr, 4);	*/
 		
 		/* 送信先IPアドレス */
 		memcpy(&pubSendBuf[16],  &pAddr->ubAddress, 4);

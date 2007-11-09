@@ -21,7 +21,7 @@ ER vclr_int(INTNO intno)
 	
 	mask  = (0x0001 << (intno & 0x03));
 	
-	*_KERNEL_MN103S_INTC_GICR(intno) &= ~mask;
+	*_KERNEL_MN103S_INTC_GICR(intno) &= ~(mask << 4);
 	
 	return E_OK;
 }

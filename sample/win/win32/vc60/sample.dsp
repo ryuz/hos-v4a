@@ -5,15 +5,15 @@
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=sample - Win32 Debug
-!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”Ð‰¶–¥‰×‚ÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–ÊàzŽÜ…¶ÿÿèÉŸ×’Ü‚ÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
-!MESSAGE [™°ŒÊ„Qÿÿ–²Œ»—ÝˆÂ] ÍŸcÿÿðŽg—p‚ÿÿÄŽÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
+!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”ÿÿÿÿÿÿÿÿÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–•ÞzÜ…ÿÿÿäÇŸÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ðŽg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
+!MESSAGE [™ÿÿÿÿQÿÿ–ÿÿÿÿÿÿÿÿ ÿÿcÿÿðŽg—p‚ÿÿÄŽÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
 !MESSAGE NMAKE /f "sample.mak".
 !MESSAGE 
-!MESSAGE NMAKE ‚ÌŽÿÿsŽž‚ÿÿ\ÿÿðŽw’ÿÿÿÿÿÿÿÿÿÿ!MESSAGE ÍŸcÿÿœQÿÿÿÿ“nŒÙ‚ÿÿÿÿÿÿÿÿÿÿ`‚ÿÿÿÿÿÿB—ÿÿ
+!MESSAGE NMAKE ‚ÌŽÿÿsŽž‚ÿÿ\ÿÿðŽw’ÿÿÿÿÿÿÿÿÿÿ!MESSAGE ÿÿcÿÿœQÿÿÿÿ“nŒÿÿÿÿÿÿÿÿÿÿÿÿ`‚ÿÿÿÿÿÿB—ÿÿ
 !MESSAGE 
 !MESSAGE NMAKE /f "sample.mak" CFG="sample - Win32 Debug"
 !MESSAGE 
-!MESSAGE ‘I‘ÿÿÿÿ\‚”ÉŸ×’Ü šO’Ü:
+!MESSAGE ‘I‘ÿÿÿÿ\‚”ÿÿÿÿÿÿšO’ÿÿ
 !MESSAGE 
 !MESSAGE "sample - Win32 Release" ("Win32 (x86) Console Application" —p)
 !MESSAGE "sample - Win32 Debug" ("Win32 (x86) Console Application" —p)

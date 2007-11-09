@@ -16,6 +16,7 @@ space:= $(empty) $(empty)
 CMD_CC   ?= cc103S
 CMD_ASM  ?= cc103S
 CMD_LIBR ?= ar103S
+CMD_LINK ?= ld103S
 
 # %jp{拡張子定義}
 EXT_C   ?= c
@@ -43,10 +44,10 @@ CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
 CFLAGS_DEF = $(patsubst %,-D%,$(C_DEFS))
 
 # %jp{デバッグオプションの定義}
-CFLAGS_DBG = -g
+CFLAGS_DBG =
 
 # %jp{最適化オプションの定義}
-CFLAGS_OPT_NONE   = -OP=0
+CFLAGS_OPT_NONE   = 
 CFLAGS_OPT_NORMAL = -O
 CFLAGS_OPT_SIZE   = -Os
 CFLAGS_OPT_SPEED  = -Ot

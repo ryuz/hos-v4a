@@ -12,7 +12,7 @@
 #include "sysapi_local.h"
 
 
-/* ・キ・ケ・ニ・狃込情*/
+/* ・キ・ケ・ニ・狃轉陷ハ/
 TIME SysTim_GetSystemTime(void)
 {
 	SYSTIM tim;

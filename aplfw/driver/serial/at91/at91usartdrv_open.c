@@ -26,7 +26,7 @@ HANDLE At91UsartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pChrFile, &self->ChrDrv, NULL);
+	ChrFile_Create(pChrFile, pDrvObj, NULL);
 
 	
 	/* オープン処理 */

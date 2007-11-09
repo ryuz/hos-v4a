@@ -22,7 +22,7 @@ extern "C" {
 
 void      SciDrv_Delete(C_DRVOBJ *pDrvObj);
 HANDLE    SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-FILE_ERR  SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+void      SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 FILE_ERR  SciDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 FILE_POS  SciDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
 FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);

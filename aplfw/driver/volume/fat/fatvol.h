@@ -59,7 +59,6 @@ typedef struct c_fatvol
 	
 	struct t_fatvol_clusterbuf	*pClusterBuf;
 	int							iClusterBufNum;
-//	int							iClusterBufIndex;
 } C_FATVOL;
 
 
