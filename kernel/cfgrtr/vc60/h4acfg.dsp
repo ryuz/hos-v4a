@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="h4acfg" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** ÊÔ½¸¤·¤Ê¤¤¤Ç¤¯¤À¤µ¤¤ **
+# ** •ÒW‚µ‚È‚¢‚Å‚­‚¾‚³‚¢ **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=h4acfg - Win32 Debug
-!MESSAGE ¤³¤ì¤ÏÍ­¸ú¤ÊŽÒŽ²Ž¸ŽÌŽ§Ž²ŽÙ¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£ ¤³¤ÎŽÌŽßŽÛŽ¼ŽÞŽªŽ¸ŽÄ¤òŽËŽÞŽÙŽÄŽÞ¤¹¤ë¤¿¤á¤Ë¤Ï NMAKE ¤ò»ÈÍÑ¤·¤Æ¤¯¤À¤µ¤¤¡£
-!MESSAGE [ŽÒŽ²Ž¸ŽÌŽ§Ž²ŽÙ¤ÎŽ´Ž¸Ž½ŽÎŽßŽ°ŽÄ] ŽºŽÏŽÝŽÄŽÞ¤ò»ÈÍÑ¤·¤Æ¼Â¹Ô¤·¤Æ¤¯¤À¤µ¤¤
+!MESSAGE ‚±‚ê‚Í—LŒø‚ÈÒ²¸Ì§²Ù‚Å‚Í‚ ‚è‚Ü‚¹‚ñB ‚±‚ÌÌßÛ¼Þª¸Ä‚ðËÞÙÄÞ‚·‚é‚½‚ß‚É‚Í NMAKE ‚ðŽg—p‚µ‚Ä‚­‚¾‚³‚¢B
+!MESSAGE [Ò²¸Ì§²Ù‚Ì´¸½Îß°Ä] ºÏÝÄÞ‚ðŽg—p‚µ‚ÄŽÀs‚µ‚Ä‚­‚¾‚³‚¢
 !MESSAGE 
 !MESSAGE NMAKE /f "h4acfg.mak".
 !MESSAGE 
-!MESSAGE NMAKE ¤Î¼Â¹Ô»þ¤Ë¹½À®¤ò»ØÄê¤Ç¤­¤Þ¤¹
-!MESSAGE ŽºŽÏŽÝŽÄŽÞ Ž×Ž²ŽÝ¾å¤ÇŽÏŽ¸ŽÛ¤ÎÀßÄê¤òÄêµÁ¤·¤Þ¤¹¡£Îã:
+!MESSAGE NMAKE ‚ÌŽÀsŽž‚É\¬‚ðŽw’è‚Å‚«‚Ü‚·
+!MESSAGE ºÏÝÄÞ ×²Ýã‚ÅÏ¸Û‚ÌÝ’è‚ð’è‹`‚µ‚Ü‚·B—á:
 !MESSAGE 
 !MESSAGE NMAKE /f "h4acfg.mak" CFG="h4acfg - Win32 Debug"
 !MESSAGE 
-!MESSAGE ÁªÂò²ÄÇ½¤ÊŽËŽÞŽÙŽÄŽÞ ŽÓŽ°ŽÄŽÞ:
+!MESSAGE ‘I‘ð‰Â”\‚ÈËÞÙÄÞ Ó°ÄÞ:
 !MESSAGE 
-!MESSAGE "h4acfg - Win32 Release" ("Win32 (x86) Console Application" ÍÑ)
-!MESSAGE "h4acfg - Win32 Debug" ("Win32 (x86) Console Application" ÍÑ)
+!MESSAGE "h4acfg - Win32 Release" ("Win32 (x86) Console Application" —p)
+!MESSAGE "h4acfg - Win32 Debug" ("Win32 (x86) Console Application" —p)
 !MESSAGE 
 
 # Begin Project
