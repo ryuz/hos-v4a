@@ -735,7 +735,7 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 /*  Convert Handle                            */
 /* ------------------------------------------ */
 
-#if _KERNEL_TSKHDL_ID		/* %en{TSKHDL is ID}%jp{タスクポインタにIDを使う} */
+#if _KERNEL_TSKHDL_ID		/* %jp{タスクハンドルにIDを使う}%en{TSKHDL is ID} */
 
 #define _KERNEL_TSK_ID2TSKHDL(tskid)		(tskid)
 #define _KERNEL_TSK_TSKHDL2ID(tskhdl)		(tskhdl)
@@ -743,7 +743,7 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 #define _KERNEL_TSK_TSKHDL2TCB(tskhdl)		_KERNEL_TSK_ID2TCB(tskhdl)
 #define _KERNEL_TSK_GET_TSKHDL(tskid, tcb)	(tskid)
 
-#else						/* %en{TSKHDL is Address of TCB}%jp{タスクポインタにTCBのアドレスを使う} */
+#else						/* %jp{タスクハンドルにTCBのアドレスを使う}%en{TSKHDL is Address of TCB} */
 
 #define _KERNEL_TSK_ID2TSKHDL(tskid)		_KERNEL_TSK_ID2TCB(tskid)
 #define _KERNEL_TSK_TSKHDL2ID(tskhdl)		_KERNEL_TSK_TCB2ID(tskhdl)
@@ -863,7 +863,7 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 /* mtxhdl */
 #if _KERNEL_TCB_MTXHDL
 #define _KERNEL_TSK_SET_MTXHDL(tcb, x)		do { (tcb)->mtxhdl = (x); } while(0)
-#define _KERNEL_TSK_GET_MTXHDLtcb)			((tcb)->mtxhdl)
+#define _KERNEL_TSK_GET_MTXHDL(tcb)			((tcb)->mtxhdl)
 #else
 #define _KERNEL_TSK_SET_MTXHDL(tcb, x)		do { } while(0)
 #define _KERNEL_TSK_GET_MTXHDL(tcb)			_KERNEL_MTXHDL_NULL

@@ -334,7 +334,14 @@
 #define _KERNEL_SPT_FLG				TRUE
 #define _KERNEL_SPT_DTQ				FALSE
 #define _KERNEL_SPT_MBX				FALSE
+
+/* %jp{ミューテックスオブジェクトサポートの判定} */
+#if ((_KERNEL_CFG_CRE_MTX)|| (_KERNEL_CFG_ACRE_MTX) || (_KERNEL_CFG_SCRE_MTX)) && (_KERNEL_CFG_TMAX_MTXID) > 0
+#define _KERNEL_SPT_MTX				TRUE
+#else
 #define _KERNEL_SPT_MTX				FALSE
+#endif
+
 #define _KERNEL_SPT_MBF				FALSE
 #define _KERNEL_SPT_MPF				FALSE
 #define _KERNEL_SPT_MPL				FALSE
@@ -774,6 +781,9 @@
 #define _KERNEL_TCB_WUPCNT			(_KERNEL_TMAX_WUPCNT > 0)
 #define _KERNEL_TCB_SUSCNT			(_KERNEL_TMAX_SUSCNT > 0)
 
+/**< %jp{所有するミューテックスのリスト} */	
+#define _KERNEL_TCB_MTXHDL			_KERNEL_SPT_MTX
+
 /* %jp{E_OK以外の待ち解除要因があれば必要} */
 #define _KERNEL_TCB_ERCD			(_KERNEL_SPT_REL_WAI || _KERNEL_SPT_TER_TSK || _KERNEL_SPT_TMOUT || _KERNEL_SPT_DELOBJ)
 
@@ -980,6 +990,8 @@
 #define _KERNEL_MTXCB_QUE			TRUE
 #define _KERNEL_MTXCB_TSKHDL		TRUE
 #define _KERNEL_MTXCB_MTXATR		TRUE
+#define _KERNEL_MTXCB_NEXT			TRUE
+#define _KERNEL_MTXCB_PREV			TRUE
 
 
 

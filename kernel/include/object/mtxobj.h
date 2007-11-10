@@ -191,6 +191,30 @@ extern  _KERNEL_T_MTXCB					*_kernel_mtxcb_tbl[];									/**< %jp{ミューテ�
 
 
 /* ------------------------------------------ */
+/*  Convert Handle                            */
+/* ------------------------------------------ */
+
+#if _KERNEL_MTXHDL_ID		/* %jp{ミューテックスハンドルにIDを使う}%en{MTXHDL is ID} */
+
+#define _KERNEL_MTX_ID2MTXHDL(mtxid)			(mtxid)
+#define _KERNEL_MTX_MTXHDL2ID(mtxhdl)			(mtxhdl)
+#define _KERNEL_MTX_MTXCB2MTXHDL(mtxcb)			_KERNEL_MTX_MTXCB2ID(mtxcb)
+#define _KERNEL_MTX_MTXHDL2MTXCB(mtxhdl)		_KERNEL_MTX_ID2MTXCB(mtxhdl)
+#define _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb)	(mtxid)
+
+#else						/* %jp{ミューテックスハンドルにMTXCBのアドレスを使う}%en{TSKHDL is Address of MTXCB} */
+
+#define _KERNEL_MTX_ID2MTXHDL(mtxid)			_KERNEL_MTX_ID2MTXCB(mtxid)
+#define _KERNEL_MTX_MTXHDL2ID(mtxhdl)			_KERNEL_MTX_MTXCB2ID(mtxhdl)
+#define _KERNEL_MTX_MTXCB2MTXHDL(mtxcb)			(mtxhdl)
+#define _KERNEL_MTX_MTXHDL2MTXCB(mtxhdl)		(mtxhdl)
+#define _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb)	(mtxcb)
+
+#endif
+
+
+
+/* ------------------------------------------ */
 /*   Accessor for MTXCB                       */
 /* ------------------------------------------ */
 
@@ -231,6 +255,26 @@ extern  _KERNEL_T_MTXCB					*_kernel_mtxcb_tbl[];									/**< %jp{ミューテ�
 #else
 #define _KERNEL_MTX_GET_MTXATR(mtxcb)		(TA_TPRI)
 #endif
+#endif
+
+
+/* next */
+#if _KERNEL_MTXCB_NEXT
+#define _KERNEL_MTX_SET_NEXT(mtxcb, x)		do { (mtxcb)->next = (_KERNEL_MTXCB_T_MTXHDL)(x); } while (0)
+#define _KERNEL_MTX_GET_NEXT(mtxcb)			((_KERNEL_MTX_T_MTXHDL)(mtxcb)->next)
+#else
+#define _KERNEL_MTX_SET_NEXT(mtxcb, x)		do { } while (0)
+#define _KERNEL_MTX_GET_NEXT(mtxcb)			(0)
+#endif
+
+
+/* prev */
+#if _KERNEL_MTXCB_PREV
+#define _KERNEL_MTX_SET_PREV(mtxcb, x)		do { (mtxcb)->prev = (_KERNEL_MTXCB_T_MTXHDL)(x); } while (0)
+#define _KERNEL_MTX_GET_PREV(mtxcb)			((_KERNEL_MTX_T_MTXHDL)(mtxcb)->prev)
+#else
+#define _KERNEL_MTX_SET_PREV(mtxcb, x)		do { } while (0)
+#define _KERNEL_MTX_GET_PREV(mtxcb)			(0)
 #endif
 
 

@@ -80,7 +80,7 @@ void Boot_Task(VP_INT exinf)
 	/*   デバイスドライバ    */
 	/*************************/
 	
-	
+#if 0
 	/* LAN9118デバドラ生成 (/dev/eth0 に登録) */
 	Lan9118Drv_Create(&g_Lan9118Drv[0], (void *)0x40000000, 24);
 	File_AddDevice("eth0", (C_DRVOBJ *)&g_Lan9118Drv[0]);
@@ -92,7 +92,7 @@ void Boot_Task(VP_INT exinf)
 	/* IP層の上にTCP/IP層構築 (/dev/tcpip0 に登録) */
 	TcpIp_Create(&g_TcpIp[0], "/dev/ip0");
 	File_AddDevice("tcpip0", (C_DRVOBJ *)&g_TcpIp[0]);
-	
+#endif	
 	
 	/* AT91 USARTデバドラ生成 (/dev/com0 に登録) */
 	At91UsartDrv_Create(&g_At91UsartDrv[0], (void *)0xfffc0000, 2, 32000000, 64);

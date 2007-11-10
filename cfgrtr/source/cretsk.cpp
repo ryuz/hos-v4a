@@ -327,6 +327,10 @@ void CApiCreTsk::WriteTcbRam(FILE *fp, int iObj)
 	fprintf(fp, "0, ");					/* %jp{強制待ち要求ネスト回数} */
 #endif
 
+#if _KERNEL_TCB_MTXHDL
+	fprintf(fp, "0, ");					/* %jp{所有するミューテックスのリスト} */	
+#endif
+
 #if _KERNEL_TCB_ERCD
 	fprintf(fp, "0, ");					/* ercd */
 #endif
