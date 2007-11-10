@@ -906,6 +906,38 @@ SOURCE=..\..\..\..\system\system\system_boot.c
 
 SOURCE=..\..\..\..\system\system\system_initialize.c
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\system\system_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\system\system_process.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\system\system_requestproc.c
+# End Source File
+# End Group
+# End Group
+# Begin Group "application"
+
+# PROP Default_Filter ""
+# Begin Group "example"
+
+# PROP Default_Filter ""
+# Begin Group "hello"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\application\example\hello\hello.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\example\hello\hello.h
+# End Source File
+# End Group
 # End Group
 # End Group
 # Begin Source File
