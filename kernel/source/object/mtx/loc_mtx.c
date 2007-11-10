@@ -32,12 +32,13 @@ ER loc_mtx(ID mtxid)
 /** %jp{ミューテックスのロック獲得} */
 ER loc_mtx(ID mtxid)
 {
-	_KERNEL_T_MTXCB_PTR    mtxcb;
-	_KERNEL_T_MTXCB_RO_PTR mtxcb_ro;
-	_KERNEL_T_TSKHDL       tskhdl;
-	_KERNEL_T_TCB          *tcb;
-	_KERNEL_T_TSKHDL       loc_tskhdl;
-	ER                     ercd;
+	_KERNEL_T_MTXCB_RO_PTR	mtxcb_ro;
+	_KERNEL_T_MTXCB_PTR		mtxcb;
+	_KERNEL_T_MTXHDL		mtxhdl;
+	_KERNEL_T_TCB_PTR		tcb;
+	_KERNEL_T_TSKHDL		tskhdl;
+	_KERNEL_T_TSKHDL		tskhdl_lock;
+	ER						ercd;
 		
 	/* %jp{コンテキストチェック} */
 #if _KERNEL_SPT_LOC_MTX_E_CTX
@@ -75,7 +76,7 @@ ER loc_mtx(ID mtxid)
 	tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
 	
 	/* ロック中のタスクハンドル取得 */
-	loc_tskhdl = _KERNEL_MTX_GET_TSKHDL(mtxcb);
+	tskhdl_lock = _KERNEL_MTX_GET_TSKHDL(mtxcb);
 
 	if ( _KERNEL_MTX_GET_TSKHDL(mtxcb) == _KERNEL_TSKHDL_NULL )
 	{
@@ -85,7 +86,6 @@ ER loc_mtx(ID mtxid)
 		/* %jp{ミューテックスをTCBに接続} */
 		{
 			_KERNEL_T_MTXHDL	mtxhdl_head;
-			_KERNEL_T_MTXHDL	mtxhdl;
 			
 			mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
 			
@@ -117,13 +117,15 @@ ER loc_mtx(ID mtxid)
 				_KERNEL_MTX_SET_PREV(mtxcb, mtxhdl_prev);
 			}
 		}
-		
-		
+			
 #if _KERNEL_SPT_MTX_TA_CEILING
-		/* %jp{タスクの優先度をシーリング値まで引き上げ} */
-		if ( _KERNEL_TSK_GET_TSKPRI(tcb) < _KERNEL_MTX_GET_CEILPRI(mtxcb_ro) )
+		if ( _KERNEL_MTX_GET_MTXATR(mtxcb_ro) == TA_CEILING )
 		{
-			_KERNEL_TSK_SET_TSKPRI(tcb, _KERNEL_MTX_GET_CEILPRI(mtxcb_ro));
+			/* %jp{タスクの優先度をシーリング値まで引き上げ} */
+			if ( _KERNEL_TSK_GET_TSKPRI(tcb) < _KERNEL_MTX_GET_CEILPRI(mtxcb_ro) )
+			{
+				_KERNEL_TSK_SET_TSKPRI(tcb, _KERNEL_MTX_GET_CEILPRI(mtxcb_ro));
+			}
 		}
 #endif
 		
@@ -137,17 +139,19 @@ ER loc_mtx(ID mtxid)
 		_KERNEL_DSP_WAI_TSK(tskhdl);
 		_KERNEL_MTX_ADD_QUE(mtxcb, _KERNEL_MTX_GET_MTXCB_RO(mtxid, mtxcb), tskhdl);			/* %jp{待ち行列に追加} */
 
-#if _KERNEL_MTX_TA_INHERIT
+#if _KERNEL_SPT_MTX_TA_INHERIT
+		/* %jp{優先度継承} */
+		if ( _KERNEL_MTX_GET_MTXATR(mtxcb_ro) == TA_INHERIT )
 		{
-			_KERNEL_T_TSKHDL loc_tcb;
+			_KERNEL_T_TCB_PTR tcb_lock;
 
 			/* %jp{ロック中タスクのTCB取得} */
-			loc_tcb = _KERNEL_TSK_TSKHDL2TCB(loc_tskhdl);
+			tcb_lock = _KERNEL_TSK_TSKHDL2TCB(tskhdl_lock);
 
 			/* %jp{優先度継承} */
-			if ( _KERNEL_TSK_GET_TSKPRI(loc_tcb) > _KERNEL_TSK_GET_TSKPRI(tcb) )
+			if ( _KERNEL_TSK_GET_TSKPRI(tcb_lock) > _KERNEL_TSK_GET_TSKPRI(tcb) )
 			{
-				_KERNEL_TSK_SET_TSKPRI(loc_tcb, _KERNEL_TSK_GET_TSKPRI(tcb))
+				_KERNEL_TSK_SET_TSKPRI(tcb_lock, _KERNEL_TSK_GET_TSKPRI(tcb));
 			}
 		}
 #endif

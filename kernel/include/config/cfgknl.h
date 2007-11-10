@@ -238,8 +238,8 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* Attribute */
 #define _KERNEL_CFG_MTX_TA_TFIFO		TRUE				/**< %jp{TA_TFIFO属性に対応する} */
 #define _KERNEL_CFG_MTX_TA_TPRI			TRUE				/**< %jp{TA_TPRI属性に対応する} */
-#define _KERNEL_CFG_MBX_TA_INHERIT		TRUE				/**< %jp{TA_INHERIT属性に対応する} */
-#define _KERNEL_CFG_MBX_TA_CEILING		TRUE				/**< %jp{TA_CEILING属性に対応する} */
+#define _KERNEL_CFG_MTX_TA_INHERIT		TRUE				/**< %jp{TA_INHERIT属性に対応する} */
+#define _KERNEL_CFG_MTX_TA_CEILING		TRUE				/**< %jp{TA_CEILING属性に対応する} */
 
 /* Control block */
 #define _KERNEL_CFG_MTXCB_ALGORITHM		_KERNEL_MTXCB_ALG_BLKARRAY

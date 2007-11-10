@@ -129,7 +129,7 @@ typedef struct _kernel_t_mtxcb
 #endif
 
 #if _KERNEL_MTXCB_CEILPRI
-	_KERNEL_MTXCB_T_CEILPRI	ceilpri		KERNEL_MTXCB_TBITDEF_CEILPRI;		/**< %jp{ミューテックスの上限優先度} */
+	_KERNEL_MTXCB_T_CEILPRI	ceilpri		_KERNEL_MTXCB_TBITDEF_CEILPRI;		/**< %jp{ミューテックスの上限優先度} */
 #endif
 } _KERNEL_T_MTXCB;
 
@@ -231,50 +231,51 @@ extern  _KERNEL_T_MTXCB					*_kernel_mtxcb_tbl[];									/**< %jp{ミューテ�
 
 
 /* que */
-#define _KERNEL_MTX_GET_QUE(mtxcb)			(&(mtxcb)->que)
+#define _KERNEL_MTX_GET_QUE(mtxcb)				(&(mtxcb)->que)
 
 
 /* tskhdl */
 #if _KERNEL_MTXCB_TSKHDL
-#define _KERNEL_MTX_SET_TSKHDL(mtxcb, x)	do { (mtxcb)->tskhdl = (_KERNEL_MTXCB_T_TSKHDL)(x); } while (0)
-#define _KERNEL_MTX_GET_TSKHDL(mtxcb)		((_KERNEL_MTX_T_TSKHDL)(mtxcb)->tskhdl)
+#define _KERNEL_MTX_SET_TSKHDL(mtxcb, x)		do { (mtxcb)->tskhdl = (_KERNEL_MTXCB_T_TSKHDL)(x); } while (0)
+#define _KERNEL_MTX_GET_TSKHDL(mtxcb)			((_KERNEL_MTX_T_TSKHDL)(mtxcb)->tskhdl)
 #else
-#define _KERNEL_MTX_SET_TSKHDL(mtxcb, x)	do { } while (0)
-#define _KERNEL_MTX_GET_TSKHDL(mtxcb)		(0)
-#endif
-
-
-/* mtxatr */
-#if _KERNEL_MTXCB_MTXATR
-#define _KERNEL_MTX_SET_MTXATR(mtxcb, x)	do { (mtxcb)->mtxatr = (_KERNEL_MTXCB_T_MTXATR)(x); } while (0)
-#define _KERNEL_MTX_GET_MTXATR(mtxcb)		((_KERNEL_MTX_T_MTXATR)(mtxcb)->mtxatr)
-#else
-#define _KERNEL_MTX_SET_MTXATR(mtxcb, x)	do { } while (0)
-#if _KERNEL_SPT_MTX_TA_TFIFO
-#define _KERNEL_MTX_GET_MTXATR(mtxcb)		(TA_TFIFO)
-#else
-#define _KERNEL_MTX_GET_MTXATR(mtxcb)		(TA_TPRI)
-#endif
+#define _KERNEL_MTX_SET_TSKHDL(mtxcb, x)		do { } while (0)
+#define _KERNEL_MTX_GET_TSKHDL(mtxcb)			(0)
 #endif
 
 
 /* next */
 #if _KERNEL_MTXCB_NEXT
-#define _KERNEL_MTX_SET_NEXT(mtxcb, x)		do { (mtxcb)->next = (_KERNEL_MTXCB_T_MTXHDL)(x); } while (0)
-#define _KERNEL_MTX_GET_NEXT(mtxcb)			((_KERNEL_MTX_T_MTXHDL)(mtxcb)->next)
+#define _KERNEL_MTX_SET_NEXT(mtxcb, x)			do { (mtxcb)->next = (_KERNEL_MTXCB_T_MTXHDL)(x); } while (0)
+#define _KERNEL_MTX_GET_NEXT(mtxcb)				((_KERNEL_MTX_T_MTXHDL)(mtxcb)->next)
 #else
-#define _KERNEL_MTX_SET_NEXT(mtxcb, x)		do { } while (0)
-#define _KERNEL_MTX_GET_NEXT(mtxcb)			(0)
+#define _KERNEL_MTX_SET_NEXT(mtxcb, x)			do { } while (0)
+#define _KERNEL_MTX_GET_NEXT(mtxcb)				(0)
 #endif
 
 
 /* prev */
 #if _KERNEL_MTXCB_PREV
-#define _KERNEL_MTX_SET_PREV(mtxcb, x)		do { (mtxcb)->prev = (_KERNEL_MTXCB_T_MTXHDL)(x); } while (0)
-#define _KERNEL_MTX_GET_PREV(mtxcb)			((_KERNEL_MTX_T_MTXHDL)(mtxcb)->prev)
+#define _KERNEL_MTX_SET_PREV(mtxcb, x)			do { (mtxcb)->prev = (_KERNEL_MTXCB_T_MTXHDL)(x); } while (0)
+#define _KERNEL_MTX_GET_PREV(mtxcb)				((_KERNEL_MTX_T_MTXHDL)(mtxcb)->prev)
 #else
-#define _KERNEL_MTX_SET_PREV(mtxcb, x)		do { } while (0)
-#define _KERNEL_MTX_GET_PREV(mtxcb)			(0)
+#define _KERNEL_MTX_SET_PREV(mtxcb, x)			do { } while (0)
+#define _KERNEL_MTX_GET_PREV(mtxcb)				(0)
+#endif
+
+
+
+/* mtxatr */
+#if _KERNEL_MTXCB_MTXATR
+#define _KERNEL_MTX_SET_MTXATR(mtxcb_ro, x)		do { (mtxcb_ro)->mtxatr = (_KERNEL_MTXCB_T_MTXATR)(x); } while (0)
+#define _KERNEL_MTX_GET_MTXATR(mtxcb_ro)		((_KERNEL_MTX_T_MTXATR)(mtxcb_ro)->mtxatr)
+#else
+#define _KERNEL_MTX_SET_MTXATR(mtxcb_ro, x)		do { } while (0)
+#if _KERNEL_SPT_MTX_TA_CEILING
+#define _KERNEL_MTX_GET_MTXATR(mtxcb_ro)		(TA_CEILING)
+#else
+#define _KERNEL_MTX_GET_MTXATR(mtxcb_ro)		(TA_INHERIT)
+#endif
 #endif
 
 
