@@ -9,8 +9,8 @@
  */
 
 
-#ifndef KERNEL__arch__sh2__proc_h__
-#define KERNEL__arch__sh2__proc_h__
+#ifndef _KERNEL__arch__proc__sh__sh2__proc_h__
+#define _KERNEL__arch__proc__sh__sh2__proc_h__
 
 
 /** %jp{コンテキスト情報保存ブロック}%en{Execution context control block} */
@@ -70,7 +70,7 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxcb_nxt, _KERNEL_T_CTXCB *pk_ctxcb
 
 
 
-#endif	/* KERNEL__HOS_V4a__sh2__sh2_h__ */
+#endif	/* _KERNEL__arch__proc__sh__sh2__proc_h__ */
 
 
 

@@ -1,17 +1,17 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for ARM V4T (none IRC)
+#  makefile for sh2
 #
 # Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# ターゲット名
+# %jp{ターゲット名}
 TARGET ?= libhosv4a
 
 
-# ディレクトリ定義
+# %jp{ディレクトリ定義}
 HOSV4A_DIR        = ../../../../..
 KERNEL_DIR        = $(HOSV4A_DIR)/kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
@@ -24,7 +24,7 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 # %jp{アーキテクチャ定義}
 ARCH_PROC ?= v850/v850e
-ARCH_IRC  ?= none
+ARCH_IRC  ?= simple
 ARCH_CC   ?= ca850
 
 # %jp{アーキテクチャパス}
@@ -46,27 +46,28 @@ ARFLAGS +=
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
-CFGRTR     = h4acfg-arm_v4t
+CFGRTR     = h4acfg-sh2
 
 
-# %jp{armcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
+# %jp{ca850用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/ca850_d.inc
 
 
-# C言語ファイルの追加
+# %jp{C言語ファイルの追加}
 CSRCS += 
 
-# アセンブラファイルの追加
-ASRCS += $(SRC_PROC_CC_DIR)/kena_int.s		\
-         $(SRC_PROC_CC_DIR)/kdis_int.s		\
-         $(SRC_PROC_CC_DIR)/kwai_int.s		\
-         $(SRC_PROC_CC_DIR)/kswi_ctx.s		\
-         $(SRC_PROC_CC_DIR)/kcre_ctx.s
+
+# %jp{アセンブラファイルの追加}
+ASRCS += $(SRC_PROC_CC_DIR)/kena_int.s
+ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.s
+ASRCS += $(SRC_PROC_CC_DIR)/kwai_int.s
+ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.s
+ASRCS += $(SRC_PROC_CC_DIR)/kswi_ctx.s
+ASRCS += $(SRC_PROC_CC_DIR)/krst_ctx.s
 
 
 # カーネル共通ソースの追加
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc
-
 
 
 # %jp{ALL}
@@ -84,8 +85,8 @@ clean: makelib_clean
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
-# %jp{armcc用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
+# %jp{ca850用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/ca850_r.inc
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc

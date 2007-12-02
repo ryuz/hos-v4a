@@ -2,9 +2,9 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  procatr.h
- * @brief %jp{プロセッサアーキテクチャ固有機能}
+ * @brief %jp{プロセッサアーキテクチャ固有属性定義(V850E processor)}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -29,21 +29,21 @@
 #define _KERNEL_PROCATR_SPT_SMP				FALSE		/**< %jp{SMPに対応しているか？} */
 #define _KERNEL_PROCATR_SPT_MULTINT			TRUE		/**< %jp{多重割り込みに対応しているか？} */
 
-#define _KERNEL_PROCATR_TMIN_INHNO			0			/**< %jp{割込みハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_INHNO			1			/**< %jp{割込みハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMIN_INHNO			64			/**< %jp{割込みハンドラ番号の最小値} */
+#define _KERNEL_PROCATR_TMAX_INHNO			255			/**< %jp{割込みハンドラ番号の最大値} */
 
-#define _KERNEL_PROCATR_TMIN_EXCNO			0			/**< %jp{CPU例外ハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_EXCNO			1			/**< %jp{CPU例外ハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMIN_EXCNO			4			/**< %jp{CPU例外ハンドラ番号の最小値} */
+#define _KERNEL_PROCATR_TMAX_EXCNO			63			/**< %jp{CPU例外ハンドラ番号の最大値} */
 
-#define _KERNEL_PROCATR_SYSSTK_NUM			1			/**< %jp{システムスタックは何本必要か？} */
+#define _KERNEL_PROCATR_EXCSTK_NUM			0			/**< %jp{CPU例外処理用スタックは何本必要か？} */
+#define _KERNEL_PROCATR_INTSTK_NUM			1			/**< %jp{割り込みスタックは何本必要か？} */
 
 #define _KERNEL_PROCATR_SIGNED_INT			0			/**< %jp{符号付整数と符号無し整数のどちらが得意か？(符号付き:1, 符号無し:-1, 同じ:0)} */
 #define _KERNEL_PROCATR_TBIT_INT			32			/**< %jp{プロセッサに最適な整数型のビット数} */
 #define _KERNEL_PROCATR_TBIT_PTR			32			/**< %jp{ポインタのビット数} */
 #define _KERNEL_PROCATR_MEM_ALIGN			8			/**< %jp{適切なメモリのアライメント(byte単位)} */
-#define _KERNEL_PROCATR_STK_ALIGN			8			/**< %jp{適切なスタックのアライメント(byte単位)} */
+#define _KERNEL_PROCATR_STK_ALIGN			4			/**< %jp{適切なスタックのアライメント(byte単位)} */
 #define _KERNEL_PROCATR_ALLOW_UNALIGN		FALSE		/**< %jp{アンアラインアクセスは可能か？} */
-
 
 
 #endif	/* _KERNEL__arch__proc__v850__v850e__procatr_h__ */
