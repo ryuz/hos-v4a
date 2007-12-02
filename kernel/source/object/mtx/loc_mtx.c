@@ -84,39 +84,8 @@ ER loc_mtx(ID mtxid)
 		_KERNEL_MTX_SET_TSKHDL(mtxcb, tskhdl); 		/* %jp{ミューテックス資源の獲得} */
 
 		/* %jp{ミューテックスをTCBに接続} */
-		{
-			_KERNEL_T_MTXHDL	mtxhdl_head;
-			
-			mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
-			
-			mtxhdl_head = _KERNEL_TSK_GET_MTXHDL(tcb);
-			if ( mtxhdl_head == _KERNEL_MTXHDL_NULL )
-			{
-				/* %jp{最初の１つを接続} */
-				_KERNEL_TSK_SET_MTXHDL(tcb, mtxhdl);
-				_KERNEL_MTX_SET_NEXT(mtxcb, mtxhdl);
-				_KERNEL_MTX_SET_NEXT(mtxcb, mtxhdl);
-			}
-			else
-			{
-				_KERNEL_T_MTXHDL	mtxhdl_next;
-				_KERNEL_T_MTXHDL	mtxhdl_prev;
-				_KERNEL_T_MTXCB_PTR	mtxcb_next;
-				_KERNEL_T_MTXCB_PTR	mtxcb_prev;
-
-				/* %jp{接続の先頭/末尾を取得} */
-				mtxhdl_next = mtxhdl_head;
-				mtxcb_next  = _KERNEL_MTX_MTXHDL2MTXCB(mtxhdl_next);
-				mtxhdl_prev = _KERNEL_MTX_GET_PREV(mtxcb_next);
-				mtxcb_prev  = _KERNEL_MTX_MTXHDL2MTXCB(mtxhdl_prev);
-
-				/* %jp{末尾に接続} */
-				_KERNEL_MTX_SET_PREV(mtxcb_next, mtxhdl);
-				_KERNEL_MTX_SET_NEXT(mtxcb_prev, mtxhdl);
-				_KERNEL_MTX_SET_NEXT(mtxcb, mtxhdl_next);
-				_KERNEL_MTX_SET_PREV(mtxcb, mtxhdl_prev);
-			}
-		}
+		mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
+		_kernel_add_mtx(mtxcb, mtxhdl, tcb);
 			
 #if _KERNEL_SPT_MTX_TA_CEILING
 		if ( _KERNEL_MTX_GET_MTXATR(mtxcb_ro) == TA_CEILING )
@@ -152,6 +121,13 @@ ER loc_mtx(ID mtxid)
 			if ( _KERNEL_TSK_GET_TSKPRI(tcb_lock) > _KERNEL_TSK_GET_TSKPRI(tcb) )
 			{
 				_KERNEL_TSK_SET_TSKPRI(tcb_lock, _KERNEL_TSK_GET_TSKPRI(tcb));
+				if ( _KERNEL_TSK_GET_TSKSTAT(tcb) == TTS_RDY )
+				{
+					_KERNEL_T_TSKHDL	tskhdl;
+					
+					_KERNEL_SYS_RMV_RDQ(tskhdl);
+					_KERNEL_SYS_ADD_RDQ(tskhdl);
+				}
 			}
 		}
 #endif
