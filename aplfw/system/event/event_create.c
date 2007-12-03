@@ -31,7 +31,7 @@ HANDLE Event_Create(void)
 	}
 	
 	/* オブジェクト生成 */
-	if ( (self->hSysEvt = SysEvt_Create(SYSEVT_MODE_NORMAL)) == SYSEVT_HANDLE_NULL )
+	if ( (self->hSysEvt = SysEvt_Create(SYSEVT_ATTR_NORMAL)) == SYSEVT_HANDLE_NULL )
 	{
 		SysMem_Free(self);
 	}

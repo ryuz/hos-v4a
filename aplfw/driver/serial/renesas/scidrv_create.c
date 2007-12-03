@@ -45,12 +45,12 @@ void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, unsigned long ul
 	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
 
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 
 	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create();
-	self->hMtxRecv = SysMtx_Create();
+	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 
 	/* 割り込み処理登録 */
 	SysIsr_Create(iIntNum + 0, SciDrv_IsrRecvErr, (VPARAM)self);

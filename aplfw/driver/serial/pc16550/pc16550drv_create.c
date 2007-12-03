@@ -45,8 +45,8 @@ void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr,  unsigned int uiRegSt
 	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
 	
 	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create();
-	self->hMtxRecv = SysMtx_Create();
+	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 
 	/* 割込み処理登録 */
 	self->iIntNum = iIntNum;

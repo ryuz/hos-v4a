@@ -38,12 +38,12 @@ void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum)
 	self->iOpenCount  = 0;
 	
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 
 	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create();
-	self->hMtxRecv = SysMtx_Create();
+	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 
 	/* 割込み処理登録 */
 	self->iIntNum = iIntNum;

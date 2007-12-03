@@ -38,9 +38,13 @@ typedef void* SYSEVT_HANDLE;
 #define SYSISR_HANDLE_NULL			(0)
 typedef void* SYSISR_HANDLE;
 
-/* システム用イベントモード */
-#define	SYSEVT_MODE_NORMAL			0x00
-#define	SYSEVT_MODE_AUTOCLEAR		0x01
+/* システム用イベント属性 */
+#define	SYSEVT_ATTR_NORMAL			0x00
+#define	SYSEVT_ATTR_AUTOCLEAR		0x01
+
+/* システム用ミューテックス属性 */
+#define	SYSMTX_ATTR_NORMAL			0x00
+
 
 
 #ifdef __cplusplus
@@ -82,13 +86,13 @@ void           SysPrc_Wait(SYSPRC_HANDLE hPrc);
 SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);
 
 /* システム用ミューテックス制御API */
-SYSMTX_HANDLE  SysMtx_Create(void);							/* システム用ミューテックス生成 */
+SYSMTX_HANDLE  SysMtx_Create(int iAttr);					/* システム用ミューテックス生成 */
 void           SysMtx_Delete(SYSMTX_HANDLE hMtx);			/* システム用ミューテックス削除 */
 void           SysMtx_Lock(SYSMTX_HANDLE hMtx);				/* システム用ミューテックスロック*/
 void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);			/* システム用ミューテックスロック解除*/
 
 /* システム用イベント制御API */
-SYSEVT_HANDLE  SysEvt_Create(int iMode);					/* システム用イベント生成 */
+SYSEVT_HANDLE  SysEvt_Create(int iAttr);					/* システム用イベント生成 */
 void           SysEvt_Delete(SYSEVT_HANDLE hEvt);			/* システム用イベント削除 */
 void           SysEvt_Wait(SYSEVT_HANDLE hEvt);				/* システム用イベント待ち*/
 void           SysEvt_Set(SYSEVT_HANDLE hEvt);				/* システム用イベントセット */

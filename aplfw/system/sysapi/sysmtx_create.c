@@ -14,7 +14,7 @@
 
 
 /* システム用ミューテックス生成 */
-SYSMTX_HANDLE SysMtx_Create(void)
+SYSMTX_HANDLE SysMtx_Create(int iAttr)
 {
 	T_CSEM csem;
 	ER_ID  erid;

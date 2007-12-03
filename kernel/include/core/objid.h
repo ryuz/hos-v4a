@@ -91,6 +91,31 @@ typedef _KERNEL_T_FAST_UD		_KERNEL_T_FLGID;							/**< %jp{イベントフラグ
 
 
 /* ---------------------------------- */
+/*            Mutex-ID                */
+/* ---------------------------------- */
+
+/* %jp{サイズに適した型とする} */
+#if (_KERNEL_TMAX_MTXID <= _KERNEL_TMAX_B) && _KERNEL_OPT_SIGNED_INT
+typedef _KERNEL_T_FAST_B		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#elif (_KERNEL_TMAX_MTXID <= _KERNEL_TMAX_UB) && !_KERNEL_OPT_SIGNED_INT
+typedef _KERNEL_T_FAST_UB		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#elif (_KERNEL_TMAX_MTXID <= _KERNEL_TMAX_H) && _KERNEL_OPT_SIGNED_INT
+typedef _KERNEL_T_FAST_H		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#elif (_KERNEL_TMAX_MTXID <= _KERNEL_TMAX_UH) && !_KERNEL_OPT_SIGNED_INT
+typedef _KERNEL_T_FAST_UH		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#elif (_KERNEL_TMAX_MTXID <= _KERNEL_TMAX_W) && _KERNEL_OPT_SIGNED_INT
+typedef _KERNEL_T_FAST_W		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#elif (_KERNEL_TMAX_MTXID <= _KERNEL_TMAX_UW) && !_KERNEL_OPT_SIGNED_INT
+typedef _KERNEL_T_FAST_UW		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#elif (_KERNEL_TMAX_MTXID <= _KERNEL_TMAX_D) && _KERNEL_OPT_SIGNED_INT
+typedef _KERNEL_T_FAST_D		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#else
+typedef _KERNEL_T_FAST_UD		_KERNEL_T_MTXID;							/**< %jp{ミューテックスIDの型}%en{type of Mutex-ID} */
+#endif
+
+
+
+/* ---------------------------------- */
 /*            Mailbox-ID              */
 /* ---------------------------------- */
 

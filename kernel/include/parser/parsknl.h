@@ -80,7 +80,6 @@
 
 
 
-
 /* ------------------------------------------------------------------ */
 /*  service call support                                              */
 /* ------------------------------------------------------------------ */
@@ -448,6 +447,17 @@
 
 
 /* ------------------------------------------------------------------ */
+/*  Ready queue                                                       */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_RDQ_ALG_SINGLE_QUE				1
+#define _KERNEL_RDQ_ALG_ARRAYED_QUE				2
+#define _KERNEL_RDQ_ALG_BITMAP_ARRAYED_QUE		3
+
+#define _KERNEL_RDQ_ALGORITHM			_KERNEL_CFG_RDQ_ALGORITHM
+
+
+/* ------------------------------------------------------------------ */
 /*  Timeout queue                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -527,6 +537,7 @@
 /* ---------------------------------- */
 
 #define _KERNEL_TSKHDL_ID			_KERNEL_CFG_TSKHDL_ID
+#define _KERNEL_MTXHDL_ID			_KERNEL_CFG_MTXHDL_ID
 #define _KERNEL_ISRHDL_ID			_KERNEL_CFG_ISRHDL_ID
 
 

@@ -50,13 +50,13 @@ FILE_ERR IpEther_Create(C_IPETHER *self, const char *pszEther, const T_IPETHER_I
 	memcpy(self->ubGateWayIpAddr, pInf->ubGateWayIpAddr, 4);
 	
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
-	self->hEvtArp  = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	self->hEvtArp  = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 
 	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create();
-	self->hMtxRecv = SysMtx_Create();
-	self->hMtxArp  = SysMtx_Create();
+	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	self->hMtxArp  = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 
 	/* 受信プロセス生成 */
 	self->hPrcRecv = SysPrc_Create(IpEther_Recv, (VPARAM)self, 1024, 2);

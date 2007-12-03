@@ -44,8 +44,8 @@ FILE_ERR TcpIp_Create(C_TCPIP *self, const char *pszIp)
 	self->iOpenCount = 0;
 	
 	/* ミューテックス生成 */
-	self->hMtxLock = SysMtx_Create();
-	self->hMtxSend = SysMtx_Create();
+	self->hMtxLock = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	
 	/* 受信プロセス生成 */
 	self->hPrcRecv = SysPrc_Create(TcpIp_Recv, (VPARAM)self, 1024, 2);

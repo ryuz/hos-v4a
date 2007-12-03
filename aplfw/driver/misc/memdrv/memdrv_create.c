@@ -42,7 +42,7 @@ void MemDrv_Create(C_MEMDRV *self, void *pMemAddr, FILE_POS MemSize, FILE_POS In
 	self->iAttr      = iAttr;		/* 属性 */
 	
 	/* ミューテックス生成 */
-	self->hMtx = SysMtx_Create();
+	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 }
 
 

@@ -29,7 +29,7 @@ HANDLE TcpIp_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	}
 	ChrFile_Create(&pFile->ChrFile, &self->ChrDrv, NULL);
 	StreamBuf_Create(&pFile->RecvBuf, TCPIPFILE_RECV_BUFSIZE, pFile->ubRecvBuf);
-	pFile->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	pFile->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 	
 	/* デバイスオープン処理 */
 	if ( self->iOpenCount++ == 0 )

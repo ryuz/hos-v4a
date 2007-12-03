@@ -23,8 +23,8 @@ C_MEMPOL      SysMem_MemPol;
 void SysApi_Initialize(void *pMem, MEMSIZE Size)
 {
 	/* メモリ管理の初期化 */
-	SysMem_hMtx = SysMtx_Create();					/* メモリ管理用排他制御用ミューテックス生成 */
-	MemPol_Create(&SysMem_MemPol, pMem, Size);		/* メモリプール生成 */
+	SysMem_hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);	/* メモリ管理用排他制御用ミューテックス生成 */
+	MemPol_Create(&SysMem_MemPol, pMem, Size);			/* メモリプール生成 */
 }
 
 

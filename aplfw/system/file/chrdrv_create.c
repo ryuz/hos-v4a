@@ -15,10 +15,10 @@
 
 FILE_ERR ChrDrv_Create(C_CHRDRV *self, const T_DRVOBJ_METHODS *pMethods)
 {
-	self->hMtx      = SysMtx_Create();			/**< 排他制御ミューテックス */
+	self->hMtx      = SysMtx_Create(SYSMTX_ATTR_NORMAL);			/**< 排他制御ミューテックス */
 	
-	self->hEvtRead  = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
-	self->hEvtWrite = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtRead  = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	self->hEvtWrite = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 	
 	self->pFileHead = NULL;					/**< 状態監視オブジェクトの連結ポインタ */
 	

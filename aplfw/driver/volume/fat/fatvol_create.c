@@ -149,7 +149,7 @@ int FatVol_Create(C_FATVOL *self, const char *pszPath)
 	VolumeObj_Create(&self->VolumeObj, &FatVol_VolumeObjMethods);	
 	
 	/* ミューテックス生成 */
-	self->hMtx = SysMtx_Create();
+	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	
 	return FATVOL_ERR_OK;
 }

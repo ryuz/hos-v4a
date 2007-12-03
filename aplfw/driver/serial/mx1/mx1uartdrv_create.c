@@ -1,38 +1,38 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  at91usartdrv_create.c
- * @brief %jp{ATMEL AT91シリーズUSART用デバイスドライバ}
+ * @file  mx1uartdrv_create.c
+ * @brief %jp{Freescale MX1 UART用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "at91usartdrv_local.h"
+#include "mx1uartdrv_local.h"
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS At91UsartDrv_Methods = 
+const T_DRVOBJ_METHODS Mx1UartDrv_Methods = 
 	{
-		At91UsartDrv_Delete,
-		At91UsartDrv_Open,
-		At91UsartDrv_Close,
-		At91UsartDrv_IoControl,
-		At91UsartDrv_Seek,
-		At91UsartDrv_Read,
-		At91UsartDrv_Write,
-		At91UsartDrv_Flush,
+		Mx1UartDrv_Delete,
+		Mx1UartDrv_Open,
+		Mx1UartDrv_Close,
+		Mx1UartDrv_IoControl,
+		Mx1UartDrv_Seek,
+		Mx1UartDrv_Read,
+		Mx1UartDrv_Write,
+		Mx1UartDrv_Flush,
 	};
 
 
 /** コンストラクタ */
-void At91UsartDrv_Create(C_AT91USARTDRV *self, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
+void Mx1UartDrv_Create(C_MX1UARTDRV *self, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
 {
 	void *pMem;
 	
 	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &At91UsartDrv_Methods);
+	ChrDrv_Create(&self->ChrDrv, &Mx1UartDrv_Methods);
 
 	/* メンバ変数初期化 */
 	self->pRegBase    = pRegBase;
@@ -51,10 +51,11 @@ void At91UsartDrv_Create(C_AT91USARTDRV *self, void *pRegBase, int iIntNum, unsi
 	/* ミューテックス生成 */
 	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
+	
 	/* 割込み処理登録 */
 	self->iIntNum = iIntNum;
-	SysIsr_Create(iIntNum, At91UsartDrv_Isr, (VPARAM)self);
+	SysIsr_Create(iIntNum + 4, Mx1UartDrv_IsrTx, (VPARAM)self);
+	SysIsr_Create(iIntNum + 5, Mx1UartDrv_IsrRx, (VPARAM)self);
 }
 
 

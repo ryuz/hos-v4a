@@ -119,7 +119,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* ---------------------------------------------- */
 
 /** %jp{レディーキューのアルゴリズム} */
-#define _KERNEL_CFG_RDQ_ALGORITHM		_KERNEL_RDQ_ALG_SINGLE_QUE
+#define _KERNEL_CFG_RDQ_ALGORITHM		_KERNEL_RDQ_ALG_ARRAYED_QUE
 
 /* %jp{
    _KERNEL_RDQ_ALG_SINGLE_QUE         : シングルキュー(省メモリだが、タスク数が増えると遅い)

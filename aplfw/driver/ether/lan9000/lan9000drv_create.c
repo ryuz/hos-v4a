@@ -39,11 +39,11 @@ void Lan9000Drv_Create(C_LAN9000DRV *self, void *pRegAddr, int iIntNum)
 	Lan9000Hal_Create(&self->Lan9000Hal, pRegAddr);
 	
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 
 	/* ミューテックス生成 */
-	self->hMtx = SysMtx_Create();
+	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 
 	/* 割込み処理登録 */
 	self->iIntNum = iIntNum;

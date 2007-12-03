@@ -40,11 +40,11 @@ void Ne2000Drv_Create(C_NE2000DRV *self, void *pRegAddr, int iIntNum)
 	Ne2000Hal_Create(&self->Ne2000Hal, pRegAddr);
 
 	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_MODE_AUTOCLEAR);
+	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 
 	/* ミューテックス生成 */
-	self->hMtx = SysMtx_Create();
+	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 
 	/* 割り込み処理登録 */
 	SysIsr_Create(iIntNum, Ne2000Drv_Isr, (VPARAM)self);
