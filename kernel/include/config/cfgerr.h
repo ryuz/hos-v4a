@@ -246,9 +246,20 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* acre_mtx */
 /* del_mtx */
 /* loc_mtx */
+#define _KERNEL_CFG_LOC_MTX_E_CTX		TRUE
+#define _KERNEL_CFG_LOC_MTX_E_ID		TRUE
+#define _KERNEL_CFG_LOC_MTX_E_NOEXS		TRUE
+#define _KERNEL_CFG_LOC_MTX_E_NOSPT		FALSE
+
 /* ploc_mtx */
 /* tloc_mtx */
 /* unl_mtx */
+#define _KERNEL_CFG_UNL_MTX_E_CTX		TRUE
+#define _KERNEL_CFG_UNL_MTX_E_ID		TRUE
+#define _KERNEL_CFG_UNL_MTX_E_NOEXS		TRUE
+#define _KERNEL_CFG_UNL_MTX_E_ILUSE		TRUE
+#define _KERNEL_CFG_UNL_MTX_E_NOSPT		FALSE
+
 /* ref_mtx */
 
 

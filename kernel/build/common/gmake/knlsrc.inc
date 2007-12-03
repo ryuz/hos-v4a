@@ -15,6 +15,7 @@ CORE_DIR    = $(SRC_DIR)/core
 OBJ_DIR     = $(SRC_DIR)/object
 
 
+
 # Kernel include directorys
 INC_DIRS   += $(INC_DIR)
 
@@ -24,17 +25,20 @@ INC_DIRS   += $(INC_DIR)
 ITRON_HDRS  = $(INC_DIR)/itron.h			\
               $(INC_DIR)/kernel.h
 
+
 # configulation header files
 CFG_HDRS    = $(INC_DIR)/parser/parssys.h	\
               $(INC_DIR)/parser/parsknl.h	\
               $(INC_DIR)/parser/parserr.h	\
               $(INC_DIR)/parser/parshok.h
 
+
 # Parser header files
 PARS_HDRS   = $(INC_DIR)/config/cfgsys.h	\
               $(INC_DIR)/config/cfgknl.h	\
               $(INC_DIR)/config/cfgerr.h	\
               $(INC_DIR)/config/cfghok.h
+
 
 # Core header files
 CORE_HDRS   = $(INC_DIR)/core/adtq.h		\
@@ -53,11 +57,13 @@ CORE_HDRS   = $(INC_DIR)/core/adtq.h		\
               $(INC_DIR)/core/toq.h			\
               $(INC_DIR)/core/dpc.h
 
+
 # Architecture header files
 ARCH_HDRS   = $(INC_PROC_DIR)/proc.h		\
               $(INC_PROC_DIR)/procatr.h		\
               $(INC_IRC_DIR)/irc.h			\
               $(INC_IRC_DIR)/ircatr.h
+
 
 # Common header files
 COMMON_HDRS = $(ITRON_HDRS)					\
@@ -66,7 +72,6 @@ COMMON_HDRS = $(ITRON_HDRS)					\
               $(CORE_HDRS)					\
               $(ARCH_HDRS)					\
               $(TSKOBJ_HDRS)
-
 
 
 # Dispatcher
@@ -84,7 +89,6 @@ CSRCS      += $(DSP_DIR)/ent_tsk.c			\
               $(DSP_DIR)/dsp_rsm.c
 
 
-
 # Task-queue
 QUE_DIR     = $(CORE_DIR)/que
 SRC_DIRS   += $(QUE_DIR)
@@ -96,6 +100,17 @@ CSRCS      += $(QUE_DIR)/add_que.c			\
               $(QUE_DIR)/trm_que.c			\
               $(QUE_DIR)/nxt_que.c			\
               $(QUE_DIR)/rot_que.c
+
+
+# Ready-queue
+RDQ_DIR     = $(CORE_DIR)/rdq
+SRC_DIRS   += $(RDQ_DIR)
+CSRCS      += $(RDQ_DIR)/cre_rdq.c			\
+              $(RDQ_DIR)/del_rdq.c			\
+              $(RDQ_DIR)/add_rdq.c			\
+              $(RDQ_DIR)/rmv_rdq.c			\
+              $(RDQ_DIR)/rmh_rdq.c			\
+              $(RDQ_DIR)/ref_rdq.c
 
 
 # Time management
@@ -277,7 +292,6 @@ SRC_DIRS   += $(ISROBJ_DIR)
 CSRCS      += $(ISROBJ_DIR)/acre_isr.c		\
               $(ISROBJ_DIR)/kcre_isr.c		\
               $(ISROBJ_DIR)/exe_isr.c
-
 
 
 
