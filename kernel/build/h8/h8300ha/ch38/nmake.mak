@@ -45,7 +45,7 @@ AFLAGS = $(AFLAGS) -CP=300HA:24
 LFLAGS = 
 
 # %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\gcc
+CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\vc60
 CFGRTR     = h4acfg-h8300ha
 
 
@@ -134,13 +134,16 @@ OBJS   = $(OBJS_DIR)\val_int.obj		\
 
 # %jp{ALL}
 all: mkdir_objs srcobjcp makelib_all
-#	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
+	cd $(CFGRTR_DIR)
+	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
 
 # %jp{クリーン}
-clean: clean_makelib
-	$(CMD_RM) *.lst
-#	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
+clean: makelib_clean
+	-$(CMD_RM) /Q *.lst
+	-$(CMD_RM) /Q $(OBJS_DIR)\*.*
+	cd $(CFGRTR_DIR)
+	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 
 
 # %jp{ch38用の設定読込み}

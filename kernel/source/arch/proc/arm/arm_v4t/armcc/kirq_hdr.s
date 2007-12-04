@@ -26,21 +26,18 @@
 ; ----------------------------------------------
 _kernel_irq_hdr
 			; ---- レジスタ退避
-				mrs		r13, cpsr								; cpsrをr13に退避
 				msr		cpsr_c, #Mode_SYS:OR:F_Bit:OR:I_Bit		; SYSモードに移行
 				stmfd	sp!, {r0-r3, r12, lr}					; SYSモードの汎用レジスタ退避
 				msr		cpsr_c, #Mode_IRQ:OR:F_Bit:OR:I_Bit		; IRQモードに移行
 				mov		r0, lr									; lr_irq 取り出し
 				mrs		r1, spsr								; spsr_irq 取り出し
-				mov		r2, r13									; cpsrを取り出し
 				msr		cpsr_c, #Mode_SYS:OR:F_Bit:OR:I_Bit		; SYSモードに移行
 				stmfd	sp!, {r0, r1}							; lr_irq, spsr_irq退避
 				
 			; ---- 割込みマスク設定
 				ldr		r0, =_kernel_ictxcb
-				ldr		r3, [r0, #ICTXCB_IMSK]					; 古いimsk値を取り出し
-				and		r2, r2, #F_Bit:OR:I_Bit
-				strb	r2, [r0, #ICTXCB_IMSK]					; cpsr値をimsk値に設定
+				mov		r1, #I_Bit
+				strb	r1, [r0, #ICTXCB_IMSK]					; cpsr値をimsk値に設定
 				
 			; ---- 多重割込み判定
 				ldrb	r1, [r0, #ICTXCB_INTCNT]				; 割り込みネストカウンタ値取得
@@ -52,7 +49,7 @@ _kernel_irq_hdr
 			; ---- SPを割込みコンテキストのものに切替え
 				mov		r1, sp									; タスクのSPを保存
 				ldr		sp, [r0, #ICTXCB_ISP]					; 割り込み用スタックに切り替え
-				stmfd	sp!, {r1, r3}							; タスクのSPと旧imask保存
+				stmfd	sp!, {r1, r3}							; タスクのSP+ダミー保存
 				
 			; ---- 割込み開始処理
 				bl		_kernel_sta_inh							; 割り込み開始
@@ -71,9 +68,7 @@ _kernel_irq_hdr
 			; ---- 割込みマスク値復帰処理
 				ldr		r1, [sp, #4]							; spsr_irq 値取り出し
 				and		r1, r1, #F_Bit:OR:I_Bit
-				cmp		r1, r3									; 旧imsk値と比較
-				bne		return_int								; 不一致なら終了処理スキップ
-				strb	r3, [r0, #ICTXCB_IMSK]					; マスク値復帰
+				strb	r1, [r0, #ICTXCB_IMSK]					; マスク値復帰
 				
 			; ---- 割込み終了処理
 				bl		_kernel_end_inh							; 割り込み終了処理
