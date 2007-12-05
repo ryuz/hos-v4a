@@ -11,6 +11,12 @@
 TARGET ?= libhosv4a
 
 
+# %jp{アーキテクチャ定義}
+ARCH_PROC ?= sh/sh2
+ARCH_IRC  ?= simple
+ARCH_CC   ?= shc
+
+
 # %jp{ディレクトリ定義}
 HOSV4A_DIR        = ../../../../..
 KERNEL_DIR        = $(HOSV4A_DIR)/kernel
@@ -22,11 +28,6 @@ OBJS_DIR          = objs_$(TARGET)
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{アーキテクチャ定義}
-ARCH_PROC ?= sh/sh2
-ARCH_IRC  ?= simple
-ARCH_CC   ?= shc
-
 # %jp{アーキテクチャパス}
 INC_PROC_DIR    = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
 INC_IRC_DIR     = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
@@ -35,9 +36,11 @@ SRC_PROC_CC_DIR = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
 SRC_IRC_DIR     = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
 SRC_IRC_CC_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
 
+
 # %jp{パス設定}
 INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
+
 
 # %jp{オプションフラグ}
 AFLAGS  += -CPu=sh2
@@ -56,13 +59,13 @@ include $(KERNEL_MAKINC_DIR)/shc_d.inc
 
 # %jp{C言語ファイルの追加}
 CSRCS += $(SRC_PROC_DIR)/val_int.c			\
-         $(SRC_IRC_DIR)/chg_ilv.c			\
-         $(SRC_IRC_DIR)/chg_imsk.c			\
-         $(SRC_IRC_DIR)/clr_int.c			\
-         $(SRC_IRC_DIR)/dis_int.c			\
          $(SRC_IRC_DIR)/ena_int.c			\
-         $(SRC_IRC_DIR)/get_ilv.c			\
-         $(SRC_IRC_DIR)/get_imsk.c
+         $(SRC_IRC_DIR)/dis_int.c			\
+         $(SRC_IRC_DIR)/clr_int.c			\
+         $(SRC_IRC_DIR)/get_imsk.c			\
+         $(SRC_IRC_DIR)/chg_imsk.c			\
+         $(SRC_IRC_DIR)/chg_ilv.c			\
+         $(SRC_IRC_DIR)/get_ilv.c
 
 # %jp{アセンブラファイルの追加}
 ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.src	\

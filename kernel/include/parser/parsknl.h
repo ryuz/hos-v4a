@@ -929,6 +929,7 @@
 #define _KERNEL_SPT_DTQ_TA_TFIFO	_KERNEL_CFG_DTQ_TA_TFIFO			/**< %jp{TA_TFIFO属性に対応する} */
 #define _KERNEL_SPT_DTQ_TA_TPRI		_KERNEL_CFG_DTQ_TA_TPRI				/**< %jp{TA_TPRI属性に対応する} */
 
+#define _KERNEL_DTQ_TMAX_DTQCNT		_KERNEL_TMAX_INT
 
 /* Member variables  */
 #define _KERNEL_DTQCB_SQUE			TRUE

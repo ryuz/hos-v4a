@@ -18,6 +18,7 @@ space:= $(empty) $(empty)
 
 # %jp{ツール定義}%en{Tools}
 CMD_ECHO   ?= echo
+CMD_CD     ?= cd
 CMD_MKDIR  ?= mkdir
 CMD_CP     ?= cp
 CMD_MV     ?= mv

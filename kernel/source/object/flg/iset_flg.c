@@ -53,7 +53,7 @@ ER iset_flg(ID flgid, FLGPTN setptn)
 		ercd = E_NOMEM;		/* %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution} */
 	}
 	
-	_KERNEL_SYS_UNL_DPC();	/* jp{ロック解除} */
+	_KERNEL_SYS_UNL_DPC();	/* %jp{ロック解除} */
 	
 	return ercd;
 }

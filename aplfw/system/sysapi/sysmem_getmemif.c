@@ -21,7 +21,7 @@ static const C_MEMIF SysMem_MemIf =
 };
 
 
-/* メモリインターフェースの取得 */
+/* %jp{メモリインターフェースの取得} */
 C_MEMIF *SysMem_GetMemIf(void)
 {
 	return (C_MEMIF *)&SysMem_MemIf;

@@ -1,19 +1,11 @@
 /****************************************************************************
   Hyper Operating System V4 Advance
+  %jp{コンテキスト制御(MN1030シリーズ用}%en{MN1030}
 
   Copyright (C) 1998-2006 by Project HOS
   http://sourceforge.jp/projects/hos/
 ****************************************************************************/
 
-
-
-				.global	__kernel_ena_int			/* 割り込み許可 */
-				.global	__kernel_dis_int			/* 割り込み禁止 */
-				.global	__kernel_wai_int			/* CPUのアイドル処理 */
-				.global	__kernel_cre_ctx			/* 実行コンテキストの作成 */
-				.global	__kernel_sta_ctx			/* 実行コンテキストの開始 */
-				.global	__kernel_rst_ctx			/* 実行コンテキストのリスタート */
-				.global	__kernel_swi_ctx			/* 実行コンテキストの切替 */
 
 
 				.text
@@ -23,6 +15,7 @@
   割り込み許可
    void _kernel_ena_int(void)
  ************************************************/
+				.global	__kernel_ena_int
  				.type	__kernel_ena_int, %function
 __kernel_ena_int:
 				or		0x0800, psw					/* IEビットセット */
@@ -34,6 +27,7 @@ __kernel_ena_int:
   割り込み禁止
    void _kernel_dis_int(void)
  ************************************************/
+				.global	__kernel_dis_int
  				.type	__kernel_dis_int, %function
 __kernel_dis_int:
 				and		0xf7ff, psw					/* IEビットクリア */
@@ -45,6 +39,7 @@ __kernel_dis_int:
  割り込み待ち(CPUのアイドル処理)
    void __kernel_wai_int(void);
 *************************************************/
+				.global	__kernel_wai_int
  				.type	_kernel_wai_int, %function
 __kernel_wai_int:
 				jmp		__kernel_wai_int
@@ -61,6 +56,7 @@ __kernel_wai_int:
 			VP              isp,		スタックポインタ     [(16, sp)]
 			FP              entry)		実行アドレス         [(20, sp)]
 *************************************************/
+				.global	__kernel_cre_ctx
  				.type	__kernel_cre_ctx, %function
 __kernel_cre_ctx:
 				mov		(12, sp), a0	/* コンテキストアドレス取り出し */
@@ -97,6 +93,7 @@ ctx_entry:
 			FP             entry,		実行アドレス         [(12, sp)]
 			VP             isp)			初期スタックポインタ [(16, sp)]
 *************************************************/
+				.global	__kernel_rst_ctx
  				.type	__kernel_rst_ctx, %function
 __kernel_rst_ctx:
 				mov		(12, sp), a0		/* 初期スタックポインタ取り出し */
@@ -115,6 +112,7 @@ __kernel_rst_ctx:
 			_KERNEL_T_CTXCB *pk_ctxinf_nxt,		実行を開始するコンテキスト [d0]
 			_KERNEL_T_CTXCB *pk_ctxinf_now)		現在のコンテキストの保存先 [d1]
 *************************************************/
+				.global	__kernel_swi_ctx
  				.type	__kernel_swi_ctx, %function
 __kernel_swi_ctx:
 				movm	[d2,d3,a2,a3], (sp)
@@ -129,6 +127,7 @@ __kernel_swi_ctx:
   void _kernel_sta_ctx(
 			_KERNEL_T_CTXCB *pk_ctxcb)			実行を開始するコンテキスト [d0]
 *************************************************/
+				.global	__kernel_sta_ctx
  				.type	__kernel_sta_ctx, %function
 __kernel_sta_ctx:
 				mov		d0, a0

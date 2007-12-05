@@ -38,6 +38,8 @@ HANDLE Event_Create(void)
 	
 	/* 親クラスコンストラクタ呼び出し */
 	HandleObj_Create(&self->HandleObj, &Event_Methods);
+	
+	return (HANDLE)self;
 }
 
 

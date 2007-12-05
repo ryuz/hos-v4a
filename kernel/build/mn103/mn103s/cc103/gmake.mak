@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for MN103S
+#  makefile for Panasonic MN103S series
 #
-# Copyright (C) 1998-2006 by Project HOS
+# Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -13,14 +13,7 @@ TARGET ?= libhosv4a
 # %jp{アーキテクチャパス}
 ARCH_PROC ?= mn103/mn1030
 ARCH_IRC  ?= mn103/mn103s
-ARCH_CC   ?= gcc
-
-# %jp{ツール定義}
-GCC_SYS  ?= elf
-CMD_CC   ?= mn10300-$(GCC_SYS)-gcc
-CMD_ASM  ?= mn10300-$(GCC_SYS)-gcc
-CMD_LIBR ?= mn10300-$(GCC_SYS)-ar
-
+ARCH_CC   ?= cc103
 
 # %jp{ディレクトリ定義}
 TOP_DIR           = ../../../../..
@@ -46,9 +39,9 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  +=
-CFLAGS  +=
-ARFLAGS +=
+AFLAGS += 
+CFLAGS += 
+LFLAGS += 
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
@@ -56,17 +49,21 @@ CFGRTR     = h4acfg-mn103s
 
 
 # アセンブラファイルの追加
-ASRCS += $(SRC_PROC_CC_DIR)/kini_prc.S		\
-         $(SRC_PROC_CC_DIR)/kdis_int.S		\
-         $(SRC_PROC_CC_DIR)/kena_int.S		\
-         $(SRC_PROC_CC_DIR)/kwai_int.S		\
-         $(SRC_PROC_CC_DIR)/kcre_ctx.S		\
-         $(SRC_PROC_CC_DIR)/krst_ctx.S		\
-         $(SRC_PROC_CC_DIR)/kswi_ctx.S		\
-         $(SRC_PROC_CC_DIR)/kint_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/kini_prc.as		\
+         $(SRC_PROC_CC_DIR)/kdis_int.as		\
+         $(SRC_PROC_CC_DIR)/kena_int.as		\
+         $(SRC_PROC_CC_DIR)/kwai_int.as		\
+         $(SRC_PROC_CC_DIR)/kcre_ctx.as		\
+         $(SRC_PROC_CC_DIR)/krst_ctx.as		\
+         $(SRC_PROC_CC_DIR)/ksta_ctx.as		\
+         $(SRC_PROC_CC_DIR)/kswi_ctx.as		\
+         $(SRC_PROC_CC_DIR)/kint_hdr.as
+
+
 
 # C言語ファイルの追加
-CSRCS += $(SRC_IRC_DIR)/ini_irc.c			\
+CSRCS += $(SRC_PROC_DIR)/val_int.c			\
+         $(SRC_IRC_DIR)/ini_irc.c			\
          $(SRC_IRC_DIR)/exe_irc.c			\
          $(SRC_IRC_DIR)/ena_int.c			\
          $(SRC_IRC_DIR)/dis_int.c			\
@@ -91,15 +88,16 @@ clean: makelib_clean
 	$(RM) -f *.lst
 
 
-# %jp{gcc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_d.inc
+
+# %jp{cc103S用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/cc103_d.inc
 
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
 
-# %jp{ch38用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/gcc_r.inc
+# %jp{cc103S用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/cc103_r.inc
 
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc

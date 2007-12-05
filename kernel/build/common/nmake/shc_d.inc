@@ -12,13 +12,19 @@
 
 # %jp{ツール定義}%en{Tools}
 !ifndef CMD_CC
-CMD_CC   = ch38
+CMD_CC = shc
 !endif
 !ifndef CMD_ASM
-CMD_ASM  = asm38
+CMD_ASM = asmsh
 !endif
 !ifndef CMD_LIBR
 CMD_LIBR = optlnk
+!endif
+!ifndef CMD_LINK
+CMD_LINK = optlnk
+!endif
+!ifndef CMD_OBJCNV
+CMD_OBJCNV = optlnk
 !endif
 
 
@@ -44,6 +50,7 @@ CFLAGS = $(CFLAGS) -NOLOGO -NOList
 
 
 # %jp{インクルードパスオプションの定義}
+!ifdef INC_DIRS
 INC_DIRS = $(INC_DIRS:	= )
 INC_DIRS = $(INC_DIRS:  = )
 INC_DIRS = $(INC_DIRS:  = )
@@ -54,9 +61,10 @@ INC_DIRS = $(INC_DIRS: @=)
 INC_DIRS = $(INC_DIRS:@=)
 
 CFLAGS_INC = -I=$(INC_DIRS: =,)
-
+!endif
 
 # %jp{マクロ定義オプションの定義}
+!ifdef C_DEFS
 C_DEFS = $(C_DEFS:	= )
 C_DEFS = $(C_DEFS:  = )
 C_DEFS = $(C_DEFS:  = )
@@ -66,8 +74,8 @@ C_DEFS = $(C_DEFS:@ =)
 C_DEFS = $(C_DEFS: @=)
 C_DEFS = $(C_DEFS:@=)
 
-CFLAGS_DEF = -D$(C_DEFS: = -D)
-
+CFLAGS_DEF = -DEF=$(C_DEFS: =,)
+!endif
 
 # %jp{デバッグオプションの定義}
 CFLAGS_DBG = -DEBug
@@ -89,11 +97,24 @@ AFLAGS = $(AFLAGS) -NOLOGO
 
 
 # %jp{インクルードパスオプションの定義}
+!ifdef INC_DIRS
 AFLAGS_INC = -I=$(INC_DIRS: =,)
+!endif
 
 
 # %jp{マクロ定義オプションの定義}
-AFLAGS_DEF = 
+!ifdef A_DEFS
+A_DEFS = $(A_DEFS:	= )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = @$(A_DEFS)@
+A_DEFS = $(A_DEFS:@ =)
+A_DEFS = $(A_DEFS: @=)
+A_DEFS = $(A_DEFS:@=)
+
+AFLAGS_DEF = -DEF=$(A_DEFS: =,)
+!endif
 
 
 # %jp{デバッグオプションの定義}

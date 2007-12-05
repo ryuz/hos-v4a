@@ -1,7 +1,7 @@
 /**
  *  Hyper Operating System V4 Advance
  *
- * @file  _tic_toq.c
+ * @file  sig_toq.c
  * @brief %jp{タスクをタイムアウトキューに追加}
  *
  * Copyright (C) 1998-2006 by Project HOS

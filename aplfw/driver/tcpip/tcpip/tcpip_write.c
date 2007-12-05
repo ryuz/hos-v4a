@@ -9,6 +9,7 @@
  */
 
 
+#include <string.h>
 #include "hosaplfw.h"
 #include "tcpip_local.h"
 #include "library/algorithm/ipchecksum/ipchecksum.h"

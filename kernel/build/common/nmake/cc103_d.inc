@@ -6,29 +6,30 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
+.SUFFIXES :
+.SUFFIXES : .ro .c .as
 
 
-# %jp{ツール定義}%en{Tools}
-CMD_CC     ?= shc
-CMD_ASM    ?= asmsh
-CMD_LIBR   ?= optlnk
-CMD_LINK   ?= optlnk
-CMD_OBJCNV ?= optlnk
+# %jp{コマンド定義}%en{Tools}
+!ifndef CMD_CC
+CMD_CC   = cc103S
+!endif
+!ifndef CMD_ASM
+CMD_ASM  = cc103S
+!endif
+!ifndef CMD_LIBR
+CMD_LIBR = ar103S
+!endif
+
 
 # %jp{拡張子定義}
-EXT_C   ?= c
-EXT_CPP ?= cpp
-EXT_ASM ?= src
-EXT_OBJ ?= obj
-EXT_LIB ?= lib
-EXT_EXE ?= abs
-EXT_MOT ?= mot
-EXT_HEX ?= hex
-EXT_BIN ?= bin
+EXT_C   = c
+EXT_CPP = cpp
+EXT_ASM = as
+EXT_OBJ = ro
+EXT_LIB = l
+EXT_EXE = x
+
 
 
 # ----------------------------------
@@ -36,21 +37,32 @@ EXT_BIN ?= bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-CFLAGS += -NOLOGO
+CFLAGS = $(CFLAGS) -c -g
 
 # %jp{インクルードパスオプションの定義}
-CFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
+INC_DIRS = $(INC_DIRS:	= )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = @$(INC_DIRS)@
+INC_DIRS = $(INC_DIRS:@ =)
+INC_DIRS = $(INC_DIRS: @=)
+INC_DIRS = $(INC_DIRS:@=)
+
+CFLAGS_INC = -I$(INC_DIRS: = -I)
+
 
 # %jp{マクロ定義オプションの定義}
-CFLAGS_DEF = -DEF=$(subst $(space),$(comma),$(strip $(C_DEFS)))
+CFLAGS_DEF = 
 
 # %jp{デバッグオプションの定義}
-CFLAGS_DBG = -DEBug
+CFLAGS_DBG = -g
 
 # %jp{最適化オプションの定義}
-CFLAGS_OPT_NONE  = -OP=0
-CFLAGS_OPT_SIZE  = -OP=1
-CFLAGS_OPT_SPEED = -OP=1
+CFLAGS_OPT_NONE   = -OP=0
+CFLAGS_OPT_NORMAL = -O
+CFLAGS_OPT_SIZE   = -Os
+CFLAGS_OPT_SPEED  = -Ot
 
 
 # ----------------------------------
@@ -58,22 +70,22 @@ CFLAGS_OPT_SPEED = -OP=1
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-AFLAGS += -NOLOGO
+AFLAGS = $(AFLAGS) -c
 
 # %jp{インクルードパスオプションの定義}
-AFLAGS_INC =
+AFLAGS_INC = 
 
 # %jp{マクロ定義オプションの定義}
 AFLAGS_DEF = 
 
 # %jp{デバッグオプションの定義}
-AFLAGS_DBG = -DEBug
+AFLAGS_DBG = -g
 
 # %jp{最適化オプションの定義}
-AFLAGS_OPT_NONE  =
-AFLAGS_OPT_SIZE  =
-AFLAGS_OPT_SPEED =
-
+AFLAGS_OPT_NONE   =
+CFLAGS_OPT_NORMAL =
+AFLAGS_OPT_SIZE   =
+AFLAGS_OPT_SPEED  =
 
 
 # end of file

@@ -18,7 +18,9 @@
 void _kernel_add_mtx(_KERNEL_T_MTXCB_PTR mtxcb, _KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb)
 {
 	_KERNEL_T_MTXHDL		mtxhdl_head;
-				
+	
+	mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
+			
 	mtxhdl_head = _KERNEL_TSK_GET_MTXHDL(tcb);
 	if ( mtxhdl_head == _KERNEL_MTXHDL_NULL )
 	{

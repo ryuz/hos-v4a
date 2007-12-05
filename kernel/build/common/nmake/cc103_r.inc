@@ -1,22 +1,25 @@
 # ----------------------------------------------------------------------------
 #  Hyper Operating System V4 Advance
-#    common file for nmake
 #
 #  Copyright (C) 1998-2006 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# --------------------------------------
-#  %jp{共通設定}
-# --------------------------------------
+# %jp{ライブラリ生成}
+$(TARGET_LIB): $(OBJS)
+	-del $(TARGET_LIB)
+	$(CMD_LIBR) $(TARGET_LIB) -c $(OBJS)
 
-# %jp{ツール定義}%en{Tools}
-CMD_ECHO  = echo
-CMD_CD    = cd
-CMD_MKDIR = mkdir
-CMD_CP    = copy /Y
-CMD_RM    = del /Q
+
+# %jp{Cコンパイル}
+{$(OBJS_DIR)}.c{$(OBJS_DIR)}.ro :
+	$(CMD_CC)  $(CFLAGS) $< -o $@
+
+
+# %jp{アセンブル}
+{$(OBJS_DIR)}.as{$(OBJS_DIR)}.ro :
+	$(CMD_ASM) $(AFLAGS) $< -o $@
 
 
 # end of file

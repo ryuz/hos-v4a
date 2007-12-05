@@ -73,6 +73,13 @@ INHOBJ_HEADERS = $(KERNEL_INC_DIR)/object/inhobj.h
 
 ISROBJ_HEADERS = $(KERNEL_INC_DIR)/object/isrobj.h
 
+COMMON_HEADERS = $(ITRON_HEADERS)		\
+                 $(CFG_HEADERS)			\
+                 $(PARS_HEADERS)		\
+                 $(CORE_HEADERS)		\
+                 $(ARCH_HEADERS)		\
+                 $(TSKOBJ_HEADERS)		\
+
 
 
 # Dispatcher
