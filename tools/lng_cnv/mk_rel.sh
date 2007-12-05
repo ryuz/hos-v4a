@@ -8,15 +8,15 @@
 ################################
 
 # unix
-rm -fr jp-euc-unix
+# rm -fr jp-euc-unix
 ./dircpy.pl ../.. jp-euc-unix jp-euc-unix
 
 # windows
-rm -fr jp-sjis-dos
+# rm -fr jp-sjis-dos
 ./dircpy.pl ../.. jp-sjis-dos jp-sjis-dos
 
 # cygwin
-rm -fr jp-sjis-unix
+# rm -fr jp-sjis-unix
 ./dircpy.pl ../.. jp-sjis-unix jp-sjis-unix
 
 
@@ -26,11 +26,11 @@ rm -fr jp-sjis-unix
 ################################
 
 # unix/cygwin
-rm -fr en-unix
+# rm -fr en-unix
 ./dircpy.pl ../.. en-euc-unix en-euc-unix
 
 # windows
-rm -fr en-dos
+# rm -fr en-dos
 ./dircpy.pl ../.. en-euc-dos en-euc-dos
 
 

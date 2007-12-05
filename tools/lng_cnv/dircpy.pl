@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
 # %jp{ファイル種別設定}
-@c_file      = ("\.c\$", "\.cpp\$", "\.h\$");
-@binary_file = ("\.dsw\$", "\.dsp\$");
-@ignore_file = ("\.o\$", "\.obj\$", "\.lib\$", "\.l\$", "\.exe\$", "\.elf\$");
+@binary_file = ("\\.dsw\$", "\\.dsp\$");
+@ignore_file = ("\\.o\$", "\\.obj\$", "\\.ro\$", "\\.lib\$", "\\.l\$", "\\.a\$",
+                "\\.exe\$", "\\.abs\$", "\\.elf\$", "\\.x\$", "\\.mot\$", "\\.hex\$", "\\.mcp\$", "\\.tmp\$");
 @ignore_dir  = ("^CVS\$", "^tools\$", "^test\$", "^Debug\$", "^Release\$", "^objs", "^tmp_");
 
 # %jp{オプション設定}
@@ -13,29 +13,29 @@ $lng_filter = "cat";
 $c_filter   = "./c_filter.pl";
 
 # %jp{オプション解析}
-if ( $ARGV[2] =~ /jp-/ )
+if ( $ARGV[2] =~ /jp/ )
 {
 	$lng_filter = "./jp_filter.pl";
 }
-elsif ( $ARGV[2] =~ /en-/ )
+elsif ( $ARGV[2] =~ /en/ )
 {
 	$lng_filter = "./en_filter.pl";
 }
 
-if ( $ARGV[2] =~ /-sjis-/ )
+if ( $ARGV[2] =~ /sjis/ )
 {
 	$nkf_out .= " -s"
 }
-elsif ( $ARGV[2] =~ /-euc-/ )
+elsif ( $ARGV[2] =~ /euc/ )
 {
 	$nkf_out .= " -e"
 }
 
-if ( $ARGV[2] =~ /-dos/ )
+if ( $ARGV[2] =~ /dos/ )
 {
 	$nkf_out .= " -c"
 }
-elsif ( $ARGV[2] =~ /-unix/ )
+elsif ( $ARGV[2] =~ /unix/ )
 {
 	$nkf_out .= " -d"
 }
@@ -133,14 +133,8 @@ sub search_dir($$)
 					next file_search;
 				}
 				
-				# %jp{C言語ファイルチェック}
-				elsif ( &check_name($fname, @c_file) )
-				{
-					&copy_c_file($inpath, $outpath);
-				}
-				
 				# %jp{バイナリファイルチェック}
-				elsif ( &check_name($fname, @bin_file) )
+				elsif ( &check_name($fname, @binary_file) )
 				{
 					&copy_bin_file($inpath, $outpath);
 				}

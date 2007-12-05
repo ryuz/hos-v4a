@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  kact_tsk.c
+ * @file  kcre_tsk.c
  * @brief %en{Activate Task}%jp{タスクの起動}
  *
  * Copyright (C) 1998-2006 by Project HOS
