@@ -59,7 +59,9 @@ INC_DIRS = $(INC_DIRS:@=)
 CFLAGS_INC = /I$(INC_DIRS: = /I)
 !endif
 
+
 # %jp{マクロ定義オプションの定義}
+!ifdef C_DEFS
 C_DEFS = $(C_DEFS:	= )
 C_DEFS = $(C_DEFS:  = )
 C_DEFS = $(C_DEFS:  = )
@@ -68,8 +70,8 @@ C_DEFS = @$(C_DEFS)@
 C_DEFS = $(C_DEFS:@ =)
 C_DEFS = $(C_DEFS: @=)
 C_DEFS = $(C_DEFS:@=)
-
-CFLAGS_DEF = 
+CFLAGS_DEF = /D$(C_DEFS: = /D)
+!endif
 
 
 # %jp{デバッグオプションの定義}
@@ -88,19 +90,31 @@ CFLAGS_OPT_SPEED = /O2
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-AFLAGS = $(AFLAGS) -NOLOGO
+AFLAGS = $(AFLAGS)
 
 
 # %jp{インクルードパスオプションの定義}
+!ifdef INC_DIRS
 AFLAGS_INC = -I=$(INC_DIRS: =,)
+!endif
 
 
 # %jp{マクロ定義オプションの定義}
-AFLAGS_DEF = 
+!ifdef A_DEFS
+A_DEFS = $(A_DEFS:	= )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = @$(A_DEFS)@
+A_DEFS = $(A_DEFS:@ =)
+A_DEFS = $(A_DEFS: @=)
+A_DEFS = $(A_DEFS:@=)
+AFLAGS_DEF = /D$(A_DEFS: = /D)
+!endif
 
 
 # %jp{デバッグオプションの定義}
-AFLAGS_DBG = -DEBug
+AFLAGS_DBG = -Yd
 
 
 # %jp{最適化オプションの定義}
