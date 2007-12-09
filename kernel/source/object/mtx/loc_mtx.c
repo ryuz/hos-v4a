@@ -123,8 +123,6 @@ ER loc_mtx(ID mtxid)
 				_KERNEL_TSK_SET_TSKPRI(tcb_lock, _KERNEL_TSK_GET_TSKPRI(tcb));
 				if ( _KERNEL_TSK_GET_TSKSTAT(tcb) == TTS_RDY )
 				{
-					_KERNEL_T_TSKHDL	tskhdl;
-					
 					_KERNEL_SYS_RMV_RDQ(tskhdl);
 					_KERNEL_SYS_ADD_RDQ(tskhdl);
 				}

@@ -21,7 +21,7 @@ CMD_ASM  = masm
 CMD_LIBR = lib
 !endif
 !ifndef CMD_LINK
-CMD_LINK = link
+CMD_LINK = cl
 !endif
 
 

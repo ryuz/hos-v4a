@@ -1,19 +1,21 @@
 # Microsoft Developer Studio Project File - Name="hosv4a" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** •ÿÿW‚ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ**
+# ** •ÒW‚µ‚È‚¢‚Å‚­‚¾‚³‚¢ **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
 CFG=hosv4a - Win32 Debug
-!MESSAGE ‚ÿÿÿÿÿÿLŒÿÿ”ÿÿÿÿÿÿÿÿÿÿÿÿ ‚ÿÿÿÿÿÿÿÿB ‚ÿÿ–•ŞzÜ…ÿÿÿäÇŸÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿNMAKE ‚ğg—p‚ÿÿÿÿÿÿÿÿÿÿÿÿB
-!MESSAGE [™ÿÿÿÿQÿÿ–ÿÿÿÿÿÿÿÿ ÿÿcÿÿğg—p‚ÿÿÄÿÿs‚ÿÿÿÿÿÿÿÿÿÿÿÿ!MESSAGE 
+!MESSAGE ‚±‚ê‚Í—LŒø‚ÈÒ²¸Ì§²Ù‚Å‚Í‚ ‚è‚Ü‚¹‚ñB ‚±‚ÌÌßÛ¼Şª¸Ä‚ğËŞÙÄŞ‚·‚é‚½‚ß‚É‚Í NMAKE ‚ğg—p‚µ‚Ä‚­‚¾‚³‚¢B
+!MESSAGE [Ò²¸Ì§²Ù‚Ì´¸½Îß°Ä] ºÏİÄŞ‚ğg—p‚µ‚ÄÀs‚µ‚Ä‚­‚¾‚³‚¢
+!MESSAGE 
 !MESSAGE NMAKE /f "hosv4a.mak".
 !MESSAGE 
-!MESSAGE NMAKE ‚Ìÿÿs‚ÿÿ\ÿÿğw’ÿÿÿÿÿÿÿÿÿÿ!MESSAGE ÿÿcÿÿœQÿÿÿÿ“nŒÿÿÿÿÿÿÿÿÿÿÿÿ`‚ÿÿÿÿÿÿB—ÿÿ
+!MESSAGE NMAKE ‚ÌÀs‚É\¬‚ğw’è‚Å‚«‚Ü‚·
+!MESSAGE ºÏİÄŞ ×²İã‚ÅÏ¸Û‚Ìİ’è‚ğ’è‹`‚µ‚Ü‚·B—á:
 !MESSAGE 
 !MESSAGE NMAKE /f "hosv4a.mak" CFG="hosv4a - Win32 Debug"
 !MESSAGE 
-!MESSAGE ‘I‘ÿÿÿÿ\‚”ÿÿÿÿÿÿšO’ÿÿ
+!MESSAGE ‘I‘ğ‰Â”\‚ÈËŞÙÄŞ Ó°ÄŞ:
 !MESSAGE 
 !MESSAGE "hosv4a - Win32 Release" ("Win32 (x86) Static Library" —p)
 !MESSAGE "hosv4a - Win32 Debug" ("Win32 (x86) Static Library" —p)
@@ -379,6 +381,30 @@ SOURCE=..\..\..\..\source\core\que\trm_que.c
 # Begin Group "rdq"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\rdq\add_rdq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\rdq\cre_rdq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\rdq\del_rdq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\rdq\ref_rdq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\rdq\rmh_rdq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\core\rdq\rmv_rdq.c
+# End Source File
 # End Group
 # Begin Group "hep"
 
