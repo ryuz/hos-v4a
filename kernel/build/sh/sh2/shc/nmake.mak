@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for H8/300H advanced mode
+#  makefile for SH2
 #
-# Copyright (C) 1998-2006 by Project HOS
+# Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -24,6 +24,11 @@ KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
 OBJS_DIR          = objs_$(TARGET)
 
 
+# %jp{コンフィギュレータ定義}
+CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\vc60
+CFGRTR     = h4acfg-sh2
+
+
 # %jp{共通定義読込み}
 !include $(KERNEL_MAKINC_DIR)/common.inc
 
@@ -43,18 +48,15 @@ SRC_DIRS = $(SRC_DIRS) $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC
 
 
 # %jp{オプションフラグ}
-CFLAGS = $(CFLAGS) -CPu=sh2
-AFLAGS = $(AFLAGS) -CPu=sh2
-LFLAGS = 
+CFLAGS  = $(CFLAGS) -CPu=sh2
+AFLAGS  = $(AFLAGS) -CPu=sh2
+ARFLAGS = $(ARFLAGS)
 
 
-!ifdef FAST_VECTOR
-A_DEFS = _KERNEL_FAST_INTVEC="ON"
+!if "$(FAST_VECTOR)" == "Yes"
+A_DEFS = $(A_DEFS) _KERNEL_FAST_INTVEC="ON"
 !endif
 
-# %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\vc60
-CFGRTR     = h4acfg-sh2
 
 
 # %jp{オブジェクトファイル定義}
@@ -330,11 +332,20 @@ OBJS   = $(OBJS)						\
          $(OBJS_DIR)\vect_253.obj		\
          $(OBJS_DIR)\vect_254.obj		\
          $(OBJS_DIR)\vect_255.obj
-!else
 !endif
 
 
-# %jp{ALL}
+
+# %jp{コンパイラ依存定義}%en{definitions of compiler dependence}
+!include $(KERNEL_MAKINC_DIR)/shc_d.inc
+
+
+# %jp{カーネル共通ソースの追加}%en{definitions of kernel source files}
+!include $(KERNEL_MAKINC_DIR)\knlsrc.inc
+
+
+
+# %jp{ALL}%en{all}
 all: mkdir_objs srcobjcp makelib_all
 	$(CMD_CD) $(CFGRTR_DIR)
 	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
@@ -344,34 +355,33 @@ all: mkdir_objs srcobjcp makelib_all
 clean: makelib_clean
 	-$(CMD_RM) *.lst
 	-$(CMD_RM) $(OBJS_DIR)\*.*
-	cd $(CFGRTR_DIR)
+	$(CMD_CD) $(CFGRTR_DIR)
 	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
+	$(CMD_CD) $(MAKEDIR)
 
 
-# %jp{shc用の設定読込み}
-!include $(KERNEL_MAKINC_DIR)/shc_d.inc
 
-# カーネル共通ソースの追加
-!include $(KERNEL_MAKINC_DIR)\knlsrc.inc
-
-# %jp{ライブラリ生成用設定読込み}
+# %jp{ライブラリ生成用設定読込み}%en{rules of library}
 !include $(KERNEL_MAKINC_DIR)/makelib.inc
 
-# %jp{shc用のルール定義読込み}
+
+# %jp{コンパイラ依存ルール}%en{rules of compiler dependence}
 !include $(KERNEL_MAKINC_DIR)/shc_r.inc
 
-# %jp{カーネル依存関係読込み}
+
+# %jp{カーネル依存関係読込み}%en{dependence}
 !include $(KERNEL_MAKINC_DIR)/knldep.inc
 
 
-# %jp{コピー}
+# %jp{コピー}%en{source files copy}
 srcobjcp:
-	$(CMD_CP) $(SRC_PROC_DIR)\*.c       $(OBJS_DIR)
-	$(CMD_CP) $(SRC_IRC_DIR)\*.c        $(OBJS_DIR)
-	$(CMD_CP) $(SRC_PROC_ASM_DIR)\*.src $(OBJS_DIR)
+	$(CMD_CP) $(SRC_PROC_DIR)\*.*     $(OBJS_DIR)
+	$(CMD_CP) $(SRC_IRC_DIR)\*.*      $(OBJS_DIR)
+	$(CMD_CP) $(SRC_PROC_ASM_DIR)\*.* $(OBJS_DIR)
 
 
-# %jp{依存関係}
+
+# %jp{依存関係}%en{dependence}
 $(OBJS_DIR)\val_int.obj : $(OBJS_DIR)\val_int.c
 $(OBJS_DIR)\val_imsk.obj: $(OBJS_DIR)\val_imsk.c
 $(OBJS_DIR)\chg_imsk.obj: $(OBJS_DIR)\chg_imsk.c

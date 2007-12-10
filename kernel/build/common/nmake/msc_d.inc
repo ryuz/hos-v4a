@@ -25,7 +25,7 @@ CMD_LINK = cl
 !endif
 
 
-# %jp{拡張子定義}
+# %jp{拡張子定義}%en{file extensions}
 EXT_C   = c
 EXT_CPP = cpp
 EXT_ASM = asm
@@ -42,43 +42,15 @@ EXT_BIN = bin
 #  C-compiler
 # ----------------------------------
 
-# %jp{共通オプションの設定}
+# %jp{共通オプションの設定}$en{common options}
 CFLAGS = $(CFLAGS) /c
 
 
-# %jp{インクルードパスオプションの定義}
-!ifdef INC_DIRS
-INC_DIRS = $(INC_DIRS:	= )
-INC_DIRS = $(INC_DIRS:  = )
-INC_DIRS = $(INC_DIRS:  = )
-INC_DIRS = $(INC_DIRS:  = )
-INC_DIRS = @$(INC_DIRS)@
-INC_DIRS = $(INC_DIRS:@ =)
-INC_DIRS = $(INC_DIRS: @=)
-INC_DIRS = $(INC_DIRS:@=)
-CFLAGS_INC = /I$(INC_DIRS: = /I)
-!endif
-
-
-# %jp{マクロ定義オプションの定義}
-!ifdef C_DEFS
-C_DEFS = $(C_DEFS:	= )
-C_DEFS = $(C_DEFS:  = )
-C_DEFS = $(C_DEFS:  = )
-C_DEFS = $(C_DEFS:  = )
-C_DEFS = @$(C_DEFS)@
-C_DEFS = $(C_DEFS:@ =)
-C_DEFS = $(C_DEFS: @=)
-C_DEFS = $(C_DEFS:@=)
-CFLAGS_DEF = /D$(C_DEFS: = /D)
-!endif
-
-
-# %jp{デバッグオプションの定義}
+# %jp{デバッグオプションの定義}$en{debug options}
 CFLAGS_DBG = /Yd
 
 
-# %jp{最適化オプションの定義}
+# %jp{最適化オプションの定義}$en{optimize options}
 CFLAGS_OPT_NONE  = /Od
 CFLAGS_OPT_SIZE  = /O1
 CFLAGS_OPT_SPEED = /O2
@@ -89,35 +61,15 @@ CFLAGS_OPT_SPEED = /O2
 #  Assembler
 # ----------------------------------
 
-# %jp{共通オプションの設定}
+# %jp{共通オプションの設定}$en{common options}
 AFLAGS = $(AFLAGS)
 
 
-# %jp{インクルードパスオプションの定義}
-!ifdef INC_DIRS
-AFLAGS_INC = -I=$(INC_DIRS: =,)
-!endif
-
-
-# %jp{マクロ定義オプションの定義}
-!ifdef A_DEFS
-A_DEFS = $(A_DEFS:	= )
-A_DEFS = $(A_DEFS:  = )
-A_DEFS = $(A_DEFS:  = )
-A_DEFS = $(A_DEFS:  = )
-A_DEFS = @$(A_DEFS)@
-A_DEFS = $(A_DEFS:@ =)
-A_DEFS = $(A_DEFS: @=)
-A_DEFS = $(A_DEFS:@=)
-AFLAGS_DEF = /D$(A_DEFS: = /D)
-!endif
-
-
-# %jp{デバッグオプションの定義}
+# %jp{デバッグオプションの定義}$en{debug options}
 AFLAGS_DBG = -Yd
 
 
-# %jp{最適化オプションの定義}
+# %jp{最適化オプションの定義}$en{optimize options}
 AFLAGS_OPT_NONE  =
 AFLAGS_OPT_SIZE  =
 AFLAGS_OPT_SPEED =

@@ -7,6 +7,72 @@
 
 
 
+
+# --------------------------------------
+#  %jp{オプション展開}%en{options}
+# --------------------------------------
+
+# %jp{C言語インクルードパスオプションの定義}%en{C-compiler include path}
+!ifdef INC_DIRS
+INC_DIRS = $(INC_DIRS:	= )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = $(INC_DIRS:  = )
+INC_DIRS = @$(INC_DIRS)@
+INC_DIRS = $(INC_DIRS:@ =)
+INC_DIRS = $(INC_DIRS: @=)
+INC_DIRS = $(INC_DIRS:@=)
+
+CFLAGS_INC = -I=$(INC_DIRS: =,)
+!endif
+
+
+# %jp{C言語マクロ定義オプションの定義}%en{C-compiler define macros}
+!ifdef C_DEFS
+C_DEFS = $(C_DEFS:	= )
+C_DEFS = $(C_DEFS:  = )
+C_DEFS = $(C_DEFS:  = )
+C_DEFS = $(C_DEFS:  = )
+C_DEFS = @$(C_DEFS)@
+C_DEFS = $(C_DEFS:@ =)
+C_DEFS = $(C_DEFS: @=)
+C_DEFS = $(C_DEFS:@=)
+
+CFLAGS_DEF = -DEF=$(C_DEFS: =,)
+!endif
+
+
+# %jp{アセンブリ言語インクルードパスオプションの定義}%en{Assembler include path}
+!ifdef INC_DIRS
+AFLAGS_INC = -I=$(INC_DIRS: =,)
+!endif
+
+
+# %jp{アセンブリ言語マクロ定義オプションの定義}%en{Assembler define macros}
+!ifdef A_DEFS
+A_DEFS = $(A_DEFS:	= )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = $(A_DEFS:  = )
+A_DEFS = @$(A_DEFS)@
+A_DEFS = $(A_DEFS:@ =)
+A_DEFS = $(A_DEFS: @=)
+A_DEFS = $(A_DEFS:@=)
+
+AFLAGS_DEF = -DEF=$(A_DEFS: =,)
+!endif
+
+
+# %jp{オプション統合}{Options marged}
+CFLAGS = $(CFLAGS) $(CFLAGS_INC) $(CFLAGS_DEF)
+AFLAGS = $(AFLAGS) $(AFLAGS_INC)
+
+
+
+# --------------------------------------
+#  %jpルール定義}%en{Rules}
+# --------------------------------------
+
 # %jp{ライブラリ生成}%en{Library}
 $(TARGET_LIB): $(OBJS)
 	-$(CMD_RM) $(TARGET_LIB)

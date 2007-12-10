@@ -40,9 +40,12 @@
 #define MX1UART_BMPR4		    0xcc
 #define MX1UART_UTS			    0xd0
 
-
+/*
 #define MX1UART_REG_WRITE(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
 #define MX1UART_REG_READ(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
+*/
+#define MX1UART_REG_WRITE(self, offset, val)	SysIo_OutPortW(((char *)(self)->pRegBase + (offset)), val)
+#define MX1UART_REG_READ(self, offset)			SysIo_InPortW(((char *)(self)->pRegBase + (offset)))
 
 
 #ifdef __cplusplus

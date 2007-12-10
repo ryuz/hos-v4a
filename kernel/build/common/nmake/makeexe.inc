@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 #  Hyper Operating System V4 Advance
-#    common file for GNU make
+#    common include file for execution file
 #
-#  Copyright (C) 1998-2006 by Project HOS
+#  Copyright (C) 1998-2007 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -14,15 +14,15 @@
 # --------------------------------------
 
 !ifndef DEBUG
-DEBUG = "No"
+DEBUG = No
 !endif
 
 !ifndef OPT_SPEED
-OPT_SPEED = "No"
+OPT_SPEED = No
 !endif
 
 !ifndef OPT_SIZE
-OPT_SIZE = "No"
+OPT_SIZE = No
 !endif
 
 !ifndef KERNEL_DEBUG
@@ -30,19 +30,18 @@ KERNEL_DEBUG = "No"
 !endif
 
 
-
-!if $(DEBUG) == "Yes"
+!if "$(DEBUG)" == "Yes"
 # %jp{デバッグ指定があればデバッグ版作成}
 TARGET = $(TARGET)dbg
 AFLAGS = $(AFLAGS) $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
 CFLAGS = $(CFLAGS) $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
 !else
-!if $(OPT_SPEED) == "Yes"
+!if "$(OPT_SPEED)" == "Yes"
 # %jp{速度最適化指定があれば速度優先}
 AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SPEED)
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_SPEED)
 !else
-!if $(OPT_SIZE) == "Yes"
+!if "$(OPT_SIZE)" == "Yes"
 # %jp{サイズ優先適化指定があればサイズ優先}
 AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SIZE)
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_SIZE)
@@ -53,6 +52,16 @@ CFLAGS = $(CFLAGS) $(AFLAGS_OPT_NORMAL)
 !endif
 !endif
 !endif
+
+
+
+# --------------------------------------
+#  %jp{ターゲット定義}
+# --------------------------------------
+
+# %jp{ターゲット実行ファイル名}
+TARGET_EXE = $(TARGET).$(EXT_EXE)
+
 
 
 # --------------------------------------
@@ -127,19 +136,6 @@ LIBS     = $(LIBS) $(KERNEL_BUILD_DIR)\$(OS_LIB).$(EXT_LIB)
 
 
 # --------------------------------------
-#  %jp{各種設定}
-# --------------------------------------
-
-# 基本オプション設定
-CFLAGS = $(CFLAGS) $(CFLAGS_INC) $(CFLAGS_DEF)
-AFLAGS = $(AFLAGS) $(AFLAGS_INC) $(AFLAGS_DEF)
-
-
-# %jp{ターゲットライブラリファイル名}
-TARGET_LIB = $(TARGET).$(EXT_LIB)
-
-
-# --------------------------------------
 #  %jp{ルール}
 # --------------------------------------
 
@@ -166,7 +162,9 @@ kernel_make:
 
 # %jp{カーネル生成}
 kernel_clean:
-	make -C $(KERNEL_BUILD_DIR) -f nmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
+	$(CMD_CD) $(KERNEL_BUILD_DIR)
+	$(MAKE) -f nmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
+	$(CMD_CD) $(MAKEDIR)
 
 
 

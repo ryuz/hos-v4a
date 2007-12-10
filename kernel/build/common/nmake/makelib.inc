@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 #  Hyper Operating System V4 Advance
-#    common file for GNU make
+#    common include file for library file
 #
-#  Copyright (C) 1998-2006 by Project HOS
+#  Copyright (C) 1998-2007 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -13,32 +13,73 @@
 #  %jp{オプション解析}
 # --------------------------------------
 
-!ifdef DEBUG
-# %jp{デバッグ指定があればデバッグ版作成}
+!ifndef DEBUG
+DEBUG = No
+!endif
+
+!ifndef OPT_SPEED
+OPT_SPEED = No
+!endif
+
+!ifndef OPT_SIZE
+OPT_SIZE = No
+!endif
+
+!ifndef KERNEL_DEBUG
+KERNEL_DEBUG = No
+!endif
+
+
+!if "$(DEBUG)" == "Yes"
+# %jp{デバッグ指定があればデバッグ版作成}%en{debug version}
 TARGET = $(TARGET)dbg
-AFLAGS = $(AFLAGS) $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
 CFLAGS = $(CFLAGS) $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
+AFLAGS = $(AFLAGS) $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
+C_DEFS = $(C_DEFS) _KERNEL_DEBUG
+A_DEFS = $(A_DEFS) _KERNEL_DEBUG
 !else
-!ifdef OPT_SPEED
-# %jp{速度最適化指定があれば速度優先}
-AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SPEED)
+!if "$(OPT_SPEED)" == "Yes"
+# %jp{速度最適化指定があれば速度優先}%en{optimize speed}
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_SPEED)
+AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SPEED)
 !else
-!ifdef OPT_SIZE
-# %jp{サイズ優先適化指定があればサイズ優先}
-AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SIZE)
+!if "$(OPT_SIZE)" == "Yes"
+# %jp{サイズ優先適化指定があればサイズ優先}%en{optimize size}
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_SIZE)
+AFLAGS = $(AFLAGS) $(AFLAGS_OPT_SIZE)
 !else
-# %jp{デフォルトで通常の最適化}
-AFLAGS = $(AFLAGS) $(AFLAGS_OPT_NORMAL)
+# %jp{デフォルトで通常の最適化}%en{optimize}
 CFLAGS = $(CFLAGS) $(AFLAGS_OPT_NORMAL)
+AFLAGS = $(AFLAGS) $(AFLAGS_OPT_NORMAL)
 !endif
 !endif
 !endif
+
+
+# %jp{エラーレベル指定}%en{error check level}
+!ifdef ERRLEVEL
+!if $(ERRLEVEL) == 0
+TARGET = $(TARGET)er0
+C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=0
+!else if $(ERRLEVEL) == 1
+TARGET = $(TARGET)er1
+C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=1
+!else if $(ERRLEVEL) == 1
+TARGET = $(TARGET)er2
+C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=2
+!else if $(ERRLEVEL) == 1
+TARGET = $(TARGET)er3
+C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=3
+!else if $(ERRLEVEL) == 1
+TARGET := $(TARGET)er4
+C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=4
+!endif
+!endif
+
 
 
 # --------------------------------------
-#  %jp{各種マクロ文字の正規化}
+#  %jp{各種マクロ文字の正規化}%en{Regularization}
 # --------------------------------------
 
 OBJS = $(OBJS:	= )
@@ -54,31 +95,29 @@ OBJS = $(OBJS:@=)
 
 
 # --------------------------------------
-#  %jp{各種設定}
+#  %jp{各種設定}%en{Target}
 # --------------------------------------
 
-# 基本オプション設定
-CFLAGS = $(CFLAGS) $(CFLAGS_INC) $(CFLAGS_DEF)
-AFLAGS = $(AFLAGS) $(AFLAGS_INC) $(AFLAGS_DEF)
-
-
-# %jp{ターゲットライブラリファイル名}
+# %jp{ターゲットライブラリファイル名}%en{Target}
 TARGET_LIB = $(TARGET).$(EXT_LIB)
 
 
+
 # --------------------------------------
-#  %jp{ルール}
+#  %jp{ルール}%en{Rules}
 # --------------------------------------
 
-# %jp{all処理}
+# %jp{ライブラリ生成}%en{library}
 makelib_all: srcobjcp_makelib $(TARGET_LIB)
+
 
 # %jp{クリーンナップ}
 makelib_clean:
 	-$(CMD_RM) $(TARGET_LIB)
 	-$(CMD_RM) $(OBJS_DIR)\*.$(EXT_OBJ)
 
-# %jp{オブジェクト出力ディレクトリ作成}
+
+# %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
 mkdir_objs:
 	-$(CMD_MKDIR) $(OBJS_DIR)
 

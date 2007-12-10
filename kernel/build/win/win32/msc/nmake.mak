@@ -25,7 +25,7 @@ OBJS_DIR          = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
-!include $(KERNEL_MAKINC_DIR)/common.inc
+!include $(KERNEL_MAKINC_DIR)\common.inc
 
 
 # %jp{アーキテクチャパス}
@@ -73,19 +73,19 @@ clean: makelib_clean
 
 
 # %jp{MS-C用の設定読込み}
-!include $(KERNEL_MAKINC_DIR)/msc_d.inc
+!include $(KERNEL_MAKINC_DIR)\msc_d.inc
 
 # カーネル共通ソースの追加
 !include $(KERNEL_MAKINC_DIR)\knlsrc.inc
 
 # %jp{ライブラリ生成用設定読込み}
-!include $(KERNEL_MAKINC_DIR)/makelib.inc
+!include $(KERNEL_MAKINC_DIR)\makelib.inc
 
 # %jp{MS-C用のルール定義読込み}
-!include $(KERNEL_MAKINC_DIR)/msc_r.inc
+!include $(KERNEL_MAKINC_DIR)\msc_r.inc
 
 # %jp{カーネル依存関係読込み}
-!include $(KERNEL_MAKINC_DIR)/knldep.inc
+!include $(KERNEL_MAKINC_DIR)\knldep.inc
 
 
 # %jp{コピー}

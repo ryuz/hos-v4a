@@ -26,7 +26,7 @@ INC_DIRS = $(KERNEL_DIR)\include ..
 # %jp{フラグ設定}
 CFLAGS   = 
 AFLAGS   = 
-LNFLAGS  = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib winmm.lib 
+LNFLAGS  = 
 
 
 # %jp{コンフィギュレータ定義}
@@ -52,8 +52,8 @@ OBJS = $(OBJS)						\
 
 
 # %jp{ライブラリの追加}
-LIBS = $(LIBS)						\
-       
+LIBS = $(LIBS) kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib winmm.lib
+
 
 
 
@@ -66,9 +66,10 @@ all: makeexe_all srcobjcp $(TARGET_EXE)
 clean: makeexe_clean
 	$(CMD_RM) $(TARGET_EXE) $(OBJS) ..\kernel_cfg.c ..\kernel_id.h
 
-..\kernel_cfg.c ..\kernel_id.h: ..\system.cfg
+$(OBJS_DIR)\kernel_cfg.c ..\kernel_id.h: ..\system.cfg
 	cl /E ..\system.cfg > ..\system.i
 	$(KERNEL_CFGRTR) ..\system.i -c ..\kernel_cfg.c -i ..\kernel_id.h
+	$(CMD_CP) ..\kernel_cfg.c $(OBJS_DIR)\
 
 
 # %jp{ライブラリ生成用設定読込み}
@@ -96,4 +97,3 @@ $(OBJS_DIR)\wintimer.obj	:	$(OBJS_DIR)\wintimer.c   ..\kernel_id.h
 
 
 # end of file
-

@@ -1,17 +1,51 @@
 # ----------------------------------------------------------------------------
 #  Hyper Operating System V4 Advance
 #
-#  Copyright (C) 1998-2006 by Project HOS
+#  Copyright (C) 1998-2007 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
 
 
+# --------------------------------------
+#  %jp{オプション展開}%en{options}
+# --------------------------------------
+
+
+# %jp{C言語インクルードパスオプションの定義}%en{C-compiler include path}
+ifneq ($(INC_DIRS),)
+CFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
+endif
+
+
+# %jp{C言語マクロ定義オプションの定義}%en{C-compiler define macros}
+ifneq ($(C_DEFS),)
+CFLAGS_DEF = -DEF=$(subst $(space),$(comma),$(strip $(C_DEFS)))
+endif
+
+
+# %jp{アセンブリ言語インクルードパスオプションの定義}%en{Assembler include path}
+ifneq ($(INC_DIRS),)
+AFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
+endif
+
+
+# %jp{アセンブリ言語マクロ定義オプションの定義}%en{Assembler define macros}
+ifneq ($(A_DEFS),)
+AFLAGS_DEF = -DEF=$(subst $(space),$(comma),$(strip $(A_DEFS)))
+endif
+
+
+# %jp{オプション統合}{Options marged}
+CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
+AFLAGS += $(AFLAGS_INC)
+
+
+
+# --------------------------------------
+#  %jpルール定義}%en{Rules}
+# --------------------------------------
 
 # %jp{実行ファイル生成}%en{Executable file}
 $(TARGET_EXE): $(OBJS) $(LIBS)
@@ -34,7 +68,7 @@ $(TARGET_MOT): $(TARGET_EXE)
 	$(CMD_OBJCNV) -SU=$(OBJS_DIR)/ascsub.txt
 
 
-# %jp{ライブラリ生成}
+# %jp{ライブラリ生成}%en{Library}
 $(TARGET_LIB): $(OBJS)
 	$(CMD_RM) -f $(TARGET_LIB)
 	$(CMD_ECHO) "-Input=$(subst $(space),$(comma),$(strip $(OBJS)))" > $(OBJS_DIR)/subcmd.txt
@@ -43,12 +77,12 @@ $(TARGET_LIB): $(OBJS)
 	$(CMD_LIBR) "-SU=$(OBJS_DIR)/subcmd.txt"
 
 
-# %jp{Cコンパイル}
+# %jp{Cコンパイル}%en{C Compile}
 $(OBJS_DIR)/%.obj :: %.c
 	$(CMD_CC) $(CFLAGS) $< -OB=$@ -List=$(@:%.obj=%.lst)
 
 
-# %jp{アセンブル}
+# %jp{アセンブル}%en{Assemble}
 $(OBJS_DIR)/%.obj :: %.src
 	$(CMD_ASM) $(AFLAGS) $< -OB=$@
 

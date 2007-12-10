@@ -6,6 +6,47 @@
 # ----------------------------------------------------------------------------
 
 
+
+# --------------------------------------
+#  %jp{オプション展開}%en{options}
+# --------------------------------------
+
+
+# %jp{C言語インクルードパスオプションの定義}%en{C-compiler include path}
+ifneq ($(INC_DIRS),)
+CFLAGS_INC ?= $(patsubst %,-I%,$(INC_DIRS))
+endif
+
+
+# %jp{C言語マクロ定義オプションの定義}%en{C-compiler define macros}
+ifneq ($(C_DEFS),)
+CFLAGS_DEF ?= $(patsubst %,-D%,$(C_DEFS))
+endif
+
+
+# %jp{アセンブリ言語インクルードパスオプションの定義}%en{Assembler include path}
+ifneq ($(INC_DIRS),)
+AFLAGS_INC ?= $(patsubst %,-I%,$(INC_DIRS))
+endif
+
+
+# %jp{アセンブリ言語マクロ定義オプションの定義}%en{Assembler define macros}
+ifneq ($(A_DEFS),)
+AFLAGS_DEF ?= $(patsubst %,-D%,$(A_DEFS))
+endif
+
+
+# %jp{オプション統合}{Options marged}
+CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
+AFLAGS += $(AFLAGS_INC) $(AFLAGS_DEF)
+
+
+
+# --------------------------------------
+#  %jpルール定義}%en{Rules}
+# --------------------------------------
+
+
 # %jp{実行ファイル生成}%en{Executable file}
 $(TARGET_EXE): $(OBJS) $(LIBS)
 	$(CMD_LINK) $(LNFLAGS) $(OBJS) $(LIBS) $(LNFLAGS2) -o $(TARGET_EXE)
@@ -28,15 +69,18 @@ $(TARGET_BIN): $(TARGET_EXE)
 
 # %jp{ライブラリ生成}%en{Library}
 $(TARGET_LIB): $(OBJS)
-	$(CMD_LIBR) -r $(TARGET_LIB) $(OBJS)
+	$(CMD_LIBR) $(ARFLAGS) -r $(TARGET_LIB) $(OBJS)
+
 
 # %jp{Cコンパイル}%en{C Compile}
 $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
 	$(CMD_CC) $(CFLAGS) -c $< -o $@
 
+
 # %jp{アセンブル}%en{Assemble}
 $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
 	$(CMD_ASM) $(AFLAGS) -c $< -o $@
+
 
 
 # end of file

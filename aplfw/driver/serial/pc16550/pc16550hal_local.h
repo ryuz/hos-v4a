@@ -20,8 +20,13 @@
 #define PC16550HAL_REG_ADDR(self, offset)	((volatile unsigned char *)(self)->pRegBase + ((offset) << (self)->uiRegStep))
 
 /* レジスタ読み書き */
+/*
 #define PC16550HAL_WRITE_REG(addr, data)	do { *(volatile unsigned char *)(addr) = (unsigned char)(data); } while (0)
 #define PC16550HAL_READ_REG(addr)			(*(volatile unsigned char *)(addr))
+*/
+#define PC16550HAL_WRITE_REG(addr, data)	SysIo_OutPortB((addr), (data))
+#define PC16550HAL_READ_REG(addr)			SysIo_InPortB((addr))
+
 
 /* PC16550レジスタ操作 */
 #define PC16550HAL_READ_RBR(self)		PC16550HAL_READ_REG(PC16550HAL_REG_ADDR((self), 0))

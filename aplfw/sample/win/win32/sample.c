@@ -22,7 +22,7 @@
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/shell/shell.h"
-#include "driver/serial/winsock/winsockfile.h"
+#include "driver/serial/winsock/winsockdrv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "application/example/hello/hello.h"
 

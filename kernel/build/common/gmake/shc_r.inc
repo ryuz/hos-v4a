@@ -6,12 +6,45 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
 
 
+# --------------------------------------
+#  %jp{オプション展開}%en{options}
+# --------------------------------------
+
+# %jp{C言語インクルードパスオプションの定義}%en{C-compiler include path}
+ifneq ($(INC_DIRS),)
+CFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
+endif
+
+
+# %jp{C言語マクロ定義オプションの定義}%en{C-compiler define macros}
+ifneq ($(C_DEFS),)
+CFLAGS_DEF = -DEF=$(subst $(space),$(comma),$(strip $(C_DEFS)))
+endif
+
+
+# %jp{アセンブリ言語インクルードパスオプションの定義}%en{Assembler include path}
+ifneq ($(INC_DIRS),)
+AFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
+endif
+
+
+# %jp{アセンブリ言語マクロ定義オプションの定義}%en{Assembler define macros}
+ifneq ($(A_DEFS),)
+AFLAGS_DEF = -DEF=$(subst $(space),$(comma),$(strip $(A_DEFS)))
+endif
+
+
+# %jp{オプション統合}{Options marged}
+CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
+AFLAGS += $(AFLAGS_INC)
+
+
+
+# --------------------------------------
+#  %jpルール定義}%en{Rules}
+# --------------------------------------
 
 # %jp{実行ファイル生成}%en{Executable file}
 $(TARGET_EXE): $(OBJS) $(LIBS)

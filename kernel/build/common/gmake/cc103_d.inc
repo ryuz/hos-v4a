@@ -6,17 +6,14 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
-
 
 # %jp{コマンド定義}%en{Tools}
-CMD_CC   ?= cc103S
-CMD_ASM  ?= cc103S
-CMD_LIBR ?= ar103S
-CMD_LINK ?= ld103S
+CMD_CC     ?= cc103S
+CMD_ASM    ?= cc103S
+CMD_LIBR   ?= ar103S
+CMD_LINK   ?= ld103S
+CMD_OBJCNV ?= xcv103
+
 
 # %jp{拡張子定義}
 EXT_C   ?= c
@@ -30,23 +27,20 @@ EXT_HEX ?= hex
 EXT_BIN ?= bin
 
 
+
 # ----------------------------------
 #  C-compiler
 # ----------------------------------
 
-# %jp{共通オプションの設定}
+# %jp{共通オプションの設定}%en{common options}
 CFLAGS += -c -g
 
-# %jp{インクルードパスオプションの定義}
-CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
 
-# %jp{マクロ定義オプションの定義}
-CFLAGS_DEF = $(patsubst %,-D%,$(C_DEFS))
-
-# %jp{デバッグオプションの定義}
+# %jp{デバッグオプションの定義}%en{debug options}
 CFLAGS_DBG =
 
-# %jp{最適化オプションの定義}
+
+# %jp{最適化オプションの定義}%en{optimize options}
 CFLAGS_OPT_NONE   = 
 CFLAGS_OPT_NORMAL = -O
 CFLAGS_OPT_SIZE   = -Os
@@ -74,6 +68,7 @@ AFLAGS_OPT_NONE   =
 CFLAGS_OPT_NORMAL =
 AFLAGS_OPT_SIZE   =
 AFLAGS_OPT_SPEED  =
+
 
 
 # end of file

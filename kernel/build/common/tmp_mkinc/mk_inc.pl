@@ -452,6 +452,10 @@ foreach $s ( @sources )
 	print(OUT "$def_dir = $path\n");
 	foreach $file ( @list )
 	{
+		print(OUT "CSRCS = \$(CSRCS) \$($def_dir)\\$file\n");
+	}
+	foreach $file ( @list )
+	{
 		$file =~ s/\.c//g;
 		print(OUT "OBJS = \$(OBJS) \$(OBJS_DIR)\\$file\.\$(EXT_OBJ)\n");
 	}
@@ -494,7 +498,7 @@ foreach $s ( @sources )
 	$path    = shift(@list);
 	$def_dir = shift(@list);
 	
-	print(OUT "\t\$(CMD_CP) \$($def_dir)\\*.c \$(OBJS_DIR)\n");
+	print(OUT "\t\$(CMD_CP) \$($def_dir)\\*.* \$(OBJS_DIR)\n");
 }
 
 print(OUT "\n");

@@ -1,34 +1,39 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for sh2
+#  makefile for SH2
 #
 # Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# %jp{ターゲット名}
+# %jp{ターゲット名}%en{target}
 TARGET ?= libhosv4a
 
 
-# %jp{アーキテクチャ定義}
+# %jp{アーキテクチャ定義}%en{architecture}
 ARCH_PROC ?= sh/sh2
 ARCH_IRC  ?= simple
 ARCH_CC   ?= shc
 
 
-# %jp{ディレクトリ定義}
+# %jp{ディレクトリ定義}%en{directorys}
 HOSV4A_DIR        = ../../../../..
 KERNEL_DIR        = $(HOSV4A_DIR)/kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 OBJS_DIR          = objs_$(TARGET)
 
 
-# %jp{共通定義読込み}
+# %jp{コンフィギュレータ定義}%en{Configurator}
+CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
+CFGRTR     = h4acfg-sh2
+
+
+# %jp{共通定義読込み}%en{Common setting}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{アーキテクチャパス}
+# %jp{アーキテクチャパス}%en{architecture path}
 INC_PROC_DIR    = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
 INC_IRC_DIR     = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
 SRC_PROC_DIR    = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
@@ -37,23 +42,20 @@ SRC_IRC_DIR     = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
 SRC_IRC_CC_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
 
 
-# %jp{パス設定}
+# %jp{パス設定}%en{Source path}
 INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 
-# %jp{オプションフラグ}
-AFLAGS  += -CPu=sh2
+# %jp{オプションフラグ}%en{compile options}
 CFLAGS  += -CPu=sh2
+AFLAGS  += -CPu=sh2
 ARFLAGS += 
 
-# %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
-CFGRTR     = h4acfg-sh2
 
-
-# %jp{shc用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/shc_d.inc
+ifeq ($(FAST_VECTOR),Yes)
+A_DEFS += _KERNEL_FAST_INTVEC="ON"
+endif
 
 
 
@@ -78,7 +80,7 @@ ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.src	\
          $(SRC_PROC_CC_DIR)/kexc_hdr.src	\
          $(SRC_PROC_CC_DIR)/vect_dmy.src
 
-ifneq ($(FAST_VECTOR),Yes)
+ifeq ($(FAST_VECTOR),Yes)
 ASRCS += $(SRC_PROC_CC_DIR)/vect_004.src	\
          $(SRC_PROC_CC_DIR)/vect_005.src	\
          $(SRC_PROC_CC_DIR)/vect_006.src	\
@@ -334,29 +336,38 @@ ASRCS += $(SRC_PROC_CC_DIR)/vect_004.src	\
 endif
 
 
-# カーネル共通ソースの追加
+
+# %jp{コンパイラ依存定義}%en{definitions of compiler dependence}
+include $(KERNEL_MAKINC_DIR)/shc_d.inc
+
+
+# %jp{カーネル共通ソースの追加}%en{definitions of kernel source files}
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 
-# %jp{ALL}
+
+# %jp{ALL}%en{all}
 .PHONY : all
 all: makelib_all
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
-# %jp{クリーン}
+# %jp{クリーン}$en{clean}
 .PHONY : clean
 clean: makelib_clean
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
 
-# %jp{ライブラリ生成用設定読込み}
+
+# %jp{ライブラリ生成用設定読込み}%en{rules of library}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
-# %jp{shc用のルール定義読込み}
+
+# %jp{コンパイラ依存ルール}%en{rules of compiler dependence}
 include $(KERNEL_MAKINC_DIR)/shc_r.inc
 
-# %jp{カーネル依存関係読込み}
+
+# %jp{カーネル依存関係読込み}%en{dependence}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
 

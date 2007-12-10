@@ -1,15 +1,11 @@
 # ----------------------------------------------------------------------------
 #  Hyper Operating System V4 Advance
 #
-#  Copyright (C) 1998-2006 by Project HOS
+#  Copyright (C) 1998-2007 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# %jp{特殊文字定義}
-comma:= ,
-empty:=
-space:= $(empty) $(empty)
 
 
 # %jp{ツール定義}%en{Tools}
@@ -19,7 +15,8 @@ CMD_LIBR   ?= optlnk
 CMD_LINK   ?= optlnk
 CMD_OBJCNV ?= optlnk
 
-# %jp{拡張子定義}
+
+# %jp{拡張子定義}%en{file extensions}
 EXT_C   ?= c
 EXT_CPP ?= cpp
 EXT_ASM ?= src
@@ -30,48 +27,43 @@ EXT_MOT ?= mot
 EXT_BIN ?= bin
 
 
+
 # ----------------------------------
 #  C-compiler
 # ----------------------------------
 
-# %jp{共通オプションの設定}
+# %jp{共通オプションの設定}%en{common options}
 CFLAGS += -NOLOGO
 
-# %jp{インクルードパスオプションの定義}
-CFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
 
-# %jp{マクロ定義オプションの定義}
-CFLAGS_DEF = 
-
-# %jp{デバッグオプションの定義}
+# %jp{デバッグオプションの定義}%en{debug options}
 CFLAGS_DBG = -DEBug
 
-# %jp{最適化オプションの定義}
-CFLAGS_OPT_NONE  = -OP=0
-CFLAGS_OPT_SIZE  = -OP=1
-CFLAGS_OPT_SPEED = -OP=1
+
+# %jp{最適化オプションの定義}%en{optimize options}
+CFLAGS_OPT_NONE   = -OP=0
+CFLAGS_OPT_SIZE   = -OP=1
+CFLAGS_OPT_SPEED  = -OP=1
+CFLAGS_OPT_NORMAL = -OP=1
 
 
 # ----------------------------------
 #  Assembler
 # ----------------------------------
 
-# %jp{共通オプションの設定}
+# %jp{共通オプションの設定}%en{common options}
 AFLAGS += -NOLOGO
 
-# %jp{インクルードパスオプションの定義}
-AFLAGS_INC = -I=$(subst $(space),$(comma),$(strip $(INC_DIRS)))
 
-# %jp{マクロ定義オプションの定義}
-AFLAGS_DEF = 
-
-# %jp{デバッグオプションの定義}
+# %jp{デバッグオプションの定義}%en{debug options}
 AFLAGS_DBG = -DEBug
 
-# %jp{最適化オプションの定義}
+
+# %jp{最適化オプションの定義}%en{optimize options}
 AFLAGS_OPT_NONE  =
 AFLAGS_OPT_SIZE  =
 AFLAGS_OPT_SPEED =
+
 
 
 # end of file

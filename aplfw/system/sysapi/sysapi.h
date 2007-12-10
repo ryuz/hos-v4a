@@ -103,6 +103,26 @@ void           SysTim_Wait(unsigned long ulTime);			/* 時間待ち */
 TIME           SysTim_GetCurrentTime(void);					/*  */
 
 
+/* I/Oアクセス */
+#ifdef __HOSAPLFW_IOMAPEDIO
+/* I/OマップドIO  */
+unsigned char  SysIo_OutPortB(unsigned int Port, unsigned char Data);
+unsigned short SysIo_OutPortH(unsigned int Port, unsigned short Data);
+unsigned long  SysIo_OutPortW(unsigned int Port, unsigned long Data);
+unsigned char  SysIo_InPortB(unsigned int Port);
+unsigned short SysIo_InPortH(unsigned int Port);
+unsigned long  SysIo_InPortW(unsigned int Port);
+#else
+/* メモリマップドIO */
+#define        SysIo_OutPortB(Port, Data)	(*(unsigned char *)(Port) = (unsigned char)(Data))
+#define        SysIo_OutPortH(Port, Data)	(*(unsigned short *)(Port) = (unsigned short)(Data))
+#define        SysIo_OutPortW(Port, Data)	(*(unsigned long *)(Port) = (unsigned long)(Data))
+#define        SysIo_InPortB(Port)			(*(unsigned char *)(Port))
+#define        SysIo_InPortH(Port)			(*(unsigned short *)(Port))
+#define        SysIo_InPortW(Port)			(*(unsigned long *)(Port))
+#endif
+
+
 #ifdef __cplusplus
 }
 #endif

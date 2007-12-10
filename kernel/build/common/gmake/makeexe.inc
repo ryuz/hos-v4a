@@ -118,8 +118,8 @@ makeexe_clean:
 
 # %jp{依存関係の生成}
 DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
-.PHONY : depend
-depend:
+.PHONY : makeexe_depend
+makeexe_depend:
 	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
 
 -include $(OBJS_DIR)/depend.inc

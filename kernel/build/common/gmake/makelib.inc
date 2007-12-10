@@ -15,28 +15,30 @@
 ifeq ($(DEBUG),Yes)
 # %jp{デバッグ指定があればデバッグ版作成}
 TARGET := $(TARGET)dbg
-AFLAGS += $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
 CFLAGS += $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
+AFLAGS += $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
+C_DEFS += _KERNEL_DEBUG
+A_DEFS += _KERNEL_DEBUG
 else
 ifeq ($(OPT_SPEED),Yes)
-# %jp{速度最適化指定があれば速度優先}
-AFLAGS += $(AFLAGS_OPT_SPEED)
+# %jp{速度最適化指定があれば速度優先}%en{optimize speed}
 CFLAGS += $(CFLAGS_OPT_SPEED)
+AFLAGS += $(AFLAGS_OPT_SPEED)
 else
 ifeq ($(OPT_SIZE),Yes)
-# %jp{サイズ優先適化指定があればサイズ優先}
-AFLAGS += $(AFLAGS_OPT_SIZE)
+# %jp{サイズ優先適化指定があればサイズ優先}%en{optimize size}
 CFLAGS += $(CFLAGS_OPT_SIZE)
+AFLAGS += $(AFLAGS_OPT_SIZE)
 else
-# %jp{デフォルトで通常の最適化}
-AFLAGS += $(AFLAGS_OPT_NORMAL)
+# %jp{デフォルトで通常の最適化}%en{optimize}
 CFLAGS += $(CFLAGS_OPT_NORMAL)
+AFLAGS += $(AFLAGS_OPT_NORMAL)
 endif
 endif
 endif
 
 
-# %jp{エラーレベル指定}
+# %jp{エラーレベル指定}%en{error check level}
 ifeq ($(ERRLEVEL),0)
 TARGET := $(TARGET)er0
 C_DEFS += _KERNEL_ERRLEVEL=0
@@ -61,16 +63,8 @@ endif
 
 
 # --------------------------------------
-#  %jp{各種設定}
+#  %jp{各種設定}%en{Target}
 # --------------------------------------
-
-# 基本オプション設定
-CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
-AFLAGS += $(AFLAGS_INC) $(AFLAGS_DEF)
-
-
-# %jp{サーチパス設定}
-VPATH = $(subst $(space),:,$(SRC_DIRS))
 
 
 # %jp{ターゲットライブラリファイル名}
@@ -83,28 +77,27 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 
 
 
+# %jp{サーチパス設定}
+VPATH = $(subst $(space),:,$(SRC_DIRS))
+
+
+
 # --------------------------------------
-#  %jp{ルール}
+#  %jp{ルール}%en{Rules}
 # --------------------------------------
 
-# %jp{ライブラリ生成}
+# %jp{ライブラリ生成}%en{library}
 .PHONY : makelib_all
 makelib_all: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
 
 
-# %jp{オブジェクト出力ディレクトリ作成}
-.PHONY : mkdir_objs
-mkdir_objs:
-	$(CMD_MKDIR) -p $(OBJS_DIR)
-
-
-# %jp{クリーンナップ}
+# %jp{クリーンナップ}%en{clean}
 .PHONY : makelib_clean
 makelib_clean:
 	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
 
 
-# %jp{依存関係の生成}
+# %jp{依存関係の生成}%en{depend}
 DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 .PHONY : depend
 depend:
@@ -113,7 +106,13 @@ depend:
 -include $(OBJS_DIR)/depend.inc
 
 
-# %jp{ソースのコピー}
+# %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
+.PHONY : mkdir_objs
+mkdir_objs:
+	$(CMD_MKDIR) -p $(OBJS_DIR)
+
+
+# %jp{ソースのコピー}%en{spurce files copy}
 ifdef SRCCPYDIR
 .PHONY : srccpy
 srccpy:
