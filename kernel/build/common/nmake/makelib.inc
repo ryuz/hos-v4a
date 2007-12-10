@@ -57,7 +57,7 @@ AFLAGS = $(AFLAGS) $(AFLAGS_OPT_NORMAL)
 
 
 # %jp{エラーレベル指定}%en{error check level}
-!ifdef ERRLEVEL
+!if "$($ERRLEVEL)" != ""
 !if $(ERRLEVEL) == 0
 TARGET = $(TARGET)er0
 C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=0
