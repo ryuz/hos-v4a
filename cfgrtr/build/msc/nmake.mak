@@ -12,12 +12,17 @@ LINK = cl
 
 
 # オプション
-CFLAGS = /I..\..\include /I..\..\..\kernel\include /I..\..\..\kernel\include\arch\proc\$(ARCH_PROC) /I..\..\..\kernel\include\arch\irc\$(ARCH_IRC)
+CFLAGS = -I..\..\include -I..\..\..\kernel\include         \
+         -I..\..\..\kernel\include\arch\proc\$(ARCH_PROC)  \
+         -I..\..\..\kernel\include\arch\irc\$(ARCH_IRC)
 LFLAGS = 
 
 
 # ターゲット
+!ifndef TARGET
 TARGET = h4acfg
+!endif
+
 
 # オブジェクトディレクトリ
 OBJS_DIR = objs_$(TARGET)
@@ -53,10 +58,14 @@ OBJS = $(OBJS_DIR)\hos4cfg.obj \
        $(OBJS_DIR)\attisr.obj
 
 
-# ターゲット生成
-$(TARGET): mkdir_objs $(OBJS)
-	$(LINK) $(LFLAGS) $(OBJS) -o $(TARGET)
+all: mkdir_objs $(TARGET).exe
 
+# ターゲット生成
+$(TARGET).exe: $(OBJS)
+	echo $(TARGET)
+	$(LINK) $(LFLAGS) $(OBJS) -o $(TARGET).exe
+
+# ディレクトリ生成
 mkdir_objs:
 	-mkdir $(OBJS_DIR)
 

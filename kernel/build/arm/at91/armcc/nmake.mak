@@ -85,8 +85,6 @@ all: mkdir_objs srcobjcp makelib_all
 
 # %jp{クリーン}%en{clean}
 clean: makelib_clean
-	-$(CMD_RM) *.lst
-	-$(CMD_RM) $(OBJS_DIR)\*.*
 	$(CMD_CD) $(CFGRTR_DIR)
 	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(CMD_CD) $(MAKEDIR)
@@ -112,14 +110,18 @@ clean: makelib_clean
 
 # %jp{コピー}%en{source files copy}
 srcobjcp:
-	$(CMD_CP) $(SRC_PROC_DIR)\*.*    $(OBJS_DIR)
-	$(CMD_CP) $(SRC_IRC_DIR)\*.*     $(OBJS_DIR)
 	$(CMD_CP) $(SRC_PROC_CC_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(SRC_IRC_DIR)\*.*     $(OBJS_DIR)
 
+#	$(CMD_CP) $(SRC_PROC_DIR)\*.*    $(OBJS_DIR)
+
+
+$(OBJS_DIR)\val_int.c: $(SRC_PROC_DIR)\val_int.c
+	$(CMD_CP) $(SRC_PROC_DIR)\val_int.c $(OBJS_DIR)\
 
 
 # %jp{依存関係}%en{dependence}
-$(OBJS_DIR)\val_int.o	:	$(OBJS_DIR)\val_int.c
+# $(OBJS_DIR)\val_int.o	:	$(OBJS_DIR)\val_int.c
 $(OBJS_DIR)\kini_irc.o	:	$(OBJS_DIR)\kini_irc.c
 $(OBJS_DIR)\kexe_irc.o	:	$(OBJS_DIR)\kexe_irc.c
 $(OBJS_DIR)\ena_int.o	:	$(OBJS_DIR)\ena_int.c

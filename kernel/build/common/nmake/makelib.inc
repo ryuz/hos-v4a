@@ -108,13 +108,13 @@ TARGET_LIB = $(TARGET).$(EXT_LIB)
 # --------------------------------------
 
 # %jp{ライブラリ生成}%en{library}
-makelib_all: mkdir_objs srcobjcp_makelib $(TARGET_LIB)
+makelib_all: mkdir_objs $(TARGET_LIB)
 
 
 # %jp{クリーンナップ}
 makelib_clean:
 	-$(CMD_RM) $(TARGET_LIB)
-	-$(CMD_RM) $(OBJS_DIR)\*.$(EXT_OBJ)
+	-$(CMD_RM) $(OBJS_DIR)\*.*
 
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
