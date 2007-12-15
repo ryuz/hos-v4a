@@ -257,6 +257,15 @@ CSRCS += $(MBXOBJ_DIR)/krmp_msg.c
 CSRCS += $(MBXOBJ_DIR)/krmv_msq.c
 
 
+# Mutexes
+MTXOBJ_DIR = $(KERNEL_OBJ_DIR)/mtx
+SRC_DIRS += $(MTXOBJ_DIR)
+CSRCS += $(MTXOBJ_DIR)/loc_mtx.c
+CSRCS += $(MTXOBJ_DIR)/unl_mtx.c
+CSRCS += $(MTXOBJ_DIR)/kadd_mtx.c
+CSRCS += $(MTXOBJ_DIR)/krmv_mtx.c
+
+
 # Fixed-sized Memory Pools
 MPFOBJ_DIR = $(KERNEL_OBJ_DIR)/mpf
 SRC_DIRS += $(MPFOBJ_DIR)

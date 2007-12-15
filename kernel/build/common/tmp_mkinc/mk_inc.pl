@@ -195,6 +195,16 @@
 		"krmv_msq.c",
 	],
 	[
+		"Mutexes",
+		"\$(COMMON_HEADERS) \$(MTXOBJ_HEADERS)",
+		"\$(KERNEL_OBJ_DIR)/mtx",
+		"MTXOBJ_DIR",
+		"loc_mtx.c",
+		"unl_mtx.c",
+		"kadd_mtx.c",
+		"krmv_mtx.c",
+	],
+	[
 		"Fixed-sized Memory Pools",
 		"\$(COMMON_HEADERS) \$(MPFOBJ_HEADERS)",
 		"\$(KERNEL_OBJ_DIR)/mpf",

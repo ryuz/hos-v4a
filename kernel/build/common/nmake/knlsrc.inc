@@ -342,6 +342,18 @@ OBJS = $(OBJS) $(OBJS_DIR)\krmp_msg.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\krmv_msq.$(EXT_OBJ)
 
 
+# Mutexes
+MTXOBJ_DIR = $(KERNEL_OBJ_DIR)\mtx
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\loc_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\unl_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\kadd_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\krmv_mtx.c
+OBJS = $(OBJS) $(OBJS_DIR)\loc_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\unl_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kadd_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\krmv_mtx.$(EXT_OBJ)
+
+
 # Fixed-sized Memory Pools
 MPFOBJ_DIR = $(KERNEL_OBJ_DIR)\mpf
 CSRCS = $(CSRCS) $(MPFOBJ_DIR)\acre_mpf.c
