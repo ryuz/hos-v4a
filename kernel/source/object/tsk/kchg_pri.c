@@ -13,7 +13,7 @@
 
 
 /** %jp{タスク優先度の変更} */
-ER _kernel_chg_pri(_KERNEL_T_TSKHDL tskhdl, PRI tskpri)
+void _kernel_chg_pri(_KERNEL_T_TSKHDL tskhdl, PRI tskpri)
 {
 	_KERNEL_T_TCB_PTR  tcb;
 	
@@ -30,8 +30,6 @@ ER _kernel_chg_pri(_KERNEL_T_TSKHDL tskhdl, PRI tskpri)
 		_KERNEL_SYS_RMV_RDQ(tskhdl);
 		_KERNEL_SYS_ADD_RDQ(tskhdl);
 	}
-	
-	return E_OK;
 }
 
 

@@ -980,7 +980,8 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 extern "C" {
 #endif
 
-ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk);
+ER   _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk);			/**< %jp{タスクの生成} */
+void _kernel_chg_pri(_KERNEL_T_TSKHDL tskhdl, PRI tskpri);		/**< %jp{タスク優先度の変更} */
 
 #ifdef __cplusplus
 }
