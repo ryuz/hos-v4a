@@ -670,12 +670,14 @@ foreach $s ( @sources )
 		
 		print(OUT "\n\n");
 		print(OUT "# $comment\n");
+		print(OUT "ifeq (\$(LINK_$def_name),Yes)\n");
 		print(OUT "$dir_name = $path\n");
 		print(OUT "SRC_DIRS += \$($dir_name)\n");
 		foreach $file ( @list )
 		{
 			print(OUT "CSRCS += \$($dir_name)/$file\n");
 		}
+		print(OUT "endif\n");
 	}
 }
 
