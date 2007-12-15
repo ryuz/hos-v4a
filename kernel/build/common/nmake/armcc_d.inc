@@ -7,7 +7,7 @@
 
 
 .SUFFIXES :
-.SUFFIXES : .o .c .src
+.SUFFIXES : .o .c .s
 
 
 # %jp{ツール定義}%en{Tools}
@@ -66,11 +66,11 @@ CFLAGS_OPT_NORMAL = -O3
 # ----------------------------------
 
 # %jp{共通オプションの設定}$en{common options}
-AFLAGS = $(AFLAGS)
+AFLAGS = $(AFLAGS) --apcs /interwork
 
 
 # %jp{デバッグオプションの定義}$en{debug options}
-AFLAGS_DBG = -Yd
+AFLAGS_DBG = -g
 
 
 # %jp{最適化オプションの定義}$en{optimize options}

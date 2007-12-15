@@ -47,7 +47,7 @@ CFLAGS_DEF = -D$(C_DEFS: = -D)
 # %jp{アセンブリ言語インクルードパスオプションの定義}%en{Assembler include path}
 !ifdef INC_DIRS
 !if "$(INC_DIRS)" != ""
-AFLAGS_INC = -I=$(INC_DIRS: = -I)
+AFLAGS_INC = -I$(INC_DIRS: = -I)
 !endif
 !endif
 
@@ -63,7 +63,7 @@ A_DEFS = $(A_DEFS:@ =)
 A_DEFS = $(A_DEFS: @=)
 A_DEFS = $(A_DEFS:@=)
 !if "$(A_DEFS)" != ""
-AFLAGS_DEF = /D$(A_DEFS: = /D)
+AFLAGS_DEF = 
 !endif
 !endif
 
@@ -85,13 +85,6 @@ $(TARGET_EXE): $(OBJS)
 !endif
 
 
-# %jp{ライブラリ生成}%en{Library}
-!if "$(TARGET_LIB)" != ""
-$(TARGET_LIB): $(OBJS)
-	$(CMD_LIBR) /OUT:$(TARGET_LIB) $(OBJS)
-!endif
-
-
 # %jp{モトローラS形式ファイル生成}%en{Motorola S format file}
 !if "$(TARGET_MOT)" != ""
 $(TARGET_MOT): $(TARGET_EXE)
@@ -110,6 +103,13 @@ $(TARGET_HEX): $(TARGET_EXE)
 !if "$(TARGET_BIN)" != ""
 $(TARGET_BIN): $(TARGET_EXE)
 	$(CMD_OBJCNV) --bin --output $(TARGET_BIN) $(TARGET_EXE)
+!endif
+
+
+# %jp{ライブラリ生成}%en{Library}
+!if "$(TARGET_LIB)" != ""
+$(TARGET_LIB): $(OBJS)
+	$(CMD_LIBR) $(ARFLAGS) --create $(TARGET_LIB) $(OBJS)
 !endif
 
 

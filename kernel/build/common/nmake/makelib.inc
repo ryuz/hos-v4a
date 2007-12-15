@@ -108,7 +108,7 @@ TARGET_LIB = $(TARGET).$(EXT_LIB)
 # --------------------------------------
 
 # %jp{ライブラリ生成}%en{library}
-makelib_all: srcobjcp_makelib $(TARGET_LIB)
+makelib_all: mkdir_objs srcobjcp_makelib $(TARGET_LIB)
 
 
 # %jp{クリーンナップ}
