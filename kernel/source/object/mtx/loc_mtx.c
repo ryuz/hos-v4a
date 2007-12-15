@@ -85,7 +85,7 @@ ER loc_mtx(ID mtxid)
 
 		/* %jp{ミューテックスをTCBに接続} */
 		mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
-		_kernel_add_mtx(mtxcb, mtxhdl, tcb);
+		_kernel_add_mtx(mtxhdl, tcb);
 			
 #if _KERNEL_SPT_MTX_TA_CEILING
 		if ( _KERNEL_MTX_GET_MTXATR(mtxcb_ro) == TA_CEILING )

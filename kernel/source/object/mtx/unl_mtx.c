@@ -72,7 +72,7 @@ ER unl_mtx(ID mtxid)
 	mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
 	
 	/* %jp{ミューテックを取り外し} */
-	_kernel_rmv_mtx(mtxcb, mtxhdl, tcb);
+	_kernel_rmv_mtx( mtxhdl, tcb);
 	
 	/* %jp{所有ミューテックスが無くなったら} */
 	if ( _KERNEL_TSK_GET_MTXHDL(tcb) == _KERNEL_MTXHDL_NULL )

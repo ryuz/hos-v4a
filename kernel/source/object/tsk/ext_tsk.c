@@ -11,6 +11,7 @@
 
 
 #include "core/core.h"
+#include "object/mtxobj.h"
 
 
 
@@ -38,6 +39,20 @@ void ext_tsk(void)
 	
 	actcnt = _KERNEL_TSK_GET_ACTCNT(tcb);
 	
+	
+#if _KERNEL_SPT_MTX
+	{
+		_KERNEL_T_MTXHDL	mtxhdl;
+		
+		while ( (mtxhdl = _KERNEL_TSK_GET_MTXHDL(tcb)) != _KERNEL_MTXHDL_NULL )
+		{
+			/* %jp{ミューテックを取り外し} */
+			_kernel_rmv_mtx(mtxhdl, tcb);
+		}
+	}
+#endif
+	
+	
 	/* %jp{起動要求ネストのチェック} */
 	if ( actcnt > 0 )	/* %jp{起動要求ネストがあるなら再生成} */
 	{
@@ -61,7 +76,7 @@ void ext_tsk(void)
 	
 	/* %jp{リスタート} */
 	_KERNEL_RST_CTX(
-				_KERNEL_TSK_GET_CTXCB(tcb),				/* %jp{コンテキスト制御ブロック} */
+				_KERNEL_TSK_GET_CTXCB(tcb),					/* %jp{コンテキスト制御ブロック} */
 				_KERNEL_TSK_GET_STKSZ(tcb_ro),				/* %jp{タスクのスタック領域サイズ} */
 				_KERNEL_TSK_GET_STK(tcb_ro),				/* %jp{タスクのスタック領域の先頭番地} */
 				_KERNEL_TSK_GET_ISP(tcb_ro),				/* %jp{スタックポインタの初期値} */

@@ -85,10 +85,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* %jp{タスクハンドルをIDで管理(省メモリだが低速)にするかどうか} */
-#define _KERNEL_CFG_TSKHDL_ID			TRUE
+#define _KERNEL_CFG_TSKHDL_ID			FALSE
 
 /* %jp{ミューテックスハンドルをIDで管理(省メモリだが低速)にするかどうか [未実装]} */
-#define _KERNEL_CFG_MTXHDL_ID			TRUE
+#define _KERNEL_CFG_MTXHDL_ID			FALSE
 
 /* %jp{割り込みサービスルーチンハンドルをIDで管理(省メモリだが低速)にするかどうか} */
 #define _KERNEL_CFG_ISRHDL_ID			FALSE

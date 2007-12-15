@@ -15,14 +15,17 @@
 
 
 /* %jp{ミューテックスをTCBから取り外し} */
-void _kernel_rmv_mtx(_KERNEL_T_MTXCB_PTR mtxcb, _KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb)
+void _kernel_rmv_mtx(_KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb)
 {
 	_KERNEL_T_MTXHDL	mtxhdl_head;
 	_KERNEL_T_MTXHDL	mtxhdl_next;
 	_KERNEL_T_MTXHDL	mtxhdl_prev;
 	_KERNEL_T_MTXCB_PTR	mtxcb_next;
 	_KERNEL_T_MTXCB_PTR	mtxcb_prev;
+	_KERNEL_T_MTXCB_PTR mtxcb;
 	_KERNEL_T_TSKHDL	tskhdl;
+
+	mtxcb = _KERNEL_MTX_MTXHDL2MTXCB(mtxhdl);
 
 	
 	/* 取り外す */
@@ -59,7 +62,7 @@ void _kernel_rmv_mtx(_KERNEL_T_MTXCB_PTR mtxcb, _KERNEL_T_MTXHDL mtxhdl, _KERNEL
 		tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
 		
 		/* ミューテックを繋ぐ */
-		_kernel_add_mtx(mtxcb, mtxhdl, tcb);
+		_kernel_add_mtx(mtxhdl, tcb);
 		
 		/* %jp{タスク待ち解除} */
 		_KERNEL_TSK_SET_ERCD(tcb, E_OK);			/* %jp{エラーコード設定} */
