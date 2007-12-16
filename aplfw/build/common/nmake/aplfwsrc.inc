@@ -647,6 +647,16 @@ CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_isr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_isr.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_getmacaddress.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_getmacaddress.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_csrregread.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_csrregread.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_csrregwrite.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_csrregwrite.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_phyregread.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_phyregread.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_phyregwrite.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_phyregwrite.$(EXT_OBJ)
 
 
 # 16550A

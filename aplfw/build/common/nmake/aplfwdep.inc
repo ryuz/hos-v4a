@@ -277,6 +277,11 @@ $(OBJS_DIR)\lan9118drv_read.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_read.c	$(COMMON_H
 $(OBJS_DIR)\lan9118drv_write.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_write.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\lan9118drv_flush.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_flush.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\lan9118drv_isr.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_isr.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\lan9118drv_getmacaddress.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_getmacaddress.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\lan9118drv_csrregread.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_csrregread.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\lan9118drv_csrregwrite.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_csrregwrite.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\lan9118drv_phyregread.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_phyregread.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\lan9118drv_phyregwrite.$(EXT_OBJ):	$(OBJS_DIR)\lan9118drv_phyregwrite.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\pc16550drv_create.$(EXT_OBJ):	$(OBJS_DIR)\pc16550drv_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\pc16550drv_delete.$(EXT_OBJ):	$(OBJS_DIR)\pc16550drv_delete.c	$(COMMON_HEADERS)

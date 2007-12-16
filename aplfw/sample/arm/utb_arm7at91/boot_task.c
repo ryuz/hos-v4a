@@ -80,7 +80,7 @@ void Boot_Task(VP_INT exinf)
 	/*   デバイスドライバ    */
 	/*************************/
 	
-#if 0
+#if 1
 	/* LAN9118デバドラ生成 (/dev/eth0 に登録) */
 	Lan9118Drv_Create(&g_Lan9118Drv[0], (void *)0x40000000, 24);
 	File_AddDevice("eth0", (C_DRVOBJ *)&g_Lan9118Drv[0]);

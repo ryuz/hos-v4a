@@ -368,6 +368,11 @@
 			"lan9118drv_write.c",
 			"lan9118drv_flush.c",
 			"lan9118drv_isr.c",
+			"lan9118drv_getmacaddress.c",
+			"lan9118drv_csrregread.c",
+			"lan9118drv_csrregwrite.c",
+			"lan9118drv_phyregread.c",
+			"lan9118drv_phyregwrite.c",
 		],
 		[
 			"16550A",

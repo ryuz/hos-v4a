@@ -439,6 +439,11 @@ CSRCS += $(LAN9118_DIR)/lan9118drv_read.c
 CSRCS += $(LAN9118_DIR)/lan9118drv_write.c
 CSRCS += $(LAN9118_DIR)/lan9118drv_flush.c
 CSRCS += $(LAN9118_DIR)/lan9118drv_isr.c
+CSRCS += $(LAN9118_DIR)/lan9118drv_getmacaddress.c
+CSRCS += $(LAN9118_DIR)/lan9118drv_csrregread.c
+CSRCS += $(LAN9118_DIR)/lan9118drv_csrregwrite.c
+CSRCS += $(LAN9118_DIR)/lan9118drv_phyregread.c
+CSRCS += $(LAN9118_DIR)/lan9118drv_phyregwrite.c
 endif
 
 
