@@ -7,6 +7,7 @@
 # ----------------------------------------------------------------------------
 
 
+
 # ターゲット名
 TARGET    ?= libhosv4a
 
@@ -27,6 +28,7 @@ ARCH_PROC ?= arm/arm_v4t
 ARCH_IRC  ?= arm/at91
 ARCH_CC   ?= armcc
 
+
 # %jp{アーキテクチャパス}
 INC_PROC_DIR    = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
 INC_IRC_DIR     = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
@@ -35,14 +37,17 @@ SRC_PROC_CC_DIR = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
 SRC_IRC_DIR     = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
 SRC_IRC_CC_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
 
+
 # %jp{パス設定}
 INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
+
 
 # %jp{オプションフラグ}
 AFLAGS  += --cpu=ARM7TDMI --apcs=inter --thumb
 CFLAGS  += --cpu=ARM7TDMI --apcs=inter --thumb
 ARFLAGS += 
+
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
@@ -85,6 +90,7 @@ include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 all: makelib_all
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
+
 # %jp{クリーン}
 .PHONY : clean
 clean: makelib_clean
@@ -92,14 +98,23 @@ clean: makelib_clean
 	$(RM) -f *.lst
 
 
+# %jp{依存関係更新}
+.PHONY : depend
+depend: makelib_depend
+
+
+
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
+
 
 # %jp{コンパイラ依存ルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 
+
 # %jp{カーネル依存関係読込み}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
+
 
 
 # end of file
