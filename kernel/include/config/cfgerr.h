@@ -41,9 +41,6 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* exd_tsk */
 /* ter_tsk */
 /* chg_pri */
-#define _KERNEL_CFG_CHG_PRI_E_ID		TRUE
-#define _KERNEL_CFG_CHG_PRI_E_NOEXS		TRUE
-
 /* get_pri */
 /* ref_tsk */
 #define _KERNEL_CFG_REF_TSK_E_ID		TRUE

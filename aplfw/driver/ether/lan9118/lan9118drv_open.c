@@ -17,7 +17,6 @@ HANDLE Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_LAN9118DRV	*self;
 	C_CHRFILE		*pFile;
-	unsigned short	uhStatus;
 	int				i;
 	
 	/* upper cast */
@@ -68,24 +67,8 @@ HANDLE Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		Lan9118Drv_PhyRegWrite(self, 0, 0x1200);	/* ネゴシエーション開始 */
 		SysTim_Wait(3000);
 		
-		/* ゴシエーション完了チェック */
-		if ( !(Lan9118Drv_PhyRegRead(self, 1) & 0x0020) )
-		{
-			return HANDLE_NULL;
-		}
+	/*	Lan9118Drv_PhyRegRead();	*/
 		
-		uhStatus = Lan9118Drv_PhyRegRead(self, 31) & 0x00ff;
-
-		if ( ((uhStatus & 0x0058) == 0x0058) || ((uhStatus & 0x0048) == 0x0048))
-		{
-			/* Full Duplex */
-			Lan9118Drv_CsrRegWrite(self, 1, Lan9118Drv_CsrRegRead(self, 1) | 0x00900000 );
-		}
-		else
-		{
-			/* Half Duplex */
-			Lan9118Drv_CsrRegWrite(self, 1, Lan9118Drv_CsrRegRead(self, 1) & ~0x00100000 );
-		}
 		
 		SysInt_Enable(self->iIntNum);
 	}
@@ -102,7 +85,6 @@ HANDLE Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	
 	return (HANDLE)pFile;
 }
-
 
 
 /* end of file */

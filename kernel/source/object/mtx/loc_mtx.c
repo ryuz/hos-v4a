@@ -85,7 +85,7 @@ ER loc_mtx(ID mtxid)
 
 		/* %jp{ミューテックスをTCBに接続} */
 		mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
-		_kernel_add_mtx(mtxhdl, tcb);
+		_kernel_add_mtx(mtxcb, mtxhdl, tcb);
 			
 #if _KERNEL_SPT_MTX_TA_CEILING
 		if ( _KERNEL_MTX_GET_MTXATR(mtxcb_ro) == TA_CEILING )
@@ -120,15 +120,19 @@ ER loc_mtx(ID mtxid)
 			/* %jp{優先度継承} */
 			if ( _KERNEL_TSK_GET_TSKPRI(tcb_lock) > _KERNEL_TSK_GET_TSKPRI(tcb) )
 			{
-				/* %jp{ロック中タスクの優先度を引き上げる} */
-				_kernel_chg_pri(tskhdl_lock, _KERNEL_TSK_GET_TSKPRI(tcb));
+				_KERNEL_TSK_SET_TSKPRI(tcb_lock, _KERNEL_TSK_GET_TSKPRI(tcb));
+				if ( _KERNEL_TSK_GET_TSKSTAT(tcb) == TTS_RDY )
+				{
+					_KERNEL_SYS_RMV_RDQ(tskhdl);
+					_KERNEL_SYS_ADD_RDQ(tskhdl);
+				}
 			}
 		}
 #endif
-		
+
 		/* %jp{タスクディスパッチの実行} */
 		_KERNEL_DSP_TSK();
-		
+
 		/* %jp{エラーコードの取得} */
 		ercd = _KERNEL_TSK_GET_ERCD(tcb);
 	}

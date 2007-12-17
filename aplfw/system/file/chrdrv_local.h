@@ -16,6 +16,12 @@
 #include "system/file/chrdrv.h"
 
 
+#define CHRDRV_STATUS_WRITE			0x0001
+#define CHRDRV_STATUS_READ			0x0002
+#define CHRDRV_STATUS_IO			0x0004
+
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif

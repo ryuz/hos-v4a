@@ -12,9 +12,9 @@
 #include "sysapi_local.h"
 
 
-void SysPrc_Start(SYSPRC_HANDLE hPrc)
+void SysPrc_Resume(SYSPRC_HANDLE hPrc)
 {
-	act_tsk((ID)hPrc);
+	rsm_tsk((ID)hPrc);
 }
 
 

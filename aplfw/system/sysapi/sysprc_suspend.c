@@ -11,11 +11,11 @@
 
 #include "sysapi_local.h"
 
-void SysPrc_Exit(void)
-{
-	ext_tsk();
-}
 
+void SysPrc_Suspend(SYSPRC_HANDLE hPrc)
+{
+	sus_tsk((ID)hPrc);
+}
 
 
 /* end of file */

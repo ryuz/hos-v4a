@@ -305,6 +305,25 @@
 
 
 
+/* %jp{T_RTSKの変更}%en{T_RTSKの変更} */
+#define _KERNEL_SPT_RTSK_TSKATR		_KERNEL_CFG_RTSK_TSKATR			/**< %jp{T_RTSKに tskatr を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_EXINF		_KERNEL_CFG_RTSK_EXINF			/**< %jp{T_RTSKに exinf を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_TASK		_KERNEL_CFG_RTSK_TASK			/**< %jp{T_RTSKに task を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_ITSKPRI	_KERNEL_CFG_RTSK_ITSKPRI		/**< %jp{T_RTSKに itskpri を含めるか(HOS独自拡張機能)} */	
+#define _KERNEL_SPT_RTSK_STKSZ		_KERNEL_CFG_RTSK_STKSZ			/**< %jp{T_RTSKに stksz を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_STK		_KERNEL_CFG_RTSK_STK			/**< %jp{T_RTSKに stk を含めるか(HOS独自拡張機能)} */
+
+
+/* %jp{T_RTSTの構成}%en{T_RTST} */
+#define _KERNEL_SPT_RTST_TSKATR		_KERNEL_CFG_RTST_TSKATR			/**< %jp{T_RTSTに tskatr を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_EXINF		_KERNEL_CFG_RTST_EXINF			/**< %jp{T_RTSTに exinf を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_TASK		_KERNEL_CFG_RTST_TASK			/**< %jp{T_RTSTに task を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_ITSKPRI	_KERNEL_CFG_RTST_ITSKPRI		/**< %jp{T_RTSTに itskpri を含めるか(HOS独自拡張機能)} */	
+#define _KERNEL_SPT_RTST_STKSZ		_KERNEL_CFG_RTST_STKSZ			/**< %jp{T_RTSTに stksz を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_STK		_KERNEL_CFG_RTST_STK			/**< %jp{T_RTSTに stk を含めるか(HOS独自拡張機能)} */
+
+
+
 #endif	/* _KERNEL__prser_pitrncfg_h__ */
 
 

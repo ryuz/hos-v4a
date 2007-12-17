@@ -15,10 +15,6 @@
 
 #include "lan9118drv.h"
 
-#define LAN9118_RX_DATA_FIFO	0x00
-#define LAN9118_TX_DATA_FIFO	0x20
-#define LAN9118_RX_STATUS_FIFO	0x40
-#define LAN9118_TX_STATUS_FIFO	0x48
 
 #define LAN9118_ID_REV			0x50
 #define LAN9118_IRQ_CFG			0x54
@@ -57,7 +53,6 @@
 #define LAN9118_CSR_VLAN2		0x0a
 #define LAN9118_CSR_WUFF		0x0b
 #define LAN9118_CSR_WUCSR		0x0c
-
 
 
 

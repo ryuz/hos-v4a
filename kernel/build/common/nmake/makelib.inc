@@ -57,7 +57,7 @@ AFLAGS = $(AFLAGS) $(AFLAGS_OPT_NORMAL)
 
 
 # %jp{エラーレベル指定}%en{error check level}
-!if "$($ERRLEVEL)" != ""
+!ifdef ERRLEVEL
 !if $(ERRLEVEL) == 0
 TARGET = $(TARGET)er0
 C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=0
@@ -108,13 +108,13 @@ TARGET_LIB = $(TARGET).$(EXT_LIB)
 # --------------------------------------
 
 # %jp{ライブラリ生成}%en{library}
-makelib_all: mkdir_objs $(TARGET_LIB)
+makelib_all: srcobjcp_makelib $(TARGET_LIB)
 
 
 # %jp{クリーンナップ}
 makelib_clean:
 	-$(CMD_RM) $(TARGET_LIB)
-	-$(CMD_RM) $(OBJS_DIR)\*.*
+	-$(CMD_RM) $(OBJS_DIR)\*.$(EXT_OBJ)
 
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}

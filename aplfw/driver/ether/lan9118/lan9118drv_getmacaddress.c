@@ -23,12 +23,12 @@ void Lan9118Drv_GetMacAddress(C_LAN9118DRV *self, unsigned char ubAddr[6])
 	ulLow = Lan9118Drv_CsrRegRead(self, 3);
 	
 	/* 格納 */
-	ubAddr[0] = ((ulLow >>  0) & 0xff);
-	ubAddr[1] = ((ulLow >>  8) & 0xff);
-	ubAddr[2] = ((ulLow >> 16) & 0xff);
-	ubAddr[3] = ((ulLow >> 24) & 0xff);
-	ubAddr[4] = ((ulHi  >>  0) & 0xff);
-	ubAddr[5] = ((ulHi  >>  8) & 0xff);
+	ubAddr[0] = ((ulHi  >>  8) & 0xff);
+	ubAddr[1] = ((ulHi  >>  0) & 0xff);
+	ubAddr[2] = ((ulLow >> 24) & 0xff);
+	ubAddr[3] = ((ulLow >> 16) & 0xff);
+	ubAddr[4] = ((ulLow >>  8) & 0xff);
+	ubAddr[5] = ((ulLow >>  0) & 0xff);
 }
 
 

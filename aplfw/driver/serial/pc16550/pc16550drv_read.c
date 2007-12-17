@@ -30,30 +30,32 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	/* クリティカルセクションに入る */
 	SysMtx_Lock(self->hMtxRecv);
 	
+	/* 読込みシグナルを一旦クリア */
+	ChrDrv_ClearReadSignal(&self->ChrDrv);
+	
 	for ( i = 0; i < Size; i++ )
 	{
-		/* 受信ストリームバッファを読み出す */
+		/* 読み出し */
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
-			FILE_ERR err;
-		
-			/* バッファが空なら読込み可能シグナルを待つ */
-			SysMtx_Unlock(self->hMtxRecv);
-			err = ChrDrv_WaitReadSignal(&self->ChrDrv, pFile);
-			SysMtx_Lock(self->hMtxRecv);
-			
-			if ( err != FILE_ERR_OK )
+			/* 受信を待つ */
+			if ( ChrDrv_WaitReadSignal(&self->ChrDrv, pFile) != FILE_ERR_OK )
 			{
-				goto loop_end;
+				SysMtx_Unlock(self->hMtxRecv);	/* クリティカルセクションを出る */
+				return i;
 			}
+			
+			/* 読込みシグナルをクリアしてリトライ */
+			ChrDrv_ClearReadSignal(&self->ChrDrv);
 		}
+		
+		/* 読み出せた文字を格納 */	
 		*pubBuf++ = (unsigned char)c;
 	}
-loop_end:
 	
 	/* クリティカルセクションを出る */
 	SysMtx_Unlock(self->hMtxRecv);
-	
+
 	return i;
 }
 

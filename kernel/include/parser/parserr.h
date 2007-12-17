@@ -29,9 +29,6 @@
 /* exd_tsk */
 /* ter_tsk */
 /* chg_pri */
-#define _KERNEL_SPT_CHG_PRI_E_ID		_KERNEL_CFG_CHG_PRI_E_ID
-#define _KERNEL_SPT_CHG_PRI_E_NOEXS		_KERNEL_CFG_CHG_PRI_E_NOEXS
-
 /* get_pri */
 /* ref_tsk */
 #define _KERNEL_SPT_REF_TSK_E_ID		_KERNEL_CFG_REF_TSK_E_ID

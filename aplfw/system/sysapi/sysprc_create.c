@@ -13,12 +13,12 @@
 
 
 /* プロセス生成 */
-SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority)
+SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, int iAttr)
 {
 	T_CTSK ctsk;
 	ER_ID  erid;
 	
-	ctsk.tskatr  = TA_HLNG;
+	ctsk.tskatr  = TA_HLNG | TA_ACT;
 	ctsk.exinf   = (VP_INT)Param;
 	ctsk.task    = (FP)pfncEntry;
 	ctsk.itskpri = (PRI)Priority;

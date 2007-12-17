@@ -17,7 +17,7 @@
 #define PROCESS_PRIORITY_HIGH		11
 
 
-/* プロセス固有情報 */
+/* プロセス生成情報 */
 typedef struct t_process_inf
 {
 	HANDLE		hTerminal;					/* ターミナル */
@@ -33,11 +33,14 @@ typedef struct t_process_inf
 extern "C" {
 #endif
 
-HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INF *pInf);
-void   Process_Exit(int iExitCode);
-HANDLE Process_GetCurrentHandle(void);
+HANDLE              Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INF *pInf);
+void                Process_Exit(int iExitCode);
+HANDLE              Process_GetCurrentHandle(void);
 
-int    Process_GetExitCode(HANDLE hProcess);
+void Process_Suspend(HANDLE hProcess);
+void Process_Resume(HANDLE hProcess);
+
+int                 Process_GetExitCode(HANDLE hProcess);
 const T_PROCESS_INF *Process_GetInf(HANDLE hProcess);
 
 #define Process_GetTerminal()	(Process_GetInf(Process_GetCurrentHandle())->hTerminal)

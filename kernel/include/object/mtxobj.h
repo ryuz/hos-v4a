@@ -336,10 +336,10 @@ extern  _KERNEL_T_MTXCB					*_kernel_mtxcb_tbl[];									/**< %jp{ミューテ�
 extern "C" {
 #endif
 
-ER   _kernel_cre_mtx(ID mtxid, const T_CMTX *pk_cmtx);					/**< %jp{ミューテックス生成}%en{Create Mutex} */
-ER   _kernel_loc_mtx(ID mtxid, TMO tmout);								/**< %jp{ミューテックスのロック(統合版)} */
-void _kernel_add_mtx(_KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb);	/**< %jp{ミューテックスをTCBに接続} */
-void _kernel_rmv_mtx(_KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb);	/**< %jp{ミューテックスをTCBから取り外し} */
+ER   _kernel_cre_mtx(ID mtxid, const T_CMTX *pk_cmtx);												/**< %jp{ミューテックス生成}%en{Create Mutex} */
+ER   _kernel_loc_mtx(ID mtxid, TMO tmout);															/**< %jp{ミューテックスのロック(統合版)} */
+void _kernel_add_mtx(_KERNEL_T_MTXCB_PTR mtxcb, _KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb);	/**< %jp{ミューテックスをTCBに接続} */
+void _kernel_rmv_mtx(_KERNEL_T_MTXCB_PTR mtxcb, _KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb);	/**< %jp{ミューテックスをTCBから取り外し} */
 
 
 #ifdef __cplusplus

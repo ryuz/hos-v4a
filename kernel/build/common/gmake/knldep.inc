@@ -79,6 +79,7 @@ $(OBJS_DIR)/can_wup.$(EXT_OBJ):	$(TSKOBJ_DIR)/can_wup.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/rel_wai.$(EXT_OBJ):	$(TSKOBJ_DIR)/rel_wai.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/dly_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/dly_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/ref_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/ref_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/ref_tst.$(EXT_OBJ):	$(TSKOBJ_DIR)/ref_tst.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)/cre_sem.$(EXT_OBJ):	$(SEMOBJ_DIR)/cre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
 $(OBJS_DIR)/acre_sem.$(EXT_OBJ):	$(SEMOBJ_DIR)/acre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
@@ -123,11 +124,6 @@ $(OBJS_DIR)/kadd_msq.$(EXT_OBJ):	$(MBXOBJ_DIR)/kadd_msq.c	$(COMMON_HEADERS) $(MB
 $(OBJS_DIR)/krmf_msg.$(EXT_OBJ):	$(MBXOBJ_DIR)/krmf_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
 $(OBJS_DIR)/krmp_msg.$(EXT_OBJ):	$(MBXOBJ_DIR)/krmp_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
 $(OBJS_DIR)/krmv_msq.$(EXT_OBJ):	$(MBXOBJ_DIR)/krmv_msq.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-
-$(OBJS_DIR)/loc_mtx.$(EXT_OBJ):	$(MTXOBJ_DIR)/loc_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
-$(OBJS_DIR)/unl_mtx.$(EXT_OBJ):	$(MTXOBJ_DIR)/unl_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
-$(OBJS_DIR)/kadd_mtx.$(EXT_OBJ):	$(MTXOBJ_DIR)/kadd_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
-$(OBJS_DIR)/krmv_mtx.$(EXT_OBJ):	$(MTXOBJ_DIR)/krmv_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
 
 $(OBJS_DIR)/acre_mpf.$(EXT_OBJ):	$(MPFOBJ_DIR)/acre_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)
 $(OBJS_DIR)/kcre_mpf.$(EXT_OBJ):	$(MPFOBJ_DIR)/kcre_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)

@@ -11,15 +11,16 @@
  */
 
 
+
 #include "hosaplfw.h"
-#include "chrdrv.h"
+#include "chrdrv_local.h"
 #include "system/system/system.h"
 
 
 static void ChrDrv_SetReadSignalProc(VPARAM Param);
 
 
-/** 読込み可能になったことを通知 */
+/** 書込み可能になったことを通知 */
 void ChrDrv_SetReadSignal(C_CHRDRV *self)
 {
 	if ( SysCtx_IsIsr() )
@@ -43,10 +44,14 @@ void ChrDrv_SetReadSignalProc(VPARAM Param)
 	
 	self = (C_CHRDRV *)Param;
 	
-	SysEvt_Set(self->hEvtRead);
-		
-	SysMtx_Lock(self->hMtx);
 	
+	SysMtx_Lock(self->hMtx);	/* クリティカルセクションに入る */
+	
+	
+	/* 書き込み状態設定 */
+	self->iStatus |= CHRDRV_STATUS_READ;
+	
+	/* 待ちオブジェクトにシグナルを送る */
 	pFile = self->pFileHead;
 	if ( pFile != NULL )
 	{
@@ -58,12 +63,20 @@ void ChrDrv_SetReadSignalProc(VPARAM Param)
 				Event_Set(pFile->hEventRead);
 			}
 			
+			/* 待ちタスクがあれば起こして登録解除 */
+			if ( pFile->hPrcRead != SYSPRC_HANDLE_NULL )
+			{
+				SysPrc_Resume(pFile->hPrcRead);
+				pFile->hPrcRead = SYSPRC_HANDLE_NULL;
+			}
+			
 			/* 次に進む */
 			pFile = pFile->pNext;
 		} while ( pFile != self->pFileHead);
 	}
-
-	SysMtx_Unlock(self->hMtx);
+	
+	
+	SysMtx_Unlock(self->hMtx);	/* クリティカルセクションを出る */
 }
 
 

@@ -12,22 +12,44 @@
 
 
 
-#include "chrdrv.h"
+#include "chrdrv_local.h"
 
 
 /** 書込み可能になった可能性があるまで待つ */
 FILE_ERR ChrDrv_WaitWriteSignal(C_CHRDRV *self, C_CHRFILE *pFile)
 {
-	/* ファイルモードチェック */
-	if ( pFile->cWriteMode & FILE_WMODE_POLING )
-	{
-		return FILE_ERR_NG;		/* ポーリングモードならブロックしない */
-	}
+	SYSPRC_HANDLE	hPrc;
+
+	SysMtx_Lock(self->hMtx);	/* クリティカルセクションに入る */
 	
-	SysEvt_Wait(self->hEvtWrite);
+	/* ファイルモードチェック */
+	if ( (pFile->cWriteMode & FILE_WMODE_POLING) || pFile->hPrcWrite != SYSPRC_HANDLE_NULL )
+	{
+		SysMtx_Unlock(self->hMtx);	/* クリティカルセクションを出る */
+		return FILE_ERR_NG;			/* ポーリングモードならブロックしない */
+	}
+
+	/* 状態チェック */
+	if ( self->iStatus & CHRDRV_STATUS_WRITE )
+	{
+		SysMtx_Unlock(self->hMtx);	/* クリティカルセクションを出る */
+		return FILE_ERR_OK;			/* 即時成功 */
+	}
+
+	/* 自プロセス取得 */
+	hPrc = SysPrc_GetCurrentHandle();
+	
+	/* 待ちタスク登録 */
+	pFile->hPrcWrite = hPrc;
+	
+	SysMtx_Unlock(self->hMtx);	/* クリティカルセクションを出る */
+	
+	/* 待ちに入る */
+	SysPrc_Suspend(hPrc);
 	
 	return FILE_ERR_OK;
 }
+
 
 
 /* end of file */

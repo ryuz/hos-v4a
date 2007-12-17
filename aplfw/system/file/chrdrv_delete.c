@@ -18,8 +18,10 @@
 void ChrDrv_Delete(C_CHRDRV *self)
 {
 	SysMtx_Delete(self->hMtx);			/* 排他制御ミューテックス */
+#if 0
 	SysEvt_Delete(self->hEvtWrite);		/* 書込みイベント */
 	SysEvt_Delete(self->hEvtRead);		/* 読込みイベント */
+#endif
 	
 	/* 親クラスデストラクタ呼び出し */
 	DrvObj_Delete(&self->DrvObj);

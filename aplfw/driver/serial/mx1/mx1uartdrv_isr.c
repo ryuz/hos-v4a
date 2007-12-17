@@ -41,9 +41,9 @@ void Mx1UartDrv_IsrRx(VPARAM Param)
 			StreamBuf_SendChar(&self->StmBufRecv, c);
 		} while ( MX1UART_REG_READ(self, MX1UART_USR2) & 0x0001 );
 
-		System_RequestProc(Mx1UartDrv_RecvProc, (VPARAM)self);
-/*		SysEvt_Set(self->hEvtRecv);
-		ChrDrv_SetReadSignal(&self->ChrDrv);	*/
+/*		System_RequestProc(Mx1UartDrv_RecvProc, (VPARAM)self);
+		SysEvt_Set(self->hEvtRecv);		*/
+		ChrDrv_SetReadSignal(&self->ChrDrv);
 	}
 }
 

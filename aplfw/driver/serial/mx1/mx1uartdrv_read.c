@@ -29,26 +29,29 @@ FILE_SIZE Mx1UartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 
 	/* クリティカルセクションに入る */
 	SysMtx_Lock(self->hMtxRecv);
-
+	
+	/* 読み出しシグナルを一旦クリア */
+	ChrDrv_ClearReadSignal(&self->ChrDrv);
+	
 	for ( i = 0; i < Size; i++ )
 	{
+		/* 読み出し */
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
-			if ( pFile->cReadMode == FILE_RMODE_BLOCKING )
+			/* 受信を待つ */
+			if ( ChrDrv_WaitReadSignal(&self->ChrDrv, pFile) != FILE_ERR_OK )
 			{
-				/* ブロッキングなら受信イベントを待つ */
-				SysEvt_Wait(self->hEvtRecv);
-				SysEvt_Clear(self->hEvtRecv);
+				SysMtx_Unlock(self->hMtxRecv);	/* クリティカルセクションを出る */
+				return i;
 			}
-			else
-			{
-				/* ノンブロッキングなら終了 */
-				goto loop_end;
-			}
+			
+			/* 読み出しシグナルをクリアしてリトライ */
+			ChrDrv_ClearReadSignal(&self->ChrDrv);
 		}
+		
+		/* 読み出せた文字を格納 */	
 		*pubBuf++ = (unsigned char)c;
 	}
-loop_end:
 	
 	/* クリティカルセクションを出る */
 	SysMtx_Unlock(self->hMtxRecv);

@@ -48,8 +48,7 @@ FILE_ERR TcpIp_Create(C_TCPIP *self, const char *pszIp)
 	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	
 	/* 受信プロセス生成 */
-	self->hPrcRecv = SysPrc_Create(TcpIp_Recv, (VPARAM)self, 1024, 2);
-	SysPrc_Start(self->hPrcRecv);
+	self->hPrcRecv = SysPrc_Create(TcpIp_Recv, (VPARAM)self, 1024, 2, SYSPRC_ATTR_NORMAL);
 	
 	return FILE_ERR_OK;
 }

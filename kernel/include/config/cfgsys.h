@@ -83,9 +83,22 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_TMAX_MAXSEM			(-1)				/**< %jp{セマフォの最大値}%en{Maximum value of the maximum definable semaphore resource count} */
 
 
-/* %jp{HOS独自拡張機能} */
-#define _KERNEL_CFG_RTST_EXINF			FALSE				/**< %jp{T_RTSTに exinf を含めるか} */
-#define _KERNEL_CFG_RTSK_EXINF			FALSE				/**< %jp{T_RTSKに exinf を含めるか} */
+/* %jp{T_RTSKの変更}%en{T_RTSKの変更} */
+#define _KERNEL_CFG_RTSK_TSKATR			TRUE				/**< %jp{T_RTSKに tskatr を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTSK_EXINF			TRUE				/**< %jp{T_RTSKに exinf を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTSK_TASK			TRUE				/**< %jp{T_RTSKに task を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTSK_ITSKPRI		TRUE				/**< %jp{T_RTSKに itskpri を含めるか(HOS独自拡張機能)} */	
+#define _KERNEL_CFG_RTSK_STKSZ			TRUE				/**< %jp{T_RTSKに stksz を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTSK_STK			TRUE				/**< %jp{T_RTSKに stk を含めるか(HOS独自拡張機能)} */
+
+
+/* %jp{T_RTSTの構成}%en{T_RTST} */
+#define _KERNEL_CFG_RTST_TSKATR			FALSE				/**< %jp{T_RTSTに tskatr を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTST_EXINF			TRUE				/**< %jp{T_RTSTに exinf を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTST_TASK			FALSE				/**< %jp{T_RTSTに task を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTST_ITSKPRI		FALSE				/**< %jp{T_RTSTに itskpri を含めるか(HOS独自拡張機能)} */	
+#define _KERNEL_CFG_RTST_STKSZ			FALSE				/**< %jp{T_RTSTに stksz を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_CFG_RTST_STK			FALSE				/**< %jp{T_RTSTに stk を含めるか(HOS独自拡張機能)} */
 
 
 

@@ -22,11 +22,16 @@ void ChrFile_Create(C_CHRFILE *self, struct c_chrdrv *pChrDrv, const T_FILEOBJ_M
 	FileObj_Create(&self->FileObj, &pChrDrv->DrvObj, pMethods);
 
 	/* メンバ初期化 */	
-	self->hEventWrite = HANDLE_NULL;	
-	self->hEventRead  = HANDLE_NULL;	
 	self->cWriteMode  = FILE_WMODE_BLOCKING;
 	self->cReadMode   = FILE_RMODE_BLOCKING;
-	
+	self->cIoMode     = FILE_IMODE_BLOCKING;
+	self->hEventWrite = HANDLE_NULL;	
+	self->hEventRead  = HANDLE_NULL;	
+	self->hEventIo    = HANDLE_NULL;
+	self->hPrcWrite   = SYSPRC_HANDLE_NULL;
+	self->hPrcRead    = SYSPRC_HANDLE_NULL;
+	self->hPrcIo      = SYSPRC_HANDLE_NULL;
+		
 	/* リスト連結 */
 	SysMtx_Lock(pChrDrv->hMtx);
 	if ( pChrDrv->pFileHead == NULL )

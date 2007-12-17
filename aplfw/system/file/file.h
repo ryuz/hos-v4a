@@ -43,11 +43,14 @@
 #define FILE_SEEK_CUR				1
 #define FILE_SEEK_END				2
 
+
 /* 同期モード */
 #define FILE_WMODE_BLOCKING			0x00		/* 書込み ブロッキングモード */
 #define FILE_WMODE_POLING			0x01		/* 書込み ポーリングモード */
 #define FILE_RMODE_BLOCKING			0x00		/* 読込み ブロッキングモード */
 #define FILE_RMODE_POLING			0x01		/* 読込み ポーリングモード */
+#define FILE_IMODE_BLOCKING			0x00		/* I/O制御 ブロッキングモード */
+#define FILE_IMODE_POLING			0x01		/* I/O制御 ポーリングモード */
 
 
 /* IoControl機能コード(共通) */
@@ -155,13 +158,17 @@ FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
 FILE_ERR  File_Flush(HANDLE hFile);
 
+
 /* 同期制御API */
 FILE_ERR  File_SetWriteMode(HANDLE hFile, int iWriteMode);
 FILE_ERR  File_GetWriteStatus(HANDLE hFile);
-FILE_ERR  File_SetWriteMonitor(HANDLE hFile, HANDLE hEvent);
+FILE_ERR  File_SetWriteEvent(HANDLE hFile, HANDLE hEvent);
 FILE_ERR  File_SetReadMode(HANDLE hFile, int iReadMode);
 FILE_ERR  File_GetReadStatus(HANDLE hFile);
-FILE_ERR  File_SetReadMonitor(HANDLE hFile, HANDLE hEvent);
+FILE_ERR  File_SetReadEvent(HANDLE hFile, HANDLE hEvent);
+FILE_ERR  File_SetIoMode(HANDLE hFile, int iReadMode);
+FILE_ERR  File_GetIoStatus(HANDLE hFile);
+FILE_ERR  File_SetIoEvent(HANDLE hFile, HANDLE hEvent);
 
 
 /* 文字列用API */

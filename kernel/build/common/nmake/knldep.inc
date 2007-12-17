@@ -11,383 +11,26 @@
 # ----------------------------------
 #  source copy
 # ----------------------------------
-
-$(OBJS_DIR)\ent_tsk.c : $(DSP_DIR)\ent_tsk.c
-	$(CMD_CP) $(DSP_DIR)\ent_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\idl_lop.c : $(DSP_DIR)\idl_lop.c
-	$(CMD_CP) $(DSP_DIR)\idl_lop.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_tsk.c : $(DSP_DIR)\dsp_tsk.c
-	$(CMD_CP) $(DSP_DIR)\dsp_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_sta.c : $(DSP_DIR)\dsp_sta.c
-	$(CMD_CP) $(DSP_DIR)\dsp_sta.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_ext.c : $(DSP_DIR)\dsp_ext.c
-	$(CMD_CP) $(DSP_DIR)\dsp_ext.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_ter.c : $(DSP_DIR)\dsp_ter.c
-	$(CMD_CP) $(DSP_DIR)\dsp_ter.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_wai.c : $(DSP_DIR)\dsp_wai.c
-	$(CMD_CP) $(DSP_DIR)\dsp_wai.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_wup.c : $(DSP_DIR)\dsp_wup.c
-	$(CMD_CP) $(DSP_DIR)\dsp_wup.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_sus.c : $(DSP_DIR)\dsp_sus.c
-	$(CMD_CP) $(DSP_DIR)\dsp_sus.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dsp_rsm.c : $(DSP_DIR)\dsp_rsm.c
-	$(CMD_CP) $(DSP_DIR)\dsp_rsm.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\add_que.c : $(QUE_DIR)\add_que.c
-	$(CMD_CP) $(QUE_DIR)\add_que.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\adf_que.c : $(QUE_DIR)\adf_que.c
-	$(CMD_CP) $(QUE_DIR)\adf_que.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\adp_que.c : $(QUE_DIR)\adp_que.c
-	$(CMD_CP) $(QUE_DIR)\adp_que.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rmv_que.c : $(QUE_DIR)\rmv_que.c
-	$(CMD_CP) $(QUE_DIR)\rmv_que.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rmh_que.c : $(QUE_DIR)\rmh_que.c
-	$(CMD_CP) $(QUE_DIR)\rmh_que.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\trm_que.c : $(QUE_DIR)\trm_que.c
-	$(CMD_CP) $(QUE_DIR)\trm_que.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\nxt_que.c : $(QUE_DIR)\nxt_que.c
-	$(CMD_CP) $(QUE_DIR)\nxt_que.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rot_que.c : $(QUE_DIR)\rot_que.c
-	$(CMD_CP) $(QUE_DIR)\rot_que.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\cre_rdq.c : $(RDQ_DIR)\cre_rdq.c
-	$(CMD_CP) $(RDQ_DIR)\cre_rdq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\del_rdq.c : $(RDQ_DIR)\del_rdq.c
-	$(CMD_CP) $(RDQ_DIR)\del_rdq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\add_rdq.c : $(RDQ_DIR)\add_rdq.c
-	$(CMD_CP) $(RDQ_DIR)\add_rdq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rmv_rdq.c : $(RDQ_DIR)\rmv_rdq.c
-	$(CMD_CP) $(RDQ_DIR)\rmv_rdq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rmh_rdq.c : $(RDQ_DIR)\rmh_rdq.c
-	$(CMD_CP) $(RDQ_DIR)\rmh_rdq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\ref_rdq.c : $(RDQ_DIR)\ref_rdq.c
-	$(CMD_CP) $(RDQ_DIR)\ref_rdq.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\sig_tim.c : $(TIM_DIR)\sig_tim.c
-	$(CMD_CP) $(TIM_DIR)\sig_tim.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\sig_toq.c : $(TOQ_DIR)\sig_toq.c
-	$(CMD_CP) $(TOQ_DIR)\sig_toq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\add_toq.c : $(TOQ_DIR)\add_toq.c
-	$(CMD_CP) $(TOQ_DIR)\add_toq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rmv_toq.c : $(TOQ_DIR)\rmv_toq.c
-	$(CMD_CP) $(TOQ_DIR)\rmv_toq.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\sig_tmq.c : $(TMQ_DIR)\sig_tmq.c
-	$(CMD_CP) $(TMQ_DIR)\sig_tmq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\add_tmq.c : $(TMQ_DIR)\add_tmq.c
-	$(CMD_CP) $(TMQ_DIR)\add_tmq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rmv_tmq.c : $(TMQ_DIR)\rmv_tmq.c
-	$(CMD_CP) $(TMQ_DIR)\rmv_tmq.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\cre_hep.c : $(HEP_DIR)\cre_hep.c
-	$(CMD_CP) $(HEP_DIR)\cre_hep.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\alc_hep.c : $(HEP_DIR)\alc_hep.c
-	$(CMD_CP) $(HEP_DIR)\alc_hep.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\fre_hep.c : $(HEP_DIR)\fre_hep.c
-	$(CMD_CP) $(HEP_DIR)\fre_hep.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\exe_dpc.c : $(DPC_DIR)\exe_dpc.c
-	$(CMD_CP) $(DPC_DIR)\exe_dpc.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\frcv_adq.c : $(ADTQ_DIR)\frcv_adq.c
-	$(CMD_CP) $(ADTQ_DIR)\frcv_adq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\fsnd_adq.c : $(ADTQ_DIR)\fsnd_adq.c
-	$(CMD_CP) $(ADTQ_DIR)\fsnd_adq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rcv_adq.c : $(ADTQ_DIR)\rcv_adq.c
-	$(CMD_CP) $(ADTQ_DIR)\rcv_adq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\reff_adq.c : $(ADTQ_DIR)\reff_adq.c
-	$(CMD_CP) $(ADTQ_DIR)\reff_adq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\refs_adq.c : $(ADTQ_DIR)\refs_adq.c
-	$(CMD_CP) $(ADTQ_DIR)\refs_adq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\snd_adq.c : $(ADTQ_DIR)\snd_adq.c
-	$(CMD_CP) $(ADTQ_DIR)\snd_adq.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\sta_knl.c : $(SYSOBJ_DIR)\sta_knl.c
-	$(CMD_CP) $(SYSOBJ_DIR)\sta_knl.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\get_tid.c : $(SYSOBJ_DIR)\get_tid.c
-	$(CMD_CP) $(SYSOBJ_DIR)\get_tid.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\loc_cpu.c : $(SYSOBJ_DIR)\loc_cpu.c
-	$(CMD_CP) $(SYSOBJ_DIR)\loc_cpu.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\unl_cpu.c : $(SYSOBJ_DIR)\unl_cpu.c
-	$(CMD_CP) $(SYSOBJ_DIR)\unl_cpu.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sns_loc.c : $(SYSOBJ_DIR)\sns_loc.c
-	$(CMD_CP) $(SYSOBJ_DIR)\sns_loc.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\ena_dsp.c : $(SYSOBJ_DIR)\ena_dsp.c
-	$(CMD_CP) $(SYSOBJ_DIR)\ena_dsp.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dis_dsp.c : $(SYSOBJ_DIR)\dis_dsp.c
-	$(CMD_CP) $(SYSOBJ_DIR)\dis_dsp.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sns_dsp.c : $(SYSOBJ_DIR)\sns_dsp.c
-	$(CMD_CP) $(SYSOBJ_DIR)\sns_dsp.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sns_ctx.c : $(SYSOBJ_DIR)\sns_ctx.c
-	$(CMD_CP) $(SYSOBJ_DIR)\sns_ctx.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\acre_tsk.c : $(TSKOBJ_DIR)\acre_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\acre_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kcre_tsk.c : $(TSKOBJ_DIR)\kcre_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\kcre_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\act_tsk.c : $(TSKOBJ_DIR)\act_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\act_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\ext_tsk.c : $(TSKOBJ_DIR)\ext_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\ext_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\slp_tsk.c : $(TSKOBJ_DIR)\slp_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\slp_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\wup_tsk.c : $(TSKOBJ_DIR)\wup_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\wup_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\can_wup.c : $(TSKOBJ_DIR)\can_wup.c
-	$(CMD_CP) $(TSKOBJ_DIR)\can_wup.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rel_wai.c : $(TSKOBJ_DIR)\rel_wai.c
-	$(CMD_CP) $(TSKOBJ_DIR)\rel_wai.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\dly_tsk.c : $(TSKOBJ_DIR)\dly_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\dly_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\ref_tsk.c : $(TSKOBJ_DIR)\ref_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\ref_tsk.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\cre_sem.c : $(SEMOBJ_DIR)\cre_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\cre_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\acre_sem.c : $(SEMOBJ_DIR)\acre_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\acre_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kcre_sem.c : $(SEMOBJ_DIR)\kcre_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\kcre_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\del_sem.c : $(SEMOBJ_DIR)\del_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\del_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sig_sem.c : $(SEMOBJ_DIR)\sig_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\sig_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\isig_sem.c : $(SEMOBJ_DIR)\isig_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\isig_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\wai_sem.c : $(SEMOBJ_DIR)\wai_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\wai_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\pol_sem.c : $(SEMOBJ_DIR)\pol_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\pol_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\twai_sem.c : $(SEMOBJ_DIR)\twai_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\twai_sem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\ref_sem.c : $(SEMOBJ_DIR)\ref_sem.c
-	$(CMD_CP) $(SEMOBJ_DIR)\ref_sem.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\cre_flg.c : $(FLGOBJ_DIR)\cre_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\cre_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\acre_flg.c : $(FLGOBJ_DIR)\acre_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\acre_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kcre_flg.c : $(FLGOBJ_DIR)\kcre_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\kcre_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\del_flg.c : $(FLGOBJ_DIR)\del_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\del_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\set_flg.c : $(FLGOBJ_DIR)\set_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\set_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\iset_flg.c : $(FLGOBJ_DIR)\iset_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\iset_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\clr_flg.c : $(FLGOBJ_DIR)\clr_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\clr_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\wai_flg.c : $(FLGOBJ_DIR)\wai_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\wai_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\pol_flg.c : $(FLGOBJ_DIR)\pol_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\pol_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\twai_flg.c : $(FLGOBJ_DIR)\twai_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\twai_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kchk_flg.c : $(FLGOBJ_DIR)\kchk_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\kchk_flg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\ref_flg.c : $(FLGOBJ_DIR)\ref_flg.c
-	$(CMD_CP) $(FLGOBJ_DIR)\ref_flg.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\cre_dtq.c : $(DTQOBJ_DIR)\cre_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\cre_dtq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\acre_dtq.c : $(DTQOBJ_DIR)\acre_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\acre_dtq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kcre_dtq.c : $(DTQOBJ_DIR)\kcre_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\kcre_dtq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\snd_dtq.c : $(DTQOBJ_DIR)\snd_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\snd_dtq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\fsnd_dtq.c : $(DTQOBJ_DIR)\fsnd_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\fsnd_dtq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rcv_dtq.c : $(DTQOBJ_DIR)\rcv_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\rcv_dtq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\prcv_dtq.c : $(DTQOBJ_DIR)\prcv_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\prcv_dtq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\trcv_dtq.c : $(DTQOBJ_DIR)\trcv_dtq.c
-	$(CMD_CP) $(DTQOBJ_DIR)\trcv_dtq.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\acre_mbx.c : $(MBXOBJ_DIR)\acre_mbx.c
-	$(CMD_CP) $(MBXOBJ_DIR)\acre_mbx.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kcre_mbx.c : $(MBXOBJ_DIR)\kcre_mbx.c
-	$(CMD_CP) $(MBXOBJ_DIR)\kcre_mbx.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\snd_mbx.c : $(MBXOBJ_DIR)\snd_mbx.c
-	$(CMD_CP) $(MBXOBJ_DIR)\snd_mbx.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rcv_mbx.c : $(MBXOBJ_DIR)\rcv_mbx.c
-	$(CMD_CP) $(MBXOBJ_DIR)\rcv_mbx.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kadf_msg.c : $(MBXOBJ_DIR)\kadf_msg.c
-	$(CMD_CP) $(MBXOBJ_DIR)\kadf_msg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kadp_msg.c : $(MBXOBJ_DIR)\kadp_msg.c
-	$(CMD_CP) $(MBXOBJ_DIR)\kadp_msg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kadd_msq.c : $(MBXOBJ_DIR)\kadd_msq.c
-	$(CMD_CP) $(MBXOBJ_DIR)\kadd_msq.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\krmf_msg.c : $(MBXOBJ_DIR)\krmf_msg.c
-	$(CMD_CP) $(MBXOBJ_DIR)\krmf_msg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\krmp_msg.c : $(MBXOBJ_DIR)\krmp_msg.c
-	$(CMD_CP) $(MBXOBJ_DIR)\krmp_msg.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\krmv_msq.c : $(MBXOBJ_DIR)\krmv_msq.c
-	$(CMD_CP) $(MBXOBJ_DIR)\krmv_msq.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\loc_mtx.c : $(MTXOBJ_DIR)\loc_mtx.c
-	$(CMD_CP) $(MTXOBJ_DIR)\loc_mtx.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\unl_mtx.c : $(MTXOBJ_DIR)\unl_mtx.c
-	$(CMD_CP) $(MTXOBJ_DIR)\unl_mtx.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kadd_mtx.c : $(MTXOBJ_DIR)\kadd_mtx.c
-	$(CMD_CP) $(MTXOBJ_DIR)\kadd_mtx.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\krmv_mtx.c : $(MTXOBJ_DIR)\krmv_mtx.c
-	$(CMD_CP) $(MTXOBJ_DIR)\krmv_mtx.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\acre_mpf.c : $(MPFOBJ_DIR)\acre_mpf.c
-	$(CMD_CP) $(MPFOBJ_DIR)\acre_mpf.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kcre_mpf.c : $(MPFOBJ_DIR)\kcre_mpf.c
-	$(CMD_CP) $(MPFOBJ_DIR)\kcre_mpf.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\get_mpf.c : $(MPFOBJ_DIR)\get_mpf.c
-	$(CMD_CP) $(MPFOBJ_DIR)\get_mpf.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\pget_mpf.c : $(MPFOBJ_DIR)\pget_mpf.c
-	$(CMD_CP) $(MPFOBJ_DIR)\pget_mpf.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\rel_mpf.c : $(MPFOBJ_DIR)\rel_mpf.c
-	$(CMD_CP) $(MPFOBJ_DIR)\rel_mpf.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\set_tim.c : $(TIMOBJ_DIR)\set_tim.c
-	$(CMD_CP) $(TIMOBJ_DIR)\set_tim.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\get_tim.c : $(TIMOBJ_DIR)\get_tim.c
-	$(CMD_CP) $(TIMOBJ_DIR)\get_tim.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\isig_tim.c : $(TIMOBJ_DIR)\isig_tim.c
-	$(CMD_CP) $(TIMOBJ_DIR)\isig_tim.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\def_inh.c : $(INHOBJ_DIR)\def_inh.c
-	$(CMD_CP) $(INHOBJ_DIR)\def_inh.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sta_inh.c : $(INHOBJ_DIR)\sta_inh.c
-	$(CMD_CP) $(INHOBJ_DIR)\sta_inh.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\exe_inh.c : $(INHOBJ_DIR)\exe_inh.c
-	$(CMD_CP) $(INHOBJ_DIR)\exe_inh.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\end_inh.c : $(INHOBJ_DIR)\end_inh.c
-	$(CMD_CP) $(INHOBJ_DIR)\end_inh.c $(OBJS_DIR)\
-
-
-$(OBJS_DIR)\acre_isr.c : $(ISROBJ_DIR)\acre_isr.c
-	$(CMD_CP) $(ISROBJ_DIR)\acre_isr.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\kcre_isr.c : $(ISROBJ_DIR)\kcre_isr.c
-	$(CMD_CP) $(ISROBJ_DIR)\kcre_isr.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\exe_isr.c : $(ISROBJ_DIR)\exe_isr.c
-	$(CMD_CP) $(ISROBJ_DIR)\exe_isr.c $(OBJS_DIR)\
-
+srcobjcp_makelib:
+	$(CMD_CP) $(DSP_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(QUE_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(RDQ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(TIM_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(TOQ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(TMQ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(HEP_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(DPC_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(ADTQ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(SYSOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(TSKOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(SEMOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(FLGOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(DTQOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(MBXOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(MPFOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(TIMOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(INHOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(ISROBJ_DIR)\*.* $(OBJS_DIR)
 
 
 
@@ -395,144 +38,140 @@ $(OBJS_DIR)\exe_isr.c : $(ISROBJ_DIR)\exe_isr.c
 #  depend
 # ----------------------------------
 
-$(OBJS_DIR)\ent_tsk.$(EXT_OBJ) : $(OBJS_DIR)\ent_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\idl_lop.$(EXT_OBJ) : $(OBJS_DIR)\idl_lop.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_tsk.$(EXT_OBJ) : $(OBJS_DIR)\dsp_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_sta.$(EXT_OBJ) : $(OBJS_DIR)\dsp_sta.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_ext.$(EXT_OBJ) : $(OBJS_DIR)\dsp_ext.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_ter.$(EXT_OBJ) : $(OBJS_DIR)\dsp_ter.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_wai.$(EXT_OBJ) : $(OBJS_DIR)\dsp_wai.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_wup.$(EXT_OBJ) : $(OBJS_DIR)\dsp_wup.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_sus.$(EXT_OBJ) : $(OBJS_DIR)\dsp_sus.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dsp_rsm.$(EXT_OBJ) : $(OBJS_DIR)\dsp_rsm.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ent_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\idl_lop.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_sta.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_ext.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_ter.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_wai.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_wup.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_sus.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dsp_rsm.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\add_que.$(EXT_OBJ) : $(OBJS_DIR)\add_que.c $(COMMON_HEADERS)
-$(OBJS_DIR)\adf_que.$(EXT_OBJ) : $(OBJS_DIR)\adf_que.c $(COMMON_HEADERS)
-$(OBJS_DIR)\adp_que.$(EXT_OBJ) : $(OBJS_DIR)\adp_que.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rmv_que.$(EXT_OBJ) : $(OBJS_DIR)\rmv_que.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rmh_que.$(EXT_OBJ) : $(OBJS_DIR)\rmh_que.c $(COMMON_HEADERS)
-$(OBJS_DIR)\trm_que.$(EXT_OBJ) : $(OBJS_DIR)\trm_que.c $(COMMON_HEADERS)
-$(OBJS_DIR)\nxt_que.$(EXT_OBJ) : $(OBJS_DIR)\nxt_que.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rot_que.$(EXT_OBJ) : $(OBJS_DIR)\rot_que.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\add_que.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\adf_que.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\adp_que.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rmv_que.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rmh_que.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\trm_que.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\nxt_que.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rot_que.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\cre_rdq.$(EXT_OBJ) : $(OBJS_DIR)\cre_rdq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\del_rdq.$(EXT_OBJ) : $(OBJS_DIR)\del_rdq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\add_rdq.$(EXT_OBJ) : $(OBJS_DIR)\add_rdq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rmv_rdq.$(EXT_OBJ) : $(OBJS_DIR)\rmv_rdq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rmh_rdq.$(EXT_OBJ) : $(OBJS_DIR)\rmh_rdq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\ref_rdq.$(EXT_OBJ) : $(OBJS_DIR)\ref_rdq.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_rdq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_rdq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\add_rdq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rmv_rdq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rmh_rdq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_rdq.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\sig_tim.$(EXT_OBJ) : $(OBJS_DIR)\sig_tim.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sig_tim.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\sig_toq.$(EXT_OBJ) : $(OBJS_DIR)\sig_toq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\add_toq.$(EXT_OBJ) : $(OBJS_DIR)\add_toq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rmv_toq.$(EXT_OBJ) : $(OBJS_DIR)\rmv_toq.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sig_toq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\add_toq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rmv_toq.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\sig_tmq.$(EXT_OBJ) : $(OBJS_DIR)\sig_tmq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\add_tmq.$(EXT_OBJ) : $(OBJS_DIR)\add_tmq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rmv_tmq.$(EXT_OBJ) : $(OBJS_DIR)\rmv_tmq.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sig_tmq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\add_tmq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rmv_tmq.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\cre_hep.$(EXT_OBJ) : $(OBJS_DIR)\cre_hep.c $(COMMON_HEADERS)
-$(OBJS_DIR)\alc_hep.$(EXT_OBJ) : $(OBJS_DIR)\alc_hep.c $(COMMON_HEADERS)
-$(OBJS_DIR)\fre_hep.$(EXT_OBJ) : $(OBJS_DIR)\fre_hep.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_hep.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\alc_hep.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\fre_hep.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\exe_dpc.$(EXT_OBJ) : $(OBJS_DIR)\exe_dpc.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\exe_dpc.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\frcv_adq.$(EXT_OBJ) : $(OBJS_DIR)\frcv_adq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\fsnd_adq.$(EXT_OBJ) : $(OBJS_DIR)\fsnd_adq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rcv_adq.$(EXT_OBJ) : $(OBJS_DIR)\rcv_adq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\reff_adq.$(EXT_OBJ) : $(OBJS_DIR)\reff_adq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\refs_adq.$(EXT_OBJ) : $(OBJS_DIR)\refs_adq.c $(COMMON_HEADERS)
-$(OBJS_DIR)\snd_adq.$(EXT_OBJ) : $(OBJS_DIR)\snd_adq.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\frcv_adq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\fsnd_adq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rcv_adq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\reff_adq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\refs_adq.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\snd_adq.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\sta_knl.$(EXT_OBJ) : $(OBJS_DIR)\sta_knl.c $(COMMON_HEADERS)
-$(OBJS_DIR)\get_tid.$(EXT_OBJ) : $(OBJS_DIR)\get_tid.c $(COMMON_HEADERS)
-$(OBJS_DIR)\loc_cpu.$(EXT_OBJ) : $(OBJS_DIR)\loc_cpu.c $(COMMON_HEADERS)
-$(OBJS_DIR)\unl_cpu.$(EXT_OBJ) : $(OBJS_DIR)\unl_cpu.c $(COMMON_HEADERS)
-$(OBJS_DIR)\sns_loc.$(EXT_OBJ) : $(OBJS_DIR)\sns_loc.c $(COMMON_HEADERS)
-$(OBJS_DIR)\ena_dsp.$(EXT_OBJ) : $(OBJS_DIR)\ena_dsp.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dis_dsp.$(EXT_OBJ) : $(OBJS_DIR)\dis_dsp.c $(COMMON_HEADERS)
-$(OBJS_DIR)\sns_dsp.$(EXT_OBJ) : $(OBJS_DIR)\sns_dsp.c $(COMMON_HEADERS)
-$(OBJS_DIR)\sns_ctx.$(EXT_OBJ) : $(OBJS_DIR)\sns_ctx.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sta_knl.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\get_tid.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\loc_cpu.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\unl_cpu.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sns_loc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ena_dsp.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dis_dsp.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sns_dsp.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sns_ctx.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\acre_tsk.$(EXT_OBJ) : $(OBJS_DIR)\acre_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\kcre_tsk.$(EXT_OBJ) : $(OBJS_DIR)\kcre_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\act_tsk.$(EXT_OBJ) : $(OBJS_DIR)\act_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\ext_tsk.$(EXT_OBJ) : $(OBJS_DIR)\ext_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\slp_tsk.$(EXT_OBJ) : $(OBJS_DIR)\slp_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\wup_tsk.$(EXT_OBJ) : $(OBJS_DIR)\wup_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\can_wup.$(EXT_OBJ) : $(OBJS_DIR)\can_wup.c $(COMMON_HEADERS)
-$(OBJS_DIR)\rel_wai.$(EXT_OBJ) : $(OBJS_DIR)\rel_wai.c $(COMMON_HEADERS)
-$(OBJS_DIR)\dly_tsk.$(EXT_OBJ) : $(OBJS_DIR)\dly_tsk.c $(COMMON_HEADERS)
-$(OBJS_DIR)\ref_tsk.$(EXT_OBJ) : $(OBJS_DIR)\ref_tsk.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\act_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ext_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\slp_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\wup_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\can_wup.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rel_wai.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dly_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tst.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\cre_sem.$(EXT_OBJ) : $(OBJS_DIR)\cre_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\acre_sem.$(EXT_OBJ) : $(OBJS_DIR)\acre_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\kcre_sem.$(EXT_OBJ) : $(OBJS_DIR)\kcre_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\del_sem.$(EXT_OBJ) : $(OBJS_DIR)\del_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\sig_sem.$(EXT_OBJ) : $(OBJS_DIR)\sig_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\isig_sem.$(EXT_OBJ) : $(OBJS_DIR)\isig_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\wai_sem.$(EXT_OBJ) : $(OBJS_DIR)\wai_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\pol_sem.$(EXT_OBJ) : $(OBJS_DIR)\pol_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\twai_sem.$(EXT_OBJ) : $(OBJS_DIR)\twai_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
-$(OBJS_DIR)\ref_sem.$(EXT_OBJ) : $(OBJS_DIR)\ref_sem.c $(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sig_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\isig_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\wai_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\pol_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\twai_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
 
-$(OBJS_DIR)\cre_flg.$(EXT_OBJ) : $(OBJS_DIR)\cre_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\acre_flg.$(EXT_OBJ) : $(OBJS_DIR)\acre_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\kcre_flg.$(EXT_OBJ) : $(OBJS_DIR)\kcre_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\del_flg.$(EXT_OBJ) : $(OBJS_DIR)\del_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\set_flg.$(EXT_OBJ) : $(OBJS_DIR)\set_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\iset_flg.$(EXT_OBJ) : $(OBJS_DIR)\iset_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\clr_flg.$(EXT_OBJ) : $(OBJS_DIR)\clr_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\wai_flg.$(EXT_OBJ) : $(OBJS_DIR)\wai_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\pol_flg.$(EXT_OBJ) : $(OBJS_DIR)\pol_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\twai_flg.$(EXT_OBJ) : $(OBJS_DIR)\twai_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\kchk_flg.$(EXT_OBJ) : $(OBJS_DIR)\kchk_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
-$(OBJS_DIR)\ref_flg.$(EXT_OBJ) : $(OBJS_DIR)\ref_flg.c $(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\set_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\iset_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\clr_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\wai_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\pol_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\twai_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kchk_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_flg.c	$(COMMON_HEADERS) $(FLGOBJ_HEADERS)
 
-$(OBJS_DIR)\cre_dtq.$(EXT_OBJ) : $(OBJS_DIR)\cre_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
-$(OBJS_DIR)\acre_dtq.$(EXT_OBJ) : $(OBJS_DIR)\acre_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
-$(OBJS_DIR)\kcre_dtq.$(EXT_OBJ) : $(OBJS_DIR)\kcre_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
-$(OBJS_DIR)\snd_dtq.$(EXT_OBJ) : $(OBJS_DIR)\snd_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
-$(OBJS_DIR)\fsnd_dtq.$(EXT_OBJ) : $(OBJS_DIR)\fsnd_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
-$(OBJS_DIR)\rcv_dtq.$(EXT_OBJ) : $(OBJS_DIR)\rcv_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
-$(OBJS_DIR)\prcv_dtq.$(EXT_OBJ) : $(OBJS_DIR)\prcv_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
-$(OBJS_DIR)\trcv_dtq.$(EXT_OBJ) : $(OBJS_DIR)\trcv_dtq.c $(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\snd_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\fsnd_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rcv_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\prcv_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\trcv_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
 
-$(OBJS_DIR)\acre_mbx.$(EXT_OBJ) : $(OBJS_DIR)\acre_mbx.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\kcre_mbx.$(EXT_OBJ) : $(OBJS_DIR)\kcre_mbx.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\snd_mbx.$(EXT_OBJ) : $(OBJS_DIR)\snd_mbx.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\rcv_mbx.$(EXT_OBJ) : $(OBJS_DIR)\rcv_mbx.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\kadf_msg.$(EXT_OBJ) : $(OBJS_DIR)\kadf_msg.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\kadp_msg.$(EXT_OBJ) : $(OBJS_DIR)\kadp_msg.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\kadd_msq.$(EXT_OBJ) : $(OBJS_DIR)\kadd_msq.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\krmf_msg.$(EXT_OBJ) : $(OBJS_DIR)\krmf_msg.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\krmp_msg.$(EXT_OBJ) : $(OBJS_DIR)\krmp_msg.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
-$(OBJS_DIR)\krmv_msq.$(EXT_OBJ) : $(OBJS_DIR)\krmv_msq.c $(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_mbx.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_mbx.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\snd_mbx.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rcv_mbx.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kadf_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kadp_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kadd_msq.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmf_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmp_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmv_msq.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
 
-$(OBJS_DIR)\loc_mtx.$(EXT_OBJ) : $(OBJS_DIR)\loc_mtx.c $(COMMON_HEADERS) $(MTXOBJ_HEADERS)
-$(OBJS_DIR)\unl_mtx.$(EXT_OBJ) : $(OBJS_DIR)\unl_mtx.c $(COMMON_HEADERS) $(MTXOBJ_HEADERS)
-$(OBJS_DIR)\kadd_mtx.$(EXT_OBJ) : $(OBJS_DIR)\kadd_mtx.c $(COMMON_HEADERS) $(MTXOBJ_HEADERS)
-$(OBJS_DIR)\krmv_mtx.$(EXT_OBJ) : $(OBJS_DIR)\krmv_mtx.c $(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\get_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\pget_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rel_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)
 
-$(OBJS_DIR)\acre_mpf.$(EXT_OBJ) : $(OBJS_DIR)\acre_mpf.c $(COMMON_HEADERS) $(MPFOBJ_HEADERS)
-$(OBJS_DIR)\kcre_mpf.$(EXT_OBJ) : $(OBJS_DIR)\kcre_mpf.c $(COMMON_HEADERS) $(MPFOBJ_HEADERS)
-$(OBJS_DIR)\get_mpf.$(EXT_OBJ) : $(OBJS_DIR)\get_mpf.c $(COMMON_HEADERS) $(MPFOBJ_HEADERS)
-$(OBJS_DIR)\pget_mpf.$(EXT_OBJ) : $(OBJS_DIR)\pget_mpf.c $(COMMON_HEADERS) $(MPFOBJ_HEADERS)
-$(OBJS_DIR)\rel_mpf.$(EXT_OBJ) : $(OBJS_DIR)\rel_mpf.c $(COMMON_HEADERS) $(MPFOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\set_tim.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\get_tim.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\isig_tim.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\set_tim.$(EXT_OBJ) : $(OBJS_DIR)\set_tim.c $(COMMON_HEADERS)
-$(OBJS_DIR)\get_tim.$(EXT_OBJ) : $(OBJS_DIR)\get_tim.c $(COMMON_HEADERS)
-$(OBJS_DIR)\isig_tim.$(EXT_OBJ) : $(OBJS_DIR)\isig_tim.c $(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\def_inh.c	$(COMMON_HEADERS) $(INHOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sta_inh.c	$(COMMON_HEADERS) $(INHOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\exe_inh.c	$(COMMON_HEADERS) $(INHOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\end_inh.c	$(COMMON_HEADERS) $(INHOBJ_HEADERS)
 
-$(OBJS_DIR)\def_inh.$(EXT_OBJ) : $(OBJS_DIR)\def_inh.c $(COMMON_HEADERS) $(INHOBJ_HEADERS)
-$(OBJS_DIR)\sta_inh.$(EXT_OBJ) : $(OBJS_DIR)\sta_inh.c $(COMMON_HEADERS) $(INHOBJ_HEADERS)
-$(OBJS_DIR)\exe_inh.$(EXT_OBJ) : $(OBJS_DIR)\exe_inh.c $(COMMON_HEADERS) $(INHOBJ_HEADERS)
-$(OBJS_DIR)\end_inh.$(EXT_OBJ) : $(OBJS_DIR)\end_inh.c $(COMMON_HEADERS) $(INHOBJ_HEADERS)
-
-$(OBJS_DIR)\acre_isr.$(EXT_OBJ) : $(OBJS_DIR)\acre_isr.c $(COMMON_HEADERS) $(ISROBJ_HEADERS)
-$(OBJS_DIR)\kcre_isr.$(EXT_OBJ) : $(OBJS_DIR)\kcre_isr.c $(COMMON_HEADERS) $(ISROBJ_HEADERS)
-$(OBJS_DIR)\exe_isr.$(EXT_OBJ) : $(OBJS_DIR)\exe_isr.c $(COMMON_HEADERS) $(ISROBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\exe_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 
 
 

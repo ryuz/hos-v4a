@@ -707,7 +707,6 @@ extern const ID							_kernel_max_tskid;										/**< %jp{タスクIDの最大�
 extern  _KERNEL_T_TCB					_kernel_tcb_tbl[];										/**< %jp{タスクコントロールブロックテーブル} */
 extern const _KERNEL_T_TCB_RO			_kernel_tcb_ro_tbl[];									/**< %jp{タスクコントロールブロック(リードオンリー部)テーブル} */
 #define _KERNEL_TSK_ID2TCB(tskid)		(&_kernel_tcb_tbl[(tskid) - _KERNEL_TSK_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
-#define _KERNEL_TSK_TCB2ID(tcb)			((tcb) - &_kernel_tcb_tbl[0] + 1)
 #define _KERNEL_TSK_CHECK_EXS(tskid)	(_kernel_tcb_ro_tbl[(tskid) - _KERNEL_TSK_TMIN_ID].task != NULL)				
 																								/**< %jp{オブジェクトの存在チェック} */
 
@@ -716,7 +715,6 @@ extern const _KERNEL_T_TCB_RO			_kernel_tcb_ro_tbl[];									/**< %jp{タスク
 /* %jp{ブロック配列管理の場合}%en{block array} */
 extern  _KERNEL_T_TCB					_kernel_tcb_tbl[];										/**< %jp{タスクコントロールブロックテーブル} */
 #define _KERNEL_TSK_ID2TCB(tskid)		(&_kernel_tcb_tbl[(tskid) - _KERNEL_TSK_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
-#define _KERNEL_TSK_TCB2ID(tcb)			((tcb) - &_kernel_tcb_tbl[0] + 1)
 #define _KERNEL_TSK_CHECK_EXS(tskid)	(_kernel_tcb_tbl[(tskid) - _KERNEL_TSK_TMIN_ID].task != NULL)				
 																								/**< %jp{オブジェクトの存在チェック} */
 
@@ -727,7 +725,6 @@ extern  _KERNEL_T_TCB					_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 /* %jp{ポインタ配列管理の場合}%en{pointer array} */
 extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコントロールブロックテーブル} */
 #define _KERNEL_TSK_ID2TCB(tskid)		(_kernel_tcb_tbl[(tskid) - _KERNEL_TMIN_TSKID])			/**< %jp{タスクIDからTCB アドレスを取得} */
-#define _KERNEL_TSK_TCB2ID(tcb)			_kernel_tcb2id(tcb)
 #define _KERNEL_TSK_CHECK_EXS(tskid)	(_KERNEL_TSK_ID2TCB(tskid) != NULL)						/**< %jp{オブジェクトの存在チェック} */
 
 #endif
@@ -983,8 +980,7 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 extern "C" {
 #endif
 
-ER   _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk);			/**< %jp{タスクの生成} */
-void _kernel_chg_pri(_KERNEL_T_TSKHDL tskhdl, PRI tskpri);		/**< %jp{タスク優先度の変更} */
+ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk);
 
 #ifdef __cplusplus
 }

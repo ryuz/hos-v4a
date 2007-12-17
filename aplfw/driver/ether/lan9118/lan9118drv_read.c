@@ -18,10 +18,8 @@ FILE_SIZE Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	C_LAN9118DRV	*self;
 	C_CHRFILE		*pFile;
 	unsigned char	*pubBuf;
-	unsigned long	uwData;
-	int				iSize;
 	FILE_SIZE		i;
-	
+	int				c;
 	
 	/* upper cast */
 	self  = (C_LAN9118DRV *)pDrvObj;
@@ -32,51 +30,10 @@ FILE_SIZE Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	/* クリティカルセクションに入る */
 	SysMtx_Lock(self->hMtxRecv);
 	
-	/* 受信チェック */
-	if ( !(Lan9118Drv_RegRead(self, LAN9118_INT_STS) & 0x00000008) )
-	{
-		/* ブロッキングなら受信イベントを待つ */
-		SysMtx_Unlock(self->hMtxRecv);
-		if ( ChrDrv_WaitReadSignal(&self->ChrDrv, pFile) != FILE_ERR_OK )
-		{
-			return 0;
-		}
-		SysMtx_Lock(self->hMtxRecv);
-	}
-	
-	/* 受信サイズ取得 */
-	uwData = Lan9118Drv_RegRead(self, LAN9118_RX_STATUS_FIFO);
-	iSize  = (uwData >> 16);
-	
-	/* 受信エラーチェック */
-	if ( uwData & 0x00008000 )
-	{
-		Lan9118Drv_RegWrite(self, LAN9118_RX_DP_CTL, 0x80000000);
-		while ( (Lan9118Drv_RegRead(self, LAN9118_RX_DP_CTL) & 0x80000000) != 0 )
-			;
-
-		SysMtx_Unlock(self->hMtxRecv);	/* クリティカルセクションを出る */
-		return 0;
-	}
-	
-	/* データ受信 */
-	for( i = 0; i < (iSize + 5) / 4; i++ )
-	{
-		uwData = Lan9118Drv_RegRead(self, LAN9118_RX_DATA_FIFO);
-		
-		*pubBuf++ = ((uwData >>  0) & 0xff);
-		*pubBuf++ = ((uwData >>  8) & 0xff);
-		*pubBuf++ = ((uwData >> 16) & 0xff);
-		*pubBuf++ = ((uwData >> 24) & 0xff);
-	}
-	
-	/* 受信ステータス割込み要因をクリア */
-	Lan9118Drv_RegWrite(self, LAN9118_INT_STS, 0x00000008);
-	
 	/* クリティカルセクションを出る */
 	SysMtx_Unlock(self->hMtxRecv);
-	
-	return iSize;
+
+	return i;
 }
 
 

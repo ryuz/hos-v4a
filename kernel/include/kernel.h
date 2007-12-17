@@ -81,22 +81,52 @@ typedef struct t_rtsk
 	UINT    actcnt;			/**< %jp{起動要求キューイング回数} */
 	UINT    wupcnt;			/**< %jp{起床要求キューイング回数} */
 	UINT    suscnt;			/**< %jp{強制待ち要求ネスト回数} */
-
-	/* %jp{以下、独自実装} */
-#if _KERNEL_CFG_RTSK_EXINF
-	VP_INT  exinf;			/* タスクの拡張情報 */
+	
+	/* %jp{以下、独自実装}%en{HOS extention} */
+#if _KERNEL_SPT_RTSK_TSKATR
+	ATR     tskatr;			/**< %jp{タスク属性(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTSK_EXINF
+	VP_INT  exinf;			/**< %jp{タスクの拡張情報(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTSK_TASK
+	FP      task;			/**< %jp{タスクの起動番地(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTSK_ITSKPRI
+	PRI     itskpri;		/**< %jp{タスクの起動時優先度(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTSK_STKSZ
+	SIZE    stksz;			/**< %jp{スタック領域のサイズ(バイト数)(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTSK_STK
+	VP      stk;			/**< %jp{スタック領域の先頭番地(HOS独自拡張)} */
 #endif
 } T_RTSK;
 
 /* タスク状態(簡易版) */
 typedef struct t_rtst
 {
-	STAT    tskstat;		/* タスク状態 */
-	STAT    tskwait;		/* 待ち要因 */
-
-	/* %jp{以下、独自実装} */
-#if _KERNEL_CFG_RTST_EXINF
-	VP_INT  exinf;			/* タスクの拡張情報 */
+	STAT    tskstat;		/**< %jp{タスク状態} */
+	STAT    tskwait;		/**< %jp{待ち要因} */
+	
+	/* %jp{以下、独自実装}%en{HOS extention} */
+#if _KERNEL_SPT_RTST_TSKATR
+	ATR     tskatr;			/**< %jp{タスク属性(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTST_EXINF
+	VP_INT  exinf;			/**< %jp{タスクの拡張情報(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTST_TASK
+	FP      task;			/**< %jp{タスクの起動番地(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTST_ITSKPRI
+	PRI     itskpri;		/**< %jp{タスクの起動時優先度(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTST_STKSZ
+	SIZE    stksz;			/**< %jp{スタック領域のサイズ(バイト数)(HOS独自拡張)} */
+#endif
+#if _KERNEL_SPT_RTST_STK
+	VP      stk;			/**< %jp{スタック領域の先頭番地(HOS独自拡張)} */
 #endif
 } T_RTST;
 

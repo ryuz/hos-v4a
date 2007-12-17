@@ -22,27 +22,30 @@
 #include "library/container/memif/memif.h"
 
 
-/* システム用プロセスハンドル */
+/* プロセスハンドル(システム用) */
 #define SYSPRC_HANDLE_NULL			(0)
 typedef void* SYSPRC_HANDLE;
 
-/* システム用ミューテックスハンドル */
+/* ミューテックスハンドル(システム用) */
 #define SYSMTX_HANDLE_NULL			(0)
 typedef void* SYSMTX_HANDLE;
 
-/* システム用イベントハンドル */
+/* イベントハンドル(システム用) */
 #define SYSEVT_HANDLE_NULL			(0)
 typedef void* SYSEVT_HANDLE;
 
-/* システム用割り込みサービスルーチンハンドル */
+/* 割込みサービスルーチンハンドル(システム用) */
 #define SYSISR_HANDLE_NULL			(0)
 typedef void* SYSISR_HANDLE;
 
-/* システム用イベント属性 */
+/* プロセス属性(システム用) */
+#define	SYSPRC_ATTR_NORMAL			0x00
+
+/* イベント属性(システム用) */
 #define	SYSEVT_ATTR_NORMAL			0x00
 #define	SYSEVT_ATTR_AUTOCLEAR		0x01
 
-/* システム用ミューテックス属性 */
+/* ミューテックス属性(システム用) */
 #define	SYSMTX_ATTR_NORMAL			0x00
 
 
@@ -52,60 +55,67 @@ extern "C" {
 #endif
 
 /* 初期化 */
-void           SysApi_Initialize(void *pMem, MEMSIZE lSize);	/* システムの初期化処理 */
+void           SysApi_Initialize(void *pMem, MEMSIZE lSize);		/**< システムの初期化処理 */
 
 /* システム状態取得 */
-int            SysCtx_IsIsr(void);								/* ISRコンテキストかどうか調べる */
+int            SysCtx_IsIsr(void);									/**< ISRコンテキストかどうか調べる(システム用) */
 
 /* システムロック */
-void           SysLoc_Lock(void);								/* システム全体のロック */
-void           SysLok_Unlock(void);								/* システム全体のロック解除 */
+void           SysLoc_Lock(void);									/**< システム全体のロック(システム用) */
+void           SysLok_Unlock(void);									/**< システム全体のロック解除(システム用) */
 
 /* システム用メモリ制御API */
-void          *SysMem_Alloc(MEMSIZE Size);						/* システムメモリの割り当て */
-void          *SysMem_ReAlloc(void *pMem, MEMSIZE Size);		/* システムメモリの再割り当て */
-void           SysMem_Free(void *pMem);							/* システムメモリの返却 */
-MEMSIZE        SysMem_GetSize(void *pMem);						/* システムメモリのサイズ取得 */
-C_MEMIF       *SysMem_GetMemIf(void);							/* メモリインターフェースの取得 */
+void          *SysMem_Alloc(MEMSIZE Size);							/**< メモリの割り当て(システム用) */
+void          *SysMem_ReAlloc(void *pMem, MEMSIZE Size);			/**< メモリの再割り当て(システム用) */
+void           SysMem_Free(void *pMem);								/**< メモリの返却(システム用) */
+MEMSIZE        SysMem_GetSize(void *pMem);							/**< メモリのサイズ取得(システム用) */
+C_MEMIF       *SysMem_GetMemIf(void);								/**< メモリインターフェースの取得(システム用) */
 
 /* システム用割り込み制御API */
-void           SysInt_Enable(int iIntNum);
-void           SysInt_Disable(int iIntNum);
-void           SysInt_Clear(int iIntNum);
+void           SysInt_Enable(int iIntNum);							/**< 割込み許可(システム用) */
+void           SysInt_Disable(int iIntNum);							/**< 割込み禁止(システム用) */
+void           SysInt_Clear(int iIntNum);							/**< 割込み要因クリア(システム用) */
 
 /* 割り込みサービスルーチン制御API */
 SYSISR_HANDLE  SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param);
 void           SysIsr_Delete(SYSISR_HANDLE hIsr);
 
 /* システム用プロセス制御API */
-SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority);
-void           SysPrc_Delete(SYSPRC_HANDLE hPrc);
-void           SysPrc_Exit(void);
-void           SysPrc_Start(SYSPRC_HANDLE hPrc);
-void           SysPrc_Wait(SYSPRC_HANDLE hPrc);
-SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);
+SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, int iAttr);
+																	/**< プロセス生成(システム用) */
+void           SysPrc_Delete(SYSPRC_HANDLE hPrc);					/**< プロセス削除(システム用) */
+VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);					/**< プロセスのパラメータ取得(システム用) */
+
+void           SysPrc_Terminate(SYSPRC_HANDLE hPrc);				/**< プロセス終了(システム用) */
+void           SysPrc_Suspend(SYSPRC_HANDLE hPrc);					/**< プロセス強制停止(システム用) */			
+void           SysPrc_Resume(SYSPRC_HANDLE hPrc);					/**< プロセス強制停止解除(システム用) */	
+void           SysPrc_Signal(SYSPRC_HANDLE hPrc, VPARAM Signal);		/**< プロセスへのシグナル送信(システム用) */
+void           SysPrc_SetSignalHandler(SYSPRC_HANDLE hPrc, void (*pfncHanler)(VPARAM Signal));
+																	/**< プロセスへのシグナルハンドラ登録(システム用) */
+SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);						/**< 現在のプロセスの取得(システム用) */
+
 
 /* システム用ミューテックス制御API */
-SYSMTX_HANDLE  SysMtx_Create(int iAttr);					/* システム用ミューテックス生成 */
-void           SysMtx_Delete(SYSMTX_HANDLE hMtx);			/* システム用ミューテックス削除 */
-void           SysMtx_Lock(SYSMTX_HANDLE hMtx);				/* システム用ミューテックスロック*/
-void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);			/* システム用ミューテックスロック解除*/
+SYSMTX_HANDLE  SysMtx_Create(int iAttr);							/**< システム用ミューテックス生成(システム用) */
+void           SysMtx_Delete(SYSMTX_HANDLE hMtx);					/**< システム用ミューテックス削除(システム用) */
+void           SysMtx_Lock(SYSMTX_HANDLE hMtx);						/**< システム用ミューテックスロック(システム用) */
+void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);					/**< システム用ミューテックスロック解除(システム用) */
 
 /* システム用イベント制御API */
-SYSEVT_HANDLE  SysEvt_Create(int iAttr);					/* システム用イベント生成 */
-void           SysEvt_Delete(SYSEVT_HANDLE hEvt);			/* システム用イベント削除 */
-void           SysEvt_Wait(SYSEVT_HANDLE hEvt);				/* システム用イベント待ち*/
-void           SysEvt_Set(SYSEVT_HANDLE hEvt);				/* システム用イベントセット */
-void           SysEvt_Clear(SYSEVT_HANDLE hEvt);			/* システム用イベントクリア */
+SYSEVT_HANDLE  SysEvt_Create(int iAttr);							/**< システム用イベント生成(システム用) */
+void           SysEvt_Delete(SYSEVT_HANDLE hEvt);					/**< システム用イベント削除(システム用) */
+void           SysEvt_Wait(SYSEVT_HANDLE hEvt);						/**< システム用イベント待ち(システム用) */
+void           SysEvt_Set(SYSEVT_HANDLE hEvt);						/**< システム用イベントセット(システム用) */
+void           SysEvt_Clear(SYSEVT_HANDLE hEvt);					/**< システム用イベントクリア(システム用) */
 
 /* 時間管理 */
-void           SysTim_Wait(unsigned long ulTime);			/* 時間待ち */
-TIME           SysTim_GetCurrentTime(void);					/*  */
+void           SysTim_Wait(unsigned long ulTime);					/**< 時間待ち */
+TIME           SysTim_GetCurrentTime(void);							/**< 現在のシステム時刻取得 */
 
 
 /* I/Oアクセス */
 #ifdef __HOSAPLFW_IOMAPEDIO
-/* I/OマップドIO  */
+/* I/OマップドI/O  */
 unsigned char  SysIo_OutPortB(unsigned int Port, unsigned char Data);
 unsigned short SysIo_OutPortH(unsigned int Port, unsigned short Data);
 unsigned long  SysIo_OutPortW(unsigned int Port, unsigned long Data);
@@ -113,7 +123,7 @@ unsigned char  SysIo_InPortB(unsigned int Port);
 unsigned short SysIo_InPortH(unsigned int Port);
 unsigned long  SysIo_InPortW(unsigned int Port);
 #else
-/* メモリマップドIO */
+/* メモリマップドI/O */
 #define        SysIo_OutPortB(Port, Data)	(*(unsigned char *)(Port) = (unsigned char)(Data))
 #define        SysIo_OutPortH(Port, Data)	(*(unsigned short *)(Port) = (unsigned short)(Data))
 #define        SysIo_OutPortW(Port, Data)	(*(unsigned long *)(Port) = (unsigned long)(Data))

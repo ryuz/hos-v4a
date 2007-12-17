@@ -129,6 +129,7 @@
 		"rel_wai.c",
 		"dly_tsk.c",
 		"ref_tsk.c",
+		"ref_tst.c",
 	],
 	[
 		"Semaphores",
@@ -193,16 +194,6 @@
 		"krmf_msg.c",
 		"krmp_msg.c",
 		"krmv_msq.c",
-	],
-	[
-		"Mutexes",
-		"\$(COMMON_HEADERS) \$(MTXOBJ_HEADERS)",
-		"\$(KERNEL_OBJ_DIR)/mtx",
-		"MTXOBJ_DIR",
-		"loc_mtx.c",
-		"unl_mtx.c",
-		"kadd_mtx.c",
-		"krmv_mtx.c",
 	],
 	[
 		"Fixed-sized Memory Pools",
@@ -499,6 +490,7 @@ print(OUT "\n");
 print(OUT "# ----------------------------------\n");
 print(OUT "#  source copy\n");
 print(OUT "# ----------------------------------\n");
+print(OUT "srcobjcp_makelib:\n");
 foreach $s ( @sources )
 {
 	@list = @{$s};
@@ -507,15 +499,7 @@ foreach $s ( @sources )
 	$path    = shift(@list);
 	$def_dir = shift(@list);
 	
-	$path =~ s/\//\\/g;
-	
-	print(OUT "\n");
-	foreach $file ( @list )
-	{
-		print(OUT "\$(OBJS_DIR)\\$file : \$($def_dir)\\$file\n");
-		print(OUT "\t\$(CMD_CP) \$($def_dir)\\$file \$(OBJS_DIR)\\\n");
-		print(OUT "\n");
-	}
+	print(OUT "\t\$(CMD_CP) \$($def_dir)\\*.* \$(OBJS_DIR)\n");
 }
 
 print(OUT "\n");
@@ -538,9 +522,8 @@ foreach $s ( @sources )
 	print(OUT "\n");
 	foreach $file ( @list )
 	{
-		$objfile = $file;
 		$objfile =~ s/\.c//g;
-		print(OUT "\$(OBJS_DIR)\\$objfile.\$(EXT_OBJ) : \$(OBJS_DIR)\\$file $depend\n");
+		print(OUT "\$(OBJS_DIR)\\$objfile.\$(EXT_OBJ):\t\$(OBJS_DIR)\\$file\t$depend\n");
 	}
 }
 

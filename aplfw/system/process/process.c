@@ -6,27 +6,21 @@
 #include "system/sysapi/sysapi.h"
 
 
-#define PROCESS_MAX_PROCESS		32
-
-
-C_PROCESSOBJ *Process_pProcTable[PROCESS_MAX_PROCESS];
-
 static void Process_Entry(VPARAM Param);
 
 
 HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, const T_PROCESS_INF *pInf)
 {
 	C_PROCESSOBJ *self;
-	int          i;
-
+	
 	/* メモリ確保 */
 	if ( (self = (C_PROCESSOBJ *)SysMem_Alloc(sizeof(C_PROCESSOBJ))) == NULL )
 	{
 		return HANDLE_NULL;
 	}
-
+	
 	/* プロセス生成 */
-	self->hSysPrc = SysPrc_Create(Process_Entry, (VPARAM)self, StackSize, Priority);
+	self->hSysPrc = SysPrc_Create(Process_Entry, (VPARAM)self, StackSize, Priority, SYSPRC_ATTR_NORMAL);
 	if ( self->hSysPrc == SYSPRC_HANDLE_NULL )
 	{
 		SysMem_Free(self);
@@ -46,19 +40,6 @@ HANDLE Process_Create(int (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE Stac
 	}
 	self->Inf = *pInf;
 
-	/* テーブルに登録 */
-	for ( i = 0; i < PROCESS_MAX_PROCESS; i++ )
-	{
-		if ( Process_pProcTable[i] == NULL )
-		{
-			Process_pProcTable[i] = self;
-			break;
-		}
-	}
-	
-	/* プロセス動作開始 */
-	SysPrc_Start(self->hSysPrc);
-	
 	return (HANDLE)self;
 }
 
@@ -79,17 +60,14 @@ HANDLE Process_GetCurrentHandle(void)
 	SYSPRC_HANDLE hSysPrc;
 	int i;
 	
-	hSysPrc = SysPrc_GetCurrentHandle();
-
-	for ( i = 0; i < PROCESS_MAX_PROCESS; i++ )
+	/* 現在のプロセスを取得 */
+	if ( (hSysPrc = SysPrc_GetCurrentHandle()) == SYSPRC_HANDLE_NULL )
 	{
-		if ( Process_pProcTable[i]->hSysPrc == hSysPrc )
-		{
-			return (HANDLE)Process_pProcTable[i];
-		}
+		return HANDLE_NULL;
 	}
 	
-	return HANDLE_NULL;
+	/* 現在のプロセスを取得 */
+	return (HANDLE)SysPrc_GetParam(hSysPrc);
 }
 
 
@@ -138,3 +116,20 @@ int Process_GetCurrentDir(char *pszBuf, int iBufSize)
 }
 
 
+void Process_Suspend(HANDLE hProcess)
+{
+	C_PROCESSOBJ *self;
+
+	self = (C_PROCESSOBJ *)Process_GetCurrentHandle();
+
+	SysPrc_Suspend(self->hSysPrc);
+}
+
+void Process_Resume(HANDLE hProcess)
+{
+	C_PROCESSOBJ *self;
+
+	self = (C_PROCESSOBJ *)Process_GetCurrentHandle();
+
+	SysPrc_Suspend(self->hSysPrc);
+}

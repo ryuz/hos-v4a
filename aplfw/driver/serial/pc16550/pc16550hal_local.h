@@ -14,6 +14,7 @@
 
 
 #include "pc16550hal.h"
+#include "system/sysapi/sysapi.h"
 
 
 /* レジスタアドレスの算出 */

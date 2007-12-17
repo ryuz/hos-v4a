@@ -10,17 +10,17 @@
 
 
 
-#include "chrdrv.h"
+#include "chrdrv_local.h"
 
 
 FILE_ERR ChrDrv_Create(C_CHRDRV *self, const T_DRVOBJ_METHODS *pMethods)
 {
-	self->hMtx      = SysMtx_Create(SYSMTX_ATTR_NORMAL);			/**< 排他制御ミューテックス */
-	
-	self->hEvtRead  = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	self->hEvtWrite = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	
-	self->pFileHead = NULL;					/**< 状態監視オブジェクトの連結ポインタ */
+	/* メンバ変数初期化 */
+	self->iStatus   = CHRDRV_STATUS_WRITE | CHRDRV_STATUS_READ | CHRDRV_STATUS_IO;	/* ステータス */
+	self->pFileHead = NULL;															/* 状態監視オブジェクトの連結ポインタ */
+
+	/* 排他制御ミューテックス生成 */
+	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	
 	/* 親クラスコンストラクタ呼び出し */
 	DrvObj_Create(&self->DrvObj, pMethods);

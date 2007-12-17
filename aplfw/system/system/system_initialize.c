@@ -35,9 +35,7 @@ void System_Initialize(void *pMem, MEMSIZE Size)
 	g_System.iProcTail = 0;
 	
 	/* システムプロセスの開始 */
-	self->hPrcProc = SysPrc_Create(System_Process, (VPARAM)self, 1024, 1);
-	SysPrc_Start(self->hPrcProc);
-
+	self->hPrcProc = SysPrc_Create(System_Process, (VPARAM)self, 1024, 1, SYSPRC_ATTR_NORMAL);
 	
 	/* ファイルシステム初期化 */
 	File_Initialize();

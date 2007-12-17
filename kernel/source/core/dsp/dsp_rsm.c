@@ -32,7 +32,7 @@ void _kernel_dsp_rsm_tsk(_KERNEL_T_TSKHDL tskhdl)
 	}
 	
 	/* %jp{強制待ち状態を解除} */
-	tskstat &= _KERNEL_TTS_SUS;
+	tskstat &= ~_KERNEL_TTS_SUS;
 	_KERNEL_TSK_SET_TSKSTAT(tcb, tskstat);
 }
 

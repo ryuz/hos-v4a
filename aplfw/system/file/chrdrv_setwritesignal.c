@@ -13,7 +13,7 @@
 
 
 #include "hosaplfw.h"
-#include "chrdrv.h"
+#include "chrdrv_local.h"
 #include "system/system/system.h"
 
 
@@ -44,10 +44,14 @@ void ChrDrv_SetWriteSignalProc(VPARAM Param)
 	
 	self = (C_CHRDRV *)Param;
 	
-	SysEvt_Set(self->hEvtWrite);
-		
-	SysMtx_Lock(self->hMtx);
 	
+	SysMtx_Lock(self->hMtx);	/* クリティカルセクションに入る */
+	
+	
+	/* 書き込み状態設定 */
+	self->iStatus |= CHRDRV_STATUS_WRITE;
+	
+	/* 待ちオブジェクトにシグナルを送る */
 	pFile = self->pFileHead;
 	if ( pFile != NULL )
 	{
@@ -59,14 +63,21 @@ void ChrDrv_SetWriteSignalProc(VPARAM Param)
 				Event_Set(pFile->hEventWrite);
 			}
 			
+			/* 待ちタスクがあれば起こして登録解除 */
+			if ( pFile->hPrcWrite != SYSPRC_HANDLE_NULL )
+			{
+				SysPrc_Resume(pFile->hPrcWrite);
+				pFile->hPrcWrite = SYSPRC_HANDLE_NULL;
+			}
+			
 			/* 次に進む */
 			pFile = pFile->pNext;
 		} while ( pFile != self->pFileHead);
 	}
 	
-	SysMtx_Unlock(self->hMtx);
+	
+	SysMtx_Unlock(self->hMtx);	/* クリティカルセクションを出る */
 }
-
 
 
 

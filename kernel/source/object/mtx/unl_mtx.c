@@ -72,21 +72,17 @@ ER unl_mtx(ID mtxid)
 	mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
 	
 	/* %jp{ミューテックを取り外し} */
-	_kernel_rmv_mtx( mtxhdl, tcb);
+	_kernel_rmv_mtx(mtxcb, mtxhdl, tcb);
 	
 	/* %jp{所有ミューテックスが無くなったら} */
 	if ( _KERNEL_TSK_GET_MTXHDL(tcb) == _KERNEL_MTXHDL_NULL )
 	{
-		_KERNEL_TSK_T_TPRI tskpri;
-		_KERNEL_TSK_T_TPRI tskbpri;
-
-		tskpri  = _KERNEL_TSK_GET_TSKPRI(tcb);	
-		tskbpri = _KERNEL_TSK_GET_TSKBPRI(tcb);	
-		
-		/* %jp{優先度格上げが行われていればベース優先度に戻す} */
-		if ( tskpri != tskbpri )
+		/* %jp{優先度を元に戻す} */
+		_KERNEL_TSK_SET_TSKPRI(tcb, _KERNEL_TSK_GET_TSKBPRI(tcb));		
+		if ( _KERNEL_TSK_GET_TSKSTAT(tcb) == TTS_RDY )
 		{
-			_kernel_chg_pri(tskhdl, tskbpri);
+			_KERNEL_SYS_RMV_RDQ(tskhdl);
+			_KERNEL_SYS_ADD_RDQ(tskhdl);
 		}
 	}
 	

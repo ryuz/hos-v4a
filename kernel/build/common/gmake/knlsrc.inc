@@ -195,6 +195,7 @@ CSRCS += $(TSKOBJ_DIR)/can_wup.c
 CSRCS += $(TSKOBJ_DIR)/rel_wai.c
 CSRCS += $(TSKOBJ_DIR)/dly_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ref_tsk.c
+CSRCS += $(TSKOBJ_DIR)/ref_tst.c
 
 
 # Semaphores
@@ -255,15 +256,6 @@ CSRCS += $(MBXOBJ_DIR)/kadd_msq.c
 CSRCS += $(MBXOBJ_DIR)/krmf_msg.c
 CSRCS += $(MBXOBJ_DIR)/krmp_msg.c
 CSRCS += $(MBXOBJ_DIR)/krmv_msq.c
-
-
-# Mutexes
-MTXOBJ_DIR = $(KERNEL_OBJ_DIR)/mtx
-SRC_DIRS += $(MTXOBJ_DIR)
-CSRCS += $(MTXOBJ_DIR)/loc_mtx.c
-CSRCS += $(MTXOBJ_DIR)/unl_mtx.c
-CSRCS += $(MTXOBJ_DIR)/kadd_mtx.c
-CSRCS += $(MTXOBJ_DIR)/krmv_mtx.c
 
 
 # Fixed-sized Memory Pools

@@ -62,10 +62,9 @@ AFLAGS_DBG = -g
 
 
 # %jp{最適化オプションの定義}%en{optimize options}
-AFLAGS_OPT_NONE   =
-AFLAGS_OPT_SIZE   =
-AFLAGS_OPT_SPEED  =
-AFLAGS_OPT_NORMAL = 
+AFLAGS_OPT_NONE  =
+AFLAGS_OPT_SIZE  =
+AFLAGS_OPT_SPEED =
 
 
 
