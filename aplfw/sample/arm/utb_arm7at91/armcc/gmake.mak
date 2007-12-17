@@ -86,11 +86,11 @@ LIBS += $(APLFW_LIB)
 # --------------------------------------
 
 .PHONY : all
-all: make_aplfw makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: make_libs makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 
-.PHONY : make_aplfw
-make_aplfw:
+.PHONY : make_libs
+make_libs:
 	make -C $(APLFW_BUILD_DIR) -f gmake.mak
 
 .PHONY : clean
@@ -100,6 +100,9 @@ clean: makeexe_clean
 .PHONY : mostlyclean
 mostlyclean: clean kernel_clean
 	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
+
+.PHONY : depend
+depend: makeexe_depend
 
 .PHONY : mostlydepend
 mostlydepend: depend kernel_depend

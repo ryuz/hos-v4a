@@ -38,10 +38,16 @@ LINK_AT91USART = Yes
 LINK_MX1UART   = Yes
 
 
+.PHONY : all
 all: makelib_all
 
+.PHONY : 
 clean: makelib_clean
 	$(RM) -f *.lst
+
+.PHONY : depend
+depend: makelib_depend
+
 
 
 # %jp{armcc用の設定読込み}
