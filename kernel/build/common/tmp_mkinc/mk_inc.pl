@@ -127,6 +127,8 @@
 		"wup_tsk.c",
 		"can_wup.c",
 		"rel_wai.c",
+		"sus_tsk.c",
+		"rsm_tsk.c",
 		"dly_tsk.c",
 		"ref_tsk.c",
 		"ref_tst.c",
