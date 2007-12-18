@@ -35,7 +35,7 @@ void Pc16550Drv_Isr(VPARAM Param)
 		}
 		
 		/* 読込みシグナルを発生 */
-		ChrDrv_SetReadSignal(&self->ChrDrv);
+		SyncDrv_SetReadSignal(&self->SyncDrv);
 		break;
 
 	case PC16550HAL_IIR_THRE:
@@ -43,7 +43,7 @@ void Pc16550Drv_Isr(VPARAM Param)
 		Pc16550Hal_EnableInterrupt(&self->Pc16550Hal, PC16550HAL_IER_ERBFI);
 		
 		/* 書込みシグナルを発生 */
-		ChrDrv_SetWriteSignal(&self->ChrDrv);
+		SyncDrv_SetWriteSignal(&self->SyncDrv);
 	}
 	
 	SysInt_Clear(self->iIntNum);

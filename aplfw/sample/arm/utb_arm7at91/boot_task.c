@@ -39,12 +39,6 @@
 
 long			g_SystemHeap[32 * 1024 / sizeof(long)];
 
-C_LAN9118DRV	g_Lan9118Drv[1];
-C_IPETHER		g_IpEther[1];
-C_TCPIP			g_TcpIp[1];
-C_AT91USARTDRV	g_At91UsartDrv[3];
-C_VT100DRV		g_Vt100Drv[1];
-
 
 /* IP層生成情報 */
 static const T_IPETHER_INF IpEtherInf =
@@ -60,6 +54,7 @@ void Boot_Task(VP_INT exinf)
 {
 	HANDLE			hTty;
 	HANDLE			hCon;
+	HANDLE			hDriver;
 
 	
 	/*************************/
@@ -95,23 +90,23 @@ void Boot_Task(VP_INT exinf)
 #endif	
 	
 	/* AT91 USARTデバドラ生成 (/dev/com0 に登録) */
-	At91UsartDrv_Create(&g_At91UsartDrv[0], (void *)0xfffc0000, 2, 32000000, 64);
-	File_AddDevice("com0", (C_DRVOBJ *)&g_At91UsartDrv[0]);
+	hDriver = At91UsartDrv_Create((void *)0xfffc0000, 2, 32000000, 64);
+	File_AddDevice("com0", hDriver);
 
 	/* AT91 USARTデバドラ生成 (/dev/com1 に登録) */
-	At91UsartDrv_Create(&g_At91UsartDrv[1], (void *)0xfffc4000, 3, 32000000, 64);
-	File_AddDevice("com1", (C_DRVOBJ *)&g_At91UsartDrv[0]);
-
+	hDriver = At91UsartDrv_Create((void *)0xfffc4000, 3, 32000000, 64);
+	File_AddDevice("com1", hDriver);
+	
 	/* AT91 USARTデバドラ生成 (/dev/com2 に登録) */
-	At91UsartDrv_Create(&g_At91UsartDrv[2], (void *)0xfffc8000, 4, 32000000, 64);
-	File_AddDevice("com2", (C_DRVOBJ *)&g_At91UsartDrv[0]);
+	hDriver = At91UsartDrv_Create((void *)0xfffc8000, 4, 32000000, 64);
+	File_AddDevice("com2", hDriver);
 	
 	/* シリアルを開く */
 	hTty = File_Open("/dev/com0", FILE_OPEN_READ | FILE_OPEN_WRITE);
 	
 	/* シリアル上にコンソールを生成(/dev/con0 に登録) */
-	Vt100Drv_Create(&g_Vt100Drv[0], hTty);
-	File_AddDevice("con0", (C_DRVOBJ *)&g_Vt100Drv[0]);
+	hDriver = Vt100Drv_Create(hTty);
+	File_AddDevice("con0", hDriver);
 	
 	/* コンソールを開く */
 	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);

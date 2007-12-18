@@ -14,7 +14,7 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 #include "pc16550hal.h"
 #include "library/container/streambuf/streambuf.h"
 
@@ -22,7 +22,7 @@
 /* PC16550用ドライバ制御部 */
 typedef struct c_pc16550drv
 {
-	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
 
 	C_PC16550HAL	Pc16550Hal;		/* ハードウェア制御クラス */
 	int				iOpenCount;		/* オープンカウンタ */
@@ -38,8 +38,8 @@ typedef struct c_pc16550drv
 extern "C" {
 #endif
 
-void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
-void Pc16550Drv_Delete(C_DRVOBJ *pDrvObj);
+HANDLE Pc16550Drv_Create(void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< 生成 */
+void   Pc16550Drv_Delete(HANDLE hDriver);																		/**< 削除 */
 
 #ifdef __cplusplus
 }

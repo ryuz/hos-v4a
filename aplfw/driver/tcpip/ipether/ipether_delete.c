@@ -12,15 +12,18 @@
 #include "ipether_local.h"
 
 
-void IpEther_Delete(C_DRVOBJ *pDrvObj)
+void IpEther_Delete(HANDLE hDriver)
 {
-	C_IPETHER			*self;
+	C_IPETHER *self;
 	
 	/* upper cast */
-	self = (C_IPETHER *)pDrvObj;
+	self = (C_IPETHER *)hDriver;
 
-	/* 親クラスデストラクタ呼び出し */
-	ChrDrv_Delete(&self->ChrDrv);
+	/* デストラクタ呼び出し */
+	IpEther_Destructor(self);
+	
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
 
 

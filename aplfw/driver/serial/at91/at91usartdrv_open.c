@@ -16,18 +16,16 @@
 HANDLE At91UsartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_AT91USARTDRV	*self;
-	C_CHRFILE		*pChrFile;
+	HANDLE			hFile;
 	
 	/* upper cast */
 	self = (C_AT91USARTDRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pChrFile = SysMem_Alloc(sizeof(*pChrFile))) == NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pChrFile, &self->ChrDrv, NULL);
-
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
@@ -42,7 +40,7 @@ HANDLE At91UsartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		SysInt_Enable(self->iIntNum);
 	}
 	
-	return (HANDLE)pChrFile;
+	return hFile;
 }
 
 

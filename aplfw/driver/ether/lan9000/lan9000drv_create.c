@@ -30,7 +30,7 @@ static const T_DRVOBJ_METHODS Lan9000Drv_Methods =
 void Lan9000Drv_Create(C_LAN9000DRV *self, void *pRegAddr, int iIntNum)
 {
 	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &Lan9000Drv_Methods);
+	SyncDrv_Create(&self->SyncDrv, &Lan9000Drv_Methods);
 
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;

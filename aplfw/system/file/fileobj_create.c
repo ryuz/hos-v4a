@@ -9,7 +9,8 @@
  */
 
 
-#include "fileobj.h"
+#include "fileobj_local.h"
+#include "system/sysapi/sysapi.h"
 
 
 static const T_FILEOBJ_METHODS FileObj_FileObjMethods =
@@ -18,17 +19,20 @@ static const T_FILEOBJ_METHODS FileObj_FileObjMethods =
 	};
 
 
-void FileObj_Create(C_FILEOBJ *self, C_DRVOBJ *pDrvObj, const T_FILEOBJ_METHODS *pMethods)
+HANDLE FileObj_Create(struct c_drvobj *pDrvObj)
 {
-	if ( pMethods == NULL )	/* オーバーライド無しなら */
-	{
-		pMethods = &FileObj_FileObjMethods;
-	}
-
-	/* 親クラスコンストラクタ */
-	HandleObj_Create(&self->HandleObj, &pMethods->HandlObjMethods);
+	C_FILEOBJ *self;
 	
-	self->pDrvObj = pDrvObj;
+	/* メモリ確保 */
+	if ( (self = (C_FILEOBJ *)SysMem_Alloc(sizeof(C_FILEOBJ))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
+	
+	/* コンストラクタ呼び出し */
+	FileObj_Constructor(self, &FileObj_FileObjMethods, pDrvObj);
+	
+	return (HANDLE)self;
 }
 
 

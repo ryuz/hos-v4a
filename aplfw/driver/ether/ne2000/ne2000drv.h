@@ -14,14 +14,14 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 #include "ne2000hal.h"
 
 
 /* NE2000互換NIC制御ドライバクラス */
 typedef struct c_ne2000drv
 {
-	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
 
 	C_NE2000HAL		Ne2000Hal;
 	int				iOpenCount;

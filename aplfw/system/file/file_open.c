@@ -55,7 +55,7 @@ HANDLE File_Open(const char *pszPath, int iMode)
 	}
 	
 	/* ルートディレクトリからオープンを掛ける */
-	return DrvObj_vOpen((C_DRVOBJ *)&self->RootVol, szBuf, iMode);
+	return DrvObj_vOpen((C_DRVOBJ *)self->hRootVol, szBuf, iMode);
 }
 
 

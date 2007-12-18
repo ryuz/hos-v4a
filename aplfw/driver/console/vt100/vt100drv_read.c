@@ -22,6 +22,7 @@ FILE_SIZE Vt100Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE
 		{
 			break;
 		}
+		*pcBuf++ = (char)c;
 	}
 	
 	return i;

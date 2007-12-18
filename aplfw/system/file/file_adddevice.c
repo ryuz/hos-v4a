@@ -14,13 +14,13 @@
 
 
 /* デバイスファイルの追加 */
-FILE_ERR File_AddDevice(const char *pszName, C_DRVOBJ *pDrvObj)
+FILE_ERR File_AddDevice(const char *pszName, HANDLE hDriver)
 {
 	C_FILE *self;
 	
 	self = &g_File; 
 	
-	return SysVol_AddDevice(&self->DevVol, pszName, pDrvObj, FILE_ATTR_DEVICE);
+	return SysVol_AddDevice(self->hDevVol, pszName, hDriver, FILE_ATTR_DEVICE);
 }
 
 

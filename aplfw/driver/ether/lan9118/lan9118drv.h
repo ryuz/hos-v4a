@@ -14,13 +14,13 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 
 
 /* UARTドライバ制御部 */
 typedef struct c_lan9118drv
 {
-	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
 
 	void			*pRegBase;		/* レジスタベースアドレス */
 	int				iIntNum;		/* 割込み番号 */

@@ -14,14 +14,14 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 #include "library/container/streambuf/streambuf.h"
 
 
 /* ARM製 Integrator UART用ドライバ制御部 */
 typedef struct c_mx1uartdrv
 {
-	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
 
 	void			*pRegBase;		/* レジスタベースアドレス */
 	unsigned long	ulBaseClock;	/* ベースクロック */

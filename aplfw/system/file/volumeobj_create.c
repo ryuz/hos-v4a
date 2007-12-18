@@ -9,13 +9,12 @@
  */
 
 
-#include "volumeobj.h"
+#include "volumeobj_local.h"
 
 
-void VolumeObj_Create(C_VOLUMEOBJ *self, const T_VOLUMEOBJ_METHODS *pVolumeObjMethods)
+HANDLE VolumeObj_Create(void)
 {
-	/* 親クラスコンストラクタ */
-	DrvObj_Create(&self->DrvObj, &pVolumeObjMethods->DrvObjMethods);
+	return 0;
 }
 
 

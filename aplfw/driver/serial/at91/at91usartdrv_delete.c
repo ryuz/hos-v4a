@@ -12,25 +12,19 @@
 #include "at91usartdrv_local.h"
 
 
-/** デストラクタ */
-void At91UsartDrv_Delete(C_DRVOBJ *pDrvObj)
+/** 削除 */
+void At91UsartDrv_Delete(HANDLE hDriver)
 {
 	C_AT91USARTDRV	*self;
-	void			*pMem;
 	
 	/* upper cast */
-	self = (C_AT91USARTDRV *)pDrvObj;
+	self = (C_AT91USARTDRV *)hDriver;
 
-	/* 同期オブジェクト削除 */
-	SysEvt_Delete(self->hEvtRecv);
-	SysEvt_Delete(self->hEvtSend);
-	SysMtx_Delete(self->hMtxRecv);
-	SysMtx_Delete(self->hMtxSend);
-
-	/* バッファ削除 */
-	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);
-	StreamBuf_Delete(&self->StmBuf);
-	SysMem_Free(pMem);
+	/* デストラクタ呼び出し */
+	At91UsartDrv_Destructor(self);
+	
+	/* メモリ削除 */
+	SysMem_Free(self);
 }
 
 

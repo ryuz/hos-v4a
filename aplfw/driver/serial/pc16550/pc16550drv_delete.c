@@ -12,23 +12,20 @@
 #include "pc16550drv_local.h"
 
 
+
 /** デストラクタ */
-void Pc16550Drv_Delete(C_DRVOBJ *pDrvObj)
+void Pc16550Drv_Delete(HANDLE hDriver)
 {
 	C_PC16550DRV	*self;
-	void			*pMem;
 	
 	/* upper cast */
-	self = (C_PC16550DRV *)pDrvObj;
+	self = (C_PC16550DRV *)hDriver;
+	
+	/* デストラクタ呼び出し */
+	Pc16550Drv_Destructor(self);
 
-	/* 同期オブジェクト削除 */
-	SysMtx_Delete(self->hMtxRecv);
-	SysMtx_Delete(self->hMtxSend);
-
-	/* バッファ削除 */
-	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);
-	StreamBuf_Delete(&self->StmBuf);
-	SysMem_Free(pMem);
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
 
 

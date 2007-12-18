@@ -17,12 +17,12 @@
 
 FILE_ERR SysVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
-	C_SYSVOL    *self;
-	C_SYSVOLDIR *pDir;
+	C_SYSVOL		*self;
+	C_SYSVOLFILE	*pFile;
 	
 	/* upper cast */
-	self = (C_SYSVOL *)pDrvObj;
-	pDir = (C_SYSVOLDIR *)pFileObj;
+	self  = (C_SYSVOL *)pDrvObj;
+	pFile = (C_SYSVOLFILE *)pFileObj;
 	
 	switch ( iFunc )
 	{
@@ -32,12 +32,12 @@ FILE_ERR SysVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 			
 			pFileInf = (T_FILE_FILEINF *)pInBuf;
 			
-			if ( self->DevTable[pDir->iReadPtr].pDrvObj != NULL )
+			if ( self->DevTable[pFile->iReadPtr].hDriver != HANDLE_NULL )
 			{
-				strcpy(pFileInf->szFileName, self->DevTable[pDir->iReadPtr].szName);
+				strcpy(pFileInf->szFileName, self->DevTable[pFile->iReadPtr].szName);
 				pFileInf->FileSize  = 0;
-				pFileInf->Attribute = self->DevTable[pDir->iReadPtr].iAttr;
-				pDir->iReadPtr++;
+				pFileInf->Attribute = self->DevTable[pFile->iReadPtr].iAttr;
+				pFile->iReadPtr++;
 				return FILE_ERR_OK;
 			}
 		}

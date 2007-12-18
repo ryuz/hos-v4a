@@ -14,8 +14,8 @@
 
 
 #include "tcpip.h"
-#include "system/file/chrfile.h"
-#include "library/container/streambuf/streambuf.h"
+#include "tcpipfile.h"
+#include "system/file/syncdrv_local.h"
 
 
 #define TCP_FLAG_FIN			0x01
@@ -26,34 +26,13 @@
 #define TCP_FLAG_URG			0x20
 
 
-#define TCPIPFILE_TYPE_TCP		6
-#define TCPIPFILE_TYPE_UDP		17
-
-#define TCPIPFILE_RECV_BUFSIZE	2048
-
-
-typedef struct c_tcpipfile
-{
-	C_CHRFILE			ChrFile;		/* キャラクタ型ファイルオブジェクトを継承 */
-
-	char				iType;
-	unsigned char		ubIpAddr[4];
-	unsigned short		uhPortNum;
-	SYSEVT_HANDLE		hEvtRecv;
-	
-	struct c_tcpipfile	*pNext;
-	struct c_tcpipfile	*pPrev;
-	
-	C_STREAMBUF			RecvBuf;
-	unsigned char		ubRecvBuf[TCPIPFILE_RECV_BUFSIZE];
-	
-} C_TCPIPFILE;
-
-
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+FILE_ERR  TcpIp_Constructor(C_TCPIP *self, const T_DRVOBJ_METHODS *pMethods, const char *pszIp);	/**< コンストラクタ */
+void      TcpIp_Destructor(C_TCPIP *self);															/**< デストラクタ */
 
 HANDLE    TcpIp_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
 void      TcpIp_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);

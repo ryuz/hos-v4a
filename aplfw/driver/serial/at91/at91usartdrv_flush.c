@@ -15,11 +15,11 @@
 FILE_ERR At91UsartDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_AT91USARTDRV	*self;
-	C_CHRFILE		*pChrFile;
+	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self     = (C_AT91USARTDRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_AT91USARTDRV *)pDrvObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	return FILE_ERR_OK;
 }

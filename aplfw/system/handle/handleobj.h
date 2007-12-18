@@ -34,8 +34,10 @@ typedef struct c_handleobj
 extern "C" {
 #endif
 
-void    HandleObj_Create(C_HANDLEOBJ *self, const T_HANDLEOBJ_METHODS *pMethods);	/* コンストラクタ */
-void    HandleObj_Delete(C_HANDLEOBJ *self);										/* デストラクタ */
+HANDLE  HandleObj_Create(const T_HANDLEOBJ_METHODS *pMethods);							/* 生成 */
+void    HandleObj_Delete(HANDLE Handle);												/* 削除 */
+
+#define HandleObj_GetMethods(self)			((self)->pMethods)
 
 #ifdef __cplusplus
 }

@@ -13,25 +13,17 @@
 
 
 /** デストラクタ */
-void FatVol_Delete(C_DRVOBJ *pDrvObj)
+void FatVol_Delete(HANDLE hVolume)
 {
 	C_FATVOL	*self;
-	int			i;
 
-	self = (C_FATVOL *)pDrvObj;
-
-	/* クラスタバッファ開放 */
-	for ( i = 0; i < self->iClusterBufNum; i++ )
-	{
-		SysMem_Free(self->pClusterBuf[i].pubBuf);
-	}
-	SysMem_Free(self->pClusterBuf[i].pubBuf);
+	self = (C_FATVOL *)hVolume;
 	
-	/* ミューテックス削除 */
-	SysMtx_Delete(self->hMtx);
-
-	/* 親クラスデコンストラクタ呼び出し */
-	VolumeObj_Delete(&self->VolumeObj);
+	/* デストラクタ呼び出し */
+	FatVol_Destructor(self);
+	
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
 
 

@@ -31,7 +31,7 @@ const T_DRVOBJ_METHODS Ne2000Drv_Methods =
 void Ne2000Drv_Create(C_NE2000DRV *self, void *pRegAddr, int iIntNum)
 {
 	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &Ne2000Drv_Methods);
+	SyncDrv_Create(&self->SyncDrv, &Ne2000Drv_Methods);
 
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;
@@ -65,7 +65,7 @@ void Ne2000Drv_Delete(C_DRVOBJ *pDrvObj)
 	SysMtx_Delete(self->hMtx);
 	
 	/* 親クラスデストラクタ */
-	ChrDrv_Delete(&self->ChrDrv);
+	SyncDrv_Delete(&self->SyncDrv);
 }
 
 
@@ -73,17 +73,17 @@ void Ne2000Drv_Delete(C_DRVOBJ *pDrvObj)
 HANDLE Ne2000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_NE2000DRV *self;
-	C_CHRFILE	*pFile;
+	C_SYNCFILE	*pFile;
 	
 	/* upper cast */
 	self = (C_NE2000DRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(C_CHRFILE))) == NULL )
+	if ( (pFile = SysMem_Alloc(sizeof(C_SYNCFILE))) == NULL )
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, &self->ChrDrv, NULL);
+	SyncFile_Create(pFile, &self->SyncDrv, NULL);
 	
 	
 	/* オープン処理 */
@@ -103,11 +103,11 @@ HANDLE Ne2000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 void Ne2000Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_NE2000DRV *self;
-	C_CHRFILE	*pFile;
+	C_SYNCFILE	*pFile;
 
 	/* upper cast */
 	self  = (C_NE2000DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 	
 	SysMtx_Lock(self->hMtx);
 	if ( --self->iOpenCount == 0 )
@@ -118,7 +118,7 @@ void Ne2000Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 
 
 	/* ディスクリプタ削除 */
-	ChrFile_Delete((C_CHRFILE *)pFile);	
+	SyncFile_Delete((C_SYNCFILE *)pFile);	
 	SysMem_Free(pFile);
 }
 
@@ -127,13 +127,13 @@ void Ne2000Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 FILE_SIZE Ne2000Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
 	C_NE2000DRV 	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	unsigned char	*pubBuf;
 	int				iRecvSize = 0;
 	
 	/* upper cast */
 	self  = (C_NE2000DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	/* バッファ */
 	pubBuf = (unsigned char *)pBuf;
@@ -168,11 +168,11 @@ FILE_SIZE Ne2000Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FIL
 FILE_SIZE Ne2000Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
 	C_NE2000DRV 	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
 	self  = (C_NE2000DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	SysMtx_Lock(self->hMtx);
 	Size = Ne2000Hal_Send(&self->Ne2000Hal, pData, Size);

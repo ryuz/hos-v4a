@@ -32,7 +32,7 @@ void Mx1UartDrv_Create(C_MX1UARTDRV *self, void *pRegBase, int iIntNum, unsigned
 	void *pMem;
 	
 	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &Mx1UartDrv_Methods);
+	SyncDrv_Create(&self->SyncDrv, &Mx1UartDrv_Methods);
 
 	/* メンバ変数初期化 */
 	self->pRegBase    = pRegBase;

@@ -16,7 +16,7 @@
 HANDLE Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_MX1UARTDRV	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
 	self = (C_MX1UARTDRV *)pDrvObj;
@@ -26,7 +26,7 @@ HANDLE Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, &self->ChrDrv, NULL);
+	SyncFile_Create(pFile, &self->SyncDrv, NULL);
 
 	
 	/* オープン処理 */

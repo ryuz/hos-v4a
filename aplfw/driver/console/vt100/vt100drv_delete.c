@@ -13,17 +13,21 @@
 #include "system/sysapi/sysapi.h"
 
 
-/** デストラクタ */
-void Vt100Drv_Delete(C_DRVOBJ *pDrvObj)
+/* 削除 */
+void Vt100Drv_Delete(HANDLE hDriver)
 {
 	C_VT100DRV			*self;
 	
 	/* upper cast */
-	self = (C_VT100DRV *)pDrvObj;
+	self = (C_VT100DRV *)hDriver;
 
 	/* 親クラスデストラクタ */
-	DrvObj_Delete(&self->DrvObj);
+	Vt100Drv_Destructor(self);
+	
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
+
 
 
 /* end of file */

@@ -16,16 +16,15 @@
 
 void SysVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
-	C_SYSVOL    *self;
-	C_SYSVOLDIR *pDir;
+	C_SYSVOL		*self;
+	C_SYSVOLFILE	*pFile;
 	
 	/* upper cast */
-	self = (C_SYSVOL *)pDrvObj;
-	pDir = (C_SYSVOLDIR *)pFileObj;
+	self  = (C_SYSVOL *)pDrvObj;
+	pFile = (C_SYSVOLFILE *)pFileObj;
 	
 	/* 削除 */
-	FileObj_Delete(&pDir->FileObj);
-	SysMem_Free(pDir);
+	SysVolFile_Delete(pFile);
 }
 
 

@@ -15,11 +15,11 @@
 FILE_ERR  SciDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_SCIDRV	*self;
-	C_CHRFILE	*pFile;
+	C_SYNCFILE	*pFile;
 	
 	/* upper cast */
 	self  = (C_SCIDRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	return FILE_ERR_NG;
 }

@@ -16,14 +16,14 @@
 FILE_SIZE Mx1UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
 	C_MX1UARTDRV		*self;
-	C_CHRFILE			*pFile;
+	C_SYNCFILE			*pFile;
 	const unsigned char	*pubBuf;
 	FILE_SIZE			i;
 	int					c;
 	
 	/* upper cast */
 	self  = (C_MX1UARTDRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	pubBuf = (const unsigned char *)pData;
 

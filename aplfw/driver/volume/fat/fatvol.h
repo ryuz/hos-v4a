@@ -22,6 +22,7 @@
 
 
 /* 型定義 */
+typedef	int				FATVOL_ERR;
 typedef	long			FATVOL_INT;
 typedef unsigned long	FATVOL_UINT;
 
@@ -66,8 +67,8 @@ typedef struct c_fatvol
 extern "C" {
 #endif
 
-int    FatVol_Create(C_FATVOL *self, const char *pszPath);
-void   FatVol_Delete(C_DRVOBJ *self);
+HANDLE FatVol_Create(const char *pszPath);
+void   FatVol_Delete(HANDLE hVolume);
 
 HANDLE FatVol_CreateFile(C_FATVOL *self, FATVOL_UINT uiCluster, HANDLE hDir, int iDirEntry, int iMode);
 

@@ -43,7 +43,7 @@ void Mx1UartDrv_IsrRx(VPARAM Param)
 
 /*		System_RequestProc(Mx1UartDrv_RecvProc, (VPARAM)self);
 		SysEvt_Set(self->hEvtRecv);		*/
-		ChrDrv_SetReadSignal(&self->ChrDrv);
+		SyncDrv_SetReadSignal(&self->SyncDrv);
 	}
 }
 
@@ -55,7 +55,7 @@ void Mx1UartDrv_RecvProc(VPARAM Param)
 	self = (C_MX1UARTDRV *)Param;
 
 	SysEvt_Set(self->hEvtRecv);
-	ChrDrv_SetReadSignal(&self->ChrDrv);
+	SyncDrv_SetReadSignal(&self->SyncDrv);
 }
 
 

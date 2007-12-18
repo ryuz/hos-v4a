@@ -16,20 +16,19 @@
 
 HANDLE Vt100Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
-	C_VT100DRV			*self;
-	C_FILEOBJ			*pFileObj;
+	C_VT100DRV	*self;
+	HANDLE		*hFile;
 	
 	/* upper cast */
 	self = (C_VT100DRV *)pDrvObj;
 	
 	/* create file descriptor */
-	if ( (pFileObj = SysMem_Alloc(sizeof(*pFileObj))) == NULL )
+	if ( (hFile = FileObj_Create(&self->DrvObj)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	FileObj_Create(pFileObj, pDrvObj, NULL);
 	
-	return (HANDLE)pFileObj;
+	return hFile;
 }
 
 

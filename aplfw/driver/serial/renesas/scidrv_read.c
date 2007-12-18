@@ -16,14 +16,14 @@
 FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
 	C_SCIDRV		*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	unsigned char	*pubBuf;
 	FILE_SIZE		i;
 	int				c;
 	
 	/* upper cast */
 	self  = (C_SCIDRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	pubBuf = (unsigned char *)pBuf;
 

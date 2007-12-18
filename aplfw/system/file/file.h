@@ -47,10 +47,13 @@
 /* 同期モード */
 #define FILE_WMODE_BLOCKING			0x00		/* 書込み ブロッキングモード */
 #define FILE_WMODE_POLING			0x01		/* 書込み ポーリングモード */
+#define FILE_WMODE_BACKGROUND		0x02		/* 書込み バックグラウンド実行 */
 #define FILE_RMODE_BLOCKING			0x00		/* 読込み ブロッキングモード */
 #define FILE_RMODE_POLING			0x01		/* 読込み ポーリングモード */
+#define FILE_RMODE_BACKGROUND		0x02		/* 書込み バックグラウンド実行 */
 #define FILE_IMODE_BLOCKING			0x00		/* I/O制御 ブロッキングモード */
 #define FILE_IMODE_POLING			0x01		/* I/O制御 ポーリングモード */
+#define FILE_IMODE_BACKGROUND		0x02		/* I/O制御 バックグラウンド実行 */
 
 
 /* IoControl機能コード(共通) */
@@ -142,10 +145,10 @@ extern "C" {
 /* システム */
 void      File_Initialize(void);											/* ファイルシステムの初期化 */
 
-FILE_ERR  File_AddDevice(const char *pszName, struct c_drvobj *pDrvObj);	/* デバイスドライバの登録 */
+FILE_ERR  File_AddDevice(const char *pszName, HANDLE hDriver);				/* デバイスドライバの登録 */
 FILE_ERR  File_RemoveDevice(const char *pszName);							/* デバイスドライバの削除 */
 
-FILE_ERR  File_AddVolume(const char *pszName, struct c_drvobj *pVolObj);	/* ボリュームのマウント */
+FILE_ERR  File_AddVolume(const char *pszName, HANDLE hVolume);				/* ボリュームのマウント */
 FILE_ERR  File_RemoveVolume(const char *pszName);							/* ボリュームのアンマウント */
 
 

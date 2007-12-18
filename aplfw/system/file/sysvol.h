@@ -27,7 +27,7 @@ struct c_drvobj;
 typedef struct t_sysvol_devinf
 {
 	char			szName[FILE_MAX_NAME];			/* デバイス名 */
-	struct c_drvobj	*pDrvObj;						/* デバイスドライバへの参照 */
+	HANDLE			hDriver;						/* デバイスドライバのハンドル */
 	int				iAttr;							/* デバイスの属性 */
 } T_SYSVOL_DEVINF;
 
@@ -45,10 +45,10 @@ typedef struct c_sysvol
 extern "C" {
 #endif
 
-void     SysVol_Create(C_SYSVOL *self);
-void     SysVol_Delete(C_DRVOBJ *self);
+HANDLE   SysVol_Create(void);
+void     SysVol_Delete(HANDLE hVolume);
 
-FILE_ERR SysVol_AddDevice(C_SYSVOL *self, const char *pszName, struct c_drvobj *pDrvObj, int iAttr);
+FILE_ERR SysVol_AddDevice(HANDLE hSysVol, const char *pszName, HANDLE hDriver, int iAttr);
 
 #ifdef __cplusplus
 }

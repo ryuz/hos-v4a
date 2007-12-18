@@ -14,7 +14,7 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 #include "scihal.h"
 #include "library/container/streambuf/streambuf.h"
 
@@ -22,7 +22,7 @@
 /* SCI用ドライバ制御部 */
 typedef struct c_scidrv
 {
-	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
 
 	C_SCIHAL		SciHal;			/* ハードウェア制御クラス */
 	int				iOpenCount;		/* オープンカウンタ */

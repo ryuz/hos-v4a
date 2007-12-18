@@ -15,11 +15,11 @@
 FILE_ERR Lan9000Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_LAN9000DRV	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
 	self  = (C_LAN9000DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	return FILE_ERR_OK;
 }

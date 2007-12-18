@@ -9,7 +9,7 @@
  */
 
 
-#include "volumeobj.h"
+#include "volumeobj_local.h"
 
 
 /* ファイルを削除 */

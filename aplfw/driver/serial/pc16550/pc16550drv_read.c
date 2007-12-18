@@ -16,14 +16,14 @@
 FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
 	C_PC16550DRV	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	unsigned char	*pubBuf;
 	FILE_SIZE		i;
 	int				c;
 	
 	/* upper cast */
 	self  = (C_PC16550DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	pubBuf = (unsigned char *)pBuf;
 
@@ -31,7 +31,7 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	SysMtx_Lock(self->hMtxRecv);
 	
 	/* 読込みシグナルを一旦クリア */
-	ChrDrv_ClearReadSignal(&self->ChrDrv);
+	SyncDrv_ClearReadSignal(&self->SyncDrv);
 	
 	for ( i = 0; i < Size; i++ )
 	{
@@ -39,14 +39,14 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
 			/* 受信を待つ */
-			if ( ChrDrv_WaitReadSignal(&self->ChrDrv, pFile) != FILE_ERR_OK )
+			if ( SyncDrv_WaitReadSignal(&self->SyncDrv, pFile) != FILE_ERR_OK )
 			{
 				SysMtx_Unlock(self->hMtxRecv);	/* クリティカルセクションを出る */
 				return i;
 			}
 			
 			/* 読込みシグナルをクリアしてリトライ */
-			ChrDrv_ClearReadSignal(&self->ChrDrv);
+			SyncDrv_ClearReadSignal(&self->SyncDrv);
 		}
 		
 		/* 読み出せた文字を格納 */	

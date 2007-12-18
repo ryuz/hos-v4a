@@ -15,11 +15,11 @@
 FILE_ERR SciDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_SCIDRV	*self;
-	C_CHRFILE	*pFile;
+	C_SYNCFILE	*pFile;
 	
 	/* upper cast */
 	self  = (C_SCIDRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	return FILE_ERR_OK;
 }

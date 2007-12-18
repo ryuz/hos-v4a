@@ -15,7 +15,7 @@
 /* 仮想関数テーブル */
 const T_DRVOBJ_METHODS Pc16550Drv_Methods = 
 	{
-		Pc16550Drv_Delete,
+		{ Pc16550Drv_Delete },
 		Pc16550Drv_Open,
 		Pc16550Drv_Close,
 		Pc16550Drv_IoControl,
@@ -27,30 +27,20 @@ const T_DRVOBJ_METHODS Pc16550Drv_Methods =
 
 
 /** コンストラクタ */
-void Pc16550Drv_Create(C_PC16550DRV *self, void *pRegAddr,  unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize)
+HANDLE Pc16550Drv_Create(void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize)
 {
-	void *pMem;
+	C_PC16550DRV *self;
 	
-	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &Pc16550Drv_Methods);
-
-	/* メンバ変数初期化 */
-	self->iOpenCount = 0;
+	/* メモリ確保 */
+	if ( (self = (C_PC16550DRV *)SysMem_Alloc(sizeof(C_PC16550DRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
 	
-	/* Pc16550Hal 初期化 */
-	Pc16550Hal_Create(&self->Pc16550Hal, pRegAddr, uiRegStep, lSysClock);
-
-	/* バッファ確保 */
-	pMem = SysMem_Alloc(iBufSize);
-	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
+	/* コンストラクタ呼び出し */
+	Pc16550Drv_Constructor(self, &Pc16550Drv_Methods, pRegAddr, uiRegStep, iIntNum, lSysClock, iBufSize);
 	
-	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
-	/* 割込み処理登録 */
-	self->iIntNum = iIntNum;
-	SysIsr_Create(iIntNum, Pc16550Drv_Isr, (VPARAM)self);
+	return (HANDLE)self;
 }
 
 

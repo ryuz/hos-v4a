@@ -15,13 +15,13 @@
 FILE_ERR  At91UsartDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_AT91USARTDRV	*self;
-	C_CHRFILE		*pChrFile;
+	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self     = (C_AT91USARTDRV *)pDrvObj;
-	pChrFile = (C_CHRFILE *)pFileObj;
+	self  = (C_AT91USARTDRV *)pDrvObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
-	return FILE_ERR_NG;
+	return SyncDrv_IoControl(pDrvObj, pFileObj, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 }
 
 

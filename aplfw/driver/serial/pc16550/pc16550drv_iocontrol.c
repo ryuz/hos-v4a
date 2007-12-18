@@ -14,13 +14,6 @@
 
 FILE_ERR  Pc16550Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
-	C_PC16550DRV	*self;
-	C_CHRFILE		*pFile;
-	
-	/* upper cast */
-	self  = (C_PC16550DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
-
 	return FILE_ERR_NG;
 }
 

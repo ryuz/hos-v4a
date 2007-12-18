@@ -13,15 +13,14 @@
 #define __HOS__at91usartdrv_h__
 
 
-#include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 #include "library/container/streambuf/streambuf.h"
 
 
 /* UARTドライバ制御部 */
 typedef struct c_at91usartdrv
 {
-	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;		/* キャラクタ型デバイスドライバを継承 */
 
 	void			*pRegBase;		/* レジスタベースアドレス */
 	unsigned long	ulBaseClock;	/* ベースクロック */
@@ -41,8 +40,8 @@ typedef struct c_at91usartdrv
 extern "C" {
 #endif
 
-void At91UsartDrv_Create(C_AT91USARTDRV *self, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< コンストラクタ */
-void At91UsartDrv_Delete(C_DRVOBJ *pDrvObj);																			/**< デストラクタ */
+HANDLE At91UsartDrv_Create(void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< 生成 */
+void   At91UsartDrv_Delete(HANDLE hDriver);															/**< 削除 */
 
 #ifdef __cplusplus
 }

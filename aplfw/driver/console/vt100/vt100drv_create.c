@@ -15,7 +15,7 @@
 
 const T_DRVOBJ_METHODS  Vt100Drv_Methods = 
 	{
-		Vt100Drv_Delete,
+		{ Vt100Drv_Delete },
 		Vt100Drv_Open,
 		Vt100Drv_Close,
 		Vt100Drv_IoControl,
@@ -27,13 +27,21 @@ const T_DRVOBJ_METHODS  Vt100Drv_Methods =
 
 
 
-/**< コンストラクタ */
-void Vt100Drv_Create(C_VT100DRV *self, HANDLE hTty)
+/** コンストラクタ */
+HANDLE Vt100Drv_Create(HANDLE hTty)
 {
-	/* 親クラスコンストラクタ */
-	DrvObj_Create(&self->DrvObj, &Vt100Drv_Methods);
-
-	self->hTty = hTty;
+	C_VT100DRV *self;
+	
+	/* メモリ確保 */
+	if ( (self = (C_VT100DRV *)SysMem_Alloc(sizeof(C_VT100DRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
+	
+	/* コンストラクタ呼び出し */
+	Vt100Drv_Constructor(self, &Vt100Drv_Methods, hTty);
+	
+	return (HANDLE)self;
 }
 
 

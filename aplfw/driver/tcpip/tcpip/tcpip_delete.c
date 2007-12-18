@@ -12,19 +12,18 @@
 #include "tcpip_local.h"
 
 
-void TcpIp_Delete(C_DRVOBJ *pDrvObj)
+void TcpIp_Delete(HANDLE hDriver)
 {
 	C_TCPIP	*self;
 	
 	/* upper cast */
-	self = (C_TCPIP *)pDrvObj;
+	self = (C_TCPIP *)hDriver;
 
-	SysMtx_Delete(self->hMtxLock);
-	SysMtx_Delete(self->hMtxSend);
-
-
-	/* 親クラスデストラクタ呼び出し */
-	ChrDrv_Delete(&self->ChrDrv);
+	/* デストラクタ呼び出し */
+	TcpIp_Destructor(self);
+	
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
 
 

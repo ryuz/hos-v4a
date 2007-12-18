@@ -16,7 +16,7 @@
 HANDLE SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_SCIDRV	*self;
-	C_CHRFILE	*pFile;
+	C_SYNCFILE	*pFile;
 	
 	/* upper cast */
 	self = (C_SCIDRV *)pDrvObj;
@@ -26,7 +26,7 @@ HANDLE SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, &self->ChrDrv, NULL);
+	SyncFile_Create(pFile, &self->SyncDrv, NULL);
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )

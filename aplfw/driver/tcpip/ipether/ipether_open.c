@@ -16,18 +16,16 @@
 HANDLE IpEther_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_IPETHER	*self;
-	C_CHRFILE	*pFile;
+	HANDLE		hFile;
 	
 	/* upper cast */
 	self = (C_IPETHER *)pDrvObj;
-
+	
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(C_CHRFILE))) == NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, &self->ChrDrv, NULL);
-	
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
@@ -35,7 +33,7 @@ HANDLE IpEther_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		File_IoControl(self->hEther, FILE_IOCTL_ETHER_GETPHA, self->ubMyMacAddr, 6, 0, 0);
 	}
 	
-	return (HANDLE)pFile;
+	return hFile;
 }
 
 

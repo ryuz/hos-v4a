@@ -14,6 +14,8 @@
 
 
 #include "fatvol.h"
+#include "system/file/volumeobj_local.h"
+#include "fatfile.h"
 
 
 /* 最終クラスタマーカー */
@@ -37,25 +39,13 @@ typedef struct t_fatvol_clusterbuf
 } T_FATVOL_CLUSTERBUF;
 
 
-/* ファイルディスクリプタ */
-typedef struct c_fatfile
-{
-	C_FILEOBJ	FileObj;			/* ボリュームオブジェクトを継承 */
-		
-	int			iMode;				/* ファイルのモード */
-	FATVOL_UINT	uiStartCluster;		/* ファイルの先頭クラスタ */
-	
-	FATVOL_UINT	uiDirCluster;		/* 所属するディレクトリのクラスタ位置 */
-	FATVOL_UINT	uiDirEntryPos;		/* ディレクトリ内のエントリ位置 */
-	
-	FILE_POS	FilePos;			/* ファイルポインタ */
-	FILE_POS	FileSize;			/* ファイルサイズ */
-} C_FATFILE;
-
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+FATVOL_ERR  FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethods, const char *pszPath);
+void        FatVol_Destructor(C_FATVOL *self);
 
 HANDLE      FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
 void        FatVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
@@ -67,9 +57,6 @@ FILE_ERR    FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
 FILE_ERR    FatVol_MakeDir(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/* サブディレクトリを作成 */
 FILE_ERR    FatVol_Remove(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/* ファイルを削除 */
-
-HANDLE      FatVol_FileCreate(C_FATVOL *self, FATVOL_UINT uiStartCluster, FATVOL_UINT uiDirCluster, FATVOL_UINT uiDirEntryPos, FILE_POS FileSize, int iMode);
-void        FatVol_FileDelete(C_FATVOL *self, HANDLE hFile);
 
 void        FatVol_SyncFileSize(C_FATVOL *self, C_FATFILE *pFile);										/* サイズ同期 */
 

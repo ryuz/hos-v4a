@@ -32,7 +32,7 @@ void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, unsigned long ul
 	void *pMem;
 	
 	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &SciDrv_Methods);
+	SyncDrv_Create(&self->SyncDrv, &SciDrv_Methods);
 
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;

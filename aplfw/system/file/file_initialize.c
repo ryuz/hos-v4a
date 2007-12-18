@@ -23,13 +23,13 @@ void File_Initialize(void)
 	self = &g_File;
 	
 	/* ルートボリューム生成 */
-	SysVol_Create(&self->RootVol);
+	self->hRootVol = SysVol_Create();
 	
 	/* デバイスボリューム生成 */
-	SysVol_Create(&self->DevVol);
+	self->hDevVol = SysVol_Create();
 	
 	/* ルートディレクトリの下に /dev ディレクトリを登録 */
-	SysVol_AddDevice(&self->RootVol, "dev", (C_DRVOBJ *)&self->DevVol, FILE_ATTR_DIR);
+	SysVol_AddDevice(self->hRootVol, "dev", self->hDevVol, FILE_ATTR_DIR);
 }
 
 

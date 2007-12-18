@@ -20,6 +20,14 @@ void IpEther_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	
 	/* upper cast */
 	self = (C_IPETHER *)pDrvObj;
+
+	/* クロース処理 */
+	if ( --self->iOpenCount == 0 )
+	{
+		File_IoControl(self->hEther, FILE_IOCTL_ETHER_GETPHA, self->ubMyMacAddr, 6, 0, 0);
+	}
+	
+	SyncFile_Delete((HANDLE)pFileObj);
 }
 
 

@@ -14,9 +14,9 @@
 
 
 /* デストラクタ */
-void HandleObj_Delete(C_HANDLEOBJ *self)
+void HandleObj_Delete(HANDLE Handle)
 {
-	/* プロセスの紐付け解除(予定) */
+	
 }
 
 

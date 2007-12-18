@@ -14,7 +14,7 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 
 
 
@@ -30,7 +30,7 @@ struct c_tcpipfile;
 
 typedef struct c_tcpip
 {
-	C_CHRDRV			ChrDrv;					/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV			SyncDrv;					/* キャラクタ型デバイスドライバを継承 */
 
 	HANDLE				hIp;					/* IP層 */
 	
@@ -60,8 +60,8 @@ typedef struct c_tcpip
 extern "C" {
 #endif
 
-FILE_ERR TcpIp_Create(C_TCPIP *self, const char *pszIp);	/**< コンストラクタ */
-void     TcpIp_Delete(C_DRVOBJ *pDrvObj);					/**< デストラクタ */
+HANDLE TcpIp_Create(const char *pszIp);				/**< コンストラクタ */
+void   TcpIp_Delete(HANDLE hDriver);				/**< デストラクタ */
 
 #ifdef __cplusplus
 }

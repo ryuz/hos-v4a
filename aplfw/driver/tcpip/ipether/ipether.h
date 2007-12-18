@@ -14,7 +14,7 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 
 
 #define IPETHER_ARPTBL_SIZE			4
@@ -44,7 +44,7 @@ typedef struct t_ipether_arptbl
 /* Etherドライバ制御部 */
 typedef struct c_ipether
 {
-	C_CHRDRV			ChrDrv;					/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV			SyncDrv;				/* キャラクタ型デバイスドライバを継承 */
 
 	HANDLE				hEther;					/* Etherドライバ */
 	
@@ -78,8 +78,8 @@ typedef struct c_ipether
 extern "C" {
 #endif
 
-FILE_ERR IpEther_Create(C_IPETHER *self, const char *pszEther, const T_IPETHER_INF *pInf);	/**< コンストラクタ */
-void     IpEther_Delete(C_DRVOBJ *pDrvObj);													/**< デストラクタ */
+HANDLE IpEther_Create(const char *pszEther, const T_IPETHER_INF *pInf);		/**< 生成 */
+void   IpEther_Delete(HANDLE hDriver);										/**< 削除 */
 
 #ifdef __cplusplus
 }

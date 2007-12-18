@@ -16,18 +16,16 @@
 HANDLE Pc16550Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_PC16550DRV	*self;
-	C_CHRFILE		*pFile;
+	HANDLE			hFile;
 	
 	/* upper cast */
 	self = (C_PC16550DRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(*pFile))) == NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, &self->ChrDrv, NULL);
-
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
@@ -37,8 +35,8 @@ HANDLE Pc16550Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		Pc16550Hal_EnableInterrupt(&self->Pc16550Hal, PC16550HAL_IER_ERBFI);
 		SysInt_Enable(self->iIntNum);
 	}
-
-	return (HANDLE)pFile;
+	
+	return hFile;
 }
 
 

@@ -1,25 +1,22 @@
 
-#ifndef __HOS__sysvol_local_h__
-#define __HOS__sysvol_local_h__
+#ifndef __HOS__sysvolfile_local_h__
+#define __HOS__sysvolfile_local_h__
 
 
 #include "sysvol.h"
-#include "system/file/fileobj.h"
+#include "system/file/volumeobj_local.h"
+#include "system/file/sysvolfile.h"
+#include "system/sysapi/sysapi.h"
 
-
-/* システムボリュームのディレクトリファイル */
-typedef struct c_sysvoldir
-{
-	C_FILEOBJ	FileObj;			/* ディレクトリオブジェクトを継承 */
-	
-	int			iReadPtr;		/* リードポインタ */
-} C_SYSVOLDIR;
 
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+void      SysVol_Constructor(C_SYSVOL *self, const T_VOLUMEOBJ_METHODS *pMethods);
+void      SysVol_Destructor(C_DRVOBJ *self);
 
 HANDLE    SysVol_Open(struct c_drvobj *self, const char *pszPath, int iMode);		/* ファイルを開く */
 void      SysVol_Close(struct c_drvobj *self, struct c_fileobj *pFileObj);

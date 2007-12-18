@@ -14,6 +14,9 @@
 extern "C" {
 #endif
 
+void      Vt100Drv_Constructor(C_VT100DRV *self, const T_DRVOBJ_METHODS *pMethods, HANDLE hTty);		/**< コンストラクタ */
+void      Vt100Drv_Destructor(C_VT100DRV *self);														/**< デストラクタ */
+
 HANDLE    Vt100Drv_Open(struct c_drvobj *self, const char *pszPath, int iMode);
 void      Vt100Drv_Close(struct c_drvobj *self, C_FILEOBJ *pFileObj);
 FILE_ERR  Vt100Drv_IoControl(struct c_drvobj *self, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);

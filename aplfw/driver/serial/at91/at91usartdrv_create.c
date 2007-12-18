@@ -15,7 +15,7 @@
 /* 仮想関数テーブル */
 const T_DRVOBJ_METHODS At91UsartDrv_Methods = 
 	{
-		At91UsartDrv_Delete,
+		{ At91UsartDrv_Delete },
 		At91UsartDrv_Open,
 		At91UsartDrv_Close,
 		At91UsartDrv_IoControl,
@@ -26,35 +26,21 @@ const T_DRVOBJ_METHODS At91UsartDrv_Methods =
 	};
 
 
-/** コンストラクタ */
-void At91UsartDrv_Create(C_AT91USARTDRV *self, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
+/** 生成 */
+HANDLE At91UsartDrv_Create(void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
 {
-	void *pMem;
+	C_AT91USARTDRV *self;
 	
-	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &At91UsartDrv_Methods);
-
-	/* メンバ変数初期化 */
-	self->pRegBase    = pRegBase;
-	self->ulBaseClock = ulBaseClock;
-	self->iIntNum     = iIntNum;
-	self->iOpenCount  = 0;
-
-	/* バッファ確保 */
-	pMem = SysMem_Alloc(iBufSize);
-	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
-
-	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-
-	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
-	/* 割込み処理登録 */
-	self->iIntNum = iIntNum;
-	SysIsr_Create(iIntNum, At91UsartDrv_Isr, (VPARAM)self);
+	/* メモリ確保 */
+	if ( (self = (C_AT91USARTDRV *)SysMem_Alloc(sizeof(C_AT91USARTDRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
+	
+	/* コンストラクタ呼び出し */
+	At91UsartDrv_Constructor(self, &At91UsartDrv_Methods, pRegBase, iIntNum, ulBaseClock, iBufSize);
+	
+	return (HANDLE)self;
 }
 
 

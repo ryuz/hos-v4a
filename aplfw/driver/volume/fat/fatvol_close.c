@@ -32,7 +32,7 @@ void FatVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	}
 	
 	/* ディスクリプタ削除 */
-	FatVol_FileDelete(self, pFile);
+	FatFile_Delete(pFile);
 }
 
 

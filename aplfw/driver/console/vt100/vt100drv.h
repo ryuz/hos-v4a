@@ -20,8 +20,8 @@ typedef struct c_vt100drv
 extern "C" {
 #endif
 
-void      Vt100Drv_Create(C_VT100DRV *self, HANDLE hTty);					/**< コンストラクタ */
-void      Vt100Drv_Delete(C_DRVOBJ *pDrvObj);								/**< デストラクタ */
+HANDLE Vt100Drv_Create(HANDLE hTty);			/**< 生成 */
+void   Vt100Drv_Delete(HANDLE hDriver);			/**< 削除 */
 
 #ifdef __cplusplus
 }

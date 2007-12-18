@@ -313,7 +313,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	}
 	
 	/* ファイルディスクリプタを作成 */
-	hFile = FatVol_FileCreate(self, uiFileCluster, uiDirCluster, uiDirEntryPos, FileSize, iMode);
+	hFile = FatFile_Create(self, uiFileCluster, uiDirCluster, uiDirEntryPos, FileSize, iMode);
 	if ( hFile != HANDLE_NULL )
 	{
 		self->iOpenCount++;
@@ -326,3 +326,4 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 }
 
 
+/* end of file */

@@ -30,7 +30,7 @@ const T_DRVOBJ_METHODS Lan9118Drv_Methods =
 void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum)
 {
 	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &Lan9118Drv_Methods);
+	SyncDrv_Create(&self->SyncDrv, &Lan9118Drv_Methods);
 
 	/* メンバ変数初期化 */
 	self->pRegBase    = pRegBase;

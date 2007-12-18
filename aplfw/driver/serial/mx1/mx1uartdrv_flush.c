@@ -15,11 +15,11 @@
 FILE_ERR Mx1UartDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_MX1UARTDRV	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
 	self  = (C_MX1UARTDRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	return FILE_ERR_OK;
 }

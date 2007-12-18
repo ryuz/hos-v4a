@@ -41,11 +41,11 @@ typedef struct c_volumeobj
 extern "C" {
 #endif
 
-void     VolumeObj_Create(C_VOLUMEOBJ *self, const T_VOLUMEOBJ_METHODS *pVolumeObjMethods);		/**< コンストラクタ */
-#define	 VolumeObj_Delete(self)																	/**< デストラクタ */
+HANDLE   VolumeObj_Create(void);												/**< 生成 */
+void     VolumeObj_Delete(HANDLE hVolume);										/**< 削除 */
 
-FILE_ERR VolumeObj_MakeDir(C_VOLUMEOBJ *self, const char *pszPath);				/* サブディレクトリを作成 */
-FILE_ERR VolumeObj_Remove(C_VOLUMEOBJ *self, const char *pszPath);				/* ファイルを削除 */
+FILE_ERR VolumeObj_MakeDir(C_VOLUMEOBJ *self, const char *pszPath);				/**< サブディレクトリを作成 */
+FILE_ERR VolumeObj_Remove(C_VOLUMEOBJ *self, const char *pszPath);				/**< ファイルを削除 */
 
 #ifdef __cplusplus
 }

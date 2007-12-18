@@ -14,7 +14,7 @@
 #include "sysvol_local.h"
 #include "system/sysapi/sysapi.h"
 #include "system/file/drvobj.h"
-
+#include "system/file/fileobj_local.h"
 
 /* ファイルを開く */
 HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
@@ -29,7 +29,7 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	/* 自分自身のディレクトリを開くなら */
 	if ( *pszPath == '\0' )
 	{
-		C_SYSVOLDIR *pDir;
+		HANDLE hDir;
 
 		/* モードチェック */
 		if ( !(iMode & (FILE_OPEN_DIR | FILE_OPEN_READ)) )
@@ -38,14 +38,12 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		}
 		
 		/* ディスクリプタ生成 */
-		if ( (pDir = (C_SYSVOLDIR *)SysMem_Alloc(sizeof(C_SYSVOLDIR))) == NULL )
+		if ( (hDir = SysVolFile_Create(self)) == HANDLE_NULL )
 		{
 			return HANDLE_NULL;
 		}
-		FileObj_Create(&pDir->FileObj, (C_DRVOBJ *)self, NULL);
-		pDir->iReadPtr = 0;
 		
-		return (HANDLE)pDir;
+		return hDir;
 	}
 	
 	/* 下位デバイスを検索 */
@@ -70,7 +68,7 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		iLen++;
 	}
 	
-	return DrvObj_vOpen(self->DevTable[i].pDrvObj, &pszPath[iLen], iMode);
+	return DrvObj_vOpen((C_DRVOBJ *)self->DevTable[i].hDriver, &pszPath[iLen], iMode);
 }
 
 

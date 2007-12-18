@@ -14,14 +14,14 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/chrdrv.h"
+#include "system/file/syncdrv.h"
 #include "lan9000hal.h"
 
 
 /* LAN9000ファミリー用ドライバ制御部 */
 typedef struct c_lan9000drv
 {
-	C_CHRDRV		ChrDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
 
 	C_LAN9000HAL	Lan9000Hal;		/* ハードウェア制御クラス */
 	int				iOpenCount;		/* オープンカウンタ */

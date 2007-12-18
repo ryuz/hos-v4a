@@ -58,7 +58,6 @@ void Process_Entry(VPARAM Param)
 HANDLE Process_GetCurrentHandle(void)
 {
 	SYSPRC_HANDLE hSysPrc;
-	int i;
 	
 	/* 現在のプロセスを取得 */
 	if ( (hSysPrc = SysPrc_GetCurrentHandle()) == SYSPRC_HANDLE_NULL )

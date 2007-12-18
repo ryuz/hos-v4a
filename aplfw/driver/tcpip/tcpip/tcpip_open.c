@@ -17,19 +17,24 @@
 HANDLE TcpIp_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_TCPIP		*self;
+	HANDLE		hFile;
 	C_TCPIPFILE	*pFile;
 	
 	/* upper cast */
 	self = (C_TCPIP *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(C_TCPIPFILE))) == NULL )
+	if ( (hFile = TcpIpFile_Create(self)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(&pFile->ChrFile, &self->ChrDrv, NULL);
-	StreamBuf_Create(&pFile->RecvBuf, TCPIPFILE_RECV_BUFSIZE, pFile->ubRecvBuf);
-	pFile->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	
+	if ( (hFile = SysMem_Alloc(sizeof(C_TCPIPFILE))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
+	pFile = (C_TCPIPFILE *)hFile;
+	
 	
 	/* デバイスオープン処理 */
 	if ( self->iOpenCount++ == 0 )

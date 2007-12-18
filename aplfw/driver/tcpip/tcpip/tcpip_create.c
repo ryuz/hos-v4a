@@ -16,7 +16,7 @@
 /* 仮想関数テーブル */
 static const T_DRVOBJ_METHODS TcpIp_Methods = 
 	{
-		TcpIp_Delete,
+		{ TcpIp_Delete },
 		TcpIp_Open,
 		TcpIp_Close,
 		TcpIp_IoControl,
@@ -27,30 +27,25 @@ static const T_DRVOBJ_METHODS TcpIp_Methods =
 	};
 
 
-/**< コンストラクタ */
-FILE_ERR TcpIp_Create(C_TCPIP *self, const char *pszIp)
+/** 生成 */
+HANDLE TcpIp_Create(const char *pszIp)
 {
-	/* IP層オープン */
-	self->hIp = File_Open(pszIp, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_EXIST);
-	if ( self->hIp == HANDLE_NULL )
+	C_TCPIP *self;
+	
+	/* メモリ確保 */
+	if ( (self = (C_TCPIP *)SysMem_Alloc(sizeof(C_TCPIP))) == NULL )
 	{
-		return FILE_ERR_NG;
+		return HANDLE_NULL;
 	}
-
-	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &TcpIp_Methods);
 	
-	/* メンバ変数初期化 */
-	self->iOpenCount = 0;
+	/* コンストラクタ呼び出し */
+	if ( TcpIp_Constructor(self, &TcpIp_Methods, pszIp) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
 	
-	/* ミューテックス生成 */
-	self->hMtxLock = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	
-	/* 受信プロセス生成 */
-	self->hPrcRecv = SysPrc_Create(TcpIp_Recv, (VPARAM)self, 1024, 2, SYSPRC_ATTR_NORMAL);
-	
-	return FILE_ERR_OK;
+	return (HANDLE)self;
 }
 
 

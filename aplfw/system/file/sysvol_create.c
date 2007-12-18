@@ -17,7 +17,7 @@
 const T_VOLUMEOBJ_METHODS SysVol_VolumeObjMethods =
 {
 	{
-		SysVol_Delete,
+		{ SysVol_Delete },
 		SysVol_Open,
 		SysVol_Close,
 		SysVol_IoControl,
@@ -31,18 +31,21 @@ const T_VOLUMEOBJ_METHODS SysVol_VolumeObjMethods =
 };
 
 
-void SysVol_Create(C_SYSVOL *self)
+HANDLE SysVol_Create(void)
 {
-	int i;
+	C_SYSVOL *self;
 	
-	/* 親クラスコンストラクタ呼び出し */
-	VolumeObj_Create(&self->VolumeObj, &SysVol_VolumeObjMethods);	
-	
-	/* 初期化 */
-	for ( i = 0; i < DEVVOL_MAX_DEVICE; i++ )
+	/* メモリ確保 */
+	if ( (self = (C_SYSVOL *)SysMem_Alloc(sizeof(C_SYSVOL))) == NULL )
 	{
-		self->DevTable[i].pDrvObj = NULL;
+		return HANDLE_NULL;
 	}
+	
+	/* コンストラクタ呼び出し */
+	SysVol_Constructor(self, &SysVol_VolumeObjMethods);	
+	
+	return (HANDLE)self;	
 }
 
 
+/* end of file */

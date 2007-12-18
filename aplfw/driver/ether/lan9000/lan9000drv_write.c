@@ -16,13 +16,13 @@
 FILE_SIZE Lan9000Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
 	C_LAN9000DRV	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	FILE_SIZE		SendSize;
 	unsigned short	uhStatus;
 	
 	/* upper cast */
 	self  = (C_LAN9000DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFileObj;
 
 	/* クリティカルセクションに入る */
 	SysMtx_Lock(self->hMtx);

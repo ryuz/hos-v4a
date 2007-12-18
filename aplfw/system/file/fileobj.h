@@ -15,8 +15,8 @@
 #define __HOS__fileobj_h__
 
 
-#include "system/handle/handleobj.h"
 #include "system/file/file.h"
+#include "system/handle/handleobj.h"
 
 struct c_drvobj;
 
@@ -31,6 +31,7 @@ typedef struct t_fileobj_methods
 typedef struct c_fileobj
 {
 	C_HANDLEOBJ		HandleObj;				/* ハンドルオブジェクトを継承 */
+	
 	struct c_drvobj	*pDrvObj;				/* ドライバへの参照 */
 } C_FILEOBJ;
 
@@ -46,8 +47,8 @@ typedef struct c_fileobj
 extern "C" {
 #endif
 
-void FileObj_Create(C_FILEOBJ *self, struct c_drvobj *pDrvObj, const T_FILEOBJ_METHODS *pMethods);
-void FileObj_Delete(HANDLE self);
+HANDLE FileObj_Create(struct c_drvobj *pDrvObj);
+void   FileObj_Delete(HANDLE Handle);
 
 #ifdef __cplusplus
 }

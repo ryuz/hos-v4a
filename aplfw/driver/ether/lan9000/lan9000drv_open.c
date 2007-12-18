@@ -16,17 +16,17 @@
 HANDLE Lan9000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_LAN9000DRV	*self;
-	C_CHRFILE		*pFile;
+	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
 	self = (C_LAN9000DRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(C_CHRFILE))) == NULL )
+	if ( (pFile = SysMem_Alloc(sizeof(C_SYNCFILE))) == NULL )
 	{
 		return HANDLE_NULL;
 	}
-	ChrFile_Create(pFile, &self->ChrDrv, NULL);
+	SyncFile_Create(pFile, &self->SyncDrv, NULL);
 
 	
 	/* オープン処理 */
