@@ -27,41 +27,25 @@ static const T_DRVOBJ_METHODS IpEther_Methods =
 	};
 
 
-/** コンストラクタ */
-FILE_ERR IpEther_Create(C_IPETHER *self, const char *pszEther, const T_IPETHER_INF *pInf)
+/**< 生成 */
+HANDLE IpEther_Create(const char *pszEther, const T_IPETHER_INF *pInf)
 {
-	/* Etherポートオープン */
-	self->hEther = File_Open(pszEther, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_EXIST);
-	if ( self->hEther == HANDLE_NULL )
+	C_IPETHER *self;
+	
+	/* メモリ確保 */
+	if ( (self = (C_IPETHER *)SysMem_Alloc(sizeof(C_IPETHER))) == NULL )
 	{
-		return FILE_ERR_NG;
+		return HANDLE_NULL;
 	}
-
-	/* 親クラスコンストラクタ呼び出し */
-	ChrDrv_Create(&self->ChrDrv, &IpEther_Methods);
-
-	/* メンバ変数初期化 */
-	self->iOpenCount = 0;
-	self->iRecvHead  = 0;
-	self->iRecvNum   = 0;
 	
-	memcpy(self->ubMyIpAddr,      pInf->ubIpAddr, 4);
-	memcpy(self->ubSubNetMask,    pInf->ubSubNetMask, 4);
-	memcpy(self->ubGateWayIpAddr, pInf->ubGateWayIpAddr, 4);
+	/* コンストラクタ呼び出し */
+	if ( IpEther_Constructor(self, &IpEther_Methods, pszEther, pInf) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
 	
-	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	self->hEvtArp  = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-
-	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxArp  = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
-	/* 受信プロセス生成 */
-	self->hPrcRecv = SysPrc_Create(IpEther_Recv, (VPARAM)self, 1024, 2, SYSPRC_ATTR_NORMAL);
-
-	return FILE_ERR_OK;
+	return (HANDLE)self;
 }
 
 
