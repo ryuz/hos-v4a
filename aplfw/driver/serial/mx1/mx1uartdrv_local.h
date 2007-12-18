@@ -14,6 +14,8 @@
 
 
 #include "mx1uartdrv.h"
+#include "system/file/syncdrv_local.h"
+
 
 
 #define MX1UART_URXD(n)			(0x00+4*(n))
@@ -51,6 +53,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+void      Mx1UartDrv_Constructor(C_MX1UARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< コンストラクタ */
+void      Mx1UartDrv_Destructor(C_MX1UARTDRV *self);																											/**< デストラクタ */
+
 
 HANDLE    Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
 void      Mx1UartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);

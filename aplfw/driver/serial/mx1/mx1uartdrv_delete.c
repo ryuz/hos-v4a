@@ -13,24 +13,18 @@
 
 
 /** デストラクタ */
-void Mx1UartDrv_Delete(C_DRVOBJ *pDrvObj)
+void Mx1UartDrv_Delete(HANDLE hDriver)
 {
 	C_MX1UARTDRV	*self;
-	void			*pMem;
 	
 	/* upper cast */
-	self = (C_MX1UARTDRV *)pDrvObj;
+	self = (C_MX1UARTDRV *)hDriver;
+	
+	/* デストラクタ呼び出し */
+	Mx1UartDrv_Destructor(self);
 
-	/* 同期オブジェクト削除 */
-	SysEvt_Delete(self->hEvtRecv);
-	SysEvt_Delete(self->hEvtSend);
-	SysMtx_Delete(self->hMtxRecv);
-	SysMtx_Delete(self->hMtxSend);
-
-	/* バッファ削除 */
-	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);
-	StreamBuf_Delete(&self->StmBuf);
-	SysMem_Free(pMem);
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
 
 

@@ -16,18 +16,16 @@
 HANDLE Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_MX1UARTDRV	*self;
-	C_SYNCFILE		*pFile;
+	HANDLE			hFile;
 	
 	/* upper cast */
 	self = (C_MX1UARTDRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(*pFile))) == NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL)
 	{
 		return HANDLE_NULL;
 	}
-	SyncFile_Create(pFile, &self->SyncDrv, NULL);
-
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
@@ -46,7 +44,7 @@ HANDLE Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		SysInt_Enable(self->iIntNum + 5);
 	}
 
-	return (HANDLE)pFile;
+	return hFile;
 }
 
 

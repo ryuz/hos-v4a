@@ -43,8 +43,8 @@ typedef struct c_mx1uartdrv
 extern "C" {
 #endif
 
-void Mx1UartDrv_Create(C_MX1UARTDRV *self, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< コンストラクタ */
-void Mx1UartDrv_Delete(C_DRVOBJ *pDrvObj);																			/**< デストラクタ */
+HANDLE Mx1UartDrv_Create(void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< 生成 */
+void   Mx1UartDrv_Delete(HANDLE hDriver);														/**< 削除 */
 
 #ifdef __cplusplus
 }

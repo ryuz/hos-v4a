@@ -15,7 +15,7 @@
 /* 仮想関数テーブル */
 const T_DRVOBJ_METHODS Mx1UartDrv_Methods = 
 	{
-		Mx1UartDrv_Delete,
+		{ Mx1UartDrv_Delete },
 		Mx1UartDrv_Open,
 		Mx1UartDrv_Close,
 		Mx1UartDrv_IoControl,
@@ -26,36 +26,21 @@ const T_DRVOBJ_METHODS Mx1UartDrv_Methods =
 	};
 
 
-/** コンストラクタ */
-void Mx1UartDrv_Create(C_MX1UARTDRV *self, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
+/** 生成 */
+HANDLE Mx1UartDrv_Create(void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
 {
-	void *pMem;
+	C_MX1UARTDRV *self;
 	
-	/* 親クラスコンストラクタ呼び出し */
-	SyncDrv_Create(&self->SyncDrv, &Mx1UartDrv_Methods);
-
-	/* メンバ変数初期化 */
-	self->pRegBase    = pRegBase;
-	self->ulBaseClock = ulBaseClock;
-	self->iIntNum     = iIntNum;
-	self->iOpenCount  = 0;
-
-	/* バッファ確保 */
-	pMem = SysMem_Alloc(iBufSize);
-	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
-
-	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-
-	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	/* メモリ確保 */
+	if ( (self = (C_MX1UARTDRV *)SysMem_Alloc(sizeof(C_MX1UARTDRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
 	
-	/* 割込み処理登録 */
-	self->iIntNum = iIntNum;
-	SysIsr_Create(iIntNum + 4, Mx1UartDrv_IsrTx, (VPARAM)self);
-	SysIsr_Create(iIntNum + 5, Mx1UartDrv_IsrRx, (VPARAM)self);
+	/* コンストラクタ呼び出し */
+	Mx1UartDrv_Constructor(self, &Mx1UartDrv_Methods, pRegBase, iIntNum, ulBaseClock, iBufSize);
+	
+	return (HANDLE)self;
 }
 
 

@@ -31,7 +31,6 @@ void Mx1UartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	
 	/* ディスクリプタ削除 */
 	SyncFile_Delete(pFile);	
-	SysMem_Free(pFileObj);
 }
 
 
