@@ -18,6 +18,7 @@ FILE_SIZE Mx1UartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	C_MX1UARTDRV	*self;
 	C_SYNCFILE		*pFile;
 	unsigned char	*pubBuf;
+	FILE_ERR		ErrCode;
 	FILE_SIZE		i;
 	int				c;
 	
@@ -27,35 +28,41 @@ FILE_SIZE Mx1UartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 
 	pubBuf = (unsigned char *)pBuf;
 
-	/* クリティカルセクションに入る */
-	SysMtx_Lock(self->hMtxRecv);
+	/* 読込み処理開始 */
+	if ( (ErrCode = SyncDrv_StartProcess(&self->SyncDrv, pFile, SYNCDRV_FACTOR_READ)) != FILE_ERR_OK )
+	{
+		return (FILE_SIZE)ErrCode;
+	}
 	
-	/* 読み出しシグナルを一旦クリア */
-	SyncDrv_ClearReadSignal(&self->SyncDrv);
+	/* 読込みシグナルを一旦クリア */
+	SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_READ);
 	
 	for ( i = 0; i < Size; i++ )
 	{
 		/* 読み出し */
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
-			/* 受信を待つ */
-			if ( SyncDrv_WaitReadSignal(&self->SyncDrv, pFile) != FILE_ERR_OK )
+			/* ブロッキングモードでなければ抜ける */
+			if ( SyncFile_GetSyncMode(pFile, SYNCDRV_FACTOR_READ) != FILE_SYNCMODE_BLOCKING )
 			{
-				SysMtx_Unlock(self->hMtxRecv);	/* クリティカルセクションを出る */
+				SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, i);
 				return i;
 			}
 			
-			/* 読み出しシグナルをクリアしてリトライ */
-			SyncDrv_ClearReadSignal(&self->SyncDrv);
+			/* 受信を待つ */
+			SyncFile_WaitSignal(pFile, SYNCDRV_FACTOR_READ);
+			
+			/* 読込みシグナルをクリアしてリトライ */
+			SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_READ);
 		}
 		
 		/* 読み出せた文字を格納 */	
 		*pubBuf++ = (unsigned char)c;
 	}
 	
-	/* クリティカルセクションを出る */
-	SysMtx_Unlock(self->hMtxRecv);
-
+	/* 読み出し処理完了 */
+	SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, (VPARAM)i);
+	
 	return i;
 }
 

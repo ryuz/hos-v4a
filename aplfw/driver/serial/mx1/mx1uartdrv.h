@@ -21,19 +21,16 @@
 /* ARM製 Integrator UART用ドライバ制御部 */
 typedef struct c_mx1uartdrv
 {
-	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
+	C_SYNCDRV		SyncDrv;		/* キャラクタ型デバイスドライバを継承 */
 
 	void			*pRegBase;		/* レジスタベースアドレス */
 	unsigned long	ulBaseClock;	/* ベースクロック */
 	int				iIntNum;		/* 割込み番号 */
+	SYSISR_HANDLE	hIsrTx;			/* 送信割込みサービスルーチンハンドル */
+	SYSISR_HANDLE	hIsrRx;			/* 受信割込みサービスルーチンハンドル */
 
 	int				iOpenCount;		/* オープンカウンタ */
 
-	SYSEVT_HANDLE	hEvtSend;		/* 送信イベント */
-	SYSEVT_HANDLE	hEvtRecv;		/* 受信イベント */
-
-	SYSMTX_HANDLE	hMtxSend;		/* 送信排他制御ミューテックス */
-	SYSMTX_HANDLE	hMtxRecv;		/* 受信排他制御ミューテックス */
 	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
 } C_MX1UARTDRV;
 

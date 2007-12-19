@@ -1,31 +1,31 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  scidrv.c
- * @brief %jp{PC16550用デバイスドライバ}
+ * @file  streampipe.c
+ * @brief %jp{ストリームパイプ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "pc16550drv_local.h"
+#include "streampipe_local.h"
 
 
-/** %jp{受信} */
-FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+/** %jp{読込み} */
+FILE_SIZE StreamPipe_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
 {
-	C_PC16550DRV	*self;
+	C_STREAMPIPE	*self;
 	C_SYNCFILE		*pFile;
 	unsigned char	*pubBuf;
 	FILE_ERR		ErrCode;
-	FILE_SIZE		i;
-	int				c;
+	FILE_SIZE		RecvSize;
+	FILE_SIZE		ReadSize;
 	
 	/* upper cast */
-	self  = (C_PC16550DRV *)pDrvObj;
+	self  = (C_STREAMPIPE *)pDrvObj;
 	pFile = (C_SYNCFILE *)pFileObj;
-
+	
 	pubBuf = (unsigned char *)pBuf;
 	
 	/* 読込み処理開始 */
@@ -37,16 +37,17 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	/* 読込みシグナルを一旦クリア */
 	SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_READ);
 	
-	for ( i = 0; i < Size; i++ )
+	ReadSize = 0;
+	while ( Size > 0 )
 	{
 		/* 読み出し */
-		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
+		while ( (RecvSize = StreamBuf_RecvData(&self->StreamBuf, pubBuf, Size)) <= 0 )
 		{
 			/* ブロッキングモードでなければ抜ける */
 			if ( SyncFile_GetSyncMode(pFile, SYNCDRV_FACTOR_READ) != FILE_SYNCMODE_BLOCKING )
 			{
-				SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, i);
-				return i;
+				SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, (VPARAM)ReadSize);
+				return ReadSize;
 			}
 			
 			/* 受信を待つ */
@@ -56,14 +57,19 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 			SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_READ);
 		}
 		
-		/* 読み出せた文字を格納 */	
-		*pubBuf++ = (unsigned char)c;
+		/* ポインタ更新 */
+		pubBuf   += RecvSize;
+		ReadSize += RecvSize;
+		Size     -= RecvSize;
+		
+		/* 書読込みシグナル発行 */
+		SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_WRITE);
 	}
 	
 	/* 読み出し処理完了 */
-	SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, (VPARAM)i);
+	SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, (VPARAM)ReadSize);
 	
-	return i;
+	return ReadSize;
 }
 
 

@@ -18,6 +18,7 @@ FILE_SIZE Pc16550Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 	C_PC16550DRV		*self;
 	C_SYNCFILE			*pFile;
 	const unsigned char	*pubBuf;
+	FILE_ERR			ErrCode;
 	FILE_SIZE			i;
 	int					c;
 	
@@ -27,11 +28,14 @@ FILE_SIZE Pc16550Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 	
 	pubBuf = (const unsigned char *)pData;
 	
-	/* クリティカルセクションに入る */
-	SysMtx_Lock(self->hMtxSend);
-
+	/* 書込み処理開始 */
+	if ( (ErrCode = SyncDrv_StartProcess(&self->SyncDrv, pFile, SYNCDRV_FACTOR_WRITE)) != FILE_ERR_OK )
+	{
+		return (FILE_SIZE)ErrCode;
+	}
+	
 	/* 書込みシグナルを一旦クリア */
-	SyncDrv_ClearWriteSignal(&self->SyncDrv);
+	SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_WRITE);
 	
 	for ( i = 0; i < Size; i++ )
 	{
@@ -43,25 +47,27 @@ FILE_SIZE Pc16550Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 		{
 			/* 送信割り込みを許可 */
 			Pc16550Hal_EnableInterrupt(&self->Pc16550Hal, PC16550HAL_IER_ERBFI | PC16550HAL_IER_ETBEI);
-			
-			/* 書込みシグナルを待つ */
-			if ( SyncDrv_WaitWriteSignal(&self->SyncDrv, pFile) != FILE_ERR_OK )
+
+			/* ブロッキングモードでなければ抜ける */
+			if ( SyncFile_GetSyncMode(pFile, SYNCDRV_FACTOR_WRITE) != FILE_SYNCMODE_BLOCKING )
 			{
-				SysMtx_Unlock(self->hMtxSend);	/* クリティカルセクションを出る */
+				SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_WRITE, i);
 				return i;
 			}
 			
+			/* 書込みシグナルを待つ */
+			SyncFile_WaitSignal(pFile, SYNCDRV_FACTOR_WRITE);
+			
 			/* 書込みシグナルをクリアしてリトライ */
-			SyncDrv_ClearWriteSignal(&self->SyncDrv);
+			SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_WRITE);
 		}
 	}
 	
-	/* クリティカルセクションを出る */
-	SysMtx_Unlock(self->hMtxSend);
-
+	/* 書込み処理完了 */
+	SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_WRITE, (VPARAM)i);
+	
 	return i;
 }
-
 
 
 /* end of file */

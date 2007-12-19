@@ -15,22 +15,32 @@
 #include "syncfile_local.h"
 
 
-void SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_syncdrv *pSyncDrv)
+FILE_ERR SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_syncdrv *pSyncDrv)
 {
+	int iFactorNum;
+	int i;
+	
+	/* 同期要因数取得 */
+	iFactorNum = SyncDrv_GetSyncFactorNum(pSyncDrv);
+	
+	/* メモリ確保 */
+	if ( (self->pSyncObj = (T_SYNCFILE_SYNCOBJ *)SysMem_Alloc(sizeof(T_SYNCFILE_SYNCOBJ) * iFactorNum)) == NULL )
+	{
+		return FILE_ERR_NG;
+	}
+
 	/* 親クラスコンストラクタ呼び出し */
 	FileObj_Constructor(&self->FileObj, pMethods, &pSyncDrv->DrvObj);
 	
-	/* メンバ初期化 */	
-	self->cWriteMode  = FILE_WMODE_BLOCKING;
-	self->cReadMode   = FILE_RMODE_BLOCKING;
-	self->cIoMode     = FILE_IMODE_BLOCKING;
-	self->hEventWrite = HANDLE_NULL;	
-	self->hEventRead  = HANDLE_NULL;	
-	self->hEventIo    = HANDLE_NULL;
-	self->hPrcWrite   = SYSPRC_HANDLE_NULL;
-	self->hPrcRead    = SYSPRC_HANDLE_NULL;
-	self->hPrcIo      = SYSPRC_HANDLE_NULL;
-		
+	/* メンバ初期化 */
+	for ( i = 0; i < iFactorNum; i++ )
+	{
+		self->pSyncObj[i].Mode     = FILE_SYNCMODE_BLOCKING;
+		self->pSyncObj[i].hEvt     = SysEvt_Create(SYSEVT_ATTR_NORMAL);
+		self->pSyncObj[i].ErrCode  = FILE_ERR_OK;
+		self->pSyncObj[i].Inf.Type = FILE_SYNCTYPE_NONE;
+	}
+	
 	/* リスト連結 */
 	SysMtx_Lock(pSyncDrv->hMtx);
 	if ( pSyncDrv->pFileHead == NULL )
@@ -46,7 +56,9 @@ void SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethods, s
 		self->pNext->pPrev = self;
 		self->pPrev->pNext = self;
 	}
-	SysMtx_Unlock(pSyncDrv->hMtx);	
+	SysMtx_Unlock(pSyncDrv->hMtx);
+	
+	return FILE_ERR_OK;
 }
 
 

@@ -38,7 +38,11 @@ HANDLE Mx1UartDrv_Create(void *pRegBase, int iIntNum, unsigned long ulBaseClock,
 	}
 	
 	/* コンストラクタ呼び出し */
-	Mx1UartDrv_Constructor(self, &Mx1UartDrv_Methods, pRegBase, iIntNum, ulBaseClock, iBufSize);
+	if ( Mx1UartDrv_Constructor(self, &Mx1UartDrv_Methods, pRegBase, iIntNum, ulBaseClock, iBufSize) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
 	
 	return (HANDLE)self;
 }

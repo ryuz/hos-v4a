@@ -19,28 +19,28 @@
 #include "system/handle/handleobj.h"
 #include "system/file/fileobj.h"
 
+
 struct c_syncdrv;
+
+/* 同期オブジェクト */
+typedef struct t_syncfile_syncobj
+{
+	int					Mode;			/**< 同期モード */
+	VPARAM				ErrCode;		/**< エラーコード */
+	SYSEVT_HANDLE		hEvt;			/**< 同期イベント */
+	T_FILE_SYNCINF		Inf;			/**< 同期情報 */
+} T_SYNCFILE_SYNCOBJ;
 
 
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_syncfile
 {
-	C_FILEOBJ			FileObj;			/**< ファイルオブジェクトを継承 */
+	C_FILEOBJ			FileObj;		/**< ファイルオブジェクトを継承 */
 	
-	struct c_syncfile	*pNext;				/**< イベント監視リスト連結用 */
-	struct c_syncfile	*pPrev;				/**< イベント監視リスト連結用 */
+	struct c_syncfile	*pNext;			/**< イベント監視リスト連結用 */
+	struct c_syncfile	*pPrev;			/**< イベント監視リスト連結用 */
 
-	char				cWriteMode;			/**< 書込みモード */
-	char				cReadMode;			/**< 読込みモード */
-	char				cIoMode;			/**< I/O制御モード */
-	
-	HANDLE				hEventWrite;		/**< 書込み受信イベントハンドル */
-	HANDLE				hEventRead;			/**< 読込み受信イベントハンドル */
-	HANDLE				hEventIo;			/**< I/O受信イベントハンドル */
-	
-	SYSPRC_HANDLE		hPrcWrite;			/**< 書込み待ちプロセスハンドル */
-	SYSPRC_HANDLE		hPrcRead;			/**< 読込み待ちプロセスハンドル */
-	SYSPRC_HANDLE		hPrcIo;				/**< I/O受信待ちプロセスハンドル */
+	T_SYNCFILE_SYNCOBJ	*pSyncObj;		/**< 同期オブジェクト */
 } C_SYNCFILE;
 
 
@@ -48,8 +48,23 @@ typedef struct c_syncfile
 extern "C" {
 #endif
 
-HANDLE  SyncFile_Create(struct c_syncdrv *pSyncDrv);
-void    SyncFile_Delete(C_SYNCFILE *self);
+HANDLE   SyncFile_Create(struct c_syncdrv *pSyncDrv);
+void     SyncFile_Delete(HANDLE hFile);
+
+void     SyncFile_SetSignal(C_SYNCFILE *self, int iFactor);															/**< シグナルのセット */
+#define  SyncFile_ClearSignal(self, iFactor)		do { SysEvt_Clear((self)->pSyncObj[iFactor].hEvt); } while(0)	/**< シグナルのクリア */
+#define  SyncFile_WaitSignal(self, iFactor)			do { SysEvt_Wait((self)->pSyncObj[iFactor].hEvt); } while(0)	/**< シグナルを待つ */
+#define  SyncFile_RefSignal(self, iFactor)			(SysEvt_RefStatus((self)->pSyncObj[iFactor].hEvt))				/**< シグナルの状態参照 */
+
+#define  SyncFile_SetSyncMode(self, iFactor, x)		do { ((self)->pSyncObj[iFactor].Mode) = (x); } while(0)			/**< 同期モード設定 */
+#define  SyncFile_GetSyncMode(self, iFactor)		((self)->pSyncObj[iFactor].Mode)								/**< 同期モード取得 */
+
+#define  SyncFile_SetSyncInf(self, iFactor, x)		do { ((self)->pSyncObj[iFactor].Inf) = (x); } while(0)			/**< 同期情報設定 */
+#define  SyncFile_GetSyncInf(self, iFactor)			((self)->pSyncObj[iFactor].Inf)									/**< 同期情報取得 */
+
+#define  SyncFile_SetErrCode(self, iFactor, x)		do { ((self)->pSyncObj[iFactor].ErrCode) = (x); } while(0)		/**< エラーコード設定 */
+#define  SyncFile_GetErrCode(self, iFactor)			((self)->pSyncObj[iFactor].ErrCode)								/**< エラーコード取得 */
+
 
 #ifdef __cplusplus
 }

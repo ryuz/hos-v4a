@@ -17,104 +17,108 @@
 #include "system/handle/handleobj.h"
 
 
-#define FILE_MAX_PATH				128			/* パス名の最大値 */
-#define FILE_MAX_NAME				12			/* 名前の最大値 */
+#define FILE_MAX_PATH						128			/* パス名の最大値 */
+#define FILE_MAX_NAME						12			/* 名前の最大値 */
 
 
 /* エラーコード定義 */
-#define FILE_ERR_OK					0
-#define FILE_ERR_NG					(-1)
+#define FILE_ERR_OK							0			/* 正常終了*/
+#define FILE_ERR_NG							(-1)		/* エラー */
+#define FILE_ERR_BUSY						(-2)		/* 他のプロセスが利用中(ブロッキングモード以外でポーリング失敗) */
+#define FILE_ERR_BACKGROUND					(-3)		/* バックグラウンドで処理受付成功 */
 
 /* 定数定義 */
-#define FILE_EOF					(-1)
+#define FILE_EOF							(-1)
 
 /* Openモード定義 */
-#define FILE_OPEN_READ				0x01		/* 読込み許可 */
-#define FILE_OPEN_WRITE				0x02		/* 書込み許可 */
-#define FILE_OPEN_CREATE			0x04		/* 常に新規作成 */
-#define FILE_OPEN_EXIST				0x08		/* 存在しなければエラー */
-#define FILE_OPEN_SHARE_READ		0x10		/* 読込み共有許可 */
-#define FILE_OPEN_SHARE_WRITE		0x20		/* 書込み共有許可 */
-#define FILE_OPEN_TEXT				0x40		/* テキストモード */
-#define FILE_OPEN_DIR				0x80		/* ディレクトリをオープン */
+#define FILE_OPEN_READ						0x01		/* 読込み許可 */
+#define FILE_OPEN_WRITE						0x02		/* 書込み許可 */
+#define FILE_OPEN_CREATE					0x04		/* 常に新規作成 */
+#define FILE_OPEN_EXIST						0x08		/* 存在しなければエラー */
+#define FILE_OPEN_SHARE_READ				0x10		/* 読込み共有許可 */
+#define FILE_OPEN_SHARE_WRITE				0x20		/* 書込み共有許可 */
+#define FILE_OPEN_TEXT						0x40		/* テキストモード */
+#define FILE_OPEN_DIR						0x80		/* ディレクトリをオープン */
 
 /* シーク */
-#define FILE_SEEK_SET				0
-#define FILE_SEEK_CUR				1
-#define FILE_SEEK_END				2
+#define FILE_SEEK_SET						0
+#define FILE_SEEK_CUR						1
+#define FILE_SEEK_END						2
 
 
 /* 同期モード */
-#define FILE_WMODE_BLOCKING			0x00		/* 書込み ブロッキングモード */
-#define FILE_WMODE_POLING			0x01		/* 書込み ポーリングモード */
-#define FILE_WMODE_BACKGROUND		0x02		/* 書込み バックグラウンド実行 */
-#define FILE_RMODE_BLOCKING			0x00		/* 読込み ブロッキングモード */
-#define FILE_RMODE_POLING			0x01		/* 読込み ポーリングモード */
-#define FILE_RMODE_BACKGROUND		0x02		/* 書込み バックグラウンド実行 */
-#define FILE_IMODE_BLOCKING			0x00		/* I/O制御 ブロッキングモード */
-#define FILE_IMODE_POLING			0x01		/* I/O制御 ポーリングモード */
-#define FILE_IMODE_BACKGROUND		0x02		/* I/O制御 バックグラウンド実行 */
+#define FILE_SYNCMODE_BLOCKING				0x00		/* ブロッキングモード */
+#define FILE_SYNCMODE_POLING				0x01		/* ポーリングモード */
+#define FILE_SYNCMODE_BACKGROUND			0x02		/* バックグラウンド実行 */
+
+/* 同期通知タイプ */
+#define FILE_SYNCTYPE_NONE					0x00		/* 同期通知なし */
+#define FILE_SYNCTYPE_EVENT					0x01		/* イベント通知 */
+#define FILE_SYNCTYPE_CALLBACK				0x02		/* コールバック通知 */
 
 
 /* IoControl機能コード(共通) */
-#define FILE_IOCTL_GETDEVINF		0x0000		/* デバイス情報を得る */
-#define FILE_IOCTL_SYNC				0x0001		/* 同期する */
-#define FILE_IOCTL_GETSIZE			0x0010		/* ファイルサイズを取得 */
-#define FILE_IOCTL_GETREADSIZE		0x0010		/* 読み込み可能サイズ(受信バッファ内のデータ量)を取得 */
-#define FILE_IOCTL_GETWRITESIZE		0x0011		/* 書き込み可能サイズ(送信バッファ内の空きサイズ)を取得 */
-#define FILE_IOCTL_GETREADBUF		0x0020		/* リードバッファ取得(省コピー版Read) */
-#define FILE_IOCTL_RELREADBUF		0x0021		/* リードバッファ返却(省コピー版Read) */
-#define FILE_IOCTL_GETWRITEBUF		0x0030		/* ライトバッファ取得(省コピー版Write) */
-#define FILE_IOCTL_SENDWRITEBUF		0x0031		/* ライトバッファ送信(省コピー版Write) */
-#define FILE_IOCTL_CANWRITEBUF		0x0032		/* ライトバッファ破棄(省コピー版Write) */
+#define FILE_IOCTL_GETDEVINF				0x0000		/* デバイス情報を得る */
+#define FILE_IOCTL_SYNC						0x0001		/* 同期する */
+#define FILE_IOCTL_GETSIZE					0x0010		/* ファイルサイズを取得 */
+#define FILE_IOCTL_GETREADSIZE				0x0010		/* 読み込み可能サイズ(受信バッファ内のデータ量)を取得 */
+#define FILE_IOCTL_GETWRITESIZE				0x0011		/* 書き込み可能サイズ(送信バッファ内の空きサイズ)を取得 */
+#define FILE_IOCTL_GETREADBUF				0x0020		/* リードバッファ取得(省コピー版Read) */
+#define FILE_IOCTL_RELREADBUF				0x0021		/* リードバッファ返却(省コピー版Read) */
+#define FILE_IOCTL_GETWRITEBUF				0x0030		/* ライトバッファ取得(省コピー版Write) */
+#define FILE_IOCTL_SENDWRITEBUF				0x0031		/* ライトバッファ送信(省コピー版Write) */
+#define FILE_IOCTL_CANWRITEBUF				0x0032		/* ライトバッファ破棄(省コピー版Write) */
 
 
-/* IoControl機能コード(キャラクタ系デバイスドライバ共通) */
-#define FILE_IOCTL_SETWRITEMODE		0x0081		/* 書込みモードを設定 */
-#define FILE_IOCTL_SETREADEMODE		0x0082		/* 読込みモードを設定 */
-#define FILE_IOCTL_SETWRITEVENT		0x0084		/* 書込みイベントを設定 */
-#define FILE_IOCTL_SETREADEVENT		0x0085		/* 読込みイベントを設定 */
+/* IoControl機能コード(同期制御) */
+#define FILE_IOCTL_SET_WRITE_SYNCMODE		0x0081		/* 書込みの同期モードを設定 */
+#define FILE_IOCTL_SET_READ_SYNCMODE		0x0082		/* 読込みの同期モードを設定 */
+#define FILE_IOCTL_SET_IOCTL_SYNCMODE		0x0083		/* I/O制御の同期モードを設定 */
+
+#define FILE_IOCTL_SET_WRITE_SYNCINF		0x0091		/* 書込みの同期情報を設定 */
+#define FILE_IOCTL_SET_READ_SYNCINF			0x0092		/* 読込みの同期情報を設定 */
+#define FILE_IOCTL_SET_IOCTL_SYNCINF		0x0093		/* I/O制御の同期情報を設定 */
 
 
 /* IoControl機能コード(ディレクトリ) */
-#define FILE_IOCTL_DIR_READ			0x0101		/* デバイス情報を得る */
+#define FILE_IOCTL_DIR_READ					0x0101		/* デバイス情報を得る */
 
 /* IoControl機能コード(コンソール) */
-#define FILE_IOCTL_CON_GETCH		0x0201		/* 文字読込み */
+#define FILE_IOCTL_CON_GETCH				0x0201		/* 文字読込み */
 
 /* IoControl機能コード(シリアル通信) */
-#define FILE_IOCTL_COM_GETSPEED		0x2101		/* BPS取得 */
-#define FILE_IOCTL_COM_SETSPEED		0x2101		/* BPS設定 */
+#define FILE_IOCTL_COM_GETSPEED				0x2101		/* BPS取得 */
+#define FILE_IOCTL_COM_SETSPEED				0x2101		/* BPS設定 */
 
 /* IoControl機能コード(Ether) */
-#define FILE_IOCTL_ETHER_GETPHA		0x2201		/* 物理アドレス取得 */
-#define FILE_IOCTL_ETHER_SETPHA		0x2202		/* 物理アドレス設定 */
+#define FILE_IOCTL_ETHER_GETPHA				0x2201		/* 物理アドレス取得 */
+#define FILE_IOCTL_ETHER_SETPHA				0x2202		/* 物理アドレス設定 */
 
 /* IoControl機能コード(IP層) */
-#define FILE_IOCTL_IP_GETIP			0x2301		/* IPアドレス取得 */
-#define FILE_IOCTL_IP_SETIP			0x2302		/* IPアドレス設定 */
-#define FILE_IOCTL_IP_GETMASK		0x2303		/* IPサブネットマスク取得 */
-#define FILE_IOCTL_IP_SETMASK		0x2304		/* IPサブネットマスク設定 */
+#define FILE_IOCTL_IP_GETIP					0x2301		/* IPアドレス取得 */
+#define FILE_IOCTL_IP_SETIP					0x2302		/* IPアドレス設定 */
+#define FILE_IOCTL_IP_GETMASK				0x2303		/* IPサブネットマスク取得 */
+#define FILE_IOCTL_IP_SETMASK				0x2304		/* IPサブネットマスク設定 */
 
 /* IoControl機能コード(ユーザー定義) */
-#define FILE_IOCTL_USER				0x6000		/* 0x6000〜0x7fff */
+#define FILE_IOCTL_USER						0x6000		/* 0x6000〜0x7fff */
 
 
 /* ファイル属性 */
-#define FILE_ATTR_READONLY			0x01
-#define FILE_ATTR_HIDDEN			0x02
-#define FILE_ATTR_SYSTEM			0x04
-#define FILE_ATTR_DIR				0x10
-#define FILE_ATTR_ARCHIVE			0x20
-#define FILE_ATTR_DEVICE			0x80
+#define FILE_ATTR_READONLY					0x01
+#define FILE_ATTR_HIDDEN					0x02
+#define FILE_ATTR_SYSTEM					0x04
+#define FILE_ATTR_DIR						0x10
+#define FILE_ATTR_ARCHIVE					0x20
+#define FILE_ATTR_DEVICE					0x80
 
 
 /* 型定義 */
-typedef char			FILE_ATTR;				/* ファイル属性 */
-typedef int				FILE_ERR;				/* ファイルのエラー型 */
-typedef long			FILE_POS;				/* ファイル位置の型定義 */
-typedef long			FILE_SIZE;				/* 読み書き時のサイズ用の型定義 */
-typedef unsigned long	FILE_TIME;				/* 読み書き時のサイズ用の時刻型定義 */
+typedef char			FILE_ATTR;						/* ファイル属性 */
+typedef int				FILE_ERR;						/* ファイルのエラー型 */
+typedef long			FILE_POS;						/* ファイル位置の型定義 */
+typedef long			FILE_SIZE;						/* 読み書き時のサイズ用の型定義 */
+typedef unsigned long	FILE_TIME;						/* 読み書き時のサイズ用の時刻型定義 */
 
 struct c_drvobj;
 
@@ -132,6 +136,22 @@ typedef struct t_file_fileinf
 	FILE_TIME	timeWrite;
 */
 } T_FILE_FILEINF;
+
+
+/* 同期情報 */
+typedef struct t_file_syncinf
+{
+	int			Type;
+	union
+	{
+		struct
+		{
+			void	(*pfncProc)(VPARAM Param, FILE_ERR ErrCode);
+			VPARAM	Param;
+		} Proc;
+		HANDLE hEvent;
+	} Sync;
+} T_FILE_SYNCINF;
 
 
 #include "fileobj.h"

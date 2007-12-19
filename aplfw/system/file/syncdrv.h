@@ -18,39 +18,25 @@
 #include "system/file/drvobj.h"
 
 
-/* デバイスドライバオブジェクト基本クラス */
+/* デバイスドライバオブジェクト基本クラス(抽象クラス) */
 typedef struct c_syncdrv
 {
 	C_DRVOBJ		DrvObj;				/**< DrvObjクラスを継承 */
+
+	C_SYNCFILE		*pFileHead;			/**< ファイルオブジェクトの連結ポインタ */
 	
 	SYSEVT_HANDLE	hMtx;				/**< 排他制御ミューテックス */
-	volatile int	iStatus;			/**< ステータス */
 	
-	C_SYNCFILE		*pFileHead;			/**< 状態監視オブジェクトの連結ポインタ */
+	int				iSyncFactorNum;		/**< 同期要因の数 */
+	C_SYNCFILE		**ppBusyFile;		/**< 処理中ファイルオブジェクト */
 } C_SYNCDRV;
+
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-HANDLE   SyncDrv_Create(void);														/**< 生成 */
-void     SyncDrv_Delete(HANDLE hDriver);											/**< 削除 */
-
-void     SyncDrv_SetWriteSignal(C_SYNCDRV *self);									/**< 書込みシグナルのセット */
-void     SyncDrv_ClearWriteSignal(C_SYNCDRV *self);									/**< 書込みシグナルのクリア */
-FILE_ERR SyncDrv_WaitWriteSignal(C_SYNCDRV *self, C_SYNCFILE *pFile);				/**< 書込みシグナルを待つ */
-int      SyncDrv_RefWriteSignal(C_SYNCDRV *self);									/**< 書込みシグナルの状態参照 */
-
-void     SyncDrv_SetReadSignal(C_SYNCDRV *self);									/**< 読込みシグナルのセット */
-void     SyncDrv_ClearReadSignal(C_SYNCDRV *self);									/**< 読込みシグナルのクリア */
-FILE_ERR SyncDrv_WaitReadSignal(C_SYNCDRV *self, C_SYNCFILE *pFile);				/**< 読込みシグナルを待つ */
-int      SyncDrv_RefReadSignal(C_SYNCDRV *self);									/**< 読込みシグナルの状態参照 */
-
-void     SyncDrv_SetIoControlSignal(C_SYNCDRV *self);								/**< I/O制御シグナルのセット */
-void     SyncDrv_ClearIoControlSignal(C_SYNCDRV *self);								/**< I/O制御シグナルのクリア */
-FILE_ERR SyncDrv_WaitIoControlSignal(C_SYNCDRV *self, C_SYNCFILE *pFile);			/**< I/O制御シグナルを待つ */
-int      SyncDrv_RefIoControlSignal(C_SYNCDRV *self);								/**< I/O制御シグナルの状態参照 */
 
 #ifdef __cplusplus
 }

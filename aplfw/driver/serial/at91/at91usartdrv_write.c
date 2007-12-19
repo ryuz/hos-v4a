@@ -18,22 +18,24 @@ FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 	C_AT91USARTDRV		*self;
 	C_SYNCFILE			*pFile;
 	const unsigned char	*pubBuf;
+	FILE_ERR			ErrCode;
 	FILE_SIZE			i;
 	int					c;
 	
 	/* upper cast */
 	self  = (C_AT91USARTDRV *)pDrvObj;
 	pFile = (C_SYNCFILE *)pFileObj;
-
 	
 	pubBuf = (const unsigned char *)pData;
 	
-	/* クリティカルセクションに入る */
-	SysMtx_Lock(self->hMtxSend);
-
+	/* 書込み処理開始 */
+	if ( (ErrCode = SyncDrv_StartProcess(&self->SyncDrv, pFile, SYNCDRV_FACTOR_WRITE)) != FILE_ERR_OK )
+	{
+		return (FILE_SIZE)ErrCode;
+	}
 
 	/* 書込みシグナルを一旦クリア */
-	SyncDrv_ClearWriteSignal(&self->SyncDrv);
+	SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_WRITE);
 	
 	for ( i = 0; i < Size; i++ )
 	{
@@ -46,23 +48,26 @@ FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 			/* 送信割り込み許可 */
 			AT91USART_REG_WRITE(self, AT91USART_US_IER, 0x00000002);
 			
-			/* 書込みシグナルを待つ */
-			if ( SyncDrv_WaitWriteSignal(&self->SyncDrv, pFile) != FILE_ERR_OK )
+			/* ブロッキングモードでなければ抜ける */
+			if ( SyncFile_GetSyncMode(pFile, SYNCDRV_FACTOR_WRITE) != FILE_SYNCMODE_BLOCKING )
 			{
-				SysMtx_Unlock(self->hMtxSend);	/* クリティカルセクションを出る */
+				SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_WRITE, i);
 				return i;
 			}
 			
+			/* 書込みシグナルを待つ */
+			SyncFile_WaitSignal(pFile, SYNCDRV_FACTOR_WRITE);
+			
 			/* 書込みシグナルをクリアしてリトライ */
-			SyncDrv_ClearWriteSignal(&self->SyncDrv);
+			SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_WRITE);
 		}
 		
 		/* 送信 */
 		AT91USART_REG_WRITE(self, AT91USART_US_THR, c);
 	}
 	
-	/* クリティカルセクションを出る */
-	SysMtx_Unlock(self->hMtxSend);
+	/* 書込み処理完了 */
+	SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_WRITE, (VPARAM)i);
 	
 	return i;
 }

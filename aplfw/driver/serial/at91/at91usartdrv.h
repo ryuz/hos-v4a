@@ -25,12 +25,10 @@ typedef struct c_at91usartdrv
 	void			*pRegBase;		/* レジスタベースアドレス */
 	unsigned long	ulBaseClock;	/* ベースクロック */
 	int				iIntNum;		/* 割込み番号 */
+	SYSISR_HANDLE	hIsr;			/* 割込みサービスルーチンハンドル */
 
 	int				iOpenCount;		/* オープンカウンタ */
-	SYSEVT_HANDLE	hEvtSend;		/* 送信イベント */
-	SYSEVT_HANDLE	hEvtRecv;		/* 受信イベント */
-	SYSMTX_HANDLE	hMtxSend;		/* 送信排他制御ミューテックス */
-	SYSMTX_HANDLE	hMtxRecv;		/* 受信排他制御ミューテックス */
+	
 	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
 } C_AT91USARTDRV;
 

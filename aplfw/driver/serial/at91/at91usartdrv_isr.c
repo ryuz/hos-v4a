@@ -26,6 +26,7 @@ void At91UsartDrv_Isr(VPARAM Param)
 	/* 受信 */	
 	if ( uwCsr & 0x00000001 )
 	{
+		/* 読み出し */	
 		do
 		{
 			c = AT91USART_REG_READ(self, AT91USART_US_RHR);
@@ -33,14 +34,18 @@ void At91UsartDrv_Isr(VPARAM Param)
 			uwCsr = AT91USART_REG_READ(self, AT91USART_US_CSR);
 		} while ( uwCsr & 0x00000001 );
 		
-		SysEvt_Set(self->hEvtRecv);
+		/* 読込みシグナルを発生 */
+		SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_READ);
 	}
 	
-	/* 送信チェック */	
+	/* 送信 */	
 	if ( uwCsr & 0x00000002 )
 	{
-		AT91USART_REG_WRITE(self, AT91USART_US_IDR, 0x00000002);	/* 送信割り込み禁止 */
-		SysEvt_Set(self->hEvtSend);
+		/* 送信割り込み禁止 */
+		AT91USART_REG_WRITE(self, AT91USART_US_IDR, 0x00000002);
+		
+		/* 書込みシグナルを発生 */
+		SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_WRITE);
 	}
 	
 	SysInt_Clear(self->iIntNum);

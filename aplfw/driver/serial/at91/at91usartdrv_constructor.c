@@ -13,12 +13,23 @@
 
 
 /** コンストラクタ */
-void At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
+FILE_ERR At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
 {
-	void *pMem;
+	FILE_ERR	ErrCode;
+	void		*pMem;
+
+	/* バッファ用メモリ確保 */
+	if ( (pMem = SysMem_Alloc(iBufSize)) == NULL )
+	{
+		return FILE_ERR_NG;
+	}
 	
 	/* 親クラスコンストラクタ呼び出し */
-	SyncDrv_Constructor(&self->SyncDrv, pMethods);
+	if ( (ErrCode = SyncDrv_Constructor(&self->SyncDrv, pMethods, SYNCDRV_FACTOR_NUM)) != FILE_ERR_OK )
+	{
+		SysMem_Free(pMem);
+		return ErrCode;
+	}
 	
 	/* メンバ変数初期化 */
 	self->pRegBase    = pRegBase;
@@ -26,21 +37,13 @@ void At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_DRVOBJ_METHODS *pMet
 	self->iIntNum     = iIntNum;
 	self->iOpenCount  = 0;
 
-	/* バッファ確保 */
-	pMem = SysMem_Alloc(iBufSize);
+	/* バッファ生成 */
 	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
-
-	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-
-	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
+	
 	/* 割込み処理登録 */
-	self->iIntNum = iIntNum;
-	SysIsr_Create(iIntNum, At91UsartDrv_Isr, (VPARAM)self);
+	self->hIsr = SysIsr_Create(self->iIntNum, At91UsartDrv_Isr, (VPARAM)self);
+
+	return FILE_ERR_OK;
 }
 
 

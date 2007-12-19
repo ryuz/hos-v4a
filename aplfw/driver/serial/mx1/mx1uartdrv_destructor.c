@@ -15,13 +15,11 @@
 /** デストラクタ */
 void Mx1UartDrv_Destructor(C_MX1UARTDRV *self)
 {
-	void			*pMem;
-	
-	/* 同期オブジェクト削除 */
-	SysEvt_Delete(self->hEvtRecv);
-	SysEvt_Delete(self->hEvtSend);
-	SysMtx_Delete(self->hMtxRecv);
-	SysMtx_Delete(self->hMtxSend);
+	void	*pMem;
+
+	/* 割込みサービスルーチン削除 */
+	SysIsr_Delete(self->hIsrTx);
+	SysIsr_Delete(self->hIsrRx);
 
 	/* バッファ削除 */
 	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);

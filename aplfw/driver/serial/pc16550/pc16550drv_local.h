@@ -14,6 +14,7 @@
 
 
 #include "pc16550drv.h"
+#include "system/file/syncdrv_local.h"
 #include "system/sysapi/sysapi.h"
 
 
@@ -21,7 +22,7 @@
 extern "C" {
 #endif
 
-void      Pc16550Drv_Constructor(C_PC16550DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
+FILE_ERR  Pc16550Drv_Constructor(C_PC16550DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
 void      Pc16550Drv_Destructor(C_PC16550DRV *self);
 
 HANDLE    Pc16550Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);

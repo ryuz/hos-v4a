@@ -17,12 +17,9 @@ void At91UsartDrv_Destructor(C_AT91USARTDRV *self)
 {
 	void	*pMem;
 
-	/* 同期オブジェクト削除 */
-	SysEvt_Delete(self->hEvtRecv);
-	SysEvt_Delete(self->hEvtSend);
-	SysMtx_Delete(self->hMtxRecv);
-	SysMtx_Delete(self->hMtxSend);
-
+	/* 割込みサービスルーチン削除 */
+	SysIsr_Delete(self->hIsr);
+	
 	/* バッファ削除 */
 	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);
 	StreamBuf_Delete(&self->StmBuf);

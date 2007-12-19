@@ -16,13 +16,12 @@
 void Mx1UartDrv_IsrTx(VPARAM Param)
 {
 	C_MX1UARTDRV	*self;
-	int				c;
 
 	self = (C_MX1UARTDRV *)Param;
+
+	/* 書込みシグナルを発生 */
+	SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_WRITE);
 }
-
-
-static void Mx1UartDrv_RecvProc(VPARAM Param);
 
 
 /* 受信割り込み */
@@ -41,22 +40,11 @@ void Mx1UartDrv_IsrRx(VPARAM Param)
 			StreamBuf_SendChar(&self->StmBufRecv, c);
 		} while ( MX1UART_REG_READ(self, MX1UART_USR2) & 0x0001 );
 
-/*		System_RequestProc(Mx1UartDrv_RecvProc, (VPARAM)self);
-		SysEvt_Set(self->hEvtRecv);		*/
-		SyncDrv_SetReadSignal(&self->SyncDrv);
+		/* 読込みシグナルを発生 */
+		SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_READ);
 	}
 }
 
-
-void Mx1UartDrv_RecvProc(VPARAM Param)
-{
-	C_MX1UARTDRV	*self;
-
-	self = (C_MX1UARTDRV *)Param;
-
-	SysEvt_Set(self->hEvtRecv);
-	SyncDrv_SetReadSignal(&self->SyncDrv);
-}
 
 
 /* end of file */

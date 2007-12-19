@@ -27,8 +27,8 @@ typedef struct c_pc16550drv
 	C_PC16550HAL	Pc16550Hal;		/* ハードウェア制御クラス */
 	int				iOpenCount;		/* オープンカウンタ */
 	int				iIntNum;		/* 割込み番号 */
-	SYSMTX_HANDLE	hMtxSend;		/* 送信排他制御ミューテックス */
-	SYSMTX_HANDLE	hMtxRecv;		/* 受信排他制御ミューテックス */
+	SYSISR_HANDLE	hIsr;			/* 割込みサービスルーチンハンドル */
+
 	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
 } C_PC16550DRV;
 

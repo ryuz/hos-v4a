@@ -89,28 +89,31 @@ VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);					/**< プロセスのパ�
 void           SysPrc_Terminate(SYSPRC_HANDLE hPrc);				/**< プロセス終了(システム用) */
 void           SysPrc_Suspend(SYSPRC_HANDLE hPrc);					/**< プロセス強制停止(システム用) */			
 void           SysPrc_Resume(SYSPRC_HANDLE hPrc);					/**< プロセス強制停止解除(システム用) */	
-void           SysPrc_Signal(SYSPRC_HANDLE hPrc, VPARAM Signal);		/**< プロセスへのシグナル送信(システム用) */
+void           SysPrc_Signal(SYSPRC_HANDLE hPrc, VPARAM Signal);	/**< プロセスへのシグナル送信(システム用) */
 void           SysPrc_SetSignalHandler(SYSPRC_HANDLE hPrc, void (*pfncHanler)(VPARAM Signal));
 																	/**< プロセスへのシグナルハンドラ登録(システム用) */
 SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);						/**< 現在のプロセスの取得(システム用) */
 
 
 /* システム用ミューテックス制御API */
-SYSMTX_HANDLE  SysMtx_Create(int iAttr);							/**< システム用ミューテックス生成(システム用) */
-void           SysMtx_Delete(SYSMTX_HANDLE hMtx);					/**< システム用ミューテックス削除(システム用) */
-void           SysMtx_Lock(SYSMTX_HANDLE hMtx);						/**< システム用ミューテックスロック(システム用) */
-void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);					/**< システム用ミューテックスロック解除(システム用) */
+SYSMTX_HANDLE  SysMtx_Create(int iAttr);							/**< ミューテックス生成(システム用) */
+void           SysMtx_Delete(SYSMTX_HANDLE hMtx);					/**< ミューテックス削除(システム用) */
+int            SysMtx_PolingLock(SYSMTX_HANDLE hMtx);				/**< ミューテックスポーリングロック(システム用) */
+void           SysMtx_Lock(SYSMTX_HANDLE hMtx);						/**< ミューテックスロック(システム用) */
+void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);					/**< ミューテックスロック解除(システム用) */
+int            SysMtx_RefStatus(SYSMTX_HANDLE hMtx);				/**< イベントの状態を取得(システム用) */
 
 /* システム用イベント制御API */
-SYSEVT_HANDLE  SysEvt_Create(int iAttr);							/**< システム用イベント生成(システム用) */
-void           SysEvt_Delete(SYSEVT_HANDLE hEvt);					/**< システム用イベント削除(システム用) */
-void           SysEvt_Wait(SYSEVT_HANDLE hEvt);						/**< システム用イベント待ち(システム用) */
-void           SysEvt_Set(SYSEVT_HANDLE hEvt);						/**< システム用イベントセット(システム用) */
-void           SysEvt_Clear(SYSEVT_HANDLE hEvt);					/**< システム用イベントクリア(システム用) */
+SYSEVT_HANDLE  SysEvt_Create(int iAttr);							/**< イベント生成(システム用) */
+void           SysEvt_Delete(SYSEVT_HANDLE hEvt);					/**< イベント削除(システム用) */
+void           SysEvt_Wait(SYSEVT_HANDLE hEvt);						/**< イベント待ち(システム用) */
+void           SysEvt_Set(SYSEVT_HANDLE hEvt);						/**< イベントセット(システム用) */
+void           SysEvt_Clear(SYSEVT_HANDLE hEvt);					/**< イベントクリア(システム用) */
+int            SysEvt_RefStatus(SYSEVT_HANDLE hEvt);				/**< イベントの状態を取得(システム用) */
 
 /* 時間管理 */
-void           SysTim_Wait(unsigned long ulTime);					/**< 時間待ち */
-TIME           SysTim_GetCurrentTime(void);							/**< 現在のシステム時刻取得 */
+void           SysTim_Wait(unsigned long ulTime);					/**< 時間待ち(システム用) */
+TIME           SysTim_GetCurrentTime(void);							/**< 現在のシステム時刻取得(システム用) */
 
 
 /* I/Oアクセス */

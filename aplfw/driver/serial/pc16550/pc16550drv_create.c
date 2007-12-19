@@ -38,7 +38,11 @@ HANDLE Pc16550Drv_Create(void *pRegAddr, unsigned int uiRegStep, int iIntNum, lo
 	}
 	
 	/* コンストラクタ呼び出し */
-	Pc16550Drv_Constructor(self, &Pc16550Drv_Methods, pRegAddr, uiRegStep, iIntNum, lSysClock, iBufSize);
+	if ( Pc16550Drv_Constructor(self, &Pc16550Drv_Methods, pRegAddr, uiRegStep, iIntNum, lSysClock, iBufSize) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
 	
 	return (HANDLE)self;
 }

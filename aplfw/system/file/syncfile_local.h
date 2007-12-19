@@ -16,14 +16,14 @@
 
 #include "syncfile.h"
 #include "system/file/fileobj_local.h"
-#include "syncdrv.h"
+#include "syncdrv_local.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void    SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_syncdrv *pSyncDrv);
-void    SyncFile_Destructor(C_SYNCFILE *self);
+FILE_ERR SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_syncdrv *pSyncDrv);
+void     SyncFile_Destructor(C_SYNCFILE *self);
 
 #ifdef __cplusplus
 }

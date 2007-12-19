@@ -38,7 +38,11 @@ HANDLE At91UsartDrv_Create(void *pRegBase, int iIntNum, unsigned long ulBaseCloc
 	}
 	
 	/* コンストラクタ呼び出し */
-	At91UsartDrv_Constructor(self, &At91UsartDrv_Methods, pRegBase, iIntNum, ulBaseClock, iBufSize);
+	if ( At91UsartDrv_Constructor(self, &At91UsartDrv_Methods, pRegBase, iIntNum, ulBaseClock, iBufSize) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
 	
 	return (HANDLE)self;
 }

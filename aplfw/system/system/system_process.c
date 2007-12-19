@@ -23,7 +23,7 @@ void System_Process(VPARAM Param)
 	for ( ; ; )
 	{
 		int	iHead;
-
+		
 		/* イベント待ち */
 		SysEvt_Wait(self->hEvtProc);
 		SysEvt_Clear(self->hEvtProc);
@@ -32,13 +32,13 @@ void System_Process(VPARAM Param)
 		for ( ; ; )
 		{
 			iHead = self->iProcHead;
-
+			
 			if ( iHead == self->iProcTail )
 			{
 				break;
 			}
 			
-			self->ProcQue[iHead].pfncProc(self->ProcQue[iHead].Param);
+			self->ProcQue[iHead].pfncProc(self->ProcQue[iHead].Param1, self->ProcQue[iHead].Param2);
 			
 			iHead++;
 			if ( iHead >= SYSTEM_PROCQUE_SIZE )

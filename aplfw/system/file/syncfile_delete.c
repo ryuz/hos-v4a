@@ -12,37 +12,21 @@
 
 
 
-#include "syncfile.h"
+#include "syncfile_local.h"
 #include "syncdrv.h"
 
 
-void SyncFile_Delete(C_SYNCFILE *self)
+void SyncFile_Delete(HANDLE hFile)
 {
-	struct c_syncdrv *pSyncDrv;
+	C_SYNCFILE *self;
 	
-	pSyncDrv = (struct c_syncdrv *)self->FileObj.pDrvObj;
+	self = (C_SYNCFILE *)hFile;
 	
+	/* デストラクタ呼び出し */
+	SyncFile_Destructor(self);
 	
-	/* リスト連結解除 */
-	SysMtx_Lock(pSyncDrv->hMtx);
-	if ( self->pNext == self )
-	{
-		pSyncDrv->pFileHead = NULL;
-	}
-	else
-	{
-		if ( pSyncDrv->pFileHead == self )
-		{
-			pSyncDrv->pFileHead = self->pNext;
-		}
-		self->pNext->pPrev = self->pPrev;
-		self->pPrev->pNext = self->pNext;
-	}
-	SysMtx_Unlock(pSyncDrv->hMtx);	
-	
-	
-	/* 親クラスデストラクタ呼び出し */
-	FileObj_Delete(&self->FileObj);
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
 
 

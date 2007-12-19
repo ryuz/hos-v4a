@@ -24,7 +24,7 @@ FILE_ERR IpEther_Constructor(C_IPETHER *self, const T_DRVOBJ_METHODS *pMethods, 
 	}
 	
 	/* 親クラスコンストラクタ呼び出し */
-	SyncDrv_Constructor(&self->SyncDrv, pMethods);
+	SyncDrv_Constructor(&self->SyncDrv, pMethods, SYNCDRV_FACTOR_NUM);
 	
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;

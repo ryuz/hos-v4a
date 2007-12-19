@@ -17,9 +17,12 @@
 #include "system/file/drvobj_local.h"
 
 
-#define SYNCDRV_STATUS_WRITE		0x0001
-#define SYNCDRV_STATUS_READ			0x0002
-#define SYNCDRV_STATUS_IO			0x0004
+/* 処理要因定義 */
+#define SYNCDRV_FACTOR_WRITE		0
+#define SYNCDRV_FACTOR_READ			1
+#define SYNCDRV_FACTOR_IOCTL		2
+
+#define SYNCDRV_FACTOR_NUM			3
 
 
 
@@ -27,8 +30,16 @@
 extern "C" {
 #endif
 
-FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods);	/**< コンストラクタ */
-void     SyncDrv_Destructor(C_SYNCDRV *self);										/**< デストラクタ */
+FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods, int iSyncFactorNum);	/**< コンストラクタ */
+void     SyncDrv_Destructor(C_SYNCDRV *self);															/**< デストラクタ */
+
+#define  SyncDrv_GetSyncFactorNum(self)		((self)->iSyncFactorNum)									/**< 同期要因数取得 */
+
+FILE_ERR SyncDrv_StartProcess(C_SYNCDRV *self, C_SYNCFILE *pSyncFile, int iFactor);						/**< 処理の開始 */
+void     SyncDrv_EndProcess(C_SYNCDRV *self, int iFactor, VPARAM ErrCode);								/**< 処理の完了 */
+void     SyncDrv_SendSignal(C_SYNCDRV *self, int iFactor);												/**< シグナルの送信 */
+
+FILE_ERR SyncDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 
 #ifdef __cplusplus
 }

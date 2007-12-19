@@ -25,8 +25,9 @@
 /* システムプロシージャ情報 */
 typedef struct t_system_procinf
 {
-	void		(*pfncProc)(VPARAM Param);
-	VPARAM		Param;
+	void		(*pfncProc)(VPARAM Param1, VPARAM Param2);
+	VPARAM		Param1;
+	VPARAM		Param2;
 } T_SYSTEM_PROCINF;
 
 

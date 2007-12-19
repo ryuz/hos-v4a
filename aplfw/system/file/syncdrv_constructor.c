@@ -13,12 +13,18 @@
 #include "syncdrv_local.h"
 
 
-FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods)
+FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods, int iSyncFactorNum)
 {
-	/* メンバ変数初期化 */
-	self->iStatus   = SYNCDRV_STATUS_WRITE | SYNCDRV_STATUS_READ | SYNCDRV_STATUS_IO;	/* ステータス */
-	self->pFileHead = NULL;															/* 状態監視オブジェクトの連結ポインタ */
+	/* メモリ確保 */
+	if ( (self->ppBusyFile = (C_SYNCFILE **)SysMem_Alloc(sizeof(C_SYNCFILE *) * iSyncFactorNum)) == NULL )
+	{
+		return FILE_ERR_NG;
+	}
 
+	/* メンバ変数初期化 */
+	self->pFileHead      = NULL;
+	self->iSyncFactorNum = iSyncFactorNum;
+	
 	/* 排他制御ミューテックス生成 */
 	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	

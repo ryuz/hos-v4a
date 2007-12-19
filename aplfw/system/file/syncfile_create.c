@@ -32,7 +32,11 @@ HANDLE SyncFile_Create(struct c_syncdrv *pSyncDrv)
 	}
 	
 	/* コンストラクタ呼び出し */
-	SyncFile_Constructor(self, &SyncFile_FileObjMethods, pSyncDrv);
+	if ( SyncFile_Constructor(self, &SyncFile_FileObjMethods, pSyncDrv) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
 	
 	return (HANDLE)self;
 }

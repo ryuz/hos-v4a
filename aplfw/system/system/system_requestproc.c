@@ -14,7 +14,7 @@
 
 
 /* システムプロセス */
-int System_RequestProc(void (*pfncProc)(VPARAM Param), VPARAM Param)
+int System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM Param1, VPARAM Param2)
 {
 	C_SYSTEM	*self;
 	int			iTail;
@@ -37,7 +37,8 @@ int System_RequestProc(void (*pfncProc)(VPARAM Param), VPARAM Param)
 	
 	/* キューに格納 */
 	self->ProcQue[iTail].pfncProc = pfncProc;
-	self->ProcQue[iTail].Param    = Param;
+	self->ProcQue[iTail].Param1   = Param1;
+	self->ProcQue[iTail].Param2   = Param2;
 	
 	self->iProcTail= iNextTail;
 	

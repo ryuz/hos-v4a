@@ -17,10 +17,9 @@ void Pc16550Drv_Destructor(C_PC16550DRV	*self)
 {
 	void	*pMem;
 
-	/* 同期オブジェクト削除 */
-	SysMtx_Delete(self->hMtxRecv);
-	SysMtx_Delete(self->hMtxSend);
-
+	/* 割込みサービスルーチン削除 */
+	SysIsr_Delete(self->hIsr);
+	
 	/* バッファ削除 */
 	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);
 	StreamBuf_Delete(&self->StmBuf);

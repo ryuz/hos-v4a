@@ -12,16 +12,19 @@
 
 
 
-#include "syncfile.h"
-#include "syncdrv.h"
+#include "syncfile_local.h"
 
 
-void SyncFile_Delete(C_SYNCFILE *self)
+void SyncFile_Destructor(C_SYNCFILE *self)
 {
-	struct c_syncdrv *pSyncDrv;
-	
-	pSyncDrv = (struct c_syncdrv *)self->FileObj.pDrvObj;
-	
+	C_SYNCDRV	*pSyncDrv;
+	int			iFactorNum;
+	int			i;
+
+	pSyncDrv = (C_SYNCDRV *)self->FileObj.pDrvObj;
+
+	/* 同期要因数取得 */
+	iFactorNum = SyncDrv_GetSyncFactorNum(pSyncDrv);
 	
 	/* リスト連結解除 */
 	SysMtx_Lock(pSyncDrv->hMtx);
@@ -41,8 +44,17 @@ void SyncFile_Delete(C_SYNCFILE *self)
 	SysMtx_Unlock(pSyncDrv->hMtx);	
 	
 	
+	/* オブジェクト削除 */
+	for ( i = 0; i < iFactorNum; i++ )
+	{
+		SysEvt_Delete(self->pSyncObj[i].hEvt);
+	}
+
+	/* メモリ開放 */
+	SysMem_Free(self->pSyncObj);
+	
 	/* 親クラスデストラクタ呼び出し */
-	FileObj_Delete(&self->FileObj);
+	FileObj_Destructor(&self->FileObj);
 }
 
 

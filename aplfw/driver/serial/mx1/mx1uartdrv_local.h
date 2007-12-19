@@ -54,7 +54,7 @@
 extern "C" {
 #endif
 
-void      Mx1UartDrv_Constructor(C_MX1UARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< コンストラクタ */
+FILE_ERR  Mx1UartDrv_Constructor(C_MX1UARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< コンストラクタ */
 void      Mx1UartDrv_Destructor(C_MX1UARTDRV *self);																											/**< デストラクタ */
 
 

@@ -1,20 +1,19 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  scidrv.c
- * @brief %jp{PC16550用デバイスドライバ}
+ * @file  streampipe.c
+ * @brief %jp{ストリームパイプ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "pc16550drv_local.h"
-
+#include "streampipe_local.h"
 
 
 /** コンストラクタ */
-FILE_ERR Pc16550Drv_Constructor(C_PC16550DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegAddr,  unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize)
+FILE_ERR StreamPipe_Constructor(C_STREAMPIPE *self, const T_DRVOBJ_METHODS *pMethods, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void 		*pMem;
@@ -35,15 +34,8 @@ FILE_ERR Pc16550Drv_Constructor(C_PC16550DRV *self, const T_DRVOBJ_METHODS *pMet
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;
 	
-	/* Pc16550Hal 初期化 */
-	Pc16550Hal_Create(&self->Pc16550Hal, pRegAddr, uiRegStep, lSysClock);
-
 	/* バッファ生成 */
-	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
-
-	/* 割込みサービスルーチン生成 */
-	self->iIntNum = iIntNum;
-	self->hIsr = SysIsr_Create(iIntNum, Pc16550Drv_Isr, (VPARAM)self);
+	StreamBuf_Create(&self->StreamBuf, iBufSize, pMem);
 	
 	return FILE_ERR_OK;
 }

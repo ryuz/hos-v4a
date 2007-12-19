@@ -34,15 +34,20 @@
 #define AT91USART_US_TPR			0x38		/* Transmit Pointer Register */
 #define AT91USART_US_TCR			0x3c		/* Transmit Counter Register */
 
-#define AT91USART_REG_WRITE(self, offset, val)	do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
+/*
+#define AT91USART_REG_WRITE(self, offset, val)		do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
 #define AT91USART_REG_READ(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
+*/
+#define AT91USART_REG_WRITE(self, offset, val)		SysIo_OutPortW(((char *)(self)->pRegBase + (offset)), val)
+#define AT91USART_REG_READ(self, offset)			SysIo_InPortW(((char *)(self)->pRegBase + (offset)))
+
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void      At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);
+FILE_ERR  At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);
 																															/**< コンストラクタ */
 void      At91UsartDrv_Destructor(C_AT91USARTDRV *self);																	/**< デストラクタ */
 
