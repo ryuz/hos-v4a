@@ -27,6 +27,7 @@ srcobjcp_makelib:
 	$(CMD_CP) $(FLGOBJ_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(DTQOBJ_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(MBXOBJ_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(MTXOBJ_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(MPFOBJ_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(TIMOBJ_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(INHOBJ_DIR)\*.* $(OBJS_DIR)
@@ -155,6 +156,15 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kadd_msq.c	$(COMMON_HEADERS) $(MBXO
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmf_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmp_msg.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmv_msq.c	$(COMMON_HEADERS) $(MBXOBJ_HEADERS)
+
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\loc_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\unl_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kadd_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmv_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
 
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_mpf.c	$(COMMON_HEADERS) $(MPFOBJ_HEADERS)

@@ -1,9 +1,11 @@
 # ----------------------------------------------------------------------------
+# Hyper Operating System V4 Advance   Application Framework
 #  makefile for ARM V4T
 #
-# Copyright (C) 1998-2006 by Project HOS
+# Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
+
 
 
 # %jp{ターゲット名}
@@ -28,9 +30,10 @@ INC_DIRS += $(KERNEL_DIR)/include
 
 
 # %jp{オプションフラグ}
-AFLAGS += --cpu=4T --apcs=inter --thumb
-CFLAGS += --cpu=4T --apcs=inter --thumb
-LFLAGS += 
+CFLAGS  += --cpu=4T --apcs=inter --thumb
+AFLAGS  += --cpu=4T --apcs=inter --thumb
+ARFLAGS += 
+
 
 
 # %jp{リンク制御対象制御}
@@ -38,10 +41,11 @@ LINK_AT91USART = Yes
 LINK_MX1UART   = Yes
 
 
+
 .PHONY : all
 all: makelib_all
 
-.PHONY : 
+.PHONY : clean
 clean: makelib_clean
 	$(RM) -f *.lst
 

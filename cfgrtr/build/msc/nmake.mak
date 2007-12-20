@@ -47,6 +47,7 @@ OBJS = $(OBJS_DIR)\hos4cfg.obj \
        $(OBJS_DIR)\creflg.obj  \
        $(OBJS_DIR)\credtq.obj  \
        $(OBJS_DIR)\crembx.obj  \
+       $(OBJS_DIR)\cremtx.obj  \
        $(OBJS_DIR)\crempf.obj  \
        $(OBJS_DIR)\crembf.obj  \
        $(OBJS_DIR)\timtic.obj  \

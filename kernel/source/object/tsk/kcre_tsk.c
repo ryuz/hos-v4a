@@ -22,7 +22,6 @@
  */
 ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 {
-/*	_KERNEL_T_TSKHDL tskhdl;	*/
 	_KERNEL_T_TCB    *tcb;
 	_KERNEL_T_TCB_RO *tcb_ro;
 	VP               stk;
@@ -46,7 +45,6 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 			stk = pk_ctsk->stk;
 		}
 		
-/*		tskhdl = _KERNEL_TSK_ID2TSKHDL(tskid);	*/
 		tcb    = _KERNEL_TSK_ID2TCB(tskid);
 		tcb_ro = _KERNEL_TSK_GET_TCB_RO(tskid, tcb);
 	}
@@ -84,7 +82,6 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		{
 			stk = pk_ctsk->stk;
 		}
-/*		tskhdl = tcb;	*/
 	}
 #else
 	{
@@ -115,8 +112,6 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		{
 			stk = pk_ctsk->stk;
 		}
-
-/*		tskhdl = tcb;	*/
 	}
 #endif
 #endif
@@ -131,7 +126,7 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 	_KERNEL_TSK_SET_ISP(tcb_ro, (VB *)stk + pk_ctsk->stksz);	/* %jp{スタックポインタ初期値の先頭番地} */
 	_KERNEL_TSK_SET_TSKID(tcb_ro, tskid);
 	_KERNEL_TSK_SET_TSKSTAT(tcb, _KERNEL_TTS_DMT);
-
+	_KERNEL_TSK_SET_MTXHDL(tcb, _KERNEL_MTXHDL_NULL);
 
 	/* %jp{TA_ACT属性があればタスク実行} */
 #if _KERNEL_SPT_TSK_TA_ACT

@@ -65,6 +65,8 @@ DTQOBJ_HEADERS = $(KERNEL_INC_DIR)\object\dtqobj.h
 
 MBXOBJ_HEADERS = $(KERNEL_INC_DIR)\object\mbxobj.h
 
+MTXOBJ_HEADERS = $(KERNEL_INC_DIR)\object\mtxobj.h
+
 MPFOBJ_HEADERS = $(KERNEL_INC_DIR)\object\mpfobj.h
 
 TIMOBJ_HEADERS = $(KERNEL_INC_DIR)\object\timobj.h
@@ -346,6 +348,26 @@ OBJS = $(OBJS) $(OBJS_DIR)\kadd_msq.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\krmf_msg.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\krmp_msg.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\krmv_msq.$(EXT_OBJ)
+
+
+# Mutexes
+MTXOBJ_DIR = $(KERNEL_OBJ_DIR)\mtx
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\cre_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\acre_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\kcre_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\del_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\loc_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\unl_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\kadd_mtx.c
+CSRCS = $(CSRCS) $(MTXOBJ_DIR)\krmv_mtx.c
+OBJS = $(OBJS) $(OBJS_DIR)\cre_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\acre_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kcre_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\del_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\loc_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\unl_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kadd_mtx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\krmv_mtx.$(EXT_OBJ)
 
 
 # Fixed-sized Memory Pools

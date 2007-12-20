@@ -2,10 +2,10 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  scidrv.c
- * @brief %jp{SCI用デバイスドライバ}
+ * @brief %jp{Renesas H8/SH用 SCIデバイスドライバ}
  *
- * Copyright (C) 2006 by Project HOS
- * http://sourceforge.jp/projects/hos/
+ * Copyright (C) 2006-2007 by Project HOS
+* http://sourceforge.jp/projects/hos/
  */
 
 
@@ -15,7 +15,7 @@
 /* 仮想関数テーブル */
 const T_DRVOBJ_METHODS SciDrv_Methods = 
 	{
-		SciDrv_Delete,
+		{ SciDrv_Delete },
 		SciDrv_Open,
 		SciDrv_Close,
 		SciDrv_IoControl,
@@ -26,37 +26,25 @@ const T_DRVOBJ_METHODS SciDrv_Methods =
 	};
 
 
-/** コンストラクタ */
-void SciDrv_Create(C_SCIDRV *self, void *pRegAddr, int iIntNum, unsigned long ulSysClock, int iBufSize)
+/** 生成 */
+HANDLE SciDrv_Create(void *pRegBase, int iIntNum, unsigned long ulSysClock, int iBufSize)
 {
-	void *pMem;
+	C_SCIDRV *self;
 	
-	/* 親クラスコンストラクタ呼び出し */
-	SyncDrv_Create(&self->SyncDrv, &SciDrv_Methods);
-
-	/* メンバ変数初期化 */
-	self->iOpenCount = 0;
+	/* メモリ確保 */
+	if ( (self = (C_SCIDRV *)SysMem_Alloc(sizeof(C_SCIDRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
 	
-	/* SciHal 初期化 */
-	SciHal_Create(&self->SciHal, pRegAddr, ulSysClock);
-
-	/* バッファ確保 */
-	pMem = SysMem_Alloc(iBufSize);
-	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
-
-	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-
-	/* ミューテックス生成 */
-	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-	self->hMtxRecv = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
-	/* 割り込み処理登録 */
-	SysIsr_Create(iIntNum + 0, SciDrv_IsrRecvErr, (VPARAM)self);
-	SysIsr_Create(iIntNum + 1, SciDrv_IsrRecv,    (VPARAM)self);
-	SysIsr_Create(iIntNum + 2, SciDrv_IsrSend,    (VPARAM)self);
-	SysIsr_Create(iIntNum + 3, SciDrv_IsrSendEnd, (VPARAM)self);
+	/* コンストラクタ呼び出し */
+	if ( SciDrv_Constructor(self, &SciDrv_Methods, pRegBase, iIntNum, ulSysClock, iBufSize) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
+	
+	return (HANDLE)self;
 }
 
 

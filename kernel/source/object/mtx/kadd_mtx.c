@@ -14,10 +14,18 @@
 #include "object/mtxobj.h"
 
 
-/* %jp{ミューテックスをTCBに接続} */
-void _kernel_add_mtx(_KERNEL_T_MTXCB_PTR mtxcb, _KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TCB_PTR tcb)
+/** %jp{タスクにミューテックスを接続} */
+void _kernel_add_mtx(_KERNEL_T_MTXHDL mtxhdl, _KERNEL_T_TSKHDL tskhdl)
 {
+	_KERNEL_T_MTXCB_PTR		mtxcb;
+	_KERNEL_T_TCB_PTR 		tcb;
 	_KERNEL_T_MTXHDL		mtxhdl_head;
+	
+	mtxcb = _KERNEL_MTX_MTXHDL2MTXCB(mtxhdl);
+	tcb   = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
+
+	_KERNEL_MTX_SET_TSKHDL(mtxcb, tskhdl);
+
 	
 	mtxhdl_head = _KERNEL_TSK_GET_MTXHDL(tcb);
 	if ( mtxhdl_head == _KERNEL_MTXHDL_NULL )

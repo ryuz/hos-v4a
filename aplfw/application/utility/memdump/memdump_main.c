@@ -26,7 +26,7 @@ int MemDump_Main(int argc, char *argv[])
 	{
 		StdIo_PrintFormat(
 				"<usage>\n"
-				" %s addrress [b|h|w] [size]\n\n",
+				" %s addrress [size] [b|h|w]\n\n",
 				argv[0]
 			);
 		return 1;
@@ -36,13 +36,13 @@ int MemDump_Main(int argc, char *argv[])
 	pAddr = (void *)strtoul(argv[1], 0, 0);
 	if ( argc >= 3 )
 	{
-		iWidth = argv[2][0];
+		ulSize = (int)strtoul(argv[2], 0, 0);
 	}
 	if ( argc >= 4 )
 	{
-		ulSize = (int)strtoul(argv[3], 0, 0);
+		iWidth = argv[3][0];
 	}
-
+	
 	switch ( iWidth )
 	{
 	case 'b':

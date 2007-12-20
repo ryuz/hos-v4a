@@ -11,7 +11,7 @@
 
 
 #include "core/core.h"
-
+#include "object/mtxobj.h"
 
 
 /** %jp{タスクの終了}%en{Exit Task}
@@ -36,9 +36,21 @@ void ext_tsk(void)
 	tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
 	tcb_ro = _KERNEL_TSK_GET_TCB_RO(tskid, tcb);
 	
-	actcnt = _KERNEL_TSK_GET_ACTCNT(tcb);
+	
+	/* %jp{所有ミューテックスがあれば開放} */
+#if _KERNEL_SPT_MTX
+	{
+		_KERNEL_T_MTXHDL mtxhdl;
+		while ( (mtxhdl = _KERNEL_TSK_GET_MTXHDL(tcb)) != _KERNEL_MTXHDL_NULL )
+		{
+			_kernel_rmv_mtx(mtxhdl, tskhdl);
+		}
+	}
+#endif
+	
 	
 	/* %jp{起動要求ネストのチェック} */
+	actcnt = _KERNEL_TSK_GET_ACTCNT(tcb);
 	if ( actcnt > 0 )	/* %jp{起動要求ネストがあるなら再生成} */
 	{
 		_KERNEL_TSK_T_TPRI   itskpri;

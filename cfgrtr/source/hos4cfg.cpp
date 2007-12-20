@@ -28,6 +28,7 @@
 #include "creflg.h"
 #include "credtq.h"
 #include "crembx.h"
+#include "cremtx.h"
 #include "crembf.h"
 #include "crempf.h"
 #include "timtic.h"
@@ -62,6 +63,7 @@ CApiCreSem     g_ApiCreSem;
 CApiCreFlg     g_ApiCreFlg;
 CApiCreDtq     g_ApiCreDtq;
 CApiCreMbx     g_ApiCreMbx;
+CApiCreMtx     g_ApiCreMtx;
 CApiCreMbf     g_ApiCreMbf;
 CApiCreMpf     g_ApiCreMpf;
 CApiTimTic     g_ApiTimTic;
@@ -90,6 +92,7 @@ static CApiDef* g_ApiList[] =
 		&g_ApiCreFlg,
 //		&g_ApiCreDtq,
 		&g_ApiCreMbx,
+		&g_ApiCreMtx,
 //		&g_ApiCreMbf,
 		&g_ApiCreMpf,
 		&g_ApiTimTic,
@@ -343,6 +346,7 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/semobj.h\"\n");
 	fprintf(fp, "#include \"object/flgobj.h\"\n");
 	fprintf(fp, "#include \"object/mbxobj.h\"\n");
+	fprintf(fp, "#include \"object/mtxobj.h\"\n");
 	fprintf(fp, "#include \"object/mpfobj.h\"\n");
 	fprintf(fp, "#include \"object/inhobj.h\"\n");
 	fprintf(fp, "#include \"object/isrobj.h\"\n");

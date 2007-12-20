@@ -98,6 +98,9 @@ LINK_RENESASSCI       = No
 !ifndef MX1UART
 LINK_MX1UART          = No
 !endif
+!ifndef MN103SC
+LINK_MN103SC          = No
+!endif
 !ifndef WINSOCK
 LINK_WINSOCK          = No
 !endif
@@ -779,6 +782,10 @@ CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_delete.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_destructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_open.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_open.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_close.c
@@ -793,8 +800,14 @@ CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_write.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_write.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_flush.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_isr.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_isr.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_isrrxerr.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_isrrxerr.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_isrrx.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_isrrx.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_isrtx.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_isrtx.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_isrtxend.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_isrtxend.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scihal_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scihal_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scihal_delete.c
@@ -839,6 +852,36 @@ CSRCS = $(CSRCS) $(MX1UART_DIR)\mx1uartdrv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mx1uartdrv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MX1UART_DIR)\mx1uartdrv_isr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mx1uartdrv_isr.$(EXT_OBJ)
+
+
+# Panasonic MN103 SC
+MN103SC_DIR = $(HOSAPLFW_DIR)\driver\serial\mn103
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_seek.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_seek.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_read.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_read.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_write.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_flush.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_flush.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_isrtx.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_isrtx.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_isrrx.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_isrrx.$(EXT_OBJ)
 
 
 # WinSock

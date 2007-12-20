@@ -127,8 +127,8 @@ makeexe_depend:
 
 # %jp{ソースのコピー}
 ifdef SRCCPYDIR
-.PHONY : srccpy
-srccpy:
+.PHONY : makeexe_srccpy
+makeexe_srccpy:
 	$(CMD_CP) -t $(SRCCPYDIR) $(ASRCS) $(CSRCS)
 endif
 

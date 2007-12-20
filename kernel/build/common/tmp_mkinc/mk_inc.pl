@@ -198,6 +198,20 @@
 		"krmv_msq.c",
 	],
 	[
+		"Mutexes",
+		"\$(COMMON_HEADERS) \$(MTXOBJ_HEADERS)",
+		"\$(KERNEL_OBJ_DIR)/mtx",
+		"MTXOBJ_DIR",
+		"cre_mtx.c",
+		"acre_mtx.c",
+		"kcre_mtx.c",
+		"del_mtx.c",
+		"loc_mtx.c",
+		"unl_mtx.c",
+		"kadd_mtx.c",
+		"krmv_mtx.c",
+	],
+	[
 		"Fixed-sized Memory Pools",
 		"\$(COMMON_HEADERS) \$(MPFOBJ_HEADERS)",
 		"\$(KERNEL_OBJ_DIR)/mpf",
@@ -284,6 +298,8 @@ FLGOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/flgobj.h
 DTQOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/dtqobj.h
 
 MBXOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/mbxobj.h
+
+MTXOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/mtxobj.h
 
 MPFOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/mpfobj.h
 

@@ -243,8 +243,23 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* cre_mtx */
+#define _KERNEL_CFG_CRE_MTX_E_ID		TRUE
+#define _KERNEL_CFG_CRE_MTX_E_RSATR		TRUE
+#define _KERNEL_CFG_CRE_MTX_E_OBJ		TRUE
+#define _KERNEL_CFG_CRE_MTX_E_NOMEM		TRUE
+#define _KERNEL_CFG_CRE_MTX_E_NOSPT		FALSE
+
 /* acre_mtx */
+#define _KERNEL_CFG_ACRE_MTX_E_RSATR	TRUE
+#define _KERNEL_CFG_ACRE_MTX_E_NOID		TRUE
+#define _KERNEL_CFG_ACRE_MTX_E_NOMEM	TRUE
+#define _KERNEL_CFG_ACRE_MTX_E_NOSPT	FALSE
+
 /* del_mtx */
+#define _KERNEL_CFG_DEL_MTX_E_ID		TRUE
+#define _KERNEL_CFG_DEL_MTX_E_NOEXS		TRUE
+#define _KERNEL_CFG_DEL_MTX_E_NOSPT		FALSE
+
 /* loc_mtx */
 #define _KERNEL_CFG_LOC_MTX_E_CTX		TRUE
 #define _KERNEL_CFG_LOC_MTX_E_ID		TRUE

@@ -25,7 +25,7 @@ ER sta_tsk(
 	_KERNEL_T_TSKHDL       tskhdl;
 	_KERNEL_T_TCB          *tcb;
 	const _KERNEL_T_TCB_RO *tcb_ro;
-
+	
 	if ( tskid == TSK_SELF )		/* %jp{自タスク指定時の変換} */
 	{
 #ifdef _KERNEL_SPT_STA_TSK_E_ID
@@ -36,7 +36,7 @@ ER sta_tsk(
 #endif
 		/* %jp{実行中タスクを取得} */
 		tskhdl = _KERNEL_SYS_GET_RUNTSK();
-
+		
 		_KERNEL_ENTER_SVC();		/* %jp{enter service-call}%jp{サービスコールに入る} */
 	}
 	else
@@ -101,10 +101,10 @@ ER sta_tsk(
 	/* %jp{タスクディスパッチの実行}%en{task dispatch} */
 	_KERNEL_DSP_TSK();
 	
-
+	
 	_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
 	
-
+	
 	return E_OK;	/* 成功 */
 }
 

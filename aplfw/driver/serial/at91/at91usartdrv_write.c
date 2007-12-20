@@ -17,7 +17,7 @@ FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 {
 	C_AT91USARTDRV		*self;
 	C_SYNCFILE			*pFile;
-	const unsigned char	*pubBuf;
+	const unsigned char	*pubData;
 	FILE_ERR			ErrCode;
 	FILE_SIZE			i;
 	int					c;
@@ -26,7 +26,7 @@ FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 	self  = (C_AT91USARTDRV *)pDrvObj;
 	pFile = (C_SYNCFILE *)pFileObj;
 	
-	pubBuf = (const unsigned char *)pData;
+	pubData = (const unsigned char *)pData;
 	
 	/* 書込み処理開始 */
 	if ( (ErrCode = SyncDrv_StartProcess(&self->SyncDrv, pFile, SYNCDRV_FACTOR_WRITE)) != FILE_ERR_OK )
@@ -40,7 +40,7 @@ FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 	for ( i = 0; i < Size; i++ )
 	{
 		/* 送信文字取り出し */
-		c = *pubBuf++;
+		c = *pubData++;
 		
 		/* 送信可能かチェック */
 		while ( !(AT91USART_REG_READ(self, AT91USART_US_CSR) & 0x0002) )

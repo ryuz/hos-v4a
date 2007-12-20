@@ -9,7 +9,7 @@
 		[
 			"System",									# comment
 			"\$(COMMON_HEADERS) \$(SYSTEM_HEADERS)",	# depend
-			"\$(HOSAPLFW_DIR)/system/system",				# path
+			"\$(HOSAPLFW_DIR)/system/system",			# path
 			"SYSTEM",									# def_name
 			"Yes",										# link
 			"system_initialize.c",
@@ -449,6 +449,8 @@
 			"No",
 			"scidrv_create.c",
 			"scidrv_delete.c",
+			"scidrv_constructor.c",
+			"scidrv_destructor.c",
 			"scidrv_open.c",
 			"scidrv_close.c",
 			"scidrv_iocontrol.c",
@@ -456,7 +458,10 @@
 			"scidrv_read.c",
 			"scidrv_write.c",
 			"scidrv_flush.c",
-			"scidrv_isr.c",
+			"scidrv_isrrxerr.c",
+			"scidrv_isrrx.c",
+			"scidrv_isrtx.c",
+			"scidrv_isrtxend.c",
 			"scihal_create.c",
 			"scihal_delete.c",
 			"scihal_enableinterrupt.c",
@@ -484,6 +489,26 @@
 			"mx1uartdrv_write.c",
 			"mx1uartdrv_flush.c",
 			"mx1uartdrv_isr.c",
+		],
+		[
+			"Panasonic MN103 SC",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/driver/serial/mn103",
+			"MN103SC",
+			"No",
+			"mn103scdrv_create.c",
+			"mn103scdrv_delete.c",
+			"mn103scdrv_constructor.c",
+			"mn103scdrv_destructor.c",
+			"mn103scdrv_open.c",
+			"mn103scdrv_close.c",
+			"mn103scdrv_iocontrol.c",
+			"mn103scdrv_seek.c",
+			"mn103scdrv_read.c",
+			"mn103scdrv_write.c",
+			"mn103scdrv_flush.c",
+			"mn103scdrv_isrtx.c",
+			"mn103scdrv_isrrx.c",
 		],
 		[
 			"WinSock",

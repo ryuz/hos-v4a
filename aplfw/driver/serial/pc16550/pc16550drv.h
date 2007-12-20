@@ -13,25 +13,7 @@
 #define __HOS__pc16550drv_h__
 
 
-#include "system/sysapi/sysapi.h"
-#include "system/file/syncdrv.h"
-#include "pc16550hal.h"
-#include "library/container/streambuf/streambuf.h"
-
-
-/* PC16550用ドライバ制御部 */
-typedef struct c_pc16550drv
-{
-	C_SYNCDRV		SyncDrv;			/* キャラクタ型デバイスドライバを継承 */
-
-	C_PC16550HAL	Pc16550Hal;		/* ハードウェア制御クラス */
-	int				iOpenCount;		/* オープンカウンタ */
-	int				iIntNum;		/* 割込み番号 */
-	SYSISR_HANDLE	hIsr;			/* 割込みサービスルーチンハンドル */
-
-	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
-} C_PC16550DRV;
-
+#include "hosaplfw.h"
 
 
 #ifdef __cplusplus

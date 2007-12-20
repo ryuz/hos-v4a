@@ -2,9 +2,9 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  scidrv.c
- * @brief %jp{SCI用デバイスドライバ}
+ * @brief %jp{Renesas H8/SH用 SCIデバイスドライバ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -12,25 +12,19 @@
 #include "scidrv_local.h"
 
 
-/** デストラクタ */
-void SciDrv_Delete(C_DRVOBJ *pDrvObj)
+/** 削除 */
+void SciDrv_Delete(HANDLE hDriver)
 {
 	C_SCIDRV	*self;
-	void			*pMem;
 	
 	/* upper cast */
-	self = (C_SCIDRV *)pDrvObj;
+	self = (C_SCIDRV *)hDriver;
 
-	/* 同期オブジェクト削除 */
-	SysEvt_Delete(self->hEvtRecv);
-	SysEvt_Delete(self->hEvtSend);
-	SysMtx_Delete(self->hMtxRecv);
-	SysMtx_Delete(self->hMtxSend);
-
-	/* バッファ削除 */
-	pMem = StreamBuf_RefBufAddr(&self->StmBufRecv);
-	StreamBuf_Delete(&self->StmBuf);
-	SysMem_Free(pMem);
+	/* デストラクタ呼び出し */
+	SciDrv_Destructor(self);
+	
+	/* メモリ削除 */
+	SysMem_Free(self);
 }
 
 

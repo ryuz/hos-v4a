@@ -114,10 +114,11 @@ mkdir_objs:
 
 # %jp{ソースのコピー}%en{spurce files copy}
 ifdef SRCCPYDIR
-.PHONY : srccpy
-srccpy:
+.PHONY : makelib_srccpy
+makelib_srccpy:
 	$(CMD_CP) -t $(SRCCPYDIR) $(ASRCS) $(CSRCS)
 endif
+
 
 
 # end of file

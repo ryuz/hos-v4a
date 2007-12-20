@@ -15,18 +15,24 @@
 
 FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods, int iSyncFactorNum)
 {
+	int i;
+	
 	/* メモリ確保 */
 	if ( (self->ppBusyFile = (C_SYNCFILE **)SysMem_Alloc(sizeof(C_SYNCFILE *) * iSyncFactorNum)) == NULL )
 	{
 		return FILE_ERR_NG;
 	}
 
+	/* 排他制御ミューテックス生成 */
+	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+
 	/* メンバ変数初期化 */
 	self->pFileHead      = NULL;
 	self->iSyncFactorNum = iSyncFactorNum;
-	
-	/* 排他制御ミューテックス生成 */
-	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	for ( i = 0; i < self->iSyncFactorNum; i++ )
+	{
+		self->ppBusyFile[i] = NULL;
+	}
 	
 	/* 親クラスコンストラクタ呼び出し */
 	DrvObj_Constructor(&self->DrvObj, pMethods);

@@ -15,6 +15,7 @@
 
 #include "at91usartdrv.h"
 #include "system/file/syncdrv_local.h"
+#include "library/container/streambuf/streambuf.h"
 #include "system/sysapi/sysapi.h"
 
 
@@ -34,12 +35,26 @@
 #define AT91USART_US_TPR			0x38		/* Transmit Pointer Register */
 #define AT91USART_US_TCR			0x3c		/* Transmit Counter Register */
 
-/*
-#define AT91USART_REG_WRITE(self, offset, val)		do { *(unsigned long *)((char *)(self)->pRegBase + (offset)) = (val); } while(0)
-#define AT91USART_REG_READ(self, offset)			(*((unsigned long *)((char *)(self)->pRegBase + (offset))))
-*/
 #define AT91USART_REG_WRITE(self, offset, val)		SysIo_OutPortW(((char *)(self)->pRegBase + (offset)), val)
 #define AT91USART_REG_READ(self, offset)			SysIo_InPortW(((char *)(self)->pRegBase + (offset)))
+
+
+
+/* UARTドライバ制御部 */
+typedef struct c_at91usartdrv
+{
+	C_SYNCDRV		SyncDrv;		/* キャラクタ型デバイスドライバを継承 */
+
+	void			*pRegBase;		/* レジスタベースアドレス */
+	unsigned long	ulBaseClock;	/* ベースクロック */
+	int				iIntNum;		/* 割込み番号 */
+	SYSISR_HANDLE	hIsr;			/* 割込みサービスルーチンハンドル */
+
+	int				iOpenCount;		/* オープンカウンタ */
+	
+	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
+} C_AT91USARTDRV;
+
 
 
 

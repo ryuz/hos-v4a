@@ -44,6 +44,7 @@ LINK_PC16550          ?= Yes
 LINK_AT91USART        ?= No
 LINK_RENESASSCI       ?= No
 LINK_MX1UART          ?= No
+LINK_MN103SC          ?= No
 LINK_WINSOCK          ?= No
 LINK_FATVOL           ?= Yes
 
@@ -520,6 +521,8 @@ RENESASSCI_DIR = $(HOSAPLFW_DIR)/driver/serial/renesas
 SRC_DIRS += $(RENESASSCI_DIR)
 CSRCS += $(RENESASSCI_DIR)/scidrv_create.c
 CSRCS += $(RENESASSCI_DIR)/scidrv_delete.c
+CSRCS += $(RENESASSCI_DIR)/scidrv_constructor.c
+CSRCS += $(RENESASSCI_DIR)/scidrv_destructor.c
 CSRCS += $(RENESASSCI_DIR)/scidrv_open.c
 CSRCS += $(RENESASSCI_DIR)/scidrv_close.c
 CSRCS += $(RENESASSCI_DIR)/scidrv_iocontrol.c
@@ -527,7 +530,10 @@ CSRCS += $(RENESASSCI_DIR)/scidrv_seek.c
 CSRCS += $(RENESASSCI_DIR)/scidrv_read.c
 CSRCS += $(RENESASSCI_DIR)/scidrv_write.c
 CSRCS += $(RENESASSCI_DIR)/scidrv_flush.c
-CSRCS += $(RENESASSCI_DIR)/scidrv_isr.c
+CSRCS += $(RENESASSCI_DIR)/scidrv_isrrxerr.c
+CSRCS += $(RENESASSCI_DIR)/scidrv_isrrx.c
+CSRCS += $(RENESASSCI_DIR)/scidrv_isrtx.c
+CSRCS += $(RENESASSCI_DIR)/scidrv_isrtxend.c
 CSRCS += $(RENESASSCI_DIR)/scihal_create.c
 CSRCS += $(RENESASSCI_DIR)/scihal_delete.c
 CSRCS += $(RENESASSCI_DIR)/scihal_enableinterrupt.c
@@ -555,6 +561,26 @@ CSRCS += $(MX1UART_DIR)/mx1uartdrv_read.c
 CSRCS += $(MX1UART_DIR)/mx1uartdrv_write.c
 CSRCS += $(MX1UART_DIR)/mx1uartdrv_flush.c
 CSRCS += $(MX1UART_DIR)/mx1uartdrv_isr.c
+endif
+
+
+# Panasonic MN103 SC
+ifeq ($(LINK_MN103SC),Yes)
+MN103SC_DIR = $(HOSAPLFW_DIR)/driver/serial/mn103
+SRC_DIRS += $(MN103SC_DIR)
+CSRCS += $(MN103SC_DIR)/mn103scdrv_create.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_delete.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_constructor.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_destructor.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_open.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_close.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_iocontrol.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_seek.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_read.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_write.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_flush.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_isrtx.c
+CSRCS += $(MN103SC_DIR)/mn103scdrv_isrrx.c
 endif
 
 

@@ -11,7 +11,7 @@
 
 
 #include "core/core.h"
-
+#include "object/mtxobj.h"
 
 
 /** %jp{タスクの強制終了}
@@ -60,6 +60,16 @@ ER ter_tsk(ID tskid)
 	/* %jp{レディーキューから削除} */
 	_KERNEL_DSP_EXT_TSK(tskhdl);
 	
+	/* %jp{所有ミューテックスがあれば開放} */
+#if _KERNEL_SPT_MTX
+	{
+		_KERNEL_T_MTXHDL mtxhdl;
+		while ( (mtxhdl = _KERNEL_TSK_GET_MTXHDL(tcb)) != _KERNEL_MTXHDL_NULL )
+		{
+			_kernel_rmv_mtx(mtxhdl, tskhdl);
+		}
+	}
+#endif
 	
 	/* %jp{起動要求ネストのチェック} */
 	actcnt = _KERNEL_TSK_GET_ACTCNT(tcb);	

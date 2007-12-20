@@ -134,6 +134,10 @@ SOURCE=..\..\source\crempf.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\source\cremtx.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\source\cresem.cpp
 # End Source File
 # Begin Source File
@@ -247,6 +251,10 @@ SOURCE=..\..\include\crembx.h
 # Begin Source File
 
 SOURCE=..\..\include\crempf.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\include\cremtx.h
 # End Source File
 # Begin Source File
 

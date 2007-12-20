@@ -80,7 +80,7 @@ ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.src	\
          $(SRC_PROC_CC_DIR)/kexc_hdr.src	\
          $(SRC_PROC_CC_DIR)/vect_dmy.src
 
-ifeq ($(FAST_VECTOR),Yes)
+ifneq ($(FAST_VECTOR),Yes)
 ASRCS += $(SRC_PROC_CC_DIR)/vect_004.src	\
          $(SRC_PROC_CC_DIR)/vect_005.src	\
          $(SRC_PROC_CC_DIR)/vect_006.src	\
@@ -357,6 +357,13 @@ clean: makelib_clean
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
+# depend
+.PHONY : depend
+clean: makelib_depend
+
+# source file copy
+.PHONY : srccpy
+srccpy: makelib_srccpy
 
 
 # %jp{ライブラリ生成用設定読込み}%en{rules of library}

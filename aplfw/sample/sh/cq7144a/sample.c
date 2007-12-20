@@ -14,6 +14,7 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
+#include "hosaplfw.h"
 #include "system/system/system.h"
 #include "system/sysapi/sysapi.h"
 #include "system/file/console.h"
@@ -31,16 +32,12 @@
 #include "regs_sh7144.h"
 
 
-C_SCIDRV	g_SciDrv[4];
-C_VT100DRV	g_Vt100Drv[1];
-
-
 
 void Sample_Task(VP_INT exinf)
 {
-	HANDLE			hTty;
-	HANDLE			hCon;
-	
+	HANDLE	hTty;
+	HANDLE	hCon;
+	HANDLE	hDriver;
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -64,22 +61,24 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	
 	/* SCIデバドラ生成 */
-	SciDrv_Create(&g_SciDrv[0], (void *)REG_SCI0_SMR, 128, 24000000L, 64);	/* SCI0 */
-	SciDrv_Create(&g_SciDrv[1], (void *)REG_SCI1_SMR, 132, 24000000L, 64);	/* SCI1 */
-	SciDrv_Create(&g_SciDrv[2], (void *)REG_SCI2_SMR, 168, 24000000L, 64);	/* SCI2 */
-	SciDrv_Create(&g_SciDrv[3], (void *)REG_SCI3_SMR, 172, 24000000L, 64);	/* SCI3 */
-	
-	File_AddDevice("com0", (C_DRVOBJ *)&g_SciDrv[0]);	/* SCI0 を /dev/com0 に登録 */
-	File_AddDevice("com1", (C_DRVOBJ *)&g_SciDrv[1]);	/* SCI1 を /dev/com0 に登録 */
-	File_AddDevice("com2", (C_DRVOBJ *)&g_SciDrv[2]);	/* SCI2 を /dev/com0 に登録 */
-	File_AddDevice("com3", (C_DRVOBJ *)&g_SciDrv[3]);	/* SCI3 を /dev/com0 に登録 */
+	hDriver = SciDrv_Create((void *)REG_SCI0_SMR, 128, 24000000L, 64);	/* SCI0生成 */
+	File_AddDevice("com0", hDriver);									/* /dev/com0 に登録 */
+
+	hDriver = SciDrv_Create((void *)REG_SCI1_SMR, 132, 24000000L, 64);	/* SCI1生成 */
+	File_AddDevice("com1", hDriver);									/* /dev/com1 に登録 */
+
+	hDriver = SciDrv_Create((void *)REG_SCI2_SMR, 168, 24000000L, 64);	/* SCI2生成 */
+	File_AddDevice("com2", hDriver);									/* /dev/com2 に登録 */
+
+	hDriver = SciDrv_Create((void *)REG_SCI3_SMR, 172, 24000000L, 64);	/* SCI3生成 */
+	File_AddDevice("com3", hDriver);									/* /dev/com3 に登録 */
 	
 	/* シリアルを開く */
 	hTty = File_Open("/dev/com1", FILE_OPEN_READ | FILE_OPEN_WRITE);
 	
-	/* シリアル上にコンソールを生成( /dev/con0 に登録) */
-	Vt100Drv_Create(&g_Vt100Drv[0], hTty);
-	File_AddDevice("con1", (C_DRVOBJ *)&g_Vt100Drv[0]);
+	/* シリアル上にコンソールを生成( /dev/con1 に登録) */
+	hDriver = Vt100Drv_Create(hTty);
+	File_AddDevice("con1", hDriver);
 	
 	/* コンソールを開く */
 	hCon = File_Open("/dev/con1", FILE_OPEN_READ | FILE_OPEN_WRITE);

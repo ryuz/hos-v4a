@@ -2,9 +2,9 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  scidrv.c
- * @brief %jp{SCI用デバイスドライバ}
+ * @brief %jp{Renesas H8/SH用 SCIデバイスドライバ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

@@ -2,9 +2,9 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  scidrv.c
- * @brief %jp{SCI用デバイスドライバ}
+ * @brief %jp{Renesas H8/SH用 SCIデバイスドライバ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -18,6 +18,7 @@ FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	C_SCIDRV		*self;
 	C_SYNCFILE		*pFile;
 	unsigned char	*pubBuf;
+	FILE_ERR		ErrCode;
 	FILE_SIZE		i;
 	int				c;
 	
@@ -27,31 +28,40 @@ FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 
 	pubBuf = (unsigned char *)pBuf;
 
-	/* クリティカルセクションに入る */
-	SysMtx_Lock(self->hMtxRecv);
+	/* 読込み処理開始 */
+	if ( (ErrCode = SyncDrv_StartProcess(&self->SyncDrv, pFile, SYNCDRV_FACTOR_READ)) != FILE_ERR_OK )
+	{
+		return (FILE_SIZE)ErrCode;
+	}
 
+	/* 読込みシグナルを一旦クリア */
+	SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_READ);
+	
 	for ( i = 0; i < Size; i++ )
 	{
+		/* 読み出し */
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
-			if ( pFile->cReadMode == FILE_RMODE_BLOCKING )
+			/* ブロッキングモードでなければ抜ける */
+			if ( SyncFile_GetSyncMode(pFile, SYNCDRV_FACTOR_READ) != FILE_SYNCMODE_BLOCKING )
 			{
-				/* ブロッキングなら受信イベントを待つ */
-				SysEvt_Wait(self->hEvtRecv);
-				SysEvt_Clear(self->hEvtRecv);
+				SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, i);
+				return i;
 			}
-			else
-			{
-				/* ノンブロッキングなら終了 */
-				goto loop_end;
-			}
+			
+			/* 受信を待つ */
+			SyncFile_WaitSignal(pFile, SYNCDRV_FACTOR_READ);
+			
+			/* 読込みシグナルをクリアしてリトライ */
+			SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_READ);
 		}
+		
+		/* 読み出せた文字を格納 */	
 		*pubBuf++ = (unsigned char)c;
 	}
-loop_end:
 	
-	/* クリティカルセクションを出る */
-	SysMtx_Unlock(self->hMtxRecv);
+	/* 読み出し処理完了 */
+	SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_READ, (VPARAM)i);
 
 	return i;
 }

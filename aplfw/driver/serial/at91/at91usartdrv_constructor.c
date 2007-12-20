@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  at91usartdrv_create.c
+ * @file  at91usartdrv_constructor.c
  * @brief %jp{ATMEL AT91シリーズUSART用デバイスドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS

@@ -9,8 +9,9 @@
 _ResetHandler:	
 				mov.l	addr_VECTTBL, r1
 				mov.l	addr_INITSCT, r0
+		;		ldc		r1, VBR
 				jsr		@r0
-				ldc		r1, VBR
+				nop
 				
 				mov.l	addr_main, r0
 				jsr		@r0

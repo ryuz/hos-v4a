@@ -10,15 +10,15 @@
 TARGET ?= sample
 
 # %jp{ディレクトリ}
-OS_DIR            = ../../../../..
-KERNEL_DIR        = $(OS_DIR)/kernel
-KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
-KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/sh/sh2/shc
-APLFW_DIR         = $(OS_DIR)/aplfw
-APLFW_INC_DIR     = $(APLFW_DIR)
-APLFW_BUILD_DIR   = $(APLFW_DIR)/build/sh/sh2/shc
-OBJS_DIR          = objs_$(TARGET)
+TOP_DIR             = ../../../../..
+KERNEL_DIR          = $(TOP_DIR)/kernel
+KERNEL_CFGRTR_DIR   = $(TOP_DIR)/cfgrtr/build/gcc
+KERNEL_MAKINC_DIR   = $(KERNEL_DIR)/build/common/gmake
+KERNEL_BUILD_DIR    = $(KERNEL_DIR)/build/sh/sh2/shc
+HOSAPLFW_DIR        = $(TOP_DIR)/aplfw
+HOSAPLFW_INC_DIR    = $(HOSAPLFW_DIR)
+HOSAPLFW_BUILD_DIR  = $(HOSAPLFW_DIR)/build/sh/sh2/shc
+OBJS_DIR            = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
@@ -30,8 +30,9 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-sh2
 
 
 # %jp{ライブラリ定義}
-APLFW_LIB = $(APLFW_BUILD_DIR)/hosaplfw.$(EXT_LIB)
+HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)/hosaplfw.$(EXT_LIB)
 STD_LIBS  = stdlib.lib
+
 
 # %jp{メモリマップ}
 ifeq ($(MEMMAP),ext)
@@ -51,14 +52,14 @@ endif
 # %jp{デバッグ版の定義変更}
 ifeq ($(DEBUG),Yes)
 TARGET := $(TARGET)dbg
-APLFW_LIB = $(APLFW_BUILD_DIR)/hosaplfwdbg.$(EXT_LIB)
+HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)/hosaplfwdbg.$(EXT_LIB)
 endif
 
 
 # %jp{フラグ設定}
-CFLAGS  = -CP=sh2 -DEBug -NOLOGO
-AFLAGS  = -CP=sh2 -DEBug -NOLOGO
-LNFLAGS = 
+CFLAGS  += -CP=sh2 -DEBug -NOLOGO
+AFLAGS  += -CP=sh2 -DEBug -NOLOGO
+LNFLAGS += 
 
 
 # %jp{出力ファイル名}
@@ -71,7 +72,7 @@ include $(KERNEL_MAKINC_DIR)/shc_d.inc
 
 
 # %jp{インクルードディレクトリ}
-INC_DIRS += $(APLFW_INC_DIR)
+INC_DIRS += $(HOSAPLFW_INC_DIR)
 
 # %jp{ソースディレクトリ}
 SRC_DIRS += . ..
@@ -91,7 +92,7 @@ CSRCS += ./dbsct.c			\
 
 
 # %jp{ライブラリファイルの追加}
-LIBS += $(APLFW_LIB) $(STD_LIBS)
+LIBS += $(HOSAPLFW_LIB) $(STD_LIBS)
 
 
 
@@ -100,30 +101,38 @@ LIBS += $(APLFW_LIB) $(STD_LIBS)
 # --------------------------------------
 
 .PHONY : all
-all: make_aplfw makeexe_all $(TARGET_EXE) $(TARGET_MOT)
+all: make_libs makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
 
-.PHONY : make_aplfw
-make_aplfw:
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak
-
+.PHONY : make_libs
+make_libs:
+	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak
 
 .PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 .PHONY : mostlyclean
-mostlyclean: clean clean_kernel
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
+mostlyclean: clean kernel_clean
+	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak clean
+
+.PHONY : depend
+depend: makeexe_depend
 
 .PHONY : mostlydepend
-mostlydepend: depend
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak depend
+mostlydepend: depend kernel_depend
+	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak depend
+
+.PHONY : srccpy
+srccpy: makeexe_srccpy
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak srccpy
+	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak srccpy
 
 
 $(STD_LIBS):
 	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2
 #	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2 -REent 
+
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i

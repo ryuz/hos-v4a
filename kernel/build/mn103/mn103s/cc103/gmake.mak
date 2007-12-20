@@ -10,10 +10,12 @@
 # %jp{ターゲット名}
 TARGET ?= libhosv4a
 
-# %jp{アーキテクチャパス}
+
+# %jp{アーキテクチャ}
 ARCH_PROC ?= mn103/mn1030
 ARCH_IRC  ?= mn103/mn103s
 ARCH_CC   ?= cc103
+
 
 # %jp{ディレクトリ定義}
 TOP_DIR           = ../../../../..
@@ -39,9 +41,9 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS += 
-CFLAGS += 
-LFLAGS += 
+CFLAGS  += 
+AFLAGS  += 
+ARFLAGS += 
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc

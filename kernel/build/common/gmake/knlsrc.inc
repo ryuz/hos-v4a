@@ -65,6 +65,8 @@ DTQOBJ_HEADERS = $(KERNEL_INC_DIR)/object/dtqobj.h
 
 MBXOBJ_HEADERS = $(KERNEL_INC_DIR)/object/mbxobj.h
 
+MTXOBJ_HEADERS = $(KERNEL_INC_DIR)/object/mtxobj.h
+
 MPFOBJ_HEADERS = $(KERNEL_INC_DIR)/object/mpfobj.h
 
 TIMOBJ_HEADERS = $(KERNEL_INC_DIR)/object/timobj.h
@@ -258,6 +260,19 @@ CSRCS += $(MBXOBJ_DIR)/kadd_msq.c
 CSRCS += $(MBXOBJ_DIR)/krmf_msg.c
 CSRCS += $(MBXOBJ_DIR)/krmp_msg.c
 CSRCS += $(MBXOBJ_DIR)/krmv_msq.c
+
+
+# Mutexes
+MTXOBJ_DIR = $(KERNEL_OBJ_DIR)/mtx
+SRC_DIRS += $(MTXOBJ_DIR)
+CSRCS += $(MTXOBJ_DIR)/cre_mtx.c
+CSRCS += $(MTXOBJ_DIR)/acre_mtx.c
+CSRCS += $(MTXOBJ_DIR)/kcre_mtx.c
+CSRCS += $(MTXOBJ_DIR)/del_mtx.c
+CSRCS += $(MTXOBJ_DIR)/loc_mtx.c
+CSRCS += $(MTXOBJ_DIR)/unl_mtx.c
+CSRCS += $(MTXOBJ_DIR)/kadd_mtx.c
+CSRCS += $(MTXOBJ_DIR)/krmv_mtx.c
 
 
 # Fixed-sized Memory Pools

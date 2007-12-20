@@ -68,21 +68,22 @@ _kernel_fiq_hdr
 			
 			; ---- 割込みマスク値復帰処理
 				ldr		r1, [sp, #4]							; spsr_fiq 値取り出し
-				and		r1, r1, #F_Bit:OR:I_Bit
-				cmp		r1, r3									; 旧imsk値と比較(IRQ処理前のFIQ発生をケアする)
-				bne		return_int								; 不一致なら終了処理スキップ
+				and		r1, r1, #Mode_MASK
+				cmp		r1, #Mode_IRQ							; IRQ処理前のFIQ発生をケアする
+				beq		return_int								; 
 				strb	r3, [r0, #ICTXCB_IMSK]					; マスク値復帰
 				
 			; ---- 割込み終了処理
 				bl		_kernel_end_inh							; 割り込み終了処理
 
+			; ---- 復帰先割込みマスク設定
 				ldr		r0, =_kernel_ictxcb
 				ldr		r1, [sp, #4]							; spsr_irq 値取り出し
-				ldrb	r0, [r0, #ICTXCB_IMSK]					; この時点でのimsk値取り出し
-				bic		r1, r1, #F_Bit:OR:I_Bit
-				and		r0, r0, #F_Bit:OR:I_Bit
-				orr		r1, r1, r0
-				str		r1, [sp, #4]							; spsr_irq にimsk値反映
+				tst		r1, #F_Bit								; 割禁と同時にFIQが入る場合があるのでケア
+				ldrbeq	r0, [r0, #ICTXCB_IMSK]					; この時点でのimsk値取り出し
+				biceq	r1, r1, #F_Bit:OR:I_Bit
+				orreq	r1, r1, r0
+				streq	r1, [sp, #4]							; spsr_irq にimsk値反映
 
 return_int
 			; ---- 復帰処理

@@ -136,8 +136,8 @@
 #define	REG_PFC_PACRL2		((volatile UH*)0xffff838e)		/* ポートAコントロールレジスタL2 */
 
 /* I/O, PFC (port-B, C) */
-#define	REG_PB_DR			((volatile UH*)0xffff8388)		/* ポートB データレジスタ */
-#define	REG_PC_DR			((volatile UH*)0xffff8388)		/* ポートC データレジスタ */
+#define	REG_PB_DR			((volatile UH*)0xffff8390)		/* ポートB データレジスタ */
+#define	REG_PC_DR			((volatile UH*)0xffff8392)		/* ポートC データレジスタ */
 #define	REG_PFC_PBIOR		((volatile UH*)0xffff8394)		/* ポートB IOレジスタ */
 #define	REG_PFC_PCIOR		((volatile UH*)0xffff8396)		/* ポートC IOレジスタ */
 #define	REG_PFC_PBCR1		((volatile UH*)0xffff8398)		/* ポートBコントロールレジスタ1 */

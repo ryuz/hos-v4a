@@ -61,7 +61,7 @@ ER unl_mtx(ID mtxid)
 		
 	/* %jp{自分が所有しているかチェック} */
 #if _KERNEL_SPT_UNL_MTX_E_ILUSE
-	if ( tskhdl != tskhdl )
+	if ( tskhdl != _KERNEL_MTX_GET_TSKHDL(mtxcb) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_ILUSE;			/*  */
@@ -72,7 +72,7 @@ ER unl_mtx(ID mtxid)
 	mtxhdl = _KERNEL_MTX_GET_MTXHDL(mtxid, mtxcb);
 	
 	/* %jp{ミューテックを取り外し} */
-	_kernel_rmv_mtx(mtxcb, mtxhdl, tcb);
+	_kernel_rmv_mtx(mtxhdl, tskhdl);
 	
 	/* %jp{所有ミューテックスが無くなったら} */
 	if ( _KERNEL_TSK_GET_MTXHDL(tcb) == _KERNEL_MTXHDL_NULL )

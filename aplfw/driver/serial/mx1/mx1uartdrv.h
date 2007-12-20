@@ -13,27 +13,7 @@
 #define __HOS__mx1uartdrv_h__
 
 
-#include "system/sysapi/sysapi.h"
-#include "system/file/syncdrv.h"
-#include "library/container/streambuf/streambuf.h"
-
-
-/* ARM製 Integrator UART用ドライバ制御部 */
-typedef struct c_mx1uartdrv
-{
-	C_SYNCDRV		SyncDrv;		/* キャラクタ型デバイスドライバを継承 */
-
-	void			*pRegBase;		/* レジスタベースアドレス */
-	unsigned long	ulBaseClock;	/* ベースクロック */
-	int				iIntNum;		/* 割込み番号 */
-	SYSISR_HANDLE	hIsrTx;			/* 送信割込みサービスルーチンハンドル */
-	SYSISR_HANDLE	hIsrRx;			/* 受信割込みサービスルーチンハンドル */
-
-	int				iOpenCount;		/* オープンカウンタ */
-
-	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
-} C_MX1UARTDRV;
-
+#include "hosaplfw.h"
 
 
 #ifdef __cplusplus

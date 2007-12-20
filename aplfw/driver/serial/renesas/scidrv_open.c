@@ -2,9 +2,9 @@
  *  Hyper Operating System  Application Framework
  *
  * @file  scidrv.c
- * @brief %jp{SCI用デバイスドライバ}
+ * @brief %jp{Renesas H8/SH用 SCIデバイスドライバ}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -16,17 +16,16 @@
 HANDLE SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_SCIDRV	*self;
-	C_SYNCFILE	*pFile;
+	HANDLE		hFile;
 	
 	/* upper cast */
 	self = (C_SCIDRV *)pDrvObj;
-
+	
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(*pFile))) == NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	SyncFile_Create(pFile, &self->SyncDrv, NULL);
 	
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
@@ -36,7 +35,7 @@ HANDLE SciDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_RIE);
 	}
 
-	return (HANDLE)pFile;
+	return hFile;
 }
 
 
