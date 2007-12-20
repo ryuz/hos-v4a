@@ -37,9 +37,9 @@ INC_DIRS += $(HOSAPLFW_DIR) $(KERNEL_DIR)/include
 
 
 # %jp{オプションフラグ}
-CFLAGS  += -m2
-AFLAGS  += -m2
-ARFLAGS += 
+CFLAGS  = -m2
+AFLAGS  = -m2
+ARFLAGS = 
 
 
 # %jp{リンク制御対象制御}

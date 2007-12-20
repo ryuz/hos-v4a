@@ -18,15 +18,15 @@ CMD_OBJCNV ?= sh-$(GCC_SYS)-objcopy
 
 
 # %jp{ディレクトリ定義}
-OS_DIR            = ../../../..
-KERNEL_DIR        = $(OS_DIR)/kernel
-KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
-KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/sh/sh2/gcc
-HOSAPLFW_DIR        = $(TOP_DIR)/aplfw
-HOSAPLFW_INC_DIR    = $(HOSAPLFW_DIR)
-HOSAPLFW_BUILD_DIR  = $(HOSAPLFW_DIR)/build/sh/sh2/shc
-OBJS_DIR          = objs_$(TARGET)
+TOP_DIR            = ../../../../..
+KERNEL_DIR         = $(TOP_DIR)/kernel
+KERNEL_CFGRTR_DIR  = $(TOP_DIR)/cfgrtr/build/gcc
+KERNEL_MAKINC_DIR  = $(KERNEL_DIR)/build/common/gmake
+KERNEL_BUILD_DIR   = $(KERNEL_DIR)/build/sh/sh2/gcc
+HOSAPLFW_DIR       = $(TOP_DIR)/aplfw
+HOSAPLFW_INC_DIR   = $(HOSAPLFW_DIR)
+HOSAPLFW_BUILD_DIR = $(HOSAPLFW_DIR)/build/sh/sh2/shc
+OBJS_DIR           = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
@@ -39,7 +39,6 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-sh2
 
 # %jp{ライブラリ定義}
 HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)/hosaplfw.$(EXT_LIB)
-STD_LIBS  = stdlib.lib
 
 
 # %jp{メモリマップ}
@@ -91,11 +90,10 @@ ASRCS += ./vector.S			\
 CSRCS += ../kernel_cfg.c	\
          ../main.c			\
          ../sample.c		\
-         ../ostimer.c		\
-         ../sci1.c
+         ../ostimer.c
 
 # %jp{ライブラリの追加}
-LIBS  += $(HOSAPLFW_LIB) $(STD_LIBS)
+LIBS  += $(HOSAPLFW_LIB)
 
 
 
