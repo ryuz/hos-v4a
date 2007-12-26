@@ -86,6 +86,14 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\boot_task.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\boot_task.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\kernel_cfg.c
 # End Source File
 # Begin Source File
@@ -95,10 +103,6 @@ SOURCE=..\main.c
 # Begin Source File
 
 SOURCE=..\ostimer.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\sample.c
 # End Source File
 # Begin Source File
 
@@ -119,10 +123,6 @@ SOURCE=..\kernel_id.h
 # Begin Source File
 
 SOURCE=..\ostimer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\sample.h
 # End Source File
 # Begin Source File
 

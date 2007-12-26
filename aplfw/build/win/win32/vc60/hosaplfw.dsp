@@ -391,11 +391,19 @@ SOURCE=..\..\..\..\driver\console\vt100\vt100drv_close.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_constructor.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\driver\console\vt100\vt100drv_create.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\driver\console\vt100\vt100drv_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\console\vt100\vt100drv_destructor.c
 # End Source File
 # Begin Source File
 
@@ -461,6 +469,10 @@ SOURCE=..\..\..\..\system\sysapi\sysapi_initialize.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\sysapi\sysapi_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysctx_isisr.c
 # End Source File
 # Begin Source File
 
@@ -556,15 +568,27 @@ SOURCE=..\..\..\..\system\sysapi\sysprc_delete.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\sysapi\sysprc_exit.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\sysapi\sysprc_getcurrenthandle.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\sysapi\sysprc_start.c
+SOURCE=..\..\..\..\system\sysapi\sysprc_getparam.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_resume.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_suspend.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\sysprc_terminate.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\systim_getsystemtime.c
 # End Source File
 # Begin Source File
 
@@ -574,54 +598,6 @@ SOURCE=..\..\..\..\system\sysapi\systim_wait.c
 # Begin Group "file"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_create.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_delete.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_iocontrol.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_local.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_setreadsignal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_setwritesignal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_waitreadsignal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrdrv_waitwritesignal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrfile.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrfile_create.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\chrfile_delete.c
-# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\console.h
@@ -636,11 +612,11 @@ SOURCE=..\..\..\..\system\file\drvobj_close.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\drvobj_create.c
+SOURCE=..\..\..\..\system\file\drvobj_constructor.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\drvobj_delete.c
+SOURCE=..\..\..\..\system\file\drvobj_destructor.c
 # End Source File
 # Begin Source File
 
@@ -744,11 +720,19 @@ SOURCE=..\..\..\..\system\file\fileobj.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\fileobj_constructor.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\fileobj_create.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\fileobj_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\fileobj_destructor.c
 # End Source File
 # Begin Source File
 
@@ -764,6 +748,66 @@ SOURCE=..\..\..\..\system\file\stdfile.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\syncdrv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncdrv_constructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncdrv_destructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncdrv_endprocess.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncdrv_iocontrol.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncdrv_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncdrv_sendsignal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncdrv_startprocess.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncfile_constructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncfile_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncfile_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncfile_destructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncfile_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\syncfile_setsignal.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\sysvol.h
 # End Source File
 # Begin Source File
@@ -776,11 +820,19 @@ SOURCE=..\..\..\..\system\file\sysvol_close.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\sysvol_constructor.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\sysvol_create.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\sysvol_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvol_destructor.c
 # End Source File
 # Begin Source File
 
@@ -796,6 +848,30 @@ SOURCE=..\..\..\..\system\file\sysvol_open.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\sysvolfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvolfile_constructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvolfile_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvolfile_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvolfile_destructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\sysvolfile_local.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\volume.h
 # End Source File
 # Begin Source File
@@ -804,7 +880,23 @@ SOURCE=..\..\..\..\system\file\volumeobj.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\volumeobj_constructor.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\volumeobj_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volumeobj_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volumeobj_destructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\volumeobj_local.h
 # End Source File
 # Begin Source File
 
@@ -844,11 +936,23 @@ SOURCE=..\..\..\..\system\handle\handleobj.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\handle\handleobj_constructor.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\handle\handleobj_create.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\system\handle\handleobj_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\handleobj_destructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\handle\handleobj_local.h
 # End Source File
 # End Group
 # Begin Group "shell"
@@ -868,19 +972,91 @@ SOURCE=..\..\..\..\system\shell\shell.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\system\process\process.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\process\process.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\process\procobj.c
+SOURCE=..\..\..\..\system\process\process_constructor.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\process\procobj.h
+SOURCE=..\..\..\..\system\process\process_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_destructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_exit.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getconsole.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getcurrentdir.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getcurrenthandle.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getexitcode.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getstderr.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getstdin.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getstdout.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getterminal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_setconsole.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_setcurrentdir.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_setstderr.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_setstdin.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_setstdout.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_setterminal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_waitexit.c
 # End Source File
 # End Group
 # Begin Group "type"
@@ -897,10 +1073,6 @@ SOURCE=..\..\..\..\system\type\type.h
 # Begin Source File
 
 SOURCE=..\..\..\..\system\system\system.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\system\system_boot.c
 # End Source File
 # Begin Source File
 

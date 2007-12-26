@@ -359,7 +359,7 @@ clean: makelib_clean
 
 # depend
 .PHONY : depend
-clean: makelib_depend
+clean: makelib_clean
 
 # source file copy
 .PHONY : srccpy

@@ -43,8 +43,8 @@ typedef struct c_winsockdrv
 extern "C" {
 #endif
 
-void WinSockDrv_Create(C_WINSOCKDRV *self, int iPortNum, int iIntNum, int iBufSize);		/**< コンストラクタ */
-void WinSockDrv_Delete(C_DRVOBJ *pDrvObj);													/**< デストラクタ */
+HANDLE WinSockDrv_Create(int iPortNum, int iIntNum, int iBufSize);		/**< 生成 */
+void   WinSockDrv_Delete(HANDLE hDriver);								/**< 削除 */
 
 #ifdef __cplusplus
 }

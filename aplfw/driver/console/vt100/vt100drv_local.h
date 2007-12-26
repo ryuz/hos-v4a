@@ -1,7 +1,7 @@
 
 
 #include "vt100drv.h"
-
+#include "system/file/drvobj_local.h"
 
 #define VT100DRV_ESC_IDLE		0
 #define VT100DRV_ESC_ESC1		1

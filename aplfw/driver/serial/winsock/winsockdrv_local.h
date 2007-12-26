@@ -14,11 +14,14 @@
 
 
 #include "winsockdrv.h"
-
+#include "system/file/drvobj_local.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+FILE_ERR WinSockDrv_Constructor(C_WINSOCKDRV *self, const T_DRVOBJ_METHODS *pMethods, int iPortNum, int iIntNum, int iBufSize);	/** コンストラクタ */
+void     WinSockDrv_Destructor(C_WINSOCKDRV *self);																				/** デストラクタ */
 
 HANDLE    WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
 FILE_ERR  WinSockDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);

@@ -347,6 +347,10 @@ clean: makelib_clean
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
+# depend
+.PHONY : depend
+depend: makelib_depend
+
 
 
 # %jp{gcc用の設定読込み}

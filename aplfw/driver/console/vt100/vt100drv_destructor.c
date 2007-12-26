@@ -17,7 +17,7 @@
 void Vt100Drv_Destructor(C_VT100DRV *self)
 {
 	/* 親クラスデストラクタ */
-	DrvObj_Destructor(self->DrvObj);
+	DrvObj_Destructor(&self->DrvObj);
 }
 
 

@@ -547,11 +547,19 @@ SOURCE=..\..\..\..\source\object\tsk\iact_tsk.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\tsk\kchg_pri.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\tsk\kcre_tsk.c
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\tsk\ref_tsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\ref_tst.c
 # End Source File
 # Begin Source File
 
@@ -915,7 +923,35 @@ SOURCE=..\..\..\..\source\object\cyc\stp_cyc.c
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\mtx\acre_mtx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mtx\cre_mtx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mtx\del_mtx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mtx\kadd_mtx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mtx\kcre_mtx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mtx\krmv_mtx.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\mtx\loc_mtx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\mtx\unl_mtx.c
 # End Source File
 # End Group
 # End Group

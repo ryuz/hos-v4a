@@ -6,7 +6,7 @@
 
 const T_DRVOBJ_METHODS  WinSockDrv_Methods = 
 	{
-		WinSockDrv_Delete,
+		{ WinSockDrv_Delete },
 		WinSockDrv_Open,
 		WinSockDrv_Close,
 		WinSockDrv_IoControl,
@@ -18,14 +18,41 @@ const T_DRVOBJ_METHODS  WinSockDrv_Methods =
 
 
 /** コンストラクタ */
-void WinSockDrv_Create(C_WINSOCKDRV *self, int iPortNum, int iIntNum, int iBufSize)
+HANDLE WinSockDrv_Create(int iPortNum, int iIntNum, int iBufSize)
 {
-	WSADATA wsaData;
-	struct sockaddr_in addr;
+	C_WINSOCKDRV *self;
 	
-	/* 親クラス初期化 */
-	DrvObj_Create(&self->DrvObj, &WinSockDrv_Methods);
+	/* メモリ確保 */
+	if ( (self = (C_WINSOCKDRV *)SysMem_Alloc(sizeof(C_WINSOCKDRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
+	
+	/* コンストラクタ呼び出し */
+	if ( WinSockDrv_Constructor(self, NULL, iPortNum, iIntNum, iBufSize) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
+	
+	return (HANDLE)self;
+}
 
+
+/** コンストラクタ */
+FILE_ERR WinSockDrv_Constructor(C_WINSOCKDRV *self, const T_DRVOBJ_METHODS *pMethods, int iPortNum, int iIntNum, int iBufSize)
+{
+	WSADATA		wsaData;
+	struct sockaddr_in addr;
+
+	if ( pMethods == NULL )
+	{
+		pMethods = &WinSockDrv_Methods;
+	}
+	
+	/* 親クラスコンストラクタ呼び出し */
+	DrvObj_Constructor(&self->DrvObj, pMethods);
+	
 	WSAStartup(MAKEWORD(2,0), &wsaData);
 	
 	self->sock0 = socket(AF_INET, SOCK_STREAM, 0);
@@ -37,13 +64,34 @@ void WinSockDrv_Create(C_WINSOCKDRV *self, int iPortNum, int iIntNum, int iBufSi
 	bind(self->sock0, (struct sockaddr *)&addr, sizeof(addr));
 	
 	listen(self->sock0, 5);
+
+	return FILE_ERR_OK;
+}
+
+
+/** 削除 */
+void WinSockDrv_Delete(HANDLE hDriver)
+{
+	C_WINSOCKDRV	*self;
+	
+	/* upper cast */
+	self = (C_WINSOCKDRV *)hDriver;
+
+	/* デストラクタ呼び出し */
+	WinSockDrv_Destructor(self);
+	
+	/* メモリ削除 */
+	SysMem_Free(self);
 }
 
 
 /** デストラクタ */
-void WinSockDrv_Delete(C_DRVOBJ *pDrvObj)
+void WinSockDrv_Destructor(C_WINSOCKDRV *self)
 {
 	WSACleanup();
+
+	/* 親クラスデストラクタ */
+	DrvObj_Destructor(&self->DrvObj);
 }
 
 
@@ -51,7 +99,7 @@ void WinSockDrv_Delete(C_DRVOBJ *pDrvObj)
 HANDLE WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_WINSOCKDRV		*self;
-	C_FILEOBJ			*pFileObj;
+	HANDLE				hFile;
 	struct sockaddr_in	client;
 	int					len;
 
@@ -59,11 +107,10 @@ HANDLE WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	self = (C_WINSOCKDRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pFileObj = SysMem_Alloc(sizeof(*pFileObj))) == NULL )
+	if ( (hFile = FileObj_Create(pDrvObj)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	FileObj_Create(pFileObj, pDrvObj, NULL);
 
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
@@ -72,7 +119,7 @@ HANDLE WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		self->sock = accept(self->sock0, (struct sockaddr *)&client, &len);
 	}
 
-	return (HANDLE)pFileObj;
+	return hFile;
 }
 
 

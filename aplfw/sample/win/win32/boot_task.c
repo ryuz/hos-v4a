@@ -15,6 +15,7 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
+#include "hosaplfw.h"
 #include "system/system/system.h"
 #include "system/sysapi/sysapi.h"
 #include "system/file/file.h"
