@@ -45,9 +45,9 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  += -m2
-CFLAGS  += -m2
-ARFLAGS += 
+AFLAGS  = -m2
+CFLAGS  = -m2
+ARFLAGS = 
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc

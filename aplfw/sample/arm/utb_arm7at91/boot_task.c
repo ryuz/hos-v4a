@@ -49,12 +49,12 @@ static const T_IPETHER_INF IpEtherInf =
 };
 
 
+int Boot_Process(VPARAM Param);
+
 /* ブートタスク */
 void Boot_Task(VP_INT exinf)
 {
-	HANDLE			hTty;
-	HANDLE			hCon;
-	HANDLE			hDriver;
+	T_SYSTEM_INITIALIZE_INF	SysInf;
 
 	
 	/*************************/
@@ -68,7 +68,21 @@ void Boot_Task(VP_INT exinf)
 	/*************************/
 	
 	/* システム初期化 */
-	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
+	SysInf.pHeapMem        = g_SystemHeap;
+	SysInf.HeapSize        = sizeof(g_SystemHeap);
+	SysInf.SystemStackSize = 1024;
+	SysInf.pfncBoot        = Boot_Process;
+	SysInf.BootParam       = (VPARAM)0;
+	System_Initialize(&SysInf);
+}
+
+
+/* ブートプロセス */
+int Boot_Process(VPARAM Param)
+{
+	HANDLE	hTty;
+	HANDLE	hCon;
+	HANDLE	hDriver;
 	
 	
 	/*************************/
@@ -111,6 +125,16 @@ void Boot_Task(VP_INT exinf)
 	/* コンソールを開く */
 	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
 	
+
+	/*************************/
+	/*     標準入出力設定    */
+	/*************************/
+	
+	Process_SetTerminal(HANDLE_NULL, hTty);
+	Process_SetConsole(HANDLE_NULL, hCon);
+	Process_SetStdIn(HANDLE_NULL, hCon);
+	Process_SetStdOut(HANDLE_NULL, hCon);
+	Process_SetStdErr(HANDLE_NULL, hCon);
 	
 	
 	/*************************/
@@ -127,12 +151,13 @@ void Boot_Task(VP_INT exinf)
 	Command_AddCommand("ethsnoop", EtherSnoop_Main);
 	
 	
-	
 	/*************************/
 	/*  システムプロセス起動 */
 	/*************************/
 	
-	System_Boot(hTty, hCon, "hsh", 4096);
+	Command_Execute("hsh", NULL);
+	
+	return 0;
 }
 
 

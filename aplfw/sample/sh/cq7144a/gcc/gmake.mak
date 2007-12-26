@@ -25,7 +25,7 @@ KERNEL_MAKINC_DIR  = $(KERNEL_DIR)/build/common/gmake
 KERNEL_BUILD_DIR   = $(KERNEL_DIR)/build/sh/sh2/gcc
 HOSAPLFW_DIR       = $(TOP_DIR)/aplfw
 HOSAPLFW_INC_DIR   = $(HOSAPLFW_DIR)
-HOSAPLFW_BUILD_DIR = $(HOSAPLFW_DIR)/build/sh/sh2/shc
+HOSAPLFW_BUILD_DIR = $(HOSAPLFW_DIR)/build/sh/sh2/gcc
 OBJS_DIR           = objs_$(TARGET)
 
 
