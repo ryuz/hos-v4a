@@ -16,17 +16,16 @@
 HANDLE Lan9000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_LAN9000DRV	*self;
-	C_SYNCFILE		*pFile;
+	HANDLE			hFile;
 	
 	/* upper cast */
 	self = (C_LAN9000DRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (pFile = SysMem_Alloc(sizeof(C_SYNCFILE))) == NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	SyncFile_Create(pFile, &self->SyncDrv, NULL);
 
 	
 	/* オープン処理 */
@@ -37,7 +36,7 @@ HANDLE Lan9000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		SysInt_Enable(self->iIntNum);
 	}
 	
-	return (HANDLE)pFile;
+	return hFile;
 }
 
 

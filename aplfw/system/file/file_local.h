@@ -19,8 +19,8 @@
 
 typedef struct c_file
 {
-	HANDLE	hRootVol;		/* ルートボリューム(ルートディレクトリ) */
-	HANDLE	hDevVol;			/* デバイスボリューム(/dev ディレクトリ) */
+	HANDLE	hRootVol;		/**< ルートボリューム(ルートディレクトリ) */
+	HANDLE	hDevVol;		/**< デバイスボリューム(/dev ディレクトリ) */
 } C_FILE;
 
 extern C_FILE	g_File;

@@ -13,20 +13,18 @@
 
 
 /** デストラクタ */
-void Lan9000Drv_Delete(C_DRVOBJ *pDrvObj)
+void Lan9000Drv_Delete(HANDLE hDriver)
 {
 	C_LAN9000DRV	*self;
 	
 	/* upper cast */
-	self = (C_LAN9000DRV *)pDrvObj;
+	self = (C_LAN9000DRV *)hDriver;
 
-	/* 割込み処理解除 */
-	SysIsr_Delete(self->hIsr);
+	/* デストラクタ呼び出し */
+	Lan9000Drv_Destructor(self);
 
-	/* 同期オブジェクト削除 */
-	SysEvt_Delete(self->hEvtRecv);
-	SysEvt_Delete(self->hEvtSend);
-	SysMtx_Delete(self->hMtx);
+	/* メモリ開放 */
+	SysMem_Free(self);
 }
 
 

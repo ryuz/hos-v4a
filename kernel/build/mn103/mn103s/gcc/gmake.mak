@@ -15,11 +15,12 @@ ARCH_PROC ?= mn103/mn1030
 ARCH_IRC  ?= mn103/mn103s
 ARCH_CC   ?= gcc
 
+
 # %jp{ツール定義}
-GCC_SYS  ?= elf
-CMD_CC   ?= mn10300-$(GCC_SYS)-gcc
-CMD_ASM  ?= mn10300-$(GCC_SYS)-gcc
-CMD_LIBR ?= mn10300-$(GCC_SYS)-ar
+GCC_ARCH ?= mn10300-elf-
+CMD_CC   ?= $(GCC_ARCH)gcc
+CMD_ASM  ?= $(GCC_ARCH)gcc
+CMD_LIBR ?= $(GCC_ARCH)ar
 
 
 # %jp{ディレクトリ定義}

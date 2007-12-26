@@ -17,7 +17,6 @@
   void _kernel_ena_int(void)
  ************************************************/
 				.global	_kernel_ena_int
-				.global	_kernel_ictxcb
 _kernel_ena_int:
 				ldr		r1, =_kernel_ictxcb
 				mrs 	r0, cpsr					/* cpsr取得 */

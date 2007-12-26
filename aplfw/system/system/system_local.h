@@ -16,10 +16,12 @@
 
 #include "system.h"
 #include "system/sysapi/sysapi.h"
-
+#include "system/file/file_local.h"
+#include "system/process/process_local.h"
 
 
 #define SYSTEM_PROCQUE_SIZE		64		/* システムプロシージャ要求キューイング数 */
+
 
 
 /* システムプロシージャ情報 */
@@ -34,7 +36,11 @@ typedef struct t_system_procinf
 /* システムクラス */
 typedef struct c_system
 {
-	SYSPRC_HANDLE		hPrcProc;
+	C_PROCESS			Process;		/**< システムプロセス */
+
+	HANDLE				hBootProcess;
+
+	SYSPRC_HANDLE		hPrcProc;						
 	SYSEVT_HANDLE		hEvtProc;
 	volatile int		iProcHead;
 	volatile int		iProcTail;
@@ -49,7 +55,7 @@ extern C_SYSTEM g_System;
 extern "C" {
 #endif
 
-void System_Process(VPARAM Param);		/* システムプロセス */
+int System_Process(VPARAM Param);		/* システムプロセス */
 
 #ifdef __cplusplus
 }

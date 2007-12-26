@@ -16,11 +16,10 @@ ARCH_IRC  ?= simple
 ARCH_CC   ?= gcc
 
 # %jp{ツール定義}
-GCC_SYS  ?= elf
-CMD_CC   ?= h8300-$(GCC_SYS)-gcc
-CMD_ASM  ?= h8300-$(GCC_SYS)-gcc
-CMD_LIBR ?= h8300-$(GCC_SYS)-ar
-
+GCC_ARCH ?= h8300-elf-
+CMD_CC   ?= $(GCC_ARCH)gcc
+CMD_ASM  ?= $(GCC_ARCH)gcc
+CMD_LIBR ?= $(GCC_ARCH)ar
 
 # %jp{ディレクトリ定義}
 TOP_DIR           = ../../../../..

@@ -32,7 +32,7 @@ HANDLE File_Open(const char *pszPath, int iMode)
 	else
 	{
 		/* 相対パス */
-		iLen = Process_GetCurrentDir(szBuf, sizeof(szBuf));
+		iLen = Process_GetCurrentDir(HANDLE_NULL, szBuf, sizeof(szBuf));
 		if ( szBuf[0] != '\0' )
 		{
 			strncat(szBuf, "/", FILE_MAX_PATH - iLen);

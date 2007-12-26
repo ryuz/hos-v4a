@@ -89,6 +89,14 @@ clean: makelib_clean
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
+# depend
+.PHONY : depend
+depend: makelib_depend
+
+# srccpy
+.PHONY : srccpy
+srccpy: makelib_srccpy
+
 
 
 # %jp{cc103S用の設定読込み}

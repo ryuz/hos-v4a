@@ -103,6 +103,7 @@ LIBS += $(HOSAPLFW_LIB) $(STD_LIBS)
 .PHONY : all
 all: make_libs makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
+
 .PHONY : make_libs
 make_libs:
 	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak

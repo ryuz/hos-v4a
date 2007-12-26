@@ -18,6 +18,14 @@ ARCH_PROC ?= win/win32
 ARCH_IRC  ?= simple
 ARCH_CC   ?= gcc
 
+
+# %jp{ツール定義}
+GCC_ARCH ?=
+CMD_CC   ?= $(GCC_ARCH)gcc
+CMD_ASM  ?= $(GCC_ARCH)gcc
+CMD_LIBR ?= $(GCC_ARCH)ar
+
+
 # %jp{ディレクトリ定義}
 TOP_DIR           = ../../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel

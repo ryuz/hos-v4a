@@ -14,7 +14,7 @@
 
 
 /* システムプロセス */
-void System_Process(VPARAM Param)
+int System_Process(VPARAM Param)
 {
 	C_SYSTEM	*self;
 	

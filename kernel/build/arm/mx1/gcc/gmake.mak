@@ -16,10 +16,10 @@ ARCH_IRC  ?= arm/mx1
 ARCH_CC   ?= gcc
 
 # %jp{ツール定義}
-GCC_SYS  ?= elf
-CMD_CC   ?= arm-$(GCC_SYS)-gcc
-CMD_ASM  ?= arm-$(GCC_SYS)-gcc
-CMD_LIBR ?= arm-$(GCC_SYS)-ar
+GCC_ARCH ?= arm-elf-
+CMD_CC   ?= $(GCC_ARCH)gcc
+CMD_ASM  ?= $(GCC_ARCH)gcc
+CMD_LIBR ?= $(GCC_ARCH)ar
 
 
 # %jp{ディレクトリ定義}

@@ -81,7 +81,6 @@ ifeq ($(LINK_SYSTEM),Yes)
 SYSTEM_DIR = $(HOSAPLFW_DIR)/system/system
 SRC_DIRS += $(SYSTEM_DIR)
 CSRCS += $(SYSTEM_DIR)/system_initialize.c
-CSRCS += $(SYSTEM_DIR)/system_boot.c
 CSRCS += $(SYSTEM_DIR)/system_requestproc.c
 CSRCS += $(SYSTEM_DIR)/system_process.c
 endif
@@ -115,6 +114,7 @@ CSRCS += $(SYSAPI_DIR)/sysmtx_lock.c
 CSRCS += $(SYSAPI_DIR)/sysmtx_unlock.c
 CSRCS += $(SYSAPI_DIR)/sysprc_create.c
 CSRCS += $(SYSAPI_DIR)/sysprc_delete.c
+CSRCS += $(SYSAPI_DIR)/sysprc_terminate.c
 CSRCS += $(SYSAPI_DIR)/sysprc_suspend.c
 CSRCS += $(SYSAPI_DIR)/sysprc_resume.c
 CSRCS += $(SYSAPI_DIR)/sysprc_getparam.c
@@ -158,8 +158,26 @@ endif
 ifeq ($(LINK_PROCESS),Yes)
 PROCESS_DIR = $(HOSAPLFW_DIR)/system/process
 SRC_DIRS += $(PROCESS_DIR)
-CSRCS += $(PROCESS_DIR)/process.c
-CSRCS += $(PROCESS_DIR)/procobj.c
+CSRCS += $(PROCESS_DIR)/process_create.c
+CSRCS += $(PROCESS_DIR)/process_delete.c
+CSRCS += $(PROCESS_DIR)/process_constructor.c
+CSRCS += $(PROCESS_DIR)/process_destructor.c
+CSRCS += $(PROCESS_DIR)/process_getcurrenthandle.c
+CSRCS += $(PROCESS_DIR)/process_exit.c
+CSRCS += $(PROCESS_DIR)/process_waitexit.c
+CSRCS += $(PROCESS_DIR)/process_getexitcode.c
+CSRCS += $(PROCESS_DIR)/process_setcurrentdir.c
+CSRCS += $(PROCESS_DIR)/process_getcurrentdir.c
+CSRCS += $(PROCESS_DIR)/process_setterminal.c
+CSRCS += $(PROCESS_DIR)/process_getterminal.c
+CSRCS += $(PROCESS_DIR)/process_setconsole.c
+CSRCS += $(PROCESS_DIR)/process_getconsole.c
+CSRCS += $(PROCESS_DIR)/process_setstdin.c
+CSRCS += $(PROCESS_DIR)/process_getstdin.c
+CSRCS += $(PROCESS_DIR)/process_setstdout.c
+CSRCS += $(PROCESS_DIR)/process_getstdout.c
+CSRCS += $(PROCESS_DIR)/process_setstderr.c
+CSRCS += $(PROCESS_DIR)/process_getstderr.c
 endif
 
 
@@ -430,6 +448,8 @@ SRC_DIRS += $(LAN9000_DIR)
 CSRCS += $(LAN9000_DIR)/lan9000drv_close.c
 CSRCS += $(LAN9000_DIR)/lan9000drv_create.c
 CSRCS += $(LAN9000_DIR)/lan9000drv_delete.c
+CSRCS += $(LAN9000_DIR)/lan9000drv_constructor.c
+CSRCS += $(LAN9000_DIR)/lan9000drv_destructor.c
 CSRCS += $(LAN9000_DIR)/lan9000drv_flush.c
 CSRCS += $(LAN9000_DIR)/lan9000drv_iocontrol.c
 CSRCS += $(LAN9000_DIR)/lan9000drv_isr.c
@@ -475,6 +495,8 @@ PC16550_DIR = $(HOSAPLFW_DIR)/driver/serial/pc16550
 SRC_DIRS += $(PC16550_DIR)
 CSRCS += $(PC16550_DIR)/pc16550drv_create.c
 CSRCS += $(PC16550_DIR)/pc16550drv_delete.c
+CSRCS += $(PC16550_DIR)/pc16550drv_constructor.c
+CSRCS += $(PC16550_DIR)/pc16550drv_destructor.c
 CSRCS += $(PC16550_DIR)/pc16550drv_open.c
 CSRCS += $(PC16550_DIR)/pc16550drv_close.c
 CSRCS += $(PC16550_DIR)/pc16550drv_iocontrol.c
@@ -619,6 +641,10 @@ CSRCS += $(FATVOL_DIR)/fatvol_getnewcluster.c
 CSRCS += $(FATVOL_DIR)/fatvol_getnextcluster.c
 CSRCS += $(FATVOL_DIR)/fatvol_setnextcluster.c
 CSRCS += $(FATVOL_DIR)/fatvol_syncfilesize.c
+CSRCS += $(FATVOL_DIR)/fatfile_create.c
+CSRCS += $(FATVOL_DIR)/fatfile_delete.c
+CSRCS += $(FATVOL_DIR)/fatfile_constructor.c
+CSRCS += $(FATVOL_DIR)/fatfile_destructor.c
 endif
 
 

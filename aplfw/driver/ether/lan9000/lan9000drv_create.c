@@ -15,7 +15,7 @@
 /* 仮想関数テーブル */
 static const T_DRVOBJ_METHODS Lan9000Drv_Methods = 
 	{
-		Lan9000Drv_Delete,
+		{ Lan9000Drv_Delete },
 		Lan9000Drv_Open,
 		Lan9000Drv_Close,
 		Lan9000Drv_IoControl,
@@ -26,28 +26,25 @@ static const T_DRVOBJ_METHODS Lan9000Drv_Methods =
 	};
 
 
-/** コンストラクタ */
-void Lan9000Drv_Create(C_LAN9000DRV *self, void *pRegAddr, int iIntNum)
+/** 生成 */
+HANDLE Lan9000Drv_Create(void *pRegBase, int iIntNum)
 {
-	/* 親クラスコンストラクタ呼び出し */
-	SyncDrv_Create(&self->SyncDrv, &Lan9000Drv_Methods);
-
-	/* メンバ変数初期化 */
-	self->iOpenCount = 0;
+	C_LAN9000DRV *self;
 	
-	/* Lan9000Hal 初期化 */
-	Lan9000Hal_Create(&self->Lan9000Hal, pRegAddr);
+	/* メモリ確保 */
+	if ( (self = (C_LAN9000DRV *)SysMem_Alloc(sizeof(C_LAN9000DRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
 	
-	/* イベント生成 */
-	self->hEvtRecv = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	self->hEvtSend = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-
-	/* ミューテックス生成 */
-	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
-	/* 割込み処理登録 */
-	self->iIntNum = iIntNum;
-	self->hIsr = SysIsr_Create(iIntNum, Lan9000Drv_Isr, (VPARAM)self);
+	/* コンストラクタ呼び出し */
+	if ( Lan9000Drv_Constructor(self, &Lan9000Drv_Methods, pRegBase, iIntNum) != FILE_ERR_OK )
+	{
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
+	
+	return (HANDLE)self;
 }
 
 

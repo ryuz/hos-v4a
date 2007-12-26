@@ -19,33 +19,54 @@ FILE_SIZE Lan9000Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 	C_SYNCFILE		*pFile;
 	FILE_SIZE		SendSize;
 	unsigned short	uhStatus;
+	FILE_ERR		ErrCode;
 	
 	/* upper cast */
 	self  = (C_LAN9000DRV *)pDrvObj;
 	pFile = (C_SYNCFILE *)pFileObj;
 
-	/* クリティカルセクションに入る */
-	SysMtx_Lock(self->hMtx);
-
-	while ( (SendSize = Lan9000Hal_Send(&self->Lan9000Hal, pData, Size)) == 0 )
+	/* 書込み処理開始 */
+	if ( (ErrCode = SyncDrv_StartProcess(&self->SyncDrv, pFile, SYNCDRV_FACTOR_WRITE)) != FILE_ERR_OK )
 	{
-		if ( pFile->cWriteMode != FILE_WMODE_BLOCKING )
+		return (FILE_SIZE)ErrCode;
+	}
+	
+	/* 書込みシグナルを一旦クリア */
+	SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_WRITE);
+	
+	for ( ; ; )
+	{
+		/* 送信 */
+		SysMtx_Lock(self->hMtx);		/* クリティカルセクションに入る */
+		SendSize = Lan9000Hal_Send(&self->Lan9000Hal, pData, Size);
+		SysMtx_Unlock(self->hMtx);		/* クリティカルセクションを出る */
+		
+		/* 成功なら抜ける */
+		if ( SendSize != 0 )
 		{
 			break;
 		}
-		
-		/* ブロッキングなら送信割り込みを待つ */
+
+		/* ブロッキングなら送信割り込み許可 */
 		uhStatus = Lan9000Hal_GetInterruptStatus(&self->Lan9000Hal);
 		Lan9000Hal_SetInterruptMask(&self->Lan9000Hal, (uhStatus | LAN9000HAL_IMASK_ALLOCINT));
-		
-		SysMtx_Unlock(self->hMtx);
-		SysEvt_Wait(self->hEvtSend);
-		SysEvt_Clear(self->hEvtSend);
-		SysMtx_Lock(self->hMtx);
+
+		/* ブロッキングモードでなければ抜ける */
+		if ( SyncFile_GetSyncMode(pFile, SYNCDRV_FACTOR_WRITE) != FILE_SYNCMODE_BLOCKING )
+		{
+			SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_WRITE, 0);
+			return 0;
+		}
+			
+		/* 書込みシグナルを待つ */
+		SyncFile_WaitSignal(pFile, SYNCDRV_FACTOR_WRITE);
+			
+		/* 書込みシグナルをクリアしてリトライ */
+		SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_WRITE);
 	}
-	
-	/* クリティカルセクションを出る */
-	SysMtx_Unlock(self->hMtx);
+
+	/* 書込み処理完了 */
+	SyncDrv_EndProcess(&self->SyncDrv, SYNCDRV_FACTOR_WRITE, (VPARAM)0);
 
 	return SendSize;
 }

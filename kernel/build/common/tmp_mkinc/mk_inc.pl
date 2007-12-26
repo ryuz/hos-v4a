@@ -123,6 +123,7 @@
 		"kcre_tsk.c",
 		"act_tsk.c",
 		"ext_tsk.c",
+		"ter_tsk.c",
 		"slp_tsk.c",
 		"wup_tsk.c",
 		"can_wup.c",

@@ -8,12 +8,13 @@
 # %jp{ターゲット名}
 TARGET ?= sample
 
+
 # %jp{ツール定義}
-GCC_SYS    ?= elf
-CMD_CC     ?= h8300-$(GCC_SYS)-gcc
-CMD_ASM    ?= h8300-$(GCC_SYS)-gcc
-CMD_LINK   ?= h8300-$(GCC_SYS)-gcc
-CMD_OBJCNV ?= h8300-$(GCC_SYS)-objcopy
+GCC_ARCH   ?= h8300-elf-
+CMD_CC     ?= $(GCC_ARCH)gcc
+CMD_ASM    ?= $(GCC_ARCH)gcc
+CMD_LINK   ?= $(GCC_ARCH)gcc
+CMD_OBJCNV ?= $(GCC_ARCH)objcopy
 
 
 # %jp{ディレクトリ定義}

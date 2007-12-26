@@ -145,6 +145,9 @@ int Shell_ExecEntry(VPARAM Param)
 
 void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 {
+	T_PROCESS_CREATE_INF Inf;
+	
+
 	int iLen;
 	iLen = strlen(pszCommand);
 	if ( iLen > 1 && pszCommand[iLen - 1] == '&' )
@@ -153,7 +156,20 @@ void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		pszBuf = Memory_Alloc(iLen);
 		strcpy(pszBuf, pszCommand);
 		pszBuf[iLen - 1] = '\0';
-		Process_Create(Shell_ExecEntry, (VPARAM)pszBuf, 1024, PROCESS_PRIORITY_NORMAL+1, NULL);
+
+		/* プロセスの生成情報 */
+		Inf.pfncEntry  = Shell_ExecEntry;						/* 起動アドレス */
+		Inf.Param      = (VPARAM)pszBuf;						/* ユーザーパラメータ */
+		Inf.StackSize  = 1024;									/* スタックサイズ */
+		Inf.Priority   = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
+		Inf.hTerminal  = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
+		Inf.hConsole   = Process_GetConsole(HANDLE_NULL);		/* コンソール */
+		Inf.hStdIn     = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
+		Inf.hStdOut    = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
+		Inf.hStdErr    = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
+		Process_GetCurrentDir(HANDLE_NULL, Inf.szCurrentDir, sizeof(Inf.szCurrentDir));	/* カレントディレクトリ */
+		
+		Process_Create(&Inf);
 	}
 	else
 	{

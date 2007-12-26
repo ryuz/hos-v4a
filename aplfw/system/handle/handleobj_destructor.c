@@ -16,7 +16,26 @@
 /* デストラクタ */
 void HandleObj_Destructor(C_HANDLEOBJ *self)
 {
-	/* プロセスの紐付け解除(予定) */
+	/* 子オブジェクトがあればすべて閉じる */
+	while ( self->pChild != NULL )
+	{
+		Handle_Close((HANDLE)self->pChild);
+	}
+	
+	/* プロセスの紐付け解除 */
+	if ( self->pNext == self )
+	{
+		self->pParent->pChild = NULL;
+	}
+	else
+	{
+		if ( self->pParent == self )
+		{
+			self->pParent = self->pNext;
+		}
+		self->pNext->pPrev = self->pPrev;
+		self->pPrev->pNext = self->pNext;
+	}
 }
 
 

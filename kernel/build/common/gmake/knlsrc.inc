@@ -191,6 +191,7 @@ CSRCS += $(TSKOBJ_DIR)/acre_tsk.c
 CSRCS += $(TSKOBJ_DIR)/kcre_tsk.c
 CSRCS += $(TSKOBJ_DIR)/act_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ext_tsk.c
+CSRCS += $(TSKOBJ_DIR)/ter_tsk.c
 CSRCS += $(TSKOBJ_DIR)/slp_tsk.c
 CSRCS += $(TSKOBJ_DIR)/wup_tsk.c
 CSRCS += $(TSKOBJ_DIR)/can_wup.c

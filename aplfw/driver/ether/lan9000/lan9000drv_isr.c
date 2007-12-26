@@ -26,14 +26,16 @@ void Lan9000Drv_Isr(VPARAM Param)
 	/* 受信していたら */
 	if ( uhStatus & LAN9000HAL_ISTATUS_RCVINT )
 	{
-		SysEvt_Set(self->hEvtRecv);
+		/* 読込みシグナルを発生 */
+		SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_READ);
 		uhStatus &= ~LAN9000HAL_IMASK_RCVINT;
 	}
 
 	/* 送信可能なら */
 	if ( uhStatus & LAN9000HAL_ISTATUS_ALLOCINT )
 	{
-		SysEvt_Set(self->hEvtSend);
+		/* 書込みシグナルを発生 */
+		SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_WRITE);
 		uhStatus &= ~LAN9000HAL_IMASK_ALLOCINT;
 	}
 	

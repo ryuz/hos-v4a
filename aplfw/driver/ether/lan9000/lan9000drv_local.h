@@ -14,11 +14,32 @@
 
 
 #include "lan9000drv.h"
+#include "system/file/syncdrv_local.h"
+#include "system/sysapi/sysapi.h"
+#include "lan9000hal.h"
+
+
+
+/* LAN9000ファミリー用ドライバ制御部 */
+typedef struct c_lan9000drv
+{
+	C_SYNCDRV		SyncDrv;		/* 同期機能付きデバイスドライバを継承 */
+
+	C_LAN9000HAL	Lan9000Hal;		/* ハードウェア制御クラス */
+	int				iOpenCount;		/* オープンカウンタ */
+	int				iIntNum;		/* 割込み番号 */
+	SYSISR_HANDLE	hIsr;			/* 割り込みサービスハンドル */
+	SYSMTX_HANDLE	hMtx;			/* 排他制御ミューテックス */
+} C_LAN9000DRV;
+
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+FILE_ERR  Lan9000Drv_Constructor(C_LAN9000DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum);	/**< コンストラクタ */
+void      Lan9000Drv_Destructor(C_LAN9000DRV *self);																	/**< デストラクタ */
 
 HANDLE    Lan9000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
 void      Lan9000Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
