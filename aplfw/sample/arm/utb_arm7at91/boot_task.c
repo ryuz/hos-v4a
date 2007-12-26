@@ -73,6 +73,7 @@ void Boot_Task(VP_INT exinf)
 	SysInf.SystemStackSize = 1024;
 	SysInf.pfncBoot        = Boot_Process;
 	SysInf.BootParam       = (VPARAM)0;
+	SysInf.BootStackSize   = 4096;
 	System_Initialize(&SysInf);
 }
 
@@ -150,6 +151,16 @@ int Boot_Process(VPARAM Param)
 	Command_AddCommand("time",     TimeCmd_Main);
 	Command_AddCommand("ethsnoop", EtherSnoop_Main);
 	
+	/* 起動メッセージ */
+	StdIo_PutString(
+			"\n\n"
+			"================================================================\n"
+			" Hyper Operating System  Application Flamework\n"
+			"\n"
+			"                          Copyright (C) 1998-2007 by Project HOS\n"
+			"                          http://sourceforge.jp/projects/hos/\n"
+			"================================================================\n"
+			"\n");
 	
 	/*************************/
 	/*  システムプロセス起動 */
