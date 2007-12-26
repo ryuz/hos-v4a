@@ -31,13 +31,13 @@
 #include "application/utility/keytest/keytest.h"
 #include "regs_sh7144.h"
 
+int Boot_Process(VPARAM Param);
 
 
-void Sample_Task(VP_INT exinf)
+/* ブートタスク */
+void Boot_Task(VP_INT exinf)
 {
-	HANDLE	hTty;
-	HANDLE	hCon;
-	HANDLE	hDriver;
+	T_SYSTEM_INITIALIZE_INF	SysInf;
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -48,12 +48,28 @@ void Sample_Task(VP_INT exinf)
 	
 	*REG_INTC_IPRF = ((*REG_INTC_IPRF & 0xfff0) | 0x0001);
 	
+	
 	/*************************/
-	/*       初期化          *
+	/*       初期化          */
 	/*************************/
 	
 	/* システム初期化 */
-	System_Initialize((void *)0x00440000, 0x40000);
+	SysInf.pHeapMem        = (void *)0x00440000;
+	SysInf.HeapSize        = 0x40000;
+	SysInf.SystemStackSize = 1024;
+	SysInf.pfncBoot        = Boot_Process;
+	SysInf.BootParam       = (VPARAM)0;
+	SysInf.BootStackSize   = 4096;
+	System_Initialize(&SysInf);
+}
+
+
+/* ブートプロセス */
+int Boot_Process(VPARAM Param)
+{
+	HANDLE	hTty;
+	HANDLE	hCon;
+	HANDLE	hDriver;
 	
 	
 	/*************************/
@@ -85,6 +101,17 @@ void Sample_Task(VP_INT exinf)
 	
 	
 	/*************************/
+	/*     標準入出力設定    */
+	/*************************/
+	
+	Process_SetTerminal(HANDLE_NULL, hTty);
+	Process_SetConsole(HANDLE_NULL, hCon);
+	Process_SetStdIn(HANDLE_NULL, hCon);
+	Process_SetStdOut(HANDLE_NULL, hCon);
+	Process_SetStdErr(HANDLE_NULL, hCon);
+	
+	
+	/*************************/
 	/*     コマンド登録      */
 	/*************************/
 	Command_AddCommand("hsh",      Shell_Main);
@@ -96,10 +123,24 @@ void Sample_Task(VP_INT exinf)
 	Command_AddCommand("keytest",  KeyTest_Main);
 	
 	
+	/* 起動メッセージ */
+	StdIo_PutString(
+			"\n\n"
+			"================================================================\n"
+			" Hyper Operating System  Application Flamework\n"
+			"\n"
+			"                          Copyright (C) 1998-2007 by Project HOS\n"
+			"                          http://sourceforge.jp/projects/hos/\n"
+			"================================================================\n"
+			"\n");
+	
 	/*************************/
-	/*  システムプロセス起動 */
+	/*      シェル起動       */
 	/*************************/
-	System_Boot(hTty, hCon, "hsh", 4096);
+	
+	Command_Execute("hsh", NULL);
+	
+	return 0;
 }
 
 

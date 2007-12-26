@@ -113,7 +113,7 @@ int            SysEvt_RefStatus(SYSEVT_HANDLE hEvt);				/**< イベントの状�
 
 /* 時間管理 */
 void           SysTim_Wait(unsigned long ulTime);					/**< 時間待ち(システム用) */
-TIME           SysTim_GetCurrentTime(void);							/**< 現在のシステム時刻取得(システム用) */
+TIME           SysTim_GetSystemTime(void);							/**< 現在のシステム時刻取得(システム用) */
 
 
 /* I/Oアクセス */

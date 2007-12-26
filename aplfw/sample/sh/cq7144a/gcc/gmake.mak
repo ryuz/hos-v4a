@@ -89,7 +89,7 @@ ASRCS += ./vector.S			\
 # %jp{C言語ファイルの追加}
 CSRCS += ../kernel_cfg.c	\
          ../main.c			\
-         ../sample.c		\
+         ../boot_task.c		\
          ../ostimer.c
 
 # %jp{ライブラリの追加}
