@@ -18,7 +18,7 @@ LOAD_SEG  = 0x9000			/* 本体をロードするセグメントアドレス */
 				.text
 
 				.global	ipl_top
-				
+
 		/***** IPL部 *****/
 ipl_top:
 				cli
@@ -45,11 +45,11 @@ ipl_start:
 		/***** 初期化部 *****/
 init_start:
 				/* 画面のクリア */
-				call	init_clr_disp
+				call	bios_clr_disp
 				
 				/* メッセージ出力 */
 				movw    $boot_message, %si
-				call	init_puts
+				call	bios_puts
 				
 				/* 本体のロード */
 				movw	$LOAD_SEG, %ax
@@ -75,7 +75,7 @@ end_loop:
 				
 				
 				/* 画面のクリア */
-init_clr_disp:
+bios_clr_disp:
 				movb    $0x3, %al
 				movb    $0, %ah
 				int     $0x10
@@ -83,21 +83,22 @@ init_clr_disp:
 
 
 				/* １文字出力 */
-init_putc:
+bios_putc:
 				movb    $0x0e, %ah
 				movb    $0, %bh
 				int     $0x10
 				ret
 				
 				/* 文字列出力 */
-init_puts:
+bios_puts:
 				lodsb
 				cmpb	$0, %al
-				jz		init_puts_end
-				call	init_putc
-				jmp		init_puts
-init_puts_end:
+				jz		bios_puts_end
+				call	bios_putc
+				jmp		bios_puts
+bios_puts_end:
 				ret
+
 
 				
 				/* 起動メッセージ */

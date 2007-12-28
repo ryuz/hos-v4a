@@ -2,23 +2,20 @@ ENTRY(ipl_top)
 
 MEMORY
 {
-/*	ipl   : o = 0x0000000, l = 0x000400
-	load  : o = 0x0000400, l = 0x167c00 */
-
-	ipl   : o = 0x0000000, l = 0x168000
-	load  : o = 0x0168000, l = 0x167c00
+	ipl   : o = 0x07c00, l = 0x000400
+	load  : o = 0x09000, l = 0x167800
 }
 
 SECTIONS
 {
-	.ipl :
+	.ipl : AT 0x00000
 	{
 		___vector = . ; 
 		*/bootloader.o(.text)
 		FILL(0x00)
 		___vector_end = . ; 
 	} > ipl
-	.text :
+	.text : AT 0x00800
 	{
 		 ___text = . ; 
 		*(.text)
@@ -36,9 +33,8 @@ SECTIONS
 		*(.dtors)
 		___dtors_end = . ;
 	} > load
-	data : AT (ADDR(.tors) + SIZEOF(.tors))
+	data : 
 	{
-	    ___data_rom = ADDR(.tors) + SIZEOF(.tors);
 		___data = . ;
 		*(.data)
 		___data_end = . ;
@@ -48,7 +44,6 @@ SECTIONS
 		___bss = . ;
 		*(.bss)
 		*(COMMON)
-		FILL(0xff)
 		___bss_end = . ;  
 	}  >load
 }

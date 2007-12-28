@@ -61,7 +61,8 @@ include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 SRC_DIRS += . ..
 
 # アセンブラファイルの追加
-ASRCS += ./bootloader.S
+ASRCS += ./bootloader.S			\
+         ./crt0.S
 
 
 # %jp{C言語ファイルの追加}
