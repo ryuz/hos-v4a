@@ -86,7 +86,7 @@ LIBS  +=
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT)
+all: makeexe_all $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) fd.img
 
 .PHONY : clean
 clean: makeexe_clean
@@ -98,6 +98,8 @@ depend: makeexe_depend
 .PHONY : mostlyclean
 mostlyclean: clean kernel_clean
 
+fd.img: $(TARGET_BIN)
+	./fd_img.pl $(TARGET_BIN) fd.img
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i

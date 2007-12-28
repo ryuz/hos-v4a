@@ -1,7 +1,7 @@
 /** 
- *  Hyper Operating System V4 Advance
+ * Hyper Operating System V4 Advance
  *
- * sample program for PC/AT
+ *  Sample program for PC/AT
  *
  * Copyright (C) 1998-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -88,7 +88,8 @@ init_putc:
 				movb    $0, %bh
 				int     $0x10
 				ret
-
+				
+				/* 文字列出力 */
 init_puts:
 				lodsb
 				cmpb	$0, %al
@@ -101,7 +102,7 @@ init_puts_end:
 				
 				/* 起動メッセージ */
 boot_message:
-		        .ascii	"Hyper Operating System V4 Advance\r\n\0"
+		        .ascii	"HOS-Loader\r\nNow Loading...\r\n\0"
 
 
 				/* マジックナンバー */
