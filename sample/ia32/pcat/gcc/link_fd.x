@@ -8,14 +8,14 @@ MEMORY
 
 SECTIONS
 {
-	.ipl : AT 0x00000
+	.ipl : AT (0x00000)
 	{
 		___vector = . ; 
 		*/bootloader.o(.text)
 		FILL(0x00)
 		___vector_end = . ; 
 	} > ipl
-	.text : AT 0x00800
+	.text : AT (0x00800)
 	{
 		 ___text = . ; 
 		*(.text)
