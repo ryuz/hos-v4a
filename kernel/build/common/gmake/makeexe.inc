@@ -101,13 +101,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 
 # %jp{ライブラリ生成}
 .PHONY : makeexe_all
-makeexe_all: kernel_make mkdir_objs $(CSRCS) $(ASRCS)
-
-
-# %jp{オブジェクト出力ディレクトリ作成}
-.PHONY : mkdir_objs
-mkdir_objs:
-	$(CMD_MKDIR) -p $(OBJS_DIR)
+makeexe_all: kernel_make makeexe_mkobjsdir $(CSRCS) $(ASRCS)
 
 
 # %jp{クリーンナップ}
@@ -116,10 +110,16 @@ makeexe_clean:
 	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
 
 
+# %jp{オブジェクト出力ディレクトリ作成}
+.PHONY : makeexe_mkobjsdir
+makeexe_mkobjsdir:
+	$(CMD_MKDIR) -p $(OBJS_DIR)
+
+
 # %jp{依存関係の生成}
 DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 .PHONY : makeexe_depend
-makeexe_depend:
+makeexe_depend: makeexe_mkobjsdir
 	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
 
 -include $(OBJS_DIR)/depend.inc

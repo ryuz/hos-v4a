@@ -39,8 +39,8 @@ LINK_SCRIPT = link_fd.x
 
 
 # %jp{フラグ設定}
-CFLAGS  = 
-AFLAGS  = 
+CFLAGS  = -march=i386
+AFLAGS  = -march=i386
 LNFLAGS = -nostdlib -fno-exceptions -ffreestanding -fno-builtin -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
@@ -88,8 +88,16 @@ LIBS  +=
 .PHONY : all
 all: makeexe_all $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT)
 
+.PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+
+.PHONY : depend
+depend: makeexe_depend
+
+.PHONY : mostlyclean
+mostlyclean: clean kernel_clean
+
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i

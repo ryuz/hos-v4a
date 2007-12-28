@@ -15,7 +15,6 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
-#include "boot_task.h"
 #include "system/system/system.h"
 #include "system/sysapi/sysapi.h"
 #include "system/file/console.h"
@@ -35,6 +34,7 @@
 #include "application/utility/keytest/keytest.h"
 #include "application/utility/timecmd/timecmd.h"
 #include "application/netcmd/ethersnoop/ethersnoop.h"
+#include "boot.h"
 
 
 long			g_SystemHeap[32 * 1024 / sizeof(long)];

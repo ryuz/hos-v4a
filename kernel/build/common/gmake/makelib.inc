@@ -88,7 +88,7 @@ VPATH = $(subst $(space),:,$(SRC_DIRS))
 
 # %jp{ライブラリ生成}%en{library}
 .PHONY : makelib_all
-makelib_all: $(CSRCS) $(ASRCS) mkdir_objs $(TARGET_LIB)
+makelib_all: $(CSRCS) $(ASRCS) makelib_mkobjsdir $(TARGET_LIB)
 
 
 # %jp{クリーンナップ}%en{clean}
@@ -100,15 +100,15 @@ makelib_clean:
 # %jp{依存関係の生成}%en{depend}
 DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 .PHONY : makelib_depend
-makelib_depend:
+makelib_depend: makelib_mkobjsdir
 	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
 
 -include $(OBJS_DIR)/depend.inc
 
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
-.PHONY : mkdir_objs
-mkdir_objs:
+.PHONY : makelib_mkobjsdir
+makelib_mkobjsdir:
 	$(CMD_MKDIR) -p $(OBJS_DIR)
 
 
