@@ -109,9 +109,6 @@ boot_message:
 				.org	510
 				.word	0xaa55
 
-				.org	0x167ffc
-				.word	0xaa55
-
 
 
 /* end of file  */

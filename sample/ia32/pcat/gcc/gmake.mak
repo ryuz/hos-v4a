@@ -11,7 +11,7 @@ TARGET ?= sample
 
 
 # %jp{ツール定義}
-GCC_ARCH   ?= i386-elf
+GCC_ARCH   ?= i386-elf-
 CMD_CC     ?= $(GCC_ARCH)gcc
 CMD_ASM    ?= $(GCC_ARCH)gcc
 CMD_LINK   ?= $(GCC_ARCH)gcc
