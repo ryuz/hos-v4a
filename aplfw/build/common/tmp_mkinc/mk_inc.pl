@@ -663,7 +663,7 @@
 			"\$(HOSAPLFW_DIR)/application/example/hello",
 			"HELLO",
 			"Yes",
-			"hello.c",
+			"hello_main.c",
 		],
 	],
 );

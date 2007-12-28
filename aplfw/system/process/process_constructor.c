@@ -52,11 +52,18 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	}
 	SysEvt_Clear(self->hEvt);
 	
+	/* スタック用メモリ確保 */
+	if ( (self->pStack = SysMem_Alloc(self->StackSize)) == NULL )
+	{
+		return PROCESS_ERR_NG;
+	}
+
 	/* プロセス生成 */
-	self->hPrc = SysPrc_Create(Process_Entry, (VPARAM)self, self->StackSize, self->Priority, SYSPRC_ATTR_NORMAL);
+	self->hPrc = SysPrc_Create(Process_Entry, (VPARAM)self, self->pStack, self->StackSize, self->Priority, SYSPRC_ATTR_NORMAL);
 	if ( self->hPrc == SYSPRC_HANDLE_NULL )
 	{
 		SysEvt_Delete(self->hEvt);
+		SysMem_Free(self->pStack);
 		return PROCESS_ERR_NG;
 	}
 	

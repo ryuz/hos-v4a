@@ -18,7 +18,7 @@ static const T_FILEOBJ_METHODS TcpIpFile_FileObjMethods =
 	};
 
 
-HANDLE TcpIpFile_Create(C_TCPIP *pTcpIp)
+HANDLE TcpIpFile_Create(C_TCPIP *pTcpIp, int iMode)
 {
 	C_TCPIPFILE *self;
 
@@ -29,7 +29,7 @@ HANDLE TcpIpFile_Create(C_TCPIP *pTcpIp)
 	}
 	
 	/* コンストラクタ呼び出し */
-	FatFile_Constructor(self, &TcpIpFile_FileObjMethods, pTcpIp);
+	FatFile_Constructor(self, &TcpIpFile_FileObjMethods, pTcpIp, iMode);
 	
 	return (HANDLE)self;
 }

@@ -166,7 +166,7 @@ int Boot_Process(VPARAM Param)
 	/*      シェル起動       */
 	/*************************/
 	
-	Command_Execute("hsh", NULL);
+	Command_Execute("hsh -i", NULL);
 	
 	return 0;
 }

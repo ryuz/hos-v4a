@@ -20,7 +20,7 @@ static const T_FILEOBJ_METHODS SysVolFile_FileObjMethods =
 	};
 
 
-HANDLE SysVolFile_Create(struct c_sysvol *pSysVol)
+HANDLE SysVolFile_Create(struct c_sysvol *pSysVol, int iMode)
 {
 	C_SYSVOLFILE *self;
 	
@@ -31,7 +31,7 @@ HANDLE SysVolFile_Create(struct c_sysvol *pSysVol)
 	}
 	
 	/* コンストラクタ呼び出し */
-	SysVolFile_Constructor(self, &SysVolFile_FileObjMethods, pSysVol);	
+	SysVolFile_Constructor(self, &SysVolFile_FileObjMethods, pSysVol, iMode);	
 	
 	return (HANDLE)self;	
 }

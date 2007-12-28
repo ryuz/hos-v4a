@@ -31,7 +31,7 @@
 /** %jp{コンテキスト情報保存ブロック} */
 typedef struct _kernel_t_ctxcb
 {
-	HANDLE  hEvent;				/**< %jp{スレッドハンドル} */
+	HANDLE  hEvent;				/**< %jp{イベントハンドル} */
 	HANDLE  hThread;			/**< %jp{スレッドハンドル} */
 	DWORD   dwThreadId;			/**< %jp{スレッドID} */
 	BOOL    blIntSuspend;		/**< %jp{割り込みディスパッチされた} */

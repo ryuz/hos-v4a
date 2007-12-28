@@ -35,7 +35,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	SysMtx_Lock(self->hMtx);
 	
 	/* サイズチェック */
-	if ( !(pFile->iMode & FILE_OPEN_DIR) )
+	if ( !(FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR) )
 	{
 		if ( Size > pFile->FileSize - pFile->FilePos )
 		{
@@ -57,7 +57,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	}
 	
 	/* 読み出し */
-	while ( Size > 0 && (pFile->FilePos < pFile->FileSize || (pFile->iMode & FILE_OPEN_DIR)) )
+	while ( Size > 0 && (pFile->FilePos < pFile->FileSize || (FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR)) )
 	{
 		FILE_POS 			ReadStart;
 		FILE_SIZE			ReadSize;

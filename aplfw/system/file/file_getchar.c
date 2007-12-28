@@ -15,11 +15,20 @@
 
 int File_GetChar(HANDLE hFile)
 {
-	char c;
-	if ( File_Read(hFile, &c, 1) != 1 )
-	{
-		return FILE_EOF;
-	}
+	C_FILEOBJ	*pFileObj;
+	char 		c;
+
+	pFileObj = (C_FILEOBJ *)hFile;
+	
+	do
+	{	
+		if ( File_Read(hFile, &c, 1) != 1 )
+		{
+			return FILE_EOF;
+		}
+	} while ( c == '\r' && (FileObj_GetMode(pFileObj) & FILE_OPEN_TEXT) );
+
+	
 	return c;
 }
 

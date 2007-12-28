@@ -352,7 +352,6 @@ clean: makelib_clean
 depend: makelib_depend
 
 
-
 # %jp{gcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 

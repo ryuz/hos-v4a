@@ -55,6 +55,15 @@ ER twai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmout)
 	}
 #endif
 	
+	/* %jp{パラメータのチェック} */
+#ifdef _KERNEL_SPT_TWAI_FLG_E_PAR
+	if ( waiptn == 0 )
+	{
+		return E_PAR;	/* %jp{パラメータ不正} */
+	}
+#endif
+
+
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコール開始} */
 	
 	/* %jp{オブジェクト存在チェック} */
@@ -123,7 +132,10 @@ ER twai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmout)
 			/* %jp{条件を満たして解除されたのなら} */
 			if ( ercd == E_OK )
 			{
-				*p_flgptn = flginf.waiptn;			/* %jp{解除時のフラグパターンを格納} */
+				if ( p_flgptn != NULL )
+				{
+					*p_flgptn = flginf.waiptn;			/* %jp{解除時のフラグパターンを格納} */
+				}
 			}
 		}
 		else

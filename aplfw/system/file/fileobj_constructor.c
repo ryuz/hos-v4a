@@ -13,13 +13,14 @@
 
 
 /* コンストラクタ */
-void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, C_DRVOBJ *pDrvObj)
+void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, C_DRVOBJ *pDrvObj, int iMode)
 {
 	/* 親クラスコンストラクタ呼び出し */
 	HandleObj_Constructor(&self->HandleObj, &pMethods->HandlObjMethods);
 	
 	/* メンバ変数初期化 */
 	self->pDrvObj = pDrvObj;
+	self->iMode   = iMode;
 }
 
 

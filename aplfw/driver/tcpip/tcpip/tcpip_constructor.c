@@ -34,7 +34,7 @@ FILE_ERR  TcpIp_Constructor(C_TCPIP *self, const T_DRVOBJ_METHODS *pMethods, con
 	self->hMtxSend = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	
 	/* 受信プロセス生成 */
-	self->hPrcRecv = SysPrc_Create(TcpIp_Recv, (VPARAM)self, 1024, 2, SYSPRC_ATTR_NORMAL);
+	self->hPrcRecv = SysPrc_Create(TcpIp_Recv, (VPARAM)self, NULL, 1024, 2, SYSPRC_ATTR_NORMAL);
 	
 	return FILE_ERR_OK;
 }

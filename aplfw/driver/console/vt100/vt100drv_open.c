@@ -23,7 +23,7 @@ HANDLE Vt100Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	self = (C_VT100DRV *)pDrvObj;
 	
 	/* create file descriptor */
-	if ( (hFile = FileObj_Create(&self->DrvObj)) == HANDLE_NULL )
+	if ( (hFile = FileObj_Create(&self->DrvObj, iMode)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}

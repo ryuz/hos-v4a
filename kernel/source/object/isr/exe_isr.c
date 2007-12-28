@@ -22,12 +22,13 @@ void _kernel_exe_isr(INTNO intno)
 	_KERNEL_T_ISRCB_PTR    isrcb;
 	_KERNEL_T_ISRHDL       isrhdl;
 	
-	isrhdl   = _KERNEL_INT_GET_HEAD(intno);
-	isrcb    = _KERNEL_ISR_ISRHDL2ISRCB(isrhdl);
-	isrcb_ro = _KERNEL_ISR_ISRHDL2ISRCBRO(isrhdl);
+	isrhdl = _KERNEL_INT_GET_HEAD(intno);
 
 	while ( isrhdl != _KERNEL_ISRHDL_NULL )
 	{
+		isrcb    = _KERNEL_ISR_ISRHDL2ISRCB(isrhdl);
+		isrcb_ro = _KERNEL_ISR_ISRHDL2ISRCBRO(isrhdl);
+
 		_KERNEL_ENA_INT();			/* %jp{多重割込み許可} */
 		_KERNEL_ISR_GET_ISR(isrcb_ro)(_KERNEL_ISR_GET_EXINF(isrcb_ro));
 		_KERNEL_DIS_INT();			/* %jp{割込み禁止} */

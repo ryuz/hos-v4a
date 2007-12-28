@@ -48,7 +48,7 @@ typedef struct c_tcpipfile
 extern "C" {
 #endif
 
-HANDLE TcpIpFile_Create(C_TCPIP *pTcpIp);
+HANDLE TcpIpFile_Create(C_TCPIP *pTcpIp, int iMode);
 void   TcpIpFile_Delete(HANDLE hFile);
 
 

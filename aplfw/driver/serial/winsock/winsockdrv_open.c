@@ -1,38 +1,38 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  streampipe.c
- * @brief %jp{ストリームパイプ}
+ * @file  winsockdrv.h
+ * @brief %jp{WinSockでシリアルを擬似するドライバ}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#include "streampipe_local.h"
+
+#include "winsockdrv_local.h"
 
 
 /** オープン */
-HANDLE StreamPipe_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
-	C_STREAMPIPE	*self;
-	HANDLE			hFile;
-	
+	C_WINSOCKDRV		*self;
+	HANDLE				hFile;
+
 	/* upper cast */
-	self = (C_STREAMPIPE *)pDrvObj;
+	self = (C_WINSOCKDRV *)pDrvObj;
 
 	/* create file descriptor */
 	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}
-	
+
 	/* オープン処理 */
 	if ( self->iOpenCount++ == 0 )
 	{
-		StreamBuf_Clear(&self->StreamBuf);
 	}
-	
+
 	return hFile;
 }
 

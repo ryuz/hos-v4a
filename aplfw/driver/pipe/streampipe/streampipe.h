@@ -13,20 +13,7 @@
 #define __HOS__streampipe_h__
 
 
-#include "system/sysapi/sysapi.h"
-#include "system/file/syncdrv.h"
-#include "library/container/streambuf/streambuf.h"
-
-
-/* ストリームパイプクラス */
-typedef struct c_streampipe
-{
-	C_SYNCDRV		SyncDrv;		/**< 同期機能付きデバイスドライバを継承 */
-
-	int				iOpenCount;		/**< オープンカウンタ */
-
-	C_STREAMBUF		StreamBuf;		/**< バッファ */
-} C_STREAMPIPE;
+#include "hosaplfw.h"
 
 
 #ifdef __cplusplus

@@ -81,7 +81,7 @@ SYSISR_HANDLE  SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM 
 void           SysIsr_Delete(SYSISR_HANDLE hIsr);
 
 /* システム用プロセス制御API */
-SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, int iAttr);
+SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, void *pStack, MEMSIZE StackSize, int Priority, int iAttr);
 																	/**< プロセス生成(システム用) */
 void           SysPrc_Delete(SYSPRC_HANDLE hPrc);					/**< プロセス削除(システム用) */
 VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);					/**< プロセスのパラメータ取得(システム用) */

@@ -10,7 +10,7 @@
 
 
 #include "fileobj_local.h"
-#include "system/sysapi/sysapi.h"
+
 
 
 static const T_FILEOBJ_METHODS FileObj_FileObjMethods =
@@ -19,7 +19,7 @@ static const T_FILEOBJ_METHODS FileObj_FileObjMethods =
 	};
 
 
-HANDLE FileObj_Create(struct c_drvobj *pDrvObj)
+HANDLE FileObj_Create(struct c_drvobj *pDrvObj, int iMode)
 {
 	C_FILEOBJ *self;
 	
@@ -30,7 +30,7 @@ HANDLE FileObj_Create(struct c_drvobj *pDrvObj)
 	}
 	
 	/* コンストラクタ呼び出し */
-	FileObj_Constructor(self, &FileObj_FileObjMethods, pDrvObj);
+	FileObj_Constructor(self, &FileObj_FileObjMethods, pDrvObj, iMode);
 	
 	return (HANDLE)self;
 }

@@ -13,8 +13,10 @@
 #define __HOS__syncdrv_local_h__
 
 
-#include "system/file/syncdrv.h"
+#include "syncdrv.h"
 #include "system/file/drvobj_local.h"
+#include "system/sysapi/sysapi.h"
+
 
 
 /* 処理要因定義 */
@@ -24,6 +26,23 @@
 
 #define SYNCDRV_FACTOR_NUM			3
 
+struct c_syncfile;
+
+/* デバイスドライバオブジェクト基本クラス(抽象クラス) */
+typedef struct c_syncdrv
+{
+	C_DRVOBJ			DrvObj;				/**< DrvObjクラスを継承 */
+
+	struct c_syncfile	*pFileHead;			/**< ファイルオブジェクトの連結ポインタ */
+	
+	SYSEVT_HANDLE		hMtx;				/**< 排他制御ミューテックス */
+	
+	int					iSyncFactorNum;		/**< 同期要因の数 */
+	struct c_syncfile	**ppBusyFile;		/**< 処理中ファイルオブジェクト */
+} C_SYNCDRV;
+
+
+#include "system/file/syncfile_local.h"
 
 
 #ifdef __cplusplus
@@ -35,7 +54,7 @@ void     SyncDrv_Destructor(C_SYNCDRV *self);															/**< デストラク
 
 #define  SyncDrv_GetSyncFactorNum(self)		((self)->iSyncFactorNum)									/**< 同期要因数取得 */
 
-FILE_ERR SyncDrv_StartProcess(C_SYNCDRV *self, C_SYNCFILE *pSyncFile, int iFactor);						/**< 処理の開始 */
+FILE_ERR SyncDrv_StartProcess(C_SYNCDRV *self, struct c_syncfile *pSyncFile, int iFactor);				/**< 処理の開始 */
 void     SyncDrv_EndProcess(C_SYNCDRV *self, int iFactor, VPARAM ErrCode);								/**< 処理の完了 */
 void     SyncDrv_SendSignal(C_SYNCDRV *self, int iFactor);												/**< シグナルの送信 */
 

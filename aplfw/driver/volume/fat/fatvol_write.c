@@ -44,7 +44,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 	SysMtx_Lock(self->hMtx);
 	
 	/* モードチェック */
-	if ( !(pFile->iMode & FILE_OPEN_WRITE) || (pFile->iMode & FILE_OPEN_DIR) )
+	if ( !(FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_WRITE) || (FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR) )
 	{
 		SysMtx_Unlock(self->hMtx);
 		return 0;
@@ -147,7 +147,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 	}
 	
 	/* ディレクトリテーブルのサイズ更新 */
-	if ( iResizeFlag &&	!(pFile->iMode & FILE_OPEN_DIR) )
+	if ( iResizeFlag &&	!(FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR) )
 	{
 		FatVol_SyncFileSize(self, pFile);
 	}

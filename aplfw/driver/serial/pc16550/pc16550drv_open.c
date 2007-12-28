@@ -22,7 +22,7 @@ HANDLE Pc16550Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	self = (C_PC16550DRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}

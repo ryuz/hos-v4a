@@ -29,6 +29,7 @@
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
+#include "boot.h"
 #include "regs_sh7144.h"
 
 int Boot_Process(VPARAM Param);
@@ -138,7 +139,7 @@ int Boot_Process(VPARAM Param)
 	/*      シェル起動       */
 	/*************************/
 	
-	Command_Execute("hsh", NULL);
+	Command_Execute("hsh -i", NULL);
 	
 	return 0;
 }

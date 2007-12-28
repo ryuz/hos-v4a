@@ -15,7 +15,19 @@
 
 #include "streampipe.h"
 #include "system/file/syncdrv_local.h"
+#include "library/container/streambuf/streambuf.h"
 #include "system/sysapi/sysapi.h"
+
+
+/* ストリームパイプクラス */
+typedef struct c_streampipe
+{
+	C_SYNCDRV		SyncDrv;		/**< 同期機能付きデバイスドライバを継承 */
+
+	int				iOpenCount;		/**< オープンカウンタ */
+
+	C_STREAMBUF		StreamBuf;		/**< バッファ */
+} C_STREAMPIPE;
 
 
 #ifdef __cplusplus

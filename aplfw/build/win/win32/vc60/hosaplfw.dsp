@@ -255,15 +255,67 @@ SOURCE=..\..\..\..\library\container\streambuf\streambuf_senddata.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_close.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_constructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_destructor.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_flush.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_iocontrol.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_isr.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_open.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_read.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_recv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_seek.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_send.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\driver\serial\winsock\winsockdrv_write.c
 # End Source File
 # End Group
 # Begin Group "pc16550"
@@ -1089,6 +1141,34 @@ SOURCE=..\..\..\..\system\system\system_process.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\system\system_requestproc.c
+# End Source File
+# End Group
+# Begin Group "event"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\system\event\event.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\event\event_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\event\event_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\event\event_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\event\event_set.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\event\event_wait.c
 # End Source File
 # End Group
 # End Group

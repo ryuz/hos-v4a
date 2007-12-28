@@ -15,11 +15,9 @@
 FILE_ERR FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_FATVOL	*self;
-	C_FATFILE	*pFile;
 	
 	/* upper cast */
 	self  = (C_FATVOL *)pDrvObj;
-	pFile = (C_FATFILE *)pFileObj;
 
 	/* クリティカルセクションに入る */
 	SysMtx_Lock(self->hMtx);

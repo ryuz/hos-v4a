@@ -13,7 +13,7 @@
 
 
 /* プロセス生成 */
-SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSIZE StackSize, int Priority, int iAttr)
+SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, void *pStack, MEMSIZE StackSize, int Priority, int iAttr)
 {
 	T_CTSK ctsk;
 	ER_ID  erid;
@@ -23,7 +23,7 @@ SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, MEMSI
 	ctsk.task    = (FP)pfncEntry;
 	ctsk.itskpri = (PRI)Priority;
 	ctsk.stksz   = (SIZE)StackSize;
-	ctsk.stk     = NULL;
+	ctsk.stk     = pStack;
 	erid = acre_tsk(&ctsk);
 	if ( erid < 0 )
 	{

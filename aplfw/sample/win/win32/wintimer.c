@@ -50,7 +50,7 @@ DWORD WINAPI WinTimer_Thread(LPVOID param)
 	{
 		/* %jp{タイマイベントを待つ} */
 		WaitForSingleObject(hEventTimer, INFINITE);
-
+		
 		/* %jp{割り込みシグナルを入れる} */
 		vsig_int(inhno);
 	}

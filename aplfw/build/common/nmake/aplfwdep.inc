@@ -462,7 +462,7 @@ $(OBJS_DIR)\filedump_main.$(EXT_OBJ):	$(OBJS_DIR)\filedump_main.c	$(COMMON_HEADE
 
 $(OBJS_DIR)\ethersnoop_main.$(EXT_OBJ):	$(OBJS_DIR)\ethersnoop_main.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\hello.$(EXT_OBJ):	$(OBJS_DIR)\hello.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hello_main.$(EXT_OBJ):	$(OBJS_DIR)\hello_main.c	$(COMMON_HEADERS)
 
 
 

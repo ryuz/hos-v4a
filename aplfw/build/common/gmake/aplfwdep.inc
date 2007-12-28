@@ -370,7 +370,7 @@ $(OBJS_DIR)/filecat_main.$(EXT_OBJ):	$(FILECAT_DIR)/filecat_main.c	$(COMMON_HEAD
 $(OBJS_DIR)/filecopy_main.$(EXT_OBJ):	$(FILECOPY_DIR)/filecopy_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/filedump_main.$(EXT_OBJ):	$(FILEDUMP_DIR)/filedump_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/ethersnoop_main.$(EXT_OBJ):	$(ETHERSNOOP_DIR)/ethersnoop_main.c	$(COMMON_HEADERS)
-$(OBJS_DIR)/hello.$(EXT_OBJ):	$(HELLO_DIR)/hello.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/hello_main.$(EXT_OBJ):	$(HELLO_DIR)/hello_main.c	$(COMMON_HEADERS)
 
 
 # end of file

@@ -737,7 +737,7 @@ endif
 ifeq ($(LINK_HELLO),Yes)
 HELLO_DIR = $(HOSAPLFW_DIR)/application/example/hello
 SRC_DIRS += $(HELLO_DIR)
-CSRCS += $(HELLO_DIR)/hello.c
+CSRCS += $(HELLO_DIR)/hello_main.c
 endif
 
 

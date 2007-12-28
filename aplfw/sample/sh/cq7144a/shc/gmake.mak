@@ -87,7 +87,7 @@ ASRCS += ./vcttbl.src		\
 CSRCS += ./dbsct.c			\
          ../kernel_cfg.c	\
          ../main.c			\
-         ../boot_task.c		\
+         ../boot.c			\
          ../ostimer.c
 
 

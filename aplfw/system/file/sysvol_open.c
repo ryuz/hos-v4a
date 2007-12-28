@@ -38,7 +38,7 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		}
 		
 		/* ディスクリプタ生成 */
-		if ( (hDir = SysVolFile_Create(self)) == HANDLE_NULL )
+		if ( (hDir = SysVolFile_Create(self, iMode)) == HANDLE_NULL )
 		{
 			return HANDLE_NULL;
 		}

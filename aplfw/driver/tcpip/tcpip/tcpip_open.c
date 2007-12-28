@@ -24,7 +24,7 @@ HANDLE TcpIp_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	self = (C_TCPIP *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (hFile = TcpIpFile_Create(self)) == HANDLE_NULL )
+	if ( (hFile = TcpIpFile_Create(self, iMode)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}

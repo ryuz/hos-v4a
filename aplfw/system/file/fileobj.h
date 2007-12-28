@@ -31,6 +31,8 @@ typedef struct t_fileobj_methods
 typedef struct c_fileobj
 {
 	C_HANDLEOBJ		HandleObj;				/* ハンドルオブジェクトを継承 */
+
+	int				iMode;					/* オープン時のモード */
 	
 	struct c_drvobj	*pDrvObj;				/* ドライバへの参照 */
 } C_FILEOBJ;
@@ -47,8 +49,10 @@ typedef struct c_fileobj
 extern "C" {
 #endif
 
-HANDLE FileObj_Create(struct c_drvobj *pDrvObj);
+HANDLE FileObj_Create(struct c_drvobj *pDrvObj, int iMode);
 void   FileObj_Delete(HANDLE Handle);
+
+#define FileObj_GetMode(self)		((self)->iMode)
 
 #ifdef __cplusplus
 }

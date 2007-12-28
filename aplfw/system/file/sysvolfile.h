@@ -34,7 +34,7 @@ typedef struct c_sysvolfile
 extern "C" {
 #endif
 
-HANDLE   SysVolFile_Create(struct c_sysvol *pSysVol);
+HANDLE   SysVolFile_Create(struct c_sysvol *pSysVol, int iMode);
 void     SysVolFile_Delete(HANDLE hFile);
 
 #ifdef __cplusplus

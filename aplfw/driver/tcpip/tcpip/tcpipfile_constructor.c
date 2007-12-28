@@ -12,10 +12,10 @@
 #include "tcpipfile_local.h"
 
 
-void TcpIpFile_Constructor(C_TCPIPFILE *self, const T_FILEOBJ_METHODS *pMethods, C_TCPIP *pTcpIp)
+void TcpIpFile_Constructor(C_TCPIPFILE *self, const T_FILEOBJ_METHODS *pMethods, C_TCPIP *pTcpIp, int iMode)
 {
 	/* 親クラスコンストラクタ */
-	SyncFile_Constructor(&self->SyncFile, pMethods, &pTcpIp->SyncDrv);
+	SyncFile_Constructor(&self->SyncFile, pMethods, &pTcpIp->SyncDrv, iMode);
 	
 	/* メンバ変数初期化 */
 	/* 初期化 */

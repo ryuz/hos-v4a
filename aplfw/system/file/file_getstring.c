@@ -15,12 +15,13 @@
 
 int File_GetString(HANDLE hFile, char *pszString, int iSize)
 {
-	int i;
-	int c;
-
+	int	i;
+	int	c;
+	
 	for ( i = 0; i < iSize - 1; i++ )
 	{
 		c = File_GetChar(hFile);
+		
 		if ( c == FILE_EOF )
 		{
 			if ( i == 0 )
@@ -34,11 +35,12 @@ int File_GetString(HANDLE hFile, char *pszString, int iSize)
 
 		if ( c == '\n' )
 		{
+			i++;
 			break;
 		}
 	}
 	pszString[i] = '\0';
-
+	
 	return i;
 }
 

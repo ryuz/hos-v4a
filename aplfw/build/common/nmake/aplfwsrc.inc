@@ -1059,8 +1059,8 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\ethersnoop_main.$(EXT_OBJ)
 
 # Hello World
 HELLO_DIR = $(HOSAPLFW_DIR)\application\example\hello
-CSRCS = $(CSRCS) $(HELLO_DIR)\hello.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\hello.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HELLO_DIR)\hello_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hello_main.$(EXT_OBJ)
 
 
 # end of file

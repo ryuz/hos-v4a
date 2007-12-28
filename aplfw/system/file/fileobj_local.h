@@ -17,14 +17,15 @@
 
 #include "fileobj.h"
 #include "system/handle/handleobj_local.h"
+#include "system/sysapi/sysapi.h"
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, struct c_drvobj *pDrvObj);	/**< コンストラクタ */
-void FileObj_Destructor(C_FILEOBJ *self);																/**< デストラクタ */
+void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, struct c_drvobj *pDrvObj, int iMode);	/**< コンストラクタ */
+void FileObj_Destructor(C_FILEOBJ *self);																			/**< デストラクタ */
 
 #ifdef __cplusplus
 }

@@ -27,7 +27,8 @@ typedef struct c_process
 	SYSEVT_HANDLE	hEvt;							/**< 待ち合わせ用イベント */
 	int				iExitCode;						/**< 終了コード */
 	HANDLE			*pHandleList;					/**< 所有するハンドルのリスト(終了時に開放) */
-	
+	void			*pStack;						/**< スタック領域のメモリ */
+
 	int				(*pfncEntry)(VPARAM Param);		/**< 起動アドレス */
 	VPARAM			Param;							/**< ユーザーパラメータ */
 	MEMSIZE			StackSize;						/**< スタックサイズ */

@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-void SysVolFile_Constructor(C_SYSVOLFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_sysvol *pSysVol);
+void SysVolFile_Constructor(C_SYSVOLFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_sysvol *pSysVol, int iMode);
 void SysVolFile_Destructor(C_SYSVOLFILE *self);
 
 #ifdef __cplusplus

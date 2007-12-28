@@ -29,57 +29,136 @@ typedef struct c_shell
 } C_SHELL;
 
 
-void Shell_Create(C_SHELL *self);
-void Shell_Delete(C_SHELL *self);
-int  Shell_Execute(C_SHELL *self, int argc, char *argv[]);
-int  Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize);
-void Shell_PutChar(C_SHELL *self, int c);
-void Shell_CurRight(C_SHELL *self);
-void Shell_CurLeft(C_SHELL *self);
-void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand);
-void Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine);	/* ラインを置き換える */
+C_SHELL *Shell_Create(void);
+void    Shell_Delete(C_SHELL *self);
+int     Shell_Interactive(C_SHELL *self);
+int     Shell_ExecuteScript(C_SHELL *self, const char *pszFileName);
+int     Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand);
+int     Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize);
+void    Shell_PutChar(C_SHELL *self, int c);
+void    Shell_CurRight(C_SHELL *self);
+void    Shell_CurLeft(C_SHELL *self);
+void    Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine);	/* ラインを置き換える */
 
 
 
 int Shell_Main(int argc, char *argv[])
 {
-	C_SHELL *pShell;
+	C_SHELL *self;
 	int     iExitCode;
-
-	/* オブジェクト生成 */
-	if ( (pShell = Memory_Alloc(sizeof(C_SHELL))) == NULL )
-	{
-		StdIo_PutString("Memory error\n");
-		return 1;
-	}
-	Shell_Create(pShell);
+	int		i;
 	
-	/* 実行 */
-	iExitCode = Shell_Execute(pShell, argc, argv);
-		
-	/* オブジェクト開放 */
-	Shell_Delete(pShell);
-	Memory_Free(pShell);
+	/* オブジェクト生成 */
+	if ( (self = Shell_Create()) == NULL )
+	{
+		return 0;
+	}
+	
+	/* オプションを解析して実行 */
+	for ( i = 1; i < argc; i++ )
+	{
+		if ( argv[i][0] == '-' )
+		{
+			if ( argv[i][1] == 'i' )		/* インタラクティブモード */
+			{
+				iExitCode = Shell_Interactive(self);
+			}
+			else if ( argv[i][1] == 's' )	/* 文字列実行 */
+			{
+				/* 後続を結合 */
+				self->szCommanBuf[0] = '\0';
+				for ( i++; i < argc; i++ )
+				{
+					strcat(self->szCommanBuf, argv[i]);
+					if ( i + 1 < argc )
+					{
+						strcat(self->szCommanBuf, " ");
+					}
+				}
+				
+				/* 実行 */
+				iExitCode = Shell_ExecuteCommand(self, self->szCommanBuf);
+			}
+		}
+		else	/* スクリプト実行 */
+		{
+			return Shell_ExecuteScript(self, argv[i]);
+		}
+	}
+	
+	/* オブジェクト削除 */
+	Shell_Delete(self);
 	
 	return iExitCode;
 }
 
 
 /* コンストラクタ */
-void Shell_Create(C_SHELL *self)
+C_SHELL *Shell_Create(void)
 {
+	C_SHELL *self;
+
+	/* オブジェクト生成 */
+	if ( (self = Memory_Alloc(sizeof(C_SHELL))) == NULL )
+	{
+		StdIo_PutString("Memory error\n");
+		return NULL;
+	}
+	
+	/* メンバ初期化 */
 	self->iScreenWidth = 80;
 	self->iHistoryNum  = 0;
+	
+	return self;
 }
 
 
 /* デストラクタ */
 void Shell_Delete(C_SHELL *self)
 {
+	Memory_Free(self);
 }
 
 
-int Shell_Execute(C_SHELL *self, int argc, char *argv[])
+/* スクリプト実行 */
+int Shell_ExecuteScript(C_SHELL *self, const char *pszFileName)
+{
+	HANDLE	hFile;
+	int		iLen;
+	
+	/* ファイルオープン */
+	if ( (hFile = File_Open(pszFileName, FILE_OPEN_READ | FILE_OPEN_TEXT)) == HANDLE_NULL )
+	{
+		StdIo_PrintFormat("open error : %s\n", pszFileName);
+		return 1;
+	}
+	
+	/* ファイルを実行 */
+	while ( (iLen = File_GetString(hFile, self->szCommanBuf, sizeof(self->szCommanBuf))) > 0 )
+	{
+		/* 末尾の改行削除 */
+		if ( self->szCommanBuf[iLen-1] == '\n' )
+		{
+			self->szCommanBuf[iLen-1] = '\0';
+		}
+		
+		/* 実行 */
+		if ( self->szCommanBuf[0] != '\0' && self->szCommanBuf[0] != '#' )
+		{
+			Shell_ExecuteCommand(self, self->szCommanBuf);
+		}
+	}
+	
+	/* ファイルクローズ */
+	File_Close(hFile);
+	
+	return 0;
+}
+
+
+
+/* インタラクティブモード */
+int Shell_Interactive(C_SHELL *self)
 {
 	int i;
 
@@ -143,10 +222,10 @@ int Shell_ExecEntry(VPARAM Param)
 }
 
 
-void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
+int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 {
 	T_PROCESS_CREATE_INF Inf;
-	
+	int iExitCode;
 
 	int iLen;
 	iLen = strlen(pszCommand);
@@ -173,11 +252,13 @@ void Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	}
 	else
 	{
-		if ( Command_Execute(pszCommand, NULL) != COMMAND_ERR_OK )
+		if ( Command_Execute(pszCommand, &iExitCode) != COMMAND_ERR_OK )
 		{
 			StdIo_PutString("command is not found.\r\n");
 		}
 	}
+	
+	return iExitCode;
 }
 
 

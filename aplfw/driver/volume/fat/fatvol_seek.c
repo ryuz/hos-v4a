@@ -52,7 +52,7 @@ FILE_POS FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, in
 	}
 	
 	/* サイズクリップ */
-	if ( pFile->FilePos > pFile->FileSize && !(pFile->iMode & FILE_OPEN_DIR) )
+	if ( pFile->FilePos > pFile->FileSize && !(pFile->FileObj.iMode & FILE_OPEN_DIR) )
 	{
 		pFile->FilePos = pFile->FileSize;
 	}

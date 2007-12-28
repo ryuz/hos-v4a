@@ -8,7 +8,7 @@
  * http://sourceforge.jp/projects/hos/
  */
 
-#include "fileobj.h"
+#include "fileobj_local.h"
 
 
 void FileObj_Delete(HANDLE hFile)
@@ -17,7 +17,9 @@ void FileObj_Delete(HANDLE hFile)
 	
 	self = (C_FILEOBJ *)hFile;
 
-	HandleObj_Delete(&self->HandleObj);
+	FileObj_Destructor(self);
+	
+	SysMem_Free(self);
 }
 
 

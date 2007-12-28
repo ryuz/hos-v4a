@@ -15,7 +15,7 @@
 #include "syncfile_local.h"
 
 
-FILE_ERR SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_syncdrv *pSyncDrv)
+FILE_ERR SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethods, struct c_syncdrv *pSyncDrv, int iMode)
 {
 	int iFactorNum;
 	int i;
@@ -30,7 +30,7 @@ FILE_ERR SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethod
 	}
 
 	/* 親クラスコンストラクタ呼び出し */
-	FileObj_Constructor(&self->FileObj, pMethods, &pSyncDrv->DrvObj);
+	FileObj_Constructor(&self->FileObj, pMethods, &pSyncDrv->DrvObj, iMode);
 	
 	/* メンバ初期化 */
 	for ( i = 0; i < iFactorNum; i++ )

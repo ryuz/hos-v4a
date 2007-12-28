@@ -14,7 +14,7 @@
 
 
 #include "system/sysapi/sysapi.h"
-#include "system/file/syncdrv.h"
+#include "system/file/syncdrv_local.h"
 
 
 #define IPETHER_ARPTBL_SIZE			4

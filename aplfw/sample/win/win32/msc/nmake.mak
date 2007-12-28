@@ -69,7 +69,7 @@ ASRCS = $(ASRCS)
 # %jp{C言語ファイルの追加}
 CSRCS = $(CSRCS) ..\kernel_cfg.c
 CSRCS = $(CSRCS) ..\main.c
-CSRCS = $(CSRCS) ..\sample.c
+CSRCS = $(CSRCS) ..\boot.c
 CSRCS = $(CSRCS) ..\ostimer.c
 CSRCS = $(CSRCS) ..\wintimer.c
 

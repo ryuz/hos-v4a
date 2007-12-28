@@ -22,7 +22,6 @@ typedef struct c_fatfile
 {
 	C_FILEOBJ	FileObj;			/* ボリュームオブジェクトを継承 */
 	
-	int			iMode;				/* ファイルのモード */
 	FATVOL_UINT	uiStartCluster;		/* ファイルの先頭クラスタ */
 	
 	FATVOL_UINT	uiDirCluster;		/* 所属するディレクトリのクラスタ位置 */

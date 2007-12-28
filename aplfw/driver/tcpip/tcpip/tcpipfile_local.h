@@ -23,7 +23,7 @@
 extern "C" {
 #endif
 
-void  TcpIpFile_Constructor(C_TCPIPFILE *self, const T_FILEOBJ_METHODS *pMethods, C_TCPIP *pTcpIp);
+void  TcpIpFile_Constructor(C_TCPIPFILE *self, const T_FILEOBJ_METHODS *pMethods, C_TCPIP *pTcpIp, int iMode);
 void  TcpIpFile_Destructor(C_TCPIPFILE *self);
 
 #ifdef __cplusplus

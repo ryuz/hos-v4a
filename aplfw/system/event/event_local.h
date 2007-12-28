@@ -15,7 +15,7 @@
 
 
 #include "event.h"
-#include "system/handle/handleobj.h"
+#include "system/handle/handleobj_local.h"
 #include "system/sysapi/sysapi.h"
 
 

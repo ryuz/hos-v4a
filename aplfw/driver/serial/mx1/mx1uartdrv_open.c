@@ -22,7 +22,7 @@ HANDLE Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	self = (C_MX1UARTDRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL)
+	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL)
 	{
 		return HANDLE_NULL;
 	}

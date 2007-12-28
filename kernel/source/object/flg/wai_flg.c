@@ -77,6 +77,14 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 		return E_ID;	/* %jp{ID不正} */
 	}
 #endif
+
+	/* %jp{パラメータのチェック} */
+#ifdef _KERNEL_SPT_WAI_FLG_E_PAR
+	if ( waiptn == 0 )
+	{
+		return E_PAR;	/* %jp{パラメータ不正} */
+	}
+#endif
 	
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコール開始} */
 	
@@ -109,8 +117,11 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 	if ( _kernel_chk_flg(flgcb, &flginf) )
 	{
 		/* %jp{既に条件を満たしているなら} */
-		*p_flgptn = _KERNEL_FLG_GET_FLGPTN(flgcb);		/* %jp{解除時のフラグパターンを格納} */
-
+		if ( p_flgptn != NULL )
+		{
+			*p_flgptn = _KERNEL_FLG_GET_FLGPTN(flgcb);		/* %jp{解除時のフラグパターンを格納} */
+		}
+		
 #if _KERNEL_SPT_FLG_TA_CLR
 		if ( _KERNEL_FLG_GET_FLGATR(_KERNEL_FLG_GET_FLGCB_RO(flgid, flgcb)) & TA_CLR )
 		{
@@ -142,7 +153,10 @@ ER wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 		/* %jp{条件を満たして解除されたのなら} */
 		if ( ercd == E_OK )
 		{
-			*p_flgptn = flginf.waiptn;			/* %jp{解除時のフラグパターンを格納} */
+			if ( p_flgptn != NULL )
+			{
+				*p_flgptn = flginf.waiptn;		/* %jp{解除時のフラグパターンを格納} */
+			}
 		}
 	}
 		
