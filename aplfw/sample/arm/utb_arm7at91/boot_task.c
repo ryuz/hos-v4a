@@ -22,7 +22,7 @@
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/shell/shell.h"
-#include "driver/ether/lan9118/lan9118drv.h"
+/* #include "driver/ether/lan9118/lan9118drv.h" */
 #include "driver/tcpip/ipether/ipether.h"
 #include "driver/tcpip/tcpip/tcpip.h"
 #include "driver/serial/at91/at91usartdrv.h"
