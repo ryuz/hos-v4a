@@ -52,7 +52,7 @@ TARGET_EXE = $(TARGET).$(EXT_EXE)
 TARGET_MOT = $(TARGET).$(EXT_MOT)
 TARGET_HEX = $(TARGET).$(EXT_HEX)
 TARGET_BIN = $(TARGET).$(EXT_BIN)
-
+TARGET_IMG = $(TARGET).img
 
 # %jp{gcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_d.inc
@@ -86,11 +86,11 @@ LIBS  +=
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) fd.img
+all: makeexe_all $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img
 
 .PHONY : clean
 clean: makeexe_clean
-	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	rm -f $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 .PHONY : depend
 depend: makeexe_depend
@@ -98,8 +98,9 @@ depend: makeexe_depend
 .PHONY : mostlyclean
 mostlyclean: clean kernel_clean
 
-fd.img: $(TARGET_BIN)
-	./fd_img.pl $(TARGET_BIN) fd.img
+# %jP{フロッピーディスクイメージ}%en{FD image}
+$(TARGET).img: $(TARGET_BIN)
+	./fd_img.pl $(TARGET_BIN) $(TARGET).img
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
