@@ -9,24 +9,18 @@
 
 
 
-				.extern		_main
-				.extern		__kernel_int_isp
-				.extern		_BSS_START
-				.extern		_BSS_END
-
-				.global		_boot_handler
-				.global		___main
-
 
 				.code16
 				.text
 				.align	4
 
+
+				.global		_switch32
+
 /************************************************
   起動ハンドラ
 ************************************************/
-				
-_boot_handler:	
+_switch32:		
 				/* 画面のクリア */
 				call	bios_clr_disp
 				
@@ -34,17 +28,17 @@ _boot_handler:
 				movw    $boot_message, %si
 				call	bios_puts
 				
-_boot_end:
-				jmp			_boot_end
+_switch32_end:
+				jmp			_switch32_end
 				
 				lgdt	gdtr
 				lidt	idtr
 				
 				movl	$0x11, %eax
 				movl	%eax, %cr0
-				jmp		_go_protect_mode
+				jmp		_go_32bit_mode
 				
-_go_protect_mode:
+_go_32bit_mode:
 				.byte	0x66, 0xea
 				.long	_start_32bit + 0x90000
 				.word	0x0001

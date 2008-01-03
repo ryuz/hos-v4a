@@ -35,6 +35,7 @@ TARGET := $(TARGET)dbg
 endif
 
 
+# %jp{リンカスクリプト}
 LINK_SCRIPT = link_fd.x
 
 
@@ -61,8 +62,7 @@ include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 SRC_DIRS += . ..
 
 # アセンブラファイルの追加
-ASRCS += ./bootloader.S			\
-         ./crt0.S
+ASRCS += ./crt0.S
 
 
 # %jp{C言語ファイルの追加}
@@ -87,7 +87,7 @@ LIBS  +=
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img
+all: makeexe_all ipl.bin $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img
 
 .PHONY : clean
 clean: makeexe_clean
@@ -100,8 +100,8 @@ depend: makeexe_depend
 mostlyclean: clean kernel_clean
 
 # %jP{フロッピーディスクイメージ}%en{FD image}
-$(TARGET).img: $(TARGET_BIN)
-	./fd_img.pl $(TARGET_BIN) $(TARGET).img
+$(TARGET).img: ipl.bin switch32.bin
+	./fd_img.pl $(TARGET).img ipl.bin switch32.bin switch32.bin
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
@@ -115,11 +115,23 @@ include $(KERNEL_MAKINC_DIR)/makeexe.inc
 include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 
+# %jp{BOOT部の生成}
+switch32.bin: $(OBJS_DIR)/switch32.o
+	$(GCC_ARCH)ld -Ttext=0x0000 -nostdlib $(OBJS_DIR)/switch32.o -o switch.out
+	$(CMD_OBJCNV) -O binary switch.out switch32.bin
+
+
+# %jp{IPL部の生成}
+ipl.bin: $(OBJS_DIR)/ipl.o
+	$(GCC_ARCH)ld -Ttext=0x0000 -nostdlib -fno-exceptions -ffreestanding -fno-builtin -nostartfiles $(OBJS_DIR)/ipl.o -o ipl.out
+	$(CMD_OBJCNV) -O binary ipl.out ipl.bin
+
 
 # --------------------------------------
 #  %jp{依存関係}
 # --------------------------------------
 
+$(TARGET_EXE): $(LINK_SCRIPT)
 $(OBJS_DIR)/sample.$(EXT_OBJ): ../sample.c ../kernel_id.h
 
 
