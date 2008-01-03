@@ -20,6 +20,15 @@ LFLAGS =
 # ターゲット
 TARGET ?= h4acfg
 
+
+# 実行ファイルの拡張子
+ifeq ($(OS),Windows_NT)
+EXT_EXE = .exe
+else
+EXT_EXE =
+endif
+
+
 # オブジェクトディレクトリ
 OBJS_DIR = objs_$(TARGET)
 
@@ -58,19 +67,29 @@ OBJS = $(OBJS_DIR)/hos4cfg.o \
 VPATH=../../source
 
 
-# ターゲット生成
-$(TARGET): mkdir_objs $(OBJS)
-	$(LINK) $(LFLAGS) $(OBJS) -o $(TARGET)
+TARGET_EXE = $(TARGET)$(EXT_EXE)
 
+# all
+.PHONY : all
+all: mkdir_objs $(TARGET_EXE)
+
+# target
+$(TARGET_EXE): $(OBJS)
+	$(LINK) $(LFLAGS) $(OBJS) -o $(TARGET)$(EXT_EXE)
+
+# makedir
+.PHONY : mkdir_objs
 mkdir_objs:
 	mkdir -p $(OBJS_DIR)
 
+# clean
+.PHONY : clean
 clean:
-	rm -f $(TARGET) $(TARGET).exe $(OBJS)
+	rm -f $(TARGET_EXE) $(OBJS)
+
 
 $(OBJS_DIR)/%.o :: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
-
 
 
 # end of file
