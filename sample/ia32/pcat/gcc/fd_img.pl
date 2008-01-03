@@ -13,7 +13,7 @@ $size = -s $ARGV[1];
 if ( $size > 512 ) { $size = 512; }
 read(IPL, $buf, $size);
 print OUT_IMG $buf;
-for ($i = $size; $i < 1024; $i++)
+for ($i = $size; $i < 512; $i++)
 {
 	print OUT_IMG "\0";
 }

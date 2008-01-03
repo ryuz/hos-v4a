@@ -117,8 +117,8 @@ include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 # %jp{BOOT部の生成}
 switch32.bin: $(OBJS_DIR)/switch32.o
-	$(GCC_ARCH)ld -Ttext=0x0000 -nostdlib $(OBJS_DIR)/switch32.o -o switch.out
-	$(CMD_OBJCNV) -O binary switch.out switch32.bin
+	$(GCC_ARCH)ld -Ttext=0x0000 -nostdlib $(OBJS_DIR)/switch32.o -o switch32.out
+	$(CMD_OBJCNV) -O binary switch32.out switch32.bin
 
 
 # %jp{IPL部の生成}

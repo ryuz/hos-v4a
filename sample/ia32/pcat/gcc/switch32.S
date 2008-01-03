@@ -22,13 +22,14 @@
 ************************************************/
 _switch32:		
 				/* 画面のクリア */
-				call	bios_clr_disp
+		//		call	bios_clr_disp
 				
 				/* メッセージ出力 */
 				movw    $boot_message, %si
 				call	bios_puts
 				
 _switch32_end:
+				hlt
 				jmp			_switch32_end
 				
 				lgdt	gdtr
@@ -48,6 +49,7 @@ _start_32bit:
 				jmp		_start_32bit
 
 
+				.code16
 /************************************************
   BIOSサービス
 ************************************************/
