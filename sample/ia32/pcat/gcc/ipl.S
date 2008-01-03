@@ -62,6 +62,9 @@ init_start:
 				movb	$0x00, %dh			/* ヘッド番号 */
 				movb	$0x00, %dl			/* ドライブ番号 */
 				int     $0x13
+
+end_loop:
+				jmp		end_loop
 				
 				/* ロード先に移動 */
 				movw	$LOAD_SEG, %ax
@@ -70,8 +73,6 @@ init_start:
 				xorw	%sp, %sp
 				jmpl	$LOAD_SEG, $0x0000
 				
-end_loop:
-				jmp		end_loop
 				
 				
 				/* 画面のクリア */

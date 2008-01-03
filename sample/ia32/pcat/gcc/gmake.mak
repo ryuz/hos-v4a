@@ -123,7 +123,7 @@ switch32.bin: $(OBJS_DIR)/switch32.o
 
 # %jp{IPL部の生成}
 ipl.bin: $(OBJS_DIR)/ipl.o
-	$(GCC_ARCH)ld -Ttext=0x0000 -nostdlib -fno-exceptions -ffreestanding -fno-builtin -nostartfiles $(OBJS_DIR)/ipl.o -o ipl.out
+	$(GCC_ARCH)ld -Ttext=0x0000 $(OBJS_DIR)/ipl.o -o ipl.out
 	$(CMD_OBJCNV) -O binary ipl.out ipl.bin
 
 
