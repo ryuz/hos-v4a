@@ -1183,11 +1183,11 @@ SOURCE=..\..\..\..\system\event\event_wait.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\application\example\hello\hello.c
+SOURCE=..\..\..\..\application\example\hello\hello.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\application\example\hello\hello.h
+SOURCE=..\..\..\..\application\example\hello\hello_main.c
 # End Source File
 # End Group
 # End Group
