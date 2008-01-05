@@ -8,12 +8,11 @@
  */
 
 
+LOAD_ADDR = 0x90000
 
 
 				.code16
 				.text
-				.align	4
-
 
 				.global		_switch32
 
@@ -28,21 +27,23 @@ _switch32:
 				movw    $boot_message, %si
 				call	bios_puts
 				
-_switch32_end:
-				hlt
-				jmp			_switch32_end
-				
+				/* GDT設定 */
 				lgdt	gdtr
-				lidt	idtr
 				
-				movl	$0x11, %eax
+				/* プロテクトモードへ移行 */
+				movl	%cr0, %eax
+				orl		$0x00000001, %eax
 				movl	%eax, %cr0
-				jmp		_go_32bit_mode
 				
-_go_32bit_mode:
+				/* パイプラインフラッシュ */
+				jmp		_pipeline_flush
+_pipeline_flush:
+				
+				
+				/* CS設定 */
 				.byte	0x66, 0xea
-				.long	_start_32bit + 0x90000
-				.word	0x0001
+				.long	_start_32bit + LOAD_ADDR
+				.word	0x0008
 
 				.code32
 _start_32bit:
@@ -121,7 +122,7 @@ gdt_end:
 
 				/* lgdt命令用領域 */
 gdtr:			.word	gdt_end - gdt_base - 1
-				.long	0
+				.long	gdt_base + LOAD_ADDR
 
 
 

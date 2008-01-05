@@ -127,6 +127,11 @@ ipl.bin: $(OBJS_DIR)/ipl.o
 	$(CMD_OBJCNV) -O binary ipl.out ipl.bin
 
 
+.PHONY : bochs
+bochs: $(TARGET).img
+	bochs "floppya: 1_44=$(TARGET).img, status=inserted" "boot: a"
+
+
 # --------------------------------------
 #  %jp{依存関係}
 # --------------------------------------
