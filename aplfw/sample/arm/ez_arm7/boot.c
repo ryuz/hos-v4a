@@ -27,11 +27,10 @@
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
+#include "boot.h"
 
 
 long         g_SystemHeap[64 * 1024 / sizeof(long)];
-C_PC16550DRV g_Pc16550Drv[1];
-C_VT100DRV   g_Vt100Drv[1];
 
 
 #define REG_PLLCON		((volatile UB *)0xe01fc080)
@@ -42,10 +41,13 @@ C_VT100DRV   g_Vt100Drv[1];
 #define REG_BCFG0		((volatile UW *)0xffe00000)
 
 
-void Sample_Task(VP_INT exinf)
+int Boot_Process(VPARAM Param);
+
+
+void Boot_Task(VP_INT exinf)
 {
-	HANDLE			hTty;
-	HANDLE			hCon;
+	T_SYSTEM_INITIALIZE_INF	SysInf;
+	
 	
 	/*************************/
 	/*    固有初期設定       */
@@ -75,7 +77,22 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	
 	/* システム初期化 */
-	System_Initialize(g_SystemHeap, sizeof(g_SystemHeap));
+	SysInf.pHeapMem        = g_SystemHeap;
+	SysInf.HeapSize        = sizeof(g_SystemHeap);
+	SysInf.SystemStackSize = 1024;
+	SysInf.pfncBoot        = Boot_Process;
+	SysInf.BootParam       = (VPARAM)0;
+	SysInf.BootStackSize   = 1024;
+	System_Initialize(&SysInf);
+}
+
+
+/* ブートプロセス */
+int Boot_Process(VPARAM Param)
+{
+	HANDLE	hTty;
+	HANDLE	hCon;
+	HANDLE	hDriver;
 	
 	
 	/*************************/
@@ -83,19 +100,29 @@ void Sample_Task(VP_INT exinf)
 	/*************************/
 	
 	/* 16550デバドラ生成 (/dev/com0 に登録) */
-	Pc16550Drv_Create(&g_Pc16550Drv[0], (void *)0xe000c000, 2, 6, 14700000/4, 64);
-	File_AddDevice("com0", (C_DRVOBJ *)&g_Pc16550Drv[0]);
+	hDriver = Pc16550Drv_Create((void *)0xe000c000, 2, 6, 14700000/4, 64);
+	File_AddDevice("com0", hDriver);
 
 	/* シリアルを開く */
 	hTty = File_Open("/dev/com0", FILE_OPEN_READ | FILE_OPEN_WRITE);
 	
 	/* シリアル上にコンソールを生成( /dev/con0 に登録) */
-	Vt100Drv_Create(&g_Vt100Drv[0], hTty);
-	File_AddDevice("con0", (C_DRVOBJ *)&g_Vt100Drv[0]);
+	hDriver = Vt100Drv_Create(hTty);
+	File_AddDevice("con0", hDriver);
 	
 	/* コンソールを開く */
 	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
 	
+	
+	/*************************/
+	/*     標準入出力設定    */
+	/*************************/
+	
+	Process_SetTerminal(HANDLE_NULL, hTty);
+	Process_SetConsole(HANDLE_NULL, hCon);
+	Process_SetStdIn(HANDLE_NULL, hCon);
+	Process_SetStdOut(HANDLE_NULL, hCon);
+	Process_SetStdErr(HANDLE_NULL, hCon);
 	
 	
 	/*************************/
@@ -109,10 +136,22 @@ void Sample_Task(VP_INT exinf)
 	Command_AddCommand("keytest",  KeyTest_Main);
 	
 	
+	/* 起動メッセージ */
+	StdIo_PutString(
+			"\n\n"
+			"================================================================\n"
+			" Hyper Operating System  Application Flamework\n"
+			"\n"
+			"                          Copyright (C) 1998-2008 by Project HOS\n"
+			"                          http://sourceforge.jp/projects/hos/\n"
+			"================================================================\n"
+			"\n");
+	
 	/*************************/
-	/*  システムプロセス起動 */
+	/*      シェル起動       */
 	/*************************/
-	System_Boot(hTty, hCon, "hsh", 4096);
+	
+	Command_Execute("hsh -i", NULL);
 }
 
 
