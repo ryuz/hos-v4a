@@ -166,12 +166,16 @@ CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_requestproc.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_requestproc.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_process.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_process.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_getnextprocess.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\system_getnextprocess.$(EXT_OBJ)
 
 
 # System API
 SYSAPI_DIR = $(HOSAPLFW_DIR)\system\sysapi
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysapi_initialize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysapi_initialize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysctx_isisr.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysctx_isisr.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysloc_lock.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysloc_lock.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysloc_unlock.c
@@ -228,12 +232,14 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_getparam.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_getparam.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_getcurrenthandle.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_getcurrenthandle.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_getsystemtime.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_wait.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_wait.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysctx_isisr.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\sysctx_isisr.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_getsystemtime.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_getcputime.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\systim_getcputime.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\syshos_hook.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\syshos_hook.$(EXT_OBJ)
 
 
 # Handle Object

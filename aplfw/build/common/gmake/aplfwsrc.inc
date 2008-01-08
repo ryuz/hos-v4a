@@ -83,6 +83,7 @@ SRC_DIRS += $(SYSTEM_DIR)
 CSRCS += $(SYSTEM_DIR)/system_initialize.c
 CSRCS += $(SYSTEM_DIR)/system_requestproc.c
 CSRCS += $(SYSTEM_DIR)/system_process.c
+CSRCS += $(SYSTEM_DIR)/system_getnextprocess.c
 endif
 
 
@@ -91,6 +92,7 @@ ifeq ($(LINK_SYSAPI),Yes)
 SYSAPI_DIR = $(HOSAPLFW_DIR)/system/sysapi
 SRC_DIRS += $(SYSAPI_DIR)
 CSRCS += $(SYSAPI_DIR)/sysapi_initialize.c
+CSRCS += $(SYSAPI_DIR)/sysctx_isisr.c
 CSRCS += $(SYSAPI_DIR)/sysloc_lock.c
 CSRCS += $(SYSAPI_DIR)/sysloc_unlock.c
 CSRCS += $(SYSAPI_DIR)/sysevt_clear.c
@@ -119,9 +121,10 @@ CSRCS += $(SYSAPI_DIR)/sysprc_suspend.c
 CSRCS += $(SYSAPI_DIR)/sysprc_resume.c
 CSRCS += $(SYSAPI_DIR)/sysprc_getparam.c
 CSRCS += $(SYSAPI_DIR)/sysprc_getcurrenthandle.c
-CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
 CSRCS += $(SYSAPI_DIR)/systim_wait.c
-CSRCS += $(SYSAPI_DIR)/sysctx_isisr.c
+CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
+CSRCS += $(SYSAPI_DIR)/systim_getcputime.c
+CSRCS += $(SYSAPI_DIR)/syshos_hook.c
 endif
 
 

@@ -15,6 +15,7 @@
 			"system_initialize.c",
 			"system_requestproc.c",
 			"system_process.c",
+			"system_getnextprocess.c",
 		],
 		[
 			"System API",
@@ -23,6 +24,7 @@
 			"SYSAPI",
 			"Yes",
 			"sysapi_initialize.c",
+			"sysctx_isisr.c",
 			"sysloc_lock.c",
 			"sysloc_unlock.c",
 			"sysevt_clear.c",
@@ -51,9 +53,10 @@
 			"sysprc_resume.c",
 			"sysprc_getparam.c",
 			"sysprc_getcurrenthandle.c",
-			"systim_getsystemtime.c",
 			"systim_wait.c",
-			"sysctx_isisr.c",
+			"systim_getsystemtime.c",
+			"systim_getcputime.c",
+			"syshos_hook.c",
 		],
 		[
 			"Handle Object",

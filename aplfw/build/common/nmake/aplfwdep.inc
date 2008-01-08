@@ -63,8 +63,10 @@ srcobjcp_makelib:
 $(OBJS_DIR)\system_initialize.$(EXT_OBJ):	$(OBJS_DIR)\system_initialize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\system_requestproc.$(EXT_OBJ):	$(OBJS_DIR)\system_requestproc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\system_process.$(EXT_OBJ):	$(OBJS_DIR)\system_process.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\system_getnextprocess.$(EXT_OBJ):	$(OBJS_DIR)\system_getnextprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\sysapi_initialize.$(EXT_OBJ):	$(OBJS_DIR)\sysapi_initialize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysctx_isisr.$(EXT_OBJ):	$(OBJS_DIR)\sysctx_isisr.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysloc_lock.$(EXT_OBJ):	$(OBJS_DIR)\sysloc_lock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysloc_unlock.$(EXT_OBJ):	$(OBJS_DIR)\sysloc_unlock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysevt_clear.$(EXT_OBJ):	$(OBJS_DIR)\sysevt_clear.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -93,9 +95,10 @@ $(OBJS_DIR)\sysprc_suspend.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_suspend.c	$(COMMON_HEA
 $(OBJS_DIR)\sysprc_resume.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_resume.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_getparam.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_getparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_getcurrenthandle.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_getcurrenthandle.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getsystemtime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_wait.$(EXT_OBJ):	$(OBJS_DIR)\systim_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\sysctx_isisr.$(EXT_OBJ):	$(OBJS_DIR)\sysctx_isisr.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getsystemtime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\systim_getcputime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getcputime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\syshos_hook.$(EXT_OBJ):	$(OBJS_DIR)\syshos_hook.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\handle_close.$(EXT_OBJ):	$(OBJS_DIR)\handle_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\handleobj_create.$(EXT_OBJ):	$(OBJS_DIR)\handleobj_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
