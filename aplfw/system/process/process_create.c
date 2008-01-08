@@ -11,6 +11,7 @@
 #include "process_local.h"
 
 
+
 /* プロセス生成 */
 HANDLE Process_Create(const T_PROCESS_CREATE_INF *pInf)
 {

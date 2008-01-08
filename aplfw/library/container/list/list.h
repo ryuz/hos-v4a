@@ -37,15 +37,15 @@ extern "C" {
 #endif
 
 /* 生成／削除 */
-void      List_Create(C_LIST *self);													/* 連想バッファの生成 */
-void      List_CreateEx(C_LIST *self, C_MEMIF *pMemIf);							/* 連想バッファの生成 */
-void      List_Delete(C_LIST *self);													/* 連想バッファの削除 */
+void      List_Create(C_LIST *self);													/* リストの生成 */
+void      List_CreateEx(C_LIST *self, C_MEMIF *pMemIf);									/* リストの生成 */
+void      List_Delete(C_LIST *self);													/* リストの削除 */
 
 /* 操作 */
 LIST_ERR  List_AddTail(C_LIST *self, const void *pData, long lSize);					/* データの末尾追加 */
 LIST_ERR  List_Insert(C_LIST *self, LIST_POS Pos, const void *pData, long lSize);		/* データの挿入 */
 LIST_ERR  List_Remove(C_LIST *self, LIST_POS Pos);										/* データの削除 */
-void     *List_GetAt(C_LIST *self, LIST_POS Pos);											/* データの参照 */
+void     *List_GetAt(C_LIST *self, LIST_POS Pos);										/* データの参照 */
 
 LIST_POS  List_GetHeadPos(C_LIST *self);
 LIST_POS  List_GetTailPos(C_LIST *self);

@@ -38,7 +38,7 @@ endif
 endif
 
 
-# %jp{エラーレベル指定}%en{error check level}
+# %jp{カーネルエラーレベル指定}%en{error check level}
 ifeq ($(ERRLEVEL),0)
 TARGET := $(TARGET)er0
 C_DEFS += _KERNEL_ERRLEVEL=0
@@ -59,6 +59,22 @@ ifeq ($(ERRLEVEL),4)
 TARGET := $(TARGET)er4
 C_DEFS += _KERNEL_ERRLEVEL=4
 endif
+
+
+# %jp{カーネルフック指定}%en{kernel hook}
+ifeq ($(HOK_TSK),Yes)
+TARGET := $(TARGET)tsk
+C_DEFS += _KERNEL_HOK_TSK
+endif
+ifeq ($(HOK_INH),Yes)
+TARGET := $(TARGET)inh
+C_DEFS += _KERNEL_HOK_INH
+endif
+ifeq ($(HOK_ISR),Yes)
+TARGET := $(TARGET)isr
+C_DEFS += _KERNEL_HOK_ISR
+endif
+
 
 
 

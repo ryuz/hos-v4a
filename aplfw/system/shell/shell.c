@@ -13,7 +13,7 @@
 #include "system/command/command.h"
 
 
-#define SHELL_MAX_COMMAND		128
+#define SHELL_MAX_COMMAND		256
 #define SHELL_MAX_HISTORY		8
 
 

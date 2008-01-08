@@ -40,29 +40,47 @@ endif
 #  %jp{カーネルライブラリの選択}
 # --------------------------------------
 
-OS_LIB ?= libhosv4a
+KERNEL_LIB    ?= libhosv4a
+KERNEL_MAKOPT ?=
 
 # %jp{デバッグ指定}
+KERNEL_MAKOPT += DEBUG=$(KERNEL_DEBUG)
 ifeq ($(KERNEL_DEBUG),Yes)
-OS_LIB := $(OS_LIB)dbg
+KERNEL_LIB := $(KERNEL_LIB)dbg
 endif
 
 
 # %jp{エラーレベル指定}
+KERNEL_MAKOPT += ERRLEVEL=$(KERNEL_ERRLEVEL)
 ifeq ($(KERNEL_ERRLEVEL),0)
-OS_LIB := $(OS_LIB)er0
+KERNEL_LIB := $(KERNEL_LIB)er0
 endif
 ifeq ($(KERNEL_ERRLEVEL),1)
-OS_LIB := $(OS_LIB)er1
+KERNEL_LIB := $(KERNEL_LIB)er1
 endif
 ifeq ($(KERNEL_ERRLEVEL),2)
-OS_LIB := $(OS_LIB)er2
+KERNEL_LIB := $(KERNEL_LIB)er2
 endif
 ifeq ($(KERNEL_ERRLEVEL),3)
-OS_LIB := $(OS_LIB)er3
+KERNEL_LIB := $(KERNEL_LIB)er3
 endif
 ifeq ($(KERNEL_ERRLEVEL),4)
-OS_LIB := $(OS_LIB)er4
+KERNEL_LIB := $(KERNEL_LIB)er4
+endif
+
+
+# %jp{カーネルフック指定}%en{kernel hook}
+KERNEL_MAKOPT += HOK_TSK=$(KERNEL_HOK_TSK)
+ifeq ($(KERNEL_HOK_TSK),Yes)
+KERNEL_LIB := $(KERNEL_LIB)tsk
+endif
+KERNEL_MAKOPT += HOK_INH=$(KERNEL_HOK_INH)
+ifeq ($(KERNEL_HOK_INH),Yes)
+KERNEL_LIB := $(KERNEL_LIB)inh
+endif
+KERNEL_MAKOPT += HOK_INT=$(KERNEL_HOK_INT)
+ifeq ($(KERNEL_HOK_INT),Yes)
+KERNEL_LIB := $(KERNEL_LIB)isr
 endif
 
 
@@ -72,7 +90,7 @@ endif
 # --------------------------------------
 
 INC_DIRS += $(KERNEL_DIR)/include
-LIBS     += $(KERNEL_BUILD_DIR)/$(OS_LIB).$(EXT_LIB)
+LIBS     += $(KERNEL_BUILD_DIR)/$(KERNEL_LIB).$(EXT_LIB)
 
 
 
@@ -136,18 +154,17 @@ endif
 # %jp{カーネル生成}
 .PHONY : kernel_make
 kernel_make:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL)
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT)
 
-
-# %jp{カーネル生成}
+# %jp{カーネルクリーン}
 .PHONY : kernel_clean
 kernel_clean:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT)clean
 
 # %jp{カーネルdepend}
 .PHONY : kernel_depend
 kernel_depend:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) depend
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) depend
 
 
 

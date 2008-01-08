@@ -1004,7 +1004,7 @@
 #define _KERNEL_MTXCB_MTXATR		TRUE
 #define _KERNEL_MTXCB_NEXT			TRUE
 #define _KERNEL_MTXCB_PREV			TRUE
-
+#define _KERNEL_MTXCB_CEILPRI		TRUE
 
 
 /* ---------------------------------------------- */

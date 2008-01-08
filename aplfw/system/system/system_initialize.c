@@ -52,9 +52,9 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	
 	/* システムプロセスの起動 */
 	pProcessInf->pfncEntry = System_Process;			/* 起動アドレス */
-	pProcessInf->Param     = (VPARAM)self;			/* ユーザーパラメータ */
-	pProcessInf->StackSize = pInf->SystemStackSize;	/* スタックサイズ */
-	pProcessInf->Priority  = 1;						/* プロセス優先度 */
+	pProcessInf->Param     = (VPARAM)self;				/* ユーザーパラメータ */
+	pProcessInf->StackSize = pInf->SystemStackSize;		/* スタックサイズ */
+	pProcessInf->Priority  = 1;							/* プロセス優先度 */
 	pProcessInf->hTerminal = HANDLE_NULL;				/* ターミナル */
 	pProcessInf->hConsole  = HANDLE_NULL;				/* コンソール */
 	pProcessInf->hStdIn    = HANDLE_NULL;				/* 標準入力 */

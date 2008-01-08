@@ -35,8 +35,10 @@ typedef struct t_system_initialize_inf
 extern "C" {
 #endif
 
-void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf);											/**< システム初期化 */
-int  System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM Param1, VPARAM Param2);	/**< システムプロセスへの処理依頼 */
+void   System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf);												/**< システム初期化 */
+int    System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM Param1, VPARAM Param2);	/**< システムプロセスへの処理依頼 */
+
+HANDLE System_GetNextProcess(HANDLE hProcess);																/**< 次のプロセスを取得 */
 
 #ifdef __cplusplus
 }

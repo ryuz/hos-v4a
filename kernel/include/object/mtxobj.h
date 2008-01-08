@@ -313,15 +313,15 @@ extern  _KERNEL_T_MTXCB					*_kernel_mtxcb_tbl[];									/**< %jp{ミューテ�
 
 
 /* %jp{タイムアウトキュー接続} */
-#if _KERNEL_SPT_TWAI_MTX	/* %jp{twai_mtxサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_MTX_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(tskhdl, tmout)
+#if _KERNEL_SPT_TLOC_MTX	/* %jp{tloc_mtxサポート時はタイムアウトキューも考慮する} */
+#define _KERNEL_MTX_ADD_TOQ(tskhdl, tmout)	_KERNEL_SYS_ADD_TOQ(tskhdl, tmout)
 #else
 #define _KERNEL_MTX_ADD_TOQ(tskhdl)			do { } while (0)
 #endif
 
 /* %jp{タイムアウトキュー取り外し} */
-#if _KERNEL_SPT_TWAI_MTX	/* %jp{twai_mtxサポート時はタイムアウトキューも考慮する} */
-#define _KERNEL_MTX_RMV_TOQ(tskhdl)			_KERNEL_RMV_TOQ(tskhdl)
+#if _KERNEL_SPT_TLOC_MTX	/* %jp{tloc_mtxサポート時はタイムアウトキューも考慮する} */
+#define _KERNEL_MTX_RMV_TOQ(tskhdl)			_KERNEL_SYS_RMV_TOQ(tskhdl)
 #else
 #define _KERNEL_MTX_RMV_TOQ(tskhdl)			do { } while (0)
 #endif

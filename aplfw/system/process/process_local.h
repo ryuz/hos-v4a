@@ -21,24 +21,31 @@
 /* プロセスオブジェクト基本クラス定義 */
 typedef struct c_process
 {
-	C_HANDLEOBJ		HandleObj;						/**< ハンドルオブジェクトを継承 */
+	C_HANDLEOBJ			HandleObj;						/**< ハンドルオブジェクトを継承 */
 
-	SYSPRC_HANDLE	hPrc;							/**< プロセスハンドル */
-	SYSEVT_HANDLE	hEvt;							/**< 待ち合わせ用イベント */
-	int				iExitCode;						/**< 終了コード */
-	HANDLE			*pHandleList;					/**< 所有するハンドルのリスト(終了時に開放) */
-	void			*pStack;						/**< スタック領域のメモリ */
+	HANDLE				*pHandleList;					/**< 所有するハンドルのリスト(終了時に開放) */
+	
+	struct c_process	*pNext;							/*< 次のプロセス */
+	struct c_process	*pPrev;							/*< 前のプロセス */
+	
+	SYSPRC_HANDLE		hPrc;							/**< プロセスハンドル */
+	SYSEVT_HANDLE		hEvt;							/**< 待ち合わせ用イベント */
+	int					iExitCode;						/**< 終了コード */
+	void				*pStack;						/**< スタック領域のメモリ */
 
-	int				(*pfncEntry)(VPARAM Param);		/**< 起動アドレス */
-	VPARAM			Param;							/**< ユーザーパラメータ */
-	MEMSIZE			StackSize;						/**< スタックサイズ */
-	int				Priority;						/**< プロセス優先度 */
-	HANDLE			hTerminal;						/**< ターミナル */
-	HANDLE			hConsole;						/**< コンソール */
-	HANDLE			hStdIn;							/**< 標準入力 */
-	HANDLE			hStdOut;						/**< 標準出力 */
-	HANDLE			hStdErr;						/**< 標準エラー出力 */
-	char			szCurrentDir[FILE_MAX_PATH];	/**< カレントディレクトリ */
+	char				*pszCommandLine;				/**< 実行するコマンド */
+
+	int					(*pfncEntry)(VPARAM Param);		/**< 起動アドレス */
+	VPARAM				Param;							/**< ユーザーパラメータ */
+
+	MEMSIZE				StackSize;						/**< スタックサイズ */
+	int					Priority;						/**< プロセス優先度 */
+	HANDLE				hTerminal;						/**< ターミナル */
+	HANDLE				hConsole;						/**< コンソール */
+	HANDLE				hStdIn;							/**< 標準入力 */
+	HANDLE				hStdOut;						/**< 標準出力 */
+	HANDLE				hStdErr;						/**< 標準エラー出力 */
+	char				szCurrentDir[FILE_MAX_PATH];	/**< カレントディレクトリ */
 } C_PROCESS;
 
 

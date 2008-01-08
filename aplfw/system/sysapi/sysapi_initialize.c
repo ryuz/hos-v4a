@@ -15,8 +15,9 @@
 #include "kernel.h"
 
 
-SYSMTX_HANDLE SysMem_hMtx;
-C_MEMPOL      SysMem_MemPol;
+SYSMTX_HANDLE		SysMem_hMtx;
+C_MEMPOL			SysMem_MemPol;
+
 
 
 /* システムの初期化 */

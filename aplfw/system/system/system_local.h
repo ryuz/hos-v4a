@@ -38,8 +38,10 @@ typedef struct c_system
 {
 	C_PROCESS			Process;		/**< システムプロセス */
 
+	C_PROCESS			*pRunProcess;	/**< 実行中プロセスのリスト */
+		
 	HANDLE				hBootProcess;
-
+	
 	SYSPRC_HANDLE		hPrcProc;						
 	SYSEVT_HANDLE		hEvtProc;
 	volatile int		iProcHead;
@@ -55,7 +57,11 @@ extern C_SYSTEM g_System;
 extern "C" {
 #endif
 
-int System_Process(VPARAM Param);		/* システムプロセス */
+int   System_Process(VPARAM Param);						/* システムプロセス */
+
+void  System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */
+void  System_UnregistryProcess(C_PROCESS *pProcess);	/* プロセスの登録解除 */
+
 
 #ifdef __cplusplus
 }

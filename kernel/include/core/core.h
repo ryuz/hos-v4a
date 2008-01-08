@@ -26,6 +26,8 @@
 #include "object/tskobj.h"
 #include "config/cfgerr.h"
 #include "parser/parserr.h"
+#include "config/cfghok.h"
+#include "parser/parshok.h"
 
 
 #endif	/* _KERNEL__core__core_h__ */

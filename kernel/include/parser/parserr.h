@@ -4,7 +4,7 @@
  * @file  parserr.h
  * @brief %jp{エラー処理コンフィギュレーションの解析}%en{error configulation parser}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -51,6 +51,14 @@
 #define _KERNEL_SPT_REL_WAI_E_NOEXS		_KERNEL_CFG_REL_WAI_E_NOEXS
 /* irel_wai */
 /* sus_tsk */
+#define _KERNEL_SPT_SUS_TSK_E_ID		_KERNEL_CFG_SUS_TSK_E_ID		
+#define _KERNEL_SPT_SUS_TSK_E_CTX		_KERNEL_CFG_SUS_TSK_E_CTX
+#define _KERNEL_SPT_SUS_TSK_E_NOEXS		_KERNEL_CFG_SUS_TSK_E_NOEXS
+#define _KERNEL_SPT_SUS_TSK_E_OBJ		_KERNEL_CFG_SUS_TSK_E_OBJ
+#define _KERNEL_SPT_SUS_TSK_E_QOVR		_KERNEL_CFG_SUS_TSK_E_QOVR
+#define _KERNEL_SPT_SUS_TSK_E_NOSPT		_KERNEL_CFG_SUS_TSK_E_NOSPT
+
+
 /* rsm_tsk */
 /* frsm_tsk */
 
@@ -118,7 +126,7 @@
 #define _KERNEL_SPT_TWAI_SEM_E_NOSPT	_KERNEL_CFG_TWAI_SEM_E_NOSPT
 
 /* _kernel_wai_sem */
-#if _KERNEL_OPT_CODE_SIZE <= _KERNEL_OPT_SPEED	/* %jp{wai_sem, pol_sem, twai_semのコード統合を行うなら} */
+#if _KERNEL_OPT_CODE_SIZE <= _KERNEL_OPT_SPEED	/* %jp{twai_semへの集約を行う場合} */
 #define _KERNEL_SPT_KWAI_SEM_E_ID		(_KERNEL_CFG_TWAI_SEM_E_ID    || _KERNEL_CFG_WAI_SEM_E_ID    || _KERNEL_CFG_POL_SEM_E_ID)
 #define _KERNEL_SPT_KWAI_SEM_E_CTX		(_KERNEL_CFG_TWAI_SEM_E_CTX   || _KERNEL_CFG_WAI_SEM_E_CTX)
 #define _KERNEL_SPT_KWAI_SEM_E_NOEXS	(_KERNEL_CFG_TWAI_SEM_E_NOEXS || _KERNEL_CFG_WAI_SEM_E_NOEXS || _KERNEL_CFG_POL_SEM_E_NOEXS)
@@ -185,11 +193,11 @@
 #define _KERNEL_SPT_WAI_FLG_E_NOSPT		_KERNEL_CFG_WAI_FLG_E_NOSPT		
 
 /* pol_flg */
-#define _KERNEL_SPT_POL_FLG_E_ID		_KERNEL_CFG_WAI_FLG_E_ID
-#define _KERNEL_SPT_POL_FLG_E_NOEXS 	_KERNEL_CFG_WAI_FLG_E_NOEXS
-#define _KERNEL_SPT_POL_FLG_E_PAR   	_KERNEL_CFG_WAI_FLG_E_PAR  
-#define _KERNEL_SPT_POL_FLG_E_TMOUT   	_KERNEL_CFG_WAI_FLG_E_TMOUT
-#define _KERNEL_SPT_POL_FLG_E_NOSPT		_KERNEL_CFG_WAI_FLG_E_NOSPT
+#define _KERNEL_SPT_POL_FLG_E_ID		_KERNEL_CFG_POL_FLG_E_ID
+#define _KERNEL_SPT_POL_FLG_E_NOEXS 	_KERNEL_CFG_POL_FLG_E_NOEXS
+#define _KERNEL_SPT_POL_FLG_E_PAR   	_KERNEL_CFG_POL_FLG_E_PAR  
+#define _KERNEL_SPT_POL_FLG_E_TMOUT   	_KERNEL_CFG_POL_FLG_E_TMOUT
+#define _KERNEL_SPT_POL_FLG_E_NOSPT		_KERNEL_CFG_POL_FLG_E_NOSPT
 
 /* twai_flg */
 #if _KERNEL_OPT_CODE_SIZE <= _KERNEL_OPT_SPEED	/* %jp{twai_flgへの集約を行う場合} */

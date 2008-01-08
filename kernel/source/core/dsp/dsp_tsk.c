@@ -74,6 +74,17 @@ void _kernel_dsp_tsk(void)
 	/* %jp{実行タスクの登録} */
 	_KERNEL_SYS_SET_RUNTSK(tskhdl_top);
 	
+	/* %jp{タスクスイッチのフック} */
+#if _KERNEL_SPT_HOK_TSKSWI
+	{
+		ID	tskid_old;
+		ID	tskid_new;
+		tskid_old = (tskhdl_run != _KERNEL_TSKHDL_NULL) ? _KERNEL_TSK_TSKHDL2ID(tskhdl_run) : 0;
+		tskid_new = (tskhdl_top != _KERNEL_TSKHDL_NULL) ? _KERNEL_TSK_TSKHDL2ID(tskhdl_top) : 0;
+		_kernel_tsk_swi(tskid_old, tskid_new);
+	}
+#endif
+	
 	/* %jp{ディスパッチ実行} */
 	_KERNEL_SWI_CTX(ctxcb_run, ctxcb_top);
 }

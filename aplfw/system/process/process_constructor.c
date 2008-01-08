@@ -9,7 +9,10 @@
  */
 
 #include <string.h>
+#include "hosaplfw.h"
 #include "process_local.h"
+#include "system/system/system_local.h"
+
 
 
 static const T_HANDLEOBJ_METHODS Process_Methods =
@@ -43,20 +46,36 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	self->hStdErr   = pInf->hStdErr;		/* 標準エラー出力 */
 	strncpy(self->szCurrentDir, pInf->szCurrentDir, FILE_MAX_PATH);	/* カレントディレクトリ */
 	
-	
+	/* コマンドラインコピー */
+	if ( pInf->pszCommandLine != NULL )
+	{
+		if ( (self->pszCommandLine = (char *)SysMem_Alloc(strlen(pInf->pszCommandLine) + 1)) == NULL )
+		{
+			return PROCESS_ERR_NG;
+		}
+		strcpy(self->pszCommandLine, pInf->pszCommandLine);
+	}
+	else
+	{
+		self->pszCommandLine = NULL;
+	}
+		
+	/* スタック用メモリ確保 */
+	if ( (self->pStack = SysMem_Alloc(self->StackSize)) == NULL )
+	{
+		SysMem_Free(self->pszCommandLine);
+		return PROCESS_ERR_NG;
+	}
+
 	/* 待ち合わせ用イベント生成 */
 	self->hEvt = SysEvt_Create(SYSEVT_ATTR_NORMAL);
 	if ( self->hEvt == SYSEVT_HANDLE_NULL )
 	{
+		SysMem_Free(self->pStack);
+		SysMem_Free(self->pszCommandLine);
 		return PROCESS_ERR_NG;
 	}
 	SysEvt_Clear(self->hEvt);
-	
-	/* スタック用メモリ確保 */
-	if ( (self->pStack = SysMem_Alloc(self->StackSize)) == NULL )
-	{
-		return PROCESS_ERR_NG;
-	}
 
 	/* プロセス生成 */
 	self->hPrc = SysPrc_Create(Process_Entry, (VPARAM)self, self->pStack, self->StackSize, self->Priority, SYSPRC_ATTR_NORMAL);
@@ -64,8 +83,12 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	{
 		SysEvt_Delete(self->hEvt);
 		SysMem_Free(self->pStack);
+		SysMem_Free(self->pszCommandLine);
 		return PROCESS_ERR_NG;
 	}
+	
+	/* システムに登録 */
+	System_RegistryProcess(self);
 	
 	/* 親クラスコンストラクタ */
 	HandleObj_Constructor(&self->HandleObj, pMethods);
@@ -92,7 +115,17 @@ void Process_Entry(VPARAM Param)
 
 	SysEvt_Set(self->hEvt);
 	
-	iExitCode = pfncEntry(ProcParam);
+	if ( pfncEntry != NULL )
+	{
+		iExitCode = pfncEntry(ProcParam);
+	}
+	else
+	{
+		if ( Command_Execute(self->pszCommandLine, &iExitCode) != COMMAND_ERR_OK )
+		{
+			File_PutString(Process_GetStdErr(HANDLE_NULL), "command is not found.\n");
+		}
+	}
 	
 	Process_Exit(iExitCode);
 }

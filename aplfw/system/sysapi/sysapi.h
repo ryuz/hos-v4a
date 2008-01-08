@@ -48,6 +48,9 @@ typedef void* SYSISR_HANDLE;
 /* ミューテックス属性(システム用) */
 #define	SYSMTX_ATTR_NORMAL			0x00
 
+/* 時刻管理用 */
+typedef unsigned long				SYSTIM_SYSTIME;
+typedef unsigned long				SYSTIM_CPUTIME;
 
 
 #ifdef __cplusplus
@@ -55,26 +58,28 @@ extern "C" {
 #endif
 
 /* 初期化 */
-void           SysApi_Initialize(void *pMem, MEMSIZE lSize);		/**< システムの初期化処理 */
+void           SysApi_Initialize(void *pMem, MEMSIZE lSize);				/**< システムの初期化処理 */
 
 /* システム状態取得 */
-int            SysCtx_IsIsr(void);									/**< ISRコンテキストかどうか調べる(システム用) */
+int            SysCtx_IsIsr(void);											/**< ISRコンテキストかどうか調べる(システム用) */
 
 /* システムロック */
-void           SysLoc_Lock(void);									/**< システム全体のロック(システム用) */
-void           SysLok_Unlock(void);									/**< システム全体のロック解除(システム用) */
+void           SysLoc_Lock(void);											/**< システム全体のロック(システム用) */
+void           SysLok_Unlock(void);											/**< システム全体のロック解除(システム用) */
 
 /* システム用メモリ制御API */
-void          *SysMem_Alloc(MEMSIZE Size);							/**< メモリの割り当て(システム用) */
-void          *SysMem_ReAlloc(void *pMem, MEMSIZE Size);			/**< メモリの再割り当て(システム用) */
-void           SysMem_Free(void *pMem);								/**< メモリの返却(システム用) */
-MEMSIZE        SysMem_GetSize(void *pMem);							/**< メモリのサイズ取得(システム用) */
-C_MEMIF       *SysMem_GetMemIf(void);								/**< メモリインターフェースの取得(システム用) */
+void          *SysMem_Alloc(MEMSIZE Size);									/**< メモリの割り当て(システム用) */
+void          *SysMem_ReAlloc(void *pMem, MEMSIZE Size);					/**< メモリの再割り当て(システム用) */
+void           SysMem_Free(void *pMem);										/**< メモリの返却(システム用) */
+MEMSIZE        SysMem_GetSize(void *pMem);									/**< メモリのサイズ取得(システム用) */
+C_MEMIF       *SysMem_GetMemIf(void);										/**< メモリインターフェースの取得(システム用) */
 
 /* システム用割り込み制御API */
-void           SysInt_Enable(int iIntNum);							/**< 割込み許可(システム用) */
-void           SysInt_Disable(int iIntNum);							/**< 割込み禁止(システム用) */
-void           SysInt_Clear(int iIntNum);							/**< 割込み要因クリア(システム用) */
+void           SysInt_Enable(int iIntNum);									/**< 割込み許可(システム用) */
+void           SysInt_Disable(int iIntNum);									/**< 割込み禁止(システム用) */
+void           SysInt_Clear(int iIntNum);									/**< 割込み要因クリア(システム用) */
+void           SysInt_SetIntTime(int iIntNum, SYSTIM_CPUTIME Time);			/**< 割込み計測タイマを初期化 */
+SYSTIM_CPUTIME SysInt_GetIntTime(int iIntNum);								/**< 割込み計測タイマを取得 */
 
 /* 割り込みサービスルーチン制御API */
 SYSISR_HANDLE  SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param);
@@ -82,38 +87,41 @@ void           SysIsr_Delete(SYSISR_HANDLE hIsr);
 
 /* システム用プロセス制御API */
 SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, void *pStack, MEMSIZE StackSize, int Priority, int iAttr);
-																	/**< プロセス生成(システム用) */
-void           SysPrc_Delete(SYSPRC_HANDLE hPrc);					/**< プロセス削除(システム用) */
-VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);					/**< プロセスのパラメータ取得(システム用) */
+																			/**< プロセス生成(システム用) */
+void           SysPrc_Delete(SYSPRC_HANDLE hPrc);							/**< プロセス削除(システム用) */
+VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);							/**< プロセスのパラメータ取得(システム用) */
 
-void           SysPrc_Terminate(SYSPRC_HANDLE hPrc);				/**< プロセス終了(システム用) */
-void           SysPrc_Suspend(SYSPRC_HANDLE hPrc);					/**< プロセス強制停止(システム用) */			
-void           SysPrc_Resume(SYSPRC_HANDLE hPrc);					/**< プロセス強制停止解除(システム用) */	
-void           SysPrc_Signal(SYSPRC_HANDLE hPrc, VPARAM Signal);	/**< プロセスへのシグナル送信(システム用) */
+void           SysPrc_Terminate(SYSPRC_HANDLE hPrc);						/**< プロセス終了(システム用) */
+void           SysPrc_Suspend(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止(システム用) */			
+void           SysPrc_Resume(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止解除(システム用) */	
+void           SysPrc_Signal(SYSPRC_HANDLE hPrc, VPARAM Signal);			/**< プロセスへのシグナル送信(システム用) */
 void           SysPrc_SetSignalHandler(SYSPRC_HANDLE hPrc, void (*pfncHanler)(VPARAM Signal));
-																	/**< プロセスへのシグナルハンドラ登録(システム用) */
-SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);						/**< 現在のプロセスの取得(システム用) */
+																			/**< プロセスへのシグナルハンドラ登録(システム用) */
+SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);								/**< 現在のプロセスの取得(システム用) */
+void           SysPrc_SetPrcTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time);	/**< プロセス実行時間計測タイマを初期化 */
+SYSTIM_CPUTIME SysPrc_GetPrcTime(SYSPRC_HANDLE hPrc);						/**< プロセス実行時間計測タイマを取得 */
 
 
 /* システム用ミューテックス制御API */
-SYSMTX_HANDLE  SysMtx_Create(int iAttr);							/**< ミューテックス生成(システム用) */
-void           SysMtx_Delete(SYSMTX_HANDLE hMtx);					/**< ミューテックス削除(システム用) */
-int            SysMtx_PolingLock(SYSMTX_HANDLE hMtx);				/**< ミューテックスポーリングロック(システム用) */
-void           SysMtx_Lock(SYSMTX_HANDLE hMtx);						/**< ミューテックスロック(システム用) */
-void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);					/**< ミューテックスロック解除(システム用) */
-int            SysMtx_RefStatus(SYSMTX_HANDLE hMtx);				/**< イベントの状態を取得(システム用) */
+SYSMTX_HANDLE  SysMtx_Create(int iAttr);									/**< ミューテックス生成(システム用) */
+void           SysMtx_Delete(SYSMTX_HANDLE hMtx);							/**< ミューテックス削除(システム用) */
+int            SysMtx_PolingLock(SYSMTX_HANDLE hMtx);						/**< ミューテックスポーリングロック(システム用) */
+void           SysMtx_Lock(SYSMTX_HANDLE hMtx);								/**< ミューテックスロック(システム用) */
+void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);							/**< ミューテックスロック解除(システム用) */
+int            SysMtx_RefStatus(SYSMTX_HANDLE hMtx);						/**< イベントの状態を取得(システム用) */
 
 /* システム用イベント制御API */
-SYSEVT_HANDLE  SysEvt_Create(int iAttr);							/**< イベント生成(システム用) */
-void           SysEvt_Delete(SYSEVT_HANDLE hEvt);					/**< イベント削除(システム用) */
-void           SysEvt_Wait(SYSEVT_HANDLE hEvt);						/**< イベント待ち(システム用) */
-void           SysEvt_Set(SYSEVT_HANDLE hEvt);						/**< イベントセット(システム用) */
-void           SysEvt_Clear(SYSEVT_HANDLE hEvt);					/**< イベントクリア(システム用) */
-int            SysEvt_RefStatus(SYSEVT_HANDLE hEvt);				/**< イベントの状態を取得(システム用) */
+SYSEVT_HANDLE  SysEvt_Create(int iAttr);									/**< イベント生成(システム用) */
+void           SysEvt_Delete(SYSEVT_HANDLE hEvt);							/**< イベント削除(システム用) */
+void           SysEvt_Wait(SYSEVT_HANDLE hEvt);								/**< イベント待ち(システム用) */
+void           SysEvt_Set(SYSEVT_HANDLE hEvt);								/**< イベントセット(システム用) */
+void           SysEvt_Clear(SYSEVT_HANDLE hEvt);							/**< イベントクリア(システム用) */
+int            SysEvt_RefStatus(SYSEVT_HANDLE hEvt);						/**< イベントの状態を取得(システム用) */
 
 /* 時間管理 */
-void           SysTim_Wait(unsigned long ulTime);					/**< 時間待ち(システム用) */
-TIME           SysTim_GetSystemTime(void);							/**< 現在のシステム時刻取得(システム用) */
+void           SysTim_Wait(unsigned long ulTime);							/**< 時間待ち(システム用) */
+SYSTIM_SYSTIME SysTim_GetSystemTime(void);									/**< 現在のシステム時刻取得(システム用) */
+SYSTIM_CPUTIME SysTim_GetCpuTime(void);										/**< 現在のCPU時刻取得(システム用)*/
 
 
 /* I/Oアクセス */

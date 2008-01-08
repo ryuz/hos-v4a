@@ -35,6 +35,7 @@ typedef int		PROCESS_ERR;
 /* プロセス生成情報 */
 typedef struct t_process_create_inf
 {
+	const char	*pszCommandLine;					/**< コマンドライン */
 	int			(*pfncEntry)(VPARAM Param);			/**< 起動アドレス */
 	VPARAM		Param;								/**< ユーザーパラメータ */
 	MEMSIZE		StackSize;							/**< スタックサイズ */

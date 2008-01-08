@@ -62,6 +62,13 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_REL_WAI_E_NOEXS		TRUE
 /* irel_wai */
 /* sus_tsk */
+#define _KERNEL_CFG_SUS_TSK_E_ID		TRUE		
+#define _KERNEL_CFG_SUS_TSK_E_CTX		TRUE
+#define _KERNEL_CFG_SUS_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_SUS_TSK_E_OBJ		TRUE
+#define _KERNEL_CFG_SUS_TSK_E_QOVR		TRUE
+#define _KERNEL_CFG_SUS_TSK_E_NOSPT		FALSE
+
 /* rsm_tsk */
 /* frsm_tsk */
 
@@ -309,24 +316,25 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_CRE_MPF_E_RSATR 	TRUE
 #define _KERNEL_CFG_CRE_MPF_E_OBJ		TRUE
 #define _KERNEL_CFG_CRE_MPF_E_NOMEM		TRUE
-#define _KERNEL_CFG_CRE_MPF_E_NOCFG		FALSE
+#define _KERNEL_CFG_CRE_MPF_E_NOSPT		FALSE
 
 /* acre_mpf */
 #define _KERNEL_CFG_ACRE_MPF_E_NOID		TRUE
 #define _KERNEL_CFG_ACRE_MPF_E_RSATR 	TRUE
 #define _KERNEL_CFG_ACRE_MPF_E_NOMEM	TRUE
-#define _KERNEL_CFG_ACRE_MPF_E_NOCFG	FALSE
+#define _KERNEL_CFG_ACRE_MPF_E_NOSPT	FALSE
 
 /* del_mpf */
 #define _KERNEL_CFG_DEL_MPF_E_ID		TRUE
 #define _KERNEL_CFG_DEL_MPF_E_NOEXS		TRUE
-#define _KERNEL_CFG_DEL_MPF_E_NOCFG		FALSE
+#define _KERNEL_CFG_DEL_MPF_E_NOSPT		FALSE
 
 /* get_mpf */
 #define _KERNEL_CFG_GET_MPF_E_ID		TRUE	
 #define _KERNEL_CFG_GET_MPF_E_CTX		TRUE
 #define _KERNEL_CFG_GET_MPF_E_NOEXS 	TRUE
 #define _KERNEL_CFG_GET_MPF_E_PAR   	TRUE
+#define _KERNEL_CFG_GET_MPF_E_ILUSE   	TRUE
 #define _KERNEL_CFG_GET_MPF_E_RLWAI 	TRUE
 #define _KERNEL_CFG_GET_MPF_E_DLT   	TRUE
 #define _KERNEL_CFG_GET_MPF_E_NOSPT		FALSE
