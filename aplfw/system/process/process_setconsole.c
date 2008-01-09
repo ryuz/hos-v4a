@@ -25,7 +25,7 @@ void Process_SetConsole(HANDLE hProcess, HANDLE hFile)
 	}
 	
 	/* ハンドルをキャスト */
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	self = (C_PROCESS *)hProcess;
 	
 	/* ハンドルを設定 */
 	self->hConsole = hFile;

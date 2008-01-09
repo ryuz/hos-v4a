@@ -26,7 +26,7 @@ HANDLE Process_GetTerminal(HANDLE hProcess)
 	}
 	
 	/* ハンドルをキャスト */
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	self = (C_PROCESS *)hProcess;
 	
 	/* ハンドルを返す */
 	return self->hTerminal;

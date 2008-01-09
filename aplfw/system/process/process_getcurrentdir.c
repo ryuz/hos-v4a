@@ -19,7 +19,14 @@ int Process_GetCurrentDir(HANDLE hProcess, char *pszBuf, int iBufSize)
 {
 	C_PROCESS *self;
 
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	/* 指定が無ければ現在のプロセスとする */
+	if ( hProcess == HANDLE_NULL )
+	{
+		hProcess = Process_GetCurrentHandle();
+	}
+	
+	/* ハンドルをキャスト */
+	self = (C_PROCESS *)hProcess;
 
 	strncpy(pszBuf, self->szCurrentDir, iBufSize);
 	pszBuf[iBufSize-1] = '\0';

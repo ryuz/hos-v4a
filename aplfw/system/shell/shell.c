@@ -205,6 +205,7 @@ int Shell_Interactive(C_SHELL *self)
 }
 
 
+#if 0
 int Shell_ExecEntry(VPARAM Param)
 {
 	int iExitCode;
@@ -260,6 +261,50 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	
 	return iExitCode;
 }
+#else
+
+int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
+{
+	T_PROCESS_CREATE_INF Inf;
+	HANDLE	hProcess;
+	int 	iExitCode;
+	int		iBackGround = 0;
+	
+	int iLen;
+	iLen = strlen(pszCommand);
+	if ( iLen > 1 && pszCommand[iLen - 1] == '&' )
+	{
+		((char *)pszCommand)[iLen - 1] = '\0';
+		iBackGround = 1;
+	}	
+	
+	/* プロセスの生成情報 */
+	Inf.pszCommandLine = pszCommand;
+	Inf.pfncEntry      = NULL;									/* 起動アドレス */
+	Inf.Param          = 0;										/* ユーザーパラメータ */
+	Inf.StackSize      = 1024;									/* スタックサイズ */
+	Inf.Priority       = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
+	Inf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
+	Inf.hConsole       = Process_GetConsole(HANDLE_NULL);		/* コンソール */
+	Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
+	Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
+	Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
+	Process_GetCurrentDir(HANDLE_NULL, Inf.szCurrentDir, sizeof(Inf.szCurrentDir));	/* カレントディレクトリ */
+	
+	hProcess = Process_Create(&Inf);
+
+	if ( !iBackGround )
+	{
+		Process_WaitExit(hProcess);
+		Process_Delete(hProcess);
+	}
+	
+	return iExitCode;
+}
+
+
+#endif
+
 
 
 /* １行入力 */

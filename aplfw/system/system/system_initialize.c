@@ -51,29 +51,31 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	memset(pProcessInf, 0, sizeof(T_PROCESS_CREATE_INF));
 	
 	/* システムプロセスの起動 */
-	pProcessInf->pfncEntry = System_Process;			/* 起動アドレス */
-	pProcessInf->Param     = (VPARAM)self;				/* ユーザーパラメータ */
-	pProcessInf->StackSize = pInf->SystemStackSize;		/* スタックサイズ */
-	pProcessInf->Priority  = 1;							/* プロセス優先度 */
-	pProcessInf->hTerminal = HANDLE_NULL;				/* ターミナル */
-	pProcessInf->hConsole  = HANDLE_NULL;				/* コンソール */
-	pProcessInf->hStdIn    = HANDLE_NULL;				/* 標準入力 */
-	pProcessInf->hStdOut   = HANDLE_NULL;				/* 標準出力 */
-	pProcessInf->hStdErr   = HANDLE_NULL;				/* 標準エラー出力 */
-	pProcessInf->szCurrentDir[0] = '\0';				/* カレントディレクトリ */
+	pProcessInf->pszCommandLine  = "[system]";
+	pProcessInf->pfncEntry       = System_Process;			/* 起動アドレス */
+	pProcessInf->Param           = (VPARAM)self;			/* ユーザーパラメータ */
+	pProcessInf->StackSize       = pInf->SystemStackSize;	/* スタックサイズ */
+	pProcessInf->Priority        = 1;						/* プロセス優先度 */
+	pProcessInf->hTerminal       = HANDLE_NULL;				/* ターミナル */
+	pProcessInf->hConsole        = HANDLE_NULL;				/* コンソール */
+	pProcessInf->hStdIn          = HANDLE_NULL;				/* 標準入力 */
+	pProcessInf->hStdOut         = HANDLE_NULL;				/* 標準出力 */
+	pProcessInf->hStdErr         = HANDLE_NULL;				/* 標準エラー出力 */
+	pProcessInf->szCurrentDir[0] = '\0';					/* カレントディレクトリ */
 	Process_Constructor(&self->Process, NULL, pProcessInf);
 	
 	/* ブートプロセスの起動依頼 */
-	pProcessInf->pfncEntry = pInf->pfncBoot;			/* 起動アドレス */
-	pProcessInf->Param     = pInf->BootParam;			/* ユーザーパラメータ */
-	pProcessInf->StackSize = pInf->BootStackSize;		/* スタックサイズ */
-	pProcessInf->Priority  = PROCESS_PRIORITY_NORMAL;	/* プロセス優先度 */
-	pProcessInf->hTerminal = HANDLE_NULL;				/* ターミナル */
-	pProcessInf->hConsole  = HANDLE_NULL;				/* コンソール */
-	pProcessInf->hStdIn    = HANDLE_NULL;				/* 標準入力 */
-	pProcessInf->hStdOut   = HANDLE_NULL;				/* 標準出力 */
-	pProcessInf->hStdErr   = HANDLE_NULL;				/* 標準エラー出力 */
-	pProcessInf->szCurrentDir[0] = '\0';				/* カレントディレクトリ */
+	pProcessInf->pszCommandLine  = "[boot]";
+	pProcessInf->pfncEntry       = pInf->pfncBoot;			/* 起動アドレス */
+	pProcessInf->Param           = pInf->BootParam;			/* ユーザーパラメータ */
+	pProcessInf->StackSize       = pInf->BootStackSize;		/* スタックサイズ */
+	pProcessInf->Priority        = PROCESS_PRIORITY_NORMAL;	/* プロセス優先度 */
+	pProcessInf->hTerminal       = HANDLE_NULL;				/* ターミナル */
+	pProcessInf->hConsole        = HANDLE_NULL;				/* コンソール */
+	pProcessInf->hStdIn          = HANDLE_NULL;				/* 標準入力 */
+	pProcessInf->hStdOut         = HANDLE_NULL;				/* 標準出力 */
+	pProcessInf->hStdErr         = HANDLE_NULL;				/* 標準エラー出力 */
+	pProcessInf->szCurrentDir[0] = '\0';					/* カレントディレクトリ */
 	System_RequestProc(System_BootProcess, (VPARAM)self, (VPARAM)pProcessInf);
 }
 

@@ -13,7 +13,7 @@
 #define __HOS__mn103scdrv_h__
 
 
-#include "system/file/syncdrv.h"
+#include "system/file/syncdrv_local.h"
 #include "library/container/streambuf/streambuf.h"
 
 

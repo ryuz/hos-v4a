@@ -7,7 +7,7 @@
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
- 
+
 
 #include "time.h"
 #include "system/sysapi/sysapi.h"

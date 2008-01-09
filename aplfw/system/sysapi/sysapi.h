@@ -49,8 +49,8 @@ typedef void* SYSISR_HANDLE;
 #define	SYSMTX_ATTR_NORMAL			0x00
 
 /* 時刻管理用 */
-typedef unsigned long				SYSTIM_SYSTIME;
-typedef unsigned long				SYSTIM_CPUTIME;
+typedef _HOS_UINT64					SYSTIM_SYSTIME;
+typedef _HOS_UINT64					SYSTIM_CPUTIME;
 
 
 #ifdef __cplusplus
@@ -98,9 +98,8 @@ void           SysPrc_Signal(SYSPRC_HANDLE hPrc, VPARAM Signal);			/**< プロ�
 void           SysPrc_SetSignalHandler(SYSPRC_HANDLE hPrc, void (*pfncHanler)(VPARAM Signal));
 																			/**< プロセスへのシグナルハンドラ登録(システム用) */
 SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);								/**< 現在のプロセスの取得(システム用) */
-void           SysPrc_SetPrcTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time);	/**< プロセス実行時間計測タイマを初期化 */
-SYSTIM_CPUTIME SysPrc_GetPrcTime(SYSPRC_HANDLE hPrc);						/**< プロセス実行時間計測タイマを取得 */
-
+void           SysPrc_SetExecTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time);	/**< プロセス実行時間計測タイマを初期化 */
+SYSTIM_CPUTIME SysPrc_GetExecTime(SYSPRC_HANDLE hPrc);						/**< プロセス実行時間計測タイマを取得 */
 
 /* システム用ミューテックス制御API */
 SYSMTX_HANDLE  SysMtx_Create(int iAttr);									/**< ミューテックス生成(システム用) */
@@ -120,9 +119,11 @@ int            SysEvt_RefStatus(SYSEVT_HANDLE hEvt);						/**< イベントの�
 
 /* 時間管理 */
 void           SysTim_Wait(unsigned long ulTime);							/**< 時間待ち(システム用) */
+TIME           SysTim_GetCurrentTime(void);									/**< 現在の時刻取得(システム用) */
 SYSTIM_SYSTIME SysTim_GetSystemTime(void);									/**< 現在のシステム時刻取得(システム用) */
-SYSTIM_CPUTIME SysTim_GetCpuTime(void);										/**< 現在のCPU時刻取得(システム用)*/
-
+SYSTIM_CPUTIME SysTim_GetCpuTime(void);										/**< 現在のCPU時刻取得(システム用) */
+unsigned long  SysTim_CpuTimeToMillisecond(SYSTIM_CPUTIME CpuTime);			/**< CPU時刻をミリ秒に換算(システム用) */
+unsigned long  SysTim_CpuTimeToNanosecond(SYSTIM_CPUTIME CpuTime);			/**< CPU時刻をナノ秒に換算(システム用) */
 
 /* I/Oアクセス */
 #ifdef __HOSAPLFW_IOMAPEDIO

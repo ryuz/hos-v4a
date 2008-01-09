@@ -22,7 +22,7 @@ HANDLE Mn103ScDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	self = (C_MN103SCDRV *)pDrvObj;
 
 	/* create file descriptor */
-	if ( (hFile = SyncFile_Create(&self->SyncDrv)) == HANDLE_NULL )
+	if ( (hFile = SyncFile_Create(&self->SyncDrv, 3)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}

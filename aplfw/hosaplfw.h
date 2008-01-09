@@ -5,6 +5,7 @@
 #define __HOS__hosaplfw_h__
 
 
+#include "system/system/system.h"
 #include "system/handle/handle.h"
 #include "system/memory/memory.h"
 #include "system/event/event.h"

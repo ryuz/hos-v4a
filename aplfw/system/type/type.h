@@ -4,7 +4,7 @@
  * @file  type.h
  * @brief %jp{基本型定義}
  *
- * Copyright (C) 2006-2007 by Project HOS
+ * Copyright (C) 2006-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -18,16 +18,35 @@
 /* ---------------------------------- */
 
 /* 基本型 */
-typedef	signed char			INT_S8;
-typedef	unsigned char		INT_U8;
-typedef	signed short		INT_S16;
-typedef	unsigned short		INT_U16;
-typedef	signed long			INT_S32;
-typedef	unsigned long		INT_U32;
+typedef	signed char			_HOS_SINT8;
+typedef	unsigned char		_HOS_UINT8;
+typedef	signed short		_HOS_SINT16;
+typedef	unsigned short		_HOS_UINT16;
+typedef	signed long			_HOS_SINT32;
+typedef	unsigned long		_HOS_UINT32;
+
+/* 64bit型 */
+#if defined(_HOS_LONGLONG) || defined(__GNUC__) || defined(__ARMCC_VERSION)
+#define _HOS_ENABLE64
+typedef	signed long long	_HOS_SINT64;
+typedef	unsigned long long	_HOS_UINT64;
+#elif defined(_MSC_VER)
+typedef	signed __int64		_HOS_SINT64;
+typedef	unsigned __int64	_HOS_UINT64;
+#else
+#define _HOS_ENABLE64
+typedef	signed long			_HOS_SINT64;
+typedef	unsigned long		_HOS_UINT64;
+#endif
+
 
 /* NULL */
 #ifndef NULL
-#define	NULL				(0)
+#ifdef __cplusplus
+#define NULL				(0)
+#else
+#define NULL				((void *)0)
+#endif
 #endif
 
 

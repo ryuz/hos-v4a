@@ -33,7 +33,7 @@ SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, void 
 	}
 	
 	/* 計測カウンタ初期化 */
-	SysPrc_SetPrcTime((SYSPRC_HANDLE)erid, 0);
+	SysPrc_SetExecTime((SYSPRC_HANDLE)erid, 0);
 	
 	/* タスク開始 */
 	act_tsk((ID)erid);

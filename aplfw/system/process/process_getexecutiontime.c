@@ -14,10 +14,11 @@
 #include "process_local.h"
 
 
-
-int Process_SetCurrentDir(HANDLE hProcess, const char *pszPath)
+/** 実行時間の取得 */	
+unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanosecond)
 {
-	C_PROCESS *self;
+	C_PROCESS		*self;
+	SYSTIM_CPUTIME	CpuTime;
 	
 	/* 指定が無ければ現在のプロセスとする */
 	if ( hProcess == HANDLE_NULL )
@@ -28,12 +29,16 @@ int Process_SetCurrentDir(HANDLE hProcess, const char *pszPath)
 	/* ハンドルをキャスト */
 	self = (C_PROCESS *)hProcess;
 	
-	strncpy(self->szCurrentDir, pszPath, FILE_MAX_PATH);
-	self->szCurrentDir[FILE_MAX_PATH-1] = '\0';
+	CpuTime = SysPrc_GetExecTime(self->hPrc);
 	
-	return strlen(self->szCurrentDir);
+	/* ナノ秒単位を格納 */
+	if ( pulNanosecond != NULL )
+	{
+		*pulNanosecond = SysTim_CpuTimeToNanosecond(CpuTime);
+	}
+	
+	return SysTim_CpuTimeToMillisecond(CpuTime);
 }
-
 
 
 /* end of file */

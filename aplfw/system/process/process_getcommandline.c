@@ -15,7 +15,7 @@
 
 
 
-int Process_SetCurrentDir(HANDLE hProcess, const char *pszPath)
+const char *Process_GetCommandLine(HANDLE hProcess)
 {
 	C_PROCESS *self;
 	
@@ -28,12 +28,8 @@ int Process_SetCurrentDir(HANDLE hProcess, const char *pszPath)
 	/* ハンドルをキャスト */
 	self = (C_PROCESS *)hProcess;
 	
-	strncpy(self->szCurrentDir, pszPath, FILE_MAX_PATH);
-	self->szCurrentDir[FILE_MAX_PATH-1] = '\0';
-	
-	return strlen(self->szCurrentDir);
+	return self->pszCommandLine;
 }
-
 
 
 /* end of file */

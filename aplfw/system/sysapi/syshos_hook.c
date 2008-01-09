@@ -34,14 +34,14 @@ SYSTIM_CPUTIME SysInt_GetIntTime(int iIntNum)
 
 
 /** プロセス実行時間計測タイマを初期化 */
-void SysPrc_SetPrcTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time)
+void SysPrc_SetExecTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time)
 {
 	SysHos_TaskTime[(ID)hPrc] = Time;
 }
 
 
 /** プロセス実行時間計測タイマを取得 */
-SYSTIM_CPUTIME SysPrc_GetPrcTime(SYSPRC_HANDLE hPrc)
+SYSTIM_CPUTIME SysPrc_GetExecTime(SYSPRC_HANDLE hPrc)
 {
 	return SysHos_TaskTime[(ID)hPrc];
 }

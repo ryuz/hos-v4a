@@ -18,12 +18,13 @@
 HANDLE System_GetNextProcess(HANDLE hProcess)
 {
 	C_PROCESS *pProcess;
-	
+		
 	if ( hProcess == NULL )
 	{
 		return (HANDLE)g_System.pRunProcess;
 	}
 
+	pProcess = (C_PROCESS *)hProcess;
 	if ( pProcess->pNext != g_System.pRunProcess )
 	{
 		return (HANDLE)pProcess->pNext;

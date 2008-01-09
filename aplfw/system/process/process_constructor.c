@@ -95,6 +95,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	
 	/* 起動完了待ち */
 	SysEvt_Wait(self->hEvt);
+	SysEvt_Clear(self->hEvt);
 	
 	return PROCESS_ERR_OK;
 }

@@ -53,31 +53,35 @@ typedef struct t_process_create_inf
 extern "C" {
 #endif
 
-HANDLE Process_Create(const T_PROCESS_CREATE_INF *pInf);					/**< プロセス生成 */
-void   Process_Delete(HANDLE hProcess);										/**< プロセス削除 */
+HANDLE        Process_Create(const T_PROCESS_CREATE_INF *pInf);							/**< プロセス生成 */
+void          Process_Delete(HANDLE hProcess);											/**< プロセス削除 */
 
-HANDLE Process_GetCurrentHandle(void);										/**< 現在のプロセスハンドル取得 */	
+HANDLE        Process_GetCurrentHandle(void);											/**< 現在のプロセスハンドル取得 */	
+void          Process_Exit(int iExitCode);												/**< 現在のプロセスを終了させる */
 
-void   Process_Exit(int iExitCode);											/**< 現在のプロセスを終了させる */
-int    Process_WaitExit(HANDLE hProcess);									/**< プロセスの終了を待つ */
-int    Process_GetExitCode(HANDLE hProcess);								/**< プロセスの終了コード取得 */
+int           Process_WaitExit(HANDLE hProcess);										/**< プロセスの終了を待つ */
+int           Process_GetExitCode(HANDLE hProcess);										/**< プロセスの終了コード取得 */
 
-void   Process_SetParam(VPARAM Param);
-VPARAM Process_GetParam(void);
+const char    *Process_GetCommandLine(HANDLE hProcess);									/**< コマンドラインの取得 */	
+unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanosecond);	/**< 実行時間の取得 */	
+HANDLE        Process_GetParentProcess(HANDLE hProcess);								/**< 親プロセスの取得 */
 
-int    Process_SetCurrentDir(HANDLE hProcess, const char *pszPath);			/**< プロセスのカレントディレクトリ設定 */
-int    Process_GetCurrentDir(HANDLE hProcess, char *pszBuf, int iBufSize);	/**< プロセスのカレントディレクトリ取得 */
+void          Process_SetParam(VPARAM Param);
+VPARAM        Process_GetParam(void);
 
-void   Process_SetTerminal(HANDLE hProcess, HANDLE hFile);					/**< プロセスの標準ターミナル設定 */
-HANDLE Process_GetTerminal(HANDLE hProcess);								/**< プロセスの標準ターミナル取得 */
-void   Process_SetConsole(HANDLE hProcess, HANDLE hFile);					/**< プロセスの標準コンソール設定 */
-HANDLE Process_GetConsole(HANDLE hProcess);				 					/**< プロセスの標準コンソール取得 */
-void   Process_SetStdIn(HANDLE hProcess, HANDLE hFile);						/**< プロセスの標準入力設定 */
-HANDLE Process_GetStdIn(HANDLE hProcess);			   						/**< プロセスの標準入力取得 */
-void   Process_SetStdOut(HANDLE hProcess, HANDLE hFile);					/**< プロセスの標準出力設定 */
-HANDLE Process_GetStdOut(HANDLE hProcess);									/**< プロセスの標準出力取得 */
-void   Process_SetStdErr(HANDLE hProcess, HANDLE hFile);					/**< プロセスの標準エラー出力設定 */
-HANDLE Process_GetStdErr(HANDLE hProcess);									/**< プロセスの標準エラー出力取得 */
+int           Process_SetCurrentDir(HANDLE hProcess, const char *pszPath);				/**< プロセスのカレントディレクトリ設定 */
+int           Process_GetCurrentDir(HANDLE hProcess, char *pszBuf, int iBufSize);		/**< プロセスのカレントディレクトリ取得 */
+
+void          Process_SetTerminal(HANDLE hProcess, HANDLE hFile);						/**< プロセスの標準ターミナル設定 */
+HANDLE        Process_GetTerminal(HANDLE hProcess);										/**< プロセスの標準ターミナル取得 */
+void          Process_SetConsole(HANDLE hProcess, HANDLE hFile);						/**< プロセスの標準コンソール設定 */
+HANDLE        Process_GetConsole(HANDLE hProcess);				 						/**< プロセスの標準コンソール取得 */
+void          Process_SetStdIn(HANDLE hProcess, HANDLE hFile);							/**< プロセスの標準入力設定 */
+HANDLE        Process_GetStdIn(HANDLE hProcess);			   							/**< プロセスの標準入力取得 */
+void          Process_SetStdOut(HANDLE hProcess, HANDLE hFile);							/**< プロセスの標準出力設定 */
+HANDLE        Process_GetStdOut(HANDLE hProcess);										/**< プロセスの標準出力取得 */
+void          Process_SetStdErr(HANDLE hProcess, HANDLE hFile);							/**< プロセスの標準エラー出力設定 */
+HANDLE        Process_GetStdErr(HANDLE hProcess);										/**< プロセスの標準エラー出力取得 */
 
 #ifdef __cplusplus
 }

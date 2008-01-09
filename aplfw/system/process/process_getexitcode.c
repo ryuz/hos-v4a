@@ -18,12 +18,14 @@
 int Process_GetExitCode(HANDLE hProcess)
 {
 	C_PROCESS *self;
-
+	
+	/* 指定が無ければエラー */
 	if ( hProcess == HANDLE_NULL )
 	{
-		hProcess = Process_GetCurrentHandle();
+		return -1;
 	}
-
+	
+	/* ハンドルをキャスト */
 	self = (C_PROCESS *)hProcess;
 
 	return self->iExitCode;
