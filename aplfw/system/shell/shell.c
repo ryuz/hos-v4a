@@ -282,7 +282,7 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	Inf.pszCommandLine = pszCommand;
 	Inf.pfncEntry      = NULL;									/* 起動アドレス */
 	Inf.Param          = 0;										/* ユーザーパラメータ */
-	Inf.StackSize      = 1024;									/* スタックサイズ */
+	Inf.StackSize      = 2048;									/* スタックサイズ */
 	Inf.Priority       = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
 	Inf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
 	Inf.hConsole       = Process_GetConsole(HANDLE_NULL);		/* コンソール */

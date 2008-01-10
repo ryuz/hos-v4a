@@ -49,6 +49,7 @@ LINK_WINSOCK          ?= No
 LINK_FATVOL           ?= Yes
 
 # Applications
+LINK_PROCESSLIST      ?= Yes
 LINK_MEMDUMP          ?= Yes
 LINK_MEMWRITE         ?= Yes
 LINK_MEMTEST          ?= Yes
@@ -58,6 +59,7 @@ LINK_FILELIST         ?= Yes
 LINK_FILECAT          ?= Yes
 LINK_FILECOPY         ?= Yes
 LINK_FILEDUMP         ?= Yes
+LINK_FLASHCMD         ?= Yes
 LINK_ETHERSNOOP       ?= Yes
 LINK_HELLO            ?= Yes
 
@@ -124,6 +126,8 @@ CSRCS += $(SYSAPI_DIR)/sysprc_getcurrenthandle.c
 CSRCS += $(SYSAPI_DIR)/systim_wait.c
 CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
 CSRCS += $(SYSAPI_DIR)/systim_getcputime.c
+CSRCS += $(SYSAPI_DIR)/systim_cputimetomillisecond.c
+CSRCS += $(SYSAPI_DIR)/systim_cputimetonanosecond.c
 CSRCS += $(SYSAPI_DIR)/syshos_hook.c
 endif
 
@@ -171,6 +175,10 @@ CSRCS += $(PROCESS_DIR)/process_waitexit.c
 CSRCS += $(PROCESS_DIR)/process_getexitcode.c
 CSRCS += $(PROCESS_DIR)/process_setcurrentdir.c
 CSRCS += $(PROCESS_DIR)/process_getcurrentdir.c
+CSRCS += $(PROCESS_DIR)/process_getexecutiontime.c
+CSRCS += $(PROCESS_DIR)/process_getparentProcess.c
+CSRCS += $(PROCESS_DIR)/process_getexecutiontime.c
+CSRCS += $(PROCESS_DIR)/process_getcommandline.c
 CSRCS += $(PROCESS_DIR)/process_setterminal.c
 CSRCS += $(PROCESS_DIR)/process_getterminal.c
 CSRCS += $(PROCESS_DIR)/process_setconsole.c
@@ -656,6 +664,14 @@ endif
 #  Applications
 # --------------------------------------------------
 
+# System Command
+ifeq ($(LINK_PROCESSLIST),Yes)
+PROCESSLIST_DIR = $(HOSAPLFW_DIR)/application/syscmd/processlist
+SRC_DIRS += $(PROCESSLIST_DIR)
+CSRCS += $(PROCESSLIST_DIR)/processlist_main.c
+endif
+
+
 # Memory Dump
 ifeq ($(LINK_MEMDUMP),Yes)
 MEMDUMP_DIR = $(HOSAPLFW_DIR)/application/utility/memdump
@@ -725,6 +741,14 @@ ifeq ($(LINK_FILEDUMP),Yes)
 FILEDUMP_DIR = $(HOSAPLFW_DIR)/application/filecmd/filedump
 SRC_DIRS += $(FILEDUMP_DIR)
 CSRCS += $(FILEDUMP_DIR)/filedump_main.c
+endif
+
+
+# Flash Command
+ifeq ($(LINK_FLASHCMD),Yes)
+FLASHCMD_DIR = $(HOSAPLFW_DIR)/application/flashcmd/norflashcmd
+SRC_DIRS += $(FLASHCMD_DIR)
+CSRCS += $(FLASHCMD_DIR)/norflashcmd_main.c
 endif
 
 

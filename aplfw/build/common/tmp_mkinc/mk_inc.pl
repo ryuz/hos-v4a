@@ -56,6 +56,8 @@
 			"systim_wait.c",
 			"systim_getsystemtime.c",
 			"systim_getcputime.c",
+			"systim_cputimetomillisecond.c",
+			"systim_cputimetonanosecond.c",
 			"syshos_hook.c",
 		],
 		[
@@ -103,6 +105,10 @@
 			"process_getexitcode.c",
 			"process_setcurrentdir.c",
 			"process_getcurrentdir.c",
+			"process_getexecutiontime.c",
+			"process_getparentProcess.c",
+			"process_getexecutiontime.c",
+			"process_getcommandline.c",
 			"process_setterminal.c",
 			"process_getterminal.c",
 			"process_setconsole.c",
@@ -581,6 +587,14 @@
 	[
 		"Applications",
 		[
+			"System Command",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/syscmd/processlist",
+			"PROCESSLIST",
+			"Yes",
+			"processlist_main.c",
+		],
+		[
 			"Memory Dump",
 			"\$(COMMON_HEADERS)",
 			"\$(HOSAPLFW_DIR)/application/utility/memdump",
@@ -651,6 +665,14 @@
 			"FILEDUMP",
 			"Yes",
 			"filedump_main.c",
+		],
+		[
+			"Flash Command",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/flashcmd/norflashcmd",
+			"FLASHCMD",
+			"Yes",
+			"norflashcmd_main.c",
 		],
 		[
 			"Ether Snoopt",

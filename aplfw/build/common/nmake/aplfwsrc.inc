@@ -109,6 +109,9 @@ LINK_FATVOL           = Yes
 !endif
 
 # Applications
+!ifndef PROCESSLIST
+LINK_PROCESSLIST      = Yes
+!endif
 !ifndef MEMDUMP
 LINK_MEMDUMP          = Yes
 !endif
@@ -135,6 +138,9 @@ LINK_FILECOPY         = Yes
 !endif
 !ifndef FILEDUMP
 LINK_FILEDUMP         = Yes
+!endif
+!ifndef FLASHCMD
+LINK_FLASHCMD         = Yes
 !endif
 !ifndef ETHERSNOOP
 LINK_ETHERSNOOP       = Yes
@@ -238,6 +244,10 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_getsystemtime.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_getcputime.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_getcputime.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_cputimetomillisecond.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\systim_cputimetomillisecond.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_cputimetonanosecond.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\systim_cputimetonanosecond.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\syshos_hook.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\syshos_hook.$(EXT_OBJ)
 
@@ -292,6 +302,14 @@ CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setcurrentdir.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setcurrentdir.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getcurrentdir.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_getcurrentdir.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getexecutiontime.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_getexecutiontime.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getparentProcess.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_getparentProcess.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getexecutiontime.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_getexecutiontime.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getcommandline.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_getcommandline.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setterminal.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setterminal.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getterminal.c
@@ -1003,6 +1021,12 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ)
 #  Applications
 # --------------------------------------------------
 
+# System Command
+PROCESSLIST_DIR = $(HOSAPLFW_DIR)\application\syscmd\processlist
+CSRCS = $(CSRCS) $(PROCESSLIST_DIR)\processlist_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\processlist_main.$(EXT_OBJ)
+
+
 # Memory Dump
 MEMDUMP_DIR = $(HOSAPLFW_DIR)\application\utility\memdump
 CSRCS = $(CSRCS) $(MEMDUMP_DIR)\memdump_main.c
@@ -1055,6 +1079,12 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\filecopy_main.$(EXT_OBJ)
 FILEDUMP_DIR = $(HOSAPLFW_DIR)\application\filecmd\filedump
 CSRCS = $(CSRCS) $(FILEDUMP_DIR)\filedump_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\filedump_main.$(EXT_OBJ)
+
+
+# Flash Command
+FLASHCMD_DIR = $(HOSAPLFW_DIR)\application\flashcmd\norflashcmd
+CSRCS = $(CSRCS) $(FLASHCMD_DIR)\norflashcmd_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\norflashcmd_main.$(EXT_OBJ)
 
 
 # Ether Snoopt

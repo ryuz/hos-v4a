@@ -42,6 +42,7 @@ srcobjcp_makelib:
 	$(CMD_CP) $(MN103SC_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(WINSOCK_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(FATVOL_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(PROCESSLIST_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(MEMDUMP_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(MEMWRITE_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(MEMTEST_DIR)\*.* $(OBJS_DIR)
@@ -51,6 +52,7 @@ srcobjcp_makelib:
 	$(CMD_CP) $(FILECAT_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(FILECOPY_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(FILEDUMP_DIR)\*.* $(OBJS_DIR)
+	$(CMD_CP) $(FLASHCMD_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(ETHERSNOOP_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(HELLO_DIR)\*.* $(OBJS_DIR)
 
@@ -98,6 +100,8 @@ $(OBJS_DIR)\sysprc_getcurrenthandle.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_getcurrenthan
 $(OBJS_DIR)\systim_wait.$(EXT_OBJ):	$(OBJS_DIR)\systim_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getsystemtime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_getcputime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getcputime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\systim_cputimetomillisecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_cputimetomillisecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\systim_cputimetonanosecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_cputimetonanosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\syshos_hook.$(EXT_OBJ):	$(OBJS_DIR)\syshos_hook.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\handle_close.$(EXT_OBJ):	$(OBJS_DIR)\handle_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -121,6 +125,10 @@ $(OBJS_DIR)\process_waitexit.$(EXT_OBJ):	$(OBJS_DIR)\process_waitexit.c	$(COMMON
 $(OBJS_DIR)\process_getexitcode.$(EXT_OBJ):	$(OBJS_DIR)\process_getexitcode.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setcurrentdir.$(EXT_OBJ):	$(OBJS_DIR)\process_setcurrentdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getcurrentdir.$(EXT_OBJ):	$(OBJS_DIR)\process_getcurrentdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_getexecutiontime.$(EXT_OBJ):	$(OBJS_DIR)\process_getexecutiontime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_getparentProcess.$(EXT_OBJ):	$(OBJS_DIR)\process_getparentProcess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_getexecutiontime.$(EXT_OBJ):	$(OBJS_DIR)\process_getexecutiontime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_getcommandline.$(EXT_OBJ):	$(OBJS_DIR)\process_getcommandline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setterminal.$(EXT_OBJ):	$(OBJS_DIR)\process_setterminal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getterminal.$(EXT_OBJ):	$(OBJS_DIR)\process_getterminal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setconsole.$(EXT_OBJ):	$(OBJS_DIR)\process_setconsole.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -445,6 +453,8 @@ $(OBJS_DIR)\fatfile_delete.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_delete.c	$(COMMON_HEA
 $(OBJS_DIR)\fatfile_constructor.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_constructor.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_destructor.c	$(COMMON_HEADERS)
 
+$(OBJS_DIR)\processlist_main.$(EXT_OBJ):	$(OBJS_DIR)\processlist_main.c	$(COMMON_HEADERS)
+
 $(OBJS_DIR)\memdump_main.$(EXT_OBJ):	$(OBJS_DIR)\memdump_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\memwrite_main.$(EXT_OBJ):	$(OBJS_DIR)\memwrite_main.c	$(COMMON_HEADERS)
@@ -462,6 +472,8 @@ $(OBJS_DIR)\filecat_main.$(EXT_OBJ):	$(OBJS_DIR)\filecat_main.c	$(COMMON_HEADERS
 $(OBJS_DIR)\filecopy_main.$(EXT_OBJ):	$(OBJS_DIR)\filecopy_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\filedump_main.$(EXT_OBJ):	$(OBJS_DIR)\filedump_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\norflashcmd_main.$(EXT_OBJ):	$(OBJS_DIR)\norflashcmd_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\ethersnoop_main.$(EXT_OBJ):	$(OBJS_DIR)\ethersnoop_main.c	$(COMMON_HEADERS)
 

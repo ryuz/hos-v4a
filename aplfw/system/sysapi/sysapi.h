@@ -136,12 +136,12 @@ unsigned short SysIo_InPortH(unsigned int Port);
 unsigned long  SysIo_InPortW(unsigned int Port);
 #else
 /* メモリマップドI/O */
-#define        SysIo_OutPortB(Port, Data)	(*(unsigned char *)(Port) = (unsigned char)(Data))
-#define        SysIo_OutPortH(Port, Data)	(*(unsigned short *)(Port) = (unsigned short)(Data))
-#define        SysIo_OutPortW(Port, Data)	(*(unsigned long *)(Port) = (unsigned long)(Data))
-#define        SysIo_InPortB(Port)			(*(unsigned char *)(Port))
-#define        SysIo_InPortH(Port)			(*(unsigned short *)(Port))
-#define        SysIo_InPortW(Port)			(*(unsigned long *)(Port))
+#define        SysIo_OutPortB(Port, Data)	(*(volatile unsigned char *)(Port) = (unsigned char)(Data))
+#define        SysIo_OutPortH(Port, Data)	(*(volatile unsigned short *)(Port) = (unsigned short)(Data))
+#define        SysIo_OutPortW(Port, Data)	(*(volatile unsigned long *)(Port) = (unsigned long)(Data))
+#define        SysIo_InPortB(Port)			(*(volatile unsigned char *)(Port))
+#define        SysIo_InPortH(Port)			(*(volatile unsigned short *)(Port))
+#define        SysIo_InPortW(Port)			(*(volatile unsigned long *)(Port))
 #endif
 
 
