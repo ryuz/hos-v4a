@@ -159,7 +159,7 @@ kernel_make:
 # %jp{カーネルクリーン}
 .PHONY : kernel_clean
 kernel_clean:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT)clean
+	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) clean
 
 # %jp{カーネルdepend}
 .PHONY : kernel_depend
