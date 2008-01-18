@@ -26,7 +26,7 @@ ER_ID acre_tsk(const T_CTSK *pk_ctsk)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{空きID探索} */
-	for ( tskid = _KERNEL_TMIN_TSKID; tskid <= _KERNEL_TMAX_TSKID; tskid++ )
+	for ( tskid = _KERNEL_TSK_TMIN_ID; tskid <= _KERNEL_TSK_TMAX_ID; tskid++ )
 	{
 		if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 		{

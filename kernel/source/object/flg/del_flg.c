@@ -67,7 +67,7 @@ ER del_flg(ID flgid)
 	
 	/* %jp{オブジェクト削除} */
 #if _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_PTRARRAY
-	_KERNEL_SYS_FRE_MEM(_KERNEL_FLG_ID2FLGCB(flgid));	/* %jp{メモリ開放} */
+	_KERNEL_SYS_FRE_HEP(_KERNEL_FLG_ID2FLGCB(flgid));	/* %jp{メモリ開放} */
 	_KERNEL_FLG_ID2FLGCB(flgid) = NULL;
 #elif _KERNEL_FLGCB_ALGORITHM == _KERNEL_FLGCB_ALG_BLKARRAY
 	_KERNEL_FLG_SET_FLGATR(flgcb, 0);					/* %jp{削除をマーク} */

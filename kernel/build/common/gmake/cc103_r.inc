@@ -48,7 +48,17 @@ AFLAGS += $(AFLAGS_INC) $(AFLAGS_DEF)
 
 # %jp{実行ファイル生成}%en{Executable file}
 $(TARGET_EXE): $(OBJS) $(LIBS)
-	$(CMD_LINK) $(LNFLAGS) -o $(TARGET_EXE) $(OBJS) $(patsubst %,-l%,$(LIBS)) $(patsubst %,-l%,$(STD_LIBS))
+	$(CMD_LINK) $(LNFLAGS) -o $(TARGET_EXE) $(OBJS) $(patsubst %,-l%,$(LIBS))
+
+
+# %jp{モトローラS形式ファイル生成}%en{Motorola S format file}
+$(TARGET_MOT): $(TARGET_EXE)
+	$(CMD_OBJCNV) -S3 -o $(TARGET_MOT) $(TARGET_EXE)
+
+
+# %jp{インテルHEX形式ファイル生成}%en{Intel HEX format file}
+$(TARGET_HEX): $(TARGET_EXE)
+	$(CMD_OBJCNV) -i -o $(TARGET_HEX) $(TARGET_EXE)
 
 
 # %jp{ライブラリ生成}%en{Library}

@@ -67,7 +67,7 @@ ER del_sem(ID semid)
 	
 	/* %jp{オブジェクト削除} */
 #if _KERNEL_SEMCB_ALGORITHM == _KERNEL_SEMCB_ALG_PTRARRAY
-	_KERNEL_SYS_FRE_MEM(semcb);						/* %jp{メモリ開放} */
+	_KERNEL_SYS_FRE_HEP(semcb);						/* %jp{メモリ開放} */
 	_KERNEL_SEM_ID2SEMCB(semid) = NULL;
 #elif _KERNEL_SEMCB_ALGORITHM == _KERNEL_SEMCB_ALG_BLKARRAY
 	_KERNEL_SEM_SET_MAXSEM(semcb, 0);

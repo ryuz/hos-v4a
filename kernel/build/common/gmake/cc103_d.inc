@@ -11,7 +11,7 @@
 CMD_CC     ?= cc103S
 CMD_ASM    ?= cc103S
 CMD_LIBR   ?= ar103S
-CMD_LINK   ?= ld103S
+CMD_LINK   ?= cc103S
 CMD_OBJCNV ?= xcv103
 
 

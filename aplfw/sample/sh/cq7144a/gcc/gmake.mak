@@ -10,11 +10,11 @@
 TARGET ?= sample
 
 # %jp{ツール定義}
-GCC_SYS    ?= elf
-CMD_CC     ?= sh-$(GCC_SYS)-gcc
-CMD_ASM    ?= sh-$(GCC_SYS)-gcc
-CMD_LINK   ?= sh-$(GCC_SYS)-gcc
-CMD_OBJCNV ?= sh-$(GCC_SYS)-objcopy
+GCC_ARCH   ?= sh-elf-
+CMD_CC     ?= $(GCC_ARCH)gcc
+CMD_ASM    ?= $(GCC_ARCH)gcc
+CMD_LINK   ?= $(GCC_ARCH)gcc
+CMD_OBJCNV ?= $(GCC_ARCH)objcopy
 
 
 # %jp{ディレクトリ定義}

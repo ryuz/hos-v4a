@@ -67,7 +67,7 @@ ER del_mtx(ID mtxid)
 	
 	/* %jp{オブジェクト削除} */
 #if _KERNEL_MTXCB_ALGORITHM == _KERNEL_MTXCB_ALG_PTRARRAY
-	_KERNEL_SYS_FRE_MEM(mtxcb);						/* %jp{メモリ開放} */
+	_KERNEL_SYS_FRE_HEP(mtxcb);						/* %jp{メモリ開放} */
 	_KERNEL_MTX_ID2MTXCB(mtxid) = NULL;
 #elif _KERNEL_MTXCB_ALGORITHM == _KERNEL_MTXCB_ALG_BLKARRAY
 	_KERNEL_MTX_SET_MTXATR(mtxcb, 0);

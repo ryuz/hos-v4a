@@ -22,7 +22,7 @@ ID _kernel_tsk_tcb2id(_KERNEL_T_TCB *pk_tcb)
 	ID tskid;
 	
 	/* %jp{テーブルを検索} */
-	for ( tskid = _KERNEL_TMIN_TSK_ID; tskid <= _KERNEL_TMAX_TSK_ID; tskid++ )
+	for ( tskid = _KERNEL_TMIN_TSKID; tskid <= _KERNEL_TMAX_TSKID; tskid++ )
 	{
 		if ( _KERNEL_TSK_ID2TCB(tskid) == pk_tcb )
 		{
