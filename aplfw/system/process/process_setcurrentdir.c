@@ -17,7 +17,9 @@
 
 int Process_SetCurrentDir(HANDLE hProcess, const char *pszPath)
 {
-	C_PROCESS *self;
+	C_PROCESS	*self;
+	char		*pcBuf;
+	int			iLen;
 	
 	/* 指定が無ければ現在のプロセスとする */
 	if ( hProcess == HANDLE_NULL )
@@ -28,10 +30,23 @@ int Process_SetCurrentDir(HANDLE hProcess, const char *pszPath)
 	/* ハンドルをキャスト */
 	self = (C_PROCESS *)hProcess;
 	
-	strncpy(self->szCurrentDir, pszPath, FILE_MAX_PATH);
-	self->szCurrentDir[FILE_MAX_PATH-1] = '\0';
+	iLen = strlen(pszPath);
+	if ( iLen >= FILE_MAX_PATH )
+	{
+		return 0;
+	}
 	
-	return strlen(self->szCurrentDir);
+	if ( (pcBuf = SysMem_Alloc(iLen + 1)) == NULL )
+	{
+		return 0;
+	}
+	
+	/* 古いバッファを開放 */
+	SysMem_Free(self->pszCurrentDir);
+	strcpy(pcBuf, pszPath);
+	self->pszCurrentDir = pcBuf;
+		
+	return iLen;
 }
 
 

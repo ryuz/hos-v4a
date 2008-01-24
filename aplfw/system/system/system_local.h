@@ -59,8 +59,9 @@ extern "C" {
 
 int   System_Process(VPARAM Param);						/* システムプロセス */
 
-void  System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */
-void  System_UnregistryProcess(C_PROCESS *pProcess);	/* プロセスの登録解除 */
+HANDLE System_GetSystemProcess(void);
+void   System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */
+void   System_UnregistryProcess(C_PROCESS *pProcess);	/* プロセスの登録解除 */
 
 
 #ifdef __cplusplus

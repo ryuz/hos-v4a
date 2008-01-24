@@ -189,6 +189,7 @@ TSKOBJ_DIR = $(KERNEL_OBJ_DIR)/tsk
 SRC_DIRS += $(TSKOBJ_DIR)
 CSRCS += $(TSKOBJ_DIR)/acre_tsk.c
 CSRCS += $(TSKOBJ_DIR)/kcre_tsk.c
+CSRCS += $(TSKOBJ_DIR)/del_tsk.c
 CSRCS += $(TSKOBJ_DIR)/act_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ext_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ter_tsk.c

@@ -280,6 +280,7 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	
 	/* プロセスの生成情報 */
 	Inf.pszCommandLine = pszCommand;
+	Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);
 	Inf.pfncEntry      = NULL;									/* 起動アドレス */
 	Inf.Param          = 0;										/* ユーザーパラメータ */
 	Inf.StackSize      = 2048;									/* スタックサイズ */
@@ -289,7 +290,6 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
 	Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
 	Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
-	Process_GetCurrentDir(HANDLE_NULL, Inf.szCurrentDir, sizeof(Inf.szCurrentDir));	/* カレントディレクトリ */
 	
 	hProcess = Process_Create(&Inf);
 

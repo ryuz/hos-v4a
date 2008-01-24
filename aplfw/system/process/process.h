@@ -36,6 +36,7 @@ typedef int		PROCESS_ERR;
 typedef struct t_process_create_inf
 {
 	const char	*pszCommandLine;					/**< コマンドライン */
+	const char	*pszCurrentDir;						/**< 起動ディレクトリ */
 	int			(*pfncEntry)(VPARAM Param);			/**< 起動アドレス */
 	VPARAM		Param;								/**< ユーザーパラメータ */
 	MEMSIZE		StackSize;							/**< スタックサイズ */
@@ -45,7 +46,6 @@ typedef struct t_process_create_inf
 	HANDLE		hStdIn;								/**< 標準入力 */
 	HANDLE		hStdOut;							/**< 標準出力 */
 	HANDLE		hStdErr;							/**< 標準エラー出力 */
-	char		szCurrentDir[FILE_MAX_PATH];		/**< カレントディレクトリ */
 } T_PROCESS_CREATE_INF;
 
 
@@ -70,7 +70,7 @@ void          Process_SetParam(VPARAM Param);
 VPARAM        Process_GetParam(void);
 
 int           Process_SetCurrentDir(HANDLE hProcess, const char *pszPath);				/**< プロセスのカレントディレクトリ設定 */
-int           Process_GetCurrentDir(HANDLE hProcess, char *pszBuf, int iBufSize);		/**< プロセスのカレントディレクトリ取得 */
+const char    *Process_GetCurrentDir(HANDLE hProcess);									/**< プロセスのカレントディレクトリ取得 */
 
 void          Process_SetTerminal(HANDLE hProcess, HANDLE hFile);						/**< プロセスの標準ターミナル設定 */
 HANDLE        Process_GetTerminal(HANDLE hProcess);										/**< プロセスの標準ターミナル取得 */

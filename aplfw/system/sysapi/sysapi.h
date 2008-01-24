@@ -86,7 +86,7 @@ SYSISR_HANDLE  SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM 
 void           SysIsr_Delete(SYSISR_HANDLE hIsr);
 
 /* システム用プロセス制御API */
-SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, void *pStack, MEMSIZE StackSize, int Priority, int iAttr);
+SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(void), VPARAM Param, void *pStack, MEMSIZE StackSize, int Priority, int iAttr);
 																			/**< プロセス生成(システム用) */
 void           SysPrc_Delete(SYSPRC_HANDLE hPrc);							/**< プロセス削除(システム用) */
 VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);							/**< プロセスのパラメータ取得(システム用) */
@@ -122,7 +122,7 @@ void           SysTim_Wait(unsigned long ulTime);							/**< 時間待ち(シス
 TIME           SysTim_GetCurrentTime(void);									/**< 現在の時刻取得(システム用) */
 SYSTIM_SYSTIME SysTim_GetSystemTime(void);									/**< 現在のシステム時刻取得(システム用) */
 SYSTIM_CPUTIME SysTim_GetCpuTime(void);										/**< 現在のCPU時刻取得(システム用) */
-unsigned long  SysTim_CpuTimeToMillisecond(SYSTIM_CPUTIME CpuTime);			/**< CPU時刻をミリ秒に換算(システム用) */
+unsigned long  SysTim_CpuTimeToSecond(SYSTIM_CPUTIME CpuTime);				/**< CPU時刻を秒に換算(システム用) */
 unsigned long  SysTim_CpuTimeToNanosecond(SYSTIM_CPUTIME CpuTime);			/**< CPU時刻をナノ秒に換算(システム用) */
 
 /* I/Oアクセス */

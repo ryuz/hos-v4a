@@ -71,6 +71,7 @@ $(OBJS_DIR)/sns_ctx.$(EXT_OBJ):	$(SYSOBJ_DIR)/sns_ctx.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)/acre_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/acre_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/kcre_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/kcre_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/del_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/del_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/act_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/act_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/ext_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/ext_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/ter_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/ter_tsk.c	$(COMMON_HEADERS)

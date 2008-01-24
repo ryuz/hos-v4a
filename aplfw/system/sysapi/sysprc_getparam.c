@@ -16,11 +16,7 @@
 /** プロセスのパラメータ取得(システム用) */
 VPARAM SysPrc_GetParam(SYSPRC_HANDLE hPrc)
 {
-	T_RTST	rtst;
-	
-	ref_tst((ID)hPrc, &rtst);
-	
-	return (VPARAM)rtst.exinf;
+	return SysPrc_InfTbl[(ID)hPrc].Param;
 }
 
 

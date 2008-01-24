@@ -9,6 +9,7 @@
  */
 
 #include "process_local.h"
+#include "system/system/system_local.h"
 
 
 
@@ -20,7 +21,8 @@ HANDLE Process_GetCurrentHandle(void)
 	/* 現在のプロセスを取得 */
 	if ( (hSysPrc = SysPrc_GetCurrentHandle()) == SYSPRC_HANDLE_NULL )
 	{
-		return HANDLE_NULL;
+		/* 未管理プロセスはすべてシステムプロセスとする */
+		return System_GetSystemProcess();
 	}
 	
 	/* 現在のプロセスを取得 */

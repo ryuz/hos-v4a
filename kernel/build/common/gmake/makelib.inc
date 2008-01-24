@@ -107,6 +107,11 @@ VPATH = $(subst $(space),:,$(SRC_DIRS))
 makelib_all: $(CSRCS) $(ASRCS) makelib_mkobjsdir $(TARGET_LIB)
 
 
+# %jp{一括処理}%en{batch build}
+.PHONY : makelib_batch
+makelib_batch: $(CSRCS) $(ASRCS) makelib_mkobjsdir batch_asm batch_c $(TARGET_LIB)
+
+
 # %jp{クリーンナップ}%en{clean}
 .PHONY : makelib_clean
 makelib_clean:

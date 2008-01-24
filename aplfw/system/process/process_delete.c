@@ -23,8 +23,6 @@ void Process_Delete(HANDLE hProcess)
 	
 	/* メモリ開放 */
 	SysMem_Free(self);
-	
-	
 }
 
 

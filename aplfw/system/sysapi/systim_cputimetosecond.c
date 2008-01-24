@@ -13,8 +13,8 @@
 
 
 
-/* CPU時刻をナノ秒に換算(システム用) */
-unsigned long  SysTim_CpuTimeToNanosecond(SYSTIM_CPUTIME CpuTime)
+/* CPU時刻を秒に換算(システム用) */
+unsigned long  SysTim_CpuTimeToSecond(SYSTIM_CPUTIME CpuTime)
 {
 	return 0;
 }

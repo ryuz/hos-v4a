@@ -45,7 +45,7 @@ ER del_sem(ID semid)
 	if ( _KERNEL_SEM_CHECK_EXS(semid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
-		return E_OBJ;			/* %jp{オブジェクト状態エラー}%en{Object state error} */
+		return E_NOEXS;
 	}
 #endif
 	

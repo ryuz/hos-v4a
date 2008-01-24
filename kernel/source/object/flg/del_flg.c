@@ -45,7 +45,7 @@ ER del_flg(ID flgid)
 	if ( _KERNEL_FLG_CHECK_EXS(flgid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
-		return E_OBJ;			/* %jp{オブジェクト状態エラー}%en{Object state error} */
+		return E_NOEXS;	
 	}
 #endif
 	

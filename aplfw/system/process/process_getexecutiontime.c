@@ -37,7 +37,7 @@ unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanose
 		*pulNanosecond = SysTim_CpuTimeToNanosecond(CpuTime);
 	}
 	
-	return SysTim_CpuTimeToMillisecond(CpuTime);
+	return SysTim_CpuTimeToSecond(CpuTime);
 }
 
 

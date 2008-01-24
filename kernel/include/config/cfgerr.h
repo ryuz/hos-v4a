@@ -30,6 +30,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* cre_tsk */
 /* acre_tsk */
 /* del_tsk */
+#define _KERNEL_CFG_DEL_TSK_E_ID		TRUE
+#define _KERNEL_CFG_DEL_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_DEL_TSK_E_OBJ		TRUE
+#define _KERNEL_CFG_DEL_TSK_E_NOSPT		FALSE
 
 /* act_tsk */
 #define _KERNEL_CFG_ACT_TSK_E_ID		TRUE

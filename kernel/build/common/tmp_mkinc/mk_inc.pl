@@ -121,6 +121,7 @@
 		"TSKOBJ_DIR",
 		"acre_tsk.c",
 		"kcre_tsk.c",
+		"del_tsk.c",
 		"act_tsk.c",
 		"ext_tsk.c",
 		"ter_tsk.c",

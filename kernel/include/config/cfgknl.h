@@ -304,7 +304,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* Task management functions */
 #define _KERNEL_CFG_CRE_TSK				TRUE				/* cre_tsk */
 #define _KERNEL_CFG_ACRE_TSK			TRUE				/* acre_tsk */
-#define _KERNEL_CFG_DEL_TSK				FALSE				/* del_tsk */
+#define _KERNEL_CFG_DEL_TSK				TRUE				/* del_tsk */
 #define _KERNEL_CFG_ACT_TSK				TRUE				/* act_tsk */
 #define _KERNEL_CFG_IACT_TSK			FALSE				/* iact_tsk */
 #define _KERNEL_CFG_CAN_ACT 			FALSE				/* can_act */

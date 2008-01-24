@@ -14,14 +14,14 @@
 
 
 /* プロセス生成 */
-SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, void *pStack, MEMSIZE StackSize, int Priority, int iAttr)
+SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(void), VPARAM Param, void *pStack, MEMSIZE StackSize, int Priority, int iAttr)
 {
 	T_CTSK ctsk;
 	ER_ID  erid;
 	
 	/* タスク生成 */
 	ctsk.tskatr  = TA_HLNG;
-	ctsk.exinf   = (VP_INT)Param;
+	ctsk.exinf   = (VP_INT)0;
 	ctsk.task    = (FP)pfncEntry;
 	ctsk.itskpri = (PRI)Priority;
 	ctsk.stksz   = (SIZE)StackSize;
@@ -31,6 +31,9 @@ SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(VPARAM Param), VPARAM Param, void 
 	{
 		return SYSPRC_HANDLE_NULL;
 	}
+	
+	/* 計測カウンタ初期化 */
+	SysPrc_InfTbl[erid].Param = Param;
 	
 	/* 計測カウンタ初期化 */
 	SysPrc_SetExecTime((SYSPRC_HANDLE)erid, 0);

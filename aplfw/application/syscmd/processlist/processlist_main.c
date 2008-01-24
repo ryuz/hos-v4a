@@ -17,20 +17,23 @@
 
 int ProcessList_Main(int argc, char *argv[])
 {
-	HANDLE	hProcess;
-	
+	HANDLE			hProcess;
+	unsigned long	ulExecSec;
+	unsigned long	ulExecNano;
 	
 	/* 表示 */
-	StdIo_PutString("HANDLE   PARENT   TIME        COMMAND\n");
-	StdIo_PutString("--------+--------+-----------+-----------\n");
+	StdIo_PutString("HANDLE   PARENT   TIME[s]     +TIME[ns]    COMMAND\n");
+	StdIo_PutString("--------+--------+-----------+-----------+-----------\n");
 
 	/* 最初のプロセスを得る */
 	hProcess = System_GetNextProcess(HANDLE_NULL);
 	while ( hProcess != NULL )
 	{
+		ulExecSec = Process_GetExecutionTime(hProcess, &ulExecNano);
 		StdIo_PrintFormat("%08lx ", (unsigned long)hProcess);
 		StdIo_PrintFormat("%08lx ", (unsigned long)Process_GetParentProcess(hProcess));
-		StdIo_PrintFormat("%11lu ", (unsigned long)Process_GetExecutionTime(hProcess, NULL));
+		StdIo_PrintFormat("%11lu ", ulExecSec);
+		StdIo_PrintFormat("%11lu ", ulExecNano);
 		StdIo_PrintFormat("%s",     Process_GetCommandLine(hProcess));
 		StdIo_PutChar('\n');
 		

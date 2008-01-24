@@ -65,7 +65,7 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_HEP(pk_ctsk->stksz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 		if ( mem == NULL )
 		{
 			return E_NOMEM;
@@ -76,7 +76,7 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		tcb->tcb_ro               = tcb_ro = (_KERNEL_T_TCB_RO *)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)));
 		if ( pk_ctsk->stk == NULL )
 		{
-			stk = (VP)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)) + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)));
+			stk = (VP)((B *)mem + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB)) + _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_TCB_RO)));
 		}
 		else
 		{
@@ -96,7 +96,7 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 		}
 
 		/* %jp{メモリ確保} */
-		mem = _KERNEL_SYS_ALC_HEP(pk_ctsk->stksz);
+		mem = _KERNEL_SYS_ALC_HEP(memsz);
 		if ( mem == NULL )
 		{
 			return E_NOMEM;

@@ -14,8 +14,7 @@
 #include "process_local.h"
 
 
-
-int Process_GetCurrentDir(HANDLE hProcess, char *pszBuf, int iBufSize)
+const char *Process_GetCurrentDir(HANDLE hProcess)
 {
 	C_PROCESS *self;
 
@@ -28,10 +27,7 @@ int Process_GetCurrentDir(HANDLE hProcess, char *pszBuf, int iBufSize)
 	/* ハンドルをキャスト */
 	self = (C_PROCESS *)hProcess;
 
-	strncpy(pszBuf, self->szCurrentDir, iBufSize);
-	pszBuf[iBufSize-1] = '\0';
-
-	return strlen(pszBuf);
+	return self->pszCurrentDir;
 }
 
 

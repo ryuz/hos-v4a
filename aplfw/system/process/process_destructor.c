@@ -28,6 +28,9 @@ void Process_Destructor(C_PROCESS *self)
 	/* コマンドライン用メモリ開放 */
 	SysMem_Free(self->pszCommandLine);
 
+	/* カレントディレクトリ用メモリ開放 */
+	SysMem_Free(self->pszCurrentDir);
+
 	/* システムから登録解除 */
 	System_UnregistryProcess(self);
 

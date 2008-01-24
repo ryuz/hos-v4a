@@ -34,6 +34,7 @@ typedef struct c_process
 	void				*pStack;						/**< スタック領域のメモリ */
 
 	char				*pszCommandLine;				/**< 実行するコマンド */
+	char				*pszCurrentDir;					/**< カレントディレクトリ */
 
 	int					(*pfncEntry)(VPARAM Param);		/**< 起動アドレス */
 	VPARAM				Param;							/**< ユーザーパラメータ */
@@ -45,7 +46,6 @@ typedef struct c_process
 	HANDLE				hStdIn;							/**< 標準入力 */
 	HANDLE				hStdOut;						/**< 標準出力 */
 	HANDLE				hStdErr;						/**< 標準エラー出力 */
-	char				szCurrentDir[FILE_MAX_PATH];	/**< カレントディレクトリ */
 } C_PROCESS;
 
 

@@ -13,8 +13,6 @@
 
 
 
-SYSTIM_CPUTIME		SysHos_IntTime[256];
-SYSTIM_CPUTIME		SysHos_TaskTime[256];
 SYSTIM_CPUTIME		SysHos_OldTime;
 ID					SysHos_TaskId;
 
@@ -22,28 +20,28 @@ ID					SysHos_TaskId;
 /** 割込み計測タイマを初期化 */
 void SysInt_SetIntTime(int iIntNum, SYSTIM_CPUTIME Time)
 {
-	SysHos_IntTime[iIntNum] = 0;
+	SysIsr_InfTbl[iIntNum - _kernel_min_intno].ExecTime = Time;
 }
 
 
 /** 割込み計測タイマを取得 */
 SYSTIM_CPUTIME SysInt_GetIntTime(int iIntNum)
 {
-	return SysHos_IntTime[iIntNum];
+	return SysIsr_InfTbl[iIntNum - _kernel_min_intno].ExecTime;
 }
 
 
 /** プロセス実行時間計測タイマを初期化 */
 void SysPrc_SetExecTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time)
 {
-	SysHos_TaskTime[(ID)hPrc] = Time;
+	SysPrc_InfTbl[(ID)hPrc].ExecTime = Time;
 }
 
 
 /** プロセス実行時間計測タイマを取得 */
 SYSTIM_CPUTIME SysPrc_GetExecTime(SYSPRC_HANDLE hPrc)
 {
-	return SysHos_TaskTime[(ID)hPrc];
+	return SysPrc_InfTbl[(ID)hPrc].ExecTime;
 }
 
 
@@ -58,7 +56,7 @@ void _kernel_tsk_swi(ID tskid_old, ID tskid_new)
 	PastTime = NewTime - SysHos_OldTime;
 	
 	/* 実行時間を累算 */
-	SysHos_TaskTime[tskid_old] += PastTime;
+	SysPrc_InfTbl[tskid_old].ExecTime += PastTime;
 	
 	/* 次回計測を設定 */
 	SysHos_OldTime = NewTime;
@@ -77,7 +75,7 @@ void _kernel_isr_sta(INHNO inhno)
 	PastTime = NewTime - SysHos_OldTime;
 	
 	/* 実行時間を累算 */
-	SysHos_TaskTime[SysHos_TaskId] += PastTime;
+	SysPrc_InfTbl[SysHos_TaskId].ExecTime += PastTime;
 	
 	/* 次回計測を設定 */
 	SysHos_OldTime = NewTime;	
@@ -95,7 +93,7 @@ void _kernel_isr_end(INTNO intno)
 	PastTime = NewTime - SysHos_OldTime;
 	
 	/* 実行時間を累算 */
-	SysHos_IntTime[intno] += PastTime;
+	SysIsr_InfTbl[intno - _kernel_min_intno].ExecTime += PastTime;
 }
 
 

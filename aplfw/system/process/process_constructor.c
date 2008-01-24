@@ -21,7 +21,7 @@ static const T_HANDLEOBJ_METHODS Process_Methods =
 	};
 
 
-static void Process_Entry(VPARAM Param);
+static void Process_Entry(void);
 
 
 /** コンストラクタ */
@@ -44,7 +44,6 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	self->hStdIn    = pInf->hStdIn;			/* 標準入力 */
 	self->hStdOut   = pInf->hStdOut;		/* 標準出力 */
 	self->hStdErr   = pInf->hStdErr;		/* 標準エラー出力 */
-	strncpy(self->szCurrentDir, pInf->szCurrentDir, FILE_MAX_PATH);	/* カレントディレクトリ */
 	
 	/* コマンドラインコピー */
 	if ( pInf->pszCommandLine != NULL )
@@ -59,11 +58,27 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	{
 		self->pszCommandLine = NULL;
 	}
+	
+	/* 起動ディレクトリコピー */
+	if ( pInf->pszCurrentDir != NULL )
+	{
+		if ( (self->pszCurrentDir = (char *)SysMem_Alloc(strlen(pInf->pszCurrentDir) + 1)) == NULL )
+		{
+			SysMem_Free(self->pszCommandLine);
+			return PROCESS_ERR_NG;
+		}
+		strcpy(self->pszCurrentDir, pInf->pszCurrentDir);
+	}
+	else
+	{
+		self->pszCurrentDir = NULL;
+	}
 		
 	/* スタック用メモリ確保 */
 	if ( (self->pStack = SysMem_Alloc(self->StackSize)) == NULL )
 	{
 		SysMem_Free(self->pszCommandLine);
+		SysMem_Free(self->pszCurrentDir);
 		return PROCESS_ERR_NG;
 	}
 
@@ -73,6 +88,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	{
 		SysMem_Free(self->pStack);
 		SysMem_Free(self->pszCommandLine);
+		SysMem_Free(self->pszCurrentDir);
 		return PROCESS_ERR_NG;
 	}
 	SysEvt_Clear(self->hEvt);
@@ -84,6 +100,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 		SysEvt_Delete(self->hEvt);
 		SysMem_Free(self->pStack);
 		SysMem_Free(self->pszCommandLine);
+		SysMem_Free(self->pszCurrentDir);
 		return PROCESS_ERR_NG;
 	}
 	
@@ -102,15 +119,15 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 
 
 /* プロセスエントリーポイント */
-void Process_Entry(VPARAM Param)
+void Process_Entry(void)
 {
 	C_PROCESS	*self;
 	int			(*pfncEntry)(VPARAM Param);
 	VPARAM		ProcParam;
 	int			iExitCode;
-
-	self = (C_PROCESS *)Param;
-
+	
+	self = (C_PROCESS *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
+	
 	pfncEntry = self->pfncEntry;
 	ProcParam = self->Param;
 
