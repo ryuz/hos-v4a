@@ -27,6 +27,12 @@ _switch32:
 				movw    $boot_message, %si
 				call	bios_puts
 				
+				/* メモリマップ取得 */
+				movl	0xe820, %eax
+				movl	0x0000, %ebx
+				movw	
+				
+				
 				/* GDT設定 */
 				lgdt	gdtr
 				
@@ -44,8 +50,18 @@ _pipeline_flush:
 				.byte	0x66, 0xea
 				.long	_start_32bit + LOAD_ADDR
 				.word	0x0008
-
+				
 				.code32
+
+				movw	0x0010, %ax
+				movw	%ax, %ss
+				movl	$LOAD_ADDR, %esp
+				
+				movw	%ax, %ds
+				movw	%ax, %es
+				movw	%ax, %fs
+				movw	%ax, %gs
+				
 _start_32bit:
 				jmp		_start_32bit
 
@@ -81,11 +97,10 @@ bios_puts_end:
 				ret
 
 
-				
+
 				/* 起動メッセージ */
 boot_message:
 		        .ascii	"Hyper Operation System V4 Advance\r\n\0"
-
 
 
 
@@ -127,54 +142,10 @@ gdtr:			.word	gdt_end - gdt_base - 1
 
 
 /************************************************
-  割込みディスクリプタテーブル
+  メモリマップテーブル
 ************************************************/
-
-idt_base:
-idt_000:		/* INT0 #DE 除算エラー */
-				.word	0x0000		/* オフセット[15:0] */
-				.word	0x0001		/* セグメントセレクタ */
-				.byte	0x00		/* 予約 */
-				.byte	0x8e		/* P:1, DPL:0 */
-				.word	0x00		/* オフセット[31:16] */
-
-idt_001:		/* INT1 #DB 予約 */
-				.word	0x0000		/* オフセット[15:0] */
-				.word	0x0001		/* セグメントセレクタ */
-				.byte	0x00		/* 予約 */
-				.byte	0x8e		/* P:1, DPL:0 */
-				.word	0x00		/* オフセット[31:16] */
-
-idt_002:		/* INT2 NMI */
-				.word	0x0000		/* オフセット[15:0] */
-				.word	0x0001		/* セグメントセレクタ */
-				.byte	0x00		/* 予約 */
-				.byte	0x8e		/* P:1, DPL:0 */
-				.word	0x00		/* オフセット[31:16] */
-
-idt_003:		/* INT5 #BP ブレークポイント */
-				.word	0x0000		/* オフセット[15:0] */
-				.word	0x0001		/* セグメントセレクタ */
-				.byte	0x00		/* 予約 */
-				.byte	0x8e		/* P:1, DPL:0 */
-				.word	0x00		/* オフセット[31:16] */
-
-idt_004:		/* INT4 #OF オーバーフロー */
-				.word	0x0000		/* オフセット[15:0] */
-				.word	0x0001		/* セグメントセレクタ */
-				.byte	0x00		/* 予約 */
-				.byte	0x8e		/* P:1, DPL:0 */
-				.word	0x00		/* オフセット[31:16] */
-
-
-idt_end:
-
-
-				/* lidt命令用領域 */
-idtr:			.word	idt_end - idt_base - 1
-				.long	0
-
-
+memory_map:
+				
 
 
 				.end

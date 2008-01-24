@@ -28,6 +28,7 @@
 #include "driver/console/vt100/vt100drv.h"
 #include "driver/volume/fat/fatvol.h"
 #include "application/example/hello/hello.h"
+#include "application/flashcmd/norflashcmd/norflashcmd.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
@@ -149,6 +150,7 @@ int Boot_Process(VPARAM Param)
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
 	Command_AddCommand("time",     TimeCmd_Main);
+	Command_AddCommand("norflash", NorFlashCmd_Main);
 	Command_AddCommand("ethsnoop", EtherSnoop_Main);
 	
 	/* 起動メッセージ */
