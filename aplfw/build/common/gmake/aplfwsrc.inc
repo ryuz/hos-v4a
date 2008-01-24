@@ -126,7 +126,7 @@ CSRCS += $(SYSAPI_DIR)/sysprc_getcurrenthandle.c
 CSRCS += $(SYSAPI_DIR)/systim_wait.c
 CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
 CSRCS += $(SYSAPI_DIR)/systim_getcputime.c
-CSRCS += $(SYSAPI_DIR)/systim_cputimetomillisecond.c
+CSRCS += $(SYSAPI_DIR)/systim_cputimetosecond.c
 CSRCS += $(SYSAPI_DIR)/systim_cputimetonanosecond.c
 CSRCS += $(SYSAPI_DIR)/syshos_hook.c
 endif

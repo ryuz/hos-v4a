@@ -56,7 +56,7 @@
 			"systim_wait.c",
 			"systim_getsystemtime.c",
 			"systim_getcputime.c",
-			"systim_cputimetomillisecond.c",
+			"systim_cputimetosecond.c",
 			"systim_cputimetonanosecond.c",
 			"syshos_hook.c",
 		],

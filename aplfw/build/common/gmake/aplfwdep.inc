@@ -45,7 +45,7 @@ $(OBJS_DIR)/sysprc_getcurrenthandle.$(EXT_OBJ):	$(SYSAPI_DIR)/sysprc_getcurrenth
 $(OBJS_DIR)/systim_wait.$(EXT_OBJ):	$(SYSAPI_DIR)/systim_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/systim_getsystemtime.$(EXT_OBJ):	$(SYSAPI_DIR)/systim_getsystemtime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/systim_getcputime.$(EXT_OBJ):	$(SYSAPI_DIR)/systim_getcputime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)/systim_cputimetomillisecond.$(EXT_OBJ):	$(SYSAPI_DIR)/systim_cputimetomillisecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)/systim_cputimetosecond.$(EXT_OBJ):	$(SYSAPI_DIR)/systim_cputimetosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/systim_cputimetonanosecond.$(EXT_OBJ):	$(SYSAPI_DIR)/systim_cputimetonanosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/syshos_hook.$(EXT_OBJ):	$(SYSAPI_DIR)/syshos_hook.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/handle_close.$(EXT_OBJ):	$(HANDLE_DIR)/handle_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
