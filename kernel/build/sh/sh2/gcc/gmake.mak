@@ -341,6 +341,10 @@ include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 all: makelib_all
 	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
+.PHONY : batch
+batch: makelib_batch
+	make -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
+
 # %jp{クリーン}
 .PHONY : clean
 clean: makelib_clean

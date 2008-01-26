@@ -82,5 +82,17 @@ $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
 	$(CMD_ASM) $(AFLAGS) -c $< -o $@
 
 
+# %jp{一括コンパイル}%en{batch cmpile}
+batch_c:
+	$(CMD_CC) $(CFLAGS) -c $(CSRCS)
+	$(CMD_MV) -f $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))) $(OBJS_DIR)
+
+
+# %jp{一括アセンブル}%en{batch cmpile}
+batch_asm:
+	$(CMD_CC) $(CFLAGS) -c $(ASRCS)
+	$(CMD_MV) -f $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(ASRCS)))) $(OBJS_DIR)
+
+
 
 # end of file

@@ -22,11 +22,12 @@
 #include "system/shell/shell.h"
 #include "driver/serial/pc16550/pc16550drv.h"
 #include "driver/console/vt100/vt100drv.h"
-#include "application/example/hello/hello.h"
+#include "application//syscmd/processlist/processlist.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
+#include "application/example/hello/hello.h"
 #include "boot.h"
 
 
@@ -90,9 +91,11 @@ void Boot_Task(VP_INT exinf)
 /* ブートプロセス */
 int Boot_Process(VPARAM Param)
 {
-	HANDLE	hTty;
-	HANDLE	hCon;
-	HANDLE	hDriver;
+//	T_PROCESS_CREATE_INF	ProcInf;
+	HANDLE					hProcess;
+	HANDLE					hDriver;
+	HANDLE					hTty;
+	HANDLE					hCon;
 	
 	
 	/*************************/
@@ -128,15 +131,18 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
-	Command_AddCommand("hsh",      Shell_Main);
-	Command_AddCommand("hello",    Hello_Main);
+	Command_AddCommand("sh",       Shell_Main);
+	Command_AddCommand("ps",       ProcessList_Main);
 	Command_AddCommand("memdump",  MemDump_Main);
 	Command_AddCommand("memwrite", MemWrite_Main);
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
+	Command_AddCommand("hello",    Hello_Main);
 	
 	
-	/* 起動メッセージ */
+	/*************************/
+	/*    起動メッセージ     */
+	/*************************/
 	StdIo_PutString(
 			"\n\n"
 			"================================================================\n"
@@ -147,11 +153,35 @@ int Boot_Process(VPARAM Param)
 			"================================================================\n"
 			"\n");
 	
+
 	/*************************/
 	/*      シェル起動       */
 	/*************************/
+	for ( ; ; )
+	{
+		Command_Execute("sh -i", NULL);
+	}
 	
-	Command_Execute("hsh -i", NULL);
+#if 0	
+	/* プロセスの生成*/
+	ProcInf.pszCommandLine = "sh -i";								/* 実行コマンド */
+	ProcInf.pszCurrentDir  = "";									/* 起動ディレクトリ */
+	ProcInf.pfncEntry      = NULL;									/* 起動アドレス */
+	ProcInf.Param          = 0;										/* ユーザーパラメータ */
+	ProcInf.StackSize      = 2048;									/* スタックサイズ */
+	ProcInf.Priority       = PROCESS_PRIORITY_NORMAL;				/* プロセス優先度 */
+	ProcInf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
+	ProcInf.hConsole       = Process_GetConsole(HANDLE_NULL);		/* コンソール */
+	ProcInf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
+	ProcInf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
+	ProcInf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
+	for ( ; ; )
+	{
+		hProcess = Process_Create(&ProcInf);
+		Process_WaitExit(hProcess);
+		Process_Delete(hProcess);
+	}
+#endif
 }
 
 

@@ -12,8 +12,8 @@
 #include "sysapi_local.h"
 
 
-/** CPU時刻をミリ秒に換算(システム用) */
-unsigned long SysTim_CpuTimeToMillisecond(SYSTIM_CPUTIME CpuTime)
+/** CPU時刻をナノ秒に換算(システム用) */
+unsigned long SysTim_CpuTimeToNanosecond(SYSTIM_CPUTIME CpuTime)
 {
 	return (unsigned long)CpuTime;
 }
