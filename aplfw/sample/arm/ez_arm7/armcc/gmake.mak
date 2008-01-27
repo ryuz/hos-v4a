@@ -116,7 +116,7 @@ clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
 .PHONY : depend
-clean: makeexe_depend
+depend: makeexe_depend
 
 .PHONY : mostlyclean
 mostlyclean: clean
