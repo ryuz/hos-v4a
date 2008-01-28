@@ -20,6 +20,14 @@ unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanose
 	C_PROCESS		*self;
 	SYSTIM_CPUTIME	CpuTime;
 	
+	/* アイドル時間取得 */
+	if ( (long)hProcess == (-1) )
+	{
+		CpuTime = SysPrc_GetExecTime(SYSPRC_HANDLE_NULL);
+		*pulNanosecond = SysTim_CpuTimeToNanosecond(CpuTime);	
+		return SysTim_CpuTimeToSecond(CpuTime);
+	}
+	
 	/* 指定が無ければ現在のプロセスとする */
 	if ( hProcess == HANDLE_NULL )
 	{

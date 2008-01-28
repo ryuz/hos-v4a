@@ -34,7 +34,7 @@ EXT_BIN ?= bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}%en{common options}
-CFLAGS += -c --apcs /interwork -g
+CFLAGS += -c --apcs=inter -g
 
 
 # %jp{デバッグオプションの定義}%en{debug options}
@@ -54,7 +54,7 @@ CFLAGS_OPT_NORMAL = -O3
 # ----------------------------------
 
 # %jp{共通オプションの設定}%en{common options}
-AFLAGS += --apcs /interwork
+AFLAGS += --apcs=inter
 
 
 # %jp{デバッグオプションの定義}%en{debug options}

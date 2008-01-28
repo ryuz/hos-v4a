@@ -109,7 +109,7 @@ all: make_aplfw makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 .PHONY : make_aplfw
 make_aplfw:
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak
+	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak
 
 .PHONY : clean
 clean: makeexe_clean
@@ -120,11 +120,11 @@ depend: makeexe_depend
 
 .PHONY : mostlyclean
 mostlyclean: clean
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak clean
+	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak clean
 
 .PHONY : mostlydepend
 mostlydepend: depend
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak depend
+	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak depend
 
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg $(KERNEL_CFGRTR)

@@ -24,7 +24,7 @@ void Event_Delete(HANDLE hEvent)
 	SysEvt_Delete(self->hSysEvt);
 	
 	/* 親クラスデストラクタ呼び出し */
-	HandleObj_Delete(&self->HandleObj);
+	HandleObj_Destructor(&self->HandleObj);
 	
 	/* メモリ削除 */
 	SysMem_Free(self);

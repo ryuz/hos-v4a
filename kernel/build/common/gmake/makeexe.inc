@@ -154,17 +154,17 @@ endif
 # %jp{カーネル生成}
 .PHONY : kernel_make
 kernel_make:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT)
+	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT)
 
 # %jp{カーネルクリーン}
 .PHONY : kernel_clean
 kernel_clean:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) clean
+	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) clean
 
 # %jp{カーネルdepend}
 .PHONY : kernel_depend
 kernel_depend:
-	make -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) depend
+	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) depend
 
 
 

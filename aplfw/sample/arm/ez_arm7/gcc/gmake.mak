@@ -113,7 +113,7 @@ all: make_aplfw makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 .PHONY : make_aplfw
 make_aplfw:
-	make -C $(APLFW_BUILD_DIR) -f gmake.mak
+	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak
 
 
 clean: makeexe_clean

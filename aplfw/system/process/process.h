@@ -66,8 +66,8 @@ const char    *Process_GetCommandLine(HANDLE hProcess);									/**< コマン�
 unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanosecond);	/**< 実行時間の取得 */	
 HANDLE        Process_GetParentProcess(HANDLE hProcess);								/**< 親プロセスの取得 */
 
-void          Process_SetParam(VPARAM Param);
-VPARAM        Process_GetParam(void);
+void          Process_SetParam(HANDLE hProcess, VPARAM Param);							/**< プロセス固有情報の設定 */
+VPARAM        Process_GetParam(HANDLE hProcess);										/**< プロセス固有情報の取得 */
 
 int           Process_SetCurrentDir(HANDLE hProcess, const char *pszPath);				/**< プロセスのカレントディレクトリ設定 */
 const char    *Process_GetCurrentDir(HANDLE hProcess);									/**< プロセスのカレントディレクトリ取得 */

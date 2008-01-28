@@ -90,7 +90,7 @@ all: make_libs makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 .PHONY : make_libs
 make_libs:
-	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak
+	$(MAKE) -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak
 
 .PHONY : clean
 clean: makeexe_clean
@@ -98,14 +98,14 @@ clean: makeexe_clean
 
 .PHONY : mostlyclean
 mostlyclean: clean kernel_clean
-	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak clean
+	$(MAKE) -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak clean
 
 .PHONY : depend
 depend: makeexe_depend
 
 .PHONY : mostlydepend
 mostlydepend: depend kernel_depend
-	make -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak depend
+	$(MAKE) -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak depend
 
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg

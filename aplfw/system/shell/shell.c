@@ -17,15 +17,23 @@
 #define SHELL_MAX_HISTORY		8
 
 
+typedef struct t_shell_background
+{
+	struct t_shell_background	*pNext;
+	HANDLE						hProcess;
+} T_SHELL_BACKGROUND;
+
+
 typedef struct c_shell
 {
-	int		iCurPos;											/* カーソルの文字列上の位置 */
-	int		iCurScreenX;										/* カーソルのスクリーンのX位置 */
-	int		iScreenWidth;										/* スクリーンの幅 */
-	int		iCommandLen;										/* コマンドの文字列長 */
-	char	szCommanBuf[SHELL_MAX_COMMAND];						/* コマンドラインバッファ */
-	char	szHistory[SHELL_MAX_HISTORY][SHELL_MAX_COMMAND];	/* ヒストリバッファ */
-	int		iHistoryNum;
+	int					iCurPos;											/* カーソルの文字列上の位置 */
+	int					iCurScreenX;										/* カーソルのスクリーンのX位置 */
+	int					iScreenWidth;										/* スクリーンの幅 */
+	int					iCommandLen;										/* コマンドの文字列長 */
+	char				szCommanBuf[SHELL_MAX_COMMAND];						/* コマンドラインバッファ */
+	char				szHistory[SHELL_MAX_HISTORY][SHELL_MAX_COMMAND];	/* ヒストリバッファ */
+	int					iHistoryNum;
+	T_SHELL_BACKGROUND	*pBackGround;										/* バックグランドジョブ */
 } C_SHELL;
 
 
@@ -82,7 +90,8 @@ int Shell_Main(int argc, char *argv[])
 		}
 		else	/* スクリプト実行 */
 		{
-			return Shell_ExecuteScript(self, argv[i]);
+			iExitCode = Shell_ExecuteScript(self, argv[i]);
+			break;
 		}
 	}
 	
@@ -108,6 +117,7 @@ C_SHELL *Shell_Create(void)
 	/* メンバ初期化 */
 	self->iScreenWidth = 80;
 	self->iHistoryNum  = 0;
+	self->pBackGround  = NULL;
 	
 	return self;
 }
@@ -160,6 +170,7 @@ int Shell_ExecuteScript(C_SHELL *self, const char *pszFileName)
 /* インタラクティブモード */
 int Shell_Interactive(C_SHELL *self)
 {
+	T_SHELL_BACKGROUND *pBg;
 	int i;
 
 	for ( ; ; )
@@ -199,75 +210,23 @@ int Shell_Interactive(C_SHELL *self)
 
 		/* コマンド実行 */
 		Shell_ExecuteCommand(self, self->szCommanBuf);
+		
+		/* 終了ジョブが無いかチェック */
+		pBg = self->pBackGround;
+		if ( pBg != NULL )
+		{
+		}
 	}
 	
 	return 0;
 }
 
 
-#if 0
-int Shell_ExecEntry(VPARAM Param)
-{
-	int iExitCode;
-	char *pszCommand;
-	
-	pszCommand = (char *)Param;
-	if ( Command_Execute(pszCommand, &iExitCode) != COMMAND_ERR_NG )
-	{
-		iExitCode = -1;
-	}
-	
-	Memory_Free(pszCommand);
-	
-	return iExitCode;
-}
-
-
-int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
-{
-	T_PROCESS_CREATE_INF Inf;
-	int iExitCode;
-
-	int iLen;
-	iLen = strlen(pszCommand);
-	if ( iLen > 1 && pszCommand[iLen - 1] == '&' )
-	{
-		char *pszBuf;
-		pszBuf = Memory_Alloc(iLen);
-		strcpy(pszBuf, pszCommand);
-		pszBuf[iLen - 1] = '\0';
-
-		/* プロセスの生成情報 */
-		Inf.pfncEntry  = Shell_ExecEntry;						/* 起動アドレス */
-		Inf.Param      = (VPARAM)pszBuf;						/* ユーザーパラメータ */
-		Inf.StackSize  = 1024;									/* スタックサイズ */
-		Inf.Priority   = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
-		Inf.hTerminal  = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
-		Inf.hConsole   = Process_GetConsole(HANDLE_NULL);		/* コンソール */
-		Inf.hStdIn     = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
-		Inf.hStdOut    = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
-		Inf.hStdErr    = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
-		Process_GetCurrentDir(HANDLE_NULL, Inf.szCurrentDir, sizeof(Inf.szCurrentDir));	/* カレントディレクトリ */
-		
-		Process_Create(&Inf);
-	}
-	else
-	{
-		if ( Command_Execute(pszCommand, &iExitCode) != COMMAND_ERR_OK )
-		{
-			StdIo_PutString("command is not found.\r\n");
-		}
-	}
-	
-	return iExitCode;
-}
-#else
-
 int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 {
 	T_PROCESS_CREATE_INF Inf;
 	HANDLE	hProcess;
-	int 	iExitCode;
+	int 	iExitCode = 0;
 	int		iBackGround = 0;
 	
 	int iLen;
@@ -278,7 +237,7 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		iBackGround = 1;
 	}	
 	
-	/* プロセスの生成情報 */
+	/* プロセスの生成 */
 	Inf.pszCommandLine = pszCommand;
 	Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);
 	Inf.pfncEntry      = NULL;									/* 起動アドレス */
@@ -290,20 +249,35 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
 	Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
 	Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
-	
 	hProcess = Process_Create(&Inf);
 
-	if ( !iBackGround )
+	if ( iBackGround )
 	{
+		T_SHELL_BACKGROUND *pBg;
+		
+		/* バックグランドジョブをリストに登録 */
+		pBg = (T_SHELL_BACKGROUND *)Memory_Alloc(sizeof(T_SHELL_BACKGROUND));
+		pBg->hProcess = hProcess;
+		if ( self->pBackGround == NULL )
+		{
+			self->pBackGround = pBg;
+			pBg->pNext = pBg;
+		}
+		else
+		{
+			pBg->pNext = self->pBackGround->pNext;
+			self->pBackGround->pNext = pBg;
+		}
+	}
+	else
+	{
+		/* フォアグランドなら終わるまで待つ */
 		Process_WaitExit(hProcess);
 		Process_Delete(hProcess);
 	}
 	
 	return iExitCode;
 }
-
-
-#endif
 
 
 
