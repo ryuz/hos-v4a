@@ -32,10 +32,18 @@ COMMAND_ERR Command_Execute(const char *pszCommandLine, int *piExitCode)
 	int  iLen;
 	int  iArgc = 0;
 	int  i;
-
+	
+	/* メモリ確保 */
 	iLen = strlen(pszCommandLine);
-	pszBuf   = (char *)SysMem_Alloc(iLen+1);
-	ppszArgv = (char **)SysMem_Alloc((iLen/2+1) * sizeof(char *));
+	if ( (pszBuf = (char *)SysMem_Alloc(iLen+1)) == NULL )
+	{
+		return COMMAND_ERR_NG;
+	}
+	if ( (ppszArgv = (char **)SysMem_Alloc((iLen/2+1) * sizeof(char *))) == NULL )
+	{
+		SysMem_Free(pszBuf);
+		return COMMAND_ERR_NG;
+	}
 
 	/* パラメータ分解 */
 	strcpy(pszBuf, pszCommandLine);

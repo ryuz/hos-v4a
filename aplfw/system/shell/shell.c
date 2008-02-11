@@ -3,6 +3,7 @@
 /* そのうちちゃんとリダイレクトとか Ctrl+C とかいろいろつける予定... (--; */
 
 
+#include <stdlib.h>
 #include <string.h>
 #include "shell.h"
 #include "system/file/file.h"
@@ -14,7 +15,7 @@
 
 
 #define SHELL_MAX_COMMAND		256
-#define SHELL_MAX_HISTORY		8
+#define SHELL_MAX_HISTORY		4
 
 
 typedef struct t_shell_background
@@ -30,14 +31,19 @@ typedef struct c_shell
 	int					iCurScreenX;										/* カーソルのスクリーンのX位置 */
 	int					iScreenWidth;										/* スクリーンの幅 */
 	int					iCommandLen;										/* コマンドの文字列長 */
-	char				szCommanBuf[SHELL_MAX_COMMAND];						/* コマンドラインバッファ */
-	char				szHistory[SHELL_MAX_HISTORY][SHELL_MAX_COMMAND];	/* ヒストリバッファ */
-	int					iHistoryNum;
+
+	char				*pszCommanBuf;										/* コマンドラインバッファ */
+	char				**ppszHistory;										/* ヒストリバッファ */
+	int					iCommandBufSize;									/* コマンドバッファのサイズ */
+	int					iHistoryMax;										/* ヒストリの最大個数 */
+/*	int					iHistoryNum;	*/									/* ヒストリの個数 */
+
+	int					iSimpleExec;										/* 単純実行オプション */
 	T_SHELL_BACKGROUND	*pBackGround;										/* バックグランドジョブ */
 } C_SHELL;
 
 
-C_SHELL *Shell_Create(void);
+C_SHELL *Shell_Create(int iCommandBufSize, int iHistoryMax, int iSimpleExec);
 void    Shell_Delete(C_SHELL *self);
 int     Shell_Interactive(C_SHELL *self);
 int     Shell_ExecuteScript(C_SHELL *self, const char *pszFileName);
@@ -53,46 +59,85 @@ void    Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine);	/* ライン�
 int Shell_Main(int argc, char *argv[])
 {
 	C_SHELL *self;
-	int     iExitCode;
+	int		iCommandBufSize = SHELL_MAX_COMMAND;
+	int 	iHistoryMax     = SHELL_MAX_HISTORY;
+	int		iSimpleExec     = 0;
+	int		iInteractive    = 0;
+	int		iExecString     = 0;
+	char	*pszScript      = NULL;
+	int     iExitCode       = 0;
 	int		i;
 	
-	/* オブジェクト生成 */
-	if ( (self = Shell_Create()) == NULL )
-	{
-		return 0;
-	}
 	
-	/* オプションを解析して実行 */
+	/* オプションを解析 */
 	for ( i = 1; i < argc; i++ )
 	{
 		if ( argv[i][0] == '-' )
 		{
-			if ( argv[i][1] == 'i' )		/* インタラクティブモード */
+			if ( strcmp(&argv[i][1], "i") == 0 )							/* インタラクティブモード */
 			{
-				iExitCode = Shell_Interactive(self);
+				iInteractive = 1;
 			}
-			else if ( argv[i][1] == 's' )	/* 文字列実行 */
+			else if ( strcmp(&argv[i][1], "exe") == 0 )						/* 単純実行 */
 			{
-				/* 後続を結合 */
-				self->szCommanBuf[0] = '\0';
-				for ( i++; i < argc; i++ )
-				{
-					strcat(self->szCommanBuf, argv[i]);
-					if ( i + 1 < argc )
-					{
-						strcat(self->szCommanBuf, " ");
-					}
-				}
-				
-				/* 実行 */
-				iExitCode = Shell_ExecuteCommand(self, self->szCommanBuf);
+				iSimpleExec = 1;
+			}
+			else if ( strcmp(&argv[i][1], "s") == 0 && i+1 < argc )			/* 文字列実行 */
+			{
+				i++;
+				iExecString = i;
+			}
+			else if ( strcmp(&argv[i][1], "buf") == 0 && i+1 < argc )		/* コマンドバッファ設定 */
+			{
+				i++;
+				iCommandBufSize = strtol(argv[i], NULL, 0);
+			}
+			else if ( strcmp(&argv[i][1], "his") == 0 && i+1 < argc )		/* ヒストリ数設定 */
+			{
+				i++;
+				iHistoryMax = strtol(argv[i], NULL, 0);
 			}
 		}
-		else	/* スクリプト実行 */
+		else
 		{
-			iExitCode = Shell_ExecuteScript(self, argv[i]);
-			break;
+			pszScript = argv[i];
 		}
+	}
+	
+	
+	/* オブジェクト生成 */
+	if ( (self = Shell_Create(iCommandBufSize, iHistoryMax, iSimpleExec)) == NULL )
+	{
+		return 1;
+	}
+	
+
+	if ( iExecString > 0 )
+	{
+		/* 文字列実行 */
+		self->pszCommanBuf[0] = '\0';
+		for ( i = iExecString; i < argc; i++ )
+		{
+			strcat(self->pszCommanBuf, argv[i]);
+			if ( i + 1 < argc )
+			{
+				strcat(self->pszCommanBuf, " ");
+			}
+		}
+			
+		/* 実行 */
+		iExitCode = Shell_ExecuteCommand(self, self->pszCommanBuf);
+	}
+	else if ( pszScript != NULL )
+	{
+		/* スクリプト実行 */
+		iExitCode = Shell_ExecuteScript(self, pszScript);
+	}
+	
+	/* インタラクティブモード */
+	if ( iInteractive )
+	{
+		iExitCode = Shell_Interactive(self);
 	}
 	
 	/* オブジェクト削除 */
@@ -103,7 +148,7 @@ int Shell_Main(int argc, char *argv[])
 
 
 /* コンストラクタ */
-C_SHELL *Shell_Create(void)
+C_SHELL *Shell_Create(int iCommandBufSize, int iHistoryMax, int iSimpleExec)
 {
 	C_SHELL *self;
 
@@ -115,9 +160,28 @@ C_SHELL *Shell_Create(void)
 	}
 	
 	/* メンバ初期化 */
-	self->iScreenWidth = 80;
-	self->iHistoryNum  = 0;
-	self->pBackGround  = NULL;
+	self->iScreenWidth    = 80;
+	self->pBackGround     = NULL;
+	self->iSimpleExec     = iSimpleExec;
+	self->iCommandBufSize = iCommandBufSize;
+	self->iHistoryMax     = iHistoryMax;
+	self->pszCommanBuf    = NULL;
+	self->ppszHistory     = NULL;
+	
+	/* メモリ確保 */
+	if ( (self->pszCommanBuf = (char *)Memory_Alloc(sizeof(char) * self->iCommandBufSize)) == NULL )
+	{
+		return NULL;
+	}
+	if ( self->iHistoryMax > 0 )
+	{
+		if ( (self->ppszHistory = (char **)Memory_Alloc(sizeof(char *) * self->iHistoryMax)) == NULL )
+		{
+			Memory_Free(self->pszCommanBuf);
+			return NULL;
+		}
+		memset(self->ppszHistory, 0, sizeof(char *) * self->iHistoryMax);
+	}
 	
 	return self;
 }
@@ -126,6 +190,22 @@ C_SHELL *Shell_Create(void)
 /* デストラクタ */
 void Shell_Delete(C_SHELL *self)
 {
+	int i;
+	
+	if ( self->ppszHistory != NULL )
+	{
+		for ( i = 0; i < self->iHistoryMax; i++ )
+		{
+			if ( self->ppszHistory[i] != NULL )
+			{
+				Memory_Free(self->ppszHistory[i]);
+			}
+		}
+		Memory_Free(self->ppszHistory);
+	}
+	Memory_Free(self->pszCommanBuf);
+	
+
 	Memory_Free(self);
 }
 
@@ -144,18 +224,18 @@ int Shell_ExecuteScript(C_SHELL *self, const char *pszFileName)
 	}
 	
 	/* ファイルを実行 */
-	while ( (iLen = File_GetString(hFile, self->szCommanBuf, sizeof(self->szCommanBuf))) > 0 )
+	while ( (iLen = File_GetString(hFile, self->pszCommanBuf, self->iCommandBufSize)) > 0 )
 	{
 		/* 末尾の改行削除 */
-		if ( self->szCommanBuf[iLen-1] == '\n' )
+		if ( self->pszCommanBuf[iLen-1] == '\n' )
 		{
-			self->szCommanBuf[iLen-1] = '\0';
+			self->pszCommanBuf[iLen-1] = '\0';
 		}
 		
 		/* 実行 */
-		if ( self->szCommanBuf[0] != '\0' && self->szCommanBuf[0] != '#' )
+		if ( self->pszCommanBuf[0] != '\0' && self->pszCommanBuf[0] != '#' )
 		{
-			Shell_ExecuteCommand(self, self->szCommanBuf);
+			Shell_ExecuteCommand(self, self->pszCommanBuf);
 		}
 	}
 	
@@ -170,46 +250,67 @@ int Shell_ExecuteScript(C_SHELL *self, const char *pszFileName)
 /* インタラクティブモード */
 int Shell_Interactive(C_SHELL *self)
 {
-	T_SHELL_BACKGROUND *pBg;
-	int i;
+	T_SHELL_BACKGROUND	*pBg;
+	char				*pszHisBuf;
+	int 				i;
+	int					j;
 
 	for ( ; ; )
 	{
 		/* コマンド入力 */
-		Shell_InputLine(self, self->szCommanBuf, SHELL_MAX_COMMAND);
+		Shell_InputLine(self, self->pszCommanBuf, self->iCommandBufSize - 1);
 
 		/* exit なら抜ける */
-		if ( strcmp(self->szCommanBuf, "exit") == 0 )
+		if ( strcmp(self->pszCommanBuf, "exit") == 0 )
 		{
 			break;
 		}
 
 		/* 空行なら無視 */
-		if ( self->szCommanBuf[0] == 0 )
+		if ( self->pszCommanBuf[0] == 0 )
 		{
 			continue;
 		}
-		
-		/* ヒストリ重複削除 */
-		for ( i = 0; i < self->iHistoryNum; i++ )
-		{
-			if ( strcmp(self->szHistory[i], self->szCommanBuf) == 0 )
-			{
-				memmove(self->szHistory[i], self->szHistory[i+1], (SHELL_MAX_HISTORY-i-1)*(SHELL_MAX_COMMAND));
-				self->iHistoryNum--;
-			}
-		}
-		
+
+
 		/* ヒストリ記憶 */
-		memmove(self->szHistory[1], self->szHistory[0], (SHELL_MAX_HISTORY-1)*(SHELL_MAX_COMMAND));
-		strcpy(self->szHistory[0], self->szCommanBuf);
-		if ( self->iHistoryNum < SHELL_MAX_HISTORY )
+		if ( self->ppszHistory != NULL )
 		{
-			self->iHistoryNum++;
+			if ( (pszHisBuf = Memory_Alloc(strlen(self->pszCommanBuf) + 1)) != NULL )
+			{
+				strcpy(pszHisBuf, self->pszCommanBuf);
+
+				/* ヒストリ重複削除 */
+				for ( i = 0; i < self->iHistoryMax; i++ )
+				{
+					if ( strcmp(self->ppszHistory[i], self->pszCommanBuf) == 0 )
+					{
+						Memory_Free(self->ppszHistory[i]);
+						for ( j = i; j+1 < self->iHistoryMax; j++ )
+						{
+							self->ppszHistory[j] = 	self->ppszHistory[j+1];
+						}
+						break;
+					}
+				}
+				
+				/* 古いものを削除 */
+				if ( self->ppszHistory[self->iHistoryMax-1] != NULL )
+				{
+					Memory_Free(self->ppszHistory[self->iHistoryMax-1]);
+				}
+				for ( i = self->iHistoryMax-1; i > 1; i-- )
+				{
+					self->ppszHistory[i] = self->ppszHistory[i-1];
+				}
+				
+				/* 追加 */
+				self->ppszHistory[0] = pszHisBuf;
+			}
 		}
 
 		/* コマンド実行 */
-		Shell_ExecuteCommand(self, self->szCommanBuf);
+		Shell_ExecuteCommand(self, self->pszCommanBuf);
 		
 		/* 終了ジョブが無いかチェック */
 		pBg = self->pBackGround;
@@ -228,52 +329,59 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	HANDLE	hProcess;
 	int 	iExitCode = 0;
 	int		iBackGround = 0;
+	int 	iLen;
 	
-	int iLen;
-	iLen = strlen(pszCommand);
-	if ( iLen > 1 && pszCommand[iLen - 1] == '&' )
+	if ( self->iSimpleExec )
 	{
-		((char *)pszCommand)[iLen - 1] = '\0';
-		iBackGround = 1;
-	}	
-	
-	/* プロセスの生成 */
-	Inf.pszCommandLine = pszCommand;
-	Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);
-	Inf.pfncEntry      = NULL;									/* 起動アドレス */
-	Inf.Param          = 0;										/* ユーザーパラメータ */
-	Inf.StackSize      = 2048;									/* スタックサイズ */
-	Inf.Priority       = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
-	Inf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
-	Inf.hConsole       = Process_GetConsole(HANDLE_NULL);		/* コンソール */
-	Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
-	Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
-	Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
-	hProcess = Process_Create(&Inf);
-
-	if ( iBackGround )
-	{
-		T_SHELL_BACKGROUND *pBg;
-		
-		/* バックグランドジョブをリストに登録 */
-		pBg = (T_SHELL_BACKGROUND *)Memory_Alloc(sizeof(T_SHELL_BACKGROUND));
-		pBg->hProcess = hProcess;
-		if ( self->pBackGround == NULL )
-		{
-			self->pBackGround = pBg;
-			pBg->pNext = pBg;
-		}
-		else
-		{
-			pBg->pNext = self->pBackGround->pNext;
-			self->pBackGround->pNext = pBg;
-		}
+		Command_Execute(pszCommand, &iExitCode);
 	}
 	else
 	{
-		/* フォアグランドなら終わるまで待つ */
-		Process_WaitExit(hProcess);
-		Process_Delete(hProcess);
+		iLen = strlen(pszCommand);
+		if ( iLen > 1 && pszCommand[iLen - 1] == '&' )
+		{
+			((char *)pszCommand)[iLen - 1] = '\0';
+			iBackGround = 1;
+		}	
+		
+		/* プロセスの生成 */
+		Inf.pszCommandLine = pszCommand;
+		Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);
+		Inf.pfncEntry      = NULL;									/* 起動アドレス */
+		Inf.Param          = 0;										/* ユーザーパラメータ */
+		Inf.StackSize      = 2048;									/* スタックサイズ */
+		Inf.Priority       = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
+		Inf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
+		Inf.hConsole       = Process_GetConsole(HANDLE_NULL);		/* コンソール */
+		Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
+		Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
+		Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
+		hProcess = Process_Create(&Inf);
+
+		if ( iBackGround )
+		{
+			T_SHELL_BACKGROUND *pBg;
+			
+			/* バックグランドジョブをリストに登録 */
+			pBg = (T_SHELL_BACKGROUND *)Memory_Alloc(sizeof(T_SHELL_BACKGROUND));
+			pBg->hProcess = hProcess;
+			if ( self->pBackGround == NULL )
+			{
+				self->pBackGround = pBg;
+				pBg->pNext = pBg;
+			}
+			else
+			{
+				pBg->pNext = self->pBackGround->pNext;
+				self->pBackGround->pNext = pBg;
+			}
+		}
+		else
+		{
+			/* フォアグランドなら終わるまで待つ */
+			Process_WaitExit(hProcess);
+			Process_Delete(hProcess);
+		}
 	}
 	
 	return iExitCode;
@@ -328,10 +436,10 @@ int Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize)
 			break;
 
 		case CONSOLE_KEY_UP:	/* 上 */
-			if ( iHistoryPos + 1 < self->iHistoryNum )
+			if ( iHistoryPos + 1 < self->iHistoryMax && self->ppszHistory[iHistoryPos + 1] != NULL )
 			{
 				iHistoryPos++;
-				Shell_ReplaceLine(self, self->szHistory[iHistoryPos]);
+				Shell_ReplaceLine(self, self->ppszHistory[iHistoryPos]);
 			}
 			break;
 
@@ -339,7 +447,7 @@ int Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize)
 			if ( iHistoryPos > 0 )
 			{
 				iHistoryPos--;
-				Shell_ReplaceLine(self, self->szHistory[iHistoryPos]);
+				Shell_ReplaceLine(self, self->ppszHistory[iHistoryPos]);
 			}
 			break;
 		
@@ -453,7 +561,7 @@ void Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine)
 	for ( i = 0; pszNewLine[i] != '\0'; i++ )
 	{
 		Shell_PutChar(self, pszNewLine[i]);
-		self->szCommanBuf[i] = pszNewLine[i];
+		self->pszCommanBuf[i] = pszNewLine[i];
 		self->iCurPos++;
 	}
 	self->iCommandLen = i;

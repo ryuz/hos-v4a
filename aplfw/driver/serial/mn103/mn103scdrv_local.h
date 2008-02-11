@@ -18,11 +18,10 @@
 #include "system/sysapi/sysapi.h"
 
 
-#define MN103SC_RB			0x00		/* シリアル受信レジスタ */
-#define MN103SC_TB			0x04		/* シリアル送信レジスタ */
-#define MN103SC_CTR			0x08		/* シリアル制御レジスタ */
-#define MN103SC_STR			0x0c		/* シリアルステータスレジスタ */
-
+#define MN103SC_RB			0x04		/* シリアル受信レジスタ */
+#define MN103SC_TB			0x0c		/* シリアル送信レジスタ */
+#define MN103SC_CTR			0x00		/* シリアル制御レジスタ */
+#define MN103SC_STR			0x09		/* シリアルステータスレジスタ */
 
 #define MN103SC_READ_RB(self)			SysIo_InPortB(((char *)(self)->pRegBase + (MN103SC_RB)))
 
@@ -31,7 +30,7 @@
 #define MN103SC_WRITE_CTR(self, val)	SysIo_OutPortH(((char *)(self)->pRegBase + (MN103SC_CTR)), val)
 #define MN103SC_READ_CTR(self)			SysIo_InPortH(((char *)(self)->pRegBase + (MN103SC_CTR)))
 
-#define MN103SC_READ_STR(self)			SysIo_InPortH(((char *)(self)->pRegBase + (MN103SC_STR)))
+#define MN103SC_READ_STR(self)			SysIo_InPortB(((char *)(self)->pRegBase + (MN103SC_STR)))
 
 
 

@@ -43,7 +43,7 @@ FILE_SIZE Mn103ScDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 		c = *pubBuf++;
 		
 		/* 送信可能かチェック */
-		while ( (MN103SC_READ_STR(self) & 0x20 ) )
+		while ( (MN103SC_READ_STR(self) & 0x80 ) )
 		{
 			/* 送信割り込み許可 */
 			SysInt_Enable(self->iIntNumTx);

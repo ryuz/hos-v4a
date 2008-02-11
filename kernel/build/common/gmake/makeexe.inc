@@ -156,10 +156,12 @@ endif
 kernel_make:
 	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT)
 
+
 # %jp{カーネルクリーン}
 .PHONY : kernel_clean
 kernel_clean:
 	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) clean
+
 
 # %jp{カーネルdepend}
 .PHONY : kernel_depend

@@ -21,13 +21,13 @@
 typedef struct c_mn103scdrv
 {
 	C_SYNCDRV		SyncDrv;		/* キャラクタ型デバイスドライバを継承 */
-
+	
 	void			*pRegBase;		/* レジスタベースアドレス */
 	int				iIntNumTx;		/* 送信割込み番号 */
 	int				iIntNumRx;		/* 受信割込み番号 */
 	SYSISR_HANDLE	hIsrTx;			/* 送信割込みサービスルーチンハンドル */
 	SYSISR_HANDLE	hIsrRx;			/* 受信割込みサービスルーチンハンドル */
-
+	
 	int				iOpenCount;		/* オープンカウンタ */
 	
 	C_STREAMBUF		StmBufRecv;		/* 受信バッファ */
