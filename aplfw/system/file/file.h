@@ -116,7 +116,7 @@
 /* 型定義 */
 typedef char			FILE_ATTR;						/* ファイル属性 */
 typedef int				FILE_ERR;						/* ファイルのエラー型 */
-typedef long			FILE_POS;						/* ファイル位置の型定義 */
+typedef _HOS_SINT64		FILE_POS;						/* ファイル位置の型定義 */
 typedef long			FILE_SIZE;						/* 読み書き時のサイズ用の型定義 */
 typedef unsigned long	FILE_TIME;						/* 読み書き時のサイズ用の時刻型定義 */
 

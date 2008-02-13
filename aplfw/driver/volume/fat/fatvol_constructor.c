@@ -38,7 +38,9 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		if ( ubBuf[0x1be + 0x04] == 0x01			/* FAT12 */
 				|| ubBuf[0x1be + 0x04] == 0x04		/* FAT16(32MB未満) */
 				|| ubBuf[0x1be + 0x04] == 0x06		/* FAT16(32MB以上) */
-				|| ubBuf[0x1be + 0x04] == 0x0b )	/* FAT32 */
+				|| ubBuf[0x1be + 0x04] == 0x0b		/* FAT32 */
+				|| ubBuf[0x1be + 0x04] == 0x0c 		/* FAT32X (LBA) */
+				|| ubBuf[0x1be + 0x04] == 0x0e )	/* FAT16X (LBA) */
 		{
 			self->Offset = ubBuf[0x1be + 0x08]
 							+ (ubBuf[0x1be + 0x09] << 8)
@@ -50,7 +52,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	
 	
 	/* サイズ取得 */
-	self->DriveSize  = File_Seek(self->hBlockFile, FILE_SEEK_END, 0);
+	self->DriveSize  = File_Seek(self->hBlockFile, 0, FILE_SEEK_END);
 	self->iFatType   = FATVOL_TYPE_UNKNOWN;
 	
 	
@@ -111,6 +113,34 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		break;
 
 	case FATVOL_TYPE_FAT32:
+		self->BytesPerSector    = ubBuf[0x0b] + (ubBuf[0x0c] << 8);					/**< セクタサイズ */
+		self->SectorsPerCluster = ubBuf[0x0d];										/**< 1クラスタのセクタ数 */
+		self->FatStartSector    = ubBuf[0x0e] + (ubBuf[0x0f] << 8);					/**< FATの開始セクタ番号 */
+		self->RootDirEntryNum   = ubBuf[0x11] + (ubBuf[0x12] << 8);					/**< ルートディレクトリ最大エントリ数 */
+/*		self->SectorNum         = ubBuf[0x13] + (ubBuf[0x14] << 8);		*/			/**< 総セクタ数 */
+		self->SectorNum         = ubBuf[0x20] + (ubBuf[0x21] << 8) + (ubBuf[0x22] << 16) + (ubBuf[0x23] << 24);
+		self->SectorPerFat      = ubBuf[0x24] + (ubBuf[0x25] << 8) + (ubBuf[0x26] << 16) + (ubBuf[0x27] << 24);	/**< FATあたりのセクタ数 */
+		self->FatNum            = ubBuf[0x10];										/**< FAT個数 */
+		self->RootDirSector     = self->FatStartSector + (self->SectorPerFat * self->FatNum);
+																					/**< ルートディレクトリ開始位置 */
+
+		self->BytesPerCluster   = self->BytesPerSector * self->SectorsPerCluster;	/**< 1クラスタサイズ */
+		self->Cluster0Sector    = self->RootDirSector
+										+ (((self->RootDirEntryNum * 32) + self->BytesPerSector - 1) / self->BytesPerSector)
+										- (2 * self->SectorsPerCluster);			/**< クラスタ0の開始セクタ */
+		self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster;
+																					/**< 総クラスタ数 */
+		self->RootDirCluster    = ubBuf[0x2c] + (ubBuf[0x2d] << 8) + (ubBuf[0x2e] << 16) + (ubBuf[0x2f] << 24);
+		
+		/* FATバッファ準備 */
+		self->pubFatBuf   = (unsigned char *)SysMem_Alloc(self->SectorPerFat * self->BytesPerSector);
+		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
+
+		/* FAT読み出し */
+		File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector  + self->Offset, FILE_SEEK_SET);
+		File_Read(self->hBlockFile, self->pubFatBuf, self->SectorPerFat * self->BytesPerSector);
+		memset(self->pubFatDirty, 0, self->SectorPerFat);
+
 		break;
 	
 	default:
