@@ -91,7 +91,7 @@ void Boot_Task(VP_INT exinf)
 /* ブートプロセス */
 int Boot_Process(VPARAM Param)
 {
-//	T_PROCESS_CREATE_INF	ProcInf;
+	T_PROCESS_CREATE_INF	ProcInf;
 	HANDLE					hProcess;
 	HANDLE					hDriver;
 	HANDLE					hTty;
@@ -157,12 +157,12 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*      シェル起動       */
 	/*************************/
+#if 0
 	for ( ; ; )
 	{
 		Command_Execute("sh -i", NULL);
 	}
-	
-#if 0	
+#else
 	/* プロセスの生成*/
 	ProcInf.pszCommandLine = "sh -i";								/* 実行コマンド */
 	ProcInf.pszCurrentDir  = "";									/* 起動ディレクトリ */
