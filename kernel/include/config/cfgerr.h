@@ -82,6 +82,13 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* def_tex */
+#define _KERNEL_CFG_DEF_TEX_E_ID		TRUE
+#define _KERNEL_CFG_DEF_TEX_E_NOEXS		TRUE	
+#define _KERNEL_CFG_DEF_TEX_E_RSATR 	TRUE
+#define _KERNEL_CFG_DEF_TEX_E_NOMEM		TRUE
+#define _KERNEL_CFG_DEF_TEX_E_NOSPT		FALSE
+
+
 /* ras_tex */
 /* iras_tex */
 /* dis_tex */

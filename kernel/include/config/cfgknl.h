@@ -159,6 +159,23 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* ---------------------------------------------- */
+/*  Task Exception Handling Routine               */
+/* ---------------------------------------------- */
+
+/** %jp{タスク例外処理ルーチンコントロールブロックの管理アルゴリズム} */
+#define _KERNEL_CFG_TEXCB_ALGORITHM		_KERNEL_TEXCB_ALG_PTRARRAY
+
+/* %jp{
+   _KERNEL_TCB_ALG_BLKARRAY	: TCBブロック自体を配列化して管理(予めブロックを確保)
+   _KERNEL_TCB_ALG_PTRARRAY	: TCBを指すポインタを配列化して管理(ブロック本体は動的にメモリ確保)
+}*/
+
+#define _KERNEL_CFG_TEXCB_SPLIT_RO		FALSE				/**< %jp{TEXCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_TEXCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTEXCBを圧縮するか} */
+
+
+
+/* ---------------------------------------------- */
 /*  Smaphores                                     */
 /* ---------------------------------------------- */
 

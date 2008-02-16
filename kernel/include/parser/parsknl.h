@@ -827,6 +827,33 @@
 
 
 /* ------------------------------------------------------------------ */
+/*  Task Exception Handling Routine                                 */
+/* ------------------------------------------------------------------ */
+
+/* Definitions */
+#define _KERNEL_TEXCB_ALG_BLKARRAY	1
+#define _KERNEL_TEXCB_ALG_PTRARRAY	2
+
+/* Control block */
+#define _KERNEL_TEXCB_ALGORITHM		_KERNEL_CFG_TEXCB_ALGORITHM
+#define _KERNEL_TEXCB_BITFIELD		_KERNEL_CFG_TEXCB_BITFIELD
+
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
+#if (_KERNEL_TEXCB_ALGORITHM == _KERNEL_TEXCB_ALG_BLKARRAY) && _KERNEL_SPT_DEF_SEM
+#define _KERNEL_TEXCB_SPLIT_RO		FALSE
+#else
+#define _KERNEL_TEXCB_SPLIT_RO		_KERNEL_CFG_TEXCB_SPLIT_RO
+#endif
+
+/* Member variables */
+#define _KERNEL_TEXCB_STATE			TRUE								/**< %jp{タスク例外処理禁止状態} */
+#define _KERNEL_TEXCB_RASPTN		TRUE								/**< %jp{タスク例外処理要因} */
+#define _KERNEL_TEXCB_TEXATR		FALSE								/**< %jp{タスク例外処理ルーチン属性} */
+#define _KERNEL_TEXCB_TEXRTN		TRUE								/**< %jp{タスク例外処理ルーチンの起動番地} */
+
+
+
+/* ------------------------------------------------------------------ */
 /*  Semaphore                                                         */
 /* ------------------------------------------------------------------ */
 

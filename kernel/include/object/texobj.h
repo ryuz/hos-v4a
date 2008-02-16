@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  texobj.h
- * @brief %jp{タスク例外処理オジェクトのヘッダファイル}%en{Task Exception Handling Functions object heder file}
+ * @brief %jp{タスク例外処理オジェクトのヘッダファイル}%en{Task Exception Handling Routine object heder file}
  *
  * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -39,7 +39,7 @@ typedef _KERNEL_T_LEAST_UB				_KERNEL_TEXCB_T_TEXATR;
 /* %jp{タスク例外処理ルーチンの起動番地の型} */
 typedef FP								_KERNEL_TEX_T_TEXRTN;
 typedef FP								_KERNEL_TEXCB_T_TEXRTN;
-#define _KERNEL_TEXCB_TBITDEF_TEXATR
+#define _KERNEL_TEXCB_TBITDEF_TEXRTN
 
 
 /* %jp{タスク例外処理禁止状態の型} */
@@ -124,7 +124,7 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パ
 #if _KERNEL_TEXCB_SPLIT_RO
 
 
-/** %jp{タスク例外処理ルーチンコントロールブロック(リードオンリー部)}%en{Task Exception Handling Functions Control Block(read-only)} */
+/** %jp{タスク例外処理ルーチンコントロールブロック(リードオンリー部)}%en{Task Exception Handling Routine Control Block(read-only)} */
 typedef struct _kernel_t_texcb_ro
 {
 #if _KERNEL_TEXCB_TEXATR
@@ -139,11 +139,11 @@ typedef struct _kernel_t_texcb_ro
 typedef const _KERNEL_T_TEXCB_RO	*_KERNEL_T_TEXCB_RO_PTR;
 
 
-/** %jp{タスク例外処理ルーチンコントロールブロック}%en{Task Exception Handling Functions Control Block} */
+/** %jp{タスク例外処理ルーチンコントロールブロック}%en{Task Exception Handling Routine Control Block} */
 typedef struct _kernel_t_texcb
 {
 #if _KERNEL_TEXCB_STATE
-	_KERNEL_TEXCB_T_STATE	state		_KERNEL_TEXCB_TBITDEF_TEXCNT;		/**< %jp{タスク例外処理禁止状態} */
+	_KERNEL_TEXCB_T_STATE	state		_KERNEL_TEXCB_TBITDEF_STATE;		/**< %jp{タスク例外処理禁止状態} */
 #endif
 
 #if _KERNEL_TEXCB_RASPTN
@@ -161,11 +161,11 @@ typedef _KERNEL_T_TEXCB				*_KERNEL_T_TEXCB_PTR;
 #else
 
 
-/** %jp{タスク例外処理ルーチンコントロールブロック}%en{Task Exception Handling Functions Control Block} */
+/** %jp{タスク例外処理ルーチンコントロールブロック}%en{Task Exception Handling Routine Control Block} */
 typedef struct _kernel_t_texcb
 {
 #if _KERNEL_TEXCB_STATE
-	_KERNEL_TEXCB_T_STATE	state		_KERNEL_TEXCB_TBITDEF_TEXCNT;		/**< %jp{タスク例外処理禁止状態} */
+	_KERNEL_TEXCB_T_STATE	state		_KERNEL_TEXCB_TBITDEF_STATE;		/**< %jp{タスク例外処理禁止状態} */
 #endif
 
 #if _KERNEL_TEXCB_RASPTN
@@ -198,7 +198,7 @@ typedef _KERNEL_T_TEXCB				*_KERNEL_T_TEXCB_PTR;
 #define _KERNEL_TEX_TMIN_ID				_KERNEL_TSK_TMIN_ID					/**< %jp{タスク例外処理ルーチンの最小値} */
 #define _KERNEL_TEX_TMAX_ID				_KERNEL_TSK_TMAX_ID					/**< %jp{タスク例外処理ルーチンの最大値} */
 
-#define _KERNEL_TEX_CHECK_TEXID(texid)	((texid) >= _KERNEL_TEX_TMIN_ID && (texid) <= _KERNEL_TEX_TMAX_ID)
+#define _KERNEL_TEX_CHECK_TSKID(tskid)	((tskid) >= _KERNEL_TEX_TMIN_ID && (tskid) <= _KERNEL_TEX_TMAX_ID)
 																			/**< %jp{ID範囲チェック} */
 
 
@@ -284,11 +284,11 @@ extern  _KERNEL_T_TEXCB					*_kernel_texcb_tbl[];									/**< %jp{タスク例�
 
 /* texrtn */
 #if _KERNEL_TEXCB_TEXRTN
-#define _KERNEL_TEX_SET_TEXRTN(texcb_ro, x)		do { (texcb_ro)->maxtex = (_KERNEL_TEXCB_T_TEXRTN)(x); } while (0)
+#define _KERNEL_TEX_SET_TEXRTN(texcb_ro, x)		do { (texcb_ro)->texrtn = (_KERNEL_TEXCB_T_TEXRTN)(x); } while (0)
 #define _KERNEL_TEX_GET_TEXRTN(texcb_ro)		((_KERNEL_TEX_T_TEXRTN)(texcb_ro)->texrtn)
 #else
-#define _KERNEL_TEX_SET_MAXTEX(texcb_ro, x)		do { } while (0)
-#define _KERNEL_TEX_GET_MAXTEX(texcb_ro)		(0)
+#define _KERNEL_TEX_SET_TEXRTN(texcb_ro, x)		do { } while (0)
+#define _KERNEL_TEX_GET_TEXRTN(texcb_ro)		(0)
 #endif
 
 
@@ -306,7 +306,6 @@ extern  _KERNEL_T_TEXCB					*_kernel_texcb_tbl[];									/**< %jp{タスク例�
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 #ifdef __cplusplus
 }

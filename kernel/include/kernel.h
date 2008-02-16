@@ -131,6 +131,14 @@ typedef struct t_rtst
 } T_RTST;
 
 
+/** %jp{タスク例外処理ルーチン定義情報}%en{Task exception handling routine definition information} */
+typedef struct t_dtex
+{
+	ATR		texatr;			/**< %jp{タスク例外処理ルーチン属性}%en{Task exception handling routine attribute} */
+	FP		texrtn;			/**< %jp{タスク例外処理ルーチンの起動番地}%en{Task exception handling routine start address} */
+} T_DTEX;
+
+
 /** %jp{セマフォ生成情報}%en{Semaphore creation information packet} */
 typedef struct t_csem
 {
@@ -307,10 +315,11 @@ ER      frsm_tsk(ID tskid);									/* 強制待ち状態からの強制再開 *
 ER      dly_tsk(RELTIM dlytim);								/* 自タスクの遅延 */
 
 /* タスク例外処理機能 */
-ER      ras_tex(ID tskid, TEXPTN rasptn);					/* タスク例外処理の要求 */
-ER      dis_tex(void);										/* タスク例外処理の禁止 */
-ER      ena_tex(void);										/* タスク例外処理の禁止 */
-BOOL    sns_tex(void);										/* タスク例外処理禁止状態の参照 */
+ER      def_tex(ID tskid, T_DTEX *pk_dtex);					/* %jp{タスク例外処理ルーチンの定義} */
+ER      ras_tex(ID tskid, TEXPTN rasptn);					/* %jp{タスク例外処理の要求} */
+ER      dis_tex(void);										/* %jp{タスク例外処理の禁止} */
+ER      ena_tex(void);										/* %jp{タスク例外処理の禁止} */
+BOOL    sns_tex(void);										/* %jp{タスク例外処理禁止状態の参照} */
 
 /* %jp{セマフォ}%en{Semphores} */
 ER      cre_sem(ID semid, const T_CSEM *pk_csem);			/**< %jp{セマフォの生成}%en{Create Semaphore} */
