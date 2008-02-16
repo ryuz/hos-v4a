@@ -1,36 +1,32 @@
 ------------------------------------------------------------------------------
   Hyper Operating System V4 Advance  --μITRON4.0仕様OS                       
-    コンフィギュレーター ドキュメント                                         
+    コンフィギュレータ ドキュメント                                         
                                                                               
-                                       Copyright (C) 1998-2007 by Project HOS 
+                                       Copyright (C) 1998-2008 by Project HOS 
                                        http://sourceforge.jp/projects/hos/    
 ------------------------------------------------------------------------------
-
-
-（注意）
-   現時点では未実装の機能も含みます。
 
 
 
 1. 概要
 
   本ドキュメントは Hyper Operating System V4 Advance (以下 HOS-V4a)の
-コンフィギュレーター(h4acfg)についての説明を記載します。
+コンフィギュレータ(h4acfg)についての説明を記載します。
 
 
 
-2. コンフィギュレーターのメイク
+2. コンフィギュレータのメイク
 
-  cfgrtr ディレクトリ以下にコンフィギュレーターのビルド用ファイル一式が
+  cfgrtr ディレクトリ以下にコンフィギュレータのビルド用ファイル一式が
 あります。
-  コンフィギュレーターはターゲットプロセッサ毎に生成され、カーネル
+  コンフィギュレータはターゲットプロセッサ毎に生成され、カーネル
 ビルド時に連動してビルドされます。
+  コンフィギュレータ
 
 
+2. コンフィギュレータの使い方
 
-2. コンフィギュレーターの使い方
-
-  コンフィギュレーターの仕様自体も、μITRON4.0 仕様によって定められて
+  コンフィギュレータの仕様自体も、μITRON4.0 仕様によって定められて
 おります。
   本ドキュメントはμITRON4.0仕様をご理解いただいていいることを前提と
 しております。μITRON4.0仕様書はインターネットで無償公開されて
@@ -49,11 +45,19 @@ kernel_id.h(IDなどを宣言したヘッダファイル)と、kernel_cfg.c(カ�
   h4acfgでは μITRON4.0仕様 で定める静的APIの他に下記のAPIを
 備えております。
 
-    KERNEL_HEP_MEM, KERNEL_SYS_STK, KERNEL_INT_STK, KERNEL_INT_SP,
-    KERNEL_TIM_TIC, KERNEL_MIN_INTNO, KERNEL_MAX_INTNO,
-    KERNEL_MAX_TSKID, KERNEL_MAX_SEMID, KERNEL_MAX_FLGID,
-    KERNEL_MAX_DTQID, KERNEL_MAX_MBFID, KERNEL_MAX_MBXID,
-    KERNEL_MAX_MPFID, KERNEL_MAX_CYCID, KERNEL_MAX_ISRID
+    KERNEL_HEP_MEM, KERNEL_SYS_STK,
+    KERNEL_INT_STK, KERNEL_INT_SP,
+    KERNEL_TIM_TIC,
+    KERNEL_MIN_INTNO, KERNEL_MAX_INTNO,
+    KERNEL_MAX_TSKID, KERNEL_RSV_TSKID,
+    KERNEL_MAX_SEMID, KERNEL_RSV_SEMID,
+    KERNEL_MAX_FLGID, KERNEL_RSV_FLGID,
+    KERNEL_MAX_DTQID, KERNEL_RSV_DTQID,
+    KERNEL_MAX_MBFID, KERNEL_RSV_MBFID,
+    KERNEL_MAX_MBXID, KERNEL_RSV_MBXID,
+    KERNEL_MAX_MPFID, KERNEL_RSV_MPFID,
+    KERNEL_MAX_CYCID, KERNEL_RSV_CYCID,
+    KERNEL_MAX_ISRID, KERNEL_RSV_ISRID
 
 
 
@@ -81,7 +85,7 @@ kernel_id.h(IDなどを宣言したヘッダファイル)と、kernel_cfg.c(カ�
       hep に指定されたアドレスから、hepsz で指定されたサイズ分の
     メモリ領域をアイドル時のスタックに割り当てます。
       hep に NULL を指定した場合、hepsz で指定されたサイズを
-    コンフィギュレーターが自動的に確保します。
+    コンフィギュレータが自動的に確保します。
 
 
 4.2 システムタスクのスタックの指定
@@ -212,51 +216,57 @@ kernel_id.h(IDなどを宣言したヘッダファイル)と、kernel_cfg.c(カ�
 
   【機能】
       各オブジェクトのIDの最大値を指定します。
-      指定しない場合デフォルトでコンフィギュレーターで生成した
+      指定しない場合デフォルトでコンフィギュレータで生成した
     オブジェクトが利用している最大のID番号になります。
 
   【補足】
       cre_tsk や cre_sem といった、動的にオブジェクトを生成する
     場合、ここで指定した範囲を超えるIDは利用出来ません。
-      利用するID範囲を適切な範囲に設定することで、メモリを有効に
-    利用することが可能です。
+      利用するID範囲を適切な範囲に設定することで、ID管理部の
+    メモリを有効に利用することが可能です。
+      なお、本機能はID空間を予約するだけですので、実行時にメモリが
+    不足していた場合は acre_xxx や cre_xxx の実行時に E_NOMEM が
+    返される場合があります。
 
 
-4.8 オブジェクトの予約
+4.8 オブジェクトのID空間の予約
 
   【API】
-      KERNEL_RES_TSKOBJ(ID tskobjno);
-      KERNEL_RES_SEMOBJ(ID semobjno);
-      KERNEL_RES_FLGOBJ(ID flgobjno);
-      KERNEL_RES_DTQOBJ(ID dtqobjno);
-      KERNEL_RES_MBXOBJ(ID mbxobjno);
-      KERNEL_RES_MBFOBJ(ID mbfobjno);
-      KERNEL_RES_MPFOBJ(ID mpfobjno);
-      KERNEL_RES_CYCOBJ(ID cycobjno);
+      KERNEL_RSV_TSKID(ID tskidno);
+      KERNEL_RSV_SEMID(ID semidno);
+      KERNEL_RSV_FLGID(ID flgidno);
+      KERNEL_RSV_DTQID(ID dtqidno);
+      KERNEL_RSV_MBXID(ID mbxidno);
+      KERNEL_RSV_MBFID(ID mbfidno);
+      KERNEL_RSV_MPFID(ID mpfidno);
+      KERNEL_RSV_CYCID(ID cycidno);
 
   【パラメータ】
-      ID      tskobjno    予約するタスクオブジェクト数
-      ID      semobjno    予約するセマフォオブジェクト数
-      ID      flgobjno    予約するセマフォオブジェクト数
-      ID      dtqobjno    予約するデータキューオブジェクト数
-      ID      mbxobjno    予約するメールボックスオブジェクト数
-      ID      mbfobjno    予約するメッセージバッファオブジェクト数
-      ID      mpfobjno    予約するメモリプールオブジェクト数
-      ID      cycobjno    予約する周期ハンドラオブジェクト数
+      ID      tskidno    予約するタスクID数
+      ID      semidno    予約するセマフォID数
+      ID      flgidno    予約するセマフォID数
+      ID      dtqidno    予約するデータキューID数
+      ID      mbxidno    予約するメールボックスID数
+      ID      mbfidno    予約するメッセージバッファID数
+      ID      mpfidno    予約するメモリプールID数
+      ID      cycidno    予約する周期ハンドラID数
 
   【機能】
-      予約するオブジェクト数の指定を行ないます。この指定があると、
-    静的生成分に加えて予約数 xxxobjnoのオブジェクトがカーネルに登録
-    可能になります。
+      実行時に acre_xxx や cre_xxx でオブジェクトを生成する為にID空間を
+    予約します。この指定があると、静的生成分に加えて xxxidno 個の
+    ID空間が確保されます。
 
   【補足】
-      基本的にはHOS_MAX_XXXIDと同じ用途のAPIですが、IDの最大値では
+  
+      基本的には KERNEL_MAX_XXXIDと同じ用途のAPIですが、IDの最大値では
     なく予約数(=静的生成分を除く利用可能なID数)を指定する点が異なり
     ます。また、本APIは複数指定が許され、実際に予約されるオブジェクト
     数は指定された予約数の総和となります。
-      HOS_MAX_XXXIDとは排他的な関係にあります。両方を同時に使用するこ
+      KERNEL_MAX_XXXIDとは排他的な関係にあります。両方を同時に使用するこ
     とは出来ません。
-
+      なお、本機能も KERNEL_MAX_XXXID と同様にID空間を予約するだけ
+    ですので、実行時にメモリが不足していた場合は acre_xxx や cre_xxx の
+    実行時に E_NOMEM が返される場合があります。
 
 
 ------------------------------------------------------------------------------
