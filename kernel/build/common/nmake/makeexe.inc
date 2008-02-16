@@ -150,7 +150,7 @@ mkdir_objs:
 
 # %jp{クリーンナップ}
 makeexe_clean:
-	$(CMD_RM) $(TARGET_LIB) $(OBJS)
+	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
 
 
 # %jp{カーネル生成}

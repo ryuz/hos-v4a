@@ -13,139 +13,139 @@
 # --------------------------------------------------
 
 # System
-!ifndef SYSTEM
+!ifndef LINK_SYSTEM
 LINK_SYSTEM           = Yes
 !endif
-!ifndef SYSAPI
+!ifndef LINK_SYSAPI
 LINK_SYSAPI           = Yes
 !endif
-!ifndef HANDLE
+!ifndef LINK_HANDLE
 LINK_HANDLE           = Yes
 !endif
-!ifndef MEMORY
+!ifndef LINK_MEMORY
 LINK_MEMORY           = Yes
 !endif
-!ifndef TIME
+!ifndef LINK_TIME
 LINK_TIME             = Yes
 !endif
-!ifndef PROCESS
+!ifndef LINK_PROCESS
 LINK_PROCESS          = Yes
 !endif
-!ifndef EVENT
+!ifndef LINK_EVENT
 LINK_EVENT            = Yes
 !endif
-!ifndef FILE
+!ifndef LINK_FILE
 LINK_FILE             = Yes
 !endif
-!ifndef COMMAND
+!ifndef LINK_COMMAND
 LINK_COMMAND          = Yes
 !endif
-!ifndef SHELL
+!ifndef LINK_SHELL
 LINK_SHELL            = Yes
 !endif
 
 # Librarys
-!ifndef MEMPOL
+!ifndef LINK_MEMPOL
 LINK_MEMPOL           = Yes
 !endif
-!ifndef ASSOC
+!ifndef LINK_ASSOC
 LINK_ASSOC            = Yes
 !endif
-!ifndef LIST
+!ifndef LINK_LIST
 LINK_LIST             = Yes
 !endif
-!ifndef STREAMBUF
+!ifndef LINK_STREAMBUF
 LINK_STREAMBUF        = Yes
 !endif
-!ifndef PACKETBUF
+!ifndef LINK_PACKETBUF
 LINK_PACKETBUF        = Yes
 !endif
-!ifndef IPCHECKSUM
+!ifndef LINK_IPCHECKSUM
 LINK_IPCHECKSUM       = Yes
 !endif
-!ifndef CRC16
+!ifndef LINK_CRC16
 LINK_CRC16            = Yes
 !endif
 
 # Device Drivers
-!ifndef VT100
+!ifndef LINK_VT100
 LINK_VT100            = Yes
 !endif
-!ifndef TCPIP
+!ifndef LINK_TCPIP
 LINK_TCPIP            = Yes
 !endif
-!ifndef IPETHER
+!ifndef LINK_IPETHER
 LINK_IPETHER          = Yes
 !endif
-!ifndef NE2000
+!ifndef LINK_NE2000
 LINK_NE2000           = No
 !endif
-!ifndef LAN9000
+!ifndef LINK_LAN9000
 LINK_LAN9000          = No
 !endif
-!ifndef LAN9118
+!ifndef LINK_LAN9118
 LINK_LAN9118          = No
 !endif
-!ifndef PC16550
+!ifndef LINK_PC16550
 LINK_PC16550          = Yes
 !endif
-!ifndef AT91USART
+!ifndef LINK_AT91USART
 LINK_AT91USART        = No
 !endif
-!ifndef RENESASSCI
+!ifndef LINK_RENESASSCI
 LINK_RENESASSCI       = No
 !endif
-!ifndef MX1UART
+!ifndef LINK_MX1UART
 LINK_MX1UART          = No
 !endif
-!ifndef MN103SC
+!ifndef LINK_MN103SC
 LINK_MN103SC          = No
 !endif
-!ifndef WINSOCK
+!ifndef LINK_WINSOCK
 LINK_WINSOCK          = No
 !endif
-!ifndef FATVOL
+!ifndef LINK_FATVOL
 LINK_FATVOL           = Yes
 !endif
 
 # Applications
-!ifndef PROCESSLIST
+!ifndef LINK_PROCESSLIST
 LINK_PROCESSLIST      = Yes
 !endif
-!ifndef MEMDUMP
+!ifndef LINK_MEMDUMP
 LINK_MEMDUMP          = Yes
 !endif
-!ifndef MEMWRITE
+!ifndef LINK_MEMWRITE
 LINK_MEMWRITE         = Yes
 !endif
-!ifndef MEMTEST
+!ifndef LINK_MEMTEST
 LINK_MEMTEST          = Yes
 !endif
-!ifndef KEYTEST
+!ifndef LINK_KEYTEST
 LINK_KEYTEST          = Yes
 !endif
-!ifndef TIMECMD
+!ifndef LINK_TIMECMD
 LINK_TIMECMD          = Yes
 !endif
-!ifndef FILELIST
+!ifndef LINK_FILELIST
 LINK_FILELIST         = Yes
 !endif
-!ifndef FILECAT
+!ifndef LINK_FILECAT
 LINK_FILECAT          = Yes
 !endif
-!ifndef FILECOPY
+!ifndef LINK_FILECOPY
 LINK_FILECOPY         = Yes
 !endif
-!ifndef FILEDUMP
+!ifndef LINK_FILEDUMP
 LINK_FILEDUMP         = Yes
 !endif
-!ifndef FLASHCMD
+!ifndef LINK_FLASHCMD
 LINK_FLASHCMD         = Yes
 !endif
-!ifndef ETHERSNOOP
+!ifndef LINK_ETHERSNOOP
 LINK_ETHERSNOOP       = Yes
 !endif
-!ifndef HELLO
+!ifndef LINK_HELLO
 LINK_HELLO            = Yes
 !endif
 
@@ -165,7 +165,10 @@ INC_DIRS = $(INC_DIRS) $(HOSAPLFW_DIR)
 # --------------------------------------------------
 
 # System
+!if "$(LINK_SYSTEM)" == "Yes"
 SYSTEM_DIR = $(HOSAPLFW_DIR)\system\system
+HEADERS = $(HEADERS) $(OBJS_DIR)\system.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\system_local.h
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_initialize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_initialize.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_requestproc.c
@@ -174,10 +177,14 @@ CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_process.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_process.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_getnextprocess.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_getnextprocess.$(EXT_OBJ)
+!endif
 
 
 # System API
+!if "$(LINK_SYSAPI)" == "Yes"
 SYSAPI_DIR = $(HOSAPLFW_DIR)\system\sysapi
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysapi.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysapi_local.h
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysapi_initialize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysapi_initialize.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysctx_isisr.c
@@ -250,10 +257,15 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_cputimetonanosecond.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_cputimetonanosecond.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\syshos_hook.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\syshos_hook.$(EXT_OBJ)
+!endif
 
 
 # Handle Object
+!if "$(LINK_HANDLE)" == "Yes"
 HANDLE_DIR = $(HOSAPLFW_DIR)\system\handle
+HEADERS = $(HEADERS) $(OBJS_DIR)\handle.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\handleobj.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\handleobj_local.h
 CSRCS = $(CSRCS) $(HANDLE_DIR)\handle_close.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\handle_close.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(HANDLE_DIR)\handleobj_create.c
@@ -264,24 +276,34 @@ CSRCS = $(CSRCS) $(HANDLE_DIR)\handleobj_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\handleobj_constructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(HANDLE_DIR)\handleobj_destructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\handleobj_destructor.$(EXT_OBJ)
+!endif
 
 
 # Memory
+!if "$(LINK_MEMORY)" == "Yes"
 MEMORY_DIR = $(HOSAPLFW_DIR)\system\memory
+HEADERS = $(HEADERS) $(OBJS_DIR)\memory.h
 CSRCS = $(CSRCS) $(MEMORY_DIR)\memory.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memory.$(EXT_OBJ)
+!endif
 
 
 # Time
+!if "$(LINK_TIME)" == "Yes"
 TIME_DIR = $(HOSAPLFW_DIR)\system\time
+HEADERS = $(HEADERS) $(OBJS_DIR)\time.h
 CSRCS = $(CSRCS) $(TIME_DIR)\time_getsystemtime.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\time_getsystemtime.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(TIME_DIR)\time_wait.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\time_wait.$(EXT_OBJ)
+!endif
 
 
 # Process
+!if "$(LINK_PROCESS)" == "Yes"
 PROCESS_DIR = $(HOSAPLFW_DIR)\system\process
+HEADERS = $(HEADERS) $(OBJS_DIR)\process.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\process_local.h
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_delete.c
@@ -328,10 +350,14 @@ CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setstderr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setstderr.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getstderr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_getstderr.$(EXT_OBJ)
+!endif
 
 
 # Event
+!if "$(LINK_EVENT)" == "Yes"
 EVENT_DIR = $(HOSAPLFW_DIR)\system\event
+HEADERS = $(HEADERS) $(OBJS_DIR)\event.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\event_local.h
 CSRCS = $(CSRCS) $(EVENT_DIR)\event_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\event_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(EVENT_DIR)\event_delete.c
@@ -340,10 +366,31 @@ CSRCS = $(CSRCS) $(EVENT_DIR)\event_set.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\event_set.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(EVENT_DIR)\event_wait.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\event_wait.$(EXT_OBJ)
+!endif
 
 
 # File
+!if "$(LINK_FILE)" == "Yes"
 FILE_DIR = $(HOSAPLFW_DIR)\system\file
+HEADERS = $(HEADERS) $(OBJS_DIR)\console.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\drvobj.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\drvobj_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\file.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\fileobj.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\fileobj_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\file_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\stdfile.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\syncdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\syncdrv_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\syncfile.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\syncfile_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysvol.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysvolfile.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysvolfile_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysvol_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\volume.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\volumeobj.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\volumeobj_local.h
 CSRCS = $(CSRCS) $(FILE_DIR)\console_getch.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\console_getch.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\drvobj_close.c
@@ -462,18 +509,25 @@ CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_makedir.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\volumeobj_makedir.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_remove.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\volumeobj_remove.$(EXT_OBJ)
+!endif
 
 
 # Command
+!if "$(LINK_COMMAND)" == "Yes"
 COMMAND_DIR = $(HOSAPLFW_DIR)\system\command
+HEADERS = $(HEADERS) $(OBJS_DIR)\command.h
 CSRCS = $(CSRCS) $(COMMAND_DIR)\command.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\command.$(EXT_OBJ)
+!endif
 
 
 # Shell
+!if "$(LINK_SHELL)" == "Yes"
 SHELL_DIR = $(HOSAPLFW_DIR)\system\shell
+HEADERS = $(HEADERS) $(OBJS_DIR)\shell.h
 CSRCS = $(CSRCS) $(SHELL_DIR)\shell.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\shell.$(EXT_OBJ)
+!endif
 
 
 
@@ -482,19 +536,28 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\shell.$(EXT_OBJ)
 # --------------------------------------------------
 
 # Memory Pool
+!if "$(LINK_MEMPOL)" == "Yes"
 MEMPOL_DIR = $(HOSAPLFW_DIR)\library\container\mempol
+HEADERS = $(HEADERS) $(OBJS_DIR)\mempol.h
 CSRCS = $(CSRCS) $(MEMPOL_DIR)\mempol.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mempol.$(EXT_OBJ)
+!endif
 
 
 # Association Array
+!if "$(LINK_ASSOC)" == "Yes"
 ASSOC_DIR = $(HOSAPLFW_DIR)\library\container\assoc
+HEADERS = $(HEADERS) $(OBJS_DIR)\assoc.h
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc.$(EXT_OBJ)
+!endif
 
 
 # List
+!if "$(LINK_LIST)" == "Yes"
 LIST_DIR = $(HOSAPLFW_DIR)\library\container\list
+HEADERS = $(HEADERS) $(OBJS_DIR)\list.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\list_local.h
 CSRCS = $(CSRCS) $(LIST_DIR)\list_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\list_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(LIST_DIR)\list_createex.c
@@ -513,10 +576,14 @@ CSRCS = $(CSRCS) $(LIST_DIR)\list_gettailpos.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\list_gettailpos.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(LIST_DIR)\list_remove.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\list_remove.$(EXT_OBJ)
+!endif
 
 
 # Stream Buffer
+!if "$(LINK_STREAMBUF)" == "Yes"
 STREAMBUF_DIR = $(HOSAPLFW_DIR)\library\container\streambuf
+HEADERS = $(HEADERS) $(OBJS_DIR)\streambuf.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\streambuf_local.h
 CSRCS = $(CSRCS) $(STREAMBUF_DIR)\streambuf_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\streambuf_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(STREAMBUF_DIR)\streambuf_getbuf.c
@@ -541,10 +608,14 @@ CSRCS = $(CSRCS) $(STREAMBUF_DIR)\streambuf_refdatasize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\streambuf_refdatasize.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(STREAMBUF_DIR)\streambuf_reffreesize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\streambuf_reffreesize.$(EXT_OBJ)
+!endif
 
 
 # Packet Buffer
+!if "$(LINK_PACKETBUF)" == "Yes"
 PACKETBUF_DIR = $(HOSAPLFW_DIR)\library\container\packetbuf
+HEADERS = $(HEADERS) $(OBJS_DIR)\packetbuf.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\packetbuf_local.h
 CSRCS = $(CSRCS) $(PACKETBUF_DIR)\packetbuf_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\packetbuf_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PACKETBUF_DIR)\packetbuf_getbuf.c
@@ -561,18 +632,26 @@ CSRCS = $(CSRCS) $(PACKETBUF_DIR)\packetbuf_recvdata.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\packetbuf_recvdata.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PACKETBUF_DIR)\packetbuf_clear.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\packetbuf_clear.$(EXT_OBJ)
+!endif
 
 
 # IP check-sum
+!if "$(LINK_IPCHECKSUM)" == "Yes"
 IPCHECKSUM_DIR = $(HOSAPLFW_DIR)\library\algorithm\ipchecksum
+HEADERS = $(HEADERS) $(OBJS_DIR)\ipchecksum.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\ipchecksum_local.h
 CSRCS = $(CSRCS) $(IPCHECKSUM_DIR)\ipchecksum_getdigest.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ipchecksum_getdigest.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(IPCHECKSUM_DIR)\ipchecksum_update.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ipchecksum_update.$(EXT_OBJ)
+!endif
 
 
 # 16bit CRC
+!if "$(LINK_CRC16)" == "Yes"
 CRC16_DIR = $(HOSAPLFW_DIR)\library\algorithm\crc16
+HEADERS = $(HEADERS) $(OBJS_DIR)\crc16.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\crc16_local.h
 CSRCS = $(CSRCS) $(CRC16_DIR)\crc16_getdigest.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\crc16_getdigest.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(CRC16_DIR)\crc16_update.c
@@ -581,6 +660,7 @@ CSRCS = $(CSRCS) $(CRC16_DIR)\crc16_reset.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\crc16_reset.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(CRC16_DIR)\crc16_table.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\crc16_table.$(EXT_OBJ)
+!endif
 
 
 
@@ -589,7 +669,10 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\crc16_table.$(EXT_OBJ)
 # --------------------------------------------------
 
 # VT100
+!if "$(LINK_VT100)" == "Yes"
 VT100_DIR = $(HOSAPLFW_DIR)\driver\console\vt100
+HEADERS = $(HEADERS) $(OBJS_DIR)\vt100drv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\vt100drv_local.h
 CSRCS = $(CSRCS) $(VT100_DIR)\vt100drv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\vt100drv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(VT100_DIR)\vt100drv_delete.c
@@ -614,10 +697,16 @@ CSRCS = $(CSRCS) $(VT100_DIR)\vt100drv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\vt100drv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(VT100_DIR)\vt100drv_getch.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\vt100drv_getch.$(EXT_OBJ)
+!endif
 
 
 # TCP/IP
+!if "$(LINK_TCPIP)" == "Yes"
 TCPIP_DIR = $(HOSAPLFW_DIR)\driver\tcpip\tcpip
+HEADERS = $(HEADERS) $(OBJS_DIR)\tcpip.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\tcpip_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\tcpipfile.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\tcpipfile_local.h
 CSRCS = $(CSRCS) $(TCPIP_DIR)\tcpip_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\tcpip_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(TCPIP_DIR)\tcpip_delete.c
@@ -650,10 +739,14 @@ CSRCS = $(CSRCS) $(TCPIP_DIR)\tcpipfile_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\tcpipfile_constructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(TCPIP_DIR)\tcpipfile_destructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\tcpipfile_destructor.$(EXT_OBJ)
+!endif
 
 
 # IpEther
+!if "$(LINK_IPETHER)" == "Yes"
 IPETHER_DIR = $(HOSAPLFW_DIR)\driver\tcpip\ipether
+HEADERS = $(HEADERS) $(OBJS_DIR)\ipether.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\ipether_local.h
 CSRCS = $(CSRCS) $(IPETHER_DIR)\ipether_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ipether_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(IPETHER_DIR)\ipether_delete.c
@@ -680,18 +773,28 @@ CSRCS = $(CSRCS) $(IPETHER_DIR)\ipether_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ipether_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(IPETHER_DIR)\ipether_getmacaddr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ipether_getmacaddr.$(EXT_OBJ)
+!endif
 
 
 # NE2000
+!if "$(LINK_NE2000)" == "Yes"
 NE2000_DIR = $(HOSAPLFW_DIR)\driver\ether\ne2000
+HEADERS = $(HEADERS) $(OBJS_DIR)\ne2000drv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\ne2000hal.h
 CSRCS = $(CSRCS) $(NE2000_DIR)\ne2000drv.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ne2000drv.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(NE2000_DIR)\ne2000hal.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ne2000hal.$(EXT_OBJ)
+!endif
 
 
 # LAN91C111
+!if "$(LINK_LAN9000)" == "Yes"
 LAN9000_DIR = $(HOSAPLFW_DIR)\driver\ether\lan9000
+HEADERS = $(HEADERS) $(OBJS_DIR)\lan9000drv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\lan9000drv_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\lan9000hal.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\lan9000hal_local.h
 CSRCS = $(CSRCS) $(LAN9000_DIR)\lan9000drv_close.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9000drv_close.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(LAN9000_DIR)\lan9000drv_create.c
@@ -740,10 +843,13 @@ CSRCS = $(CSRCS) $(LAN9000_DIR)\lan9000hal_setup.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9000hal_setup.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(LAN9000_DIR)\lan9000hal_stop.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9000hal_stop.$(EXT_OBJ)
+!endif
 
 
 # LAN91C111
+!if "$(LINK_LAN9118)" == "Yes"
 LAN9118_DIR = $(HOSAPLFW_DIR)\driver\ether\lan9118
+HEADERS = $(HEADERS) $(OBJS_DIR)\lan9118drv.h
 CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_delete.c
@@ -764,10 +870,16 @@ CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(LAN9118_DIR)\lan9118drv_isr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\lan9118drv_isr.$(EXT_OBJ)
+!endif
 
 
 # 16550A
+!if "$(LINK_PC16550)" == "Yes"
 PC16550_DIR = $(HOSAPLFW_DIR)\driver\serial\pc16550
+HEADERS = $(HEADERS) $(OBJS_DIR)\pc16550drv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\pc16550drv_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\pc16550hal.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\pc16550hal_local.h
 CSRCS = $(CSRCS) $(PC16550_DIR)\pc16550drv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\pc16550drv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PC16550_DIR)\pc16550drv_delete.c
@@ -812,10 +924,14 @@ CSRCS = $(CSRCS) $(PC16550_DIR)\pc16550hal_getinterruptstatus.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\pc16550hal_getinterruptstatus.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PC16550_DIR)\pc16550hal_getstatus.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\pc16550hal_getstatus.$(EXT_OBJ)
+!endif
 
 
 # Atmel AT91 USART
+!if "$(LINK_AT91USART)" == "Yes"
 AT91USART_DIR = $(HOSAPLFW_DIR)\driver\serial\at91
+HEADERS = $(HEADERS) $(OBJS_DIR)\at91usartdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\at91usartdrv_local.h
 CSRCS = $(CSRCS) $(AT91USART_DIR)\at91usartdrv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\at91usartdrv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(AT91USART_DIR)\at91usartdrv_delete.c
@@ -840,10 +956,14 @@ CSRCS = $(CSRCS) $(AT91USART_DIR)\at91usartdrv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\at91usartdrv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(AT91USART_DIR)\at91usartdrv_isr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\at91usartdrv_isr.$(EXT_OBJ)
+!endif
 
 
 # Renesas SCI
+!if "$(LINK_RENESASSCI)" == "Yes"
 RENESASSCI_DIR = $(HOSAPLFW_DIR)\driver\serial\renesas
+HEADERS = $(HEADERS) $(OBJS_DIR)\scidrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\scihal.h
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_delete.c
@@ -890,10 +1010,14 @@ CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scihal_setup.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scihal_setup.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scihal_stop.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scihal_stop.$(EXT_OBJ)
+!endif
 
 
 # Freescale MX1 UART
+!if "$(LINK_MX1UART)" == "Yes"
 MX1UART_DIR = $(HOSAPLFW_DIR)\driver\serial\mx1
+HEADERS = $(HEADERS) $(OBJS_DIR)\mx1uartdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\mx1uartdrv_local.h
 CSRCS = $(CSRCS) $(MX1UART_DIR)\mx1uartdrv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mx1uartdrv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MX1UART_DIR)\mx1uartdrv_delete.c
@@ -918,10 +1042,14 @@ CSRCS = $(CSRCS) $(MX1UART_DIR)\mx1uartdrv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mx1uartdrv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MX1UART_DIR)\mx1uartdrv_isr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mx1uartdrv_isr.$(EXT_OBJ)
+!endif
 
 
 # Panasonic MN103 SC
+!if "$(LINK_MN103SC)" == "Yes"
 MN103SC_DIR = $(HOSAPLFW_DIR)\driver\serial\mn103
+HEADERS = $(HEADERS) $(OBJS_DIR)\mn103scdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\mn103scdrv_local.h
 CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_delete.c
@@ -948,16 +1076,25 @@ CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_isrtx.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_isrtx.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_isrrx.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_isrrx.$(EXT_OBJ)
+!endif
 
 
 # WinSock
+!if "$(LINK_WINSOCK)" == "Yes"
 WINSOCK_DIR = $(HOSAPLFW_DIR)\driver\serial\winsock
+HEADERS = $(HEADERS) $(OBJS_DIR)\winsockdrv.h
 CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv.$(EXT_OBJ)
+!endif
 
 
 # FAT volume
+!if "$(LINK_FATVOL)" == "Yes"
 FATVOL_DIR = $(HOSAPLFW_DIR)\driver\volume\fat
+HEADERS = $(HEADERS) $(OBJS_DIR)\fatvol.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\fatvol_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\fatfile.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\fatfile_local.h
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_delete.c
@@ -1012,6 +1149,7 @@ CSRCS = $(CSRCS) $(FATVOL_DIR)\fatfile_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatfile_constructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatfile_destructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ)
+!endif
 
 
 
@@ -1020,81 +1158,120 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ)
 # --------------------------------------------------
 
 # System Command
+!if "$(LINK_PROCESSLIST)" == "Yes"
 PROCESSLIST_DIR = $(HOSAPLFW_DIR)\application\syscmd\processlist
+HEADERS = $(HEADERS) $(OBJS_DIR)\processlist.h
 CSRCS = $(CSRCS) $(PROCESSLIST_DIR)\processlist_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\processlist_main.$(EXT_OBJ)
+!endif
 
 
 # Memory Dump
+!if "$(LINK_MEMDUMP)" == "Yes"
 MEMDUMP_DIR = $(HOSAPLFW_DIR)\application\utility\memdump
+HEADERS = $(HEADERS) $(OBJS_DIR)\memdump.h
 CSRCS = $(CSRCS) $(MEMDUMP_DIR)\memdump_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memdump_main.$(EXT_OBJ)
+!endif
 
 
 # Memory Write
+!if "$(LINK_MEMWRITE)" == "Yes"
 MEMWRITE_DIR = $(HOSAPLFW_DIR)\application\utility\memwrite
+HEADERS = $(HEADERS) $(OBJS_DIR)\memwrite.h
 CSRCS = $(CSRCS) $(MEMWRITE_DIR)\memwrite_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memwrite_main.$(EXT_OBJ)
+!endif
 
 
 # Memory Test
+!if "$(LINK_MEMTEST)" == "Yes"
 MEMTEST_DIR = $(HOSAPLFW_DIR)\application\utility\memtest
+HEADERS = $(HEADERS) $(OBJS_DIR)\memtest.h
 CSRCS = $(CSRCS) $(MEMTEST_DIR)\memtest_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memtest_main.$(EXT_OBJ)
+!endif
 
 
 # Key Test
+!if "$(LINK_KEYTEST)" == "Yes"
 KEYTEST_DIR = $(HOSAPLFW_DIR)\application\utility\keytest
+HEADERS = $(HEADERS) $(OBJS_DIR)\keytest.h
 CSRCS = $(CSRCS) $(KEYTEST_DIR)\keytest_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\keytest_main.$(EXT_OBJ)
+!endif
 
 
 # Time Command
+!if "$(LINK_TIMECMD)" == "Yes"
 TIMECMD_DIR = $(HOSAPLFW_DIR)\application\utility\timecmd
+HEADERS = $(HEADERS) $(OBJS_DIR)\timecmd.h
 CSRCS = $(CSRCS) $(TIMECMD_DIR)\timecmd_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\timecmd_main.$(EXT_OBJ)
+!endif
 
 
 # File List
+!if "$(LINK_FILELIST)" == "Yes"
 FILELIST_DIR = $(HOSAPLFW_DIR)\application\filecmd\filelist
+HEADERS = $(HEADERS) $(OBJS_DIR)\filelist.h
 CSRCS = $(CSRCS) $(FILELIST_DIR)\filelist_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\filelist_main.$(EXT_OBJ)
+!endif
 
 
 # File Cat
+!if "$(LINK_FILECAT)" == "Yes"
 FILECAT_DIR = $(HOSAPLFW_DIR)\application\filecmd\filecat
+HEADERS = $(HEADERS) $(OBJS_DIR)\filecat.h
 CSRCS = $(CSRCS) $(FILECAT_DIR)\filecat_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\filecat_main.$(EXT_OBJ)
+!endif
 
 
 # File Copy
+!if "$(LINK_FILECOPY)" == "Yes"
 FILECOPY_DIR = $(HOSAPLFW_DIR)\application\filecmd\filecopy
+HEADERS = $(HEADERS) $(OBJS_DIR)\filecopy.h
 CSRCS = $(CSRCS) $(FILECOPY_DIR)\filecopy_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\filecopy_main.$(EXT_OBJ)
+!endif
 
 
 # File Dump
+!if "$(LINK_FILEDUMP)" == "Yes"
 FILEDUMP_DIR = $(HOSAPLFW_DIR)\application\filecmd\filedump
+HEADERS = $(HEADERS) $(OBJS_DIR)\filedump.h
 CSRCS = $(CSRCS) $(FILEDUMP_DIR)\filedump_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\filedump_main.$(EXT_OBJ)
+!endif
 
 
 # Flash Command
+!if "$(LINK_FLASHCMD)" == "Yes"
 FLASHCMD_DIR = $(HOSAPLFW_DIR)\application\flashcmd\norflashcmd
+HEADERS = $(HEADERS) $(OBJS_DIR)\norflashcmd.h
 CSRCS = $(CSRCS) $(FLASHCMD_DIR)\norflashcmd_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\norflashcmd_main.$(EXT_OBJ)
+!endif
 
 
 # Ether Snoopt
+!if "$(LINK_ETHERSNOOP)" == "Yes"
 ETHERSNOOP_DIR = $(HOSAPLFW_DIR)\application\netcmd\ethersnoop
+HEADERS = $(HEADERS) $(OBJS_DIR)\ethersnoop.h
 CSRCS = $(CSRCS) $(ETHERSNOOP_DIR)\ethersnoop_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\ethersnoop_main.$(EXT_OBJ)
+!endif
 
 
 # Hello World
+!if "$(LINK_HELLO)" == "Yes"
 HELLO_DIR = $(HOSAPLFW_DIR)\application\example\hello
+HEADERS = $(HEADERS) $(OBJS_DIR)\hello.h
 CSRCS = $(CSRCS) $(HELLO_DIR)\hello_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\hello_main.$(EXT_OBJ)
+!endif
 
 
 # end of file

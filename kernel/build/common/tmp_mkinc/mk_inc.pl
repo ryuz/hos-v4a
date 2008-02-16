@@ -510,7 +510,9 @@ print(OUT "\n");
 print(OUT "# ----------------------------------\n");
 print(OUT "#  source copy\n");
 print(OUT "# ----------------------------------\n");
-print(OUT "srcobjcp_makelib:\n");
+print(OUT "\n");
+print(OUT "makelib_srcobjcp:\n\n");
+
 foreach $s ( @sources )
 {
 	@list = @{$s};
@@ -519,7 +521,15 @@ foreach $s ( @sources )
 	$path    = shift(@list);
 	$def_dir = shift(@list);
 	
-	print(OUT "\t\$(CMD_CP) \$($def_dir)\\*.* \$(OBJS_DIR)\n");
+	$path =~ s/\//\\/g;
+	
+	print(OUT "\n");
+	foreach $file ( @list )
+	{
+		print(OUT "\$(OBJS_DIR)\\$file : \$($def_dir)\\$file\n");
+		print(OUT "\t\$(CMD_CP) \$($def_dir)\\$file \$(OBJS_DIR)\\\n");
+		print(OUT "\n");
+	}
 }
 
 print(OUT "\n");

@@ -20,6 +20,12 @@ CMD_ASM  = cc103S
 !ifndef CMD_LIBR
 CMD_LIBR = ar103S
 !endif
+!ifndef CMD_LINK
+CMD_LINK = cc103S
+!endif
+!ifndef CMD_OBJCNV
+CMD_OBJCNV = xcv103
+!endif
 
 
 # %jp{拡張子定義}
@@ -29,6 +35,9 @@ EXT_ASM = as
 EXT_OBJ = ro
 EXT_LIB = l
 EXT_EXE = x
+EXT_MOT = mot
+EXT_HEX = hex
+EXT_BIN = bin
 
 
 
@@ -59,7 +68,7 @@ CFLAGS_DEF =
 CFLAGS_DBG = -g
 
 # %jp{最適化オプションの定義}
-CFLAGS_OPT_NONE   = -OP=0
+CFLAGS_OPT_NONE   = 
 CFLAGS_OPT_NORMAL = -O
 CFLAGS_OPT_SIZE   = -Os
 CFLAGS_OPT_SPEED  = -Ot
