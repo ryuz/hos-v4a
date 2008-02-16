@@ -58,12 +58,35 @@ int CApiCreMbx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_MULTIDEF;
 		}
 
+		if ( m_iResObj > 0 )
+		{
+			return CFG_ERR_DEF_CONFLICT;
+		}
+
 		if ( (iId = atoi(pszParams)) <= 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
 
 		m_iMaxId = iId;
+
+		return CFG_ERR_OK;
+	}
+	else if ( strcmp(pszApiName, "KERNEL_RSV_MBXID") == 0 )
+	{
+		int iId;
+
+		if ( m_iMaxId > 0 )
+		{
+			return CFG_ERR_DEF_CONFLICT;
+		}
+
+		if ( (iId = atoi(pszParams)) <= 0 )
+		{
+			return CFG_ERR_PARAM;
+		}
+
+		m_iResObj += iId;
 
 		return CFG_ERR_OK;
 	}

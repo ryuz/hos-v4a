@@ -40,9 +40,6 @@ LINK_FILE             = Yes
 !ifndef LINK_COMMAND
 LINK_COMMAND          = Yes
 !endif
-!ifndef LINK_SHELL
-LINK_SHELL            = Yes
-!endif
 
 # Librarys
 !ifndef LINK_MEMPOL
@@ -109,6 +106,9 @@ LINK_FATVOL           = Yes
 !endif
 
 # Applications
+!ifndef LINK_SHELL
+LINK_SHELL            = Yes
+!endif
 !ifndef LINK_PROCESSLIST
 LINK_PROCESSLIST      = Yes
 !endif
@@ -518,15 +518,6 @@ COMMAND_DIR = $(HOSAPLFW_DIR)\system\command
 HEADERS = $(HEADERS) $(OBJS_DIR)\command.h
 CSRCS = $(CSRCS) $(COMMAND_DIR)\command.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\command.$(EXT_OBJ)
-!endif
-
-
-# Shell
-!if "$(LINK_SHELL)" == "Yes"
-SHELL_DIR = $(HOSAPLFW_DIR)\system\shell
-HEADERS = $(HEADERS) $(OBJS_DIR)\shell.h
-CSRCS = $(CSRCS) $(SHELL_DIR)\shell.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\shell.$(EXT_OBJ)
 !endif
 
 
@@ -1157,7 +1148,37 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ)
 #  Applications
 # --------------------------------------------------
 
-# System Command
+# Shell
+!if "$(LINK_SHELL)" == "Yes"
+SHELL_DIR = $(HOSAPLFW_DIR)\application\syscmd\shell
+HEADERS = $(HEADERS) $(OBJS_DIR)\shell.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\shell_local.h
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_main.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_executecommand.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_executecommand.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_executescript.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_executescript.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_inputline.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_inputline.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_interactive.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_interactive.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_putchar.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_putchar.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_curright.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_curright.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_curleft.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_curleft.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SHELL_DIR)\shell_replaceline.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\shell_replaceline.$(EXT_OBJ)
+!endif
+
+
+# Process List
 !if "$(LINK_PROCESSLIST)" == "Yes"
 PROCESSLIST_DIR = $(HOSAPLFW_DIR)\application\syscmd\processlist
 HEADERS = $(HEADERS) $(OBJS_DIR)\processlist.h

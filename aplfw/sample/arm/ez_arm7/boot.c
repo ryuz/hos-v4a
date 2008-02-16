@@ -4,7 +4,7 @@
  * @file  sample.c
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -19,9 +19,9 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "system/shell/shell.h"
 #include "driver/serial/pc16550/pc16550drv.h"
 #include "driver/console/vt100/vt100drv.h"
+#include "application//syscmd/shell/shell.h"
 #include "application//syscmd/processlist/processlist.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"

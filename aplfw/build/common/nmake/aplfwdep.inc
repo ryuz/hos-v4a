@@ -527,13 +527,6 @@ $(OBJS_DIR)\command.c : $(COMMAND_DIR)\command.c
 	$(CMD_CP) $(COMMAND_DIR)\command.c $(OBJS_DIR)\
 
 
-$(OBJS_DIR)\shell.h : $(SHELL_DIR)\shell.h
-	$(CMD_CP) $(SHELL_DIR)\shell.h $(OBJS_DIR)\
-
-$(OBJS_DIR)\shell.c : $(SHELL_DIR)\shell.c
-	$(CMD_CP) $(SHELL_DIR)\shell.c $(OBJS_DIR)\
-
-
 $(OBJS_DIR)\mempol.h : $(MEMPOL_DIR)\mempol.h
 	$(CMD_CP) $(MEMPOL_DIR)\mempol.h $(OBJS_DIR)\
 
@@ -1358,6 +1351,46 @@ $(OBJS_DIR)\fatfile_destructor.c : $(FATVOL_DIR)\fatfile_destructor.c
 	$(CMD_CP) $(FATVOL_DIR)\fatfile_destructor.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\shell.h : $(SHELL_DIR)\shell.h
+	$(CMD_CP) $(SHELL_DIR)\shell.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_local.h : $(SHELL_DIR)\shell_local.h
+	$(CMD_CP) $(SHELL_DIR)\shell_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_main.c : $(SHELL_DIR)\shell_main.c
+	$(CMD_CP) $(SHELL_DIR)\shell_main.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_create.c : $(SHELL_DIR)\shell_create.c
+	$(CMD_CP) $(SHELL_DIR)\shell_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_delete.c : $(SHELL_DIR)\shell_delete.c
+	$(CMD_CP) $(SHELL_DIR)\shell_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_executecommand.c : $(SHELL_DIR)\shell_executecommand.c
+	$(CMD_CP) $(SHELL_DIR)\shell_executecommand.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_executescript.c : $(SHELL_DIR)\shell_executescript.c
+	$(CMD_CP) $(SHELL_DIR)\shell_executescript.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_inputline.c : $(SHELL_DIR)\shell_inputline.c
+	$(CMD_CP) $(SHELL_DIR)\shell_inputline.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_interactive.c : $(SHELL_DIR)\shell_interactive.c
+	$(CMD_CP) $(SHELL_DIR)\shell_interactive.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_putchar.c : $(SHELL_DIR)\shell_putchar.c
+	$(CMD_CP) $(SHELL_DIR)\shell_putchar.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_curright.c : $(SHELL_DIR)\shell_curright.c
+	$(CMD_CP) $(SHELL_DIR)\shell_curright.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_curleft.c : $(SHELL_DIR)\shell_curleft.c
+	$(CMD_CP) $(SHELL_DIR)\shell_curleft.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\shell_replaceline.c : $(SHELL_DIR)\shell_replaceline.c
+	$(CMD_CP) $(SHELL_DIR)\shell_replaceline.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\processlist.h : $(PROCESSLIST_DIR)\processlist.h
 	$(CMD_CP) $(PROCESSLIST_DIR)\processlist.h $(OBJS_DIR)\
 
@@ -1598,8 +1631,6 @@ $(OBJS_DIR)\volumeobj_makedir.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_makedir.c	$(COMM
 $(OBJS_DIR)\volumeobj_remove.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_remove.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\command.$(EXT_OBJ):	$(OBJS_DIR)\command.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-
-$(OBJS_DIR)\shell.$(EXT_OBJ):	$(OBJS_DIR)\shell.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\mempol.$(EXT_OBJ):	$(OBJS_DIR)\mempol.c	$(COMMON_HEADERS)
 
@@ -1844,6 +1875,18 @@ $(OBJS_DIR)\fatfile_create.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_create.c	$(COMMON_HEA
 $(OBJS_DIR)\fatfile_delete.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_delete.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatfile_constructor.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_constructor.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_destructor.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\shell_main.$(EXT_OBJ):	$(OBJS_DIR)\shell_main.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_create.$(EXT_OBJ):	$(OBJS_DIR)\shell_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_delete.$(EXT_OBJ):	$(OBJS_DIR)\shell_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_executecommand.$(EXT_OBJ):	$(OBJS_DIR)\shell_executecommand.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_executescript.$(EXT_OBJ):	$(OBJS_DIR)\shell_executescript.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_inputline.$(EXT_OBJ):	$(OBJS_DIR)\shell_inputline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_interactive.$(EXT_OBJ):	$(OBJS_DIR)\shell_interactive.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_putchar.$(EXT_OBJ):	$(OBJS_DIR)\shell_putchar.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_curright.$(EXT_OBJ):	$(OBJS_DIR)\shell_curright.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_curleft.$(EXT_OBJ):	$(OBJS_DIR)\shell_curleft.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\shell_replaceline.$(EXT_OBJ):	$(OBJS_DIR)\shell_replaceline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\processlist_main.$(EXT_OBJ):	$(OBJS_DIR)\processlist_main.c	$(COMMON_HEADERS)
 

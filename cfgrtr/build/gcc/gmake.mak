@@ -34,7 +34,7 @@ OBJS_DIR = objs_$(TARGET)
 
 
 # オブジェクトファイル
-OBJS = $(OBJS_DIR)/hos4cfg.o \
+OBJS = $(OBJS_DIR)/h4acfg.o  \
        $(OBJS_DIR)/analyze.o \
        $(OBJS_DIR)/parpack.o \
        $(OBJS_DIR)/read.o    \

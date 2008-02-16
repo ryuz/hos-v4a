@@ -29,7 +29,7 @@ OBJS_DIR = objs_$(TARGET)
 
 
 # オブジェクトファイル
-OBJS = $(OBJS_DIR)\hos4cfg.obj \
+OBJS = $(OBJS_DIR)\h4acfg.obj  \
        $(OBJS_DIR)\analyze.obj \
        $(OBJS_DIR)\parpack.obj \
        $(OBJS_DIR)\read.obj    \

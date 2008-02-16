@@ -22,7 +22,6 @@ LINK_PROCESS          ?= Yes
 LINK_EVENT            ?= Yes
 LINK_FILE             ?= Yes
 LINK_COMMAND          ?= Yes
-LINK_SHELL            ?= Yes
 
 # Librarys
 LINK_MEMPOL           ?= Yes
@@ -49,6 +48,7 @@ LINK_WINSOCK          ?= No
 LINK_FATVOL           ?= Yes
 
 # Applications
+LINK_SHELL            ?= Yes
 LINK_PROCESSLIST      ?= Yes
 LINK_MEMDUMP          ?= Yes
 LINK_MEMWRITE         ?= Yes
@@ -273,14 +273,6 @@ ifeq ($(LINK_COMMAND),Yes)
 COMMAND_DIR = $(HOSAPLFW_DIR)/system/command
 SRC_DIRS += $(COMMAND_DIR)
 CSRCS += $(COMMAND_DIR)/command.c
-endif
-
-
-# Shell
-ifeq ($(LINK_SHELL),Yes)
-SHELL_DIR = $(HOSAPLFW_DIR)/system/shell
-SRC_DIRS += $(SHELL_DIR)
-CSRCS += $(SHELL_DIR)/shell.c
 endif
 
 
@@ -663,7 +655,25 @@ endif
 #  Applications
 # --------------------------------------------------
 
-# System Command
+# Shell
+ifeq ($(LINK_SHELL),Yes)
+SHELL_DIR = $(HOSAPLFW_DIR)/application/syscmd/shell
+SRC_DIRS += $(SHELL_DIR)
+CSRCS += $(SHELL_DIR)/shell_main.c
+CSRCS += $(SHELL_DIR)/shell_create.c
+CSRCS += $(SHELL_DIR)/shell_delete.c
+CSRCS += $(SHELL_DIR)/shell_executecommand.c
+CSRCS += $(SHELL_DIR)/shell_executescript.c
+CSRCS += $(SHELL_DIR)/shell_inputline.c
+CSRCS += $(SHELL_DIR)/shell_interactive.c
+CSRCS += $(SHELL_DIR)/shell_putchar.c
+CSRCS += $(SHELL_DIR)/shell_curright.c
+CSRCS += $(SHELL_DIR)/shell_curleft.c
+CSRCS += $(SHELL_DIR)/shell_replaceline.c
+endif
+
+
+# Process List
 ifeq ($(LINK_PROCESSLIST),Yes)
 PROCESSLIST_DIR = $(HOSAPLFW_DIR)/application/syscmd/processlist
 SRC_DIRS += $(PROCESSLIST_DIR)

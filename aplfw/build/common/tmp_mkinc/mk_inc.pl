@@ -273,19 +273,6 @@
 				"command.c",
 			]
 		],
-		[
-			"Shell",
-			"\$(COMMON_HEADERS) \$(SYSTEM_HEADERS)",
-			"\$(HOSAPLFW_DIR)/system/shell",
-			"SHELL",
-			"Yes",
-			[
-				"shell.h",
-			],
-			[
-				"shell.c",
-			]
-		],
 	],
 	[
 		"Librarys",
@@ -784,7 +771,31 @@
 	[
 		"Applications",
 		[
-			"System Command",
+			"Shell",
+			"\$(COMMON_HEADERS) \$(SYSTEM_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/syscmd/shell",
+			"SHELL",
+			"Yes",
+			[
+				"shell.h",
+				"shell_local.h",
+			],
+			[
+				"shell_main.c",
+				"shell_create.c",
+				"shell_delete.c",
+				"shell_executecommand.c",
+				"shell_executescript.c",
+				"shell_inputline.c",
+				"shell_interactive.c",
+				"shell_putchar.c",
+				"shell_curright.c",
+				"shell_curleft.c",
+				"shell_replaceline.c",
+			]
+		],
+		[
+			"Process List",
 			"\$(COMMON_HEADERS)",
 			"\$(HOSAPLFW_DIR)/application/syscmd/processlist",
 			"PROCESSLIST",

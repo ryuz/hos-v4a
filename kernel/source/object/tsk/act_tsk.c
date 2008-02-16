@@ -18,12 +18,11 @@
  * @param  tskid   %en{ID number of the task to be activated}%jp{タスクID}
  * @return void
  */
-ER act_tsk(
-		ID tskid)
+ER act_tsk(ID tskid)
 {
-	_KERNEL_T_TSKHDL       tskhdl;
-	_KERNEL_T_TCB          *tcb;
-	const _KERNEL_T_TCB_RO *tcb_ro;
+	_KERNEL_T_TSKHDL		tskhdl;
+	_KERNEL_T_TCB_PTR		tcb;
+	_KERNEL_T_TCB_RO_PTR	tcb_ro;
 
 	if ( tskid == TSK_SELF )		/* %jp{自タスク指定時の変換} */
 	{

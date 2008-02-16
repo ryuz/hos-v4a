@@ -57,6 +57,11 @@ int CApiCreCyc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_MULTIDEF;
 		}
 
+		if ( m_iResObj > 0 )
+		{
+			return CFG_ERR_DEF_CONFLICT;
+		}
+
 		if ( (iId = atoi(pszParams)) <= 0 )
 		{
 			return CFG_ERR_PARAM;
@@ -66,7 +71,26 @@ int CApiCreCyc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 
 		return CFG_ERR_OK;
 	}
-	
+	else if ( strcmp(pszApiName, "KERNEL_RSV_DTQID") == 0 )
+	{
+		int iId;
+
+		if ( m_iMaxId > 0 )
+		{
+			return CFG_ERR_DEF_CONFLICT;
+		}
+
+		if ( (iId = atoi(pszParams)) <= 0 )
+		{
+			return CFG_ERR_PARAM;
+		}
+
+		m_iResObj += iId;
+
+		return CFG_ERR_OK;
+	}
+
+
 	return CFG_ERR_NOPROC;
 }
 

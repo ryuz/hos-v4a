@@ -20,19 +20,21 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "system/shell/shell.h"
 #include "driver/serial/renesas/scidrv.h"
 #include "driver/console/vt100/vt100drv.h"
-#include "application/example/hello/hello.h"
+#include "application/syscmd/shell/shell.h"
 #include "application/filecmd/filelist/filelist.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
+#include "application/example/hello/hello.h"
 #include "boot.h"
 #include "regs_sh7144.h"
 
-int Boot_Process(VPARAM Param);
+
+int Boot_Process(VPARAM Param);		/* プートプロセス */
+
 
 
 /* ブートタスク */
@@ -130,7 +132,7 @@ int Boot_Process(VPARAM Param)
 			"================================================================\n"
 			" Hyper Operating System  Application Flamework\n"
 			"\n"
-			"                          Copyright (C) 1998-2007 by Project HOS\n"
+			"                          Copyright (C) 1998-2008 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");
