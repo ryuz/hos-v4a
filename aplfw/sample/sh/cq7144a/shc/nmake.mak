@@ -148,7 +148,9 @@ $(STD_LIBS):
 
 # %jp{コピー}
 srcobjcp:
-	$(CMD_CP) ..\*.* $(OBJS_DIR)
+	$(CMD_CP) .\*.src $(OBJS_DIR)
+	$(CMD_CP) .\*.c $(OBJS_DIR)
+	$(CMD_CP) ..\*.c $(OBJS_DIR)
 
 
 
