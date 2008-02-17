@@ -73,7 +73,35 @@ AFLAGS = $(AFLAGS) $(AFLAGS_INC)
 #  %jpルール定義}%en{Rules}
 # --------------------------------------
 
+# %jp{実行ファイル生成}%en{Executable file}
+!ifdef TARGET_EXE
+$(TARGET_EXE): $(OBJS) $(LIBS)
+	-$(CMD_RM) $(TARGET_EXE)
+	$(CMD_LINK) -SU=<<
+-rom D=R
+-list $(TARGET).map
+-SHow SY,R,X
+-Input=$(OBJS: =,)
+-LIB=$(LIBS: =,)
+-start=VECTTBL/$(SECTION_VECT),P,C,C$$BSEC,C$$DSEC,D/$(SECTION_ROM),B,R,S/$(SECTION_RAM)
+-output=$(TARGET_EXE)
+<<
+!endif
+
+
+# %jp{モトローラS形式ファイル生成}%en{Motorola S format file}
+!ifdef TARGET_MOT
+$(TARGET_MOT): $(TARGET_EXE)
+	$(CMD_OBJCNV) -SU=<<
+-input=$(TARGET_EXE)
+-form stype
+-output $(TARGET_MOT)
+<<
+!endif
+
+
 # %jp{ライブラリ生成}%en{Library}
+!ifdef TARGET_LIB
 $(TARGET_LIB): $(OBJS)
 	-$(CMD_RM) $(TARGET_LIB)
 	$(CMD_LIBR) -SUbcommand=<<
@@ -81,14 +109,15 @@ $(TARGET_LIB): $(OBJS)
 -OUtput=$(TARGET_LIB)
 -FOrm=Library
 <<
+!endif
 
 
-# %jp{Cコンパイル}
+# %jp{Cコンパイル}%en{C Compile}
 {$(OBJS_DIR)}.c{$(OBJS_DIR)}.obj :
 	$(CMD_CC) $(CFLAGS) $< -OB=$@
 
 
-# %jp{アセンブル}
+# %jp{アセンブル}%en{Assemble}
 {$(OBJS_DIR)}.src{$(OBJS_DIR)}.obj :
 	$(CMD_ASM) $(AFLAGS) $< -OB=$@
 

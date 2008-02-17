@@ -166,7 +166,7 @@ SOURCE=..\..\source\dpcque.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\source\hos4cfg.cpp
+SOURCE=..\..\source\h4acfg.cpp
 # End Source File
 # Begin Source File
 

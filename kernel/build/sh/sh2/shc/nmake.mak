@@ -25,7 +25,7 @@ OBJS_DIR          = objs_$(TARGET)
 
 
 # %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\vc60
+CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
 CFGRTR     = h4acfg-sh2
 
 
@@ -351,7 +351,7 @@ all: mkdir_objs srcobjcp makelib_all
 	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
 
-# %jp{クリーン}
+# %jp{クリーン}%en{clean}
 clean: makelib_clean
 	-$(CMD_RM) *.lst
 	-$(CMD_RM) $(OBJS_DIR)\*.*

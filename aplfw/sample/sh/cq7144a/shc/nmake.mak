@@ -31,7 +31,7 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)\h4acfg-sh2
 
 # %jp{ライブラリ定義}
 HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)\hosaplfw.$(EXT_LIB)
-
+STD_LIBS     = stdlib.lib
 
 # %jp{メモリマップ}
 !if "$(MEMMAP)" == "ext"
@@ -100,7 +100,7 @@ OBJS = $(OBJS) $(OBJS_DIR)\ostimer.$(EXT_OBJ)
 
 
 # %jp{ライブラリファイルの追加}
-LIBS = $(LIBS) $(HOSAPLFW_LIB)
+LIBS = $(LIBS) $(HOSAPLFW_LIB) $(STD_LIBS)
 
 
 
@@ -131,6 +131,9 @@ mostlyclean: clean kernel_clean
 $(OBJS_DIR)\kernel_cfg.c: ..\kernel_cfg.c
 	$(CMD_CP) ..\kernel_cfg.c $(OBJS_DIR)
 	$(CMD_CP) ..\kernel_id.h $(OBJS_DIR)
+
+$(STD_LIBS):
+	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2
 
 
 # %jp{ライブラリ生成用設定読込み}

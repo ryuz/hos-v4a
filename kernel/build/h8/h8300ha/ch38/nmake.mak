@@ -45,7 +45,7 @@ AFLAGS = $(AFLAGS) -CP=300HA:24
 LFLAGS = 
 
 # %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\vc60
+CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
 CFGRTR     = h4acfg-h8300ha
 
 
