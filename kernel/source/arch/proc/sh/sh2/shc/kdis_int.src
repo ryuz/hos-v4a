@@ -22,8 +22,9 @@
 __kernel_dis_int:
 				stc		sr, r0
 				or		#h'f0, r0				; 全割り込みマスク
-				rts
 				ldc		r0, sr
+				rts
+				nop								; SH/Tiny対策
 
 
 				.END
