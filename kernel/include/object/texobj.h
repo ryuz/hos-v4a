@@ -43,26 +43,26 @@ typedef FP								_KERNEL_TEXCB_T_TEXRTN;
 
 
 /* %jp{タスク例外処理禁止状態の型} */
-#if _KERNEL_TEXCB_BITFIELD		/* %jp{FLGCBにビットフィールドを利用する場合} */
+#if _KERNEL_TEXCB_BITFIELD		/* %jp{TEXCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
 typedef signed int						_KERNEL_TEX_T_STATE;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
-typedef signed int						_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
+typedef signed int						_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をTEXCBに格納するときの型} */
 #define _KERNEL_TEXCB_TBITDEF_STATE		: 1 + 1							/**< %jp{イベントフラグ属性のビットフィールド宣言時の幅} */
 #else
 typedef unsigned int					_KERNEL_TEX_T_STATE;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
-typedef unsigned int					_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
+typedef unsigned int					_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をTEXCBに格納するときの型} */
 #define _KERNEL_TEXCB_TBITDEF_STATE		: 1								/**< %jp{イベントフラグ属性のビットフィールド宣言時の幅} */
 #endif
 
-#else							/* %jp{FLGCBにビットフィールドを利用しない場合} */
+#else							/* %jp{TEXCBにビットフィールドを利用しない場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT
 typedef _KERNEL_T_FAST_B				_KERNEL_TEX_T_STATE;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
-typedef _KERNEL_T_LEAST_B				_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_B				_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をTEXCBに格納するときの型} */
 #else
 typedef _KERNEL_T_FAST_UB				_KERNEL_TEX_T_STATE;			/**< %jp{イベントフラグ属性を演算操作するときの型} */
-typedef _KERNEL_T_LEAST_UB				_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をFLGCBに格納するときの型} */
+typedef _KERNEL_T_LEAST_UB				_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフラグ属性をTEXCBに格納するときの型} */
 #endif
 
 #define _KERNEL_TEXCB_TBITDEF_STATE										/**< %jp{イベントフラグ属性のビットフィールド宣言時の幅} */
@@ -74,44 +74,44 @@ typedef _KERNEL_T_LEAST_UB				_KERNEL_TEXCB_T_STATE;			/**< %jp{イベントフ�
 #if _KERNEL_TEXCB_BITFIELD		/* %jp{TEXCBにビットフィールドを利用する場合} */
 
 #if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
-typedef signed int						_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef signed int						_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
-#define _KERNEL_TEXCB_TBITDEF_RASPTN	: _KERNEL_TEX_TBIT_RASPTN + 1	/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
+typedef signed int						_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef signed int						_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#define _KERNEL_TEXCB_TBITDEF_TEXPTN	: _KERNEL_TEX_TBIT_TEXPTN + 1	/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
 #else
-typedef unsigned int					_KERNEL_FLG_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef unsigned int					_KERNEL_FLGCB_T_RASPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
-#define _KERNEL_TEXCB_TBITDEF_RASPTN	: _KERNEL_FLG_TBIT_RASPTN		/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
+typedef unsigned int					_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef unsigned int					_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#define _KERNEL_TEXCB_TBITDEF_TEXPTN	: _KERNEL_TEX_TBIT_TEXPTN		/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
 #endif
 
 #else							/* %jp{TEXCBにビットフィールドを利用しない場合} */
 
-#if _KERNEL_FLG_TBIT_FLGPTN <= 7 && _KERNEL_PROCATR_SIGNED_INT
-typedef _KERNEL_T_FAST_B				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_B				_KERNEL_TEXCB_T_FLGPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 8 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
-typedef _KERNEL_T_FAST_UB				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_UB				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 15 && _KERNEL_PROCATR_SIGNED_INT
-typedef _KERNEL_T_FAST_H				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_H				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 16 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
-typedef _KERNEL_T_FAST_UH				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_UH				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 31 && _KERNEL_PROCATR_SIGNED_INT
-typedef _KERNEL_T_FAST_W				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_W				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 32 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
-typedef _KERNEL_T_FAST_UW				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_UW				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
-#elif _KERNEL_FLG_TBIT_FLGPTN <= 63 && _KERNEL_PROCATR_SIGNED_INT
-typedef _KERNEL_T_FAST_D				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_D				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
+#if _KERNEL_TEX_TBIT_TEXPTN <= 7 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_B				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_B				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 8 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_FAST_UB				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UB				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 15 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_H				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_H				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 16 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_FAST_UH				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UH				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 31 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_W				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_W				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 32 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_FAST_UW				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UW				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 63 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_D				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_D				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
 #else
-typedef _KERNEL_T_FAST_UD				_KERNEL_TEX_T_RASPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
-typedef _KERNEL_T_LEAST_UD				_KERNEL_TEXCB_T_RASPTN;			/**< %jp{例外要因パターンをFLGCBに格納するときの型} */
+typedef _KERNEL_T_FAST_UD				_KERNEL_TEX_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UD				_KERNEL_TEXCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
 #endif
 
-#define _KERNEL_TEXCB_TBITDEF_RASPTN									/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
+#define _KERNEL_TEXCB_TBITDEF_TEXPTN									/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
 
 #endif
 
@@ -147,7 +147,7 @@ typedef struct _kernel_t_texcb
 #endif
 
 #if _KERNEL_TEXCB_RASPTN
-	_KERNEL_TEXCB_T_RASPTN	rasptn		_KERNEL_TEXCB_TBITDEF_RASPTN;		/**< %jp{タスク例外処理要因} */
+	_KERNEL_TEXCB_T_TEXPTN	rasptn		_KERNEL_TEXCB_TBITDEF_TEXPTN;		/**< %jp{タスク例外処理要因} */
 #endif
 
 #if _KERNEL_TEXCB_ALGORITHM == _KERNEL_TEXCB_ALG_PTRARRAY
@@ -169,7 +169,7 @@ typedef struct _kernel_t_texcb
 #endif
 
 #if _KERNEL_TEXCB_RASPTN
-	_KERNEL_TEXCB_T_RASPTN	rasptn		_KERNEL_TEXCB_TBITDEF_RASPTN;		/**< %jp{タスク例外処理要因} */
+	_KERNEL_TEXCB_T_TEXPTN	rasptn		_KERNEL_TEXCB_TBITDEF_TEXPTN;		/**< %jp{タスク例外処理要因} */
 #endif
 
 
@@ -264,9 +264,9 @@ extern  _KERNEL_T_TEXCB					*_kernel_texcb_tbl[];									/**< %jp{タスク例�
 
 
 /* rasptn */
-#if _KERNEL_TEXCB_RASPTN
-#define _KERNEL_TEX_SET_RASPTN(texcb, x)		do { (texcb)->rasptn = (_KERNEL_TEXCB_T_RASPTN)(x); } while (0)
-#define _KERNEL_TEX_GET_RASPTN(texcb)			((_KERNEL_TEX_T_RASPTN)(texcb)->rasptn)
+#if _KERNEL_TEXCB_TEXPTN
+#define _KERNEL_TEX_SET_RASPTN(texcb, x)		do { (texcb)->rasptn = (_KERNEL_TEXCB_T_TEXPTN)(x); } while (0)
+#define _KERNEL_TEX_GET_RASPTN(texcb)			((_KERNEL_TEX_T_TEXPTN)(texcb)->rasptn)
 #else
 #define _KERNEL_TEX_SET_RASPTN(texcb, x)		do { } while (0)
 #define _KERNEL_TEX_GET_RASPTN(texcb)			(0)

@@ -117,7 +117,7 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
-	Command_AddCommand("hsh",      Shell_Main);
+	Command_AddCommand("sh",       Shell_Main);
 	Command_AddCommand("hello",    Hello_Main);
 	Command_AddCommand("ls",       FileList_Main);
 	Command_AddCommand("memdump",  MemDump_Main);
@@ -141,7 +141,7 @@ int Boot_Process(VPARAM Param)
 	/*      シェル起動       */
 	/*************************/
 	
-	Command_Execute("hsh -i", NULL);
+	Command_Execute("sh -i", NULL);
 	
 	return 0;
 }
