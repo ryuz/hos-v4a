@@ -93,6 +93,8 @@ CSRCS = $(CSRCS) ..\ostimer.c
 
 
 # %jp{オブジェクトファイルの追加}
+OBJS = $(OBJS) $(OBJS_DIR)\vcttbl.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\startup.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kernel_cfg.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\main.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\boot.$(EXT_OBJ)

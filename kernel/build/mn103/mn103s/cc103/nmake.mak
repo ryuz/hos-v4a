@@ -105,58 +105,58 @@ clean: makelib_clean
 
 # Source Copy
 $(OBJS_DIR)\kini_prc.as	:	$(SRC_PROC_CC_DIR)\kini_prc.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\kdis_int.as	:	$(SRC_PROC_CC_DIR)\kdis_int.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\kena_int.as	:	$(SRC_PROC_CC_DIR)\kena_int.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\kwai_int.as	:	$(SRC_PROC_CC_DIR)\kwai_int.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\kcre_ctx.as	:	$(SRC_PROC_CC_DIR)\kcre_ctx.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\krst_ctx.as	:	$(SRC_PROC_CC_DIR)\krst_ctx.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\ksta_ctx.as	:	$(SRC_PROC_CC_DIR)\ksta_ctx.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\kswi_ctx.as	:	$(SRC_PROC_CC_DIR)\kswi_ctx.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\kint_hdr.as	:	$(SRC_PROC_CC_DIR)\kint_hdr.as
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\val_int.c	:	$(SRC_PROC_DIR)\val_int.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\ini_irc.c	:	$(SRC_IRC_DIR)\ini_irc.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\exe_irc.c	:	$(SRC_IRC_DIR)\exe_irc.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\ena_int.c	:	$(SRC_IRC_DIR)\ena_int.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\dis_int.c	:	$(SRC_IRC_DIR)\dis_int.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\clr_int.c	:	$(SRC_IRC_DIR)\clr_int.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\chg_ilv.c	:	$(SRC_IRC_DIR)\chg_ilv.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 $(OBJS_DIR)\get_ilv.c	:	$(SRC_IRC_DIR)\get_ilv.c
-		$(CMD_CP) $? $@
+	$(CMD_CP) $? $@
 
 
-# %jp{依存関係}%jp{dependency}
+# %jp{依存関係}%en{dependency}
 $(OBJS_DIR)\kini_prc.ro		:	$(OBJS_DIR)\kini_prc.as	
 $(OBJS_DIR)\kdis_int.ro		:	$(OBJS_DIR)\kdis_int.as	
 $(OBJS_DIR)\kena_int.ro		:	$(OBJS_DIR)\kena_int.as	
