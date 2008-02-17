@@ -954,7 +954,9 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\at91usartdrv_isr.$(EXT_OBJ)
 !if "$(LINK_RENESASSCI)" == "Yes"
 RENESASSCI_DIR = $(HOSAPLFW_DIR)\driver\serial\renesas
 HEADERS = $(HEADERS) $(OBJS_DIR)\scidrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\scidrv_local.h
 HEADERS = $(HEADERS) $(OBJS_DIR)\scihal.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\scihal_local.h
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\scidrv_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(RENESASSCI_DIR)\scidrv_delete.c

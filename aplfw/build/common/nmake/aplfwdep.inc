@@ -1088,8 +1088,14 @@ $(OBJS_DIR)\at91usartdrv_isr.c : $(AT91USART_DIR)\at91usartdrv_isr.c
 $(OBJS_DIR)\scidrv.h : $(RENESASSCI_DIR)\scidrv.h
 	$(CMD_CP) $(RENESASSCI_DIR)\scidrv.h $(OBJS_DIR)\
 
+$(OBJS_DIR)\scidrv_local.h : $(RENESASSCI_DIR)\scidrv_local.h
+	$(CMD_CP) $(RENESASSCI_DIR)\scidrv_local.h $(OBJS_DIR)\
+
 $(OBJS_DIR)\scihal.h : $(RENESASSCI_DIR)\scihal.h
 	$(CMD_CP) $(RENESASSCI_DIR)\scihal.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\scihal_local.h : $(RENESASSCI_DIR)\scihal_local.h
+	$(CMD_CP) $(RENESASSCI_DIR)\scihal_local.h $(OBJS_DIR)\
 
 $(OBJS_DIR)\scidrv_create.c : $(RENESASSCI_DIR)\scidrv_create.c
 	$(CMD_CP) $(RENESASSCI_DIR)\scidrv_create.c $(OBJS_DIR)\

@@ -41,8 +41,7 @@ LNFLAGS = $(LNFLAGS)
 
 
 # %jp{リンク制御対象制御}
-LINK_RENESUSSCI = Yes
-
+LINK_RENESASSCI = Yes
 
 # %jp{コンパイラ依存の設定読込み}
 !include $(KERNEL_MAKINC_DIR)\shc_d.inc

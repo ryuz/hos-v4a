@@ -633,7 +633,9 @@
 			"No",
 			[
 				"scidrv.h",
+				"scidrv_local.h",
 				"scihal.h",
+				"scihal_local.h",
 			],
 			[
 				"scidrv_create.c",
