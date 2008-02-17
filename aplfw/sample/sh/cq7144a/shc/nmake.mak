@@ -64,7 +64,7 @@ LNFLAGS = $(LNFLAGS)
 
 # %jp{出力ファイル名}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
-TARGET_BIN = $(TARGET).$(EXT_BIN)
+TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 
 # %jp{コンパイラ依存の設定読込み}
@@ -110,7 +110,7 @@ LIBS = $(LIBS) $(HOSAPLFW_LIB) $(STD_LIBS)
 #  %jp{ルール}
 # --------------------------------------
 
-all: make_subproject makeexe_all $(OBJS_DIR)\kernel_cfg.c srcobjcp $(TARGET_EXE)
+all: make_subproject makeexe_all $(OBJS_DIR)\kernel_cfg.c srcobjcp $(TARGET_EXE) $(TARGET_MOT)
 
 make_subproject:
 	$(CMD_CD) $(HOSAPLFW_BUILD_DIR)
