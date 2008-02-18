@@ -24,7 +24,7 @@ $project_name  = "Hyper Operating System  Application Framework";
 $copyright     = "Copyright (C) 2008 by Project HOS\n * http://sourceforge.jp/projects/hos/";
 
 # %jp{置換元タグ}
-$template_tag     = "XxxYyy";
+$template_tag     = "Xxxx";
 $project_id_tag   = "ZZZZ";
 $project_name_tag = "\\\$PROJECT_NAME\\\$";
 $objname_jp_tag   = "\\\$OBJNAME_JP\\\$";
@@ -137,13 +137,13 @@ if ( $template_dir eq "" )
 	closedir(INDIR);
 	foreach $file ( @files )
 	{
-    	if (-d $template_base . "/" . $file )
-    	{
-    		if ( $file ne "." && $file ne ".." && $file ne "CVS" )
-    		{
-	    		print "  " . $file . "\n";
-	    	}
-    	}
+		if (-d $template_base . "/" . $file )
+		{
+			if ( $file ne "." && $file ne ".." && $file ne "CVS" )
+			{
+				print "  " . $file . "\n";
+			}
+		}
 	}
 	
 	while ( $template_name eq "" )
