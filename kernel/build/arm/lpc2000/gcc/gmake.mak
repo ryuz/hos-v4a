@@ -2,7 +2,7 @@
 # Hyper Operating System V4 Advance
 #  makefile for Philips LPC2000 family
 #
-# Copyright (C) 1998-2007 by Project HOS
+# Copyright (C) 1998-2008 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -47,16 +47,16 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
-CFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
-ARFLAGS += 
+AFLAGS  = -mcpu=arm7tdmi -mthumb-interwork
+CFLAGS  = -mcpu=arm7tdmi -mthumb-interwork
+ARFLAGS = 
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-lpc2000
 
 
-# %jp{gcc用の設定読込み}
+# %jp{コンパイラ依存の設定読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 
@@ -102,11 +102,15 @@ clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
+# %jp{依存関係更新}
+.PHONY : depend
+depend: makelib_depend
+
 
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
-# %jp{gcc用のルール定義読込み}
+# %jp{コンパイラ依存のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 # %jp{カーネル依存関係読込み}

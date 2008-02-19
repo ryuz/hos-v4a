@@ -54,7 +54,7 @@ LNFLAGS = -mcpu=arm7tdmi -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,
 
 
 # %jp{コンフィギュレータ定義}
-KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-aduc7000
+KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-lpc2000
 
 # 出力ファイル名
 TARGET_EXE = $(TARGET).$(EXT_EXE)
