@@ -24,7 +24,7 @@ int File_PrintFormatV(HANDLE hFile, const char *pszFormat, va_list argptr)
 	pBuf = (char *)Memory_Alloc(128);
 	if ( pBuf != NULL )
 	{
-		iRet = vsprintf(pBuf, pszFormat, argptr);		/* 肥大化するのでちと保留 */
+	/*	iRet = vsprintf(pBuf, pszFormat, argptr);	*/	/* 肥大化するのでちと保留 */
 		if ( iRet > 0 )
 		{
 			iRet = File_Write(hFile, pBuf, iRet);

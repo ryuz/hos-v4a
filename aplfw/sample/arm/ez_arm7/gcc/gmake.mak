@@ -108,16 +108,27 @@ LIBS += $(APLFW_LIB)
 # --------------------------------------
 
 .PHONY : all
-all: make_aplfw makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 
-.PHONY : make_aplfw
-make_aplfw:
+.PHONY : make_subprj
+make_subprj:
 	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak
 
-
+.PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+
+.PHONY : depend
+depend: makeexe_depend
+
+.PHONY : mostlyclean
+mostlyclean: clean
+	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak clean
+
+.PHONY : mostlydepend
+mostlydepend: depend
+	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak depend
 
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
