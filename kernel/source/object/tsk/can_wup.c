@@ -46,7 +46,7 @@ ER can_wup(
 		
 		/* %jp{オブジェクト存在チェック} */
 #ifdef _KERNEL_SPT_CAN_WUP_E_NOEXS
-		if ( _KERNEL_TSK_CHECK_EXS(tskid) )
+		if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 		{
 			_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
 			return E_NOEXS;			/* %jp{オブジェクト未生成} */

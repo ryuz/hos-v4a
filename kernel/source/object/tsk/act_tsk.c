@@ -26,7 +26,7 @@ ER act_tsk(ID tskid)
 
 	if ( tskid == TSK_SELF )		/* %jp{自タスク指定時の変換} */
 	{
-#ifdef _KERNEL_SPT_ACT_TSK_E_ID
+#if _KERNEL_SPT_ACT_TSK_E_ID
 		if ( _KERNEL_SYS_SNS_CTX() )
 		{
 			return E_ID;		/* %jp{不正ID番号} */
@@ -49,8 +49,8 @@ ER act_tsk(ID tskid)
 		_KERNEL_ENTER_SVC();		/* %jp{enter service-call}%jp{サービスコールに入る} */
 		
 		/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_CFG_ACT_TSK_E_NOEXS
-		if ( _KERNEL_TSK_CHECK_EXS(tskid) )
+#if _KERNEL_SPT_ACT_TSK_E_NOEXS
+		if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 		{
 			_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
 			return E_NOEXS;			/* %jp{オブジェクト未生成} */

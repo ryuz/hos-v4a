@@ -25,7 +25,7 @@ ER ter_tsk(ID tskid)
 	_KERNEL_TSK_T_ACTCNT actcnt;
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_TER_TSK_E_ID
+#if _KERNEL_SPT_TER_TSK_E_ID
 	if ( !_KERNEL_TSK_CHECK_TSKID(tskid) )
 	{
 		return E_ID;	/* %jp{ID不正} */
@@ -35,8 +35,8 @@ ER ter_tsk(ID tskid)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_TER_TSK_E_NOEXS
-	if ( _KERNEL_TSK_CHECK_EXS(tskid) )
+#if _KERNEL_SPT_TER_TSK_E_NOEXS
+	if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールを出る}%en{leave service-call} */
 		return E_NOEXS;			/* %jp{オブジェクト未生成} */
@@ -49,7 +49,7 @@ ER ter_tsk(ID tskid)
     tskhdl = _KERNEL_TSK_GET_TSKHDL(tskid, tcb);
 
 	/* %jp{実行中タスクならエラー} */
-#ifdef _KERNEL_SPT_TER_TSK_E_ILUSE
+#if _KERNEL_SPT_TER_TSK_E_ILUSE
 	if ( tskhdl == _KERNEL_SYS_GET_RUNTSK() )
 	{
 		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールを出る}%en{leave service-call} */

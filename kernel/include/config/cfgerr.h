@@ -37,17 +37,37 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 /* act_tsk */
 #define _KERNEL_CFG_ACT_TSK_E_ID		TRUE
+#define _KERNEL_CFG_ACT_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_ACT_TSK_E_NOSPT		FALSE
+
 
 /* iact_tsk */
 /* can_act */
+#define _KERNEL_CFG_CAN_ACT_E_ID		TRUE
+#define _KERNEL_CFG_CAN_ACT_E_NOEXS		TRUE
+#define _KERNEL_CFG_CAN_ACT_E_NOSPT		FALSE
+
 /* sta_tsk */
+#define _KERNEL_CFG_STA_TSK_E_ID		TRUE	
+#define _KERNEL_CFG_STA_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_STA_TSK_E_OBJ		TRUE
+#define _KERNEL_CFG_STA_TSK_E_NOSPT		FALSE
+ 
+ 
 /* ext_tsk */
 /* exd_tsk */
 /* ter_tsk */
+#define _KERNEL_CFG_TER_TSK_E_ID		TRUE
+#define _KERNEL_CFG_TER_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_TER_TSK_E_ILUSE		TRUE
+#define _KERNEL_CFG_TER_TSK_E_NOSPT		FALSE
+
 /* chg_pri */
 /* get_pri */
 /* ref_tsk */
 #define _KERNEL_CFG_REF_TSK_E_ID		TRUE
+#define _KERNEL_CFG_REF_TSK_E_NOEXS		TRUE
+
 /* ref_tst */
 
 /* slp_tsk */

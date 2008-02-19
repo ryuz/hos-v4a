@@ -45,7 +45,7 @@ ER sus_tsk(
 		
 		/* %jp{オブジェクト存在チェック} */
 #ifdef _KERNEL_SPT_SUS_TSK_E_NOEXS
-		if ( _KERNEL_TSK_CHECK_EXS(tskid) )
+		if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 		{
 			_KERNEL_LEAVE_SVC();	/* %jp{サービスコールを出る}%en{leave service-call} */
 			return E_NOEXS;			/* %jp{オブジェクト未生成} */
