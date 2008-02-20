@@ -39,7 +39,7 @@ ER del_tsk(ID tskid)
 	
 	/* %jp{存在チェック}%en{check object} */
 #if _KERNEL_SPT_DEL_TSK_E_NOEXS
-	if ( _KERNEL_TSK_CHECK_EXS(tskid) )
+	if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_NOEXS;

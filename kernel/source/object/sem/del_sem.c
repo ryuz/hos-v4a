@@ -42,7 +42,7 @@ ER del_sem(ID semid)
 	
 	/* %jp{存在チェック}%en{check object} */
 #if _KERNEL_SPT_DEL_SEM_E_NOEXS
-	if ( _KERNEL_SEM_CHECK_EXS(semid) )
+	if ( !_KERNEL_SEM_CHECK_EXS(semid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_NOEXS;

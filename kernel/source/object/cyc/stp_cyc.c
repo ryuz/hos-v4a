@@ -23,7 +23,7 @@ ER stp_cyc(ID cycid)
 
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_STP_CYC_E_ID
+#if _KERNEL_SPT_STP_CYC_E_ID
 	if ( !_KERNEL_CYC_CHECK_CYCID(cycid) )
 	{
 		return E_ID;	/* %jp{ID不正} */
@@ -33,7 +33,7 @@ ER stp_cyc(ID cycid)
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコール開始} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_STP_CYC_E_NOEXS
+#if _KERNEL_SPT_STP_CYC_E_NOEXS
 	if ( !_KERNEL_CYC_CHECK_EXS(cycid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */

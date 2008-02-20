@@ -30,14 +30,14 @@ ER iact_tsk(
 	ER ercd;
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_IACT_TSK_E_ID
+#if _KERNEL_SPT_IACT_TSK_E_ID
 	if ( !_KERNEL_TSK_CHECK_TSKID(flgid) )
 	{
 		return E_ID;		/* %jp{ID不正} */
 	}
 #endif
 
-#ifdef _KERNEL_SPT_IACT_TSK_E_CTX
+#if _KERNEL_SPT_IACT_TSK_E_CTX
 	if ( !_KERNEL_SYS_SNS_CTX() )
 	{
 		return E_CTX;		/* %jp{コンテキスト不正} */
@@ -75,11 +75,11 @@ void _kernel_dpc_act_tsk(void)
 	tskid = (ID)_KERNEL_SYS_RCV_DPC();
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_CFG_IACT_TSK_E_NOEXS
-	if ( _KERNEL_TSK_CHECK_EXS(tskid) )
+#if _KERNEL_SPT_IACT_TSK_E_NOEXS
+	if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 	{
 		_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
-		return E_NOEXS;			/* %jp{オブジェクト未生成} */
+		return ;					/* %jp{オブジェクト未生成} */
 	}
 #endif
 

@@ -48,7 +48,7 @@ ER twai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmout)
 #endif
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_TWAI_FLG_E_ID
+#if _KERNEL_SPT_TWAI_FLG_E_ID
 	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
 	{
 		return E_ID;	/* %jp{ID不正} */
@@ -56,7 +56,7 @@ ER twai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmout)
 #endif
 	
 	/* %jp{パラメータのチェック} */
-#ifdef _KERNEL_SPT_TWAI_FLG_E_PAR
+#if _KERNEL_SPT_TWAI_FLG_E_PAR
 	if ( waiptn == 0 )
 	{
 		return E_PAR;	/* %jp{パラメータ不正} */
@@ -67,7 +67,7 @@ ER twai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmout)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコール開始} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_TWAI_FLG_E_NOEXS
+#if _KERNEL_SPT_TWAI_FLG_E_NOEXS
 	if ( !_KERNEL_FLG_CHECK_EXS(flgid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */

@@ -79,7 +79,7 @@ ER _kernel_rcv_dtq(ID dtqid, TMO tmout)
 	ER                   ercd;
 
 	/* %jp{コンテキストチェック} */
-#if _KERNEL_SPT_KWAI_DTQ_E_CTX
+#if _KERNEL_SPT_KRCV_DTQ_E_CTX
 	if ( tmout != TMO_POL && _KERNEL_SYS_SNS_DPN() )
 	{
 		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
@@ -87,7 +87,7 @@ ER _kernel_rcv_dtq(ID dtqid, TMO tmout)
 #endif
 
 	/* %jp{ID のチェック} */
-#if _KERNEL_SPT_KWAI_DTQ_E_ID
+#if _KERNEL_SPT_KRCV_DTQ_E_ID
 	if ( !_KERNEL_DTQ_CHECK_DTQID(dtqid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -97,7 +97,7 @@ ER _kernel_rcv_dtq(ID dtqid, TMO tmout)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#if _KERNEL_SPT_KWAI_DTQ_E_NOEXS
+#if _KERNEL_SPT_KRCV_DTQ_E_NOEXS
 	if ( !_KERNEL_DTQ_CHECK_EXS(dtqid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
@@ -189,7 +189,7 @@ ER _kernel_rcv_dtq(ID dtqid, TMO tmout)
 				_KERNEL_DSP_WAI_TSK(tskhdl);						/* %jp{待ち状態に設定} */
 				_KERNEL_DTQ_ADD_RQUE(dtqcb, dtqcb_ro, tskhdl);		/* %jp{待ち行列に追加} */
 
-#if _KERNEL_SPT_TWAI_DTQ
+#if _KERNEL_SPT_TRCV_DTQ
 				if ( tmout != TMO_FEVR )
 				{
 					_KERNEL_DTQ_ADD_TOQ(tskhdl, tmout);				/* %jp{タイムアウトキューに追加} */

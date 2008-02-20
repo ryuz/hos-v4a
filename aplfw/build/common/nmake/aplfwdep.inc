@@ -220,6 +220,12 @@ $(OBJS_DIR)\process_waitexit.c : $(PROCESS_DIR)\process_waitexit.c
 $(OBJS_DIR)\process_getexitcode.c : $(PROCESS_DIR)\process_getexitcode.c
 	$(CMD_CP) $(PROCESS_DIR)\process_getexitcode.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\process_getparam.c : $(PROCESS_DIR)\process_getparam.c
+	$(CMD_CP) $(PROCESS_DIR)\process_getparam.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\process_setparam.c : $(PROCESS_DIR)\process_setparam.c
+	$(CMD_CP) $(PROCESS_DIR)\process_setparam.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\process_setcurrentdir.c : $(PROCESS_DIR)\process_setcurrentdir.c
 	$(CMD_CP) $(PROCESS_DIR)\process_setcurrentdir.c $(OBJS_DIR)\
 
@@ -280,6 +286,9 @@ $(OBJS_DIR)\event_delete.c : $(EVENT_DIR)\event_delete.c
 
 $(OBJS_DIR)\event_set.c : $(EVENT_DIR)\event_set.c
 	$(CMD_CP) $(EVENT_DIR)\event_set.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\event_clear.c : $(EVENT_DIR)\event_clear.c
+	$(CMD_CP) $(EVENT_DIR)\event_clear.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\event_wait.c : $(EVENT_DIR)\event_wait.c
 	$(CMD_CP) $(EVENT_DIR)\event_wait.c $(OBJS_DIR)\
@@ -372,9 +381,6 @@ $(OBJS_DIR)\drvobj_seek.c : $(FILE_DIR)\drvobj_seek.c
 $(OBJS_DIR)\drvobj_write.c : $(FILE_DIR)\drvobj_write.c
 	$(CMD_CP) $(FILE_DIR)\drvobj_write.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\filefmt.c : $(FILE_DIR)\filefmt.c
-	$(CMD_CP) $(FILE_DIR)\filefmt.c $(OBJS_DIR)\
-
 $(OBJS_DIR)\fileobj_constructor.c : $(FILE_DIR)\fileobj_constructor.c
 	$(CMD_CP) $(FILE_DIR)\fileobj_constructor.c $(OBJS_DIR)\
 
@@ -429,8 +435,14 @@ $(OBJS_DIR)\file_seek.c : $(FILE_DIR)\file_seek.c
 $(OBJS_DIR)\file_write.c : $(FILE_DIR)\file_write.c
 	$(CMD_CP) $(FILE_DIR)\file_write.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\stdfile.c : $(FILE_DIR)\stdfile.c
-	$(CMD_CP) $(FILE_DIR)\stdfile.c $(OBJS_DIR)\
+$(OBJS_DIR)\file_printformat.c : $(FILE_DIR)\file_printformat.c
+	$(CMD_CP) $(FILE_DIR)\file_printformat.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\file_printformatv.c : $(FILE_DIR)\file_printformatv.c
+	$(CMD_CP) $(FILE_DIR)\file_printformatv.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stdio_printformat.c : $(FILE_DIR)\stdio_printformat.c
+	$(CMD_CP) $(FILE_DIR)\stdio_printformat.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\syncdrv_constructor.c : $(FILE_DIR)\syncdrv_constructor.c
 	$(CMD_CP) $(FILE_DIR)\syncdrv_constructor.c $(OBJS_DIR)\
@@ -679,6 +691,37 @@ $(OBJS_DIR)\crc16_reset.c : $(CRC16_DIR)\crc16_reset.c
 
 $(OBJS_DIR)\crc16_table.c : $(CRC16_DIR)\crc16_table.c
 	$(CMD_CP) $(CRC16_DIR)\crc16_table.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\stringformat.h : $(STRINGFORMAT_DIR)\stringformat.h
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_local.h : $(STRINGFORMAT_DIR)\stringformat_local.h
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_formatstring.c : $(STRINGFORMAT_DIR)\stringformat_formatstring.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_formatstring.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_formatstringv.c : $(STRINGFORMAT_DIR)\stringformat_formatstringv.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_formatstringv.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_format.c : $(STRINGFORMAT_DIR)\stringformat_format.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_format.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_formatv.c : $(STRINGFORMAT_DIR)\stringformat_formatv.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_formatv.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_string.c : $(STRINGFORMAT_DIR)\stringformat_string.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_string.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_decimal.c : $(STRINGFORMAT_DIR)\stringformat_decimal.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_decimal.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_hexadecimal.c : $(STRINGFORMAT_DIR)\stringformat_hexadecimal.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_hexadecimal.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stringformat_nibble.c : $(STRINGFORMAT_DIR)\stringformat_nibble.c
+	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_nibble.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\vt100drv.h : $(VT100_DIR)\vt100drv.h
@@ -1555,6 +1598,8 @@ $(OBJS_DIR)\process_getcurrenthandle.$(EXT_OBJ):	$(OBJS_DIR)\process_getcurrenth
 $(OBJS_DIR)\process_exit.$(EXT_OBJ):	$(OBJS_DIR)\process_exit.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_waitexit.$(EXT_OBJ):	$(OBJS_DIR)\process_waitexit.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getexitcode.$(EXT_OBJ):	$(OBJS_DIR)\process_getexitcode.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_getparam.$(EXT_OBJ):	$(OBJS_DIR)\process_getparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_setparam.$(EXT_OBJ):	$(OBJS_DIR)\process_setparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setcurrentdir.$(EXT_OBJ):	$(OBJS_DIR)\process_setcurrentdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getcurrentdir.$(EXT_OBJ):	$(OBJS_DIR)\process_getcurrentdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getparentprocess.$(EXT_OBJ):	$(OBJS_DIR)\process_getparentprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1574,6 +1619,7 @@ $(OBJS_DIR)\process_getstderr.$(EXT_OBJ):	$(OBJS_DIR)\process_getstderr.c	$(COMM
 $(OBJS_DIR)\event_create.$(EXT_OBJ):	$(OBJS_DIR)\event_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\event_delete.$(EXT_OBJ):	$(OBJS_DIR)\event_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\event_set.$(EXT_OBJ):	$(OBJS_DIR)\event_set.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\event_clear.$(EXT_OBJ):	$(OBJS_DIR)\event_clear.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\event_wait.$(EXT_OBJ):	$(OBJS_DIR)\event_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\console_getch.$(EXT_OBJ):	$(OBJS_DIR)\console_getch.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1586,7 +1632,6 @@ $(OBJS_DIR)\drvobj_open.$(EXT_OBJ):	$(OBJS_DIR)\drvobj_open.c	$(COMMON_HEADERS) 
 $(OBJS_DIR)\drvobj_read.$(EXT_OBJ):	$(OBJS_DIR)\drvobj_read.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\drvobj_seek.$(EXT_OBJ):	$(OBJS_DIR)\drvobj_seek.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\drvobj_write.$(EXT_OBJ):	$(OBJS_DIR)\drvobj_write.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\filefmt.$(EXT_OBJ):	$(OBJS_DIR)\filefmt.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\fileobj_constructor.$(EXT_OBJ):	$(OBJS_DIR)\fileobj_constructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\fileobj_create.$(EXT_OBJ):	$(OBJS_DIR)\fileobj_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\fileobj_delete.$(EXT_OBJ):	$(OBJS_DIR)\fileobj_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1605,7 +1650,9 @@ $(OBJS_DIR)\file_read.$(EXT_OBJ):	$(OBJS_DIR)\file_read.c	$(COMMON_HEADERS) $(SY
 $(OBJS_DIR)\file_readdir.$(EXT_OBJ):	$(OBJS_DIR)\file_readdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_seek.$(EXT_OBJ):	$(OBJS_DIR)\file_seek.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_write.$(EXT_OBJ):	$(OBJS_DIR)\file_write.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\stdfile.$(EXT_OBJ):	$(OBJS_DIR)\stdfile.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\file_printformat.$(EXT_OBJ):	$(OBJS_DIR)\file_printformat.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\file_printformatv.$(EXT_OBJ):	$(OBJS_DIR)\file_printformatv.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\stdio_printformat.$(EXT_OBJ):	$(OBJS_DIR)\stdio_printformat.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\syncdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\syncdrv_constructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\syncdrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\syncdrv_destructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\syncdrv_endprocess.$(EXT_OBJ):	$(OBJS_DIR)\syncdrv_endprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1681,6 +1728,15 @@ $(OBJS_DIR)\crc16_getdigest.$(EXT_OBJ):	$(OBJS_DIR)\crc16_getdigest.c	$(COMMON_H
 $(OBJS_DIR)\crc16_update.$(EXT_OBJ):	$(OBJS_DIR)\crc16_update.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\crc16_reset.$(EXT_OBJ):	$(OBJS_DIR)\crc16_reset.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\crc16_table.$(EXT_OBJ):	$(OBJS_DIR)\crc16_table.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\stringformat_formatstring.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_formatstring.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\stringformat_formatstringv.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_formatstringv.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\stringformat_format.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_format.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\stringformat_formatv.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_formatv.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\stringformat_string.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_string.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\stringformat_decimal.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_decimal.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\stringformat_hexadecimal.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_hexadecimal.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\stringformat_nibble.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_nibble.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\vt100drv_create.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\vt100drv_delete.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_delete.c	$(COMMON_HEADERS)

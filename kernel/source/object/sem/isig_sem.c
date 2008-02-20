@@ -32,7 +32,7 @@ ER isig_sem(ID semid)
 	ER ercd;
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_ISIG_SEM_E_ID
+#if _KERNEL_SPT_ISIG_SEM_E_ID
 	if ( !_KERNEL_SEM_CHECK_SEMID(semid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -70,7 +70,7 @@ void _kernel_dpc_sig_sem(void)
 	semid = (ID)_KERNEL_SYS_RCV_DPC();
 
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_ISIG_SEM_E_NOEXS
+#if _KERNEL_SPT_ISIG_SEM_E_NOEXS
 	if ( !_KERNEL_SEM_CHECK_EXS(semid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
@@ -99,7 +99,7 @@ void _kernel_dpc_sig_sem(void)
 		semcnt = _KERNEL_SEM_GET_SEMCNT(semcb);
 
 		/* %jp{キューイングオーバーフローチェック} */
-#ifdef _KERNEL_SPT_SIG_SEM_E_QOVR
+#if _KERNEL_SPT_ISIG_SEM_E_QOVR
 		{
 			_KERNEL_T_SEMCB_RO_PTR semcb_ro;
 
@@ -132,7 +132,7 @@ ER isig_sem(ID semid)
 #else	/* _KERNEL_SPT_SIG_SEM */
 
 
-#if _KERNEL_SPT_SIG_ISEM_E_NOSPT
+#if _KERNEL_SPT_ISIG_SEM_E_NOSPT
 
 /** %jp{セマフォ資源の返却}%en{Release Semaphore Resource}
  * @param  semid    %jp{セマフォ資源返却対象のセマフォのID番号}%en{ID number of the semaphore to which resource is released}

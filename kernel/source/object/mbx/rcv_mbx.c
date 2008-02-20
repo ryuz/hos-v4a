@@ -25,7 +25,7 @@ ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 	ER                  ercd;
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_SIG_MBX_E_ID
+#if _KERNEL_SPT_RCV_MBX_E_ID
 	if ( !_KERNEL_MBX_CHECK_MBXID(mbxid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -35,7 +35,7 @@ ER rcv_mbx(ID mbxid, T_MSG **ppk_msg)
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_SIG_MBX_E_NOEXS
+#if _KERNEL_SPT_RCV_MBX_E_NOEXS
 	if ( !_KERNEL_MBX_CHECK_EXS(mbxid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */

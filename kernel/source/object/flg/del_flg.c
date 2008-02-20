@@ -42,7 +42,7 @@ ER del_flg(ID flgid)
 	
 	/* %jp{存在チェック}%en{check object} */
 #if _KERNEL_SPT_DEL_FLG_E_NOEXS
-	if ( _KERNEL_FLG_CHECK_EXS(flgid) )
+	if ( !_KERNEL_FLG_CHECK_EXS(flgid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_NOEXS;	

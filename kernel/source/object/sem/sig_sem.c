@@ -33,7 +33,7 @@ ER sig_sem(ID semid)
 	_KERNEL_SEM_T_SEMCNT semcnt;
 	
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_SIG_SEM_E_ID
+#if _KERNEL_SPT_SIG_SEM_E_ID
 	if ( !_KERNEL_SEM_CHECK_SEMID(semid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -43,7 +43,7 @@ ER sig_sem(ID semid)
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_SIG_SEM_E_NOEXS
+#if _KERNEL_SPT_SIG_SEM_E_NOEXS
 	if ( !_KERNEL_SEM_CHECK_EXS(semid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
@@ -73,7 +73,7 @@ ER sig_sem(ID semid)
 		semcnt = _KERNEL_SEM_GET_SEMCNT(semcb);
 
 		/* %jp{キューイングオーバーフローチェック} */
-#ifdef _KERNEL_SPT_SIG_SEM_E_QOVR
+#if _KERNEL_SPT_SIG_SEM_E_QOVR
 		{
 			_KERNEL_T_SEMCB_RO_PTR semcb_ro;
 

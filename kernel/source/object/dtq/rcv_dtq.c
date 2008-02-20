@@ -27,7 +27,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 	ER               ercd;
 
 	/* %jp{コンテキストチェック} */
-#if _KERNEL_SPT_WAI_SEM_E_CTX
+#if _KERNEL_SPT_RCV_DTQ_E_CTX
 	if ( _KERNEL_SYS_SNS_DPN() )
 	{
 		return E_CTX;			/* %jp{コンテキストエラー}%en{Context error} */
@@ -35,7 +35,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 #endif
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_RCV_DTQ_E_ID
+#if _KERNEL_SPT_RCV_DTQ_E_ID
 	if ( !_KERNEL_DTQ_CHECK_DTQID(dtqid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -45,7 +45,7 @@ ER rcv_dtq(ID dtqid, VP_INT *p_data)
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_RCV_DTQ_E_NOEXS
+#if _KERNEL_SPT_RCV_DTQ_E_NOEXS
 	if ( !_KERNEL_DTQ_CHECK_EXS(dtqid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */

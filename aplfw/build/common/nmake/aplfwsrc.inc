@@ -63,6 +63,9 @@ LINK_IPCHECKSUM       = Yes
 !ifndef LINK_CRC16
 LINK_CRC16            = Yes
 !endif
+!ifndef LINK_STRINGFORMAT
+LINK_STRINGFORMAT     = Yes
+!endif
 
 # Device Drivers
 !ifndef LINK_VT100
@@ -320,6 +323,10 @@ CSRCS = $(CSRCS) $(PROCESS_DIR)\process_waitexit.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_waitexit.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getexitcode.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_getexitcode.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getparam.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_getparam.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setparam.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_setparam.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setcurrentdir.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setcurrentdir.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getcurrentdir.c
@@ -364,6 +371,8 @@ CSRCS = $(CSRCS) $(EVENT_DIR)\event_delete.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\event_delete.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(EVENT_DIR)\event_set.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\event_set.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(EVENT_DIR)\event_clear.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\event_clear.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(EVENT_DIR)\event_wait.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\event_wait.$(EXT_OBJ)
 !endif
@@ -411,8 +420,6 @@ CSRCS = $(CSRCS) $(FILE_DIR)\drvobj_seek.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\drvobj_seek.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\drvobj_write.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\drvobj_write.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(FILE_DIR)\filefmt.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\filefmt.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\fileobj_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fileobj_constructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\fileobj_create.c
@@ -449,8 +456,12 @@ CSRCS = $(CSRCS) $(FILE_DIR)\file_seek.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_seek.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\file_write.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_write.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(FILE_DIR)\stdfile.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\stdfile.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\file_printformat.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\file_printformat.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\file_printformatv.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\file_printformatv.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\stdio_printformat.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stdio_printformat.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\syncdrv_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\syncdrv_constructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\syncdrv_destructor.c
@@ -651,6 +662,30 @@ CSRCS = $(CSRCS) $(CRC16_DIR)\crc16_reset.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\crc16_reset.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(CRC16_DIR)\crc16_table.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\crc16_table.$(EXT_OBJ)
+!endif
+
+
+# String Format
+!if "$(LINK_STRINGFORMAT)" == "Yes"
+STRINGFORMAT_DIR = $(HOSAPLFW_DIR)\library\algorithm\stringformat
+HEADERS = $(HEADERS) $(OBJS_DIR)\stringformat.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\stringformat_local.h
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_formatstring.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_formatstring.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_formatstringv.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_formatstringv.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_format.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_format.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_formatv.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_formatv.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_string.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_string.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_decimal.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_decimal.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_hexadecimal.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_hexadecimal.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(STRINGFORMAT_DIR)\stringformat_nibble.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_nibble.$(EXT_OBJ)
 !endif
 
 

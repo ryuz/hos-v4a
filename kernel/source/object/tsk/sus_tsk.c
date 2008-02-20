@@ -44,7 +44,7 @@ ER sus_tsk(
 		_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 		
 		/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_SUS_TSK_E_NOEXS
+#if _KERNEL_SPT_SUS_TSK_E_NOEXS
 		if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 		{
 			_KERNEL_LEAVE_SVC();	/* %jp{サービスコールを出る}%en{leave service-call} */

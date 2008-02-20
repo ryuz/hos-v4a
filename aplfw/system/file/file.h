@@ -18,7 +18,7 @@
 
 
 #define FILE_MAX_PATH						128			/* パス名の最大値 */
-#define FILE_MAX_NAME						12			/* 名前の最大値 */
+#define FILE_MAX_NAME						13			/* 名前の最大値 */
 
 
 /* エラーコード定義 */

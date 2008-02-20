@@ -37,7 +37,7 @@ ER set_flg(ID flgid, FLGPTN setptn)
 	BOOL             wupflg = FALSE;
 	
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_SET_FLG_E_ID
+#if _KERNEL_SPT_SET_FLG_E_ID
 	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
 	{
 		return E_ID;	/* %jp{ID不正} */
@@ -47,7 +47,7 @@ ER set_flg(ID flgid, FLGPTN setptn)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコール開始} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_SET_FLG_E_NOEXS
+#if _KERNEL_SPT_SET_FLG_E_NOEXS
 	if ( !_KERNEL_FLG_CHECK_EXS(flgid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */

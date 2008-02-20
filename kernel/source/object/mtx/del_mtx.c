@@ -42,10 +42,10 @@ ER del_mtx(ID mtxid)
 	
 	/* %jp{存在チェック}%en{check object} */
 #if _KERNEL_SPT_DEL_MTX_E_NOEXS
-	if ( _KERNEL_MTX_CHECK_EXS(mtxid) )
+	if ( !_KERNEL_MTX_CHECK_EXS(mtxid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
-		return E_OBJ;			/* %jp{オブジェクト状態エラー}%en{Object state error} */
+		return E_NOEXS;			
 	}
 #endif
 	

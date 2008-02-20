@@ -32,7 +32,7 @@ ER iset_flg(ID flgid, FLGPTN setptn)
 	ER ercd;
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_ISET_FLG_E_ID
+#if _KERNEL_SPT_ISET_FLG_E_ID
 	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
 	{
 		return E_ID;		/* %jp{ID不正} */
@@ -75,7 +75,7 @@ void _kernel_dpc_set_flg(void)
 	setptn = (FLGPTN)_KERNEL_SYS_RCV_DPC();
 
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_ISET_FLG_E_NOEXS
+#if _KERNEL_SPT_ISET_FLG_E_NOEXS
 	if ( !_KERNEL_FLG_CHECK_EXS(flgid) )
 	{
 		return;			/* %jp{オブジェクト未生成} */
@@ -148,7 +148,7 @@ ER iset_flg(ID flgid, FLGPTN setptn)
 #else	/* _KERNEL_SPT_SET_FLG */
 
 
-#if _KERNEL_SPT_SET_IFLG_E_NOSPT
+#if _KERNEL_SPT_ISET_FLG_E_NOSPT
 
 /** %jp{イベントフラグ資源の返却}%en{Release Flgaphore Resource}
  * @param  flgid    %jp{イベントフラグ資源返却対象のイベントフラグのID番号}%en{ID number of the Eventflag to which resource is released}

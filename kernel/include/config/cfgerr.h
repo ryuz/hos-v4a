@@ -40,8 +40,12 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ACT_TSK_E_NOEXS		TRUE
 #define _KERNEL_CFG_ACT_TSK_E_NOSPT		FALSE
 
-
 /* iact_tsk */
+#define _KERNEL_CFG_IACT_TSK_E_ID		TRUE
+#define _KERNEL_CFG_IACT_TSK_E_CTX		TRUE	
+#define _KERNEL_CFG_IACT_TSK_E_NOEXS	TRUE
+#define _KERNEL_CFG_IACT_TSK_E_NOSPT	FALSE
+
 /* can_act */
 #define _KERNEL_CFG_CAN_ACT_E_ID		TRUE
 #define _KERNEL_CFG_CAN_ACT_E_NOEXS		TRUE
@@ -75,6 +79,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* wup_tsk */
 #define _KERNEL_CFG_WUP_TSK_E_ID		TRUE
 #define _KERNEL_CFG_WUP_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_WUP_TSK_E_QOVR		TRUE
 
 /* iwup_tsk */
 /* can_wup */
@@ -142,6 +147,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_SIG_SEM_E_NOSPT		FALSE
 
 /* isig_sem */
+#define _KERNEL_CFG_ISIG_SEM_E_ID		TRUE
+#define _KERNEL_CFG_ISIG_SEM_E_NOEXS	TRUE
+#define _KERNEL_CFG_ISIG_SEM_E_QOVR		TRUE	
+#define _KERNEL_CFG_ISIG_SEM_E_NOSPT	FALSE
 
 /* wai_sem */
 #define _KERNEL_CFG_WAI_SEM_E_ID		TRUE
@@ -198,6 +207,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_SET_FLG_E_NOSPT		FALSE
 
 /* iset_flg */
+#define _KERNEL_CFG_ISET_FLG_E_ID		TRUE
+#define _KERNEL_CFG_ISET_FLG_E_NOEXS	TRUE
+#define _KERNEL_CFG_ISET_FLG_E_NOSPT	FALSE
+
 /* clr_flg */
 #define _KERNEL_CFG_CLR_FLG_E_ID		TRUE
 #define _KERNEL_CFG_CLR_FLG_E_NOEXS		TRUE
@@ -241,15 +254,47 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* cre_dtq */
+#define _KERNEL_CFG_CRE_DTQ_E_ID		TRUE
+#define _KERNEL_CFG_CRE_DTQ_E_RSATR		TRUE
+#define _KERNEL_CFG_CRE_DTQ_E_OBJ		TRUE
+#define _KERNEL_CFG_CRE_DTQ_E_NOMEM		TRUE
+#define _KERNEL_CFG_CRE_DTQ_E_NOSPT		FALSE
+
 /* acre_dtq */
+#define _KERNEL_CFG_ACRE_DTQ_E_RSATR	TRUE
+#define _KERNEL_CFG_ACRE_DTQ_E_NOID		TRUE	
+#define _KERNEL_CFG_ACRE_DTQ_E_NOMEM	TRUE
+#define _KERNEL_CFG_ACRE_DTQ_E_NOSPT	FALSE
+
 /* del_dtq */
 /* snd_dtq */
+#define _KERNEL_CFG_SND_DTQ_E_CTX		TRUE
+#define _KERNEL_CFG_SND_DTQ_E_ID		TRUE
+#define _KERNEL_CFG_SND_DTQ_E_NOEXS		TRUE
+#define _KERNEL_CFG_SND_DTQ_E_NOSPT		FALSE
+
 /* ipsnd_dtq */
 /* tsnd_dtq */
 /* fsnd_dtq */
+#define _KERNEL_CFG_FSND_DTQ_E_ID		TRUE
+#define _KERNEL_CFG_FSND_DTQ_E_NOEXS	TRUE
+#define _KERNEL_CFG_FSND_DTQ_E_ILUSE	TRUE
+#define _KERNEL_CFG_FSND_DTQ_E_NOSPT	FALSE
+
 /* ifsnd_dtq */
+
 /* rcv_dtq */
+#define _KERNEL_CFG_RCV_DTQ_E_CTX		TRUE
+#define _KERNEL_CFG_RCV_DTQ_E_ID		TRUE
+#define _KERNEL_CFG_RCV_DTQ_E_NOEXS		TRUE
+#define _KERNEL_CFG_RCV_DTQ_E_NOSPT		FALSE
+
 /* prcv_dtq */
+#define _KERNEL_CFG_PRCV_DTQ_E_CTX		TRUE
+#define _KERNEL_CFG_PRCV_DTQ_E_ID		TRUE
+#define _KERNEL_CFG_PRCV_DTQ_E_NOEXS	TRUE
+#define _KERNEL_CFG_PRCV_DTQ_E_NOSPT	FALSE
+
 /* trcv_dtq */
 /* ref_dtq */
 
@@ -275,6 +320,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 /* snd_mbx */
 /* rcv_mbx */
+#define _KERNEL_CFG_RCV_MBX_E_ID		TRUE
+#define _KERNEL_CFG_RCV_MBX_E_NOEXS		TRUE
+#define _KERNEL_CFG_RCV_MBX_E_NOSPT		FALSE
+
 /* prcv_mbx */
 /* trcv_mbx */
 /* ref_mbx */

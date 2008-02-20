@@ -79,13 +79,13 @@ ER wup_tsk(
 			
 			wupcnt = _KERNEL_TSK_GET_WUPCNT(tcb);
 
-		#ifdef _KERNEL_SPT_WUP_TSK_E_QOVR
+#if _KERNEL_SPT_WUP_TSK_E_QOVR
 			if ( wupcnt >= _KERNEL_TMAX_WUPCNT )
 			{
 				_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
 				return E_QOVR;
 			}
-		#endif
+#endif
 			
 			_KERNEL_TSK_SET_WUPCNT(tcb, wupcnt + 1);
 		}

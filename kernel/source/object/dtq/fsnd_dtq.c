@@ -34,7 +34,7 @@ ER fsnd_dtq(ID dtqid, VP_INT data)
 	_KERNEL_DTQ_T_DTQCNT     dtqcnt;
 	
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_SIG_DTQ_E_ID
+#if _KERNEL_SPT_FSND_DTQ_E_ID
 	if ( !_KERNEL_DTQ_CHECK_DTQID(dtqid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
@@ -44,7 +44,7 @@ ER fsnd_dtq(ID dtqid, VP_INT data)
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_FSND_DTQ_E_NOEXS
+#if _KERNEL_SPT_FSND_DTQ_E_NOEXS
 	if ( !_KERNEL_DTQ_CHECK_EXS(dtqid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
@@ -59,7 +59,7 @@ ER fsnd_dtq(ID dtqid, VP_INT data)
 	/* %jp{データキュー領域の容量取得} */
 	dtqcnt = _KERNEL_DTQ_GET_DTQCNT(dtqcb_ro);
 
-#ifdef _KERNEL_SPT_FSND_DTQ_E_ILUSE
+#if _KERNEL_SPT_FSND_DTQ_E_ILUSE
 	if ( dtqcnt == 0 )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */

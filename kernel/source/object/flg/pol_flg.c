@@ -59,7 +59,7 @@ ER pol_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 	ER                       ercd;
 
 	/* %jp{ID のチェック} */
-#ifdef _KERNEL_SPT_POL_FLG_E_ID
+#if _KERNEL_SPT_POL_FLG_E_ID
 	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
 	{
 		return E_ID;	/* %jp{ID不正} */
@@ -69,7 +69,7 @@ ER pol_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn)
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコール開始} */
 	
 	/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_POL_FLG_E_NOEXS
+#if _KERNEL_SPT_POL_FLG_E_NOEXS
 	if ( !_KERNEL_FLG_CHECK_EXS(flgid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */

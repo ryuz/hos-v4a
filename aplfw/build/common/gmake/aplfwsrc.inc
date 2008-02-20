@@ -31,6 +31,7 @@ LINK_STREAMBUF        ?= Yes
 LINK_PACKETBUF        ?= Yes
 LINK_IPCHECKSUM       ?= Yes
 LINK_CRC16            ?= Yes
+LINK_STRINGFORMAT     ?= Yes
 
 # Device Drivers
 LINK_VT100            ?= Yes
@@ -173,6 +174,8 @@ CSRCS += $(PROCESS_DIR)/process_getcurrenthandle.c
 CSRCS += $(PROCESS_DIR)/process_exit.c
 CSRCS += $(PROCESS_DIR)/process_waitexit.c
 CSRCS += $(PROCESS_DIR)/process_getexitcode.c
+CSRCS += $(PROCESS_DIR)/process_getparam.c
+CSRCS += $(PROCESS_DIR)/process_setparam.c
 CSRCS += $(PROCESS_DIR)/process_setcurrentdir.c
 CSRCS += $(PROCESS_DIR)/process_getcurrentdir.c
 CSRCS += $(PROCESS_DIR)/process_getparentprocess.c
@@ -198,6 +201,7 @@ SRC_DIRS += $(EVENT_DIR)
 CSRCS += $(EVENT_DIR)/event_create.c
 CSRCS += $(EVENT_DIR)/event_delete.c
 CSRCS += $(EVENT_DIR)/event_set.c
+CSRCS += $(EVENT_DIR)/event_clear.c
 CSRCS += $(EVENT_DIR)/event_wait.c
 endif
 
@@ -216,7 +220,6 @@ CSRCS += $(FILE_DIR)/drvobj_open.c
 CSRCS += $(FILE_DIR)/drvobj_read.c
 CSRCS += $(FILE_DIR)/drvobj_seek.c
 CSRCS += $(FILE_DIR)/drvobj_write.c
-CSRCS += $(FILE_DIR)/filefmt.c
 CSRCS += $(FILE_DIR)/fileobj_constructor.c
 CSRCS += $(FILE_DIR)/fileobj_create.c
 CSRCS += $(FILE_DIR)/fileobj_delete.c
@@ -235,7 +238,9 @@ CSRCS += $(FILE_DIR)/file_read.c
 CSRCS += $(FILE_DIR)/file_readdir.c
 CSRCS += $(FILE_DIR)/file_seek.c
 CSRCS += $(FILE_DIR)/file_write.c
-CSRCS += $(FILE_DIR)/stdfile.c
+CSRCS += $(FILE_DIR)/file_printformat.c
+CSRCS += $(FILE_DIR)/file_printformatv.c
+CSRCS += $(FILE_DIR)/stdio_printformat.c
 CSRCS += $(FILE_DIR)/syncdrv_constructor.c
 CSRCS += $(FILE_DIR)/syncdrv_destructor.c
 CSRCS += $(FILE_DIR)/syncdrv_endprocess.c
@@ -364,6 +369,21 @@ CSRCS += $(CRC16_DIR)/crc16_getdigest.c
 CSRCS += $(CRC16_DIR)/crc16_update.c
 CSRCS += $(CRC16_DIR)/crc16_reset.c
 CSRCS += $(CRC16_DIR)/crc16_table.c
+endif
+
+
+# String Format
+ifeq ($(LINK_STRINGFORMAT),Yes)
+STRINGFORMAT_DIR = $(HOSAPLFW_DIR)/library/algorithm/stringformat
+SRC_DIRS += $(STRINGFORMAT_DIR)
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_formatstring.c
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_formatstringv.c
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_format.c
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_formatv.c
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_string.c
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_decimal.c
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_hexadecimal.c
+CSRCS += $(STRINGFORMAT_DIR)/stringformat_nibble.c
 endif
 
 

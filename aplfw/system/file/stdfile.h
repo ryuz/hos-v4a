@@ -4,13 +4,14 @@
  * @file  file.h
  * @brief %jp{ファイルシステム}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
 #ifndef __HOS__stdfile_h__
 #define __HOS__stdfile_h__
+
 
 #include "system/file/file.h"
 #include "system/process/process.h"
@@ -37,6 +38,7 @@ int     StdIo_PrintFormat(const char *pszFormat, ...);
 #ifdef __cplusplus
 }
 #endif
+
 
 
 #endif	/* __HOS__stdfile_h__ */

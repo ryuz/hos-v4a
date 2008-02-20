@@ -50,8 +50,8 @@ ER chg_pri(ID tskid, PRI tskpri)
 		_KERNEL_ENTER_SVC();			/* %jp{enter service-call}%jp{サービスコールに入る} */
 		
 		/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_REF_TSK_E_NOEXS
-		if ( _KERNEL_TSK_CHECK_EXS(tskid) )
+#if _KERNEL_SPT_REF_TSK_E_NOEXS
+		if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 		{
 			_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
 			return E_NOEXS;				/* %jp{オブジェクト未生成} */

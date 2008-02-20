@@ -46,7 +46,7 @@ ER ref_tst(ID tskid, T_RTST *p_rtst)
 		_KERNEL_ENTER_SVC();			/* %jp{enter service-call}%jp{サービスコールに入る} */
 		
 		/* %jp{オブジェクト存在チェック} */
-#ifdef _KERNEL_SPT_REF_TST_E_NOEXS
+#if _KERNEL_SPT_REF_TST_E_NOEXS
 		if ( _KERNEL_TSK_CHECK_EXS(tskid) )
 		{
 			_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
