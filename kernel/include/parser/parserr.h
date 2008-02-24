@@ -18,7 +18,6 @@
 #ifdef _KERNEL_ERRLEVEL
 
 /* %jp{コンパイルオプションで上書きする}%en{overwrite on compile option} */
-#define _KERNEL_SPT_E_ID(x)				((_KERNEL_ERRLEVEL) >= 3)
 #define _KERNEL_SPT_E_SYS(x)			((_KERNEL_ERRLEVEL) >= 1)
 #define _KERNEL_SPT_E_NOSPT(x)			((_KERNEL_ERRLEVEL) >= 4)
 #define _KERNEL_SPT_E_RSFN(x)			((_KERNEL_ERRLEVEL) >= 4)
@@ -44,7 +43,6 @@
 #else
 
 /* %jp{コンフィギュレーションファイルに従う}%en{through of configuration} */
-#define _KERNEL_SPT_E_ID(x)				(x)
 #define _KERNEL_SPT_E_SYS(x)			(x)
 #define _KERNEL_SPT_E_NOSPT(x)			(x)
 #define _KERNEL_SPT_E_RSFN(x)			(x)
@@ -68,8 +66,6 @@
 #define _KERNEL_SPT_E_BOVR(x)			(x)
 
 #endif
-
-
 
 
 
