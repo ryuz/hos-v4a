@@ -64,6 +64,7 @@
 				"sysprc_resume.c",
 				"sysprc_getparam.c",
 				"sysprc_getcurrenthandle.c",
+				"systim_signal.c",
 				"systim_wait.c",
 				"systim_getsystemtime.c",
 				"systim_getcputime.c",

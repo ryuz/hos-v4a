@@ -15,10 +15,10 @@
 #include "kernel.h"
 
 
-SYSMTX_HANDLE	SysMem_hMtx;			/* システムメモリ管理用ミューテックス */
-C_MEMPOL			SysMem_MemPol;		/* システムヒープメモリ */
-T_SYSPRC_INF		*SysPrc_InfTbl;		/* プロセス管理用テーブル */
-T_SYSISR_INF		*SysIsr_InfTbl;		/* ISR管理用テーブル */
+SYSMTX_HANDLE		SysMem_hMtx;			/* システムメモリ管理用ミューテックス */
+C_MEMPOL			SysMem_MemPol;			/* システムヒープメモリ */
+T_SYSPRC_INF		*SysPrc_InfTbl;			/* プロセス管理用テーブル */
+T_SYSISR_INF		*SysIsr_InfTbl;			/* ISR管理用テーブル */
 
 
 /* システムの初期化 */

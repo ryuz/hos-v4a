@@ -10,7 +10,7 @@
 
 
 /* ITRONをマイクロカーネルとして、依存性はこのモジュールで極力隠蔽する */
-/* いわゆるシステムモード(デバドラとか)のみに許すAPIを定義する */
+/* いわゆるシステムモード(デバイスドライバなど)のみに許すAPIを定義する */
 /* ユーザーモード用APIは別途作成予定 */
 
 
@@ -107,7 +107,7 @@ void           SysMtx_Delete(SYSMTX_HANDLE hMtx);							/**< ミューテック�
 int            SysMtx_PolingLock(SYSMTX_HANDLE hMtx);						/**< ミューテックスポーリングロック(システム用) */
 void           SysMtx_Lock(SYSMTX_HANDLE hMtx);								/**< ミューテックスロック(システム用) */
 void           SysMtx_Unlock(SYSMTX_HANDLE hMtx);							/**< ミューテックスロック解除(システム用) */
-int            SysMtx_RefStatus(SYSMTX_HANDLE hMtx);						/**< イベントの状態を取得(システム用) */
+int            SysMtx_RefStatus(SYSMTX_HANDLE hMtx);						/**< ミューテックスの状態を取得(システム用) */
 
 /* システム用イベント制御API */
 SYSEVT_HANDLE  SysEvt_Create(int iAttr);									/**< イベント生成(システム用) */
@@ -118,6 +118,7 @@ void           SysEvt_Clear(SYSEVT_HANDLE hEvt);							/**< イベントクリ�
 int            SysEvt_RefStatus(SYSEVT_HANDLE hEvt);						/**< イベントの状態を取得(システム用) */
 
 /* 時間管理 */
+void           SysTim_Signal(unsigned long ulTic);							/**< タイムティックを与える(システム用) */
 void           SysTim_Wait(unsigned long ulTime);							/**< 時間待ち(システム用) */
 TIME           SysTim_GetCurrentTime(void);									/**< 現在の時刻取得(システム用) */
 SYSTIM_SYSTIME SysTim_GetSystemTime(void);									/**< 現在のシステム時刻取得(システム用) */

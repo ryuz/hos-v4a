@@ -29,6 +29,11 @@ HOSAPLFW_BUILD_DIR = $(HOSAPLFW_DIR)/build/sh/sh2/gcc
 OBJS_DIR           = objs_$(TARGET)
 
 
+# %jp{カーネルフックの設定}
+KERNEL_HOK_TSK = Yes
+KERNEL_HOK_ISR = Yes
+
+
 # %jp{共通定義読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 

@@ -23,13 +23,16 @@
 #include "driver/serial/renesas/scidrv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "application/syscmd/shell/shell.h"
+#include "application/syscmd/processlist/processlist.h"
 #include "application/filecmd/filelist/filelist.h"
+#include "application/utility/timecmd/timecmd.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
 #include "application/example/hello/hello.h"
 #include "boot.h"
+#include "ostimer.h"
 #include "regs_sh7144.h"
 
 
@@ -76,19 +79,26 @@ int Boot_Process(VPARAM Param)
 	
 	
 	/*************************/
+	/*   OSタイマ初期化      */
+	/*************************/
+	
+	OsTimer_Initialize();
+	
+	
+	/*************************/
 	/*   デバイスドライバ    */
 	/*************************/
 	
 	/* SCIデバドラ生成 */
 	hDriver = SciDrv_Create((void *)REG_SCI0_SMR, 128, 24000000L, 64);	/* SCI0生成 */
 	File_AddDevice("com0", hDriver);									/* /dev/com0 に登録 */
-
+	
 	hDriver = SciDrv_Create((void *)REG_SCI1_SMR, 132, 24000000L, 64);	/* SCI1生成 */
 	File_AddDevice("com1", hDriver);									/* /dev/com1 に登録 */
-
+	
 	hDriver = SciDrv_Create((void *)REG_SCI2_SMR, 168, 24000000L, 64);	/* SCI2生成 */
 	File_AddDevice("com2", hDriver);									/* /dev/com2 に登録 */
-
+	
 	hDriver = SciDrv_Create((void *)REG_SCI3_SMR, 172, 24000000L, 64);	/* SCI3生成 */
 	File_AddDevice("com3", hDriver);									/* /dev/com3 に登録 */
 	
@@ -118,12 +128,14 @@ int Boot_Process(VPARAM Param)
 	/*     コマンド登録      */
 	/*************************/
 	Command_AddCommand("sh",       Shell_Main);
-	Command_AddCommand("hello",    Hello_Main);
+	Command_AddCommand("ps",       ProcessList_Main);
 	Command_AddCommand("ls",       FileList_Main);
+	Command_AddCommand("time",     TimeCmd_Main);
 	Command_AddCommand("memdump",  MemDump_Main);
 	Command_AddCommand("memwrite", MemWrite_Main);
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
+	Command_AddCommand("hello",    Hello_Main);
 	
 	
 	/* 起動メッセージ */

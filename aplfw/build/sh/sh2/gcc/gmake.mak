@@ -13,10 +13,10 @@ TARGET ?= hosaplfw
 
 
 # %jp{ツール定義}
-GCC_SYS  ?= elf
-CMD_CC   ?= sh-$(GCC_SYS)-gcc
-CMD_ASM  ?= sh-$(GCC_SYS)-gcc
-CMD_LIBR ?= sh-$(GCC_SYS)-ar
+GCC_ARCH ?= sh-elf-
+CMD_CC   ?= $(GCC_ARCH)gcc
+CMD_ASM  ?= $(GCC_ARCH)gcc
+CMD_LIBR ?= $(GCC_ARCH)ar
 
 
 # %jp{ディレクトリ定義}

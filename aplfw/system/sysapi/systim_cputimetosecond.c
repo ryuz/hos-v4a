@@ -12,11 +12,14 @@
 #include "sysapi_local.h"
 
 
+/* SysTim_GetCpuTime をオーバーライドする場合は一緒に
+  オーバーライドすること */
+
 
 /* CPU時刻を秒に換算(システム用) */
 unsigned long  SysTim_CpuTimeToSecond(SYSTIM_CPUTIME CpuTime)
 {
-	return 0;
+	return (unsigned long)(CpuTime / 1000000000UL);		/* デフォルトではナノ秒単位 */
 }
 
 

@@ -124,6 +124,7 @@ CSRCS += $(SYSAPI_DIR)/sysprc_suspend.c
 CSRCS += $(SYSAPI_DIR)/sysprc_resume.c
 CSRCS += $(SYSAPI_DIR)/sysprc_getparam.c
 CSRCS += $(SYSAPI_DIR)/sysprc_getcurrenthandle.c
+CSRCS += $(SYSAPI_DIR)/systim_signal.c
 CSRCS += $(SYSAPI_DIR)/systim_wait.c
 CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
 CSRCS += $(SYSAPI_DIR)/systim_getcputime.c

@@ -19,13 +19,6 @@ HOSAPLFW_MKINK_DIR = $(HOSAPLFW_DIR)/build\common\nmake
 OBJS_DIR           = objs_$(TARGET)
 
 
-# %jp{ディレクトリ定義}
-TOP_DIR           = ..\..\..\..\..
-KERNEL_DIR        = $(TOP_DIR)\kernel
-KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
-OBJS_DIR          = objs_$(TARGET)
-
-
 # %jp{共通定義読込み}
 !include $(KERNEL_MAKINC_DIR)\common.inc
 
@@ -34,10 +27,10 @@ OBJS_DIR          = objs_$(TARGET)
 INC_DIRS = $(INC_DIRS) $(KERNEL_DIR)\include
 
 
-# %jp{オプションフラグの追加}
-CFLAGS  = $(CFLAGS)
-AFLAGS  = $(AFLAGS)
-LNFLAGS = $(LNFLAGS)
+# %jp{オプションフラグ}
+CFLAGS  = 
+AFLAGS  = 
+LNFLAGS = 
 
 
 # %jp{リンク制御対象制御}

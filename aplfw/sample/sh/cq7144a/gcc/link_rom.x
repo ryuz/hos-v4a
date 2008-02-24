@@ -4,7 +4,7 @@ ENTRY(_reset_handler)
 MEMORY
 {
 	vector : o = 0x0000000, l = 0x00400
-	rom    : o = 0x0000400, l = 0x07c00
+	rom    : o = 0x0000400, l = 0x3fc00
 	ram    : o = 0x0040000, l = 0x80000
 }
 

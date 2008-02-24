@@ -129,6 +129,9 @@ $(OBJS_DIR)\sysprc_getparam.c : $(SYSAPI_DIR)\sysprc_getparam.c
 $(OBJS_DIR)\sysprc_getcurrenthandle.c : $(SYSAPI_DIR)\sysprc_getcurrenthandle.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysprc_getcurrenthandle.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\systim_signal.c : $(SYSAPI_DIR)\systim_signal.c
+	$(CMD_CP) $(SYSAPI_DIR)\systim_signal.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\systim_wait.c : $(SYSAPI_DIR)\systim_wait.c
 	$(CMD_CP) $(SYSAPI_DIR)\systim_wait.c $(OBJS_DIR)\
 
@@ -1572,6 +1575,7 @@ $(OBJS_DIR)\sysprc_suspend.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_suspend.c	$(COMMON_HEA
 $(OBJS_DIR)\sysprc_resume.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_resume.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_getparam.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_getparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_getcurrenthandle.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_getcurrenthandle.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\systim_signal.$(EXT_OBJ):	$(OBJS_DIR)\systim_signal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_wait.$(EXT_OBJ):	$(OBJS_DIR)\systim_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getsystemtime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_getcputime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getcputime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)

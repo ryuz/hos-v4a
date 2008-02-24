@@ -12,24 +12,20 @@
 #include "kernel.h"
 #include "ostimer.h"
 #include "regs_sh7144.h"
+#include "system/sysapi/sysapi.h"
 
 
-#define INHNO_OSTIMER			144							/**< %jp{割り込みハンドラ番号} */
 #define PERIPHERAL_CLOCK		(24000000UL)				/**< %jp{ペリフェラルクロック(24MHz)} */
 
 
-static void OsTimer_IrqHandler(void);						/**< %jp{タイマ割り込みハンドラ} */
+static void OsTimer_Isr(VPARAM Param);				/**< %jp{タイマ割り込みハンドラ} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
-void OsTimer_Initialize(VP_INT exinf)
+void OsTimer_Initialize(void)
 {
-	T_DINH dfinh;
-	return;
-	
-	/* %jp{割り込みハンドラ定義} */
-	dfinh.inthdr = (FP)OsTimer_IrqHandler;
-	def_inh(INHNO_OSTIMER, &dfinh);
+	/* %jp{割り込みサービスルーチン登録} */
+	SysIsr_Create(144, OsTimer_Isr, (VPARAM)0);
 	
 	/* %jp{タイマ動作開始} */
 	*REG_STANDBY_MSTCR2 &= 0xefff;
@@ -45,11 +41,11 @@ void OsTimer_Initialize(VP_INT exinf)
 
 
 /** %jp{タイマ割り込みハンドラ} */
-void OsTimer_IrqHandler(void)
+void OsTimer_Isr(VPARAM Param)
 {
 	*REG_CMT0_CMCSR &= 0xff7f;
 	
-	isig_tim();
+	SysTim_Signal(1000000UL);
 }
 
 

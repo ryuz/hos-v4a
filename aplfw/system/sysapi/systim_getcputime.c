@@ -12,11 +12,14 @@
 #include "sysapi_local.h"
 
 
+/* 精度の良いタイマを持ったシステムでは本関数を
+  オーバーライドすることで、高精度のCPU時刻計測が可能となる */
+
 
 /**< 現在のCPU時刻取得(システム用) */
 SYSTIM_CPUTIME SysTim_GetCpuTime(void)
 {
-	return 0;
+	return SysTim_TimeCounter;
 }
 
 

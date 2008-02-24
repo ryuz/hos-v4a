@@ -19,11 +19,12 @@
  */
 ER ter_tsk(ID tskid)
 {
-	_KERNEL_T_TSKHDL     tskhdl;
-	_KERNEL_T_TCB        *tcb;
-	_KERNEL_T_TCB_RO     *tcb_ro;
-	_KERNEL_TSK_T_ACTCNT actcnt;
-
+	_KERNEL_T_TSKHDL		tskhdl;
+	_KERNEL_T_TCB_PTR		tcb;
+	_KERNEL_T_TCB_RO_PTR	tcb_ro;
+	_KERNEL_TSK_T_ACTCNT	actcnt;
+	
+	
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_TER_TSK_E_ID
 	if ( !_KERNEL_TSK_CHECK_TSKID(tskid) )
@@ -56,9 +57,22 @@ ER ter_tsk(ID tskid)
 		return E_ILUSE;				/* %jp{サービスコール不正使用} */
 	}
 #endif
-		
-	/* %jp{レディーキューから削除} */
-	_KERNEL_DSP_EXT_TSK(tskhdl);
+	
+	
+	/* 状態チェック */
+#if _KERNEL_SPT_TER_TSK_E_OBJ
+	if ( _KERNEL_TSK_GET_TSKSTAT(tcb) == _KERNEL_TTS_DMT )
+	{
+		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールを出る}%en{leave service-call} */
+		return E_OBJ;				/* %jp{オブジェクト状態エラー} */
+	}
+
+#endif
+	
+	
+	/* タスクを終了させる */
+	_KERNEL_DSP_TER_TSK(tskhdl);
+	
 	
 	/* %jp{所有ミューテックスがあれば開放} */
 #if _KERNEL_SPT_MTX

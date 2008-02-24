@@ -27,21 +27,23 @@ extern const INTNO	_kernel_max_intno;
 /* プロセス固有情報管理 */
 typedef struct t_sysprc_inf
 {
-	VPARAM				Param;				/* プロセス固有パラメータ */
-	SYSTIM_CPUTIME		ExecTime;			/* プロセス実行時間計測 */
+	VPARAM				Param;					/* プロセス固有パラメータ */
+	SYSTIM_CPUTIME		ExecTime;				/* プロセス実行時間計測 */
 } T_SYSPRC_INF;
 
 
 /* ISR固有情報管理 */
 typedef struct t_sysisr_inf
 {
-	SYSTIM_CPUTIME		ExecTime;			/* ISR実行時間計測 */
+	SYSTIM_CPUTIME		ExecTime;				/* ISR実行時間計測 */
 } T_SYSISR_INF;
 
-extern SYSMTX_HANDLE	SysMem_hMtx;		/* システムメモリ管理用ミューテックス */
-extern C_MEMPOL			SysMem_MemPol;		/* システムヒープメモリ */
-extern T_SYSPRC_INF		*SysPrc_InfTbl;		/* プロセス管理用テーブル */
-extern T_SYSISR_INF		*SysIsr_InfTbl;		/* ISR管理用テーブル */
+extern SYSMTX_HANDLE	SysMem_hMtx;			/* システムメモリ管理用ミューテックス */
+extern C_MEMPOL			SysMem_MemPol;			/* システムヒープメモリ */
+extern T_SYSPRC_INF		*SysPrc_InfTbl;			/* プロセス管理用テーブル */
+extern T_SYSISR_INF		*SysIsr_InfTbl;			/* ISR管理用テーブル */
+extern SYSTIM_CPUTIME	SysTim_TimeCounter;		/* デフォルトのタイマカウンタ */
+
 
 
 #ifdef __cplusplus
