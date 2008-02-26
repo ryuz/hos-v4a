@@ -9,25 +9,23 @@
  */
 
 
-
+#include <process.h>
 #include "core/core.h"
 #include "object/inhobj.h"
 
 
+static unsigned __stdcall	_kernel_ctx_ent(void *param);					/**< %jp{スレッドの開始関数} */
+static void					_kernel_run_ctx(_KERNEL_T_CTXCB *pk_ctxcb);		/**< %jp{スレッドの実行開始} */
+static void					_kernel_wai_ctx(_KERNEL_T_CTXCB *pk_ctxcb);		/**< %jp{スレッドの停止待ち} */
 
-static DWORD WINAPI		_kernel_ctx_ent(LPVOID param);					/* %jp{スレッドの開始関数} */
-static void				_kernel_run_ctx(_KERNEL_T_CTXCB *pk_ctxcb);		/* %jp{スレッドの実行開始} */
-static void				_kernel_wai_ctx(_KERNEL_T_CTXCB *pk_ctxcb);		/* %jp{スレッドの停止待ち} */
-
-
-static CRITICAL_SECTION	_kernel_win32_CriticalSection;
-static _KERNEL_T_CTXCB	*_kernel_win32_runctxcb        = NULL;		/**< %jp{実行中のコンテキスト} */
-static _KERNEL_T_CTXCB	*_kernel_win32_intctxcb        = NULL;		/**< %jp{割込みからスイッチされたコンテキスト} */
-static HANDLE			_kernel_win32_hSemDisInt       = NULL;		/**< %jp{システムの排他制御用セマフォ} */
-static volatile BOOL	_kernel_win32_blIntCtx         = FALSE;		/**< %jp{割込み処理中フラグ} */
-static volatile BOOL	_kernel_win32_blDisInt         = TRUE;		/**< %jp{割込み禁止フラグ} */
-static volatile BOOL	_kernel_win32_blIntDsp         = FALSE;		/**< %jp{割込み時ディスパッチフラグ} */
-static DWORD			_kernel_win32_hPrimaryThreadId = 0;			/**< %jp{プライマリスレッドID} */
+static CRITICAL_SECTION		_kernel_win32_CriticalSection;
+static _KERNEL_T_CTXCB		*_kernel_win32_runctxcb        = NULL;			/**< %jp{実行中のコンテキスト} */
+static _KERNEL_T_CTXCB		*_kernel_win32_intctxcb        = NULL;			/**< %jp{割込みからスイッチされたコンテキスト} */
+static HANDLE				_kernel_win32_hSemDisInt       = NULL;			/**< %jp{システムの排他制御用セマフォ} */
+static volatile BOOL		_kernel_win32_blIntCtx         = FALSE;			/**< %jp{割込み処理中フラグ} */
+static volatile BOOL		_kernel_win32_blDisInt         = TRUE;			/**< %jp{割込み禁止フラグ} */
+static volatile BOOL		_kernel_win32_blIntDsp         = FALSE;			/**< %jp{割込み時ディスパッチフラグ} */
+static DWORD				_kernel_win32_hPrimaryThreadId = 0;				/**< %jp{プライマリスレッドID} */
 
 
 
@@ -80,7 +78,6 @@ void _kernel_ena_int(void)
 }
 
 
-
 /** %jp{実行コンテキストの作成} */
 void _kernel_cre_ctx(
 		_KERNEL_T_CTXCB *pk_ctxcb,		/* コンテキストを作成するアドレス */
@@ -97,13 +94,17 @@ void _kernel_cre_ctx(
 	
 	/* %jp{コンテキストスレッド生成} */
 	pk_ctxcb->hEvent  = CreateEvent(NULL, FALSE, FALSE, NULL);
-	pk_ctxcb->hThread = CreateThread(NULL, 0, _kernel_ctx_ent, (LPVOID)pk_ctxcb,
-									0, &pk_ctxcb->dwThreadId);
+
+#if defined(_MSC_VER)	/* Visual-C++ の場合 */
+	pk_ctxcb->hThread = (HANDLE)_beginthreadex(NULL, 0, _kernel_ctx_ent, (void *)pk_ctxcb, 0, &pk_ctxcb->dwThreadId);
+#else					/* Visual-C++ 以外 */
+	pk_ctxcb->hThread = CreateThread(NULL, 0, _kernel_ctx_ent, (LPVOID)pk_ctxcb, 0, &pk_ctxcb->dwThreadId);
+#endif
 }
 
 
 /** %jp{スレッドの開始関数} */
-DWORD WINAPI _kernel_ctx_ent(LPVOID param)
+unsigned __stdcall _kernel_ctx_ent(void *param)
 {
 	_KERNEL_T_CTXCB *pk_ctxcb;
 
@@ -216,7 +217,6 @@ void _kernel_run_ctx(_KERNEL_T_CTXCB *pk_ctxcb)
 		SetEvent(pk_ctxcb->hEvent);
 	}
 }
-
 
 
 /* %jp{割り込み用処理} */

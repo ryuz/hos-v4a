@@ -37,7 +37,6 @@ void Sample_Initialize(VP_INT exinf)
 {
 	T_CMPF cmpf;
 	T_CMBX cmbx;
-	T_CCYC ccyc;
 	
 	/* %jp{固定長メモリプール生成} */
 	cmpf.mpfatr = TA_TFIFO;					

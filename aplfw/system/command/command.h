@@ -22,14 +22,20 @@
 typedef int COMMAND_ERR;
 typedef int (*COMMAND_FUNC)(int argc, char *argv[]);
 
+typedef	void	*COMMAND_PTR;	
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void        Command_Initialize(void);
-void        Command_AddCommand(const char *pszName, COMMAND_FUNC pfncMain);		/* コマンドを登録する */
-COMMAND_ERR Command_Execute(const char *pszCommandLine, int *piExitCode);		/* コマンドを実行する */
+void         Command_Initialize(void);
+void         Command_AddCommand(const char *pszName, COMMAND_FUNC pfncMain);		/* コマンドを登録する */
+COMMAND_ERR  Command_Execute(const char *pszCommandLine, int *piExitCode);			/* コマンドを実行する */
+
+COMMAND_PTR  Command_GetFirstCommand(void);
+COMMAND_PTR	 Command_GetNextCommand(COMMAND_PTR Ptr, const char **ppszName);
+COMMAND_FUNC Command_GetCommandAddr(const char *pszName);
 
 #ifdef __cplusplus
 }

@@ -51,6 +51,7 @@ LINK_FATVOL           ?= Yes
 # Applications
 LINK_SHELL            ?= Yes
 LINK_PROCESSLIST      ?= Yes
+LINK_COMMANDLIST      ?= Yes
 LINK_MEMDUMP          ?= Yes
 LINK_MEMWRITE         ?= Yes
 LINK_MEMTEST          ?= Yes
@@ -699,6 +700,14 @@ ifeq ($(LINK_PROCESSLIST),Yes)
 PROCESSLIST_DIR = $(HOSAPLFW_DIR)/application/syscmd/processlist
 SRC_DIRS += $(PROCESSLIST_DIR)
 CSRCS += $(PROCESSLIST_DIR)/processlist_main.c
+endif
+
+
+# Command List
+ifeq ($(LINK_COMMANDLIST),Yes)
+COMMANDLIST_DIR = $(HOSAPLFW_DIR)/application/syscmd/commandlist
+SRC_DIRS += $(COMMANDLIST_DIR)
+CSRCS += $(COMMANDLIST_DIR)/commandlist_main.c
 endif
 
 

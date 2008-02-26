@@ -836,6 +836,19 @@
 			],
 		],
 		[
+			"Command List",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/syscmd/commandlist",
+			"COMMANDLIST",
+			"Yes",
+			[
+				"commandlist.h",
+			],
+			[
+				"commandlist_main.c",
+			],
+		],
+		[
 			"Memory Dump",
 			"\$(COMMON_HEADERS)",
 			"\$(HOSAPLFW_DIR)/application/utility/memdump",

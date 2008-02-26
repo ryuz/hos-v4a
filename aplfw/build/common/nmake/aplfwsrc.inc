@@ -115,6 +115,9 @@ LINK_SHELL            = Yes
 !ifndef LINK_PROCESSLIST
 LINK_PROCESSLIST      = Yes
 !endif
+!ifndef LINK_COMMANDLIST
+LINK_COMMANDLIST      = Yes
+!endif
 !ifndef LINK_MEMDUMP
 LINK_MEMDUMP          = Yes
 !endif
@@ -1223,6 +1226,15 @@ PROCESSLIST_DIR = $(HOSAPLFW_DIR)\application\syscmd\processlist
 HEADERS = $(HEADERS) $(OBJS_DIR)\processlist.h
 CSRCS = $(CSRCS) $(PROCESSLIST_DIR)\processlist_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\processlist_main.$(EXT_OBJ)
+!endif
+
+
+# Command List
+!if "$(LINK_COMMANDLIST)" == "Yes"
+COMMANDLIST_DIR = $(HOSAPLFW_DIR)\application\syscmd\commandlist
+HEADERS = $(HEADERS) $(OBJS_DIR)\commandlist.h
+CSRCS = $(CSRCS) $(COMMANDLIST_DIR)\commandlist_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\commandlist_main.$(EXT_OBJ)
 !endif
 
 

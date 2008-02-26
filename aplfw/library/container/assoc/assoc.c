@@ -73,3 +73,27 @@ const void *Assoc_Get(C_ASSOC *self, const char *pszKey)
 	
 	return NULL;
 }
+
+
+ASSOC_POS Assoc_GetFirst(C_ASSOC *self)
+{
+	return (ASSOC_POS)List_GetHeadPos(&self->List);
+}
+
+
+ASSOC_POS Assoc_GetNext(C_ASSOC *self, ASSOC_POS *Pos)
+{
+	return (ASSOC_POS)List_GetNextPos(&self->List, (LIST_POS)Pos);
+}
+
+
+const void *Assoc_GetAt(C_ASSOC *self, ASSOC_POS *Pos, const char **ppszKey)
+{
+	char *pDataKey;
+
+	pDataKey = List_GetAt(&self->List, Pos);
+	*ppszKey = pDataKey;
+	
+	return (void *)(pDataKey + MEMIF_ALIGNSIZE(strlen(pDataKey) + 1));
+}
+

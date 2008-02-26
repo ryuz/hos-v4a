@@ -98,3 +98,39 @@ COMMAND_ERR Command_Execute(const char *pszCommandLine, int *piExitCode)
 	return Ret;
 }
 
+
+COMMAND_PTR Command_GetFirstCommand(void)
+{
+	ASSOC_POS Pos;
+	
+	Pos = Assoc_GetFirst(&Command_Assoc);
+	
+	return (COMMAND_PTR)Pos;
+}
+
+
+COMMAND_PTR Command_GetNextCommand(COMMAND_PTR Ptr, const char **ppszName)
+{
+	ASSOC_POS Pos;
+	
+	Pos = (ASSOC_POS)Ptr;
+	
+	Assoc_GetAt(&Command_Assoc, Pos, ppszName);
+	
+	Pos = Assoc_GetNext(&Command_Assoc, Pos);
+
+	return (COMMAND_PTR)Pos;
+}
+
+
+COMMAND_FUNC Command_GetCommandAddr(const char *pszName)
+{
+	const COMMAND_FUNC *ppfncMain;
+
+	ppfncMain = (const COMMAND_FUNC *)Assoc_Get(&Command_Assoc, pszName);
+	
+	return *ppfncMain;
+}
+
+
+

@@ -1450,6 +1450,13 @@ $(OBJS_DIR)\processlist_main.c : $(PROCESSLIST_DIR)\processlist_main.c
 	$(CMD_CP) $(PROCESSLIST_DIR)\processlist_main.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\commandlist.h : $(COMMANDLIST_DIR)\commandlist.h
+	$(CMD_CP) $(COMMANDLIST_DIR)\commandlist.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\commandlist_main.c : $(COMMANDLIST_DIR)\commandlist_main.c
+	$(CMD_CP) $(COMMANDLIST_DIR)\commandlist_main.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\memdump.h : $(MEMDUMP_DIR)\memdump.h
 	$(CMD_CP) $(MEMDUMP_DIR)\memdump.h $(OBJS_DIR)\
 
@@ -1955,6 +1962,8 @@ $(OBJS_DIR)\shell_curleft.$(EXT_OBJ):	$(OBJS_DIR)\shell_curleft.c	$(COMMON_HEADE
 $(OBJS_DIR)\shell_replaceline.$(EXT_OBJ):	$(OBJS_DIR)\shell_replaceline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\processlist_main.$(EXT_OBJ):	$(OBJS_DIR)\processlist_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\commandlist_main.$(EXT_OBJ):	$(OBJS_DIR)\commandlist_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\memdump_main.$(EXT_OBJ):	$(OBJS_DIR)\memdump_main.c	$(COMMON_HEADERS)
 

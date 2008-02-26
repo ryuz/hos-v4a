@@ -15,11 +15,13 @@
 
 #include "library/container/list/list.h"
 
-#define ASSOC_ERR_OK	0
-#define ASSOC_ERR_NG	(-1)
+#define ASSOC_ERR_OK		0
+#define ASSOC_ERR_NG		(-1)
+#define ASSOC_POS_NULL		LIST_POS_NULL
 
 typedef void*	ASSOC_POS;
 typedef int     ASSOC_ERR;
+
 
 /* ストリームバッファクラス */
 typedef struct c_assocbuf

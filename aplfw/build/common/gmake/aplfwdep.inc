@@ -392,6 +392,7 @@ $(OBJS_DIR)/shell_curright.$(EXT_OBJ):	$(SHELL_DIR)/shell_curright.c	$(COMMON_HE
 $(OBJS_DIR)/shell_curleft.$(EXT_OBJ):	$(SHELL_DIR)/shell_curleft.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/shell_replaceline.$(EXT_OBJ):	$(SHELL_DIR)/shell_replaceline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/processlist_main.$(EXT_OBJ):	$(PROCESSLIST_DIR)/processlist_main.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/commandlist_main.$(EXT_OBJ):	$(COMMANDLIST_DIR)/commandlist_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/memdump_main.$(EXT_OBJ):	$(MEMDUMP_DIR)/memdump_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/memwrite_main.$(EXT_OBJ):	$(MEMWRITE_DIR)/memwrite_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/memtest_main.$(EXT_OBJ):	$(MEMTEST_DIR)/memtest_main.c	$(COMMON_HEADERS)

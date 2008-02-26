@@ -58,7 +58,7 @@ ER sus_tsk(
 	
 	/* %jp{コンテキストチェック} */	
 #if _KERNEL_SPT_SUS_TSK_E_CTX
-		if ( _KERNEL_SYS_GET_RUNTSK() == _KERNEL_SYS_SNS_DPN() && _KERNEL_SYS_SNS_DPN() )
+		if ( _KERNEL_SYS_GET_RUNTSK() == tskhdl && _KERNEL_SYS_SNS_DPN() )
 		{
 			_KERNEL_LEAVE_SVC();	/* %jp{サービスコールを出る}%en{leave service-call} */
 			return E_CTX;			/* %jp{コンテキスト不正} */
