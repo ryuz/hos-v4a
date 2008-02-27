@@ -1116,8 +1116,35 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_isrrx.$(EXT_OBJ)
 !if "$(LINK_WINSOCK)" == "Yes"
 WINSOCK_DIR = $(HOSAPLFW_DIR)\driver\serial\winsock
 HEADERS = $(HEADERS) $(OBJS_DIR)\winsockdrv.h
-CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv.$(EXT_OBJ)
+HEADERS = $(HEADERS) $(OBJS_DIR)\winsockdrv_local.h
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_flush.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_flush.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_isr.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_isr.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_read.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_read.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_recv.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_recv.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_seek.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_seek.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_send.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_send.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_write.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_write.$(EXT_OBJ)
 !endif
 
 

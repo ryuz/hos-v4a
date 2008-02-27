@@ -43,7 +43,7 @@ EXT_BIN = bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}$en{common options}
-CFLAGS = $(CFLAGS) /c
+CFLAGS = $(CFLAGS) /nologo /c /MT
 
 
 # %jp{デバッグオプションの定義}$en{debug options}

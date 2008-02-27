@@ -42,9 +42,9 @@ HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)\hosaplfwdbg.lib
 
 
 # %jp{フラグ設定}
-CFLAGS  = $(CFLAGS)
-AFLAGS  = $(AFLAGS)
-LNFLAGS = $(LNFLAGS)
+CFLAGS  = 
+AFLAGS  = 
+LNFLAGS = /MTd
 
 
 # %jp{出力ファイル名}
@@ -76,13 +76,13 @@ CSRCS = $(CSRCS) ..\wintimer.c
 # %jp{オブジェクトファイルの追加}
 OBJS = $(OBJS) $(OBJS_DIR)\kernel_cfg.obj
 OBJS = $(OBJS) $(OBJS_DIR)\main.obj
-OBJS = $(OBJS) $(OBJS_DIR)\sample.obj
+OBJS = $(OBJS) $(OBJS_DIR)\boot.obj
 OBJS = $(OBJS) $(OBJS_DIR)\ostimer.obj
 OBJS = $(OBJS) $(OBJS_DIR)\wintimer.obj
 
 
 # %jp{ライブラリファイルの追加}
-LIBS = $(LIBS) $(HOSAPLFW_LIB) kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib winmm.lib ws2_32.lib 
+LIBS = $(LIBS) $(HOSAPLFW_LIB) kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib winmm.lib ws2_32.lib
 
 
 
@@ -90,17 +90,24 @@ LIBS = $(LIBS) $(HOSAPLFW_LIB) kernel32.lib user32.lib gdi32.lib winspool.lib co
 #  %jp{ルール}
 # --------------------------------------
 
-all: make_aplfw makeexe_all $(OBJS_DIR)\kernel_cfg.c srcobjcp $(TARGET_EXE)
+all: make_subprj makeexe_all $(OBJS_DIR)\kernel_cfg.c srcobjcp $(TARGET_EXE)
 
 
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ..\kernel_cfg.c ..\kernel_id.h
 
 
-make_aplfw:
+make_subprj:
 	$(CMD_CD) $(HOSAPLFW_BUILD_DIR)
 	$(MAKE) -f nmake.mak
 	$(CMD_CD) $(MAKEDIR)
+
+
+mostlyclean: clean kernel_clean
+	$(CMD_CD) $(HOSAPLFW_BUILD_DIR)
+	$(MAKE) -f nmake.mak clean
+	$(CMD_CD) $(MAKEDIR)
+
 
 
 ..\kernel_cfg.c ..\kernel_id.h: ..\system.cfg

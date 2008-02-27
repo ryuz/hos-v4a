@@ -634,7 +634,20 @@ endif
 ifeq ($(LINK_WINSOCK),Yes)
 WINSOCK_DIR = $(HOSAPLFW_DIR)/driver/serial/winsock
 SRC_DIRS += $(WINSOCK_DIR)
-CSRCS += $(WINSOCK_DIR)/winsockdrv.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_close.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_constructor.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_create.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_delete.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_destructor.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_flush.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_iocontrol.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_isr.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_open.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_read.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_recv.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_seek.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_send.c
+CSRCS += $(WINSOCK_DIR)/winsockdrv_write.c
 endif
 
 

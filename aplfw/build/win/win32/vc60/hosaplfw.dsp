@@ -239,6 +239,54 @@ SOURCE=..\..\..\..\library\container\streambuf\streambuf_senddata.c
 # End Source File
 # End Group
 # End Group
+# Begin Group "algorithm"
+
+# PROP Default_Filter ""
+# Begin Group "stringformat"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_decimal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_format.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_formatstring.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_formatstringv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_formatv.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_hexadecimal.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_nibble.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\library\algorithm\stringformat\stringformat_string.c
+# End Source File
+# End Group
+# End Group
 # End Group
 # Begin Group "driver"
 
@@ -548,6 +596,10 @@ SOURCE=..\..\..\..\system\sysapi\sysevt_wait.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\sysapi\syshos_hook.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\sysapi\sysint_clear.c
 # End Source File
 # Begin Source File
@@ -640,7 +692,23 @@ SOURCE=..\..\..\..\system\sysapi\sysprc_terminate.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\sysapi\systim_cputimetonanosecond.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\systim_cputimetosecond.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\systim_getcputime.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\sysapi\systim_getsystemtime.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\sysapi\systim_signal.c
 # End Source File
 # Begin Source File
 
@@ -740,6 +808,14 @@ SOURCE=..\..\..\..\system\file\file_open.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\file\file_printformat.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\file\file_printformatv.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\file\file_putchar.c
 # End Source File
 # Begin Source File
@@ -761,10 +837,6 @@ SOURCE=..\..\..\..\system\file\file_seek.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\file_write.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\filefmt.c
 # End Source File
 # Begin Source File
 
@@ -792,11 +864,11 @@ SOURCE=..\..\..\..\system\file\fileobj_local.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\stdfile.c
+SOURCE=..\..\..\..\system\file\stdfile.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\stdfile.h
+SOURCE=..\..\..\..\system\file\stdio_printformat.c
 # End Source File
 # Begin Source File
 
@@ -1007,18 +1079,6 @@ SOURCE=..\..\..\..\system\handle\handleobj_destructor.c
 SOURCE=..\..\..\..\system\handle\handleobj_local.h
 # End Source File
 # End Group
-# Begin Group "shell"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\system\shell\shell.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\shell\shell.h
-# End Source File
-# End Group
 # Begin Group "process"
 
 # PROP Default_Filter ""
@@ -1048,6 +1108,10 @@ SOURCE=..\..\..\..\system\process\process_exit.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\process\process_getcommandline.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\process\process_getconsole.c
 # End Source File
 # Begin Source File
@@ -1060,7 +1124,19 @@ SOURCE=..\..\..\..\system\process\process_getcurrenthandle.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\system\process\process_getexecutiontime.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\system\process\process_getexitcode.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getparam.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_getparentprocess.c
 # End Source File
 # Begin Source File
 
@@ -1089,6 +1165,10 @@ SOURCE=..\..\..\..\system\process\process_setconsole.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\process\process_setcurrentdir.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\process\process_setparam.c
 # End Source File
 # Begin Source File
 
@@ -1125,6 +1205,10 @@ SOURCE=..\..\..\..\system\type\type.h
 # Begin Source File
 
 SOURCE=..\..\..\..\system\system\system.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\system\system\system_getnextprocess.c
 # End Source File
 # Begin Source File
 
@@ -1188,6 +1272,66 @@ SOURCE=..\..\..\..\application\example\hello\hello.h
 # Begin Source File
 
 SOURCE=..\..\..\..\application\example\hello\hello_main.c
+# End Source File
+# End Group
+# End Group
+# Begin Group "syscmd"
+
+# PROP Default_Filter ""
+# Begin Group "shell"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_create.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_curleft.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_curright.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_delete.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_executecommand.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_executescript.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_inputline.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_interactive.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_local.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_main.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_putchar.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\application\syscmd\shell\shell_replaceline.c
 # End Source File
 # End Group
 # End Group

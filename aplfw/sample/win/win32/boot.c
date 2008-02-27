@@ -22,14 +22,14 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "system/shell/shell.h"
 #include "driver/serial/winsock/winsockdrv.h"
 #include "driver/console/vt100/vt100drv.h"
+#include "application/syscmd/shell/shell.h"
 #include "application/example/hello/hello.h"
-#include "boot_task.h"
+#include "boot.h"
 
 
-long	g_SystemHeap[8 * 1024 / sizeof(long)];
+long	g_SystemHeap[1 * 1024 * 1024 / sizeof(long)];
 
 
 int Boot_Process(VPARAM Param);
@@ -99,8 +99,8 @@ int Boot_Process(VPARAM Param)
 	/*     コマンド登録      */
 	/*************************/
 	Command_Initialize();
-	Command_AddCommand("hsh",     Shell_Main);
-	Command_AddCommand("hello",   Hello_Main);
+	Command_AddCommand("sh",     Shell_Main);
+	Command_AddCommand("hello",  Hello_Main);
 	
 	
 	/* 起動メッセージ */
@@ -109,7 +109,7 @@ int Boot_Process(VPARAM Param)
 			"================================================================\n"
 			" Hyper Operating System  Application Flamework\n"
 			"\n"
-			"                          Copyright (C) 1998-2007 by Project HOS\n"
+			"                          Copyright (C) 1998-2008 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");
@@ -118,7 +118,7 @@ int Boot_Process(VPARAM Param)
 	/*      シェル起動       */
 	/*************************/
 	
-	Command_Execute("hsh -i", NULL);
+	Command_Execute("sh -i", NULL);
 
 	return 0;
 }

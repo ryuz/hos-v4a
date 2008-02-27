@@ -42,7 +42,7 @@ int StringFormat_Decimal(int (*pfncPut)(int c, void *Param), void *Param, long l
 	iSize = 0;
 	do
 	{
-		szBuf[iSize++] = ulNum % 10 + '0';
+		szBuf[iSize++] = (char)((ulNum % 10) + '0');
 		ulNum         /= 10;
 	} while ( ulNum != 0 );
 	

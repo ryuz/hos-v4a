@@ -48,7 +48,7 @@ LINK_WINSOCK = Yes
 all: makelib_all
 
 clean: makelib_clean
-	$(RM) -f *.lst
+	$(CMD_RM) *.lst
 
 
 # %jp{MS-C用の設定読込み}

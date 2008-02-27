@@ -1305,8 +1305,50 @@ $(OBJS_DIR)\mn103scdrv_isrrx.c : $(MN103SC_DIR)\mn103scdrv_isrrx.c
 $(OBJS_DIR)\winsockdrv.h : $(WINSOCK_DIR)\winsockdrv.h
 	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv.h $(OBJS_DIR)\
 
-$(OBJS_DIR)\winsockdrv.c : $(WINSOCK_DIR)\winsockdrv.c
-	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv.c $(OBJS_DIR)\
+$(OBJS_DIR)\winsockdrv_local.h : $(WINSOCK_DIR)\winsockdrv_local.h
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_close.c : $(WINSOCK_DIR)\winsockdrv_close.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_close.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_constructor.c : $(WINSOCK_DIR)\winsockdrv_constructor.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_create.c : $(WINSOCK_DIR)\winsockdrv_create.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_delete.c : $(WINSOCK_DIR)\winsockdrv_delete.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_destructor.c : $(WINSOCK_DIR)\winsockdrv_destructor.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_flush.c : $(WINSOCK_DIR)\winsockdrv_flush.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_flush.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_iocontrol.c : $(WINSOCK_DIR)\winsockdrv_iocontrol.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_iocontrol.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_isr.c : $(WINSOCK_DIR)\winsockdrv_isr.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_isr.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_open.c : $(WINSOCK_DIR)\winsockdrv_open.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_open.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_read.c : $(WINSOCK_DIR)\winsockdrv_read.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_read.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_recv.c : $(WINSOCK_DIR)\winsockdrv_recv.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_recv.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_seek.c : $(WINSOCK_DIR)\winsockdrv_seek.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_seek.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_send.c : $(WINSOCK_DIR)\winsockdrv_send.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_send.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\winsockdrv_write.c : $(WINSOCK_DIR)\winsockdrv_write.c
+	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_write.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\fatvol.h : $(FATVOL_DIR)\fatvol.h
@@ -1919,7 +1961,20 @@ $(OBJS_DIR)\mn103scdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\mn103scdrv_flush.c	$(COMMON
 $(OBJS_DIR)\mn103scdrv_isrtx.$(EXT_OBJ):	$(OBJS_DIR)\mn103scdrv_isrtx.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\mn103scdrv_isrrx.$(EXT_OBJ):	$(OBJS_DIR)\mn103scdrv_isrrx.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\winsockdrv.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_close.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_close.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_create.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_flush.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_iocontrol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_isr.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_isr.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_open.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_open.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_read.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_read.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_recv.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_recv.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_seek.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_seek.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_send.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_send.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\winsockdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_write.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\fatvol_create.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_delete.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_delete.c	$(COMMON_HEADERS)

@@ -531,6 +531,10 @@ SOURCE=..\..\..\..\source\object\tsk\cre_tsk.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\tsk\del_tsk.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\tsk\dly_tsk.c
 # End Source File
 # Begin Source File

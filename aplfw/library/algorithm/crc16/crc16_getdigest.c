@@ -9,7 +9,7 @@
  */
 
 
-#include "Crc16_Local.h"
+#include "crc16_local.h"
 
 
 unsigned short Crc16_GetDigest(C_CRC16 *self)
