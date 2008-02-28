@@ -414,9 +414,11 @@ OBJS = $(OBJS) $(OBJS_DIR)\end_inh.$(EXT_OBJ)
 ISROBJ_DIR = $(KERNEL_OBJ_DIR)\isr
 CSRCS = $(CSRCS) $(ISROBJ_DIR)\acre_isr.c
 CSRCS = $(CSRCS) $(ISROBJ_DIR)\kcre_isr.c
+CSRCS = $(CSRCS) $(ISROBJ_DIR)\del_isr.c
 CSRCS = $(CSRCS) $(ISROBJ_DIR)\exe_isr.c
 OBJS = $(OBJS) $(OBJS_DIR)\acre_isr.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kcre_isr.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\del_isr.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\exe_isr.$(EXT_OBJ)
 
 

@@ -39,7 +39,7 @@ FILE_POS FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, in
 	case FILE_SEEK_END:
 		if ( Offset <= pFile->FileSize )
 		{
-			pFile->FilePos = pFile->FileSize - Offset;
+			pFile->FilePos = pFile->FileSize + Offset;
 		}
 		else
 		{

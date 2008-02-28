@@ -145,6 +145,9 @@ LINK_FILECOPY         = Yes
 !ifndef LINK_FILEDUMP
 LINK_FILEDUMP         = Yes
 !endif
+!ifndef LINK_FATMOUNT
+LINK_FATMOUNT         = Yes
+!endif
 !ifndef LINK_FLASHCMD
 LINK_FLASHCMD         = Yes
 !endif
@@ -332,6 +335,12 @@ CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getparam.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_getparam.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setparam.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setparam.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_entersystemmode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_entersystemmode.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_leavesystemmode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_leavesystemmode.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_issystemmode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_issystemmode.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setcurrentdir.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setcurrentdir.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getcurrentdir.c
@@ -437,6 +446,10 @@ CSRCS = $(CSRCS) $(FILE_DIR)\file_adddevice.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_adddevice.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\file_addvolume.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_addvolume.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\file_removevolume.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\file_removevolume.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\file_getvolume.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\file_getvolume.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\file_close.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_close.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\file_getchar.c
@@ -497,12 +510,12 @@ CSRCS = $(CSRCS) $(FILE_DIR)\sysvolfile_delete.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysvolfile_delete.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\sysvolfile_destructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysvolfile_destructor.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_adddevice.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_adddevice.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_close.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_close.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_close.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_delete.c
@@ -511,8 +524,14 @@ CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_destructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_destructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_iocontrol.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_iocontrol.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_open.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_adddevice.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_adddevice.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_removedevice.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_removedevice.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\sysvol_getdevice.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysvol_getdevice.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\volume_shutdown.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\volume_shutdown.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\volumeobj_constructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_create.c
@@ -521,6 +540,8 @@ CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_delete.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\volumeobj_delete.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_destructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\volumeobj_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_shutdown.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\volumeobj_shutdown.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_makedir.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\volumeobj_makedir.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\volumeobj_remove.c
@@ -1177,6 +1198,8 @@ CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_write.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_write.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_flush.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_shutdown.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_shutdown.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_makedir.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_makedir.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_remove.c
@@ -1343,6 +1366,15 @@ FILEDUMP_DIR = $(HOSAPLFW_DIR)\application\filecmd\filedump
 HEADERS = $(HEADERS) $(OBJS_DIR)\filedump.h
 CSRCS = $(CSRCS) $(FILEDUMP_DIR)\filedump_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\filedump_main.$(EXT_OBJ)
+!endif
+
+
+# FAT mount
+!if "$(LINK_FATMOUNT)" == "Yes"
+FATMOUNT_DIR = $(HOSAPLFW_DIR)\application\fatcmd\fatmount
+HEADERS = $(HEADERS) $(OBJS_DIR)\fatmount.h
+CSRCS = $(CSRCS) $(FATMOUNT_DIR)\fatmount_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fatmount_main.$(EXT_OBJ)
 !endif
 
 

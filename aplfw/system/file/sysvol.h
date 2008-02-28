@@ -48,7 +48,10 @@ extern "C" {
 HANDLE   SysVol_Create(void);
 void     SysVol_Delete(HANDLE hVolume);
 
-FILE_ERR SysVol_AddDevice(HANDLE hSysVol, const char *pszName, HANDLE hDriver, int iAttr);
+FILE_ERR SysVol_AddDevice(HANDLE hSysVol, const char *pszName, HANDLE hDriver, int iAttr);	/* システムボリュームにデバイスを登録 */
+FILE_ERR SysVol_RemoveDevice(HANDLE hSysVol, const char *pszName);							/* システムボリュームに登録されたデバイスを取り外し */
+HANDLE   SysVol_GetDevice(HANDLE hSysVol, const char *pszName);								/* システムボリュームに登録されたデバイスを検索 */
+
 
 #ifdef __cplusplus
 }

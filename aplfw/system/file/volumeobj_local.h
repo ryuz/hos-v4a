@@ -29,8 +29,6 @@ void VolumeObj_Destructor(C_VOLUMEOBJ *self);											/**< デストラクタ 
 }
 #endif
 
-#define VolumeObj_GetMethods(self)		((T_VOLUMEOBJ_METHODS *)HandleObj_GetMethods(&(self)->DrvObjMethods))
-
 
 
 #endif	/* __HOS__volumeobj_h__ */

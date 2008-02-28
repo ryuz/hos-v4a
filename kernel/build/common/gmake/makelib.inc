@@ -17,8 +17,13 @@ ifeq ($(DEBUG),Yes)
 TARGET := $(TARGET)dbg
 CFLAGS += $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
 AFLAGS += $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
+ifeq ($(KERNEL),Yes)
 C_DEFS += _KERNEL_DEBUG
 A_DEFS += _KERNEL_DEBUG
+else
+C_DEFS += _DEBUG
+A_DEFS += _DEBUG
+endif
 else
 ifeq ($(OPT_SPEED),Yes)
 # %jp{速度最適化指定があれば速度優先}%en{optimize speed}

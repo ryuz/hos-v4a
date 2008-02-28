@@ -496,6 +496,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* cre_isr */
 /* acre_isr */
 /* del_isr */
+#define _KERNEL_CFG_DEL_ISR_E_ID		TRUE
+#define _KERNEL_CFG_DEL_ISR_E_NOEXS		TRUE
+#define _KERNEL_CFG_DEL_ISR_E_NOSPT		FALSE
+
 /* ref_isr */
 /* dis_int */
 /* ena_int */

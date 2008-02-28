@@ -52,7 +52,7 @@ LNFLAGS = --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --
 
 
 # %jp{コンフィギュレータ定義}
-KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-aduc7000
+KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-lpc2000
 
 
 # 出力ファイル名
@@ -87,7 +87,7 @@ CSRCS += ../kernel_cfg.c	\
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: kernel_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h

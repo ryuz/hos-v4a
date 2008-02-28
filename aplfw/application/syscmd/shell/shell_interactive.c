@@ -50,7 +50,7 @@ int Shell_Interactive(C_SHELL *self)
 				/* ヒストリ重複削除 */
 				for ( i = 0; i < self->iHistoryMax; i++ )
 				{
-					if ( strcmp(self->ppszHistory[i], self->pszCommanBuf) == 0 )
+					if ( self->ppszHistory[i] != NULL && strcmp(self->ppszHistory[i], self->pszCommanBuf) == 0 )
 					{
 						Memory_Free(self->ppszHistory[i]);
 						for ( j = i; j+1 < self->iHistoryMax; j++ )
@@ -66,7 +66,7 @@ int Shell_Interactive(C_SHELL *self)
 				{
 					Memory_Free(self->ppszHistory[self->iHistoryMax-1]);
 				}
-				for ( i = self->iHistoryMax-1; i > 1; i-- )
+				for ( i = self->iHistoryMax-1; i > 0; i-- )
 				{
 					self->ppszHistory[i] = self->ppszHistory[i-1];
 				}

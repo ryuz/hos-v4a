@@ -574,6 +574,10 @@
 /* cre_isr */
 /* acre_isr */
 /* del_isr */
+#define _KERNEL_SPT_DEL_ISR_E_ID		_KERNEL_SPT_E_ID	(_KERNEL_CFG_DEL_ISR_E_ID)
+#define _KERNEL_SPT_DEL_ISR_E_NOEXS		_KERNEL_SPT_E_ID	(_KERNEL_CFG_DEL_ISR_E_NOEXS)
+#define _KERNEL_SPT_DEL_ISR_E_NOSPT		_KERNEL_SPT_E_ID	(_KERNEL_CFG_DEL_ISR_E_NOSPT)
+
 /* ref_isr */
 /* dis_int */
 /* ena_int */

@@ -415,6 +415,9 @@ $(OBJS_DIR)\acre_isr.c : $(ISROBJ_DIR)\acre_isr.c
 $(OBJS_DIR)\kcre_isr.c : $(ISROBJ_DIR)\kcre_isr.c
 	$(CMD_CP) $(ISROBJ_DIR)\kcre_isr.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\del_isr.c : $(ISROBJ_DIR)\del_isr.c
+	$(CMD_CP) $(ISROBJ_DIR)\del_isr.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\exe_isr.c : $(ISROBJ_DIR)\exe_isr.c
 	$(CMD_CP) $(ISROBJ_DIR)\exe_isr.c $(OBJS_DIR)\
 
@@ -571,6 +574,7 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\end_inh.c	$(COMMON_HEADERS) $(INHOB
 
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\exe_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 
 

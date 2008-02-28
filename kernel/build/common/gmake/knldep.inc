@@ -155,6 +155,7 @@ $(OBJS_DIR)/end_inh.$(EXT_OBJ):	$(INHOBJ_DIR)/end_inh.c	$(COMMON_HEADERS) $(INHO
 
 $(OBJS_DIR)/acre_isr.$(EXT_OBJ):	$(ISROBJ_DIR)/acre_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 $(OBJS_DIR)/kcre_isr.$(EXT_OBJ):	$(ISROBJ_DIR)/kcre_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
+$(OBJS_DIR)/del_isr.$(EXT_OBJ):	$(ISROBJ_DIR)/del_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 $(OBJS_DIR)/exe_isr.$(EXT_OBJ):	$(ISROBJ_DIR)/exe_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 
 

@@ -309,6 +309,7 @@ ISROBJ_DIR = $(KERNEL_OBJ_DIR)/isr
 SRC_DIRS += $(ISROBJ_DIR)
 CSRCS += $(ISROBJ_DIR)/acre_isr.c
 CSRCS += $(ISROBJ_DIR)/kcre_isr.c
+CSRCS += $(ISROBJ_DIR)/del_isr.c
 CSRCS += $(ISROBJ_DIR)/exe_isr.c
 
 

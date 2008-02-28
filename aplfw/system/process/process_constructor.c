@@ -39,6 +39,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	self->Param     = pInf->Param;			/* ユーザーパラメータ */
 	self->StackSize = pInf->StackSize;		/* スタックサイズ */
 	self->Priority  = pInf->Priority;		/* プロセス優先度 */
+	self->SysMode   = 0;					/* システムモード */
 	self->hTerminal = pInf->hTerminal;		/* ターミナル */
 	self->hConsole  = pInf->hConsole;		/* コンソール */
 	self->hStdIn    = pInf->hStdIn;			/* 標準入力 */

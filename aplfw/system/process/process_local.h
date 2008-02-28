@@ -41,6 +41,7 @@ typedef struct c_process
 
 	MEMSIZE				StackSize;						/**< スタックサイズ */
 	int					Priority;						/**< プロセス優先度 */
+	int					SysMode;						/**< システムモード */
 	HANDLE				hTerminal;						/**< ターミナル */
 	HANDLE				hConsole;						/**< コンソール */
 	HANDLE				hStdIn;							/**< 標準入力 */

@@ -117,9 +117,14 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 #  %jp{ルール}
 # --------------------------------------
 
+
+# %jp{カーネルライブラリ}
+$(KERNEL_BUILD_DIR)/$(KERNEL_LIB).$(EXT_LIB): kernel_make
+
+
 # %jp{ライブラリ生成}
 .PHONY : makeexe_all
-makeexe_all: kernel_make makeexe_mkobjsdir $(CSRCS) $(ASRCS)
+makeexe_all: makeexe_mkobjsdir $(CSRCS) $(ASRCS)
 
 
 # %jp{クリーンナップ}

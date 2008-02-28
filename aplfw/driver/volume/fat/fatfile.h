@@ -13,8 +13,8 @@
 #define __HOS__fatfile_h__
 
 
-#include "fatvol.h"
-#include "system/file/fileobj.h"
+#include "fatvol_local.h"
+#include "system/file/fileobj_local.h"
 
 
 /* ファイルディスクリプタ */
@@ -32,13 +32,14 @@ typedef struct c_fatfile
 } C_FATFILE;
 
 
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 HANDLE FatFile_Create(C_FATVOL *pFatVol, FATVOL_UINT uiStartCluster, FATVOL_UINT uiDirCluster, FATVOL_UINT uiDirEntryPos, FILE_POS FileSize, int iMode);
 void   FatFile_Delete(HANDLE hFile);
-
 
 #ifdef __cplusplus
 }

@@ -13,12 +13,43 @@
 #include "fatvol_local.h"
 
 
+/* 仮想関数テーブル */
+const T_VOLUMEOBJ_METHODS FatVol_VolumeObjMethods =
+{
+	{
+		{ FatVol_Delete },
+		FatVol_Open,
+		FatVol_Close,
+		FatVol_IoControl,
+		FatVol_Seek,
+		FatVol_Read,
+		FatVol_Write,
+		FatVol_Flush,
+	},
+	FatVol_Shutdown,
+	FatVol_MakeDir,
+	FatVol_Remove,
+};
+
 
 /* コンストラクタ */
 FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethods, const char *pszPath)
 {
 	unsigned char ubBuf[512];
 	int           i;
+	
+	/* 仮想関数テーブル */
+	if ( pMethods == NULL )
+	{
+		pMethods = &FatVol_VolumeObjMethods;
+	}
+	
+	/* メンバ変数初期化 */
+	self->iShutdown  = 0;
+	self->iOpenCount = 0;
+	self->Offset     = 0;
+	self->iFatType   = FATVOL_TYPE_UNKNOWN;
+	
 		
 	/* ブロックデバイスのオープン */
 	self->hBlockFile = File_Open(pszPath, FILE_OPEN_READ | FILE_OPEN_WRITE);
@@ -26,9 +57,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	{
 		return FATVOL_ERR_NG;
 	}
-
-	self->Offset = 0;
-		
+			
 	/* パーティーションテーブルチェック */
 	File_Seek(self->hBlockFile, 0, FILE_SEEK_SET);
 	File_Read(self->hBlockFile, ubBuf, 512);
@@ -53,8 +82,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	
 	/* サイズ取得 */
 	self->DriveSize  = File_Seek(self->hBlockFile, 0, FILE_SEEK_END);
-	self->iFatType   = FATVOL_TYPE_UNKNOWN;
-	
+
 	
 	/* BIOS Parameter Block */
 	File_Seek(self->hBlockFile, self->Offset, FILE_SEEK_SET);

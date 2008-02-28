@@ -86,7 +86,7 @@ CSRCS += ../kernel_cfg.c	\
 # --------------------------------------
 
 .PHONY : all
-all: makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: kernal_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h

@@ -14,7 +14,31 @@
 #include "system/process/process.h"
 #include "system/command/command.h"
 #include "system/file/file.h"
+#include "system/file/volume.h"
 #include "system/file/stdfile.h"
+
+
+#define _DEBUG_PRINTF	StdIo_PrintFormat
+
+#ifdef _DEBUG
+#define _ASSERT(x)									do { if (!(x)) { for(;;) ; } while (0)
+#define _DEBUG_PRINT0(x)							do { _DEBUG_PRINTF((x)); } while (0)
+#define _DEBUG_PRINT1(x, p1)						do { _DEBUG_PRINTF((x), (p1)); } while (0)
+#define _DEBUG_PRINT2(x, p1, p2)					do { _DEBUG_PRINTF((x), (p1), (p2)); } while (0)
+#define _DEBUG_PRINT3(x, p1, p2, p3)				do { _DEBUG_PRINTF((x), (p1), (p2), (p3)); } while (0)
+#define _DEBUG_PRINT4(x, p1, p2, p3, p4)			do { _DEBUG_PRINTF((x), (p1), (p2), (p3), (p4)); } while (0)
+#define _DEBUG_PRINT5(x, p1, p2, p3, p4, p5)		do { _DEBUG_PRINTF((x), (p1), (p2), (p3), (p4), (p5)); } while (0)
+#define _DEBUG_PRINT6(x, p1, p2, p3, p4, p5, p6)	do { _DEBUG_PRINTF((x), (p1), (p2), (p3), (p4), (p5), (p6)); } while (0)
+#else
+#define _ASSERT(x)									do {} while (0)
+#define _DEBUG_PRINT0(x)							do {} while (0)
+#define _DEBUG_PRINT1(x, p1)						do {} while (0)
+#define _DEBUG_PRINT2(x, p1, p2)					do {} while (0)
+#define _DEBUG_PRINT3(x, p1, p2, p3)				do {} while (0)
+#define _DEBUG_PRINT4(x, p1, p2, p3, p4)			do {} while (0)
+#define _DEBUG_PRINT5(x, p1, p2, p3, p4, p5)		do {} while (0)
+#define _DEBUG_PRINT6(x, p1, p2, p3, p4, p5, p6)	do {} while (0)
+#endif
 
 
 /* InternetProtocol バイトオーダー変換マクロ */

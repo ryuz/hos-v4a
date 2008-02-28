@@ -29,6 +29,10 @@ CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
 CFGRTR     = h4acfg-at91
 
 
+# %jp{カーネル指定}
+KERNEL = Yes
+
+
 # %jp{共通定義読込み}
 !include $(KERNEL_MAKINC_DIR)/common.inc
 

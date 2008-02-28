@@ -61,6 +61,7 @@ LINK_FILELIST         ?= Yes
 LINK_FILECAT          ?= Yes
 LINK_FILECOPY         ?= Yes
 LINK_FILEDUMP         ?= Yes
+LINK_FATMOUNT         ?= Yes
 LINK_FLASHCMD         ?= Yes
 LINK_ETHERSNOOP       ?= Yes
 LINK_HELLO            ?= Yes
@@ -178,6 +179,9 @@ CSRCS += $(PROCESS_DIR)/process_waitexit.c
 CSRCS += $(PROCESS_DIR)/process_getexitcode.c
 CSRCS += $(PROCESS_DIR)/process_getparam.c
 CSRCS += $(PROCESS_DIR)/process_setparam.c
+CSRCS += $(PROCESS_DIR)/process_entersystemmode.c
+CSRCS += $(PROCESS_DIR)/process_leavesystemmode.c
+CSRCS += $(PROCESS_DIR)/process_issystemmode.c
 CSRCS += $(PROCESS_DIR)/process_setcurrentdir.c
 CSRCS += $(PROCESS_DIR)/process_getcurrentdir.c
 CSRCS += $(PROCESS_DIR)/process_getparentprocess.c
@@ -228,6 +232,8 @@ CSRCS += $(FILE_DIR)/fileobj_delete.c
 CSRCS += $(FILE_DIR)/fileobj_destructor.c
 CSRCS += $(FILE_DIR)/file_adddevice.c
 CSRCS += $(FILE_DIR)/file_addvolume.c
+CSRCS += $(FILE_DIR)/file_removevolume.c
+CSRCS += $(FILE_DIR)/file_getvolume.c
 CSRCS += $(FILE_DIR)/file_close.c
 CSRCS += $(FILE_DIR)/file_getchar.c
 CSRCS += $(FILE_DIR)/file_getstring.c
@@ -258,18 +264,22 @@ CSRCS += $(FILE_DIR)/sysvolfile_constructor.c
 CSRCS += $(FILE_DIR)/sysvolfile_create.c
 CSRCS += $(FILE_DIR)/sysvolfile_delete.c
 CSRCS += $(FILE_DIR)/sysvolfile_destructor.c
-CSRCS += $(FILE_DIR)/sysvol_adddevice.c
-CSRCS += $(FILE_DIR)/sysvol_close.c
 CSRCS += $(FILE_DIR)/sysvol_constructor.c
+CSRCS += $(FILE_DIR)/sysvol_open.c
+CSRCS += $(FILE_DIR)/sysvol_close.c
 CSRCS += $(FILE_DIR)/sysvol_create.c
 CSRCS += $(FILE_DIR)/sysvol_delete.c
 CSRCS += $(FILE_DIR)/sysvol_destructor.c
 CSRCS += $(FILE_DIR)/sysvol_iocontrol.c
-CSRCS += $(FILE_DIR)/sysvol_open.c
+CSRCS += $(FILE_DIR)/sysvol_adddevice.c
+CSRCS += $(FILE_DIR)/sysvol_removedevice.c
+CSRCS += $(FILE_DIR)/sysvol_getdevice.c
+CSRCS += $(FILE_DIR)/volume_shutdown.c
 CSRCS += $(FILE_DIR)/volumeobj_constructor.c
 CSRCS += $(FILE_DIR)/volumeobj_create.c
 CSRCS += $(FILE_DIR)/volumeobj_delete.c
 CSRCS += $(FILE_DIR)/volumeobj_destructor.c
+CSRCS += $(FILE_DIR)/volumeobj_shutdown.c
 CSRCS += $(FILE_DIR)/volumeobj_makedir.c
 CSRCS += $(FILE_DIR)/volumeobj_remove.c
 endif
@@ -666,6 +676,7 @@ CSRCS += $(FATVOL_DIR)/fatvol_seek.c
 CSRCS += $(FATVOL_DIR)/fatvol_read.c
 CSRCS += $(FATVOL_DIR)/fatvol_write.c
 CSRCS += $(FATVOL_DIR)/fatvol_flush.c
+CSRCS += $(FATVOL_DIR)/fatvol_shutdown.c
 CSRCS += $(FATVOL_DIR)/fatvol_makedir.c
 CSRCS += $(FATVOL_DIR)/fatvol_remove.c
 CSRCS += $(FATVOL_DIR)/fatvol_clusterread.c
@@ -793,6 +804,14 @@ ifeq ($(LINK_FILEDUMP),Yes)
 FILEDUMP_DIR = $(HOSAPLFW_DIR)/application/filecmd/filedump
 SRC_DIRS += $(FILEDUMP_DIR)
 CSRCS += $(FILEDUMP_DIR)/filedump_main.c
+endif
+
+
+# FAT mount
+ifeq ($(LINK_FATMOUNT),Yes)
+FATMOUNT_DIR = $(HOSAPLFW_DIR)/application/fatcmd/fatmount
+SRC_DIRS += $(FATMOUNT_DIR)
+CSRCS += $(FATMOUNT_DIR)/fatmount_main.c
 endif
 
 

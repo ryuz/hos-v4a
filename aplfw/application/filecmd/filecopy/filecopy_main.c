@@ -48,13 +48,12 @@ int FileCopy_Main(int argc, char *argv[])
 		return 1;
 	}
 	
-	
 	/* コピー */
 	while ( (Size = File_Read(hFileSrc, pBuf, FILECOPY_BUFSIZE)) > 0 )
 	{
 		File_Write(hFileDst, pBuf, Size);
 	}
-		
+	
 	/* Close */
 	File_Close(hFileSrc);
 	File_Close(hFileDst);

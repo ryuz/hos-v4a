@@ -21,6 +21,7 @@ extern "C" {
 #endif
 
 HANDLE   Volume_OpenFile(HANDLE hVolume, const char *pszPath, int iMode);		/* ファイルを開く */
+FILE_ERR Volume_Shutdown(HANDLE hVolume);										/* シャットダウンする */
 FILE_ERR Volume_MakeDir(HANDLE hVolume, const char *pszPath);					/* サブディレクトリを作成 */
 FILE_ERR Volume_Remove(HANDLE hVolume, const char *pszPath);					/* ファイルを削除 */
 

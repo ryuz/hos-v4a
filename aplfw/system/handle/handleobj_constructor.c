@@ -20,10 +20,10 @@ void HandleObj_Constructor(C_HANDLEOBJ *self, const T_HANDLEOBJ_METHODS *pMethod
 
 	/* 仮想関数テーブルの登録 */
 	self->pMethods = pMethods;
-
-	/* プロセスに紐付け */
+	
+	/* システムモードでなければプロセスに紐付け */
 	pParent = (C_HANDLEOBJ *)Process_GetCurrentHandle();
-	if ( pParent == NULL )
+	if ( Process_IsSystemMode() || pParent == NULL )
 	{
 		/* システムプロセスなら親無しで作る */
 		self->pParent = NULL;

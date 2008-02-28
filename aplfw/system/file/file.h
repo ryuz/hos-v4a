@@ -167,9 +167,11 @@ void      File_Initialize(void);											/* ファイルシステムの初期�
 
 FILE_ERR  File_AddDevice(const char *pszName, HANDLE hDriver);				/* デバイスドライバの登録 */
 FILE_ERR  File_RemoveDevice(const char *pszName);							/* デバイスドライバの削除 */
+HANDLE    File_GetDevice(const char *pszName);								/* デバイスドライバの取得 */
 
 FILE_ERR  File_AddVolume(const char *pszName, HANDLE hVolume);				/* ボリュームのマウント */
 FILE_ERR  File_RemoveVolume(const char *pszName);							/* ボリュームのアンマウント */
+HANDLE    File_GetVolume(const char *pszName);								/* ボリュームの取得 */
 
 
 /* 基本API */

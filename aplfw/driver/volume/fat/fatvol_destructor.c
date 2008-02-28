@@ -15,8 +15,11 @@
 /** デストラクタ */
 void FatVol_Destructor(C_FATVOL *self)
 {
-	int			i;
-
+	int	i;
+	
+	/* デバイスクローズ */
+	File_Close(self->hBlockFile);
+	
 	/* クラスタバッファ開放 */
 	for ( i = 0; i < self->iClusterBufNum; i++ )
 	{

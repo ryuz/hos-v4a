@@ -14,9 +14,7 @@
 
 
 #include "fatfile.h"
-#include "system/file/fileobj_local.h"
 #include "system/sysapi/sysapi.h"
-
 
 
 #ifdef __cplusplus

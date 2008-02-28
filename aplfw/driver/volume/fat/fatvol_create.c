@@ -14,24 +14,6 @@
 
 
 
-/* 仮想関数テーブル */
-const T_VOLUMEOBJ_METHODS FatVol_VolumeObjMethods =
-{
-	{
-		{ FatVol_Delete },
-		FatVol_Open,
-		FatVol_Close,
-		FatVol_IoControl,
-		FatVol_Seek,
-		FatVol_Read,
-		FatVol_Write,
-		FatVol_Flush,
-	},
-	FatVol_MakeDir,
-	FatVol_Remove,
-};
-
-
 /* コンストラクタ */
 HANDLE FatVol_Create(const char *pszPath)
 {
@@ -44,7 +26,7 @@ HANDLE FatVol_Create(const char *pszPath)
 	}
 	
 	/* コンストラクタ呼び出し */
-	if ( FatVol_Constructor(self, &FatVol_VolumeObjMethods, pszPath) != FILE_ERR_OK )
+	if ( FatVol_Constructor(self, NULL, pszPath) != FILE_ERR_OK )
 	{
 		SysMem_Free(self);
 		return HANDLE_NULL;

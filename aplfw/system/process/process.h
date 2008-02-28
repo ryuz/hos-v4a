@@ -62,6 +62,10 @@ void          Process_Exit(int iExitCode);												/**< 現在のプロセス
 int           Process_WaitExit(HANDLE hProcess);										/**< プロセスの終了を待つ */
 int           Process_GetExitCode(HANDLE hProcess);										/**< プロセスの終了コード取得 */
 
+PROCESS_ERR   Process_EnterSystemMode(void);											/**< システムモードに入る */
+void          Process_LeaveSystemMode(void);											/**< システムモードを出る */
+int           Process_IsSystemMode(void);												/**< システムモードかどうか問い合わせ */
+
 const char    *Process_GetCommandLine(HANDLE hProcess);									/**< コマンドラインの取得 */	
 unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanosecond);	/**< 実行時間の取得 */	
 HANDLE        Process_GetParentProcess(HANDLE hProcess);								/**< 親プロセスの取得 */

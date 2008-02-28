@@ -26,6 +26,7 @@ const T_VOLUMEOBJ_METHODS SysVol_VolumeObjMethods =
 		DrvObj_Write,
 		DrvObj_Flush,
 	},
+	VolumeObj_Shutdown,
 	VolumeObj_MakeDir,
 	VolumeObj_Remove,
 };

@@ -229,6 +229,15 @@ $(OBJS_DIR)\process_getparam.c : $(PROCESS_DIR)\process_getparam.c
 $(OBJS_DIR)\process_setparam.c : $(PROCESS_DIR)\process_setparam.c
 	$(CMD_CP) $(PROCESS_DIR)\process_setparam.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\process_entersystemmode.c : $(PROCESS_DIR)\process_entersystemmode.c
+	$(CMD_CP) $(PROCESS_DIR)\process_entersystemmode.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\process_leavesystemmode.c : $(PROCESS_DIR)\process_leavesystemmode.c
+	$(CMD_CP) $(PROCESS_DIR)\process_leavesystemmode.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\process_issystemmode.c : $(PROCESS_DIR)\process_issystemmode.c
+	$(CMD_CP) $(PROCESS_DIR)\process_issystemmode.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\process_setcurrentdir.c : $(PROCESS_DIR)\process_setcurrentdir.c
 	$(CMD_CP) $(PROCESS_DIR)\process_setcurrentdir.c $(OBJS_DIR)\
 
@@ -402,6 +411,12 @@ $(OBJS_DIR)\file_adddevice.c : $(FILE_DIR)\file_adddevice.c
 $(OBJS_DIR)\file_addvolume.c : $(FILE_DIR)\file_addvolume.c
 	$(CMD_CP) $(FILE_DIR)\file_addvolume.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\file_removevolume.c : $(FILE_DIR)\file_removevolume.c
+	$(CMD_CP) $(FILE_DIR)\file_removevolume.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\file_getvolume.c : $(FILE_DIR)\file_getvolume.c
+	$(CMD_CP) $(FILE_DIR)\file_getvolume.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\file_close.c : $(FILE_DIR)\file_close.c
 	$(CMD_CP) $(FILE_DIR)\file_close.c $(OBJS_DIR)\
 
@@ -492,14 +507,14 @@ $(OBJS_DIR)\sysvolfile_delete.c : $(FILE_DIR)\sysvolfile_delete.c
 $(OBJS_DIR)\sysvolfile_destructor.c : $(FILE_DIR)\sysvolfile_destructor.c
 	$(CMD_CP) $(FILE_DIR)\sysvolfile_destructor.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\sysvol_adddevice.c : $(FILE_DIR)\sysvol_adddevice.c
-	$(CMD_CP) $(FILE_DIR)\sysvol_adddevice.c $(OBJS_DIR)\
+$(OBJS_DIR)\sysvol_constructor.c : $(FILE_DIR)\sysvol_constructor.c
+	$(CMD_CP) $(FILE_DIR)\sysvol_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysvol_open.c : $(FILE_DIR)\sysvol_open.c
+	$(CMD_CP) $(FILE_DIR)\sysvol_open.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\sysvol_close.c : $(FILE_DIR)\sysvol_close.c
 	$(CMD_CP) $(FILE_DIR)\sysvol_close.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sysvol_constructor.c : $(FILE_DIR)\sysvol_constructor.c
-	$(CMD_CP) $(FILE_DIR)\sysvol_constructor.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\sysvol_create.c : $(FILE_DIR)\sysvol_create.c
 	$(CMD_CP) $(FILE_DIR)\sysvol_create.c $(OBJS_DIR)\
@@ -513,8 +528,17 @@ $(OBJS_DIR)\sysvol_destructor.c : $(FILE_DIR)\sysvol_destructor.c
 $(OBJS_DIR)\sysvol_iocontrol.c : $(FILE_DIR)\sysvol_iocontrol.c
 	$(CMD_CP) $(FILE_DIR)\sysvol_iocontrol.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\sysvol_open.c : $(FILE_DIR)\sysvol_open.c
-	$(CMD_CP) $(FILE_DIR)\sysvol_open.c $(OBJS_DIR)\
+$(OBJS_DIR)\sysvol_adddevice.c : $(FILE_DIR)\sysvol_adddevice.c
+	$(CMD_CP) $(FILE_DIR)\sysvol_adddevice.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysvol_removedevice.c : $(FILE_DIR)\sysvol_removedevice.c
+	$(CMD_CP) $(FILE_DIR)\sysvol_removedevice.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysvol_getdevice.c : $(FILE_DIR)\sysvol_getdevice.c
+	$(CMD_CP) $(FILE_DIR)\sysvol_getdevice.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\volume_shutdown.c : $(FILE_DIR)\volume_shutdown.c
+	$(CMD_CP) $(FILE_DIR)\volume_shutdown.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\volumeobj_constructor.c : $(FILE_DIR)\volumeobj_constructor.c
 	$(CMD_CP) $(FILE_DIR)\volumeobj_constructor.c $(OBJS_DIR)\
@@ -527,6 +551,9 @@ $(OBJS_DIR)\volumeobj_delete.c : $(FILE_DIR)\volumeobj_delete.c
 
 $(OBJS_DIR)\volumeobj_destructor.c : $(FILE_DIR)\volumeobj_destructor.c
 	$(CMD_CP) $(FILE_DIR)\volumeobj_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\volumeobj_shutdown.c : $(FILE_DIR)\volumeobj_shutdown.c
+	$(CMD_CP) $(FILE_DIR)\volumeobj_shutdown.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\volumeobj_makedir.c : $(FILE_DIR)\volumeobj_makedir.c
 	$(CMD_CP) $(FILE_DIR)\volumeobj_makedir.c $(OBJS_DIR)\
@@ -1396,6 +1423,9 @@ $(OBJS_DIR)\fatvol_write.c : $(FATVOL_DIR)\fatvol_write.c
 $(OBJS_DIR)\fatvol_flush.c : $(FATVOL_DIR)\fatvol_flush.c
 	$(CMD_CP) $(FATVOL_DIR)\fatvol_flush.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\fatvol_shutdown.c : $(FATVOL_DIR)\fatvol_shutdown.c
+	$(CMD_CP) $(FATVOL_DIR)\fatvol_shutdown.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\fatvol_makedir.c : $(FATVOL_DIR)\fatvol_makedir.c
 	$(CMD_CP) $(FATVOL_DIR)\fatvol_makedir.c $(OBJS_DIR)\
 
@@ -1562,6 +1592,13 @@ $(OBJS_DIR)\filedump_main.c : $(FILEDUMP_DIR)\filedump_main.c
 	$(CMD_CP) $(FILEDUMP_DIR)\filedump_main.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\fatmount.h : $(FATMOUNT_DIR)\fatmount.h
+	$(CMD_CP) $(FATMOUNT_DIR)\fatmount.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\fatmount_main.c : $(FATMOUNT_DIR)\fatmount_main.c
+	$(CMD_CP) $(FATMOUNT_DIR)\fatmount_main.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\norflashcmd.h : $(FLASHCMD_DIR)\norflashcmd.h
 	$(CMD_CP) $(FLASHCMD_DIR)\norflashcmd.h $(OBJS_DIR)\
 
@@ -1653,6 +1690,9 @@ $(OBJS_DIR)\process_waitexit.$(EXT_OBJ):	$(OBJS_DIR)\process_waitexit.c	$(COMMON
 $(OBJS_DIR)\process_getexitcode.$(EXT_OBJ):	$(OBJS_DIR)\process_getexitcode.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getparam.$(EXT_OBJ):	$(OBJS_DIR)\process_getparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setparam.$(EXT_OBJ):	$(OBJS_DIR)\process_setparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_entersystemmode.$(EXT_OBJ):	$(OBJS_DIR)\process_entersystemmode.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_leavesystemmode.$(EXT_OBJ):	$(OBJS_DIR)\process_leavesystemmode.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_issystemmode.$(EXT_OBJ):	$(OBJS_DIR)\process_issystemmode.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setcurrentdir.$(EXT_OBJ):	$(OBJS_DIR)\process_setcurrentdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getcurrentdir.$(EXT_OBJ):	$(OBJS_DIR)\process_getcurrentdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getparentprocess.$(EXT_OBJ):	$(OBJS_DIR)\process_getparentprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1691,6 +1731,8 @@ $(OBJS_DIR)\fileobj_delete.$(EXT_OBJ):	$(OBJS_DIR)\fileobj_delete.c	$(COMMON_HEA
 $(OBJS_DIR)\fileobj_destructor.$(EXT_OBJ):	$(OBJS_DIR)\fileobj_destructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_adddevice.$(EXT_OBJ):	$(OBJS_DIR)\file_adddevice.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_addvolume.$(EXT_OBJ):	$(OBJS_DIR)\file_addvolume.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\file_removevolume.$(EXT_OBJ):	$(OBJS_DIR)\file_removevolume.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\file_getvolume.$(EXT_OBJ):	$(OBJS_DIR)\file_getvolume.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_close.$(EXT_OBJ):	$(OBJS_DIR)\file_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_getchar.$(EXT_OBJ):	$(OBJS_DIR)\file_getchar.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_getstring.$(EXT_OBJ):	$(OBJS_DIR)\file_getstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1721,18 +1763,22 @@ $(OBJS_DIR)\sysvolfile_constructor.$(EXT_OBJ):	$(OBJS_DIR)\sysvolfile_constructo
 $(OBJS_DIR)\sysvolfile_create.$(EXT_OBJ):	$(OBJS_DIR)\sysvolfile_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysvolfile_delete.$(EXT_OBJ):	$(OBJS_DIR)\sysvolfile_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysvolfile_destructor.$(EXT_OBJ):	$(OBJS_DIR)\sysvolfile_destructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\sysvol_adddevice.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_adddevice.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\sysvol_close.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysvol_constructor.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_constructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysvol_open.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_open.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysvol_close.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysvol_create.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysvol_delete.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysvol_destructor.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_destructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysvol_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_iocontrol.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\sysvol_open.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_open.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysvol_adddevice.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_adddevice.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysvol_removedevice.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_removedevice.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysvol_getdevice.$(EXT_OBJ):	$(OBJS_DIR)\sysvol_getdevice.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\volume_shutdown.$(EXT_OBJ):	$(OBJS_DIR)\volume_shutdown.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\volumeobj_constructor.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_constructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\volumeobj_create.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\volumeobj_delete.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\volumeobj_destructor.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_destructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\volumeobj_shutdown.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_shutdown.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\volumeobj_makedir.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_makedir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\volumeobj_remove.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_remove.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
@@ -1987,6 +2033,7 @@ $(OBJS_DIR)\fatvol_seek.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_seek.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_read.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_read.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_write.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_write.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_flush.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_flush.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fatvol_shutdown.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_shutdown.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_makedir.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_makedir.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_remove.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_remove.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_clusterread.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_clusterread.c	$(COMMON_HEADERS)
@@ -2037,6 +2084,8 @@ $(OBJS_DIR)\filecat_main.$(EXT_OBJ):	$(OBJS_DIR)\filecat_main.c	$(COMMON_HEADERS
 $(OBJS_DIR)\filecopy_main.$(EXT_OBJ):	$(OBJS_DIR)\filecopy_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\filedump_main.$(EXT_OBJ):	$(OBJS_DIR)\filedump_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\fatmount_main.$(EXT_OBJ):	$(OBJS_DIR)\fatmount_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\norflashcmd_main.$(EXT_OBJ):	$(OBJS_DIR)\norflashcmd_main.c	$(COMMON_HEADERS)
 

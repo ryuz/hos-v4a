@@ -30,6 +30,10 @@ KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 OBJS_DIR          = objs_$(TARGET)
 
 
+# %jp{カーネル指定}
+KERNEL = Yes
+
+
 # %jp{共通定義読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 

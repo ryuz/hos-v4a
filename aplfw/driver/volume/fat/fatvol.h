@@ -26,51 +26,12 @@ typedef	int				FATVOL_ERR;
 typedef	long			FATVOL_INT;
 typedef unsigned long	FATVOL_UINT;
 
-struct t_fatvol_clusterbuf;
-
-/* クラスタバッファ */
-typedef struct c_fatvol
-{
-	C_VOLUMEOBJ			VolumeObj;					/* ボリュームオブジェクトを継承 */
-
-	HANDLE				hBlockFile;					/**< ブロックデバイスドライバのハンドル */
-	
-	SYSMTX_HANDLE		hMtx;						/**< ロック用ミューテックス */
-	
-	int					iOpenCount;					/**< オープンカウンタ */
-	
-	int					iFatType;					/**< FATのタイプ */
-	FILE_POS			Offset;						/**< ディスクのオフセット */
-	FILE_POS			DriveSize;					/**< ドライブの総サイズ */
-	FATVOL_UINT			BytesPerSector;				/**< セクタサイズ */
-	FATVOL_UINT			SectorsPerCluster;			/**< クラスタあたりのセクタ数 */
-	FATVOL_UINT			BytesPerCluster;			/**< クラスタサイズ */
-	FATVOL_UINT			FatStartSector;				/**< FATの開始セクタ番号 */
-	FATVOL_UINT			SectorNum;					/**< 総セクタ数 */
-	FATVOL_UINT			SectorPerFat;				/**< FATあたりのセクタ数 */
-	FATVOL_UINT			FatNum;						/**< FATの個数 */
-	FATVOL_UINT			RootDirEntryNum;			/**< ルートディレクトリのエントリ数 */
-	FATVOL_UINT			RootDirSector;				/**< ルートディレクトリのセクタ */
-	FATVOL_UINT			Cluster0Sector;				/**< クラスタ0のセクタ番号 */
-	FATVOL_UINT			ClusterNum;					/**< 総クラスタ数 */
-	FATVOL_UINT			RootDirCluster;				/**< ルートディレクトリのクラスタ番号 */
-	
-	unsigned char		*pubFatBuf;					/**< FATのバッファリングメモリ */
-	unsigned char		*pubFatDirty;				/**< FATの更新フラグ */
-	
-	struct t_fatvol_clusterbuf	*pClusterBuf;
-	int							iClusterBufNum;
-} C_FATVOL;
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 HANDLE FatVol_Create(const char *pszPath);
 void   FatVol_Delete(HANDLE hVolume);
-
-HANDLE FatVol_CreateFile(C_FATVOL *self, FATVOL_UINT uiCluster, HANDLE hDir, int iDirEntry, int iMode);
 
 #ifdef __cplusplus
 }

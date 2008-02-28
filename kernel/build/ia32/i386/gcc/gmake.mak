@@ -23,12 +23,15 @@ CMD_ASM  ?= $(GCC_ARCH)gcc
 CMD_LIBR ?= $(GCC_ARCH)ar
 
 
-
 # %jp{ディレクトリ定義}
 TOP_DIR           = ../../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 OBJS_DIR          = objs_$(TARGET)
+
+
+# %jp{カーネル指定}
+KERNEL = Yes
 
 
 # %jp{共通定義読込み}

@@ -139,8 +139,13 @@ LIBS     = $(LIBS) $(KERNEL_BUILD_DIR)\$(OS_LIB).$(EXT_LIB)
 #  %jp{ルール}
 # --------------------------------------
 
+
+# %jp{カーネルライブラリ}
+$(KERNEL_BUILD_DIR)\$(OS_LIB).$(EXT_LIB): kernel_make
+
+
 # %jp{all処理}
-makeexe_all: kernel_make mkdir_objs $(CSRCS) $(ASRCS)
+makeexe_all: mkdir_objs $(CSRCS) $(ASRCS)
 
 
 # %jp{オブジェクト出力ディレクトリ作成}

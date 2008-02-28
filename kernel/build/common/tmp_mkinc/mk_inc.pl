@@ -250,6 +250,7 @@
 		"ISROBJ_DIR",
 		"acre_isr.c",
 		"kcre_isr.c",
+		"del_isr.c",
 		"exe_isr.c",
 	],
 );

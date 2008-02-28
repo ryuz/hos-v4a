@@ -22,6 +22,11 @@ TOP_DIR      = ../../../../..
 KNL_DIR      = $(TOP_DIR)/kernel
 OBJS_DIR     = objs_$(TARGET)
 
+
+# %jp{カーネル指定}
+KERNEL = Yes
+
+
 # インクルードディレクトリ定義
 INC_KNL_DIR  = $(KNL_DIR)/include
 INC_PROC_DIR = $(INC_KNL_DIR)/arch/proc/$(ARCH_PROC)

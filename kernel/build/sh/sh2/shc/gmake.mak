@@ -24,6 +24,10 @@ KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 OBJS_DIR          = objs_$(TARGET)
 
 
+# %jp{カーネル指定}
+KERNEL = Yes
+
+
 # %jp{コンフィギュレータ定義}%en{Configurator}
 CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-sh2
