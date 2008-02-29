@@ -38,7 +38,7 @@ typedef struct _kernel_t_toqcb
 #define _KERNEL_TSK_SET_TOQPREV(tcb, x)			do { (tcb)->toqobj_prev = (x); } while (0)
 #define _KERNEL_TSK_GET_TOQPREV(tcb)			((tcb)->toqobj_prev)
 #define _KERNEL_TSK_SET_TOQDIFTIM(tcb, x)		do { (tcb)->toqobj_diftim = (x); } while (0)
-#define _KERNEL_TSK_GET_TOQDIFTIM(tcbl)			((tcb)->toqobj_diftim)
+#define _KERNEL_TSK_GET_TOQDIFTIM(tcb)			((tcb)->toqobj_diftim)
 
 
 
