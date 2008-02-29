@@ -11,6 +11,13 @@
 TARGET ?= hosaplfw
 
 
+# %jp{ツール定義}
+GCC_ARCH ?= mn10300-elf-
+CMD_CC   ?= $(GCC_ARCH)gcc
+CMD_ASM  ?= $(GCC_ARCH)gcc
+CMD_LIBR ?= $(GCC_ARCH)ar
+
+
 # %jp{ディレクトリ定義}
 TOP_DIR            = ../../../../..
 KERNEL_DIR         = $(TOP_DIR)/kernel
@@ -24,18 +31,27 @@ OBJS_DIR           = objs_$(TARGET)
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{インクルードパス設定}
-INC_DIRS += $(APLFW_DIR) $(KERNEL_DIR)/include
+# %jp{パス設定}
+INC_DIRS += $(HOSAPLFW_DIR) $(KERNEL_DIR)/include
+SRC_DIRS += $(DRV_SERIAL_DIR)
 
 
 # %jp{オプションフラグ}
-CFLAGS  =
 AFLAGS  =
+CFLAGS  =
 ARFLAGS =
+
+
+# アセンブラファイルの追加
+ASRCS += 
+
+# C言語ファイルの追加
+CSRCS += 
 
 
 # %jp{リンク制御対象制御}
 LINK_MN103SC = Yes
+
 
 
 .PHONY : all
@@ -53,16 +69,18 @@ srccpy: makelib_srccpy
 
 
 
-# %jp{cc103用の設定読込み}
-include $(KERNEL_MAKINC_DIR)/cc103_d.inc
+# %jp{gcc用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
 # %jp{共通設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
+
+
 include $(HOSAPLFW_MKINK_DIR)/aplfwsrc.inc
 
 
-# %jp{cc03用のルール定義読込み}
-include $(KERNEL_MAKINC_DIR)/cc103_r.inc
+# %jp{gcc用のルール定義読込み}
+include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 # %jp{依存関係定義読込み}
 include $(HOSAPLFW_MKINK_DIR)/aplfwdep.inc

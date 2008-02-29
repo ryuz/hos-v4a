@@ -20,15 +20,15 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "system/shell/shell.h"
 #include "driver/serial/mn103/mn103scdrv.h"
 #include "driver/console/vt100/vt100drv.h"
-#include "application/example/hello/hello.h"
+#include "application/syscmd/shell/shell.h"
 #include "application/filecmd/filelist/filelist.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
+#include "application/example/hello/hello.h"
 #include "boot.h"
 
 #define REG_PCNT	((volatile unsigned short *)0x0000aff2)
@@ -161,10 +161,12 @@ int Boot_Process(VPARAM Param)
 	return 0;
 }
 
-
+/*
 int putc(int c, FILE *stream)
 {
 	return c;
 }
+*/
+
 
 /* end of file */

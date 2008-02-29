@@ -51,9 +51,9 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  +=
-CFLAGS  +=
-ARFLAGS +=
+AFLAGS  =
+CFLAGS  =
+ARFLAGS =
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
@@ -71,7 +71,8 @@ ASRCS += $(SRC_PROC_CC_DIR)/kini_prc.S		\
          $(SRC_PROC_CC_DIR)/kint_hdr.S
 
 # C言語ファイルの追加
-CSRCS += $(SRC_IRC_DIR)/ini_irc.c			\
+CSRCS += $(SRC_PROC_DIR)/val_int.c			\
+         $(SRC_IRC_DIR)/ini_irc.c			\
          $(SRC_IRC_DIR)/exe_irc.c			\
          $(SRC_IRC_DIR)/ena_int.c			\
          $(SRC_IRC_DIR)/dis_int.c			\
@@ -94,6 +95,14 @@ all: makelib_all
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
+
+# depend
+.PHONY : depend
+depend: makelib_depend
+
+# srccpy
+.PHONY : srccpy
+srccpy: makelib_srccpy
 
 
 # %jp{gcc用の設定読込み}

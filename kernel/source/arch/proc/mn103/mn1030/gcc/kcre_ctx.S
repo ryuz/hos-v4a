@@ -27,12 +27,12 @@
 __kernel_cre_ctx:
 				mov		(12, sp), a0	/* コンテキストアドレス取り出し */
 				mov		(16, sp), a1	/* 初期スタックポインタ取り出し */
-				add		-20, a1			/* スタック領域を確保 */
+				add		-24, a1			/* スタック領域を確保 */
 				mov		a1, (a0)		/* スタックポインタ保存 */
-				mov		d0, (12, a1)	/* 実行時パラメータ1設定 */
-				mov		d1, (8, a1)		/* 実行時パラメータ2設定 */
+				mov		d0, (12, a1)	/* 実行時パラメータ1設定(d2) */
+				mov		d1, (8, a1)		/* 実行時パラメータ2設定(d3) */
 				mov		(20, sp), a0	/* 実行アドレス取り出し */
-				mov		a0, (0, a1)		/* 実行アドレス設定 */
+				mov		a0, (0, a1)		/* 実行アドレス設定(a3) */
 				mov		ctx_entry, a0	
 				mov		a0, (16, a1)	/* エントリーアドレス設定 */
 				rets
@@ -46,7 +46,7 @@ __kernel_cre_ctx:
 ctx_entry:
 				mov		d2, d0			/* par1を設定 */
 				mov		d3, d1			/* par2を設定 */
-				jmp		(a2)			/* entry を実行 */
+				jmp		(a3)			/* entry を実行 */
 				.size	ctx_entry, .-ctx_entry
 
 

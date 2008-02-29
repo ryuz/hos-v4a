@@ -25,7 +25,7 @@ __kernel_swi_ctx:
 				movm	[d2,d3,a2,a3], (sp)
 				mov		d1, a0
 				mov		sp, a1
-				mov		d1, (a0)					/* スタックポインタ保存 */
+				mov		a1, (a0)					/* スタックポインタ保存 */
 		/* ---- そのまま _kernel_sta_ctx に続ける ---- */
 
 

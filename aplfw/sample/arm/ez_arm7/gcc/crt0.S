@@ -10,6 +10,7 @@
 				.extern		__kernel_int_isp
 				.extern		___data
 				.extern		___data_end
+				.extern		___data_rom
 				.extern		___bss
 				.extern		___bss_end
 				.extern		main
