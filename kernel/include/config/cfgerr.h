@@ -71,8 +71,12 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* ref_tsk */
 #define _KERNEL_CFG_REF_TSK_E_ID		TRUE
 #define _KERNEL_CFG_REF_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_REF_TSK_E_NOSPT		FALSE
 
 /* ref_tst */
+#define _KERNEL_CFG_REF_TST_E_ID		TRUE
+#define _KERNEL_CFG_REF_TST_E_NOEXS		TRUE
+#define _KERNEL_CFG_REF_TST_E_NOSPT		FALSE
 
 /* slp_tsk */
 /* tslp_tsk */
@@ -267,6 +271,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ACRE_DTQ_E_NOSPT	FALSE
 
 /* del_dtq */
+#define _KERNEL_CFG_DEL_DTQ_E_ID		TRUE
+#define _KERNEL_CFG_DEL_DTQ_E_NOEXS		TRUE
+#define _KERNEL_CFG_DEL_DTQ_E_NOSPT		FALSE
+
 /* snd_dtq */
 #define _KERNEL_CFG_SND_DTQ_E_CTX		TRUE
 #define _KERNEL_CFG_SND_DTQ_E_ID		TRUE

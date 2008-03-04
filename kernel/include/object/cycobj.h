@@ -183,7 +183,7 @@ extern  _KERNEL_T_CYCCB					_kernel_cyccb_tbl[];									/**< %jp{周期ハン�
 
 /* %jp{ポインタ配列管理の場合}%en{pointer array} */
 extern  _KERNEL_T_CYCCB					*_kernel_cyccb_tbl[];									/**< %jp{周期ハンドラコントロールブロックテーブル} */
-#define _KERNEL_CYC_ID2CYCCB(cycid)		(_kernel_cyccb_tbl[(cycid) - _KERNEL_TMIN_CYCID])		/**< %jp{周期ハンドラIDからCYCCB アドレスを取得} */
+#define _KERNEL_CYC_ID2CYCCB(cycid)		(_kernel_cyccb_tbl[(cycid) - _KERNEL_CYC_TMIN_ID])		/**< %jp{周期ハンドラIDからCYCCB アドレスを取得} */
 #define _KERNEL_CYC_CHECK_EXS(cycid)	(_KERNEL_CYC_ID2CYCCB(cycid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 
 #endif

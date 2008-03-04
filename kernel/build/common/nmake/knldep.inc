@@ -220,6 +220,15 @@ $(OBJS_DIR)\ref_tsk.c : $(TSKOBJ_DIR)\ref_tsk.c
 $(OBJS_DIR)\ref_tst.c : $(TSKOBJ_DIR)\ref_tst.c
 	$(CMD_CP) $(TSKOBJ_DIR)\ref_tst.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\def_tex.c : $(TSKOBJ_DIR)\def_tex.c
+	$(CMD_CP) $(TSKOBJ_DIR)\def_tex.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\ras_tex.c : $(TSKOBJ_DIR)\ras_tex.c
+	$(CMD_CP) $(TSKOBJ_DIR)\ras_tex.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\exe_tex.c : $(TSKOBJ_DIR)\exe_tex.c
+	$(CMD_CP) $(TSKOBJ_DIR)\exe_tex.c $(OBJS_DIR)\
+
 
 $(OBJS_DIR)\cre_sem.c : $(SEMOBJ_DIR)\cre_sem.c
 	$(CMD_CP) $(SEMOBJ_DIR)\cre_sem.c $(OBJS_DIR)\
@@ -297,6 +306,9 @@ $(OBJS_DIR)\acre_dtq.c : $(DTQOBJ_DIR)\acre_dtq.c
 
 $(OBJS_DIR)\kcre_dtq.c : $(DTQOBJ_DIR)\kcre_dtq.c
 	$(CMD_CP) $(DTQOBJ_DIR)\kcre_dtq.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\del_dtq.c : $(DTQOBJ_DIR)\del_dtq.c
+	$(CMD_CP) $(DTQOBJ_DIR)\del_dtq.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\snd_dtq.c : $(DTQOBJ_DIR)\snd_dtq.c
 	$(CMD_CP) $(DTQOBJ_DIR)\snd_dtq.c $(OBJS_DIR)\
@@ -503,6 +515,9 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rsm_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dly_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tst.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\def_tex.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ras_tex.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\exe_tex.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
@@ -531,6 +546,7 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_flg.c	$(COMMON_HEADERS) $(FLGOB
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\snd_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\fsnd_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rcv_dtq.c	$(COMMON_HEADERS) $(DTQOBJ_HEADERS)

@@ -328,11 +328,19 @@
 #define _KERNEL_SPT_TSK				FALSE
 #endif
 
+/* %jp{タスク例外処理サポートの判定} */
+#if ((_KERNEL_CFG_DEF_TEX)|| (_KERNEL_CFG_SDEF_TEX)) && (_KERNEL_CFG_TMAX_TSKID) > 0
+#define _KERNEL_SPT_TEX				TRUE
+#else
 #define _KERNEL_SPT_TEX				FALSE
+#endif
+
+
 #define _KERNEL_SPT_SEM				TRUE
 #define _KERNEL_SPT_FLG				TRUE
 #define _KERNEL_SPT_DTQ				FALSE
 #define _KERNEL_SPT_MBX				FALSE
+
 
 /* %jp{ミューテックスオブジェクトサポートの判定} */
 #if ((_KERNEL_CFG_CRE_MTX)|| (_KERNEL_CFG_ACRE_MTX) || (_KERNEL_CFG_SCRE_MTX)) && (_KERNEL_CFG_TMAX_MTXID) > 0
@@ -754,6 +762,15 @@
 #define _KERNEL_TSK_TMAX_RELTIM		_KERNEL_TMAX_RELTIM
 
 
+
+/* ---------------------------------- */
+/*      Task exception state          */
+/* ---------------------------------- */
+
+#define  _KERNEL_TXS_ENA			1
+#define  _KERNEL_TXS_DIS			0
+
+
 /* ---------------------------------- */
 /*            TCB member              */
 /* ---------------------------------- */
@@ -824,32 +841,11 @@
 #define _KERNEL_TCB_ISP				_KERNEL_PROCATR_CTX_ISP				/**< %jp{TCBにispを含めるか} */
 #endif
 
-
-
-/* ------------------------------------------------------------------ */
-/*  Task Exception Handling Routine                                 */
-/* ------------------------------------------------------------------ */
-
-/* Definitions */
-#define _KERNEL_TEXCB_ALG_BLKARRAY	1
-#define _KERNEL_TEXCB_ALG_PTRARRAY	2
-
-/* Control block */
-#define _KERNEL_TEXCB_ALGORITHM		_KERNEL_CFG_TEXCB_ALGORITHM
-#define _KERNEL_TEXCB_BITFIELD		_KERNEL_CFG_TEXCB_BITFIELD
-
-/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
-#if (_KERNEL_TEXCB_ALGORITHM == _KERNEL_TEXCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_SEM || _KERNEL_SPT_ACRE_SEM)
-#define _KERNEL_TEXCB_SPLIT_RO		FALSE
-#else
-#define _KERNEL_TEXCB_SPLIT_RO		_KERNEL_CFG_TEXCB_SPLIT_RO
-#endif
-
-/* Member variables */
-#define _KERNEL_TEXCB_STATE			TRUE								/**< %jp{タスク例外処理禁止状態} */
-#define _KERNEL_TEXCB_RASPTN		TRUE								/**< %jp{タスク例外処理要因} */
-#define _KERNEL_TEXCB_TEXATR		FALSE								/**< %jp{タスク例外処理ルーチン属性} */
-#define _KERNEL_TEXCB_TEXRTN		TRUE								/**< %jp{タスク例外処理ルーチンの起動番地} */
+/* Task Exception Handling Routine */
+#define _KERNEL_TCB_TEXSTAT			_KERNEL_SPT_TEX						/**< %jp{タスク例外処理状態} */
+#define _KERNEL_TCB_RASPTN			_KERNEL_SPT_TEX						/**< %jp{タスク例外処理要因} */
+#define _KERNEL_TCB_TEXATR			FALSE								/**< %jp{タスク例外処理ルーチン属性} */
+#define _KERNEL_TCB_TEXRTN			_KERNEL_SPT_TEX						/**< %jp{タスク例外処理ルーチンの起動番地} */
 
 
 
@@ -1111,12 +1107,33 @@
 /*  Cyclic Handlers                                                   */
 /* ------------------------------------------------------------------ */
 
+/* Definitions */
+#define _KERNEL_CYCCB_ALG_BLKARRAY	1
+#define _KERNEL_CYCCB_ALG_PTRARRAY	2
+
+/* Control block */
+#define _KERNEL_CYCCB_ALGORITHM		_KERNEL_CFG_CYCCB_ALGORITHM
+#define _KERNEL_CYCCB_BITFIELD		_KERNEL_CFG_CYCCB_BITFIELD
+
+/* %jp{ブロック配列で動的生成がある場合はRO分離は不可} */
+#if (_KERNEL_CYCCB_ALGORITHM == _KERNEL_CYCCB_ALG_BLKARRAY) && (_KERNEL_SPT_CRE_CYC || _KERNEL_SPT_ACRE_CYC)
+#define _KERNEL_CYCCB_SPLIT_RO		FALSE
+#else
+#define _KERNEL_CYCCB_SPLIT_RO		_KERNEL_CFG_CYCCB_SPLIT_RO
+#endif
+
+/* Attributes */
+#define _KERNEL_SPT_CYC_TA_STA		_KERNEL_CFG_CYC_TA_STA
+#define _KERNEL_SPT_CYC_TA_PHS		_KERNEL_CFG_CYC_TA_PHS
+
+/* Member variables */
 #define _KERNEL_CYCCB_TIMOBJ		TRUE
 #define _KERNEL_CYCCB_CYCATR		TRUE
 #define _KERNEL_CYCCB_EXINF			TRUE
 #define _KERNEL_CYCCB_CYCHDR		TRUE
 #define _KERNEL_CYCCB_CYCTIM		TRUE
 #define _KERNEL_CYCCB_CYCPHS		TRUE
+
 
 
 /* ------------------------------------------------------------------ */

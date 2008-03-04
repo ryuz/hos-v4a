@@ -125,8 +125,12 @@ ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk)
 	_KERNEL_TSK_SET_STK(tcb_ro, stk);							/* %jp{スタック領域の先頭番地} */
 	_KERNEL_TSK_SET_ISP(tcb_ro, (VB *)stk + pk_ctsk->stksz);	/* %jp{スタックポインタ初期値の先頭番地} */
 	_KERNEL_TSK_SET_TSKID(tcb_ro, tskid);
+	_KERNEL_TSK_SET_TEXATR(tcb_ro, TA_HLNG);
+	_KERNEL_TSK_SET_TEXRTN(tcb_ro, NULL);
 	_KERNEL_TSK_SET_TSKSTAT(tcb, _KERNEL_TTS_DMT);
 	_KERNEL_TSK_SET_MTXHDL(tcb, _KERNEL_MTXHDL_NULL);
+	_KERNEL_TSK_SET_TEXSTAT(tcb, _KERNEL_TXS_DIS);
+	_KERNEL_TSK_SET_RASPTN(tcb, 0);
 
 	/* %jp{TA_ACT属性があればタスク実行} */
 #if _KERNEL_SPT_TSK_TA_ACT

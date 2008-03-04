@@ -87,6 +87,14 @@ void _kernel_dsp_tsk(void)
 	
 	/* %jp{ディスパッチ実行} */
 	_KERNEL_SWI_CTX(ctxcb_run, ctxcb_top);
+	
+	/* %jp{タスク例外処理} */
+#if _KERNEL_SPT_TEX
+	if ( tskhdl_run != _KERNEL_TSKHDL_NULL )
+	{
+		_kernel_exe_tex(tskhdl_run);
+	}
+#endif
 }
 
 

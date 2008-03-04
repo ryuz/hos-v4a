@@ -239,6 +239,9 @@ CSRCS = $(CSRCS) $(TSKOBJ_DIR)\rsm_tsk.c
 CSRCS = $(CSRCS) $(TSKOBJ_DIR)\dly_tsk.c
 CSRCS = $(CSRCS) $(TSKOBJ_DIR)\ref_tsk.c
 CSRCS = $(CSRCS) $(TSKOBJ_DIR)\ref_tst.c
+CSRCS = $(CSRCS) $(TSKOBJ_DIR)\def_tex.c
+CSRCS = $(CSRCS) $(TSKOBJ_DIR)\ras_tex.c
+CSRCS = $(CSRCS) $(TSKOBJ_DIR)\exe_tex.c
 OBJS = $(OBJS) $(OBJS_DIR)\acre_tsk.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kcre_tsk.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\del_tsk.$(EXT_OBJ)
@@ -254,6 +257,9 @@ OBJS = $(OBJS) $(OBJS_DIR)\rsm_tsk.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\dly_tsk.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\ref_tsk.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\ref_tst.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\def_tex.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\ras_tex.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\exe_tex.$(EXT_OBJ)
 
 
 # Semaphores
@@ -313,6 +319,7 @@ DTQOBJ_DIR = $(KERNEL_OBJ_DIR)\dtq
 CSRCS = $(CSRCS) $(DTQOBJ_DIR)\cre_dtq.c
 CSRCS = $(CSRCS) $(DTQOBJ_DIR)\acre_dtq.c
 CSRCS = $(CSRCS) $(DTQOBJ_DIR)\kcre_dtq.c
+CSRCS = $(CSRCS) $(DTQOBJ_DIR)\del_dtq.c
 CSRCS = $(CSRCS) $(DTQOBJ_DIR)\snd_dtq.c
 CSRCS = $(CSRCS) $(DTQOBJ_DIR)\fsnd_dtq.c
 CSRCS = $(CSRCS) $(DTQOBJ_DIR)\rcv_dtq.c
@@ -321,6 +328,7 @@ CSRCS = $(CSRCS) $(DTQOBJ_DIR)\trcv_dtq.c
 OBJS = $(OBJS) $(OBJS_DIR)\cre_dtq.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\acre_dtq.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kcre_dtq.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\del_dtq.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\snd_dtq.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\fsnd_dtq.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\rcv_dtq.$(EXT_OBJ)

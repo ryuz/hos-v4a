@@ -200,6 +200,9 @@ CSRCS += $(TSKOBJ_DIR)/rsm_tsk.c
 CSRCS += $(TSKOBJ_DIR)/dly_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ref_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ref_tst.c
+CSRCS += $(TSKOBJ_DIR)/def_tex.c
+CSRCS += $(TSKOBJ_DIR)/ras_tex.c
+CSRCS += $(TSKOBJ_DIR)/exe_tex.c
 
 
 # Semaphores
@@ -240,6 +243,7 @@ SRC_DIRS += $(DTQOBJ_DIR)
 CSRCS += $(DTQOBJ_DIR)/cre_dtq.c
 CSRCS += $(DTQOBJ_DIR)/acre_dtq.c
 CSRCS += $(DTQOBJ_DIR)/kcre_dtq.c
+CSRCS += $(DTQOBJ_DIR)/del_dtq.c
 CSRCS += $(DTQOBJ_DIR)/snd_dtq.c
 CSRCS += $(DTQOBJ_DIR)/fsnd_dtq.c
 CSRCS += $(DTQOBJ_DIR)/rcv_dtq.c

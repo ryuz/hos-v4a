@@ -293,6 +293,7 @@ extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 #define _KERNEL_DTQ_GET_DTQCNT(dtqcb_ro)	(0)
 #endif
 
+
 /* dtq */
 #if _KERNEL_DTQCB_DTQ
 #define _KERNEL_DTQ_SET_DTQ(dtqcb_ro, x)	do { (dtqcb_ro)->dtq = (VP_INT *)(x); } while (0)

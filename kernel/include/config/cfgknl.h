@@ -291,6 +291,32 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 
+/* ------------------------------------------------------------------ */
+/*  System Time Management                                            */
+/* ------------------------------------------------------------------ */
+
+/* %jp{タイムティックの周期}%en{Time Tick Period} */
+#define _KERNEL_CFG_FRACTIONAL_TIMTIC	TRUE				/**< %jp{コンフィギュレータでタイムティックの分数指定を許す} */
+#define _KERNEL_CFG_TIC_NUME			1					/**< %jp{デフォルトのタイムティック周期の分子} */
+#define _KERNEL_CFG_TIC_DENO			1					/**< %jp{デフォルトのタイムティック周期の分母} */
+
+
+
+/* ------------------------------------------------------------------ */
+/*  Cyclic Handlers                                                   */
+/* ------------------------------------------------------------------ */
+
+/* Attribute */
+#define _KERNEL_CFG_CYC_TA_STA			TRUE				/**< %jp{TA_STA属性に対応する} */
+#define _KERNEL_CFG_CYC_TA_PHS			TRUE				/**< %jp{TA_PHS属性に対応する} */
+
+/* Control block */
+#define _KERNEL_CFG_CYCCB_ALGORITHM		_KERNEL_CYCCB_ALG_PTRARRAY
+#define _KERNEL_CFG_CYCCB_SPLIT_RO		FALSE				/**< %jp{CYCCBの不変部を分割してROM部配置とするか} */
+#define _KERNEL_CFG_CYCCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
+
+
+
 /* ---------------------------------------------- */
 /*  Interrupt Service Routines                    */
 /* ---------------------------------------------- */
@@ -302,15 +328,6 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 
-
-/* ------------------------------------------------------------------ */
-/*  System Time Management                                            */
-/* ------------------------------------------------------------------ */
-
-/* %jp{タイムティックの周期}%en{Time Tick Period} */
-#define _KERNEL_CFG_FRACTIONAL_TIMTIC	TRUE				/**< %jp{コンフィギュレータでタイムティックの分数指定を許す} */
-#define _KERNEL_CFG_TIC_NUME			1					/**< %jp{デフォルトのタイムティック周期の分子} */
-#define _KERNEL_CFG_TIC_DENO			1					/**< %jp{デフォルトのタイムティック周期の分母} */
 
 
 
@@ -348,13 +365,13 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_DLY_TSK 			TRUE				/* dly_tsk */
 
 /* Task exception handling functions */
-#define _KERNEL_CFG_DEF_TEX 			FALSE				/* def_tex */
-#define _KERNEL_CFG_RAS_TEX 			FALSE				/* ras_tex */
-#define _KERNEL_CFG_IRAS_TEX			FALSE				/* iras_tex */
-#define _KERNEL_CFG_DIS_TEX 			FALSE				/* dis_tex */
-#define _KERNEL_CFG_ENA_TEX 			FALSE				/* ena_tex */
-#define _KERNEL_CFG_SNS_TEX 			FALSE				/* sns_tex */
-#define _KERNEL_CFG_REF_TEX 			FALSE				/* ref_tex */
+#define _KERNEL_CFG_DEF_TEX 			TRUE				/* def_tex */
+#define _KERNEL_CFG_RAS_TEX 			TRUE				/* ras_tex */
+#define _KERNEL_CFG_IRAS_TEX			TRUE				/* iras_tex */
+#define _KERNEL_CFG_DIS_TEX 			TRUE				/* dis_tex */
+#define _KERNEL_CFG_ENA_TEX 			TRUE				/* ena_tex */
+#define _KERNEL_CFG_SNS_TEX 			TRUE				/* sns_tex */
+#define _KERNEL_CFG_REF_TEX 			TRUE				/* ref_tex */
 
 /* Semaphores */
 #define _KERNEL_CFG_CRE_SEM 			TRUE				/* cre_sem */

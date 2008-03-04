@@ -76,8 +76,8 @@ multiple_int:
 				
 		; ---- 割り込みカウンタ復帰
 				movbu	(__kernel_ictxcb+4), d0
-				add		1, d0
-				movbu	d0, (a0)
+				add		-1, d0
+				movbu	d0, (__kernel_ictxcb+4)
 
 				bra		return_int						; 復帰処理
 

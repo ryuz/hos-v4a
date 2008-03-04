@@ -24,13 +24,13 @@
 __kernel_int_hdr:
 			/* ---- レジスタ退避 ---- */
 				movm	[other], (sp)							/* レジスタ退避 */
+				add		-8, sp
 				
 			/* ---- 多重割込み判定 ---- */
 				mov		__kernel_ictxcb, a0
 				movbu	(4, a0), d0
-				add		-4, sp
 				add		1, d0
-				movbu	d0, (4, a0)
+				movbu	d0, (12, a0)
 				cmp		1, d0
 				bne		multiple_int
 				
@@ -38,8 +38,8 @@ __kernel_int_hdr:
 				mov		(0, a0), a1
 				mov		sp, a0									/* タスクのSPを保存 */
 				mov		a1, sp
-				add		-8, sp
-				mov		a0, (4, sp)
+				add		-16, sp
+				mov		a0, (12, sp)
 				
 			/* ---- 割り込み処理 ---- */
 				call	__kernel_sta_inh, [], 0					/* 割り込み開始 */
@@ -49,13 +49,13 @@ __kernel_int_hdr:
 				call	__kernel_exe_inh, [], 0
 				
 			/* ---- 割り込み処理の終了設定 ---- */
-				mov		(4, sp), a0
+				mov		(12, sp), a0
 				clr		d0
-				mov		a0, sp									/* スタック復帰 */
 				movbu	d0, (__kernel_ictxcb+4)					/* ネストカウンタクリア */
+				mov		a0, sp									/* スタック復帰 */
 				
 			/* ---- 割込みマスクレベルの復帰 ---- */
-				mov		(36, sp), d0
+				mov		(40, sp), d0
 				and		0x0700, d0
 				mov		d0, psw
 				
@@ -64,7 +64,7 @@ __kernel_int_hdr:
 				
 			/* ---- 復帰処理 ---- */
 return_int:
-				add		4, sp
+				add		8, sp
 				movm	(sp), [other]							/* レジスタ退避 */
 				rti
 
@@ -76,9 +76,9 @@ multiple_int:
 				
 			/* ---- 割り込みカウンタ復帰 ---- */
 				movbu	(__kernel_ictxcb+4), d0
-				add		1, d0
-				movbu	d0, (a0)
-
+				add		-1, d0
+				movbu	d0, (__kernel_ictxcb+4)
+				
 				bra		return_int								/* 復帰処理 */
 
 

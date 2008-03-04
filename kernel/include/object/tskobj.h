@@ -446,6 +446,105 @@ typedef _KERNEL_T_LEAST_UD				_KERNEL_TCB_T_RELTIM;			/**< %jp{相対時間をTC
 
 
 
+/* %jp{タスク例外処理ルーチン属性用の型} */
+#if _KERNEL_TCB_BITFIELD		/* %jp{TCBにビットフィールドを利用する場合} */
+
+/* %jp{TA_HLNG と TA_ASM の判定に 2bit 必要} */
+typedef unsigned int					_KERNEL_TSK_T_TEXATR;
+typedef unsigned int					_KERNEL_TCB_T_TEXATR;
+#define _KERNEL_TCB_TBITDEF_TEXATR		: 2
+
+#else							/* %jp{TEXCBにビットフィールドを利用しない場合} */
+
+typedef _KERNEL_T_FAST_UB				_KERNEL_TSK_T_TEXATR;
+typedef _KERNEL_T_LEAST_UB				_KERNEL_TCB_T_TEXATR;
+#define _KERNEL_TCB_TBITDEF_TEXATR
+
+#endif
+
+
+/* %jp{タスク例外処理ルーチンの起動番地の型} */
+typedef void (*_KERNEL_TSK_T_TEXRTN)(TEXPTN texptn, VP_INT exinf);
+typedef FP								_KERNEL_TCB_T_TEXRTN;
+#define _KERNEL_TCB_TBITDEF_TEXRTN
+
+
+/* %jp{タスク例外処理禁止状態の型} */
+#if _KERNEL_TCB_BITFIELD		/* %jp{TCBにビットフィールドを利用する場合} */
+
+#if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_LEAST_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
+typedef signed int						_KERNEL_TSK_T_TEXSTAT;			/**< %jp{タスク例外処理状態を演算操作するときの型} */
+typedef signed int						_KERNEL_TCB_T_TEXSTAT;			/**< %jp{タスク例外処理状態をTCBに格納するときの型} */
+#define _KERNEL_TCB_TBITDEF_TEXSTAT		: 1 + 1							/**< %jp{タスク例外処理状態のビットフィールド宣言時の幅} */
+#else
+typedef unsigned int					_KERNEL_TEX_T_TEXSTAT;			/**< %jp{タスク例外処理状態を演算操作するときの型} */
+typedef unsigned int					_KERNEL_TEXCB_T_TEXSTAT;		/**< %jp{タスク例外処理状態をTCBに格納するときの型} */
+#define _KERNEL_TCB_TBITDEF_TEXSTAT		: 1								/**< %jp{タスク例外処理状態のビットフィールド宣言時の幅} */
+#endif
+
+#else							/* %jp{TEXCBにビットフィールドを利用しない場合} */
+
+#if _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_B				_KERNEL_TSK_T_TEXSTAT;			/**< %jp{タスク例外処理状態を演算操作するときの型} */
+typedef _KERNEL_T_LEAST_B				_KERNEL_TCB_T_TEXSTAT;			/**< %jp{タスク例外処理状態をTCBに格納するときの型} */
+#else
+typedef _KERNEL_T_FAST_UB				_KERNEL_TSK_T_TEXSTAT;			/**< %jp{タスク例外処理状態を演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UB				_KERNEL_TCB_T_TEXSTAT;			/**< %jp{タスク例外処理状態をTCBに格納するときの型} */
+#endif
+
+#define _KERNEL_TCB_TBITDEF_TEXSTAT										/**< %jp{タスク例外処理状態のビットフィールド宣言時の幅} */
+
+#endif
+
+
+/* %jp{例外要因パターン用の型} */
+#if _KERNEL_TCB_BITFIELD		/* %jp{TCBにビットフィールドを利用する場合} */
+
+#if _KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE	/* %jp{符号付優先の場合1bit増やして符号付を使う} */
+typedef signed int						_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef signed int						_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#define _KERNEL_TCB_TBITDEF_TEXPTN		: _KERNEL_TEX_TBIT_TEXPTN + 1	/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
+#else
+typedef unsigned int					_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef unsigned int					_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#define _KERNEL_TCB_TBITDEF_TEXPTN		: _KERNEL_TEX_TBIT_TEXPTN		/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
+#endif
+
+#else							/* %jp{TEXCBにビットフィールドを利用しない場合} */
+
+#if _KERNEL_TEX_TBIT_TEXPTN <= 7 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_B				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_B				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 8 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_FAST_UB				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UB				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 15 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_H				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_H				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 16 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_FAST_UH				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UH				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 31 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_W				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_W				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 32 && !(_KERNEL_PROCATR_SIGNED_INT && !_KERNEL_OPT_CB_SIZE)
+typedef _KERNEL_T_FAST_UW				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UW				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#elif _KERNEL_TEX_TBIT_TEXPTN <= 63 && _KERNEL_PROCATR_SIGNED_INT
+typedef _KERNEL_T_FAST_D				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_D				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#else
+typedef _KERNEL_T_FAST_UD				_KERNEL_TSK_T_TEXPTN;			/**< %jp{例外要因パターンを演算操作するときの型} */
+typedef _KERNEL_T_LEAST_UD				_KERNEL_TCB_T_TEXPTN;			/**< %jp{例外要因パターンをTEXCBに格納するときの型} */
+#endif
+
+#define _KERNEL_TCB_TBITDEF_TEXPTN										/**< %jp{例外要因パターンのビットフィールド宣言時の幅} */
+
+#endif
+
+
+
+
 /* -------------------------------------------------------------------- */
 /*  TCB definetion                                                      */
 /* -------------------------------------------------------------------- */
@@ -494,9 +593,18 @@ typedef struct _kernel_t_tcb_ro				/* タスクコントロールブロック(RO
 #if _KERNEL_TCB_ISP
 	_KERNEL_TCB_T_ISP		isp			_KERNEL_TCB_TBITDEF_ISP;		/**< %jp{スタックポインタの初期値}%en{Task initial stack pointer} */
 #endif
+
+#if _KERNEL_TCB_TEXATR
+	_KERNEL_TCB_T_TEXATR	texatr		_KERNEL_TCB_TBITDEF_TEXATR;		/**< %jp{タスク例外処理ルーチン属性} */
+#endif
+
+#if _KERNEL_TCB_TEXRTN
+	_KERNEL_TCB_T_TEXRTN	texrtn		_KERNEL_TCB_TBITDEF_TEXRTN;		/**< %jp{タスク例外処理ルーチンの起動番地} */
+#endif
 } _KERNEL_T_TCB_RO;
 
 typedef const _KERNEL_T_TCB_RO		*_KERNEL_T_TCB_RO_PTR;
+
 
 /** %jp{タスクコントロールブロック(RAM部)}%en{Task control block for RAM} */
 typedef struct _kernel_t_tcb
@@ -563,6 +671,14 @@ typedef struct _kernel_t_tcb
 
 #if _KERNEL_TCB_TSKID
 	_KERNEL_TCB_T_TSKID		tskid		_KERNEL_TCB_TBITDEF_TSKID;		/**< %jp{タスクID番号の逆引き用}%en{Task object ID} */
+#endif
+
+#if _KERNEL_TCB_TEXSTAT
+	_KERNEL_TCB_T_TEXSTAT	texstat		_KERNEL_TCB_TBITDEF_TEXSTAT;	/**< %jp{タスク例外処理状態} */
+#endif
+
+#if _KERNEL_TCB_RASPTN
+	_KERNEL_TCB_T_TEXPTN	rasptn		_KERNEL_TCB_TBITDEF_TEXPTN;		/**< %jp{タスク例外処理要因} */
 #endif
 
 
@@ -644,6 +760,14 @@ typedef struct _kernel_t_tcb
 #if _KERNEL_TCB_TSKID
 	_KERNEL_TCB_T_TSKID		tskid		_KERNEL_TCB_TBITDEF_TSKID;		/**< %jp{タスクID番号の逆引き用}%en{Task object ID} */
 #endif
+
+#if _KERNEL_TCB_TEXSTAT
+	_KERNEL_TCB_T_TEXSTAT	texstat		_KERNEL_TCB_TBITDEF_TEXSTAT;	/**< %jp{タスク例外処理状態} */
+#endif
+
+#if _KERNEL_TCB_RASPTN
+	_KERNEL_TCB_T_TEXPTN	rasptn		_KERNEL_TCB_TBITDEF_TEXPTN;		/**< %jp{タスク例外処理要因} */
+#endif
 	
 	
 #if _KERNEL_TCB_TSKATR
@@ -672,6 +796,14 @@ typedef struct _kernel_t_tcb
 
 #if _KERNEL_TCB_ISP
 	_KERNEL_TCB_T_ISP		isp			_KERNEL_TCB_TBITDEF_ISP;		/**< %jp{スタックポインタの初期値}%en{Task initial stack pointer} */
+#endif
+
+#if _KERNEL_TCB_TEXATR
+	_KERNEL_TCB_T_TEXATR	texatr		_KERNEL_TCB_TBITDEF_TEXATR;		/**< %jp{タスク例外処理ルーチン属性} */
+#endif
+
+#if _KERNEL_TCB_TEXRTN
+	_KERNEL_TCB_T_TEXRTN	texrtn		_KERNEL_TCB_TBITDEF_TEXRTN;		/**< %jp{タスク例外処理ルーチンの起動番地} */
 #endif
 } _KERNEL_T_TCB;
 
@@ -737,19 +869,19 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 
 #if _KERNEL_TSKHDL_ID		/* %jp{タスクハンドルにIDを使う}%en{TSKHDL is ID} */
 
-#define _KERNEL_TSK_ID2TSKHDL(tskid)		(tskid)
-#define _KERNEL_TSK_TSKHDL2ID(tskhdl)		(tskhdl)
-#define _KERNEL_TSK_TCB2TSKHDL(tcb)			_KERNEL_TSK_TCB2ID(tcb)
-#define _KERNEL_TSK_TSKHDL2TCB(tskhdl)		_KERNEL_TSK_ID2TCB(tskhdl)
-#define _KERNEL_TSK_GET_TSKHDL(tskid, tcb)	(tskid)
+#define _KERNEL_TSK_ID2TSKHDL(tskid)			(tskid)
+#define _KERNEL_TSK_TSKHDL2ID(tskhdl)			(tskhdl)
+#define _KERNEL_TSK_TCB2TSKHDL(tcb)				_KERNEL_TSK_TCB2ID(tcb)
+#define _KERNEL_TSK_TSKHDL2TCB(tskhdl)			_KERNEL_TSK_ID2TCB(tskhdl)
+#define _KERNEL_TSK_GET_TSKHDL(tskid, tcb)		(tskid)
 
 #else						/* %jp{タスクハンドルにTCBのアドレスを使う}%en{TSKHDL is Address of TCB} */
 
-#define _KERNEL_TSK_ID2TSKHDL(tskid)		_KERNEL_TSK_ID2TCB(tskid)
-#define _KERNEL_TSK_TSKHDL2ID(tskhdl)		_KERNEL_TSK_TCB2ID(tskhdl)
-#define _KERNEL_TSK_TCB2TSKHDL(tskhdl)		(tskhdl)
-#define _KERNEL_TSK_TSKHDL2TCB(tskhdl)		(tskhdl)
-#define _KERNEL_TSK_GET_TSKHDL(tskid, tcb)	(tcb)
+#define _KERNEL_TSK_ID2TSKHDL(tskid)			_KERNEL_TSK_ID2TCB(tskid)
+#define _KERNEL_TSK_TSKHDL2ID(tskhdl)			_KERNEL_TSK_TCB2ID(tskhdl)
+#define _KERNEL_TSK_TCB2TSKHDL(tskhdl)			(tskhdl)
+#define _KERNEL_TSK_TSKHDL2TCB(tskhdl)			(tskhdl)
+#define _KERNEL_TSK_GET_TSKHDL(tskid, tcb)		(tcb)
 
 #endif
 
@@ -761,204 +893,241 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 
 /* tcb_ro */
 #if !_KERNEL_TCB_SPLIT_RO
-#define _KERNEL_TSK_GET_TCB_RO(tskid, tcb)	(tcb)
+#define _KERNEL_TSK_GET_TCB_RO(tskid, tcb)		(tcb)
 #else
 #if _KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_BLKARRAY		/* %jp{TCBを単純配列で管理}%en{array of block} */
-#define _KERNEL_TSK_GET_TCB_RO(tskid, tcb)	(&_kernel_tcb_ro_tbl[(tskid)])
+#define _KERNEL_TSK_GET_TCB_RO(tskid, tcb)		(&_kernel_tcb_ro_tbl[(tskid)])
 #elif _KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_PTRARRAY		/* %jp{TCBをポインタ配列で管理}%en{array of pointer} */
-#define _KERNEL_TSK_GET_TCB_RO(tskid, tcb)	((tcb)->tcb_ro)
+#define _KERNEL_TSK_GET_TCB_RO(tskid, tcb)		((tcb)->tcb_ro)
 #endif
 #endif
 
 
 /* ctxcb */
-#define _KERNEL_TSK_GET_CTXCB(tcb)			(&(tcb)->ctxcb)
+#define _KERNEL_TSK_GET_CTXCB(tcb)				(&(tcb)->ctxcb)
 
 /* que */
 #if _KERNEL_TCB_QUE
-#define _KERNEL_TSK_SET_QUE(tcb, x)			do { (tcb)->pk_que = (_KERNEL_T_QUE *)(x); } while(0)
-#define _KERNEL_TSK_GET_QUE(tcb)			((_KERNEL_T_QUE *)(tcb)->pk_que)
+#define _KERNEL_TSK_SET_QUE(tcb, x)				do { (tcb)->pk_que = (_KERNEL_T_QUE *)(x); } while(0)
+#define _KERNEL_TSK_GET_QUE(tcb)				((_KERNEL_T_QUE *)(tcb)->pk_que)
 #else	/* %jp{TCBに所属キューの情報を持たせない場合は別情報からの探索で求める} */
-#define _KERNEL_TSK_SET_QUE(tcb, x)			do { } while(0)
-#define _KERNEL_TSK_GET_QUE(tcb)			_kernel_get_que(tcb)
+#define _KERNEL_TSK_SET_QUE(tcb, x)				do { } while(0)
+#define _KERNEL_TSK_GET_QUE(tcb)				_kernel_get_que(tcb)
 #endif
 
 /* tskstat */
 #if _KERNEL_TCB_TSKSTAT
-#define _KERNEL_TSK_SET_TSKSTAT(tcb, x)		do { (tcb)->tskstat = (_KERNEL_TCB_T_TSKSTAT)(x); } while(0)
-#define _KERNEL_TSK_GET_TSKSTAT(tcb)		((_KERNEL_TSK_T_TSKSTAT)(tcb)->tskstat)
+#define _KERNEL_TSK_SET_TSKSTAT(tcb, x)			do { (tcb)->tskstat = (_KERNEL_TCB_T_TSKSTAT)(x); } while(0)
+#define _KERNEL_TSK_GET_TSKSTAT(tcb)			((_KERNEL_TSK_T_TSKSTAT)(tcb)->tskstat)
 #else
-#define _KERNEL_TSK_SET_TSKSTAT(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_TSKSTAT(tcb)		0
+#define _KERNEL_TSK_SET_TSKSTAT(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_TSKSTAT(tcb)			0
 #endif
 
 /* tskpri */
 #if _KERNEL_TCB_TSKPRI	/* %jp{通常のTCBへのアクセサ} */
-#define _KERNEL_TSK_SET_TSKPRI(tcb, x)		do { (tcb)->tskpri = (x); } while(0)
-#define _KERNEL_TSK_GET_TSKPRI(tcb)			((tcb)->tskpri)
+#define _KERNEL_TSK_SET_TSKPRI(tcb, x)			do { (tcb)->tskpri = (x); } while(0)
+#define _KERNEL_TSK_GET_TSKPRI(tcb)				((tcb)->tskpri)
 #else
 #if _KERNEL_TCB_ITSKPRI	/* %jp{優先度固定(ROM配置)時のアクセサ} */
-#define _KERNEL_TSK_SET_TSKPRI(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_TSKPRI(tcb)			((tcb)->itskpri)
+#define _KERNEL_TSK_SET_TSKPRI(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_TSKPRI(tcb)				((tcb)->itskpri)
 #else					/* %jp{優先度未使用時(全てFIFO順)は1に固定する} */
-#define _KERNEL_TSK_SET_TSKPRI(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_TSKPRI(tcb)			(1)
+#define _KERNEL_TSK_SET_TSKPRI(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_TSKPRI(tcb)				(1)
 #endif
 #endif
 
 /* tskbpri */
 #if _KERNEL_TCB_TSKBPRI
-#define _KERNEL_TSK_SET_TSKBPRI(tcb, x)		do { (tcb)->tskbpri = (x); } while(0)
-#define _KERNEL_TSK_GET_TSKBPRI(tcb)		((tcb)->tskbpri)
+#define _KERNEL_TSK_SET_TSKBPRI(tcb, x)			do { (tcb)->tskbpri = (x); } while(0)
+#define _KERNEL_TSK_GET_TSKBPRI(tcb)			((tcb)->tskbpri)
 #else
-#define _KERNEL_TSK_SET_TSKBPRI(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_TSKBPRI(tcb)		_KERNEL_TSK_GET_TSKPRI(tcb)
+#define _KERNEL_TSK_SET_TSKBPRI(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_TSKBPRI(tcb)			_KERNEL_TSK_GET_TSKPRI(tcb)
 #endif
 
 /* tskwait */
 #if _KERNEL_TCB_TSKWAIT
-#define _KERNEL_TSK_SET_TSKWAIT(tcb, x)		do { (tcb)->tskwait = (x); } while(0)
-#define _KERNEL_TSK_GET_TSKWAIT(tcb)		((tcb)->tskwait)
+#define _KERNEL_TSK_SET_TSKWAIT(tcb, x)			do { (tcb)->tskwait = (x); } while(0)
+#define _KERNEL_TSK_GET_TSKWAIT(tcb)			((tcb)->tskwait)
 #else
-#define _KERNEL_TSK_SET_TSKWAIT(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_TSKWAIT(tcb)		(0)
+#define _KERNEL_TSK_SET_TSKWAIT(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_TSKWAIT(tcb)			(0)
 #endif
 
 /* wobjid */
 #if _KERNEL_TCB_WOBJID
-#define _KERNEL_TSK_SET_WOBJID(tcb, x)		do { (tcb)->wobjid = (x); } while(0)
-#define _KERNEL_TSK_GET_WOBJID(tcb)			((tcb)->wobjid)
+#define _KERNEL_TSK_SET_WOBJID(tcb, x)			do { (tcb)->wobjid = (x); } while(0)
+#define _KERNEL_TSK_GET_WOBJID(tcb)				((tcb)->wobjid)
 #else
-#define _KERNEL_TSK_SET_WOBJID(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_WOBJID(tcb)			(0)
+#define _KERNEL_TSK_SET_WOBJID(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_WOBJID(tcb)				(0)
 #endif
 
 /* actcnt */
 #if _KERNEL_TCB_ACTCNT
-#define _KERNEL_TSK_SET_ACTCNT(tcb, x)		do { (tcb)->actcnt = (x); } while(0)
-#define _KERNEL_TSK_GET_ACTCNT(tcb)			((tcb)->actcnt)
+#define _KERNEL_TSK_SET_ACTCNT(tcb, x)			do { (tcb)->actcnt = (x); } while(0)
+#define _KERNEL_TSK_GET_ACTCNT(tcb)				((tcb)->actcnt)
 #else
-#define _KERNEL_TSK_SET_ACTCNT(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_ACTCNT(tcb)			(0)
+#define _KERNEL_TSK_SET_ACTCNT(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_ACTCNT(tcb)				(0)
 #endif
 
 /* wupcnt */
 #if _KERNEL_TCB_WUPCNT
-#define _KERNEL_TSK_SET_WUPCNT(tcb, x)		do { (tcb)->wupcnt = (x); } while(0)
-#define _KERNEL_TSK_GET_WUPCNT(tcb)			((tcb)->wupcnt)
+#define _KERNEL_TSK_SET_WUPCNT(tcb, x)			do { (tcb)->wupcnt = (x); } while(0)
+#define _KERNEL_TSK_GET_WUPCNT(tcb)				((tcb)->wupcnt)
 #else
-#define _KERNEL_TSK_SET_WUPCNT(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_WUPCNT(tcb)			(0)
+#define _KERNEL_TSK_SET_WUPCNT(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_WUPCNT(tcb)				(0)
 #endif
 
 /* suscnt */
 #if _KERNEL_TCB_SUSCNT
-#define _KERNEL_TSK_SET_SUSCNT(tcb, x)		do { (tcb)->suscnt = (x); } while(0)
-#define _KERNEL_TSK_GET_SUSCNT(tcb)			((tcb)->suscnt)
+#define _KERNEL_TSK_SET_SUSCNT(tcb, x)			do { (tcb)->suscnt = (x); } while(0)
+#define _KERNEL_TSK_GET_SUSCNT(tcb)				((tcb)->suscnt)
 #else
-#define _KERNEL_TSK_SET_SUSCNT(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_SUSCNT(tcb)			(0)
+#define _KERNEL_TSK_SET_SUSCNT(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_SUSCNT(tcb)				(0)
 #endif
 
 /* mtxhdl */
 #if _KERNEL_TCB_MTXHDL
-#define _KERNEL_TSK_SET_MTXHDL(tcb, x)		do { (tcb)->mtxhdl = (x); } while(0)
-#define _KERNEL_TSK_GET_MTXHDL(tcb)			((tcb)->mtxhdl)
+#define _KERNEL_TSK_SET_MTXHDL(tcb, x)			do { (tcb)->mtxhdl = (x); } while(0)
+#define _KERNEL_TSK_GET_MTXHDL(tcb)				((tcb)->mtxhdl)
 #else
-#define _KERNEL_TSK_SET_MTXHDL(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_MTXHDL(tcb)			_KERNEL_MTXHDL_NULL
+#define _KERNEL_TSK_SET_MTXHDL(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_MTXHDL(tcb)				_KERNEL_MTXHDL_NULL
 #endif
 
 /* ercd */
 #if _KERNEL_TCB_ERCD
-#define _KERNEL_TSK_SET_ERCD(tcb, x)		do { (tcb)->ercd = (x); } while(0)
-#define _KERNEL_TSK_GET_ERCD(tcb)			((tcb)->ercd)
+#define _KERNEL_TSK_SET_ERCD(tcb, x)			do { (tcb)->ercd = (x); } while(0)
+#define _KERNEL_TSK_GET_ERCD(tcb)				((tcb)->ercd)
 #else
-#define _KERNEL_TSK_SET_ERCD(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_ERCD(tcb)			(E_OK)
+#define _KERNEL_TSK_SET_ERCD(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_ERCD(tcb)				(E_OK)
 #endif
 
 /* data */
 #if _KERNEL_TCB_DATA
-#define _KERNEL_TSK_SET_DATA(tcb, x)		do { (tcb)->data = (x); } while(0)
-#define _KERNEL_TSK_GET_DATA(tcb)			((tcb)->data)
+#define _KERNEL_TSK_SET_DATA(tcb, x)			do { (tcb)->data = (x); } while(0)
+#define _KERNEL_TSK_GET_DATA(tcb)				((tcb)->data)
 #else
-#define _KERNEL_TSK_SET_DATA(tcb, x)		do { } while(0)
-#define _KERNEL_TSK_GET_DATA(tcb)			(0)
+#define _KERNEL_TSK_SET_DATA(tcb, x)			do { } while(0)
+#define _KERNEL_TSK_GET_DATA(tcb)				(0)
+#endif
+
+/* texstat */
+#if _KERNEL_TCB_TEXSTAT
+#define _KERNEL_TSK_SET_TEXSTAT(tcb, x)			do { (tcb)->texstat = (_KERNEL_TCB_T_TEXSTAT)(x); } while (0)
+#define _KERNEL_TSK_GET_TEXSTAT(tcb)				((_KERNEL_TSK_T_TEXSTAT)(tcb)->texstat)
+#else
+#define _KERNEL_TSK_SET_TEXSTAT(tcb, x)			do { } while (0)
+#define _KERNEL_TSK_GET_TEXSTAT(tcb)			(_KERNEL_TXS_DIS)
+#endif
+
+/* rasptn */
+#if _KERNEL_TCB_RASPTN
+#define _KERNEL_TSK_SET_RASPTN(tcb, x)			do { (tcb)->rasptn = (_KERNEL_TCB_T_TEXPTN)(x); } while (0)
+#define _KERNEL_TSK_GET_RASPTN(tcb)				((_KERNEL_TSK_T_TEXPTN)(tcb)->rasptn)
+#else
+#define _KERNEL_TSK_SET_RASPTN(texcb, x)		do { } while (0)
+#define _KERNEL_TSK_GET_RASPTN(texcb)			(0)
 #endif
 
 
 /* tskid */
 #if _KERNEL_TCB_TSKID
-#define _KERNEL_TSK_SET_TSKID(tcb_ro, x)	do { (tcb_ro)->tskid = (x); } while(0)
-#define _KERNEL_TSK_GET_TSKID(tcb_ro)		((tcb_ro)->tskid)
+#define _KERNEL_TSK_SET_TSKID(tcb_ro, x)		do { (tcb_ro)->tskid = (x); } while(0)
+#define _KERNEL_TSK_GET_TSKID(tcb_ro)			((tcb_ro)->tskid)
 #else
-#define _KERNEL_TSK_SET_TSKID(tcb_ro, x)	do { } while(0)
-#define _KERNEL_TSK_GET_TSKID(tcb_ro)		(0)
+#define _KERNEL_TSK_SET_TSKID(tcb_ro, x)		do { } while(0)
+#define _KERNEL_TSK_GET_TSKID(tcb_ro)			(0)
 #endif
 
 /* tskatr */
 #if _KERNEL_TCB_TSKATR
-#define _KERNEL_TSK_SET_TSKATR(tcb_ro, x)	do { (tcb_ro)->tskatr = (x); } while(0)
-#define _KERNEL_TSK_GET_TSKATR(tcb_ro)		((tcb_ro)->tskatr)
+#define _KERNEL_TSK_SET_TSKATR(tcb_ro, x)		do { (tcb_ro)->tskatr = (x); } while(0)
+#define _KERNEL_TSK_GET_TSKATR(tcb_ro)			((tcb_ro)->tskatr)
 #else	/* %jp{tskatr未使用時はTA_HLNGに固定する} */
-#define _KERNEL_TSK_SET_TSKATR(tcb_ro, x)	do { } while(0)
-#define _KERNEL_TSK_GET_TSKATR(tcb_ro)		(TA_HLNG)
+#define _KERNEL_TSK_SET_TSKATR(tcb_ro, x)		do { } while(0)
+#define _KERNEL_TSK_GET_TSKATR(tcb_ro)			(TA_HLNG)
 #endif
 
 /* exinf */
 #if _KERNEL_TCB_EXINF
-#define _KERNEL_TSK_SET_EXINF(tcb_ro, x)	do { (tcb_ro)->exinf = (x); } while(0)
-#define _KERNEL_TSK_GET_EXINF(tcb_ro)		((tcb_ro)->exinf)
+#define _KERNEL_TSK_SET_EXINF(tcb_ro, x)		do { (tcb_ro)->exinf = (x); } while(0)
+#define _KERNEL_TSK_GET_EXINF(tcb_ro)			((tcb_ro)->exinf)
 #else
-#define _KERNEL_TSK_SET_EXINF(tcb_ro, x)	do { } while(0)
-#define _KERNEL_TSK_GET_EXINF(tcb_ro)		(0)
+#define _KERNEL_TSK_SET_EXINF(tcb_ro, x)		do { } while(0)
+#define _KERNEL_TSK_GET_EXINF(tcb_ro)			(0)
 #endif
 
 /* task */
 #if _KERNEL_TCB_TASK
-#define _KERNEL_TSK_SET_TASK(tcb_ro, x)		do { (tcb_ro)->task = (_KERNEL_TCB_T_TASK)(x); } while(0)
-#define _KERNEL_TSK_GET_TASK(tcb_ro)		((_KERNEL_TSK_T_TASK)(tcb_ro)->task)
+#define _KERNEL_TSK_SET_TASK(tcb_ro, x)			do { (tcb_ro)->task = (_KERNEL_TCB_T_TASK)(x); } while(0)
+#define _KERNEL_TSK_GET_TASK(tcb_ro)			((_KERNEL_TSK_T_TASK)(tcb_ro)->task)
 #else
-#define _KERNEL_TSK_SET_TASK(tcb_ro, x)		do { } while(0)
-#define _KERNEL_TSK_GET_TASK(tcb_ro)		(0)
+#define _KERNEL_TSK_SET_TASK(tcb_ro, x)			do { } while(0)
+#define _KERNEL_TSK_GET_TASK(tcb_ro)			(0)
 #endif
 
 /* tskipri */
 #if _KERNEL_TCB_ITSKPRI
-#define _KERNEL_TSK_SET_ITSKPRI(tcb_ro, x)	do { (tcb_ro)->itskpri = (x); } while(0)
-#define _KERNEL_TSK_GET_ITSKPRI(tcb_ro)		((tcb_ro)->itskpri)
+#define _KERNEL_TSK_SET_ITSKPRI(tcb_ro, x)		do { (tcb_ro)->itskpri = (x); } while(0)
+#define _KERNEL_TSK_GET_ITSKPRI(tcb_ro)			((tcb_ro)->itskpri)
 #else	/* %jp{tskatr未使用時はTA_HLNGに固定する} */
-#define _KERNEL_TSK_SET_ITSKPRI(tcb_ro, x)	do { } while(0)
-#define _KERNEL_TSK_GET_ITSKPRI(tcb_ro)		(1)
+#define _KERNEL_TSK_SET_ITSKPRI(tcb_ro, x)		do { } while(0)
+#define _KERNEL_TSK_GET_ITSKPRI(tcb_ro)			(1)
 #endif
 
 /* stksz */
 #if _KERNEL_TCB_STKSZ
-#define _KERNEL_TSK_SET_STKSZ(tcb_ro, x)	do { (tcb_ro)->stksz = (x); } while(0)
-#define _KERNEL_TSK_GET_STKSZ(tcb_ro)		((tcb_ro)->stksz)
+#define _KERNEL_TSK_SET_STKSZ(tcb_ro, x)		do { (tcb_ro)->stksz = (x); } while(0)
+#define _KERNEL_TSK_GET_STKSZ(tcb_ro)			((tcb_ro)->stksz)
 #else
-#define _KERNEL_TSK_SET_STKSZ(tcb_ro, x)	do { } while(0)
-#define _KERNEL_TSK_GET_STKSZ(tcb_ro)		(0)
+#define _KERNEL_TSK_SET_STKSZ(tcb_ro, x)		do { } while(0)
+#define _KERNEL_TSK_GET_STKSZ(tcb_ro)			(0)
 #endif
 
 /* stk */
 #if _KERNEL_TCB_STK
-#define _KERNEL_TSK_SET_STK(tcb_ro, x)		do { (tcb_ro)->stk = (x); } while(0)
-#define _KERNEL_TSK_GET_STK(tcb_ro)			((tcb_ro)->stk)
+#define _KERNEL_TSK_SET_STK(tcb_ro, x)			do { (tcb_ro)->stk = (x); } while(0)
+#define _KERNEL_TSK_GET_STK(tcb_ro)				((tcb_ro)->stk)
 #else
-#define _KERNEL_TSK_SET_STK(tcb_ro, x)		do { } while(0)
-#define _KERNEL_TSK_GET_STK(tcb_ro)			(0)
+#define _KERNEL_TSK_SET_STK(tcb_ro, x)			do { } while(0)
+#define _KERNEL_TSK_GET_STK(tcb_ro)				(0)
 #endif
 
 /* isp */
 #if _KERNEL_TCB_ISP
-#define _KERNEL_TSK_SET_ISP(tcb_ro, x)		do { (tcb_ro)->isp = (x); } while(0)
-#define _KERNEL_TSK_GET_ISP(tcb_ro)			((tcb_ro)->isp)
+#define _KERNEL_TSK_SET_ISP(tcb_ro, x)			do { (tcb_ro)->isp = (x); } while(0)
+#define _KERNEL_TSK_GET_ISP(tcb_ro)				((tcb_ro)->isp)
 #else
-#define _KERNEL_TSK_SET_ISP(tcb_ro, x)		do { } while(0)
-#define _KERNEL_TSK_GET_ISP(tcb_ro)			((VP)((UB *)_KERNEL_TSK_GET_STK(tcb_ro) + _KERNEL_TSK_GET_STKSZ(tcb_ro)))
+#define _KERNEL_TSK_SET_ISP(tcb_ro, x)			do { } while(0)
+#define _KERNEL_TSK_GET_ISP(tcb_ro)				((VP)((UB *)_KERNEL_TSK_GET_STK(tcb_ro) + _KERNEL_TSK_GET_STKSZ(tcb_ro)))
 #endif
+
+/* texatr */
+#if _KERNEL_TCB_TEXATR
+#define _KERNEL_TSK_SET_TEXATR(tcb_ro, x)		do { (tcb_ro)->texatr = (_KERNEL_TCB_T_TEXATR)(x); } while (0)
+#define _KERNEL_TSK_GET_TEXATR(tcb_ro)			((_KERNEL_TSK_T_TEXATR)(tcb_ro)->texatr)
+#else
+#define _KERNEL_TSK_SET_TEXATR(texcb_ro, x)		do { } while (0)
+#define _KERNEL_TSK_GET_TEXATR(texcb_ro)		(0)
+#endif
+
+/* texrtn */
+#if _KERNEL_TCB_TEXRTN
+#define _KERNEL_TSK_SET_TEXRTN(tcb_ro, x)		do { (tcb_ro)->texrtn = (_KERNEL_TCB_T_TEXRTN)(x); } while (0)
+#define _KERNEL_TSK_GET_TEXRTN(tcb_ro)			((_KERNEL_TSK_T_TEXRTN)(tcb_ro)->texrtn)
+#else
+#define _KERNEL_TSK_SET_TEXRTN(tcb_ro, x)		do { } while (0)
+#define _KERNEL_TSK_GET_TEXRTN(tcb_ro)			(0)
+#endif
+
 
 
 /* ------------------------------------------ */

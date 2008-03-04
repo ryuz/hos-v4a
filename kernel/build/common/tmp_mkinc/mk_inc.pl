@@ -134,6 +134,9 @@
 		"dly_tsk.c",
 		"ref_tsk.c",
 		"ref_tst.c",
+		"def_tex.c",
+		"ras_tex.c",
+		"exe_tex.c",
 	],
 	[
 		"Semaphores",
@@ -177,6 +180,7 @@
 		"cre_dtq.c",
 		"acre_dtq.c",
 		"kcre_dtq.c",
+		"del_dtq.c",
 		"snd_dtq.c",
 		"fsnd_dtq.c",
 		"rcv_dtq.c",

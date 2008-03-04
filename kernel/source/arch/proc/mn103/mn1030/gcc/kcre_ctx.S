@@ -46,6 +46,7 @@ __kernel_cre_ctx:
 ctx_entry:
 				mov		d2, d0			/* par1を設定 */
 				mov		d3, d1			/* par2を設定 */
+				add		-12, sp
 				jmp		(a3)			/* entry を実行 */
 				.size	ctx_entry, .-ctx_entry
 

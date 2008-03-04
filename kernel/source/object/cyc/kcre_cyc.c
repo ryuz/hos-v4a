@@ -112,7 +112,8 @@ ER _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 		{
 			_KERNEL_TIMOBJ_SET_LEFTTIM(pk_timobj, pk_ccyc->cyctim);
 		}
-		_KERNEL_ADD_TMQ(_KERNEL_CYC_GET_TIMOBJ(cyccb));
+		_KERNEL_SYS_ADD_TMQ(pk_timobj);
+
 	}
 #endif
 

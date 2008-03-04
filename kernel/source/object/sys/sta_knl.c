@@ -63,14 +63,14 @@ ER vsta_knl(void)
 			(VP_INT)0
 		);
 	
-
+	
 	_KERNEL_LEAVE_SVC();
-
+	
 	/* %jp{初期化ハンドラ実行} */
 	_kernel_cfg_sta();
-
+	
 	_KERNEL_ENTER_SVC();
-
+	
 	
 	/* %jp{初期コンテキストの開始} */
 	_kernel_sta_ctx(_KERNEL_SYS_GET_SYSCTXCB());
