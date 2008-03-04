@@ -202,7 +202,7 @@ CSRCS += $(TSKOBJ_DIR)/ref_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ref_tst.c
 CSRCS += $(TSKOBJ_DIR)/def_tex.c
 CSRCS += $(TSKOBJ_DIR)/ras_tex.c
-CSRCS += $(TSKOBJ_DIR)/exe_tex.c
+CSRCS += $(TSKOBJ_DIR)/kexe_tex.c
 
 
 # Semaphores
