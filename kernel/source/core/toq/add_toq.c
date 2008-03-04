@@ -50,7 +50,7 @@ void _kernel_add_toq(
 	
 	/* %jp{挿入場所を検索} */
 	tskhdl_next = tskhdl_head;
-	tcb_next     = _KERNEL_TSK_TSKHDL2TCB(tskhdl_next);
+	tcb_next    = _KERNEL_TSK_TSKHDL2TCB(tskhdl_next);
 	do
 	{
 		tmout_next = _KERNEL_TSK_GET_TOQDIFTIM(tcb_next);
@@ -75,7 +75,7 @@ void _kernel_add_toq(
 			_KERNEL_TSK_SET_TOQPREV(tcb, tskhdl_prev);
 			_KERNEL_TSK_SET_TOQNEXT(tcb_prev, tskhdl);
 			_KERNEL_TSK_SET_TOQPREV(tcb_next, tskhdl);
-						
+			
 			return;
 		}
 		

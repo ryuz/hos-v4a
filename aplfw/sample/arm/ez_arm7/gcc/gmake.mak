@@ -28,6 +28,11 @@ APLFW_BUILD_DIR   = $(APLFW_DIR)/build/arm/arm_v4t/gcc
 OBJS_DIR          = objs_$(TARGET)
 
 
+# %jp{カーネル設定}
+KERNEL_HOK_TSK = Yes
+KERNEL_HOK_ISR = Yes
+
+
 # %jp{共通定義読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 

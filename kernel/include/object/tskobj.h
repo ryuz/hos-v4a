@@ -1149,7 +1149,8 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 extern "C" {
 #endif
 
-ER _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk);
+ER   _kernel_cre_tsk(ID tskid, const T_CTSK *pk_ctsk);		/**< %jp{タスクの生成} */
+void _kernel_exe_tex(_KERNEL_T_TSKHDL tskhdl);				/**< %jp{タスク例外処理の実行} */
 
 #ifdef __cplusplus
 }

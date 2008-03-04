@@ -8,6 +8,8 @@
  * http://sourceforge.jp/projects/hos/
  */
 
+#include "hosaplfw.h"
+#include "system/sysapi/sysapi.h"
 
 #include "kernel.h"
 #include "ostimer.h"
@@ -32,21 +34,15 @@
 
 #define INTNO_TIMER0	4
 
-static void OsTimer_Isr(VP_INT exinf);	/**< %jp{タイマ割込みサービスルーチン} */
+
+static void OsTimer_Isr(VPARAM Param);		/**< %jp{タイマ割込みサービスルーチン} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
-void OsTimer_Initialize(VP_INT exinf)
+void OsTimer_Initialize(void)
 {
-	T_CISR cisr;
-	
-	/* %jp{割り込みサービスルーチン生成} */
-	cisr.isratr = TA_HLNG;
-	cisr.exinf  = 0;
-	cisr.intno  = INTNO_TIMER0;
-	cisr.isr    = (FP)OsTimer_Isr;
-	acre_isr(&cisr);
-	ena_int(2);
+	SysIsr_Create(INTNO_TIMER0, OsTimer_Isr, (VPARAM)0);
+	SysInt_Enable(INTNO_TIMER0);
 	
 	/* %jp{タイマ動作開始} */
 	*T0MR0 = 142000 / 4;
@@ -56,13 +52,13 @@ void OsTimer_Initialize(VP_INT exinf)
 
 
 /** %jp{タイマ割り込みハンドラ} */
-void OsTimer_Isr(VP_INT exinf)
+void OsTimer_Isr(VPARAM Param)
 {
 	/* %jp{割り込み要因クリア} */
 	*T0IR= 1; 
 	
 	/* %jp{タイムティック供給} */
-	isig_tim();
+	SysTim_Signal(10000000);	/* 10ms */
 }
 
 

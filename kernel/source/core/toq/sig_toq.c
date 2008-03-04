@@ -51,7 +51,7 @@ void _kernel_sig_toq(
 			break;
 		}
 		
-		tictim -= diftim;				/* %jp{タイムティックを減算} */
+		tictim -= diftim;			/* %jp{タイムティックを減算} */
 		
 		_KERNEL_TSK_SET_ERCD(tcb, E_TMOUT);
 		_KERNEL_DSP_WUP_TSK(tskhdl);
@@ -70,7 +70,7 @@ void _kernel_sig_toq(
 			tskhdl = _KERNEL_TSKHDL_NULL;
 			break;
 		}
-
+		
 		/* %jp{キューから取り外す} */
 		_KERNEL_TSK_SET_TOQNEXT(tcb_prev, tskhdl_next);
 		_KERNEL_TSK_SET_TOQPREV(tcb_next, tskhdl_prev);
