@@ -105,7 +105,7 @@ LIBS += $(APLFW_LIB)
 # --------------------------------------
 
 .PHONY : all
-all: kernel_build make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 .PHONY : make_subprj
 make_subprj:
@@ -131,7 +131,7 @@ mostlydepend: depend
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
-$(KERNEL_CFGRTR): kernel_build
+$(KERNEL_CFGRTR): kernel_make
 
 
 # %jp{ライブラリ生成用設定読込み}
