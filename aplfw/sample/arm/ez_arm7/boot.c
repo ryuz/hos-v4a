@@ -22,16 +22,19 @@
 #include "driver/serial/pc16550/pc16550drv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "application//syscmd/shell/shell.h"
+#include "application//syscmd/commandlist/commandlist.h"
 #include "application//syscmd/processlist/processlist.h"
+#include "application/utility/timecmd/timecmd.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
 #include "application/example/hello/hello.h"
 #include "boot.h"
+#include "ostimer.h"
 
 
-long         g_SystemHeap[64 * 1024 / sizeof(long)];
+long	g_SystemHeap[64 * 1024 / sizeof(long)];
 
 
 #define REG_PLLCON		((volatile UB *)0xe01fc080)
@@ -70,7 +73,7 @@ void Boot_Task(VP_INT exinf)
 	/* Pin設定 */
 	*REG_PINSEL0 = (*REG_PINSEL0 & 0xfffffff0) | 0x05;
 	*REG_BCFG0   = ((0x1 << 28) | (0x03 << 11) | (0x03 << 5) | (0x03 << 0));
-//	*REG_BCFG0   = ((0x1 << 28) | (0x0f << 11) | (0x0f << 5) | (0x0f << 0));
+/*	*REG_BCFG0   = ((0x1 << 28) | (0x0f << 11) | (0x0f << 5) | (0x0f << 0));	*/
 	
 	
 	/*************************/
@@ -101,6 +104,9 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*   デバイスドライバ    */
 	/*************************/
+
+	/* タイマ初期化 */	
+	OsTimer_Initialize();
 	
 	/* 16550デバドラ生成 (/dev/com0 に登録) */
 	hDriver = Pc16550Drv_Create((void *)0xe000c000, 2, 6, 14700000/4, 64);
@@ -133,6 +139,8 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	Command_AddCommand("sh",       Shell_Main);
 	Command_AddCommand("ps",       ProcessList_Main);
+	Command_AddCommand("help",     CommandList_Main);
+	Command_AddCommand("time",     TimeCmd_Main);
 	Command_AddCommand("memdump",  MemDump_Main);
 	Command_AddCommand("memwrite", MemWrite_Main);
 	Command_AddCommand("memtest",  MemTest_Main);

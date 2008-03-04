@@ -108,7 +108,7 @@ LIBS += $(APLFW_LIB)
 # --------------------------------------
 
 .PHONY : all
-all: make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 
 .PHONY : make_subprj
