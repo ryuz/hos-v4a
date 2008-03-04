@@ -366,6 +366,14 @@ void CApiCreTsk::WriteTcbRam(FILE *fp, int iObj)
 #if _KERNEL_TCB_TSKID
 	fprintf(fp, "0, ");					/* tskid */
 #endif
+
+#if _KERNEL_TCB_TEXSTAT
+	fprintf(fp, "0, ");					/* texstat %jp{タスク例外処理状態} */
+#endif
+
+#if _KERNEL_TCB_RASPTN
+	fprintf(fp, "0, ");					/**< rasptn %jp{タスク例外処理要因} */
+#endif
 }
 
 
@@ -411,6 +419,14 @@ void CApiCreTsk::WriteTcbRom(FILE *fp, int iObj)
 	{
 		fprintf(fp, "(VP)((VB *)(%s) + (SIZE)(%s)), ", m_pParamPacks[iObj]->GetParam(CRETSK_STK), m_pParamPacks[iObj]->GetParam(CRETSK_STKSZ));
 	}
+#endif
+
+#if _KERNEL_TCB_TEXATR
+	fprintf(fp, "0, ");					/**< texatr %jp{タスク例外処理ルーチン属性} */
+#endif
+
+#if _KERNEL_TCB_TEXRTN
+	fprintf(fp, "0, ");					/**< texrtn %jp{タスク例外処理ルーチンの起動番地} */
 #endif
 }
 

@@ -69,8 +69,6 @@ MTXOBJ_HEADERS = $(KERNEL_INC_DIR)/object/mtxobj.h
 
 MPFOBJ_HEADERS = $(KERNEL_INC_DIR)/object/mpfobj.h
 
-TIMOBJ_HEADERS = $(KERNEL_INC_DIR)/object/timobj.h
-
 INHOBJ_HEADERS = $(KERNEL_INC_DIR)/object/inhobj.h
 
 ISROBJ_HEADERS = $(KERNEL_INC_DIR)/object/isrobj.h
