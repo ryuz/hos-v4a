@@ -40,49 +40,51 @@ endif
 #  %jp{カーネルライブラリの選択}
 # --------------------------------------
 
-KERNEL_LIB    ?= libhosv4a
-KERNEL_MAKOPT ?=
+KERNEL_LIB_NAME ?= libhosv4a
+KERNEL_MAKOPT   ?=
 
 # %jp{デバッグ指定}
 KERNEL_MAKOPT += DEBUG=$(KERNEL_DEBUG)
 ifeq ($(KERNEL_DEBUG),Yes)
-KERNEL_LIB := $(KERNEL_LIB)dbg
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)dbg
 endif
 
 
 # %jp{エラーレベル指定}
 KERNEL_MAKOPT += ERRLEVEL=$(KERNEL_ERRLEVEL)
 ifeq ($(KERNEL_ERRLEVEL),0)
-KERNEL_LIB := $(KERNEL_LIB)er0
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)er0
 endif
 ifeq ($(KERNEL_ERRLEVEL),1)
-KERNEL_LIB := $(KERNEL_LIB)er1
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)er1
 endif
 ifeq ($(KERNEL_ERRLEVEL),2)
-KERNEL_LIB := $(KERNEL_LIB)er2
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)er2
 endif
 ifeq ($(KERNEL_ERRLEVEL),3)
-KERNEL_LIB := $(KERNEL_LIB)er3
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)er3
 endif
 ifeq ($(KERNEL_ERRLEVEL),4)
-KERNEL_LIB := $(KERNEL_LIB)er4
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)er4
 endif
 
 
 # %jp{カーネルフック指定}%en{kernel hook}
 KERNEL_MAKOPT += HOK_TSK=$(KERNEL_HOK_TSK)
 ifeq ($(KERNEL_HOK_TSK),Yes)
-KERNEL_LIB := $(KERNEL_LIB)tsk
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)tsk
 endif
 KERNEL_MAKOPT += HOK_INH=$(KERNEL_HOK_INH)
 ifeq ($(KERNEL_HOK_INH),Yes)
-KERNEL_LIB := $(KERNEL_LIB)inh
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)inh
 endif
 KERNEL_MAKOPT += HOK_ISR=$(KERNEL_HOK_ISR)
 ifeq ($(KERNEL_HOK_ISR),Yes)
-KERNEL_LIB := $(KERNEL_LIB)isr
+KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)isr
 endif
 
+# %jp{カーネルライブラリ}%en{kernel library}
+KERNEL_LIB = $(KERNEL_BUILD_DIR)/$(KERNEL_LIB_NAME).$(EXT_LIB)
 
 
 # --------------------------------------
@@ -90,7 +92,7 @@ endif
 # --------------------------------------
 
 INC_DIRS += $(KERNEL_DIR)/include
-LIBS     += $(KERNEL_BUILD_DIR)/$(KERNEL_LIB).$(EXT_LIB)
+LIBS     += $(KERNEL_LIB)
 
 
 
@@ -119,12 +121,12 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(
 
 
 # %jp{カーネルライブラリ}
-$(KERNEL_BUILD_DIR)/$(KERNEL_LIB).$(EXT_LIB): kernel_make
+$(KERNEL_LIB): kernel_make
 
 
-# %jp{ライブラリ生成}
+# %jp{実行ファイル生成}
 .PHONY : makeexe_all
-makeexe_all: makeexe_mkobjsdir $(CSRCS) $(ASRCS)
+makeexe_all: $(KERNEL_LIB) makeexe_mkobjsdir $(CSRCS) $(ASRCS)
 
 
 # %jp{クリーンナップ}

@@ -133,10 +133,11 @@ srccpy: makeexe_srccpy
 	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak srccpy
 	$(MAKE) -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak srccpy
 
-../kernel_cfg.c ../kernel_id.h: ../system.cfg
+../kernel_cfg.c ../kernel_id.h: ../system.cfg $(KERNEL_CFGRTR)
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
+$(KERNEL_CFGRTR) : kernel_make
 
 
 # %jp{ライブラリ生成用設定読込み}

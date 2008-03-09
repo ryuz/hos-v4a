@@ -11,7 +11,13 @@
 TARGET ?= libhosv4a
 
 
-# ディレクトリ定義
+# %jp{アーキテクチャ指定}
+ARCH_PROC ?= arm/arm_v4t
+ARCH_IRC  ?= arm/lpc2000
+ARCH_CC   ?= armcc
+
+
+# %jp{ディレクトリ定義}
 HOSV4A_DIR        = ../../../../..
 KERNEL_DIR        = $(HOSV4A_DIR)/kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
@@ -26,11 +32,6 @@ KERNEL = Yes
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{アーキテクチャ定義}
-ARCH_PROC ?= arm/arm_v4t
-ARCH_IRC  ?= arm/lpc2000
-ARCH_CC   ?= armcc
-
 # %jp{アーキテクチャパス}
 INC_PROC_DIR    = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
 INC_IRC_DIR     = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
@@ -39,14 +40,17 @@ SRC_PROC_CC_DIR = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
 SRC_IRC_DIR     = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
 SRC_IRC_CC_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
 
+
 # %jp{パス設定}
 INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
+
 # %jp{オプションフラグ}
-AFLAGS  += --cpu ARM7TDMI-S --apcs=inter --thumb
-CFLAGS  += --cpu ARM7TDMI-S --apcs=inter --thumb
-ARFLAGS += 
+AFLAGS  = --cpu ARM7TDMI-S --apcs=inter --thumb
+CFLAGS  = --cpu ARM7TDMI-S --apcs=inter --thumb
+ARFLAGS = 
+
 
 # %jp{コンフィギュレータ定義}
 CFGRTR_DIR = $(HOSV4A_DIR)/cfgrtr/build/gcc
@@ -96,10 +100,11 @@ clean: makelib_clean
 	$(RM) -f *.lst
 
 
+
 # %jp{ライブラリ生成用設定読込み}
 include $(KERNEL_MAKINC_DIR)/makelib.inc
 
-# %jp{armcc用のルール定義読込み}
+# %jp{コンパイラ依存のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_r.inc
 
 # %jp{カーネル依存関係読込み}

@@ -98,32 +98,34 @@ LIBS = $(LIBS:@=)
 #  %jp{カーネルライブラリの選択}
 # --------------------------------------
 
-!ifndef OS_LIB
-OS_LIB = libhosv4a
+!ifndef KERNEL_LIB_NAME
+KERNEL_LIB_NAME = libhosv4a
 !endif
 
 
 # %jp{デバッグ指定}
 !if $(KERNEL_DEBUG) == "Yes"
-OS_LIB = $(OS_LIB)dbg
+KERNEL_LIB_NAME = $(KERNEL_LIB_NAME)dbg
 !endif
 
 
 # %jp{エラーレベル指定}
 !ifdef KERNEL_ERRLEVEL
 !if $(KERNEL_ERRLEVEL) == 0
-OS_LIB = $(OS_LIB)er0
+KERNEL_LIB_NAME = $(KERNEL_LIB_NAME)er0
 !elseif $(KERNEL_ERRLEVEL) == 1
-OS_LIB = $(OS_LIB)er1
+KERNEL_LIB_NAME = $(KERNEL_LIB_NAME)er1
 !elseif $(KERNEL_ERRLEVEL) == 2
-OS_LIB = $(OS_LIB)er2
+KERNEL_LIB_NAME = $(KERNEL_LIB_NAME)er2
 !elseif $(KERNEL_ERRLEVEL) == 3
-OS_LIB = $(OS_LIB)er3
+KERNEL_LIB_NAME = $(KERNEL_LIB_NAME)er3
 !elseif $(KERNEL_ERRLEVEL) == 4
-OS_LIB = $(OS_LIB)er4
+KERNEL_LIB_NAME = $(KERNEL_LIB_NAME)er4
 !endif
 !endif
 
+# kernel library
+KERNEL_LIB = $(KERNEL_BUILD_DIR)\$(KERNEL_LIB_NAME).$(EXT_LIB)
 
 
 # --------------------------------------
@@ -131,7 +133,7 @@ OS_LIB = $(OS_LIB)er4
 # --------------------------------------
 
 INC_DIRS = $(INC_DIRS) $(KERNEL_DIR)\include
-LIBS     = $(LIBS) $(KERNEL_BUILD_DIR)\$(OS_LIB).$(EXT_LIB)
+LIBS     = $(LIBS) $(KERNEL_LIB)
 
 
 
@@ -141,11 +143,11 @@ LIBS     = $(LIBS) $(KERNEL_BUILD_DIR)\$(OS_LIB).$(EXT_LIB)
 
 
 # %jp{カーネルライブラリ}
-$(KERNEL_BUILD_DIR)\$(OS_LIB).$(EXT_LIB): kernel_make
+$(KERNEL_LIB): kernel_make
 
 
 # %jp{all処理}
-makeexe_all: mkdir_objs $(CSRCS) $(ASRCS)
+makeexe_all: $(KERNEL_LIB) mkdir_objs $(CSRCS) $(ASRCS)
 
 
 # %jp{オブジェクト出力ディレクトリ作成}

@@ -151,6 +151,7 @@ srcobjcp:
 	$(CMD_CP) .\*.src $(OBJS_DIR)
 	$(CMD_CP) .\*.c $(OBJS_DIR)
 	$(CMD_CP) ..\*.c $(OBJS_DIR)
+	$(CMD_CP) ..\*.h $(OBJS_DIR)
 
 
 

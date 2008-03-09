@@ -66,9 +66,9 @@ endif
 
 
 # %jp{フラグ設定}
-CFLAGS  += --cpu=ARM7TDMI-S --apcs=inter --thumb
-AFLAGS  += --cpu=ARM7TDMI-S --apcs=inter --thumb
-LNFLAGS += --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --entry=$(SECTION_ROM)
+CFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
+AFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
+LNFLAGS = --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --entry=$(SECTION_ROM)
 
 
 # %jp{出力ファイル名}
