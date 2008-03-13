@@ -1,8 +1,8 @@
 /**
  *  Hyper Operating System V4 Advance
  *
- * @file  objid.h
- * @brief %jp{タスクブジェクトのID用の型定義}%en{define object ID type}
+ * @file  objhdl.h
+ * @brief %jp{オブジェクトハンドルの型定義}%en{define object handle}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/

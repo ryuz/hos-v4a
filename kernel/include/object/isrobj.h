@@ -1,10 +1,10 @@
 /**
  *  Hyper Operating System V4 Advance
  *
- * @file  int.h
- * @brief %jp{割り込み制御のヘッダファイル}%en{interrupt control heder file}
+ * @file  isrobj.h
+ * @brief %jp{割込みサービスルーチンオブジェクト}%en{interrupt service routine object heder file}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

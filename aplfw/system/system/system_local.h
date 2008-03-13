@@ -57,7 +57,7 @@ extern C_SYSTEM g_System;
 extern "C" {
 #endif
 
-int   System_Process(VPARAM Param);						/* システムプロセス */
+int    System_Process(VPARAM Param);					/* システムプロセス */
 
 HANDLE System_GetSystemProcess(void);
 void   System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */

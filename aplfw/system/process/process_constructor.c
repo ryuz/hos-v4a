@@ -74,7 +74,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	{
 		self->pszCurrentDir = NULL;
 	}
-		
+	
 	/* スタック用メモリ確保 */
 	if ( (self->pStack = SysMem_Alloc(self->StackSize)) == NULL )
 	{

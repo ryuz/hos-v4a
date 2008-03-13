@@ -31,10 +31,10 @@ typedef	unsigned long		_HOS_UINT32;
 typedef	signed long long	_HOS_SINT64;
 typedef	unsigned long long	_HOS_UINT64;
 #elif defined(_MSC_VER)
+#define _HOS_ENABLE64
 typedef	signed __int64		_HOS_SINT64;
 typedef	unsigned __int64	_HOS_UINT64;
 #else
-#define _HOS_ENABLE64
 typedef	signed long			_HOS_SINT64;
 typedef	unsigned long		_HOS_UINT64;
 #endif

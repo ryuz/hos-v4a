@@ -57,6 +57,8 @@ extern "C" {
 PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf);		/**< コンストラクタ */
 void        Process_Destructor(C_PROCESS *self);																				/**< デストラクタ */
 
+PROCESS_ERR Process_Attach(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf);				/**< 既存プロセスをアタッチ */
+
 #ifdef __cplusplus
 }
 #endif

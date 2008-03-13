@@ -23,7 +23,7 @@ KERNEL_CFGRTR     = $(KERNEL_CFGRTR_DIR)/h4acfg-h8300ha
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-ifeq ($(RAM),Yes)
+ifeq ($(MEMMAP),ram)
 # %jp{RAM実行(モニタプログラム利用を想定)}
 TARGET := $(TARGET)_ram
 SECTION_VECT = 0FFC040

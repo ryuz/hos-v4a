@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  knl_que.h
- * @brief %en{queue object heder file}%jp{キューオブジェクトのヘッダファイル}
+ * @file  que.h
+ * @brief %jp{キューオブジェクトのヘッダファイル}%en{queue object heder file}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

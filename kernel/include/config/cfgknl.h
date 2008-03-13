@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  config.h
+ * @file  cfgknl.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -325,7 +325,6 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ISRCB_ALGORITHM		_KERNEL_ISRCB_ALG_PTRARRAY
 #define _KERNEL_CFG_ISRCB_SPLIT_RO		FALSE				/**< %jp{ISRCBの不変部を分割してROM部配置とするか} */
 #define _KERNEL_CFG_ISRCB_BITFIELD		FALSE				/**< %jp{ビットフィールドを利用してTCBを圧縮するか} */
-
 
 
 

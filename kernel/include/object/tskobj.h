@@ -1,10 +1,10 @@
 /**
  *  Hyper Operating System V4 Advance
  *
- * @file  knl_que.h
+ * @file  tskobj.h
  * @brief %jp{タスクブジェクトのヘッダファイル}%en{task object heder file}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

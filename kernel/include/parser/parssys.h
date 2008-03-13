@@ -1,8 +1,8 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  pitrncfg.h
- * @brief %jp{itrncfgのパーサー}%en{perser for itrncfg.h}
+ * @file  parssys.h
+ * @brief %jp{システムコンフィギュレーションの解析}%en{system configuration parser}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -73,9 +73,9 @@
 
 /* %jp{ATR型のbit数を定義する}%en{Object attribute(unsigned integer)} */
 #if _KERNEL_CFG_TBIT_ATR <= 0		/* default */
-#define _KERNEL_TBIT_ATR			_KERNEL_TBIT_PROC_UINT
+#define _KERNEL_TBIT_ATR		_KERNEL_TBIT_PROC_UINT
 #else
-#define _KERNEL_TBIT_ATR			_KERNEL_CFG_TBIT_ATR
+#define _KERNEL_TBIT_ATR		_KERNEL_CFG_TBIT_ATR
 #endif
 
 
@@ -251,48 +251,44 @@
 
 
 /* %jp{キューイング／ネスト回数の最大値}%en{Maximum Nesting/Queueing Count} */
-/*#define _KERNEL_TMAX_ACTCNT		_KERNEL_CFG_TMAX_ACTCNT	*/				/**< %jp{タスク起動要求キューイング数の最大値(-1の時デフォルト値)} */
-/*#define _KERNEL_TMAX_WUPCNT		_KERNEL_CFG_TMAX_WUPCNT	*/					/**< %jp{タスク起床要求キューイング数の最大値(-1の時デフォルト値)} */
-/*#define _KERNEL_TMAX_SUSCNT		_KERNEL_CFG_TMAX_SUSCNT	*/				/**< %jp{タスク強制待ち要求ネスト数の最大値(-1の時デフォルト値)} */
-
 #if _KERNEL_CFG_TMAX_ACTCNT < 0
-#define _KERNEL_TMAX_ACTCNT			_KERNEL_TMAX_UINT
+#define _KERNEL_TMAX_ACTCNT			_KERNEL_TMAX_UINT					/**< %jp{タスク起動要求キューイング数の最大値} */
 #else
-#define _KERNEL_TMAX_ACTCNT			_KERNEL_CFG_TMAX_ACTCNT
+#define _KERNEL_TMAX_ACTCNT			_KERNEL_CFG_TMAX_ACTCNT				/**< %jp{タスク起動要求キューイング数の最大値} */
 #endif
 
 #if _KERNEL_CFG_TMAX_WUPCNT < 0
-#define _KERNEL_TMAX_WUPCNT			_KERNEL_TMAX_UINT
+#define _KERNEL_TMAX_WUPCNT			_KERNEL_TMAX_UINT					/**< %jp{タスク起床要求キューイング数の最大値} */
 #else
-#define _KERNEL_TMAX_WUPCNT			_KERNEL_CFG_TMAX_WUPCNT
+#define _KERNEL_TMAX_WUPCNT			_KERNEL_CFG_TMAX_WUPCNT				/**< %jp{タスク起床要求キューイング数の最大値} */
 #endif
 
 #if _KERNEL_CFG_TMAX_SUSCNT	< 0
-#define _KERNEL_TMAX_SUSCNT			_KERNEL_TMAX_UINT
+#define _KERNEL_TMAX_SUSCNT			_KERNEL_TMAX_UINT					/**< %jp{タスク強制待ち要求ネスト数の最大値} */
 #else
-#define _KERNEL_TMAX_SUSCNT			_KERNEL_CFG_TMAX_SUSCNT
+#define _KERNEL_TMAX_SUSCNT			_KERNEL_CFG_TMAX_SUSCNT				/**< %jp{タスク強制待ち要求ネスト数の最大値} */
 #endif
 
 
 
 /* */
 
-#if _KERNEL_CFG_TEX_TBIT_TEXPTN < 0								/**< %jp{タスク例外要因のビット数} */
-#define _KERNEL_TEX_TBIT_TEXPTN	_KERNEL_TBIT_TEXPTN
+#if _KERNEL_CFG_TEX_TBIT_TEXPTN < 0	
+#define _KERNEL_TEX_TBIT_TEXPTN	_KERNEL_TBIT_TEXPTN						/**< %jp{タスク例外要因のビット数} */
 #else
-#define _KERNEL_TEX_TBIT_TEXPTN	_KERNEL_CFG_TEX_TBIT_TEXPTN
+#define _KERNEL_TEX_TBIT_TEXPTN	_KERNEL_CFG_TEX_TBIT_TEXPTN				/**< %jp{タスク例外要因のビット数} */
 #endif
 
-#if _KERNEL_CFG_FLG_TBIT_FLGPTN < 0								/**< %jp{イベントフラグのビット数} */
-#define _KERNEL_FLG_TBIT_FLGPTN	_KERNEL_TBIT_FLGPTN
+#if _KERNEL_CFG_FLG_TBIT_FLGPTN < 0
+#define _KERNEL_FLG_TBIT_FLGPTN	_KERNEL_TBIT_FLGPTN						/**< %jp{イベントフラグのビット数} */
 #else
-#define _KERNEL_FLG_TBIT_FLGPTN	_KERNEL_CFG_FLG_TBIT_FLGPTN
+#define _KERNEL_FLG_TBIT_FLGPTN	_KERNEL_CFG_FLG_TBIT_FLGPTN				/**< %jp{イベントフラグのビット数} */
 #endif
 
 #if _KERNEL_CFG_RDV_TBIT_RDVPTN < 0
-#define _KERNEL_RDV_TBIT_RDVPTN	_KERNEL_TBIT_RDVPTN				/**< %jp{ランデブ条件のビット数} */
+#define _KERNEL_RDV_TBIT_RDVPTN	_KERNEL_TBIT_RDVPTN						/**< %jp{ランデブ条件のビット数} */
 #else
-#define _KERNEL_RDV_TBIT_RDVPTN	_KERNEL_CFG_RDV_TBIT_RDVPTN
+#define _KERNEL_RDV_TBIT_RDVPTN	_KERNEL_CFG_RDV_TBIT_RDVPTN				/**< %jp{ランデブ条件のビット数} */
 #endif
 
 
@@ -306,21 +302,21 @@
 
 
 /* %jp{T_RTSKの変更}%en{T_RTSKの変更} */
-#define _KERNEL_SPT_RTSK_TSKATR		_KERNEL_CFG_RTSK_TSKATR			/**< %jp{T_RTSKに tskatr を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTSK_EXINF		_KERNEL_CFG_RTSK_EXINF			/**< %jp{T_RTSKに exinf を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTSK_TASK		_KERNEL_CFG_RTSK_TASK			/**< %jp{T_RTSKに task を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTSK_ITSKPRI	_KERNEL_CFG_RTSK_ITSKPRI		/**< %jp{T_RTSKに itskpri を含めるか(HOS独自拡張機能)} */	
-#define _KERNEL_SPT_RTSK_STKSZ		_KERNEL_CFG_RTSK_STKSZ			/**< %jp{T_RTSKに stksz を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTSK_STK		_KERNEL_CFG_RTSK_STK			/**< %jp{T_RTSKに stk を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_TSKATR		_KERNEL_CFG_RTSK_TSKATR				/**< %jp{T_RTSKに tskatr を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_EXINF		_KERNEL_CFG_RTSK_EXINF				/**< %jp{T_RTSKに exinf を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_TASK		_KERNEL_CFG_RTSK_TASK				/**< %jp{T_RTSKに task を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_ITSKPRI	_KERNEL_CFG_RTSK_ITSKPRI			/**< %jp{T_RTSKに itskpri を含めるか(HOS独自拡張機能)} */	
+#define _KERNEL_SPT_RTSK_STKSZ		_KERNEL_CFG_RTSK_STKSZ				/**< %jp{T_RTSKに stksz を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTSK_STK		_KERNEL_CFG_RTSK_STK				/**< %jp{T_RTSKに stk を含めるか(HOS独自拡張機能)} */
 
 
 /* %jp{T_RTSTの構成}%en{T_RTST} */
-#define _KERNEL_SPT_RTST_TSKATR		_KERNEL_CFG_RTST_TSKATR			/**< %jp{T_RTSTに tskatr を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTST_EXINF		_KERNEL_CFG_RTST_EXINF			/**< %jp{T_RTSTに exinf を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTST_TASK		_KERNEL_CFG_RTST_TASK			/**< %jp{T_RTSTに task を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTST_ITSKPRI	_KERNEL_CFG_RTST_ITSKPRI		/**< %jp{T_RTSTに itskpri を含めるか(HOS独自拡張機能)} */	
-#define _KERNEL_SPT_RTST_STKSZ		_KERNEL_CFG_RTST_STKSZ			/**< %jp{T_RTSTに stksz を含めるか(HOS独自拡張機能)} */
-#define _KERNEL_SPT_RTST_STK		_KERNEL_CFG_RTST_STK			/**< %jp{T_RTSTに stk を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_TSKATR		_KERNEL_CFG_RTST_TSKATR				/**< %jp{T_RTSTに tskatr を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_EXINF		_KERNEL_CFG_RTST_EXINF				/**< %jp{T_RTSTに exinf を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_TASK		_KERNEL_CFG_RTST_TASK				/**< %jp{T_RTSTに task を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_ITSKPRI	_KERNEL_CFG_RTST_ITSKPRI			/**< %jp{T_RTSTに itskpri を含めるか(HOS独自拡張機能)} */	
+#define _KERNEL_SPT_RTST_STKSZ		_KERNEL_CFG_RTST_STKSZ				/**< %jp{T_RTSTに stksz を含めるか(HOS独自拡張機能)} */
+#define _KERNEL_SPT_RTST_STK		_KERNEL_CFG_RTST_STK				/**< %jp{T_RTSTに stk を含めるか(HOS独自拡張機能)} */
 
 
 

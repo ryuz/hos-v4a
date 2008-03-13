@@ -2,7 +2,7 @@
 # Hyper Operating System V4 Advance
 #  makefile for sh2-sample
 #
-# Copyright (C) 1998-2006 by Project HOS
+# Copyright (C) 1998-2008 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ TARGET := $(TARGET)dbg
 endif
 
 
-ifeq ($(RAM),Yes)
+ifeq ($(MEMMAP),ram)
 # %jp{RAM実行(モニタプログラム利用を想定)}
 TARGET     := $(TARGET)_ram
 LINK_SCRIPT = link_ram.x

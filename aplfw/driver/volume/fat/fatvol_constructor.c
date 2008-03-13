@@ -35,8 +35,14 @@ const T_VOLUMEOBJ_METHODS FatVol_VolumeObjMethods =
 /* コンストラクタ */
 FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethods, const char *pszPath)
 {
-	unsigned char ubBuf[512];
+	unsigned char *pubBuf;
 	int           i;
+	
+	/* 一時バッファ確保 */
+	if ( (pubBuf = SysMem_Alloc(512)) == NULL )
+	{
+		return FATVOL_ERR_NG;
+	}
 	
 	/* 仮想関数テーブル */
 	if ( pMethods == NULL )
@@ -55,26 +61,27 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	self->hBlockFile = File_Open(pszPath, FILE_OPEN_READ | FILE_OPEN_WRITE);
 	if ( self->hBlockFile == HANDLE_NULL )
 	{
+		SysMem_Free(pubBuf);
 		return FATVOL_ERR_NG;
 	}
 			
 	/* パーティーションテーブルチェック */
 	File_Seek(self->hBlockFile, 0, FILE_SEEK_SET);
-	File_Read(self->hBlockFile, ubBuf, 512);
-	if ( ubBuf[0x1fe] == 0x55 && ubBuf[0x1ff] == 0xaa )	/* シグネチャコードチェック */
+	File_Read(self->hBlockFile, pubBuf, 512);
+	if ( pubBuf[0x1fe] == 0x55 && pubBuf[0x1ff] == 0xaa )	/* シグネチャコードチェック */
 	{
 		/* パーティーションテーブル０のみ確認 */
-		if ( ubBuf[0x1be + 0x04] == 0x01			/* FAT12 */
-				|| ubBuf[0x1be + 0x04] == 0x04		/* FAT16(32MB未満) */
-				|| ubBuf[0x1be + 0x04] == 0x06		/* FAT16(32MB以上) */
-				|| ubBuf[0x1be + 0x04] == 0x0b		/* FAT32 */
-				|| ubBuf[0x1be + 0x04] == 0x0c 		/* FAT32X (LBA) */
-				|| ubBuf[0x1be + 0x04] == 0x0e )	/* FAT16X (LBA) */
+		if ( pubBuf[0x1be + 0x04] == 0x01			/* FAT12 */
+				|| pubBuf[0x1be + 0x04] == 0x04		/* FAT16(32MB未満) */
+				|| pubBuf[0x1be + 0x04] == 0x06		/* FAT16(32MB以上) */
+				|| pubBuf[0x1be + 0x04] == 0x0b		/* FAT32 */
+				|| pubBuf[0x1be + 0x04] == 0x0c 		/* FAT32X (LBA) */
+				|| pubBuf[0x1be + 0x04] == 0x0e )	/* FAT16X (LBA) */
 		{
-			self->Offset = ubBuf[0x1be + 0x08]
-							+ (ubBuf[0x1be + 0x09] << 8)
-							+ (ubBuf[0x1be + 0x0a] << 16)
-							+ (ubBuf[0x1be + 0x0b] << 24);
+			self->Offset = pubBuf[0x1be + 0x08]
+							+ (pubBuf[0x1be + 0x09] << 8)
+							+ (pubBuf[0x1be + 0x0a] << 16)
+							+ (pubBuf[0x1be + 0x0b] << 24);
 			self->Offset *= 512;
 		}
 	}
@@ -86,21 +93,21 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	
 	/* BIOS Parameter Block */
 	File_Seek(self->hBlockFile, self->Offset, FILE_SEEK_SET);
-	File_Read(self->hBlockFile, ubBuf, 512);
+	File_Read(self->hBlockFile, pubBuf, 512);
 	
 	/* FAT12/16/32判定 */
-	if ( ubBuf[0x36] == 'F' && ubBuf[0x37] == 'A' && ubBuf[0x38] == 'T' && ubBuf[0x39] == '1' )
+	if ( pubBuf[0x36] == 'F' && pubBuf[0x37] == 'A' && pubBuf[0x38] == 'T' && pubBuf[0x39] == '1' )
 	{
-		if ( ubBuf[0x3a] == '2' )
+		if ( pubBuf[0x3a] == '2' )
 		{
 			self->iFatType = FATVOL_TYPE_FAT12;
 		}
-		else if ( ubBuf[0x3a] == '6' )
+		else if ( pubBuf[0x3a] == '6' )
 		{
 			self->iFatType = FATVOL_TYPE_FAT16;
 		}
 	}
-	else if ( ubBuf[0x52] == 'F' && ubBuf[0x53] == 'A' && ubBuf[0x54] == 'T' && ubBuf[0x55] == '3' && ubBuf[0x56] == '2')
+	else if ( pubBuf[0x52] == 'F' && pubBuf[0x53] == 'A' && pubBuf[0x54] == 'T' && pubBuf[0x55] == '3' && pubBuf[0x56] == '2')
 	{
 		self->iFatType = FATVOL_TYPE_FAT32;
 	}
@@ -111,13 +118,13 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	{
 	case FATVOL_TYPE_FAT12:
 	case FATVOL_TYPE_FAT16:
-		self->BytesPerSector    = ubBuf[0x0b] + (ubBuf[0x0c] << 8);					/**< セクタサイズ */
-		self->SectorsPerCluster = ubBuf[0x0d];										/**< 1クラスタのセクタ数 */
-		self->FatStartSector    = ubBuf[0x0e] + (ubBuf[0x0f] << 8);					/**< FATの開始セクタ番号 */
-		self->RootDirEntryNum   = ubBuf[0x11] + (ubBuf[0x12] << 8);					/**< ルートディレクトリ最大エントリ数 */
-		self->SectorNum         = ubBuf[0x13] + (ubBuf[0x14] << 8);					/**< 総セクタ数 */
-		self->SectorPerFat      = ubBuf[0x16] + (ubBuf[0x17] << 8);					/**< FATあたりのセクタ数 */
-		self->FatNum            = ubBuf[0x10];										/**< FAT個数 */
+		self->BytesPerSector    = pubBuf[0x0b] + (pubBuf[0x0c] << 8);				/**< セクタサイズ */
+		self->SectorsPerCluster = pubBuf[0x0d];										/**< 1クラスタのセクタ数 */
+		self->FatStartSector    = pubBuf[0x0e] + (pubBuf[0x0f] << 8);				/**< FATの開始セクタ番号 */
+		self->RootDirEntryNum   = pubBuf[0x11] + (pubBuf[0x12] << 8);				/**< ルートディレクトリ最大エントリ数 */
+		self->SectorNum         = pubBuf[0x13] + (pubBuf[0x14] << 8);				/**< 総セクタ数 */
+		self->SectorPerFat      = pubBuf[0x16] + (pubBuf[0x17] << 8);				/**< FATあたりのセクタ数 */
+		self->FatNum            = pubBuf[0x10];										/**< FAT個数 */
 		self->RootDirSector     = self->FatStartSector + (self->SectorPerFat * self->FatNum);
 																					/**< ルートディレクトリ開始位置 */
 
@@ -132,6 +139,14 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		/* FATバッファ準備 */
 		self->pubFatBuf   = (unsigned char *)SysMem_Alloc(self->SectorPerFat * self->BytesPerSector);
 		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
+		if ( self->pubFatBuf == NULL || self->pubFatDirty == NULL )
+		{
+			SysMem_Free(self->pubFatBuf);
+			SysMem_Free(self->pubFatDirty);
+			File_Close(self->hBlockFile);
+			SysMem_Free(pubBuf);
+			return FATVOL_ERR_NG;
+		}
 
 		/* FAT読み出し */
 		File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector  + self->Offset, FILE_SEEK_SET);
@@ -141,14 +156,13 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		break;
 
 	case FATVOL_TYPE_FAT32:
-		self->BytesPerSector    = ubBuf[0x0b] + (ubBuf[0x0c] << 8);					/**< セクタサイズ */
-		self->SectorsPerCluster = ubBuf[0x0d];										/**< 1クラスタのセクタ数 */
-		self->FatStartSector    = ubBuf[0x0e] + (ubBuf[0x0f] << 8);					/**< FATの開始セクタ番号 */
-		self->RootDirEntryNum   = ubBuf[0x11] + (ubBuf[0x12] << 8);					/**< ルートディレクトリ最大エントリ数 */
-/*		self->SectorNum         = ubBuf[0x13] + (ubBuf[0x14] << 8);		*/			/**< 総セクタ数 */
-		self->SectorNum         = ubBuf[0x20] + (ubBuf[0x21] << 8) + (ubBuf[0x22] << 16) + (ubBuf[0x23] << 24);
-		self->SectorPerFat      = ubBuf[0x24] + (ubBuf[0x25] << 8) + (ubBuf[0x26] << 16) + (ubBuf[0x27] << 24);	/**< FATあたりのセクタ数 */
-		self->FatNum            = ubBuf[0x10];										/**< FAT個数 */
+		self->BytesPerSector    = pubBuf[0x0b] + (pubBuf[0x0c] << 8);				/**< セクタサイズ */
+		self->SectorsPerCluster = pubBuf[0x0d];										/**< 1クラスタのセクタ数 */
+		self->FatStartSector    = pubBuf[0x0e] + (pubBuf[0x0f] << 8);				/**< FATの開始セクタ番号 */
+		self->RootDirEntryNum   = pubBuf[0x11] + (pubBuf[0x12] << 8);				/**< ルートディレクトリ最大エントリ数 */
+		self->SectorNum         = pubBuf[0x20] + (pubBuf[0x21] << 8) + (pubBuf[0x22] << 16) + (pubBuf[0x23] << 24);
+		self->SectorPerFat      = pubBuf[0x24] + (pubBuf[0x25] << 8) + (pubBuf[0x26] << 16) + (pubBuf[0x27] << 24);	/**< FATあたりのセクタ数 */
+		self->FatNum            = pubBuf[0x10];										/**< FAT個数 */
 		self->RootDirSector     = self->FatStartSector + (self->SectorPerFat * self->FatNum);
 																					/**< ルートディレクトリ開始位置 */
 
@@ -158,12 +172,20 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 										- (2 * self->SectorsPerCluster);			/**< クラスタ0の開始セクタ */
 		self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster;
 																					/**< 総クラスタ数 */
-		self->RootDirCluster    = ubBuf[0x2c] + (ubBuf[0x2d] << 8) + (ubBuf[0x2e] << 16) + (ubBuf[0x2f] << 24);
+		self->RootDirCluster    = pubBuf[0x2c] + (pubBuf[0x2d] << 8) + (pubBuf[0x2e] << 16) + (pubBuf[0x2f] << 24);
 		
 		/* FATバッファ準備 */
 		self->pubFatBuf   = (unsigned char *)SysMem_Alloc(self->SectorPerFat * self->BytesPerSector);
 		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
-
+		if ( self->pubFatBuf == NULL || self->pubFatDirty == NULL )
+		{
+			SysMem_Free(self->pubFatBuf);
+			SysMem_Free(self->pubFatDirty);
+			File_Close(self->hBlockFile);
+			SysMem_Free(pubBuf);
+			return FATVOL_ERR_NG;
+		}
+		
 		/* FAT読み出し */
 		File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector  + self->Offset, FILE_SEEK_SET);
 		File_Read(self->hBlockFile, self->pubFatBuf, self->SectorPerFat * self->BytesPerSector);
@@ -172,6 +194,8 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		break;
 	
 	default:
+		File_Close(self->hBlockFile);
+		SysMem_Free(pubBuf);
 		return FATVOL_ERR_NG;
 	}
 	
@@ -191,6 +215,9 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	
 	/* ミューテックス生成 */
 	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	
+	/* 一時バッファ開放 */
+	SysMem_Free(pubBuf);
 	
 	return FATVOL_ERR_OK;
 }

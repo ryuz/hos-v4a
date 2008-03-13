@@ -27,7 +27,7 @@ TARGET := $(TARGET)dbg
 endif
 
 
-ifeq ($(RAM),Yes)
+ifeq ($(MEMMAP),ram)
 # %jp{RAM実行(モニタプログラム利用を想定)}%en{execute on RAM}
 TARGET := $(TARGET)ram
 SECTION_VECT ?= 000400000

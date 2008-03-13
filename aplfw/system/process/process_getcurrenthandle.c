@@ -16,7 +16,8 @@
 /* 現在のプロセスハンドル取得 */
 HANDLE Process_GetCurrentHandle(void)
 {
-	SYSPRC_HANDLE hSysPrc;
+	SYSPRC_HANDLE	hSysPrc;
+	HANDLE			hProcess;
 	
 	/* 現在のプロセスを取得 */
 	if ( (hSysPrc = SysPrc_GetCurrentHandle()) == SYSPRC_HANDLE_NULL )
@@ -26,7 +27,15 @@ HANDLE Process_GetCurrentHandle(void)
 	}
 	
 	/* 現在のプロセスを取得 */
-	return (HANDLE)SysPrc_GetParam(hSysPrc);
+	hProcess = (HANDLE)SysPrc_GetParam(hSysPrc);
+	
+	if ( hProcess == HANDLE_NULL )
+	{
+		/* 未管理プロセスはすべてシステムプロセスとする */
+		return System_GetSystemProcess();
+	}
+	
+	return hProcess;
 }
 
 

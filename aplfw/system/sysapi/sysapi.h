@@ -130,21 +130,21 @@ unsigned long  SysTim_CpuTimeToNanosecond(SYSTIM_CPUTIME CpuTime);			/**< CPU時
 /* I/Oアクセス */
 #ifdef __HOSAPLFW_IOMAPEDIO
 /* I/OマップドI/O  */
-unsigned char  SysIo_InPortB(unsigned int Port);							/**< I/Oポートからバイト(8bit)入力 */
-unsigned short SysIo_InPortH(unsigned int Port);							/**< I/Oポートからハーフワード(16bit)入力 */
-unsigned long  SysIo_InPortW(unsigned int Port);							/**< I/Oポートからワード(32bit)入力 */
-unsigned char  SysIo_OutPortB(unsigned int Port, unsigned char Data);		/**< I/Oポートへバイト(8bit)出力 */
-unsigned short SysIo_OutPortH(unsigned int Port, unsigned short Data);		/**< I/Oポートへハーフワード(16bit)出力 */
-unsigned long  SysIo_OutPortW(unsigned int Port, unsigned long Data);		/**< I/Oポートへワード(32bit)出力 */
-unsigned char  SysIo_AndPortB(unsigned int Port, unsigned char Data);		/**< I/Oポートをバイト(8bit)単位で論理積 */
-unsigned short SysIo_AndPortH(unsigned int Port, unsigned short Data);  	/**< I/Oポートをハーフワード(16bit)単位で論理積 */
-unsigned long  SysIo_AndPortW(unsigned int Port, unsigned long Data);   	/**< I/Oポートをワード(32bit)単位で論理積 */
-unsigned char  SysIo_OrPortB(unsigned int Port, unsigned char Data);		/**< I/Oポートをバイト(8bit)単位で論理和 */
-unsigned short SysIo_OrPortH(unsigned int Port, unsigned short Data);		/**< I/Oポートをハーフワード(16bit)単位で論理和 */
-unsigned long  SysIo_OrPortW(unsigned int Port, unsigned long Data);		/**< I/Oポートをワード(32bit)単位で論理和 */
-unsigned char  SysIo_XorPortB(unsigned int Port, unsigned char Data);		/**< I/Oポートをバイト(8bit)単位で排他的論理和 */
-unsigned short SysIo_XorPortH(unsigned int Port, unsigned short Data);		/**< I/Oポートをハーフワード(16bit)単位で排他的論理和 */
-unsigned long  SysIo_XorPortW(unsigned int Port, unsigned long Data);		/**< I/Oポートをワード(32bit)単位で排他的論理和 */
+unsigned char  SysIo_InPortB(void *Port);									/**< I/Oポートからバイト(8bit)入力 */
+unsigned short SysIo_InPortH(void *Port);									/**< I/Oポートからハーフワード(16bit)入力 */
+unsigned long  SysIo_InPortW(void *Port);									/**< I/Oポートからワード(32bit)入力 */
+unsigned char  SysIo_OutPortB(void *Port, unsigned char Data);				/**< I/Oポートへバイト(8bit)出力 */
+unsigned short SysIo_OutPortH(void *Port, unsigned short Data);				/**< I/Oポートへハーフワード(16bit)出力 */
+unsigned long  SysIo_OutPortW(void *Port, unsigned long Data);				/**< I/Oポートへワード(32bit)出力 */
+unsigned char  SysIo_AndPortB(void *Port, unsigned char Data);				/**< I/Oポートをバイト(8bit)単位で論理積 */
+unsigned short SysIo_AndPortH(void *Port, unsigned short Data); 		 	/**< I/Oポートをハーフワード(16bit)単位で論理積 */
+unsigned long  SysIo_AndPortW(void *Port, unsigned long Data);  		 	/**< I/Oポートをワード(32bit)単位で論理積 */
+unsigned char  SysIo_OrPortB(void *Port, unsigned char Data);				/**< I/Oポートをバイト(8bit)単位で論理和 */
+unsigned short SysIo_OrPortH(void *Port, unsigned short Data);				/**< I/Oポートをハーフワード(16bit)単位で論理和 */
+unsigned long  SysIo_OrPortW(void *Port, unsigned long Data);				/**< I/Oポートをワード(32bit)単位で論理和 */
+unsigned char  SysIo_XorPortB(void *Port, unsigned char Data);				/**< I/Oポートをバイト(8bit)単位で排他的論理和 */
+unsigned short SysIo_XorPortH(void *Port, unsigned short Data);				/**< I/Oポートをハーフワード(16bit)単位で排他的論理和 */
+unsigned long  SysIo_XorPortW(void *Port, unsigned long Data);				/**< I/Oポートをワード(32bit)単位で排他的論理和 */
 #else
 /* メモリマップドI/O */
 #define        SysIo_InPortB(Port)			(*(volatile unsigned char *)(Port))
