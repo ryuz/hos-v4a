@@ -15,6 +15,7 @@
 void SysPrc_Delete(SYSPRC_HANDLE hPrc)
 {
 	SysPrc_InfTbl[(ID)hPrc].Param = 0;
+	ter_tsk((ID)hPrc);
 	del_tsk((ID)hPrc);
 }
 

@@ -35,6 +35,7 @@ HANDLE At91UsartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		AT91USART_REG_WRITE(self, AT91USART_US_BRGR, 0x00000034);
 		AT91USART_REG_WRITE(self, AT91USART_US_MR,   0x000008c0);	/* 8bit, non-paroty */
 		AT91USART_REG_WRITE(self, AT91USART_US_CR,   0x00000050);	/* enable */
+		AT91USART_REG_WRITE(self, AT91USART_US_IDR,  0x0000003f);	/* 割り込みマスク初期化 */
 		AT91USART_REG_WRITE(self, AT91USART_US_IER,  0x00000001);	/* 受信割り込み許可 */		
 		
 		SysInt_Enable(self->iIntNum);
