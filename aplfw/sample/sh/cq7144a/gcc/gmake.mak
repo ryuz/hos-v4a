@@ -107,10 +107,10 @@ LIBS  += $(HOSAPLFW_LIB)
 # --------------------------------------
 
 .PHONY : all
-all: make_libs makeexe_all $(TARGET_EXE) $(TARGET_MOT)
+all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
-.PHONY : make_libs
-make_libs:
+.PHONY : make_subprj
+make_subprj:
 	$(MAKE) -C $(HOSAPLFW_BUILD_DIR) -f gmake.mak
 
 .PHONY : clean
