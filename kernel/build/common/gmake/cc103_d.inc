@@ -9,7 +9,7 @@
 
 # %jp{コマンド定義}%en{Tools}
 CMD_CC     ?= cc103S
-CMD_ASM    ?= cc103S
+CMD_ASM    ?= as103S
 CMD_LIBR   ?= ar103S
 CMD_LINK   ?= cc103S
 CMD_OBJCNV ?= xcv103
@@ -52,20 +52,16 @@ CFLAGS_OPT_SPEED  = -Ot
 # ----------------------------------
 
 # %jp{共通オプションの設定}
-AFLAGS += -c -g
+AFLAGS += -g
 
-# %jp{インクルードパスオプションの定義}
-AFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
-
-# %jp{マクロ定義オプションの定義}
-AFLAGS_DEF = $(patsubst %,-D%,$(C_DEFS))
 
 # %jp{デバッグオプションの定義}
 AFLAGS_DBG = -g
 
+
 # %jp{最適化オプションの定義}
 AFLAGS_OPT_NONE   =
-CFLAGS_OPT_NORMAL =
+AFLAGS_OPT_NORMAL =
 AFLAGS_OPT_SIZE   =
 AFLAGS_OPT_SPEED  =
 

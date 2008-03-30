@@ -17,7 +17,6 @@ ifneq ($(INC_DIRS),)
 CFLAGS_INC = $(patsubst %,-I%,$(INC_DIRS))
 endif
 
-
 # %jp{C言語マクロ定義オプションの定義}%en{C-compiler define macros}
 ifneq ($(C_DEFS),)
 CFLAGS_DEF = $(patsubst %,-D%,$(C_DEFS))
@@ -29,10 +28,9 @@ ifneq ($(INC_DIRS),)
 AFLAGS_INC =
 endif
 
-
 # %jp{アセンブリ言語マクロ定義オプションの定義}%en{Assembler define macros}
 ifneq ($(A_DEFS),)
-AFLAGS_DEF =
+AFLAGS_DEF = $(patsubst %,-D %,$(A_DEFS))
 endif
 
 
@@ -69,6 +67,8 @@ $(TARGET_LIB): $(OBJS)
 
 # %jp{Cコンパイル}%en{C Compile}
 $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
+	echo $(CFLAGS_INC)
+	echo $(CFLAGS_DEF)
 	$(CMD_CC)  $(CFLAGS) $< -o $@
 
 

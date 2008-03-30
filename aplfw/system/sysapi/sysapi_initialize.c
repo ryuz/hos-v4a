@@ -29,7 +29,7 @@ void SysApi_Initialize(void *pMem, MEMSIZE Size)
 	MemPol_Create(&SysMem_MemPol, pMem, Size);			/* メモリプール生成 */
 	
 	/* プロセス管理テーブルメモリ確保 */
-	SysPrc_InfTbl = (T_SYSPRC_INF *)SysMem_Alloc(sizeof(T_SYSPRC_INF) * _kernel_max_tskid);
+	SysPrc_InfTbl = (T_SYSPRC_INF *)SysMem_Alloc(sizeof(T_SYSPRC_INF) * (_kernel_max_tskid + 1));
 	memset(SysPrc_InfTbl, 0, sizeof(T_SYSPRC_INF) * _kernel_max_tskid);
 
 	/* ISR管理テーブルメモリ確保 */

@@ -100,11 +100,6 @@ LIBS     += $(KERNEL_LIB)
 #  %jp{各種設定}
 # --------------------------------------
 
-# 基本オプション設定
-CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
-AFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
-
-
 # %jp{サーチパス設定}
 VPATH = $(subst $(space),:,$(SRC_DIRS))
 
