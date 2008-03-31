@@ -531,6 +531,10 @@ SOURCE=..\..\..\..\source\object\tsk\cre_tsk.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\tsk\def_tex.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\tsk\del_tsk.c
 # End Source File
 # Begin Source File
@@ -556,6 +560,14 @@ SOURCE=..\..\..\..\source\object\tsk\kchg_pri.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\tsk\kcre_tsk.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\kexe_tex.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\tsk\ras_tex.c
 # End Source File
 # Begin Source File
 
