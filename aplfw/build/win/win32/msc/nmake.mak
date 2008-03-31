@@ -35,16 +35,16 @@ INC_DIRS = $(INC_DIRS) $(KERNEL_DIR)\include
 
 
 # %jp{オプションフラグ}
-CFLAGS = $(CFLAGS)
-AFLAGS = $(AFLAGS)
-LFLAGS = $(LFLAGS)
+AFLAGS  = $(AFLAGS)
+CFLAGS  = $(CFLAGS)
+ARFLAGS = $(LFLAGS)
 
 
 # %jp{リンク制御対象制御}
 LINK_WINSOCK = Yes
 
 
-
+# %jp{ルール定義}
 all: makelib_all
 
 clean: makelib_clean
@@ -56,8 +56,9 @@ clean: makelib_clean
 
 # %jp{共通設定読込み}
 !include $(KERNEL_MAKINC_DIR)\makelib.inc
-!include $(HOSAPLFW_MKINK_DIR)\aplfwsrc.inc
 
+# %jp{共通ソース設定読込み}
+!include $(HOSAPLFW_MKINK_DIR)\aplfwsrc.inc
 
 # %jp{MS-C用のルール定義読込み}
 !include $(KERNEL_MAKINC_DIR)\msc_r.inc

@@ -974,6 +974,9 @@ SOURCE=..\..\..\..\source\object\mtx\unl_mtx.c
 # Begin Group "arch"
 
 # PROP Default_Filter ""
+# Begin Group "irc"
+
+# PROP Default_Filter ""
 # Begin Group "simple"
 
 # PROP Default_Filter ""
@@ -1006,10 +1009,59 @@ SOURCE=..\..\..\..\source\arch\irc\simple\get_ilv.c
 SOURCE=..\..\..\..\source\arch\irc\simple\get_imsk.c
 # End Source File
 # End Group
+# End Group
+# Begin Group "proc"
+
+# PROP Default_Filter ""
+# Begin Group "win"
+
+# PROP Default_Filter ""
+# Begin Group "win32"
+
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\..\..\source\arch\proc\win\win32\ctxctl.c
+SOURCE=..\..\..\..\source\arch\proc\win\win32\kcre_ctx.c
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\kdis_int.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\kena_int.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\kini_prc.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\krst_ctx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\ksta_ctx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\kswi_ctx.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\kwai_int.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\val_int.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\arch\proc\win\win32\vsig_int.c
+# End Source File
+# End Group
+# End Group
+# End Group
 # End Group
 # End Group
 # End Target
