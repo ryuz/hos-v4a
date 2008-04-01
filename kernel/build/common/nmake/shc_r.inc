@@ -63,6 +63,18 @@ AFLAGS_DEF = -DEF=$(A_DEFS: =,)
 !endif
 
 
+!ifdef OBJS
+OBJS = $(OBJS:	= )
+OBJS  = $(OBJS:  = )
+OBJS = $(OBJS:  = )
+OBJS  = $(OBJS:  = )
+OBJS = @$(OBJS)@
+OBJS  = $(OBJS:@ =)
+OBJS  = $(OBJS: @=)
+OBJS  = $(OBJS:@=)
+!endif
+
+
 # %jp{オプション統合}{Options marged}
 CFLAGS = $(CFLAGS) $(CFLAGS_INC) $(CFLAGS_DEF)
 AFLAGS = $(AFLAGS) $(AFLAGS_INC)
