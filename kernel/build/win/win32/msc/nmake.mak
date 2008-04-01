@@ -21,7 +21,6 @@ ARCH_CC   = msc
 TOP_DIR           = ..\..\..\..\..
 KERNEL_DIR        = $(TOP_DIR)\kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
-OBJS_DIR          = objs_$(TARGET)
 
 
 # %jp{カーネル指定}
@@ -57,34 +56,9 @@ CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
 CFGRTR     = h4acfg-win32
 
 
-
-# %jp{アセンブリ言語ファイルの追加}
-
-# %jp{C言語ファイルの追加}
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/vsig_int.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/val_int.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/kcre_ctx.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/kdis_int.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/kena_int.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/kini_prc.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/krst_ctx.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/ksta_ctx.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/kswi_ctx.c
-CSRCS = $(CSRCS) $(SRC_PROC_DIR)/kwai_int.c
-
-# %jp{オブジェクトファイルの追加}
-OBJS = $(OBJS) $(OBJS_DIR)\vsig_int.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\vsig_int.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\val_int.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\kcre_ctx.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\kdis_int.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\kena_int.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\kini_prc.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\krst_ctx.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\ksta_ctx.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\kswi_ctx.$(EXT_OBJ)
-OBJS = $(OBJS) $(OBJS_DIR)\kwai_int.$(EXT_OBJ)
-
+# %jp{オブジェクトファイル定義}
+OBJS   = $(OBJS)						\
+         $(OBJS_DIR)\ctxctl.obj		\
 
 
 # %jp{ALL}

@@ -16,12 +16,17 @@ KERNEL_DIR        = $(OS_DIR)\kernel
 KERNEL_CFGRTR_DIR = $(OS_DIR)\cfgrtr\build\msc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
 KERNEL_BUILD_DIR  = $(KERNEL_DIR)\build\win\win32\msc
-OBJS_DIR          = objs_$(TARGET)
+
 
 # %jp{共通定義読込み}
 !include $(KERNEL_MAKINC_DIR)\common.inc
 
 INC_DIRS = $(KERNEL_DIR)\include ..
+
+
+# %jp{コンフィギュレータ定義}
+KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)\h4acfg-win32
+
 
 # %jp{フラグ設定}
 CFLAGS   = 
@@ -29,18 +34,24 @@ AFLAGS   =
 LNFLAGS  = 
 
 
-# %jp{コンフィギュレータ定義}
-KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)\h4acfg-win32
-
-# 出力ファイル名
+# %jp{出力ファイル名}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
 
 
-# %jp{gcc用の設定読込み}
+# %jp{コンパイラ依存の設定読込み}
 !include $(KERNEL_MAKINC_DIR)\msc_d.inc
+
+# %jp{実行ファイル生成共通定義の読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_d.inc
+
+
+# %jp{インクルードディレクトリ}
+INC_DIRS = $(INC_DIRS) 
+
 
 # %jp{ソースディレクトリ}
 SRC_DIRS = $(SRC_DIRS) . ..
+
 
 # %jp{オブジェクトファイルの追加}
 OBJS = $(OBJS)						\
@@ -72,8 +83,8 @@ $(OBJS_DIR)\kernel_cfg.c ..\kernel_id.h: ..\system.cfg
 	$(CMD_CP) ..\kernel_cfg.c $(OBJS_DIR)\
 
 
-# %jp{ライブラリ生成用設定読込み}
-!include $(KERNEL_MAKINC_DIR)\makeexe.inc
+# %jp{実行ファイル生成共通ルールの読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_r.inc
 
 # %jp{shc用のルール定義読込み}
 !include $(KERNEL_MAKINC_DIR)\msc_r.inc

@@ -16,7 +16,6 @@ KERNEL_DIR         = $(TOP_DIR)\kernel
 KERNEL_MAKINC_DIR  = $(KERNEL_DIR)\build\common\nmake
 HOSAPLFW_DIR       = $(TOP_DIR)\aplfw
 HOSAPLFW_MKINK_DIR = $(HOSAPLFW_DIR)/build\common\nmake
-OBJS_DIR           = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
@@ -30,26 +29,31 @@ INC_DIRS = $(INC_DIRS) $(KERNEL_DIR)\include
 # %jp{オプションフラグ}
 CFLAGS  = 
 AFLAGS  = 
-LNFLAGS = 
+ARFLAGS = 
 
 
 # %jp{リンク制御対象制御}
 LINK_MN103SC = Yes
 
 
-all: makelib_all
-
-clean: makelib_clean
-	-$(CMD_RM) -f *.lst
-
-
 # %jp{コンパイラ依存の設定読込み}
 !include $(KERNEL_MAKINC_DIR)\cc103_d.inc
 
 # %jp{共通設定読込み}
-!include $(KERNEL_MAKINC_DIR)\makelib.inc
+!include $(KERNEL_MAKINC_DIR)\maklib_d.inc
+
+
+all: makelib_all
+
+clean: makelib_clean
+	-$(CMD_RM) *.lst
+
+
+# %jp{HOS-APLFWソース設定読込み}
 !include $(HOSAPLFW_MKINK_DIR)\aplfwsrc.inc
 
+# %jp{共通設定読込み}
+!include $(KERNEL_MAKINC_DIR)\maklib_r.inc
 
 # %jpMコンパイラ依存のルール定義読込み}
 !include $(KERNEL_MAKINC_DIR)\cc103_r.inc

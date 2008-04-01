@@ -6,10 +6,10 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{ターゲット名}
+# %jp{ターゲット名}%en{target name}
 TARGET = sample
 
-# %jp{ディレクトリ}
+# %jp{ディレクトリ}{directories}
 OS_DIR             = ..\..\..\..\..
 KERNEL_DIR         = $(OS_DIR)\kernel
 KERNEL_CFGRTR_DIR  = $(OS_DIR)\cfgrtr\build\msc
@@ -18,7 +18,6 @@ KERNEL_BUILD_DIR   = $(KERNEL_DIR)\build\sh\sh2\shc
 HOSAPLFW_DIR       = $(OS_DIR)\aplfw
 HOSAPLFW_INC_DIR   = $(HOSAPLFW_DIR)
 HOSAPLFW_BUILD_DIR = $(HOSAPLFW_DIR)\build\sh\sh2\shc
-OBJS_DIR           = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
@@ -32,6 +31,13 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)\h4acfg-sh2
 # %jp{ライブラリ定義}
 HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)\hosaplfw.$(EXT_LIB)
 STD_LIBS     = stdlib.lib
+
+
+# %jp{デバッグ版の定義変更}
+!if "$(DEBUG)" == "Yes"
+HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)\hosaplfwdbg.$(EXT_LIB)
+!endif
+
 
 # %jp{メモリマップ}
 !if "$(MEMMAP)" == "ext"
@@ -48,15 +54,8 @@ SECTION_RAM  = 00400000
 !endif
 
 
-# %jp{デバッグ版の定義変更}
-!if "$(DEBUG)" == "Yes"
-TARGET       = $(TARGET)dbg
-HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)\hosaplfwdbg.$(EXT_LIB)
-!endif
 
-
-
-# %jp{フラグ設定の追加}
+# %jp{フラグ設定}
 CFLAGS  = $(CFLAGS) -CP=sh2 -DEBug -NOLOGO
 AFLAGS  = $(AFLAGS) -CP=sh2 -DEBug -NOLOGO
 LNFLAGS = $(LNFLAGS)
@@ -69,6 +68,9 @@ TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 # %jp{コンパイラ依存の設定読込み}
 !include $(KERNEL_MAKINC_DIR)\shc_d.inc
+
+# %jp{実行ファイル生成共通定義の読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_d.inc
 
 
 # %jp{インクルードディレクトリ}
@@ -138,8 +140,8 @@ $(STD_LIBS):
 	lbgsh -OUTPut=$(STD_LIBS) -CP=sh2
 
 
-# %jp{ライブラリ生成用設定読込み}
-!include $(KERNEL_MAKINC_DIR)\makeexe.inc
+# %jp{実行ファイル生成共通ルールの読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_r.inc
 
 # %jp{コンパイラ依存のルール定義読込み}
 !include $(KERNEL_MAKINC_DIR)\shc_r.inc

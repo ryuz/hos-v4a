@@ -63,25 +63,15 @@ CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 CFGRTR     = h4acfg-win32
 
 
-# %jp{アセンブラファイルの追加}
+# %jp{C言語ファイルの追加}
+CSRCS += $(SRC_PROC_DIR)/ctxctl.c
+
+
+# アセンブラファイルの追加
 ASRCS += 
 
 
-# %jp{C言語ファイルの追加}
-CSRCS += $(SRC_PROC_DIR)/vsig_int.c
-CSRCS += $(SRC_PROC_DIR)/val_int.c
-CSRCS += $(SRC_PROC_DIR)/kcre_ctx.c
-CSRCS += $(SRC_PROC_DIR)/kdis_int.c
-CSRCS += $(SRC_PROC_DIR)/kena_int.c
-CSRCS += $(SRC_PROC_DIR)/kini_prc.c
-CSRCS += $(SRC_PROC_DIR)/krst_ctx.c
-CSRCS += $(SRC_PROC_DIR)/ksta_ctx.c
-CSRCS += $(SRC_PROC_DIR)/kswi_ctx.c
-CSRCS += $(SRC_PROC_DIR)/kwai_int.c
-
-
-
-# %jp{カーネル共通ソースの追加}
+# カーネル共通ソースの追加
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 
@@ -95,10 +85,6 @@ all: makelib_all
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) -f gmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
-
-# depend
-.PHONY : depend
-depend:
 
 
 # %jp{コンパイラ依存の設定読込み}

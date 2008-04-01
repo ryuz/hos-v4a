@@ -9,25 +9,25 @@
 
 
 # --------------------------------------
-#  %jp{オプション解析}
+#  %jp{オプション解析}%en{analyze option}
 # --------------------------------------
 
 ifeq ($(DEBUG),Yes)
-# %jp{デバッグ指定があればデバッグ版作成}
+# %jp{デバッグ指定があればデバッグ版作成}%en{debug mode}
 AFLAGS += $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
 CFLAGS += $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
 else
 ifeq ($(OPT_SPEED),Yes)
-# %jp{速度最適化指定があれば速度優先}
+# %jp{速度最適化指定があれば速度優先}%en{speed optimize}
 AFLAGS += $(AFLAGS_OPT_SPEED)
 CFLAGS += $(CFLAGS_OPT_SPEED)
 else
 ifeq ($(OPT_SIZE),Yes)
-# %jp{サイズ優先適化指定があればサイズ優先}
+# %jp{サイズ優先適化指定があればサイズ優先}%en{size optimize}
 AFLAGS += $(AFLAGS_OPT_SIZE)
 CFLAGS += $(CFLAGS_OPT_SIZE)
 else
-# %jp{デフォルトで通常の最適化}
+# %jp{デフォルトで通常の最適化}%en{default}
 AFLAGS += $(AFLAGS_OPT_NORMAL)
 CFLAGS += $(CFLAGS_OPT_NORMAL)
 endif
@@ -37,20 +37,20 @@ endif
 
 
 # --------------------------------------
-#  %jp{カーネルライブラリの選択}
+#  %jp{カーネルライブラリの選択}%en{select kernel library}
 # --------------------------------------
 
 KERNEL_LIB_NAME ?= libhosv4a
 KERNEL_MAKOPT   ?=
 
-# %jp{デバッグ指定}
+# %jp{デバッグ指定}%en{debug mode}
 KERNEL_MAKOPT += DEBUG=$(KERNEL_DEBUG)
 ifeq ($(KERNEL_DEBUG),Yes)
 KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)dbg
 endif
 
 
-# %jp{エラーレベル指定}
+# %jp{エラーレベル指定}%en{error check level}
 KERNEL_MAKOPT += ERRLEVEL=$(KERNEL_ERRLEVEL)
 ifeq ($(KERNEL_ERRLEVEL),0)
 KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)er0
@@ -87,8 +87,9 @@ endif
 KERNEL_LIB = $(KERNEL_BUILD_DIR)/$(KERNEL_LIB_NAME).$(EXT_LIB)
 
 
+
 # --------------------------------------
-#  %jp{カーネル利用の設定}
+#  %jp{カーネル利用の設定}%en{add kernel setting}
 # --------------------------------------
 
 INC_DIRS += $(KERNEL_DIR)/include
@@ -97,78 +98,20 @@ LIBS     += $(KERNEL_LIB)
 
 
 # --------------------------------------
-#  %jp{各種設定}
+#  %jp{各種設定}%en{other setting}
 # --------------------------------------
 
 # %jp{サーチパス設定}
 VPATH = $(subst $(space),:,$(SRC_DIRS))
 
 
+# %jp{オブジェクトファイル出力ディレクトリ}
+OBJS_DIR = objs_$(TARGET)
+
+
 # %jp{オブジェクトファイル}
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(ASRCS)))))	\
        $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))))
-
-
-
-# --------------------------------------
-#  %jp{ルール}
-# --------------------------------------
-
-
-# %jp{カーネルライブラリ}
-$(KERNEL_LIB): kernel_make
-
-
-# %jp{実行ファイル生成}
-.PHONY : makeexe_all
-makeexe_all: $(KERNEL_LIB) makeexe_mkobjsdir $(CSRCS) $(ASRCS)
-
-
-# %jp{クリーンナップ}
-.PHONY : makeexe_clean
-makeexe_clean:
-	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
-
-
-# %jp{オブジェクト出力ディレクトリ作成}
-.PHONY : makeexe_mkobjsdir
-makeexe_mkobjsdir:
-	$(CMD_MKDIR) -p $(OBJS_DIR)
-
-
-# %jp{依存関係の生成}
-DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
-.PHONY : makeexe_depend
-makeexe_depend: makeexe_mkobjsdir
-	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
-
--include $(OBJS_DIR)/depend.inc
-
-
-# %jp{ソースのコピー}
-ifneq ($(SRCCPYDIR),)
-.PHONY : makeexe_srccpy
-makeexe_srccpy:
-	$(CMD_CP) -t $(SRCCPYDIR) $(ASRCS) $(CSRCS)
-endif
-
-
-# %jp{カーネル生成}
-.PHONY : kernel_make
-kernel_make:
-	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT)
-
-
-# %jp{カーネルクリーン}
-.PHONY : kernel_clean
-kernel_clean:
-	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) clean
-
-
-# %jp{カーネルdepend}
-.PHONY : kernel_depend
-kernel_depend:
-	$(MAKE) -C $(KERNEL_BUILD_DIR) -f gmake.mak $(KERNEL_MAKOPT) depend
 
 
 

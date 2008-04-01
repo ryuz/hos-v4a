@@ -48,24 +48,11 @@ EXT_BIN = bin
 # %jp{共通オプションの設定}
 CFLAGS = $(CFLAGS) -c -g
 
-# %jp{インクルードパスオプションの定義}
-INC_DIRS = $(INC_DIRS:	= )
-INC_DIRS = $(INC_DIRS:  = )
-INC_DIRS = $(INC_DIRS:  = )
-INC_DIRS = $(INC_DIRS:  = )
-INC_DIRS = @$(INC_DIRS)@
-INC_DIRS = $(INC_DIRS:@ =)
-INC_DIRS = $(INC_DIRS: @=)
-INC_DIRS = $(INC_DIRS:@=)
+# %jp{リリースモードオプションの定義}
+CFLAGS_REL = 
 
-CFLAGS_INC = -I$(INC_DIRS: = -I)
-
-
-# %jp{マクロ定義オプションの定義}
-CFLAGS_DEF = 
-
-# %jp{デバッグオプションの定義}
-CFLAGS_DBG = -g
+# %jp{デバッグモードオプションの定義}
+CFLAGS_DBG = 
 
 # %jp{最適化オプションの定義}
 CFLAGS_OPT_NONE   = 
@@ -81,13 +68,10 @@ CFLAGS_OPT_SPEED  = -Ot
 # %jp{共通オプションの設定}
 AFLAGS = $(AFLAGS) -c
 
-# %jp{インクルードパスオプションの定義}
-AFLAGS_INC = 
+# %jp{リリースモードオプションの定義}
+AFLAGS_REL = 
 
-# %jp{マクロ定義オプションの定義}
-AFLAGS_DEF = 
-
-# %jp{デバッグオプションの定義}
+# %jp{デバッグモードオプションの定義}
 AFLAGS_DBG = -g
 
 # %jp{最適化オプションの定義}

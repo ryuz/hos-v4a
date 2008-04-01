@@ -4,7 +4,7 @@
  * @file  ctxctlc
  * @brief %jp{コンテキスト制御}%en{context control}
  *
- * Copyright (C) 1998-2008 by Project HOS
+ * Copyright (C) 1998-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -14,44 +14,47 @@
 #include "object/inhobj.h"
 
 
-static unsigned __stdcall	_kernel_ctx_ent(void *param);					/**< %jp{コンテキストのスレッドエントリー関数} */
-static unsigned __stdcall	_kernel_ctx_int(void *param);					/**< %jp{コンテキストの割込み処理スレッド} */
-
-static void					_kernel_wai_ctx(_KERNEL_T_CTXCB *ctxcb);		/**< %jp{スレッドの停止待ち} */
+static unsigned __stdcall	_kernel_ctx_ent(void *param);					/**< %jp{スレッドの開始関数} */
+static void					_kernel_run_ctx(_KERNEL_T_CTXCB *pk_ctxcb);		/**< %jp{スレッドの実行開始} */
+static void					_kernel_wai_ctx(_KERNEL_T_CTXCB *pk_ctxcb);		/**< %jp{スレッドの停止待ち} */
 
 static CRITICAL_SECTION		_kernel_win32_CriticalSection;
 static _KERNEL_T_CTXCB		*_kernel_win32_runctxcb        = NULL;			/**< %jp{実行中のコンテキスト} */
-static INHNO				_kernel_win32_inhno;
-
-static HANDLE				_kernel_win32_hSemIntLock      = NULL;			/**< %jp{システムの排他制御用セマフォ} */
-
+static _KERNEL_T_CTXCB		*_kernel_win32_intctxcb        = NULL;			/**< %jp{割込みからスイッチされたコンテキスト} */
+static HANDLE				_kernel_win32_hSemDisInt       = NULL;			/**< %jp{システムの排他制御用セマフォ} */
+static volatile BOOL		_kernel_win32_blIntCtx         = FALSE;			/**< %jp{割込み処理中フラグ} */
 static volatile BOOL		_kernel_win32_blDisInt         = TRUE;			/**< %jp{割込み禁止フラグ} */
 static volatile BOOL		_kernel_win32_blIntDsp         = FALSE;			/**< %jp{割込み時ディスパッチフラグ} */
-static DWORD				_kernel_win32_dwPrimaryThreadId = 0;			/**< %jp{プライマリスレッドID} */
+static DWORD				_kernel_win32_hPrimaryThreadId = 0;				/**< %jp{プライマリスレッドID} */
 
 
 
 /** %jp{システムの初期化} */
 void _kernel_ini_prc(void)
 {
-	/* %jp{クリティカルセクションの生成} */
 	InitializeCriticalSection(&_kernel_win32_CriticalSection);
 
 	/* %jp{プライマリスレッドIDの保存} */
-	_kernel_win32_dwPrimaryThreadId = GetCurrentThreadId();
-	
-	/* %jp{割込みロック用のセマフォの作成} */
-	_kernel_win32_hSemIntLock = CreateSemaphore(NULL, 0, 1, NULL);
+	_kernel_win32_hPrimaryThreadId = GetCurrentThreadId();
+
+	/* %jp{割り込み禁止に見立てるセマフォの作成} */
+	_kernel_win32_hSemDisInt = CreateSemaphore(NULL, 0, 1, NULL);
 }
 
 
 /** %jp{割り込み禁止} */
 void _kernel_dis_int(void)
 {
+	/* 割込みコンテキストから呼ばれたなら何もしない */
+	if ( _kernel_win32_blIntCtx )
+	{
+		return;
+	}
+
 	/* 既に割込み禁止で無ければセマフォを取る */
 	if ( !_kernel_win32_blDisInt )
 	{
-		WaitForSingleObject(_kernel_win32_hSemIntLock, INFINITE);
+		WaitForSingleObject(_kernel_win32_hSemDisInt, INFINITE);
 		_kernel_win32_blDisInt = TRUE;
 	}
 }
@@ -61,118 +64,80 @@ void _kernel_dis_int(void)
 void _kernel_ena_int(void)
 {
 	/* 割込みコンテキストから呼ばれたなら何もしない */
-//	if ( _kernel_win32_blIntCtx )
-//	{
-//		return;
-//	}
+	if ( _kernel_win32_blIntCtx )
+	{
+		return;
+	}
 	
 	/* 既に割込み禁止ならセマフォを返す */
 	if ( _kernel_win32_blDisInt )
 	{
 		_kernel_win32_blDisInt = FALSE;
-		ReleaseSemaphore(_kernel_win32_hSemIntLock, 1, NULL);
+		ReleaseSemaphore(_kernel_win32_hSemDisInt, 1, NULL);
 	}
 }
 
 
 /** %jp{実行コンテキストの作成} */
 void _kernel_cre_ctx(
-		_KERNEL_T_CTXCB	*ctxcb,		/* コンテキストを作成するアドレス */
+		_KERNEL_T_CTXCB *pk_ctxcb,		/* コンテキストを作成するアドレス */
 		FP              entry,			/* コンテキストの実行開始番地 */
 		VP_INT          exinf1,			/* コンテキストの実行時パラメータ1 */
 		VP_INT          exinf2)			/* コンテキストの実行時パラメータ2 */
 {
-	ctxcb->blInterrupt = FALSE;
+	pk_ctxcb->blIntSuspend = FALSE;
 
 	/* %jp{起動情報を格納} */
-	ctxcb->entry  = entry;
-	ctxcb->exinf1 = exinf1;
-	ctxcb->exinf2 = exinf2;
+	pk_ctxcb->entry  = entry;
+	pk_ctxcb->exinf1 = exinf1;
+	pk_ctxcb->exinf2 = exinf2;
 	
 	/* %jp{コンテキストスレッド生成} */
-	ctxcb->hEvent     = CreateEvent(NULL, FALSE, FALSE, NULL);
-	ctxcb->hIntEvent  = CreateEvent(NULL, FALSE, FALSE, NULL);
+	pk_ctxcb->hEvent  = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 #if defined(_MSC_VER)	/* Visual-C++ の場合 */
-	ctxcb->hThread    = (HANDLE)_beginthreadex(NULL, 0, _kernel_ctx_ent, (void *)ctxcb, 0, &ctxcb->dwThreadId);
-	ctxcb->hIntThread = (HANDLE)_beginthreadex(NULL, 0, _kernel_ctx_int, (void *)ctxcb, 0, &ctxcb->dwIntThreadId);
+	pk_ctxcb->hThread = (HANDLE)_beginthreadex(NULL, 0, _kernel_ctx_ent, (void *)pk_ctxcb, 0, &pk_ctxcb->dwThreadId);
 #else					/* Visual-C++ 以外 */
-	ctxcb->hThread    = CreateThread(NULL, 0, _kernel_ctx_ent, (LPVOID)ctxcb, 0, &ctxcb->dwThreadId);
-	ctxcb->hIntThread = CreateThread(NULL, 0, _kernel_ctx_int, (LPVOID)ctxcb, 0, &ctxcb->dwIntThreadId);
+	pk_ctxcb->hThread = CreateThread(NULL, 0, _kernel_ctx_ent, (LPVOID)pk_ctxcb, 0, &pk_ctxcb->dwThreadId);
 #endif
 }
 
 
-/** %jp{コンテキストのスレッドエントリー関数} */
+/** %jp{スレッドの開始関数} */
 unsigned __stdcall _kernel_ctx_ent(void *param)
 {
-	_KERNEL_T_CTXCB *ctxcb;
+	_KERNEL_T_CTXCB *pk_ctxcb;
 
 	/* %jp{コンテキスト情報取得} */
-	ctxcb = (_KERNEL_T_CTXCB *)param;
+	pk_ctxcb = (_KERNEL_T_CTXCB *)param;
 
 	/* %jp{開始待ち} */
-	WaitForSingleObject(ctxcb->hEvent, INFINITE);
+	WaitForSingleObject(pk_ctxcb->hEvent, INFINITE);
 
 	/* %jp{リスタート用setjmp} */
-	setjmp(ctxcb->jmpenv);
+	setjmp(pk_ctxcb->jmpenv);
 
 	/* 開始 */
-	ctxcb->entry(ctxcb->exinf1, ctxcb->exinf2);
+	pk_ctxcb->entry(pk_ctxcb->exinf1, pk_ctxcb->exinf2);
 	
 	return 0;
 }
-
-
-/** %jp{割込みハンドラ処理} */
-unsigned __stdcall _kernel_ctx_int(void *param)
-{
-	_KERNEL_T_CTXCB *ctxcb;
-
-	/* %jp{コンテキスト情報取得} */
-	ctxcb = (_KERNEL_T_CTXCB *)param;
-
-	for ( ; ; )
-	{
-		/* %jp{開始待ち} */
-		WaitForSingleObject(ctxcb->hIntEvent, INFINITE);
-
-		_kernel_win32_blDisInt = TRUE;
-
-		/* %jp{割り込み処理} */
-		_kernel_sta_inh();
-		_kernel_exe_inh(_kernel_win32_inhno);
-		_kernel_end_inh();
-		
-		/* コンテキスト復帰 */
-		ctxcb->blInterrupt     = FALSE;
-		_kernel_win32_blDisInt = FALSE;
-		ResumeThread(ctxcb->hThread);							/* %jp{スレッド復帰} */
-		ReleaseSemaphore(_kernel_win32_hSemIntLock, 1, NULL);	/* %jp{割込みロックを解除} */
-	}
-	
-	return 0;
-}
-
 
 
 /** %jp{実行コンテキストの削除} */
-void _kernel_del_ctx(_KERNEL_T_CTXCB *ctxcb)
+void _kernel_del_ctx(_KERNEL_T_CTXCB *pk_ctxcb)
 {
-	TerminateThread(ctxcb->hThread, 0);
-	CloseHandle(ctxcb->hThread);
-	CloseHandle(ctxcb->hEvent);
-
-	TerminateThread(ctxcb->hIntThread, 0);
-	CloseHandle(ctxcb->hIntThread);
-	CloseHandle(ctxcb->hIntEvent);
+	/* スレッド削除 */
+	TerminateThread(pk_ctxcb->hThread, 0);
+	CloseHandle(pk_ctxcb->hThread);
+	CloseHandle(pk_ctxcb->hEvent);
 }
 
 
 /** %jp{実行コンテキストのリスタート} */
-void _kernel_rst_ctx(_KERNEL_T_CTXCB *ctxcb)
+void _kernel_rst_ctx(_KERNEL_T_CTXCB *pk_ctxcb)
 {
-	longjmp(ctxcb->jmpenv, 0);
+	longjmp(pk_ctxcb->jmpenv, 0);
 }
 
 
@@ -187,35 +152,19 @@ void _kernel_swi_ctx(
 		return;
 	}
 	
-	/* %jp{クリティカルセクションに入る} */
-	EnterCriticalSection(&_kernel_win32_CriticalSection);
-	
-	/* %jp{実行中コンテキストの登録} */
-	_kernel_win32_runctxcb = ctxcb_nxt;
-	
-	/* 切り替え先コンテキストの開始 */
-	if ( ctxcb_nxt->blInterrupt )
+	/* 割込み処理から呼ばれたら */
+	if ( _kernel_win32_blIntCtx )
 	{
-		SetEvent(ctxcb_nxt->hIntEvent);
+		/* 切り替えを予約 */
+		_kernel_win32_blIntDsp = TRUE;
+		_kernel_win32_intctxcb = ctxcb_nxt;
 	}
 	else
 	{
-		SetEvent(ctxcb_nxt->hEvent);
-	}
-	
-	/* 切り替え元を待ちに入れる */
-	if ( ctxcb_now->blInterrupt )
-	{
-		/* %jp{クリティカルセクションを出る} */
-		LeaveCriticalSection(&_kernel_win32_CriticalSection);
-
-		WaitForSingleObject(ctxcb_now->hIntEvent, INFINITE);
-	}
-	else
-	{
-		/* %jp{クリティカルセクションを出る} */
-		LeaveCriticalSection(&_kernel_win32_CriticalSection);
-
+		/* 切り替え先スレッドの動作開始 */
+		_kernel_run_ctx(ctxcb_nxt);
+		
+		/* %jp{再開待ち} */
 		WaitForSingleObject(ctxcb_now->hEvent, INFINITE);
 	}
 }	
@@ -224,20 +173,17 @@ void _kernel_swi_ctx(
 /** %jp{アイドル時の処理} */
 void _kernel_wai_int(void)
 {
-	Sleep(1);
+	Sleep(10);
 }
 
 
 /** %jp{コンテキストの開始} */
-void _kernel_sta_ctx(_KERNEL_T_CTXCB *ctxcb)
+void _kernel_sta_ctx(_KERNEL_T_CTXCB *pk_ctxcb)
 {
-	/* %jp{実行中コンテキストの登録} */
-	_kernel_win32_runctxcb = ctxcb;
-
 	/* %jp{スレッドの実行開始} */
-	SetEvent(ctxcb->hEvent);
-	
-	if ( GetCurrentThreadId() == _kernel_win32_dwPrimaryThreadId )
+	_kernel_run_ctx(pk_ctxcb);
+
+	if ( GetCurrentThreadId() == _kernel_win32_hPrimaryThreadId )
 	{
 		/* %jp{ダイアログを表示} */
 		MessageBox(NULL, "Press OK, Exit a process", "Hyper Operationg System V4 Advance for Win32", MB_OK);
@@ -248,24 +194,75 @@ void _kernel_sta_ctx(_KERNEL_T_CTXCB *ctxcb)
 }
 
 
+/** %jp{スレッドの実行開始} */
+void _kernel_run_ctx(_KERNEL_T_CTXCB *pk_ctxcb)
+{
+	/* %jp{実行中コンテキストの登録} */
+	_kernel_win32_runctxcb = pk_ctxcb;
+	
+	/* %jp{割り込みから中断されていた場合} */
+	if ( pk_ctxcb->blIntSuspend )
+	{
+		/* %jp{割り込み用セマフォを返す} */
+		_kernel_win32_blDisInt = FALSE;
+		ReleaseSemaphore(_kernel_win32_hSemDisInt, 1, NULL);
+		
+		/* スレッド動作再開 */
+		pk_ctxcb->blIntSuspend = FALSE;
+		ResumeThread(pk_ctxcb->hThread);
+	}
+	else
+	{
+		/* %jp{スレッドを起こす} */
+		SetEvent(pk_ctxcb->hEvent);
+	}
+}
+
+
 /* %jp{割り込み用処理} */
 void vsig_int(int inhno)
 {
-	/* %jp{割り込み用セマフォを取る} */
-	WaitForSingleObject(_kernel_win32_hSemIntLock, INFINITE);
-	
-	/* %jp{クリティカルセクションに入る} */
 	EnterCriticalSection(&_kernel_win32_CriticalSection);
 
-	/* %jp{割り込み状態に設定} */
-	_kernel_win32_inhno    = inhno;
-
-	/* %jp{現在実行中のコンテキストを割込みモードに移行} */
-	SuspendThread(_kernel_win32_runctxcb->hThread);
-	_kernel_win32_runctxcb->blInterrupt = TRUE;
-	SetEvent(_kernel_win32_runctxcb->hIntEvent);
+	/* %jp{割り込み用セマフォを取る} */
+	WaitForSingleObject(_kernel_win32_hSemDisInt, INFINITE);
+	_kernel_win32_blDisInt = TRUE;
 	
-	/* %jp{クリティカルセクションを出る} */
+	/* %jp{現在実行中のスレッドを止める} */
+	SuspendThread(_kernel_win32_runctxcb->hThread);
+	
+	/* %jp{割り込み状態に設定} */
+	_kernel_win32_blIntCtx = TRUE;
+	_kernel_win32_blIntDsp = FALSE;
+	
+	/* %jp{割り込み処理} */
+	_kernel_sta_inh();
+	_kernel_exe_inh(inhno);
+	_kernel_end_inh();
+
+	/* %jp{割り込み状態を解除} */
+	_kernel_win32_blIntCtx = FALSE;
+	
+
+	/* %jp{遅延ディスパッチ発生なら} */
+	if ( _kernel_win32_blIntDsp )
+	{
+		/* 元のスレッドをサスペンドのままマーク */
+		_kernel_win32_runctxcb->blIntSuspend = TRUE;
+		
+		/* 切り替え先スレッドの動作開始 */
+		_kernel_run_ctx(_kernel_win32_intctxcb);
+	}
+	else
+	{
+		/* %jp{割り込み用セマフォを返す} */
+		_kernel_win32_blDisInt = FALSE;
+		ReleaseSemaphore(_kernel_win32_hSemDisInt, 1, NULL);
+		
+		/* %jp{現在実行中のスレッドを再開} */
+		ResumeThread(_kernel_win32_runctxcb->hThread);
+	}
+
 	LeaveCriticalSection(&_kernel_win32_CriticalSection);
 }
 

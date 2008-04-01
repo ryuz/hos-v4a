@@ -21,12 +21,6 @@ ARCH_CC   = armcc
 TOP_DIR           = ..\..\..\..\..
 KERNEL_DIR        = $(TOP_DIR)\kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
-OBJS_DIR          = objs_$(TARGET)
-
-
-# %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
-CFGRTR     = h4acfg-at91
 
 
 # %jp{カーネル指定}
@@ -46,9 +40,15 @@ SRC_IRC_DIR     = $(KERNEL_DIR)\source\arch\irc\$(ARCH_IRC)
 SRC_IRC_CC_DIR  = $(KERNEL_DIR)\source\arch\irc\$(ARCH_IRC)\$(ARCH_CC)
 
 
+# %jp{コンフィギュレータ定義}
+CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
+CFGRTR     = h4acfg-at91
+
+
 # %jp{パス設定}
 INC_DIRS = $(INC_DIRS) $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS = $(SRC_DIRS) $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
+
 
 
 # %jp{オプションフラグ}
@@ -57,27 +57,30 @@ AFLAGS  = $(AFLAGS) --cpu=ARM7TDMI --apcs=inter --thumb
 ARFLAGS = $(ARFLAGS)
 
 
+
 # %jp{コンパイラ依存定義}%en{definitions of compiler dependence}
 !include $(KERNEL_MAKINC_DIR)/armcc_d.inc
+
+# %jp{ライブラリ生成共通定義読込み}
+!include $(KERNEL_MAKINC_DIR)\makkib_d.inc
 
 
 
 # %jp{オブジェクトファイル定義}
-OBJS   = $(OBJS)						\
-         $(OBJS_DIR)\val_int.o			\
-         $(OBJS_DIR)\kini_irc.o			\
-         $(OBJS_DIR)\kexe_irc.o			\
-         $(OBJS_DIR)\ena_int.o			\
-         $(OBJS_DIR)\dis_int.o			\
-         $(OBJS_DIR)\vclr_int.o			\
-         $(OBJS_DIR)\kcre_ctx.o			\
-         $(OBJS_DIR)\kdis_int.o			\
-         $(OBJS_DIR)\kena_int.o			\
-         $(OBJS_DIR)\kirq_hdr.o			\
-         $(OBJS_DIR)\kfiq_hdr.o			\
-         $(OBJS_DIR)\krst_ctx.o			\
-         $(OBJS_DIR)\kswi_ctx.o			\
-         $(OBJS_DIR)\kwai_int.o
+OBJS = $(OBJS) $(OBJS_DIR)\val_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kini_irc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kexe_irc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\ena_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\dis_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\vclr_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kcre_ctx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kdis_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kena_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kirq_hdr.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kfiq_hdr.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\krst_ctx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kswi_ctx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kwai_int.$(EXT_OBJ)
 
 
 
@@ -94,18 +97,14 @@ clean: makelib_clean
 	$(CMD_CD) $(MAKEDIR)
 
 
-
 # %jp{カーネル共通ソースの追加}%en{definitions of kernel source files}
 !include $(KERNEL_MAKINC_DIR)\knlsrc.inc
 
-
-# %jp{ライブラリ生成用設定読込み}%en{rules of library}
-!include $(KERNEL_MAKINC_DIR)/makelib.inc
-
+# %jp{ライブラリ生成用ルール読込み}
+!include $(KERNEL_MAKINC_DIR)\maklib_r.inc
 
 # %jp{コンパイラ依存ルール}%en{rules of compiler dependence}
 !include $(KERNEL_MAKINC_DIR)/armcc_r.inc
-
 
 # %jp{カーネル依存関係読込み}%en{dependence}
 !include $(KERNEL_MAKINC_DIR)/knldep.inc

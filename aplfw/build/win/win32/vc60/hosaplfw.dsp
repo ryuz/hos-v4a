@@ -792,10 +792,6 @@ SOURCE=..\..\..\..\system\file\file_getstring.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\file_getvolume.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\file\file_initialize.c
 # End Source File
 # Begin Source File
@@ -833,10 +829,6 @@ SOURCE=..\..\..\..\system\file\file_read.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\file_readdir.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\file_removevolume.c
 # End Source File
 # Begin Source File
 
@@ -968,10 +960,6 @@ SOURCE=..\..\..\..\system\file\sysvol_destructor.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\file\sysvol_getdevice.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\file\sysvol_iocontrol.c
 # End Source File
 # Begin Source File
@@ -981,10 +969,6 @@ SOURCE=..\..\..\..\system\file\sysvol_local.h
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\sysvol_open.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\sysvol_removedevice.c
 # End Source File
 # Begin Source File
 
@@ -1013,10 +997,6 @@ SOURCE=..\..\..\..\system\file\sysvolfile_local.h
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\volume.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\volume_shutdown.c
 # End Source File
 # Begin Source File
 
@@ -1049,10 +1029,6 @@ SOURCE=..\..\..\..\system\file\volumeobj_makedir.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\file\volumeobj_remove.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\file\volumeobj_shutdown.c
 # End Source File
 # End Group
 # Begin Group "memory"
@@ -1128,10 +1104,6 @@ SOURCE=..\..\..\..\system\process\process_destructor.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\process\process_entersystemmode.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\process\process_exit.c
 # End Source File
 # Begin Source File
@@ -1181,14 +1153,6 @@ SOURCE=..\..\..\..\system\process\process_getstdout.c
 # Begin Source File
 
 SOURCE=..\..\..\..\system\process\process_getterminal.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\process\process_issystemmode.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\system\process\process_leavesystemmode.c
 # End Source File
 # Begin Source File
 

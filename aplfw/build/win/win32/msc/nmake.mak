@@ -16,14 +16,6 @@ KERNEL_DIR         = $(TOP_DIR)\kernel
 KERNEL_MAKINC_DIR  = $(KERNEL_DIR)\build\common\nmake
 HOSAPLFW_DIR       = $(TOP_DIR)\aplfw
 HOSAPLFW_MKINK_DIR = $(HOSAPLFW_DIR)/build\common\nmake
-OBJS_DIR           = objs_$(TARGET)
-
-
-# %jp{ディレクトリ定義}
-TOP_DIR           = ..\..\..\..\..
-KERNEL_DIR        = $(TOP_DIR)\kernel
-KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
-OBJS_DIR          = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
@@ -35,32 +27,36 @@ INC_DIRS = $(INC_DIRS) $(KERNEL_DIR)\include
 
 
 # %jp{オプションフラグ}
-AFLAGS  = $(AFLAGS)
-CFLAGS  = $(CFLAGS)
-ARFLAGS = $(LFLAGS)
+CFLAGS  = 
+AFLAGS  = 
+ARFLAGS = 
 
 
 # %jp{リンク制御対象制御}
 LINK_WINSOCK = Yes
 
 
-# %jp{ルール定義}
-all: makelib_all
-
-clean: makelib_clean
-	$(CMD_RM) *.lst
-
-
-# %jp{MS-C用の設定読込み}
+# %jp{コンパイラ依存の設定読込み}
 !include $(KERNEL_MAKINC_DIR)\msc_d.inc
 
 # %jp{共通設定読込み}
-!include $(KERNEL_MAKINC_DIR)\makelib.inc
+!include $(KERNEL_MAKINC_DIR)\maklib_d.inc
 
-# %jp{共通ソース設定読込み}
+# %jp{HOS-APLFWソース設定読込み}
 !include $(HOSAPLFW_MKINK_DIR)\aplfwsrc.inc
 
-# %jp{MS-C用のルール定義読込み}
+
+all: makelib_all
+
+clean: makelib_clean
+	-$(CMD_RM) *.lst
+
+
+
+# %jp{共通設定読込み}
+!include $(KERNEL_MAKINC_DIR)\maklib_r.inc
+
+# %jp{コンパイラ依存のルール定義読込み}
 !include $(KERNEL_MAKINC_DIR)\msc_r.inc
 
 # %jp{依存関係定義読込み}

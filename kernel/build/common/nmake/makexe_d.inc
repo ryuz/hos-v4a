@@ -56,8 +56,11 @@ CFLAGS = $(CFLAGS) $(AFLAGS_OPT_NORMAL)
 
 
 # --------------------------------------
-#  %jp{ターゲット定義}
+#  %jp{ターゲット定義}%en{Target}
 # --------------------------------------
+
+# %jp{オブジェクトファイル出力ディレクトリ}
+OBJS_DIR   = objs_$(TARGET)
 
 # %jp{ターゲット実行ファイル名}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
@@ -134,44 +137,6 @@ KERNEL_LIB = $(KERNEL_BUILD_DIR)\$(KERNEL_LIB_NAME).$(EXT_LIB)
 
 INC_DIRS = $(INC_DIRS) $(KERNEL_DIR)\include
 LIBS     = $(LIBS) $(KERNEL_LIB)
-
-
-
-# --------------------------------------
-#  %jp{ルール}
-# --------------------------------------
-
-
-# %jp{カーネルライブラリ}
-$(KERNEL_LIB): kernel_make
-
-
-# %jp{all処理}
-makeexe_all: $(KERNEL_LIB) mkdir_objs $(CSRCS) $(ASRCS)
-
-
-# %jp{オブジェクト出力ディレクトリ作成}
-mkdir_objs:
-	-$(CMD_MKDIR) $(OBJS_DIR)
-
-
-# %jp{クリーンナップ}
-makeexe_clean:
-	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
-
-
-# %jp{カーネル生成}
-kernel_make:
-	$(CMD_CD) $(KERNEL_BUILD_DIR)
-	$(MAKE) -f nmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL)
-	$(CMD_CD) $(MAKEDIR)
-
-
-# %jp{カーネル生成}
-kernel_clean:
-	$(CMD_CD) $(KERNEL_BUILD_DIR)
-	$(MAKE) -f nmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
-	$(CMD_CD) $(MAKEDIR)
 
 
 

@@ -6,10 +6,10 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{ターゲット名}
+# %jp{ターゲット名}%en{target name}
 TARGET = sample
 
-# %jp{ディレクトリ}
+# %jp{ディレクトリ}{directories}
 OS_DIR             = ..\..\..\..\..
 KERNEL_DIR         = $(OS_DIR)\kernel
 KERNEL_CFGRTR_DIR  = $(OS_DIR)\cfgrtr\build\msc
@@ -18,7 +18,6 @@ KERNEL_BUILD_DIR   = $(KERNEL_DIR)\build\mn103\mn103s\cc103
 HOSAPLFW_DIR       = $(OS_DIR)\aplfw
 HOSAPLFW_INC_DIR   = $(HOSAPLFW_DIR)
 HOSAPLFW_BUILD_DIR = $(HOSAPLFW_DIR)\build\mn103\mn103s\cc103
-OBJS_DIR           = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
@@ -41,7 +40,7 @@ HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)\hosaplfwdbg.l
 
 
 
-# %jp{フラグ設定の追加}
+# %jp{フラグ設定}
 CFLAGS  = $(CFLAGS)
 AFLAGS  = $(AFLAGS)
 LNFLAGS = $(LNFLAGS) -g -Qld=-m -Qld=-Rl -Qld=-T@CODE=0x40000000 -Qld=-T@DATA=0x00000004
@@ -54,6 +53,9 @@ TARGET_BIN = $(TARGET).$(EXT_BIN)
 
 # %jp{コンパイラ依存の設定読込み}
 !include $(KERNEL_MAKINC_DIR)\cc103_d.inc
+
+# %jp{実行ファイル生成共通定義の読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_d.inc
 
 
 # %jp{インクルードディレクトリ}
@@ -116,8 +118,8 @@ $(OBJS_DIR)\kernel_cfg.c: ..\kernel_cfg.c
 	$(CMD_CP) ..\kernel_id.h $(OBJS_DIR)
 
 
-# %jp{ライブラリ生成用設定読込み}
-!include $(KERNEL_MAKINC_DIR)\makeexe.inc
+# %jp{実行ファイル生成共通ルールの読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_r.inc
 
 # %jp{コンパイラ依存のルール定義読込み}
 !include $(KERNEL_MAKINC_DIR)\cc103_r.inc

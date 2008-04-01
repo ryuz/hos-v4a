@@ -86,10 +86,15 @@ CSRCS += ../kernel_cfg.c	\
 # --------------------------------------
 
 .PHONY : all
-all: kernal_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: kernel_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
+.PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+
+.PHONY : mostlyclean
+mostlyclean: clean kernel_clean
+
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i
@@ -97,7 +102,8 @@ clean: makeexe_clean
 
 
 # %jp{ライブラリ生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+include $(KERNEL_MAKINC_DIR)/makexe_d.inc
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
 # %jp{gcc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_r.inc

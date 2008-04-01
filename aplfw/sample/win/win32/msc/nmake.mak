@@ -18,7 +18,6 @@ KERNEL_BUILD_DIR   = $(KERNEL_DIR)\build\win\win32\msc
 HOSAPLFW_DIR       = $(OS_DIR)\aplfw
 HOSAPLFW_INC_DIR   = $(HOSAPLFW_DIR)
 HOSAPLFW_BUILD_DIR = $(HOSAPLFW_DIR)\build\win\win32\msc
-OBJS_DIR           = objs_$(TARGET)
 
 
 # %jp{共通定義読込み}
@@ -48,11 +47,14 @@ LNFLAGS = /MTd
 
 
 # %jp{出力ファイル名}
-TARGET_EXE = $(TARGET).exe
+TARGET_EXE = $(TARGET).$(EXT_EXE)
 
 
-# %jp{MS-C用の設定読込み}
+# %jp{コンパイラ依存の設定読込み}
 !include $(KERNEL_MAKINC_DIR)\msc_d.inc
+
+# %jp{実行ファイル生成共通定義の読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_d.inc
 
 
 # %jp{インクルードディレクトリ}
@@ -90,24 +92,20 @@ LIBS = $(LIBS) $(HOSAPLFW_LIB) kernel32.lib user32.lib gdi32.lib winspool.lib co
 #  %jp{ルール}
 # --------------------------------------
 
-all: make_subprj makeexe_all $(OBJS_DIR)\kernel_cfg.c srcobjcp $(TARGET_EXE)
+all: make_subproject makeexe_all $(OBJS_DIR)\kernel_cfg.c srcobjcp $(TARGET_EXE)
 
-
-clean: makeexe_clean
-	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ..\kernel_cfg.c ..\kernel_id.h
-
-
-make_subprj:
+make_subproject:
 	$(CMD_CD) $(HOSAPLFW_BUILD_DIR)
 	$(MAKE) -f nmake.mak
 	$(CMD_CD) $(MAKEDIR)
 
+clean: makeexe_clean
+	-$(CMD_RM) $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ..\kernel_cfg.c ..\kernel_id.h
 
 mostlyclean: clean kernel_clean
 	$(CMD_CD) $(HOSAPLFW_BUILD_DIR)
 	$(MAKE) -f nmake.mak clean
 	$(CMD_CD) $(MAKEDIR)
-
 
 
 ..\kernel_cfg.c ..\kernel_id.h: ..\system.cfg
@@ -119,8 +117,8 @@ $(OBJS_DIR)\kernel_cfg.c: ..\kernel_cfg.c
 	$(CMD_CP) ..\kernel_id.h $(OBJS_DIR)
 
 
-# %jp{ライブラリ生成用設定読込み}
-!include $(KERNEL_MAKINC_DIR)\makeexe.inc
+# %jp{実行ファイル生成共通ルールの読込み}
+!include $(KERNEL_MAKINC_DIR)\makexe_r.inc
 
 # %jp{MS-C用のルール定義読込み}
 !include $(KERNEL_MAKINC_DIR)\msc_r.inc
