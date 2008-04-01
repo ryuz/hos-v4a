@@ -1,59 +1,61 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for SH2
+#  makefile for Renesas SH2
 #
-# Copyright (C) 1998-2007 by Project HOS
+# Copyright (C) 1998-2008 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# %jp{ターゲット名}
+
+# --------------------------------------
+#  %jp{各種設定}{setting}
+# --------------------------------------
+
+# %jp{ターゲットライブラリ名}%en{target library name}
 TARGET = libhosv4a
 
 
-# %jp{アーキテクチャパス}
+# %jp{アーキテクチャ定義}%en{architecture}
+ARCH_NAME = sh2
 ARCH_PROC = sh\sh2
 ARCH_IRC  = simple
 ARCH_CC   = shc
 
 
-# %jp{ディレクトリ定義}
+# %jp{ディレクトリ定義}%en{directories}
 TOP_DIR           = ..\..\..\..\..
 KERNEL_DIR        = $(TOP_DIR)\kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
+INC_PROC_DIR      = $(KERNEL_DIR)\include\arch\proc\$(ARCH_PROC)
+INC_IRC_DIR       = $(KERNEL_DIR)\include\arch\irc\$(ARCH_IRC)
+SRC_PROC_DIR      = $(KERNEL_DIR)\source\arch\proc\$(ARCH_PROC)
+SRC_PROC_CC_DIR   = $(KERNEL_DIR)\source\arch\proc\$(ARCH_PROC)\$(ARCH_CC)
+SRC_IRC_DIR       = $(KERNEL_DIR)\source\arch\irc\$(ARCH_IRC)
+SRC_IRC_CC_DIR    = $(KERNEL_DIR)\source\arch\irc\$(ARCH_IRC)\$(ARCH_CC)
+CFGRTR_DIR        = $(TOP_DIR)\cfgrtr\build\msc
 
 
-# %jp{カーネル指定}
+# %jp{コンフィギュレータ定義}%en{kernel configurator}
+CFGRTR = h4acfg-$(ARCH_NAME)
+
+
+# %jp{カーネル指定}%en{kernel flag}
 KERNEL = Yes
 
 
-# %jp{共通定義読込み}
-!include $(KERNEL_MAKINC_DIR)/common.inc
-
-
-# %jp{アーキテクチャパス}
-INC_PROC_DIR    = $(KERNEL_DIR)\include\arch\proc\$(ARCH_PROC)
-INC_IRC_DIR     = $(KERNEL_DIR)\include\arch\irc\$(ARCH_IRC)
-SRC_PROC_DIR    = $(KERNEL_DIR)\source\arch\proc\$(ARCH_PROC)
-SRC_PROC_CC_DIR = $(KERNEL_DIR)\source\arch\proc\$(ARCH_PROC)\$(ARCH_CC)
-SRC_IRC_DIR     = $(KERNEL_DIR)\source\arch\irc\$(ARCH_IRC)
-SRC_IRC_CC_DIR  = $(KERNEL_DIR)\source\arch\irc\$(ARCH_IRC)\$(ARCH_CC)
-
-
-# %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
-CFGRTR     = h4acfg-sh2
+# %jp{共通定義読込み}%en{common setting}
+!include $(KERNEL_MAKINC_DIR)\common.inc
 
 
 # %jp{パス設定}
 INC_DIRS = $(INC_DIRS) $(INC_PROC_DIR) $(INC_IRC_DIR)
-SRC_DIRS = $(SRC_DIRS) $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
+SRC_DIRS = $(SRC_DIRS) $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
 
 
-
-# %jp{オプションフラグ}
-CFLAGS  = $(CFLAGS) -CPu=sh2
+# %jp{オプションフラグ}%en{option flags}
 AFLAGS  = $(AFLAGS) -CPu=sh2
+CFLAGS  = $(CFLAGS) -CPu=sh2
 ARFLAGS = $(ARFLAGS)
 
 
@@ -64,33 +66,314 @@ A_DEFS = $(A_DEFS) _KERNEL_FAST_INTVEC="ON"
 
 
 
-# %jp{コンパイラ依存定義}%en{definitions of compiler dependence}
-!include $(KERNEL_MAKINC_DIR)/shc_d.inc
+# %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
+!include $(KERNEL_MAKINC_DIR)\$(ARCH_CC)_d.inc
 
-# %jp{ライブラリ生成共通定義読込み}
-!include $(KERNEL_MAKINC_DIR)\makkib_d.inc
+# %jp{ライブラリ生成用設定読込み}%en{definitions for library}
+!include $(KERNEL_MAKINC_DIR)\maklib_d.inc
 
 
 
-# %jp{オブジェクトファイル定義}
-OBJS = $(OBJS) $(OBJS_DIR)\val_int.obj
-OBJS = $(OBJS) $(OBJS_DIR)\ena_int.obj
-OBJS = $(OBJS) $(OBJS_DIR)\dis_int.obj
-OBJS = $(OBJS) $(OBJS_DIR)\clr_int.obj
-OBJS = $(OBJS) $(OBJS_DIR)\chg_imsk.obj
-OBJS = $(OBJS) $(OBJS_DIR)\get_imsk.obj
-OBJS = $(OBJS) $(OBJS_DIR)\chg_ilv.obj
-OBJS = $(OBJS) $(OBJS_DIR)\get_ilv.obj
-OBJS = $(OBJS) $(OBJS_DIR)\kena_int.obj
-OBJS = $(OBJS) $(OBJS_DIR)\kdis_int.obj
-OBJS = $(OBJS) $(OBJS_DIR)\kwai_int.obj
-OBJS = $(OBJS) $(OBJS_DIR)\kcre_ctx.obj
-OBJS = $(OBJS) $(OBJS_DIR)\krst_ctx.obj
-OBJS = $(OBJS) $(OBJS_DIR)\kswi_ctx.obj
-OBJS = $(OBJS) $(OBJS_DIR)\kint_hdr.obj
-OBJS = $(OBJS) $(OBJS_DIR)\vect_dmy.obj
+# --------------------------------------
+#  %jp{ソースファイル}%en{source files}
+# --------------------------------------
+
+# %jp{アセンブラファイルの追加}%en{assembry sources}
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\kena_int.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\kdis_int.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\kwai_int.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\kcre_ctx.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\krst_ctx.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\kswi_ctx.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\kint_hdr.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_dmy.src
+
+
+# %jp{C言語ファイルの追加}%en{C sources}
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\val_int.c
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\ena_int.c
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\dis_int.c
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\clr_int.c
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\chg_imsk.c
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\get_imsk.c
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\chg_ilv.c
+CSRCS = $(CSRCS) $(SRC_IRC_DIR)\get_ilv.c
+
+
+# %jp{オブジェクトファイルの追加}%en{object files}
+OBJS = $(OBJS) $(OBJS_DIR)\kena_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kdis_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kwai_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kcre_ctx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\krst_ctx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kswi_ctx.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kint_hdr.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\vect_dmy.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\val_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\ena_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\dis_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\clr_int.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\chg_imsk.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\get_imsk.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\chg_ilv.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\get_ilv.$(EXT_OBJ)
+
 
 !ifndef FAST_VECTOR
+
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_004.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_005.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_006.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_007.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_008.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_009.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_010.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_011.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_012.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_013.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_014.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_015.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_016.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_017.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_018.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_019.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_020.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_021.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_022.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_023.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_024.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_025.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_026.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_027.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_028.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_029.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_030.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_031.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_032.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_033.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_034.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_035.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_036.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_037.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_038.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_039.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_040.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_041.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_042.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_043.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_044.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_045.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_046.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_047.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_048.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_049.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_050.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_051.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_052.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_053.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_054.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_055.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_056.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_057.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_058.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_059.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_060.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_061.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_062.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_063.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_064.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_065.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_066.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_067.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_068.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_069.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_070.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_071.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_072.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_073.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_074.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_075.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_076.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_077.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_078.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_079.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_080.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_081.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_082.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_083.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_084.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_085.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_086.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_087.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_088.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_089.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_090.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_091.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_092.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_093.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_094.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_095.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_096.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_097.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_098.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_099.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_100.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_101.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_102.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_103.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_104.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_105.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_106.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_107.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_108.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_109.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_110.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_111.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_112.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_113.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_114.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_115.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_116.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_117.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_118.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_119.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_120.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_121.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_122.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_123.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_124.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_125.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_126.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_127.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_128.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_129.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_130.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_131.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_132.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_133.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_134.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_135.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_136.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_137.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_138.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_139.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_140.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_141.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_142.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_143.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_144.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_145.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_146.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_147.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_148.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_149.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_150.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_151.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_152.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_153.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_154.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_155.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_156.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_157.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_158.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_159.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_160.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_161.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_162.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_163.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_164.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_165.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_166.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_167.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_168.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_169.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_170.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_171.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_172.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_173.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_174.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_175.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_176.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_177.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_178.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_179.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_180.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_181.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_182.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_183.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_184.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_185.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_186.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_187.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_188.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_189.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_190.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_191.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_192.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_193.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_194.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_195.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_196.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_197.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_198.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_199.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_200.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_201.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_202.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_203.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_204.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_205.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_206.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_207.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_208.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_209.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_210.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_211.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_212.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_213.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_214.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_215.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_216.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_217.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_218.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_219.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_220.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_221.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_222.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_223.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_224.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_225.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_226.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_227.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_228.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_229.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_230.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_231.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_232.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_233.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_234.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_235.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_236.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_237.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_238.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_239.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_240.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_241.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_242.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_243.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_244.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_245.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_246.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_247.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_248.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_249.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_250.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_251.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_252.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_253.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_254.src
+ASRCS = $(ASRCS) $(SRC_PROC_CC_DIR)\vect_255.src
+
 OBJS = $(OBJS) $(OBJS_DIR)\vect_004.obj
 OBJS = $(OBJS) $(OBJS_DIR)\vect_005.obj
 OBJS = $(OBJS) $(OBJS_DIR)\vect_006.obj
@@ -346,17 +629,20 @@ OBJS = $(OBJS) $(OBJS_DIR)\vect_255.obj
 !endif
 
 
-
-# %jp{カーネル共通ソースの追加}%en{definitions of kernel source files}
+# %jp{カーネル共通ソースの追加}%en{kernel common sources}
 !include $(KERNEL_MAKINC_DIR)\knlsrc.inc
 
 
+
+
+# --------------------------------------
+#  %jp{ルール定義}%en{rules}
+# --------------------------------------
 
 # %jp{ALL}%en{all}
 all: mkdir_objs srcobjcp makelib_all
 	$(CMD_CD) $(CFGRTR_DIR)
 	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
-
 
 # %jp{クリーン}%en{clean}
 clean: makelib_clean
@@ -366,26 +652,23 @@ clean: makelib_clean
 	$(MAKE) /F nmake.mak TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(CMD_CD) $(MAKEDIR)
 
+# %jp{依存関係更新}%en{make depend}
+depend: makelib_depend
+
+# %jp{ソース一括コピー}%en{source files copy}
+.PHONY : srccpy
+srccpy: makelib_srccpy
 
 
-# %jp{ライブラリ生成用設定読込み}%en{rules of library}
-!include $(KERNEL_MAKINC_DIR)/makelib.inc
-
+# %jp{ライブラリ生成用設定読込み}%en{rules for library}
+!include $(KERNEL_MAKINC_DIR)\maklib_r.inc
 
 # %jp{コンパイラ依存ルール}%en{rules of compiler dependence}
-!include $(KERNEL_MAKINC_DIR)/shc_r.inc
-
-
-# %jp{カーネル依存関係読込み}%en{dependence}
-!include $(KERNEL_MAKINC_DIR)/knldep.inc
+!include $(KERNEL_MAKINC_DIR)\$(ARCH_CC)_r.inc
 
 
 # %jp{コピー}%en{source files copy}
 srcobjcp:
-
-#	$(CMD_CP) $(SRC_PROC_DIR)\*.*    $(OBJS_DIR)
-#	$(CMD_CP) $(SRC_IRC_DIR)\*.*     $(OBJS_DIR)
-
 
 
 $(OBJS_DIR)\val_int.c : $(SRC_PROC_DIR)\val_int.c
@@ -1191,6 +1474,16 @@ $(OBJS_DIR)\vect_254.src: $(SRC_PROC_CC_DIR)\vect_254.src
 
 $(OBJS_DIR)\vect_255.src: $(SRC_PROC_CC_DIR)\vect_255.src
 	$(CMD_CP) $? $@
+
+
+
+
+# --------------------------------------
+#  %jp{依存関係}%en{dependency}
+# --------------------------------------
+
+# %jp{カーネル依存関係読込み}{dependency list of kernel sources}
+!include $(KERNEL_MAKINC_DIR)\knldep.inc
 
 
 # %jp{依存関係}%en{dependence}
