@@ -68,7 +68,7 @@ $(TARGET).exe: $(OBJS)
 
 # ディレクトリ生成
 mkdir_objs:
-	-mkdir $(OBJS_DIR)
+	@IF NOT EXIST $(OBJS_DIR) mkdir $(OBJS_DIR)
 
 clean:
 	-del $(TARGET) $(TARGET).exe $(OBJS)
