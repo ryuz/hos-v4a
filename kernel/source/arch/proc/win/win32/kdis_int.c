@@ -16,6 +16,11 @@
 /** %jp{割り込み禁止} */
 void _kernel_dis_int(void)
 {
+	if ( _kernel_ictxcb.blIntCtx )
+	{
+		return;
+	}
+
 	/* 既に割込み禁止で無ければセマフォを取る */
 	if ( !_kernel_ictxcb.blDisInt )
 	{

@@ -19,7 +19,7 @@ void _kernel_ini_prc(void)
 	_kernel_ictxcb.runctxcb = NULL;		/* %jp{実行中のコンテキスト} */
 	_kernel_ictxcb.inhno    = 0;		/* %jp{割込み番号} */
 	_kernel_ictxcb.blDisInt = TRUE;		/* %jp{割込み禁止フラグ} */
-	_kernel_ictxcb.blIntDsp = FALSE;	/* %jp{割込み時ディスパッチフラグ} */
+	_kernel_ictxcb.blIntCtx = FALSE;	/* %jp{割込み時ディスパッチフラグ} */
 
 	/* %jp{クリティカルセクションの生成} */
 	InitializeCriticalSection(&_kernel_ictxcb.CriticalSection);

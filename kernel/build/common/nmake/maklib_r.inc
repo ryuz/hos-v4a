@@ -24,7 +24,7 @@ makelib_clean:
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
 mkdir_objs:
-	@IF NOT EXIST $(OBJS_DIR) $(CMD_MKDIR) $(OBJS_DIR)
+	IF NOT EXIST $(OBJS_DIR) $(CMD_MKDIR) $(OBJS_DIR)
 
 
 

@@ -81,6 +81,7 @@ C_DEFS = $(C_DEFS) _KERNEL_ERRLEVEL=4
 !endif
 !endif
 
+OBJS_DIR = objs_$(TARGET)
 
 
 # --------------------------------------
@@ -124,7 +125,7 @@ makelib_clean:
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
 mkdir_objs:
-	@IF NOT EXIST $(OBJS_DIR) $(CMD_MKDIR) $(OBJS_DIR)
+	IF NOT EXIST $(OBJS_DIR) $(CMD_MKDIR) $(OBJS_DIR)
 
 
 

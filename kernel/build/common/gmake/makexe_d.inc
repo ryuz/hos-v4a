@@ -2,7 +2,7 @@
 #  Hyper Operating System V4 Advance
 #    common file for GNU make
 #
-#  Copyright (C) 1998-2006 by Project HOS
+#  Copyright (C) 1998-2008 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -14,6 +14,9 @@
 
 ifeq ($(DEBUG),Yes)
 # %jp{デバッグ指定があればデバッグ版作成}%en{debug mode}
+TARGET := $(TARGET)dbg
+C_DEFS += _DEBUG
+A_DEFS += _DEBUG
 AFLAGS += $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
 CFLAGS += $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
 else

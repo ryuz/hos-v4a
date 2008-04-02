@@ -2,7 +2,7 @@
 #  Hyper Operating System V4 Advance
 #    common file for GNU make
 #
-#  Copyright (C) 1998-2007 by Project HOS
+#  Copyright (C) 1998-2008 by Project HOS
 #  http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 

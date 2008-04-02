@@ -15,6 +15,11 @@
 /** %jp{割り込み許可} */
 void _kernel_ena_int(void)
 {
+	if ( _kernel_ictxcb.blIntCtx )
+	{
+		return;
+	}
+
 	/* 既に割込み禁止ならセマフォを返す */
 	if ( _kernel_ictxcb.blDisInt )
 	{

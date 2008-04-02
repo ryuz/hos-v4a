@@ -84,11 +84,13 @@ unsigned __stdcall _kernel_ctx_int(void *param)
 
 		/* %jp{割り込み処理} */
 		_kernel_sta_inh();
+		_kernel_ictxcb.blIntCtx = TRUE;
 		_kernel_exe_inh(_kernel_ictxcb.inhno);
+		_kernel_ictxcb.blIntCtx = FALSE;
 		_kernel_end_inh();
 		
 		/* コンテキスト復帰 */
-		ctxcb->blInterrupt       = FALSE;
+		ctxcb->blInterrupt      = FALSE;
 		_kernel_ictxcb.blDisInt = FALSE;
 		ResumeThread(ctxcb->hThread);							/* %jp{スレッド復帰} */
 		ReleaseSemaphore(_kernel_ictxcb.hSemIntLock, 1, NULL);	/* %jp{割込みロックを解除} */
