@@ -59,6 +59,7 @@ void          Process_Delete(HANDLE hProcess);											/**< プロセス削除
 HANDLE        Process_GetCurrentHandle(void);											/**< 現在のプロセスハンドル取得 */	
 void          Process_Exit(int iExitCode);												/**< 現在のプロセスを終了させる */
 
+int           Process_IsExit(HANDLE hProcess);											/**< プロセスの終了を確認 */
 int           Process_WaitExit(HANDLE hProcess);										/**< プロセスの終了を待つ */
 int           Process_GetExitCode(HANDLE hProcess);										/**< プロセスの終了コード取得 */
 

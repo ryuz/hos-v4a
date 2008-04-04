@@ -1112,10 +1112,6 @@ SOURCE=..\..\..\..\system\process\process.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\system\process\process_attach.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\system\process\process_constructor.c
 # End Source File
 # Begin Source File

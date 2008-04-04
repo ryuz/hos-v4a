@@ -22,7 +22,7 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	int		iBackGround = 0;
 	int 	iLen;
 	
-	if ( self->iSimpleExec )
+	if ( self->ExecSimple )
 	{
 		Command_Execute(pszCommand, &iExitCode);
 	}
@@ -52,18 +52,18 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		if ( iBackGround )
 		{
 			T_SHELL_BACKGROUND *pBg;
-			
-			/* バックグランドジョブをリストに登録 */
+	
+			/* バックグランドプロセスをリストに登録 */
 			pBg = (T_SHELL_BACKGROUND *)Memory_Alloc(sizeof(T_SHELL_BACKGROUND));
 			pBg->hProcess = hProcess;
 			if ( self->pBackGround == NULL )
 			{
 				self->pBackGround = pBg;
-				pBg->pNext = pBg;
+				pBg->pNext        = NULL;
 			}
 			else
 			{
-				pBg->pNext = self->pBackGround->pNext;
+				pBg->pNext               = self->pBackGround->pNext;
 				self->pBackGround->pNext = pBg;
 			}
 		}
@@ -73,11 +73,66 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 			Process_WaitExit(hProcess);
 			Process_Delete(hProcess);
 		}
-	}
+		
+		/* バックグランドプロセスで終わったものが無いかチェック */
+		Shell_CheckBackGround(self);
+	}	
 	
 	return iExitCode;
 }
 
+
+
+/* バックグランドジョブで終わったものが無いかチェック */
+void Shell_CheckBackGround(C_SHELL *self)
+{
+	T_SHELL_BACKGROUND *pBg;
+	T_SHELL_BACKGROUND *pBgPrev;
+
+	/* バックグランドジョブで終わったものが無いかチェック */
+	pBg     = self->pBackGround;
+	pBgPrev = NULL;
+	while ( pBg != NULL )
+	{
+		if ( Process_IsExit(pBg->hProcess) )
+		{
+			/* 終了通知 */
+			StdIo_PrintFormat("[exit(%d)] %s\n", 
+					Process_GetExitCode(pBg->hProcess),
+					Process_GetCommandLine(pBg->hProcess));
+			
+			if ( self->ExecTime )
+			{
+				unsigned long ulCpuSecond;
+				unsigned long ulCpuNanosecond;
+				ulCpuSecond = Process_GetExecutionTime(pBg->hProcess, &ulCpuNanosecond);
+				StdIo_PrintFormat("cpu time: %lu[s] + %lu[ns]\n", ulCpuSecond, ulCpuNanosecond);
+			}
+			
+			/* 閉じる */
+			Process_Delete(pBg->hProcess);
+			
+			/* リストからはずす */
+			if ( pBgPrev == NULL )
+			{
+				self->pBackGround = pBg->pNext;
+			}
+			else
+			{
+				pBgPrev->pNext = pBg->pNext;
+			}
+			pBg = pBg->pNext;
+			
+			/* メモリ開放 */
+			Memory_Free(pBg);
+		}
+		else
+		{
+			pBgPrev = pBg;
+			pBg     = pBg->pNext; 
+		}
+	}
+}
 
 
 /* end of file */

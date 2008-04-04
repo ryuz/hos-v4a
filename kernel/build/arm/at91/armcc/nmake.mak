@@ -62,7 +62,7 @@ ARFLAGS = $(ARFLAGS)
 !include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
 # %jp{ライブラリ生成共通定義読込み}
-!include $(KERNEL_MAKINC_DIR)\makkib_d.inc
+!include $(KERNEL_MAKINC_DIR)\maklib_d.inc
 
 
 

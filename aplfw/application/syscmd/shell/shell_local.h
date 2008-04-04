@@ -42,8 +42,10 @@ typedef struct c_shell
 	int					iCommandBufSize;	/**< コマンドバッファのサイズ */
 	int					iHistoryMax;		/**< ヒストリの最大個数 */
 
-	int					iSimpleExec;		/**< 単純実行オプション */
-	T_SHELL_BACKGROUND	*pBackGround;		/**< バックグランドジョブ */
+	char				ExecSimple;			/**< 単純実行オプション */
+	char				ExecTime;			/**< 実行時間計測オプション */
+
+	T_SHELL_BACKGROUND	*pBackGround;		/**< バックグランドプロセスリスト */
 } C_SHELL;
 
 
@@ -51,21 +53,21 @@ typedef struct c_shell
 extern "C" {
 #endif
 
-C_SHELL *Shell_Create(int iCommandBufSize, int iHistoryMax, int iSimpleExec);	/**< 生成 */
-void    Shell_Delete(C_SHELL *self);											/**< 削除 */
-int     Shell_Interactive(C_SHELL *self);										/**< インタラクティブモード */
-int     Shell_ExecuteScript(C_SHELL *self, const char *pszFileName);			/**< スクリプト実行 */
-int     Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand);			/**< コマンド実行 */
-int     Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize);			/**< １ライン入力 */
-void    Shell_PutChar(C_SHELL *self, int c);									/**< １文字出力 */
-void    Shell_CurRight(C_SHELL *self);											/**< カーソル右移動 */
-void    Shell_CurLeft(C_SHELL *self);											/**< カーソル左移動 */
-void    Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine);				/**< ラインを置き換える */
+C_SHELL *Shell_Create(int iCommandBufSize, int iHistoryMax, int iExecSimple, int iExecTime);	/**< 生成 */
+void    Shell_Delete(C_SHELL *self);															/**< 削除 */
+int     Shell_Interactive(C_SHELL *self);														/**< インタラクティブモード */
+int     Shell_ExecuteScript(C_SHELL *self, const char *pszFileName);							/**< スクリプト実行 */
+int     Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand);							/**< コマンド実行 */
+void	Shell_CheckBackGround(C_SHELL *self);													/**< バックグランドで終わったものが無いかチェック */
+int     Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize);							/**< １ライン入力 */
+void    Shell_PutChar(C_SHELL *self, int c);													/**< １文字出力 */
+void    Shell_CurRight(C_SHELL *self);															/**< カーソル右移動 */
+void    Shell_CurLeft(C_SHELL *self);															/**< カーソル左移動 */
+void    Shell_ReplaceLine(C_SHELL *self, const char *pszNewLine);								/**< ラインを置き換える */
 
 #ifdef __cplusplus
 }
 #endif
-
 
 
 #endif	/* __HOS__shell_local_h__ */

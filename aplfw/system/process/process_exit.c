@@ -26,6 +26,7 @@ void Process_Exit(int iExitCode)
 	self->iExitCode = iExitCode;
 	
 	/* 終了を通知 */
+	self->Exit = 1;
 	SysEvt_Set(self->hEvt);
 
 	/* 終了 */

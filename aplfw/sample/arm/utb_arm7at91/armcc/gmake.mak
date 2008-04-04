@@ -41,6 +41,11 @@ HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)/hosaplfwdbg.a
 endif
 
 
+# %jp{カーネルフックの設定}
+KERNEL_HOK_TSK = Yes
+KERNEL_HOK_ISR = Yes
+
+
 # %jp{フラグ設定}
 CFLAGS  += --cpu=ARM7TDMI --apcs=inter --thumb
 AFLAGS  += --cpu=ARM7TDMI --apcs=inter --thumb

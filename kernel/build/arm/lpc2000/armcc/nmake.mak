@@ -55,8 +55,8 @@ SRC_DIRS = $(SRC_DIRS) $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC
 
 
 # %jp{オプションフラグ}%en{option flags}
-CFLAGS  = --cpu=ARM7TDMI --apcs=inter --thumb
 AFLAGS  = --cpu=ARM7TDMI --apcs=inter --thumb
+CFLAGS  = --cpu=ARM7TDMI --apcs=inter --thumb
 ARFLAGS = 
 
 
@@ -94,7 +94,7 @@ CSRCS = $(CSRCS) $(SRC_IRC_DIR)\dis_int.c
 CSRCS = $(CSRCS) $(SRC_IRC_DIR)\vclr_int.c
 
 
-# %jp{オブジェクトファイル定義}%en{object files}
+# %jp{オブジェクトファイルの追加}%en{object files}
 OBJS = $(OBJS) $(OBJS_DIR)\kcre_ctx.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kdis_int.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kena_int.$(EXT_OBJ)
@@ -135,7 +135,6 @@ clean: makelib_clean
 # %jp{依存関係更新}%en{make depend}
 depend: makelib_depend
 
-
 # %jp{ソース一括コピー}%en{source files copy}
 .PHONY : srccpy
 srccpy: makelib_srccpy
@@ -152,9 +151,7 @@ srccpy: makelib_srccpy
 srcobjcp:
 	$(CMD_CP) $(SRC_PROC_DIR)\*.* $(OBJS_DIR)
 	$(CMD_CP) $(SRC_PROC_CC_DIR)\*.* $(OBJS_DIR)
-	$(CMD_CP) $(SRC_IRC_DIR)\*.*     $(OBJS_DIR)
-
-
+	$(CMD_CP) $(SRC_IRC_DIR)\*.* $(OBJS_DIR)
 
 
 

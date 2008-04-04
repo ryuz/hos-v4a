@@ -20,14 +20,13 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "system/shell/shell.h"
 /* #include "driver/ether/lan9118/lan9118drv.h" */
 #include "driver/tcpip/ipether/ipether.h"
 #include "driver/tcpip/tcpip/tcpip.h"
 #include "driver/serial/at91/at91usartdrv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "driver/volume/fat/fatvol.h"
-#include "application/example/hello/hello.h"
+#include "application/syscmd/shell/shell.h"
 #include "application/flashcmd/norflashcmd/norflashcmd.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
@@ -35,7 +34,9 @@
 #include "application/utility/keytest/keytest.h"
 #include "application/utility/timecmd/timecmd.h"
 #include "application/netcmd/ethersnoop/ethersnoop.h"
+#include "application/example/hello/hello.h"
 #include "boot.h"
+#include "ostimer.h"
 
 
 long			g_SystemHeap[32 * 1024 / sizeof(long)];
@@ -85,6 +86,9 @@ int Boot_Process(VPARAM Param)
 	HANDLE	hTty;
 	HANDLE	hCon;
 	HANDLE	hDriver;
+	
+	
+	OsTimer_Initialize();
 	
 	
 	/*************************/

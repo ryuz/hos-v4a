@@ -14,7 +14,7 @@
 
 
 /* コンストラクタ */
-C_SHELL *Shell_Create(int iCommandBufSize, int iHistoryMax, int iSimpleExec)
+C_SHELL *Shell_Create(int iCommandBufSize, int iHistoryMax, int iExecSimple, int iExecTime)
 {
 	C_SHELL *self;
 
@@ -28,7 +28,8 @@ C_SHELL *Shell_Create(int iCommandBufSize, int iHistoryMax, int iSimpleExec)
 	/* メンバ初期化 */
 	self->iScreenWidth    = 80;
 	self->pBackGround     = NULL;
-	self->iSimpleExec     = iSimpleExec;
+	self->ExecSimple      = (iExecSimple != 0);
+	self->ExecTime        = (iExecTime != 0);
 	self->iCommandBufSize = iCommandBufSize;
 	self->iHistoryMax     = iHistoryMax;
 	self->pszCommanBuf    = NULL;

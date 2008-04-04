@@ -34,5 +34,20 @@ PROCESS_ERR Process_WaitExit(HANDLE hProcess)
 }
 
 
+/** プロセスの終了を確認 */
+int Process_IsExit(HANDLE hProcess)
+{
+	C_PROCESS *self;
+	
+	if ( hProcess == HANDLE_NULL )
+	{
+		return 0;
+	}
+
+	self = (C_PROCESS *)hProcess;
+
+	return self->Exit;
+}
+
 
 /* end of file */

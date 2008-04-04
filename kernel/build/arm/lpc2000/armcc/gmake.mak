@@ -44,7 +44,7 @@ CFGRTR = h4acfg-$(ARCH_NAME)
 KERNEL = Yes
 
 
-# %jp{共通定義読込み}%jp{common setting}
+# %jp{共通定義読込み}%en{common setting}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
@@ -53,7 +53,7 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 
-# %jp{オプションフラグ}
+# %jp{オプションフラグ}%en{option flags}
 AFLAGS  = --cpu ARM7TDMI-S --apcs=inter --thumb
 CFLAGS  = --cpu ARM7TDMI-S --apcs=inter --thumb
 ARFLAGS = 

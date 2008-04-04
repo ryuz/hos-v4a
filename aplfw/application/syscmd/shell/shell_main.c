@@ -21,7 +21,8 @@ int Shell_Main(int argc, char *argv[])
 	C_SHELL *self;
 	int		iCommandBufSize = SHELL_MAX_COMMAND;
 	int 	iHistoryMax     = SHELL_MAX_HISTORY;
-	int		iSimpleExec     = 0;
+	int		iExecSimple     = 0;
+	int		iExecTime       = 0;
 	int		iInteractive    = 0;
 	int		iExecString     = 0;
 	char	*pszScript      = NULL;
@@ -40,7 +41,11 @@ int Shell_Main(int argc, char *argv[])
 			}
 			else if ( strcmp(&argv[i][1], "exe") == 0 )						/* 単純実行 */
 			{
-				iSimpleExec = 1;
+				iExecSimple = 1;
+			}
+			else if ( strcmp(&argv[i][1], "time") == 0 )					/* 時間計測 */
+			{
+				iExecTime = 1;
 			}
 			else if ( strcmp(&argv[i][1], "s") == 0 && i+1 < argc )			/* 文字列実行 */
 			{
@@ -66,7 +71,7 @@ int Shell_Main(int argc, char *argv[])
 	
 	
 	/* オブジェクト生成 */
-	if ( (self = Shell_Create(iCommandBufSize, iHistoryMax, iSimpleExec)) == NULL )
+	if ( (self = Shell_Create(iCommandBufSize, iHistoryMax, iExecSimple, iExecTime)) == NULL )
 	{
 		return 1;
 	}

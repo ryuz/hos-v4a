@@ -17,7 +17,6 @@
 /* インタラクティブモード */
 int Shell_Interactive(C_SHELL *self)
 {
-	T_SHELL_BACKGROUND	*pBg;
 	char				*pszHisBuf;
 	int 				i;
 	int					j;
@@ -27,14 +26,17 @@ int Shell_Interactive(C_SHELL *self)
 		/* コマンド入力 */
 		Shell_InputLine(self, self->pszCommanBuf, self->iCommandBufSize - 1);
 
+		/* 終了ジョブが無いかチェック */
+		Shell_CheckBackGround(self);
+
 		/* exit なら抜ける */
 		if ( strcmp(self->pszCommanBuf, "exit") == 0 )
 		{
 			break;
 		}
 
-		/* 空行なら無視 */
-		if ( self->pszCommanBuf[0] == 0 )
+		/* 空行またはコメントなら無視 */
+		if ( self->pszCommanBuf[0] == '\0' || self->pszCommanBuf[0] == '#' )
 		{
 			continue;
 		}
@@ -78,12 +80,6 @@ int Shell_Interactive(C_SHELL *self)
 
 		/* コマンド実行 */
 		Shell_ExecuteCommand(self, self->pszCommanBuf);
-		
-		/* 終了ジョブが無いかチェック */
-		pBg = self->pBackGround;
-		if ( pBg != NULL )
-		{
-		}
 	}
 	
 	return 0;

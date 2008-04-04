@@ -51,7 +51,7 @@ CFGRTR = h4acfg-$(ARCH_NAME)
 KERNEL = Yes
 
 
-# %jp{共通定義読込み}%jp{common setting}
+# %jp{共通定義読込み}%en{common setting}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
