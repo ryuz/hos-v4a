@@ -173,7 +173,7 @@ int MemTest_PatternTest(void *pAddrStart, void *pAddrEnd, unsigned long ulPatter
 	{
 		if ( *puwAddr != ulPattern )
 		{
-			StdIo_PrintFormat("NG (addr:%0x08lx)\n", (unsigned long)puwAddr);
+			StdIo_PrintFormat("NG (addr:0x%08lx)\n", (unsigned long)puwAddr);
 			return 1;
 		}
 	}
