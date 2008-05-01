@@ -12,11 +12,25 @@
 #include "kernel.h"
 
 
+
 /** %jp{メイン関数} */
 int main()
 {
+	volatile char	*tvram = (volatile char *)0xb8000;
+	const char		msg[] = "Hello Wold!";
+	int				i;
+	
+	for ( i = 0; msg[i] != '\0'; i++ )
+	{
+		tvram[i*2] = msg[i];
+	}
+	
+	for ( ; ; )
+	{
+	}
+	
 	/* %jp{カーネルの動作開始} */
-	vsta_knl();
+/*	vsta_knl();	*/
 	
 	return 0;
 }

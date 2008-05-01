@@ -6,8 +6,8 @@ binmode OUT_IMG;
 open(IPL, $ARGV[1]) || die("$! : $ARGV[1]");
 binmode IPL;
 
-open(SWITCH32, $ARGV[2]) || die("$! : $ARGV[2]");
-binmode SWITCH32;
+open(MODULE, $ARGV[2]) || die("$! : $ARGV[2]");
+binmode MODULE;
 
 $size = -s $ARGV[1];
 if ( $size > 512 ) { $size = 512; }
@@ -19,7 +19,7 @@ for ($i = $size; $i < 512; $i++)
 }
 
 $size = -s $ARGV[2];
-read(SWITCH32, $buf, $size);
+read(MODULE, $buf, $size);
 print OUT_IMG $buf;
 for ($i = $i + $size; $i < 1474560; $i++)
 {

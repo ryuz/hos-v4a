@@ -3,15 +3,16 @@
  *
  *  Sample program for PC/AT
  *
- * Copyright (C) 1998-2007 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
 
 IPL_SEG   = 0x07c0			/* ロードされるセグメントアドレス */
-INIT_SEG  = 0x8000			/* 初期化コード用セグメントアドレス */
-LOAD_SEG  = 0x9000			/* 本体をロードするセグメントアドレス */
+LOAD_SEG  = 0x0800			/* 本体をロードするセグメントアドレス */
+IPL_ADDR  = (IPL_SEG << 4)
+LOAD_ADDR = (LOAD_SEG << 4)
 
 
 				.code16
@@ -25,28 +26,16 @@ ipl_top:
 				cli
 				jmpl	$IPL_SEG, $ipl_start	/* CSの初期化 */
 ipl_start:
-				/* コードのコピー */
 				movw	$IPL_SEG, %ax
-				movw	%ax, %ds
-				movw	$INIT_SEG, %ax
-				movw	%ax, %es
-				xorw	%si, %si
-				xorw	%di, %di
-				movw	$512, %cx
-				cld
-				rep		movsw
-				
-				/* コピー先に移動 */
-				movw	%ax, %ds
-				movw	%ax, %ss
-				xorw	%sp, %sp
-				jmpl	$INIT_SEG, $init_start
-
+				movw	%ax, %ds				/* DSの初期化 */
+				movw	%ax, %ss				/* SSの初期化 */
+				movw	$0x200, %ax
+				movw	%ax, %sp				/* SPの初期化 */
 
 		/***** 初期化部 *****/
 init_start:
 				/* 画面のクリア */
-		;		call	bios_clr_disp
+				call	bios_clr_disp
 				
 				/* メッセージ出力 */
 				movw    $boot_message, %si
@@ -61,17 +50,10 @@ init_start:
 				movw	$0x0002, %cx		/* シリンダ・セクタ番号 */
 				movb	$0x00, %dh			/* ヘッド番号 */
 				movb	$0x00, %dl			/* ドライブ番号 */
-				int     $0x13
+				int		$0x13
 				
-				/* ロード先に移動 */
-				movw	$LOAD_SEG, %ax
-				movw	%ax, %ds
-				movw	%ax, %ss
-				xorw	%sp, %sp
-				jmpl	$LOAD_SEG, $0x0000
+				jmp		switch_32bit
 				
-end_loop:
-				jmp		end_loop
 				
 				
 				/* 画面のクリア */
@@ -100,10 +82,76 @@ bios_puts_end:
 				ret
 
 
+switch_32bit:
+				/* GDT設定 */
+				lgdt	gdtr
+
+				/* プロテクトモードへ移行 */
+				movl	%cr0, %eax
+				orl		$0x00000001, %eax
+				movl	%eax, %cr0
 				
+				/* パイプラインフラッシュ */
+				.byte	0xe9, 0x00, 0x00
+				
+				/* CS設定 */
+				.byte	0xea
+				.word	_start_32bit + IPL_ADDR
+				.word	0x0008
+				
+				.code32
+_start_32bit:	
+				movw	$0x0010, %ax
+				movw	%ax, %ss
+				movw	%ax, %ds
+				movw	%ax, %es
+				movw	%ax, %fs
+				movw	%ax, %gs
+				
+				movl	$LOAD_ADDR, %eax
+				jmp		%eax
+
+
+
 				/* 起動メッセージ */
 boot_message:
-		        .ascii	"HOS-Loader\r\nNow Loading...\r\n\0"
+		        .ascii	"HOS-Loader\r\nNow loading...\r\n\0"
+
+
+/************************************************
+  グローバルディスクリプタテーブル
+************************************************/
+
+gdt_base:
+gdt_000:		/* ヌルセグメント */
+				.word	0x0000
+				.word	0x0000
+				.byte	0x00
+				.byte	0x00
+				.byte	0x00
+				.byte	0x00
+
+gdt_001:		/* コードセグメント用 */
+				.word   0xffff		/* リミット[15:0]:0xffff */
+				.word   0x0000		/* ベース[15:0]:0x0000 */
+				.byte   0x00		/* ベース[23:16] */
+				.byte   0x9a		/* P:1, DPL:0, S:1, TYPE:5, A:0 */
+				.byte   0xcf		/* G:1, D=1, リミット[19:15]:0xf */
+				.byte   0x00		/* ベース[32:24]:0x00 */
+
+gdt_002:		/* データセグメント用 */		
+				.word	0xffff		/* リミット[15:0]:0xffff */
+				.word	0x0000		/* ベース[15:0]:0x0000 */
+				.byte	0x00		/* ベース[23:16] */
+				.byte	0x92		/* P:1, DPL:0, S:1, TYPE:1, A:0 */
+				.byte	0xcf		/* G:1, D=1, リミット[19:15]:0xf */
+				.byte	0x00		/* ベース[32:24]:0x00 */
+gdt_end:
+
+
+				/* lgdt命令用領域 */
+gdtr:			.word	gdt_end - gdt_base - 1
+				.long	gdt_base + IPL_ADDR
 
 
 				/* マジックナンバー */

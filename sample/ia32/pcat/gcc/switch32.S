@@ -8,7 +8,7 @@
  */
 
 
-LOAD_ADDR = 0x90000
+LOAD_ADDR = 0x8000
 
 
 				.code16
@@ -28,9 +28,8 @@ _switch32:
 				call	bios_puts
 				
 				/* メモリマップ取得 */
-				movl	0xe820, %eax
-				movl	0x0000, %ebx
-				movw	
+/*				movl	0xe820, %eax
+				movl	0x0000, %ebx	*/
 				
 				
 				/* GDT設定 */
@@ -50,7 +49,7 @@ _pipeline_flush:
 				.byte	0x66, 0xea
 				.long	_start_32bit + LOAD_ADDR
 				.word	0x0008
-				
+
 				.code32
 
 				movw	0x0010, %ax
@@ -145,7 +144,7 @@ gdtr:			.word	gdt_end - gdt_base - 1
   メモリマップテーブル
 ************************************************/
 memory_map:
-				
+
 
 
 				.end
