@@ -45,7 +45,7 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 
 # %jp{リンカスクリプト}%en{linker script}
-LINK_SCRIPT = link_fd.x
+LINK_SCRIPT = link.x
 
 
 # %jp{パス設定}%en{add source directories}

@@ -28,6 +28,12 @@ SECTIONS
 		*(.dtors)
 		___dtors_end = . ;
 	} > ram
+	.rdata :
+	{
+		___rdata = . ;
+		*(.rdata)
+		___rdata_end = . ;
+	} > ram
 	data : 
 	{
 		___data = . ;
