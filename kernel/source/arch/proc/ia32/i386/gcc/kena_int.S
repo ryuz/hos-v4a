@@ -15,8 +15,8 @@
   割り込み許可
   void _kernel_ena_int(void)
  ************************************************/
-				.global	_kernel_ena_int
-_kernel_ena_int:
+				.global	__kernel_ena_int
+__kernel_ena_int:
 				sti			/* 割込み許可 */
 				ret
 

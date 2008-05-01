@@ -16,8 +16,8 @@
   void _kernel_sta_ctx(
 			_KERNEL_T_CTXCB *pk_ctxcb)			4(%esp) : 現在のコンテキストの保存先
  ************************************************/
-				.global	_kernel_sta_ctx
-_kernel_sta_ctx:
+				.global	__kernel_sta_ctx
+__kernel_sta_ctx:
 				movl	4(%esp), %eax
 				popl	%ebp
 				popl	%edi
