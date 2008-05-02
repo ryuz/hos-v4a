@@ -22,15 +22,15 @@
 				.global	__kernel_cre_ctx
 __kernel_cre_ctx:
 				movl	8(%esp), %eax		/* スタックを取り出し */
-				subl	20, %eax
-				movl	ctx_entry, %ebx		/* リターンアドレス */
-				movl	%ebx, 0(%eax)
+				subl	$20, %eax
+				movl	$ctx_entry, %ebx	/* リターンアドレス */
+				movl	%ebx, 16(%eax)		/* ret */
 				movl	12(%esp), %ebx		/* 実行アドレス */
-				movl	%ebx, 4(%eax)
+				movl	%ebx, 12(%eax)		/* ebx */
 				movl	16(%esp), %ebx		/* 実行時パラメータ1 */
-				movl	%ebx, 8(%eax)
+				movl	%ebx, 8(%eax)		/* esi */
 				movl	20(%esp), %ebx		/* 実行時パラメータ2 */
-				movl	%ebx, 12(%eax)
+				movl	%ebx, 4(%eax)		/* edi */
 				movl	4(%esp), %ebx		/* 作成するコンテキスト */
 				movl	%eax, 0(%ebx)
 				ret
@@ -42,7 +42,7 @@ __kernel_cre_ctx:
 ctx_entry:
 				pushl	%esi				/* 実行時パラメータ1 */
 				pushl	%edi				/* 実行時パラメータ2 */
-				call	*%ebp
+				call	*%ebx
 
 
 				.end

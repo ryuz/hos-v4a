@@ -20,14 +20,14 @@
 				.global	__kernel_swi_ctx
 __kernel_swi_ctx:
 				movl	4(%esp), %eax
-				movl	8(%esp), %ebx
+				movl	8(%esp), %ecx
 				pushl	%ebx
 				pushl	%esi
 				pushl	%edi
 				pushl	%ebp
-				movl	%esp, (%ebx)
+				movl	%esp, 0(%eax)
 				
-				movl	(%eax), %esp
+				movl	0(%ecx), %esp
 				popl	%ebp
 				popl	%edi
 				popl	%esi

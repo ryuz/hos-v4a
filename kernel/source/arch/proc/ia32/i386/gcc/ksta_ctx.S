@@ -19,6 +19,7 @@
 				.global	__kernel_sta_ctx
 __kernel_sta_ctx:
 				movl	4(%esp), %eax
+				movl	0(%eax), %esp
 				popl	%ebp
 				popl	%edi
 				popl	%esi
