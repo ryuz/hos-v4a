@@ -12,6 +12,7 @@
 #include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
+#include "console.h"
 
 
 #define LEFT(num)	((num) <= 1 ? 5 : (num) - 1)
@@ -35,9 +36,6 @@ void Sample_Initialize(VP_INT exinf)
 {
 	T_CMPF cmpf;
 	T_CMBX cmbx;
-	
-	/* %jp{UART初期化} */
-	Uart_Initialize();
 	
 	/* %jp{固定長メモリプール生成} */
 	cmpf.mpfatr = TA_TFIFO;					
@@ -65,13 +63,14 @@ void Sample_Initialize(VP_INT exinf)
 /** %jp{適当な時間待つ} */
 void rand_wait(void)
 {
-	int r;
+/*	int r;
 
 	wai_sem(SEMID_RAND);
-	r = rand();
+	r = rand();	
 	sig_sem(SEMID_RAND);
 
 	dly_tsk((r % 1000) + 10);
+*/
 }
 
 
@@ -80,6 +79,7 @@ void print_state(int num, char *text)
 {
 	T_PRINT_MSG *msg;
 	VP  mem;
+	int i;
 	
 	/* %jp{メモリ取得} */
 	get_mpf(mpfid, &mem);
@@ -90,8 +90,16 @@ void print_state(int num, char *text)
 	msg->text[1] = ' ';
 	msg->text[2] = ':';
 	msg->text[3] = ' ';
+	for ( i = 0; text[i]; i++ )
+	{
+		msg->text[4+i] = text[i];
+	}
+	msg->text[i] = '\n';
+	
+	/*
 	strcpy(&msg->text[4], text);
 	strcat(msg->text, "\n");
+	*/
 	
 	/* %jp{表示タスクに送信} */
 	snd_mbx(mbxid, (T_MSG *)msg);
@@ -159,7 +167,7 @@ void Sample_Print(VP_INT exinf)
 	for ( ; ; )
 	{
 		rcv_mbx(mbxid, (T_MSG **)&msg);
-		Uart_PutString(msg->text);
+		Console_PutString(msg->text);
 		rel_mpf(mpfid, msg);
 	}
 }

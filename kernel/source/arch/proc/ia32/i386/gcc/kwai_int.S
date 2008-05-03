@@ -14,10 +14,10 @@
   割り込み待ち(CPUのアイドル処理)
   void 	_kernel_wai_int(void);
  ************************************************/
-				.global	__kernel_wai_int
-__kernel_wai_int:
-		/*		hlt		*/
-				jmp		__kernel_wai_int
+				.global	_kernel_wai_int
+_kernel_wai_int:
+				hlt
+				jmp		_kernel_wai_int
 
 
 				.end

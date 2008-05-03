@@ -18,8 +18,8 @@
 			FP             entry,	12(%esp) : 実行アドレス
 			VP             isp)		16(%esp) : スタックポインタ
  ************************************************/
-				.global	__kernel_rst_ctx
-__kernel_rst_ctx:
+				.global	_kernel_rst_ctx
+_kernel_rst_ctx:
 				mov		4(%esp), %eax
 				mov		8(%esp), %ebx
 				mov		12(%esp), %ecx

@@ -19,6 +19,7 @@
 #define _KERNEL_SEG_DATA		0x0010
 
 
+UH	_kernel_idtptr[3];
 UW  _kernel_idt[256*2];
 
 
@@ -50,7 +51,7 @@ void _kernel_ini_prc(void)
 	_kernel_set_idt( 14, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_014);
 	_kernel_set_idt( 15, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_015);
 	_kernel_set_idt( 16, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
-
+	
 	_kernel_set_idt( 32, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_032);
 	_kernel_set_idt( 33, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_033);
 	_kernel_set_idt( 34, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_034);
@@ -67,9 +68,13 @@ void _kernel_ini_prc(void)
 	_kernel_set_idt( 45, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_045);
 	_kernel_set_idt( 46, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_046);
 	_kernel_set_idt( 47, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_047);
+	
+	
+	_kernel_idtptr[0] = sizeof(_kernel_idt) - 1;
+	_kernel_idtptr[1] = (((UW)_kernel_idt) & 0xffff);
+	_kernel_idtptr[2] = (((UW)_kernel_idt >> 16) & 0xffff);
+	_kernel_lidt(_kernel_idtptr);
 }
-
-
 
 
 

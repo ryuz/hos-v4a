@@ -9,13 +9,13 @@
 
 
 
-				.extern		_main
+				.extern		main
 				.extern		__kernel_int_isp
-				.extern		_BSS_START
-				.extern		_BSS_END
+				.extern		___bss
+				.extern		___bss_end
 
 				.global		_boot_handler
-				.global		___main
+				.global		__main
 
 
 				.text
@@ -26,17 +26,25 @@
 ************************************************/
 _boot_handler:	
 				movl	$0x8000, %esp
-				jmp		_main
+				
+			/* BSS clear */
+				movl	$___bss_end, %ecx
+				subl	$___bss, %ecx
+				movl	$___bss, %edi
+				xor		%eax, %eax
+				cld
+				rep		stosb
+				
+				
+				call	main
+				
+_end_main:
+				hlt
+				jmp		*_end_main
 
-
-___main:
+__main:
 				ret			/* 何もしない */
 
-				.global		__alloca
-__alloca:
-				pop		%edx
-				sub		%eax, %esp
-				jmp		%edx
 
 				.end
 

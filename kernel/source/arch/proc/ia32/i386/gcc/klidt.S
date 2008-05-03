@@ -16,8 +16,8 @@
   void _kernel_lidt(
 			VP		idt)		4(%esp) : ポート番号
  ************************************************/
-				.global	__kernel_lidt
-__kernel_lidt:
+				.global	_kernel_lidt
+_kernel_lidt:
 				movl	4(%esp), %eax
 				lidt	(%eax)
 				ret

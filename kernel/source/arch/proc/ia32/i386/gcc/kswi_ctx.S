@@ -17,8 +17,8 @@
 			_KERNEL_T_CTXCB *pk_ctxinf_nxt,		4(%esp) : 現在のコンテキストの保存先
 			_KERNEL_T_CTXCB *pk_ctxinf_now)		8(%esp) : 切り替えるコンテキスト
  ************************************************/
-				.global	__kernel_swi_ctx
-__kernel_swi_ctx:
+				.global	_kernel_swi_ctx
+_kernel_swi_ctx:
 				movl	4(%esp), %eax
 				movl	8(%esp), %ecx
 				pushl	%ebx

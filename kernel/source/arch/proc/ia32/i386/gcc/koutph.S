@@ -17,8 +17,8 @@
 			UH		port,		4(%esp) : ポート番号
 			UH		data)		8(%esp) : 出力データ
  ************************************************/
-				.global	__kernel_outph
-__kernel_outph:
+				.global	_kernel_outph
+_kernel_outph:
 				movl	4(%esp), %edx
 				movl	8(%esp), %eax
 				outw	%ax, %dx

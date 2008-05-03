@@ -16,8 +16,8 @@
   UH _kernel_inph(
 			UH		port)		4(%esp) : ポート番号
  ************************************************/
-				.global	__kernel_inph
-__kernel_inph:
+				.global	_kernel_inph
+_kernel_inph:
 				movl	4(%esp), %edx
 				xor		%eax, %eax
 				inw		%dx, %ax

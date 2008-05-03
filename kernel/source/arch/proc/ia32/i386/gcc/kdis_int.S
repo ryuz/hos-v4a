@@ -15,8 +15,8 @@
    割り込み禁止
    void _kernel_dis_int(void)
  ************************************************/
-				.global	__kernel_dis_int
-__kernel_dis_int:
+				.global	_kernel_dis_int
+_kernel_dis_int:
 				cli			/* 割込み禁止 */
 				ret
 

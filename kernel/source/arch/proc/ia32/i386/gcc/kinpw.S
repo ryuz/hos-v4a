@@ -16,8 +16,8 @@
   UW _kernel_inpb(
 			UH		port)		4(%esp) : ポート番号
  ************************************************/
-				.global	__kernel_inpw
-__kernel_inpw:
+				.global	_kernel_inpw
+_kernel_inpw:
 				movl	4(%esp), %edx
 				xorl	%eax, %eax
 				inl		%dx, %eax

@@ -46,7 +46,7 @@ init_start:
 				movw	%ax, %es
 				xorw	%bx, %bx			/* 読込先アドレス */
 				movb	$0x02, %ah
-				movb	$0x06, %al			/* セクタ数 */
+				movb	$0x20, %al			/* セクタ数 */
 				movw	$0x0002, %cx		/* シリンダ・セクタ番号 */
 				movb	$0x00, %dh			/* ヘッド番号 */
 				movb	$0x00, %dl			/* ドライブ番号 */
