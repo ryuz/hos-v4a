@@ -24,11 +24,11 @@ ER ena_int(INTNO intno)
 	
 	if ( intno >= 0 && intno < 8 )
 	{
-		_kernel_outpb(_KERNEL_IRC_PIC1_OCW1, (_kernel_inpb(KERNEL_IRC_PIC1_IMR) & ~(1 << intno)));
+		_kernel_outpb(_KERNEL_IRC_PIC1_OCW1, (_kernel_inpb(_KERNEL_IRC_PIC1_IMR) & ~(1 << intno)));
 	}
 	else
 	{
-		_kernel_outpb(_KERNEL_IRC_PIC2_OCW1, (_kernel_inpb(KERNEL_IRC_PIC2_IMR) & ~(1 << (intno - 8))));
+		_kernel_outpb(_KERNEL_IRC_PIC2_OCW1, (_kernel_inpb(_KERNEL_IRC_PIC2_IMR) & ~(1 << (intno - 8))));
 	}
 	
 	return E_OK;

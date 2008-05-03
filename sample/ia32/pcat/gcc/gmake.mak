@@ -24,7 +24,7 @@ CMD_OBJCNV ?= $(GCC_ARCH)objcopy
 
 
 # %jp{アーキテクチャ定義}%en{architecture}
-ARCH_NAME ?= i386
+ARCH_NAME ?= pcat
 ARCH_CC   ?= gcc
 
 
@@ -33,7 +33,7 @@ TOP_DIR           = ../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/ia32/i386/gcc
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/ia32/pcat/gcc
 
 
 # %jp{コンフィギュレータ定義}

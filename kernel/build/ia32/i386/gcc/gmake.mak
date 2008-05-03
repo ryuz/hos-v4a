@@ -64,12 +64,6 @@ CFGRTR     = h4acfg-i386
 CSRCS += $(SRC_PROC_DIR)/val_int.c
 CSRCS += $(SRC_PROC_DIR)/kini_prc.c
 
-#         $(SRC_IRC_DIR)/kini_irc.c			\
-#         $(SRC_IRC_DIR)/kexe_irc.c			\
-#         $(SRC_IRC_DIR)/ena_int.c			\
-#         $(SRC_IRC_DIR)/dis_int.c			\
-#         $(SRC_IRC_DIR)/vclr_int.c
-
 
 # アセンブラファイルの追加
 ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S
