@@ -14,8 +14,8 @@
 /************************************************
   実行コンテキストの切替
   void _kernel_swi_ctx(
-			_KERNEL_T_CTXCB *pk_ctxinf_nxt,		4(%esp) : 現在のコンテキストの保存先
-			_KERNEL_T_CTXCB *pk_ctxinf_now)		8(%esp) : 切り替えるコンテキスト
+			_KERNEL_T_CTXCB *pk_ctxinf_nxt,		4(%esp) : 切り替えるコンテキスト
+			_KERNEL_T_CTXCB *pk_ctxinf_now)		8(%esp) : 現在のコンテキストの保存先
  ************************************************/
 				.global	_kernel_swi_ctx
 _kernel_swi_ctx:
@@ -25,9 +25,9 @@ _kernel_swi_ctx:
 				pushl	%esi
 				pushl	%edi
 				pushl	%ebp
-				movl	%esp, 0(%eax)
+				movl	%esp, 0(%ecx)
 				
-				movl	0(%ecx), %esp
+				movl	0(%eax), %esp
 				popl	%ebp
 				popl	%edi
 				popl	%esi
