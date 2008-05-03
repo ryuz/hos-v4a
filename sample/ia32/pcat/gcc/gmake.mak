@@ -87,8 +87,8 @@ ASRCS += ./crt0.S
 
 # %jp{C言語ファイルの追加}
 CSRCS += ../main.c
+CSRCS += ../kernel_cfg.c
 
-# CSRCS += ../kernel_cfg.c
 #         ../sample.c		\
 #         ../ostimer.c		\
 #         ../sci1.c
@@ -101,7 +101,7 @@ CSRCS += ../main.c
 # --------------------------------------
 
 # %jp{ALL}%en{all}
-all: makeexe_all ipl.bin $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img
+all: kernel_make makeexe_all ipl.bin $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img
 
 # %jp{クリーン}%en{clean}
 clean: makeexe_clean

@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -169,6 +169,7 @@ __kernel_vector_014:
 				add		$4, %esp
 				iret
 
+/* 予約 */
 				.global	__kernel_vector_015
 __kernel_vector_015:
 				pushal
@@ -177,6 +178,7 @@ __kernel_vector_015:
 				popal
 				iret
 
+/* コプロセッサ・エラー */
 				.global	__kernel_vector_016
 __kernel_vector_016:
 				pushal

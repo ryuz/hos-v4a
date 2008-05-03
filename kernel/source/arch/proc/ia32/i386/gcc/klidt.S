@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -10,17 +10,21 @@
 				.code32
 				.text
 
+
 /************************************************
-  割り込み待ち(CPUのアイドル処理)
-  void 	_kernel_wai_int(void);
+  LIDT命令
+  void _kernel_lidt(
+			VP		idt)		4(%esp) : ポート番号
  ************************************************/
-				.global	__kernel_wai_int
-__kernel_wai_int:
-		/*		hlt		*/
-				jmp		__kernel_wai_int
+				.global	__kernel_lidt
+__kernel_lidt:
+				movl	4(%esp), %eax
+				lidt	(%eax)
+				ret
 
 
 				.end
 
 
-/* end of file */
+; end of file
+

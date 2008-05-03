@@ -61,9 +61,8 @@ CFGRTR     = h4acfg-i386
 
 
 # C言語ファイルの追加
-CSRCS +=
+CSRCS += $(SRC_PROC_DIR)/val_int.c
 
-#  $(SRC_PROC_DIR)/val_int.c			\
 #         $(SRC_IRC_DIR)/kini_irc.c			\
 #         $(SRC_IRC_DIR)/kexe_irc.c			\
 #         $(SRC_IRC_DIR)/ena_int.c			\
@@ -72,13 +71,22 @@ CSRCS +=
 
 
 # アセンブラファイルの追加
-ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S		\
-         $(SRC_PROC_CC_DIR)/kena_int.S		\
-         $(SRC_PROC_CC_DIR)/kwai_int.S		\
-         $(SRC_PROC_CC_DIR)/kcre_ctx.S		\
-         $(SRC_PROC_CC_DIR)/ksta_ctx.S		\
-         $(SRC_PROC_CC_DIR)/kswi_ctx.S		\
-         $(SRC_PROC_CC_DIR)/krst_ctx.S		\
+ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S
+ASRCS += $(SRC_PROC_CC_DIR)/kena_int.S
+ASRCS += $(SRC_PROC_CC_DIR)/kwai_int.S
+ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/ksta_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/kswi_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/krst_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/kexc_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/kint_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/koutpb.S
+ASRCS += $(SRC_PROC_CC_DIR)/koutph.S
+ASRCS += $(SRC_PROC_CC_DIR)/koutpw.S
+ASRCS += $(SRC_PROC_CC_DIR)/kinpb.S
+ASRCS += $(SRC_PROC_CC_DIR)/kinph.S
+ASRCS += $(SRC_PROC_CC_DIR)/kinpw.S
+ASRCS += $(SRC_PROC_CC_DIR)/klidt.S
 
 
 # カーネル共通ソースの追加

@@ -45,12 +45,21 @@ void    _kernel_rst_ctx(VP_INT par1, VP_INT par2, FP entry, VP isp);								/**<
 void    _kernel_sta_ctx(_KERNEL_T_CTXCB *pk_ctxcb);													/**< %jp{実行コンテキストの開始} */
 void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxcb_now);				/**< %jp{実行コンテキストの切替} */
 
-void    _kernel_und_hdr(void);
-void    _kernel_swi_hdr(void);
-void    _kernel_pre_hdr(void);
-void    _kernel_abt_hdr(void);
-void    _kernel_irq_hdr(void);
-void    _kernel_fiq_hdr(void);
+void    _kernel_exc_hdr(void);
+void    _kernel_int_hdr(void);
+
+void    _kernel_outpb(UH port, UB data);
+void    _kernel_outph(UH port, UH data);
+void    _kernel_outpw(UH port, UW data);
+UB      _kernel_inpb(UH port);
+UH      _kernel_inph(UH port);
+UW      _kernel_inpw(UH port);
+
+void    _kernel_lgdt(VP gdt);
+void    _kernel_lldt(VP ldt);
+void    _kernel_lidt(VP idt);
+
+
 
 #ifdef __cplusplus
 }

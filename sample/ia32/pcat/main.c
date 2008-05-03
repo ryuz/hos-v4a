@@ -25,12 +25,9 @@ int main()
 		tvram[i*2] = msg[i];
 	}
 	
-	for ( ; ; )
-	{
-	}
 	
 	/* %jp{カーネルの動作開始} */
-/*	vsta_knl();	*/
+	vsta_knl();
 	
 	return 0;
 }
