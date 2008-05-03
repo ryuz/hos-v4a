@@ -23,16 +23,16 @@
 _kernel_cre_ctx:
 				movl	8(%esp), %eax		/* スタックを取り出し */
 				subl	$20, %eax
-				movl	$ctx_entry, %ebx	/* リターンアドレス */
-				movl	%ebx, 16(%eax)		/* ret */
-				movl	12(%esp), %ebx		/* 実行アドレス */
-				movl	%ebx, 12(%eax)		/* ebx */
-				movl	16(%esp), %ebx		/* 実行時パラメータ1 */
-				movl	%ebx, 8(%eax)		/* esi */
-				movl	20(%esp), %ebx		/* 実行時パラメータ2 */
-				movl	%ebx, 4(%eax)		/* edi */
-				movl	4(%esp), %ebx		/* 作成するコンテキスト */
-				movl	%eax, 0(%ebx)
+				movl	$ctx_entry, %ecx	/* リターンアドレス */
+				movl	%ecx, 16(%eax)		/* ret */
+				movl	12(%esp), %ecx		/* 実行アドレス */
+				movl	%ecx, 12(%eax)		/* ebx */
+				movl	16(%esp), %ecx		/* 実行時パラメータ1 */
+				movl	%ecx, 8(%eax)		/* esi */
+				movl	20(%esp), %ecx		/* 実行時パラメータ2 */
+				movl	%ecx, 4(%eax)		/* edi */
+				movl	4(%esp), %ecx		/* 作成するコンテキスト */
+				movl	%eax, 0(%ecx)
 				ret
 
 
