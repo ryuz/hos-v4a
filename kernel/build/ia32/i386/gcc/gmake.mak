@@ -62,6 +62,7 @@ CFGRTR     = h4acfg-i386
 
 # C言語ファイルの追加
 CSRCS += $(SRC_PROC_DIR)/val_int.c
+CSRCS += $(SRC_PROC_DIR)/kini_prc.c
 
 #         $(SRC_IRC_DIR)/kini_irc.c			\
 #         $(SRC_IRC_DIR)/kexe_irc.c			\
