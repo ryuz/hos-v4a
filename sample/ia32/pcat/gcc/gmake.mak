@@ -89,9 +89,8 @@ ASRCS += ./crt0.S
 CSRCS += ../main.c
 CSRCS += ../kernel_cfg.c
 CSRCS += ../sample.c
+CSRCS += ../ostimer.c
 CSRCS += ../console.c
-
-# CSRCS += ../ostimer.c
 
 
 

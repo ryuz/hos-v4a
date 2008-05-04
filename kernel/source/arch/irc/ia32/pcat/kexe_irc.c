@@ -27,11 +27,11 @@ void _kernel_exe_irc(INHNO inhno)
 	/* EOI */
 	if ( intno < 8 )
 	{
-		_kernel_outpb(_KERNEL_IRC_PIC1_OCW2, (inhno | 0x60));
+		_kernel_outpb(_KERNEL_IRC_PIC1_OCW2, (intno | 0x60));
 	}
 	else
 	{
-		_kernel_outpb(_KERNEL_IRC_PIC2_OCW2, ((inhno - 8) | 0x60));
+		_kernel_outpb(_KERNEL_IRC_PIC2_OCW2, ((intno - 8) | 0x60));
 		_kernel_outpb(_KERNEL_IRC_PIC1_OCW2, 0x62);
 	}
 }

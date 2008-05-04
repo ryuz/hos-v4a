@@ -26,7 +26,7 @@ UW  _kernel_idt[256*2];
 void _kernel_set_idt(INT vector, UB type, UH seg, UW offset)
 {
 	_kernel_idt[vector*2+0] = ((((UW)offset) & 0xffff) | (seg << 16));
-	_kernel_idt[vector*2+1] = ((type << 8) | ((((UW)offset) & 0xffff) << 16));
+	_kernel_idt[vector*2+1] = ((type << 8) | 0x00008000 | ((UW)offset & 0xffff0000));
 }
 
 

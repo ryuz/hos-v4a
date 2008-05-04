@@ -4,7 +4,7 @@
  * @file  ostimer.c
  * @brief %jp{OSタイマ}%en{OS timer}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -25,12 +25,17 @@ void OsTimer_Initialize(VP_INT exinf)
 	/* %jp{割り込みサービスルーチン生成} */
 	cisr.isratr = TA_HLNG;
 	cisr.exinf  = 0;
-	cisr.intno  = 2;
+	cisr.intno  = 0;
 	cisr.isr    = (FP)OsTimer_Isr;
 	acre_isr(&cisr);
-	ena_int(2);
 	
 	/* %jp{タイマ動作開始} */
+	_kernel_outpb(0x43, 0x34);
+	_kernel_outpb(0x40, 0x9c);	/* 11932 = 0x2e9c */
+	_kernel_outpb(0x40, 0x2e);
+	
+	/* %jp{割込み許可} */
+	ena_int(0);
 }
 
 

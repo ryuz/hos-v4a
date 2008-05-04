@@ -63,14 +63,13 @@ void Sample_Initialize(VP_INT exinf)
 /** %jp{適当な時間待つ} */
 void rand_wait(void)
 {
-/*	int r;
+	int r;
 
 	wai_sem(SEMID_RAND);
-	r = rand();	
+	r = 100;	/* rand();	*/
 	sig_sem(SEMID_RAND);
 
 	dly_tsk((r % 1000) + 10);
-*/
 }
 
 

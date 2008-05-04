@@ -6,6 +6,10 @@
  */
 
 
+				.extern	_kernel_sta_inh
+				.extern	_kernel_exe_inh
+				.extern	_kernel_end_inh
+
 
 				.code32
 				.text
@@ -16,15 +20,19 @@
  ************************************************/
 				.global	_kernel_int_hdr
 _kernel_int_hdr:
+				push	%eax
+				call	_kernel_sta_inh
+				call	_kernel_exe_inh
+				call	_kernel_end_inh
+				add		$4, %esp
 				ret
-
 
 
 
 				.global	_kernel_vector_032
 _kernel_vector_032:
 				pushal
-				movb	$32, %al
+				movl	$32, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -32,7 +40,7 @@ _kernel_vector_032:
 				.global	_kernel_vector_033
 _kernel_vector_033:
 				pushal
-				movb	$33, %al
+				movl	$33, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -40,7 +48,7 @@ _kernel_vector_033:
 				.global	_kernel_vector_034
 _kernel_vector_034:
 				pushal
-				movb	$34, %al
+				movl	$34, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -48,7 +56,7 @@ _kernel_vector_034:
 				.global	_kernel_vector_035
 _kernel_vector_035:
 				pushal
-				movb	$35, %al
+				movl	$35, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -56,7 +64,7 @@ _kernel_vector_035:
 				.global	_kernel_vector_036
 _kernel_vector_036:
 				pushal
-				movb	$36, %al
+				movl	$36, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -64,7 +72,7 @@ _kernel_vector_036:
 				.global	_kernel_vector_037
 _kernel_vector_037:
 				pushal
-				movb	$37, %al
+				movl	$37, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -72,7 +80,7 @@ _kernel_vector_037:
 				.global	_kernel_vector_038
 _kernel_vector_038:
 				pushal
-				movb	$38, %al
+				movl	$38, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -80,7 +88,7 @@ _kernel_vector_038:
 				.global	_kernel_vector_039
 _kernel_vector_039:
 				pushal
-				movb	$39, %al
+				movl	$39, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -88,7 +96,7 @@ _kernel_vector_039:
 				.global	_kernel_vector_040
 _kernel_vector_040:
 				pushal
-				movb	$40, %al
+				movl	$40, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -96,7 +104,7 @@ _kernel_vector_040:
 				.global	_kernel_vector_041
 _kernel_vector_041:
 				pushal
-				movb	$41, %al
+				movl	$41, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -104,7 +112,7 @@ _kernel_vector_041:
 				.global	_kernel_vector_042
 _kernel_vector_042:
 				pushal
-				movb	$42, %al
+				movl	$42, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -112,7 +120,7 @@ _kernel_vector_042:
 				.global	_kernel_vector_043
 _kernel_vector_043:
 				pushal
-				movb	$43, %al
+				movl	$43, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -120,7 +128,7 @@ _kernel_vector_043:
 				.global	_kernel_vector_044
 _kernel_vector_044:
 				pushal
-				movb	$44, %al
+				movl	$44, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -128,7 +136,7 @@ _kernel_vector_044:
 				.global	_kernel_vector_045
 _kernel_vector_045:
 				pushal
-				movb	$45, %al
+				movl	$45, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -136,7 +144,7 @@ _kernel_vector_045:
 				.global	_kernel_vector_046
 _kernel_vector_046:
 				pushal
-				movb	$46, %al
+				movl	$46, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
@@ -144,7 +152,7 @@ _kernel_vector_046:
 				.global	_kernel_vector_047
 _kernel_vector_047:
 				pushal
-				movb	$47, %al
+				movl	$47, %eax
 				call	_kernel_int_hdr
 				popal
 				iret
