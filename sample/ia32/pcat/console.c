@@ -43,6 +43,10 @@ void Console_PutChar(int c)
 					TEXTVRAM[(i*80+j)*2] = TEXTVRAM[((i+1)*80+j)*2];
 				}
 			}
+			for ( j = 0; j < 80; j++ )
+			{
+				TEXTVRAM[(24*80+j)*2] = ' ';
+			}
 		}
 	}
 	else
