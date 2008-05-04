@@ -93,7 +93,8 @@ void print_state(int num, char *text)
 	{
 		msg->text[4+i] = text[i];
 	}
-	msg->text[i] = '\n';
+	msg->text[4+i]   = '\n';
+	msg->text[4+i+1] = '\0';
 	
 	/*
 	strcpy(&msg->text[4], text);
