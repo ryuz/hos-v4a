@@ -57,8 +57,6 @@ SRC_DIRS += . ..
 AFLAGS  = -march=i386
 CFLAGS  = -march=i386
 LNFLAGS = -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
-# LNFLAGS = -nostdlib -fno-exceptions -ffreestanding -fno-builtin -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
-
 
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
@@ -81,17 +79,18 @@ TARGET_IMG = $(TARGET).img
 #  %jp{ソースファイル}%en{source files}
 # --------------------------------------
 
-# アセンブラファイルの追加
+# %jp{アセンブラファイルの追加}%en{assembry sources}
 ASRCS += ./crt0.S
 
 
-# %jp{C言語ファイルの追加}
+# %jp{C言語ファイルの追加}%en{C sources}
 CSRCS += ../main.c
 CSRCS += ../kernel_cfg.c
 CSRCS += ../sample.c
 CSRCS += ../ostimer.c
 CSRCS += ../console.c
 
+# debug
 SRC_DIRS += ../../../../aplfw/library/algorithm/stringformat
 CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_decimal.c
 CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_format.c
