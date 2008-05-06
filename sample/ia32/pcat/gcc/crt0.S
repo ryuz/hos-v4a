@@ -46,23 +46,6 @@ __main:
 				ret			/* 何もしない */
 
 
-				
-				.global	_debug_on
-_debug_on:		
-				pushfl
-				popl	%eax
-				orl		$0x0100, %eax
-				pushl	%eax
-				popfl
-				ret
-
-				.global	_debug_getflag
-_debug_getflag:
-				pushfl
-				popl	%eax
-				ret
-
-
 
 				.end
 

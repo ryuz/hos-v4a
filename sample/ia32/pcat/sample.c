@@ -71,9 +71,9 @@ void rand_wait(void)
 	int r;
 	
 	wai_sem(SEMID_RAND);
-	r = 100;	/* rand();	*/
+	r = 100;	// rand();
 	sig_sem(SEMID_RAND);
-
+	
 	dly_tsk((r % 1000) + 10);
 }
 
@@ -88,7 +88,7 @@ void print_state(int num, char *text)
 	/* %jp{メモリ取得} */
 	get_mpf(mpfid, &mem);
 	msg = (T_PRINT_MSG *)mem;
-
+	
 	/* %jp{文字列生成} */
 	msg->text[0] = '0' + num;
 	msg->text[1] = ' ';

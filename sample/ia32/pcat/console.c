@@ -26,9 +26,16 @@ void Console_Initialize(void)
 {
 	int i;
 	
+	/* COM1の初期化 */
+	_kernel_outpb(0x3fb, 0x83);
+	_kernel_outpb(0x3f8, 0x0c);		/* 9600bps */
+	_kernel_outpb(0x3f9, 0x00);
+	_kernel_outpb(0x3fb, 0x03);
+	
+	
+	/* Text-VRAM初期化 */
 	Console_x = 0;
 	Console_y = 0;
-	
 	for ( i = 0; i < 80*25; i++ )
 	{
 		TEXTVRAM[i] = 0x0720;
@@ -41,6 +48,7 @@ void Console_PutChar(int c)
 {
 	int i, j;
 	
+	/* Text-VRAM出力 */
 	if ( c == '\n' )
 	{
 		Console_x = 0;
@@ -68,6 +76,15 @@ void Console_PutChar(int c)
 		TEXTVRAM[(Console_y*80)+Console_x] = ((c & 0xff) | 0x0700);
 		Console_x++;
 	}
+	
+	/* COM出力 */
+	if ( c == '\n' )
+	{
+		c = '\r';
+	}
+	while ( !(_kernel_inpb(0x3fd) & 0x20) )
+		;
+	_kernel_outpb(0x3f8, c);
 }
 
 
@@ -84,6 +101,8 @@ void Console_PutString(const char *text)
 
 
 
+
+/* 以下デバッグ用出力 */
 #include "../../aplfw/library/algorithm/stringformat/stringformat.h"
 
 
@@ -91,27 +110,21 @@ int Debug_Put(int c, void *Param)
 {
 	Console_PutChar(c);
 	
-	/* COM出力 */
-	if ( c == '\n' )
-	{
-		c = '\r';
-	}
-	while ( !(_kernel_inpb(0x3fd) & 0x20) )
-		;
-	_kernel_outpb(0x3f8, c);
-	
 	return 1;
 }
+
 
 int Debug_PutChar(int c)
 {
 	return Debug_Put(c, 0);
 }
 
+
 int Debug_PutHex(int num)
 {
 	return Debug_PrintFormat("%08x", num);
 }
+
 
 int Debug_PrintFormat(const char *pszFormat, ...)
 {
@@ -126,7 +139,6 @@ int Debug_PrintFormat(const char *pszFormat, ...)
 }
 
 
-
 /* %jp{文字列出力} */
 void Debug_PutString(int y, int x, const char *text)
 {
@@ -139,46 +151,5 @@ void Debug_PutString(int y, int x, const char *text)
 }
 
 
-#if 0
-
-static char HexChar(int num)
-{
-	if ( num < 10 )
-	{
-		return '0' + num;
-	}
-	else
-	{
-		return 'a' + (num - 10);
-	}
-}
-
-
-/* %jp{文字列出力} */
-void Debug_PutHex(int y, int x, int num)
-{
-	int i;
-	
-	for ( i = 0; i < 8; i++ )
-	{
-		TEXTVRAM[(y*80+x+i)*2] = HexChar(((num >> 24) & 0xf));
-		num <<= 4;
-	}
-}
-
-
-void Debug_MemDump(unsigned char *mem)
-{
-	int i;
-	
-	for ( i = 0; i < 80*25; i++ )
-	{
-		TEXTVRAM[i*2] = HexChar((*mem >> 4) & 0xf);
-		TEXTVRAM[i*2] = HexChar((*mem >> 0) & 0xf);
-		mem++;
-	}
-}
-
-#endif
 
 /* end of file */

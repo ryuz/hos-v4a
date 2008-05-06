@@ -39,22 +39,6 @@ _kernel_vector_000:
 				.global	_kernel_vector_001
 _kernel_vector_001:
 				pushal
-				
-				/* デバッグ用一時埋め込み */
-				movl	32(%esp), %eax	/* EIP */
-				
-				pushl	%eax
-				call	Debug_PutHex
-				popl	%eax
-				
-				pushl	$'\n'
-				call	Debug_PutChar
-				popl	%eax
-				
-				popal
-				iret
-				
-				
 				movb	$1, %al
 				call	_kernel_exc_hdr
 				popal

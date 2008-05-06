@@ -26,7 +26,7 @@ void OsTimer_Initialize(VP_INT exinf)
 	
 /*	_debug_on();	*/
 	
-#if 0
+#if 1
 	/* %jp{割り込みサービスルーチン生成} */
 	cisr.isratr = TA_HLNG;
 	cisr.exinf  = 0;
@@ -44,13 +44,10 @@ void OsTimer_Initialize(VP_INT exinf)
 #endif
 	
 	
-	
 	/* %jp{タイマ動作開始} */
 	_kernel_outpb(0x43, 0x34);
 	_kernel_outpb(0x40, 0x9c);	/* 11932 = 0x2e9c */
 	_kernel_outpb(0x40, 0x2e);
-	
-	*(volatile char *)0xb8008 = 'C';
 	
 	/* %jp{割込み許可} */
 	ena_int(0);
