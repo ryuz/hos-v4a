@@ -92,7 +92,15 @@ CSRCS += ../sample.c
 CSRCS += ../ostimer.c
 CSRCS += ../console.c
 
-
+SRC_DIRS += ../../../../aplfw/library/algorithm/stringformat
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_decimal.c
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_format.c
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_formatstring.c
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_formatstringv.c
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_formatv.c
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_hexadecimal.c
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_nibble.c
+CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_string.c
 
 
 
@@ -132,6 +140,7 @@ ipl.bin: $(OBJS_DIR)/ipl.o
 # %jP{フロッピーディスクイメージ生成}%en{FD image}
 $(TARGET).img: ipl.bin $(TARGET_BIN)
 	./fd_img.pl $(TARGET).img ipl.bin $(TARGET_BIN)
+	cp $(TARGET).img $(TARGET)_2.img
 
 .PHONY : bochs
 bochs: $(TARGET).img

@@ -14,7 +14,7 @@
 
 
 
-/* 16進数を出力 */
+/* 文字列を出力 */
 int StringFormat_String(int (*pfncPut)(int c, void *Param), void *Param, const char *pszStr, int iWidth, int iFlag)
 {
 	int	iLen = 0;

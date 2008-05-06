@@ -10,7 +10,7 @@
 
 
 				.extern		main
-				.extern		__kernel_int_isp
+				.extern		_kernel_int_isp
 				.extern		___bss
 				.extern		___bss_end
 
@@ -25,13 +25,13 @@
   起動ハンドラ
 ************************************************/
 _boot_handler:	
-				movl	$0x8000, %esp
+				movl	(_kernel_int_isp), %esp
 				
 			/* BSS clear */
 				movl	$___bss_end, %ecx
 				subl	$___bss, %ecx
 				movl	$___bss, %edi
-				xor		%eax, %eax
+				xorl	%eax, %eax
 				cld
 				rep		stosb
 				
@@ -44,6 +44,24 @@ _end_main:
 
 __main:
 				ret			/* 何もしない */
+
+
+				
+				.global	_debug_on
+_debug_on:		
+				pushfl
+				popl	%eax
+				orl		$0x0100, %eax
+				pushl	%eax
+				popfl
+				ret
+
+				.global	_debug_getflag
+_debug_getflag:
+				pushfl
+				popl	%eax
+				ret
+
 
 
 				.end

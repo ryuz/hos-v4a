@@ -34,23 +34,23 @@ void _kernel_set_idt(INT vector, UB type, UH seg, UW offset)
 /** %jp{プロセッサ固有の初期化} */
 void _kernel_ini_prc(void)
 {
-	_kernel_set_idt(  0, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_000);
-	_kernel_set_idt(  1, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_001);
-	_kernel_set_idt(  2, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_002);
-	_kernel_set_idt(  3, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_003);
-	_kernel_set_idt(  4, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_004);
-	_kernel_set_idt(  5, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_005);
-	_kernel_set_idt(  6, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_006);
-	_kernel_set_idt(  7, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_007);
-	_kernel_set_idt(  8, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_008);
-	_kernel_set_idt(  9, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_009);
-	_kernel_set_idt( 10, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_010);
-	_kernel_set_idt( 11, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_011);
-	_kernel_set_idt( 12, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_012);
-	_kernel_set_idt( 13, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_013);
-	_kernel_set_idt( 14, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_014);
-	_kernel_set_idt( 15, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_015);
-	_kernel_set_idt( 16, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
+	_kernel_set_idt(  0, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_000);
+	_kernel_set_idt(  1, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_001);
+	_kernel_set_idt(  2, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_002);
+	_kernel_set_idt(  3, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_003);
+	_kernel_set_idt(  4, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_004);
+	_kernel_set_idt(  5, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_005);
+	_kernel_set_idt(  6, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_006);
+	_kernel_set_idt(  7, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_007);
+	_kernel_set_idt(  8, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_008);
+	_kernel_set_idt(  9, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_009);
+	_kernel_set_idt( 10, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_010);
+	_kernel_set_idt( 11, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_011);
+	_kernel_set_idt( 12, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_012);
+	_kernel_set_idt( 13, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_013);
+	_kernel_set_idt( 14, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_014);
+	_kernel_set_idt( 15, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_015);
+	_kernel_set_idt( 16, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
 	
 	_kernel_set_idt( 32, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_032);
 	_kernel_set_idt( 33, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_033);

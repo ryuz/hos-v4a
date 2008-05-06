@@ -14,6 +14,8 @@ LOAD_SEG  = 0x0800			/* 本体をロードするセグメントアドレス */
 IPL_ADDR  = (IPL_SEG << 4)
 LOAD_ADDR = (LOAD_SEG << 4)
 
+LOAD_SEC_NUM = 32
+
 
 				.code16
 				.text
@@ -42,18 +44,78 @@ init_start:
 				call	bios_puts
 				
 				/* 本体のロード */
+	//			movw	$LOAD_SEG, %ax
+	//			movw	%ax, %es
+	//			xorw	%bx, %bx			/* 読込先アドレス */
+	//			movb	$0x02, %ah
+	//			movb	$LOAD_SEC_NUM, %al	/* セクタ数 */
+	//			movw	$0x0002, %cx		/* シリンダ・セクタ番号 */
+	//			movb	$0x00, %dh			/* ヘッド番号 */
+	//			movb	$0x00, %dl			/* ドライブ番号 */
+	//			int		$0x13
+	//			jc		disk_error
+	//			cmp		$LOAD_SEC_NUM, %al
+	//			jnz		disk_error
+				
+				
+				
 				movw	$LOAD_SEG, %ax
 				movw	%ax, %es
 				xorw	%bx, %bx			/* 読込先アドレス */
-				movb	$0x02, %ah
-				movb	$0x20, %al			/* セクタ数 */
-				movw	$0x0002, %cx		/* シリンダ・セクタ番号 */
-				movb	$0x00, %dh			/* ヘッド番号 */
-				movb	$0x00, %dl			/* ドライブ番号 */
-				int		$0x13
+				movw	$1, %ax				/* 読み込み論理セクタ番号 */
+read_loop:		
+				pushw	%ax
+				pushw	%bx
+				pushw	%es
+				call	read_sector
+				popw	%es
+				popw	%bx
+				popw	%ax
+				
+				addw	$1, %ax
+				addw	$512, %bx
+				cmp		$LOAD_SEC_NUM, %ax
+				jnz		read_loop
+				
 				
 				jmp		switch_32bit
 				
+disk_error:		
+				movw    $error_message, %si
+				call	bios_puts
+error_end:		
+				nop
+				jmp		error_end
+
+
+read_sector:
+				/* FDDから１セクタ読み込み */
+				pushw	%bx
+				mov		$18, %bl
+				div		%bl
+				popw	%bx
+				
+				xorw	%cx, %cx
+				movb	%ah, %cl
+				incb	%cl					/* セクタ設定 */
+				
+				movb	%al, %dh			/* ヘッド番号 */
+				andb	$0x01, %dh
+				
+				andb	$0xfe, %al
+				movb	$0, %ah
+				shlw	$5, %ax
+				orw		%ax, %cx			/* シリンダ番号 */
+				
+				movb	$0x00, %dl			/* ドライブ番号 */
+				
+				movb	$0x02, %ah			/* 機能コード */
+				movb	$1, %al				/* セクタ数 */
+				int		$0x13
+				jc		disk_error
+				cmp		$1, %al
+				jnz		disk_error
+				ret
 				
 				
 				/* 画面のクリア */
@@ -83,9 +145,11 @@ bios_puts_end:
 
 
 switch_32bit:
+				cli
+				
 				/* GDT設定 */
 				lgdt	gdtr
-
+				
 				/* プロテクトモードへ移行 */
 				movl	%cr0, %eax
 				orl		$0x00000001, %eax
@@ -116,6 +180,11 @@ _start_32bit:
 				/* 起動メッセージ */
 boot_message:
 		        .ascii	"HOS-Loader\r\nNow loading...\r\n\0"
+
+				/* エラーメッセージ */
+error_message:
+		        .ascii	"disk error\r\n\0"
+
 
 
 /************************************************
