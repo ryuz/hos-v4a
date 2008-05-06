@@ -37,21 +37,19 @@ void Sample_Initialize(VP_INT exinf)
 	T_CMPF cmpf;
 	T_CMBX cmbx;
 	
-	*(volatile char *)0xb800c = 'E';	// debug
-	
 	/* %jp{固定長メモリプール生成} */
 	cmpf.mpfatr = TA_TFIFO;					
 	cmpf.blkcnt = 3;						
 	cmpf.blksz  = sizeof(T_PRINT_MSG);		
 	cmpf.mpf    = NULL;						
 	mpfid = acre_mpf(&cmpf);
-
+	
 	/* %jp{メールボックス生成} */
 	cmbx.mbxatr  = TA_TFIFO | TA_TFIFO;		
 	cmbx.maxmpri = 1;						
 	cmbx.mprihd  = NULL;					
 	mbxid = acre_mbx(&cmbx);
-
+	
 	/* %jp{タスク起動} */
 	act_tsk(TSKID_PRINT);
 	act_tsk(TSKID_SAMPLE1);
@@ -59,9 +57,6 @@ void Sample_Initialize(VP_INT exinf)
 	act_tsk(TSKID_SAMPLE3);
 	act_tsk(TSKID_SAMPLE4);
 	act_tsk(TSKID_SAMPLE5);
-	
-	
-//	*(volatile char *)0xb800e = 'F';	// debug
 }
 
 
@@ -168,9 +163,6 @@ void Sample_Task(VP_INT exinf)
 void Sample_Print(VP_INT exinf)
 {
 	T_PRINT_MSG *msg;
-	
-	*(volatile char *)0xb8010 = 'P';	// debug
-	
 	
 	for ( ; ; )
 	{
