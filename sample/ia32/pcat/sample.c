@@ -60,16 +60,26 @@ void Sample_Initialize(VP_INT exinf)
 }
 
 
+/* とりあえず線形合同法 */
+int my_rand(void)
+{
+	static long x=1;
+	
+	x = x * 1103515245 + 12345;
+	return (x & 2147483647);
+}
+
+
 /** %jp{適当な時間待つ} */
 void rand_wait(void)
 {
 	int r;
 	
 	wai_sem(SEMID_RAND);
-	r = 100;	// rand();
+	r = my_rand();
 	sig_sem(SEMID_RAND);
 	
-	dly_tsk((r % 1000) + 10);
+	dly_tsk((r % 100) + 10);
 }
 
 

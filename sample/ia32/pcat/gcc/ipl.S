@@ -14,7 +14,7 @@ LOAD_SEG  = 0x0800			/* 本体をロードするセグメントアドレス */
 IPL_ADDR  = (IPL_SEG << 4)
 LOAD_ADDR = (LOAD_SEG << 4)
 
-LOAD_SEC_NUM = 32
+LOAD_SEC_NUM = 128
 
 
 				.code16
@@ -44,21 +44,6 @@ init_start:
 				call	bios_puts
 				
 				/* 本体のロード */
-	//			movw	$LOAD_SEG, %ax
-	//			movw	%ax, %es
-	//			xorw	%bx, %bx			/* 読込先アドレス */
-	//			movb	$0x02, %ah
-	//			movb	$LOAD_SEC_NUM, %al	/* セクタ数 */
-	//			movw	$0x0002, %cx		/* シリンダ・セクタ番号 */
-	//			movb	$0x00, %dh			/* ヘッド番号 */
-	//			movb	$0x00, %dl			/* ドライブ番号 */
-	//			int		$0x13
-	//			jc		disk_error
-	//			cmp		$LOAD_SEC_NUM, %al
-	//			jnz		disk_error
-				
-				
-				
 				movw	$LOAD_SEG, %ax
 				movw	%ax, %es
 				xorw	%bx, %bx			/* 読込先アドレス */
@@ -77,9 +62,11 @@ read_loop:
 				cmp		$LOAD_SEC_NUM, %ax
 				jnz		read_loop
 				
-				
+				/* ネイティブモードへ移行 */
 				jmp		switch_32bit
 				
+				
+				/* エラー */
 disk_error:		
 				movw    $error_message, %si
 				call	bios_puts
@@ -102,10 +89,8 @@ read_sector:
 				movb	%al, %dh			/* ヘッド番号 */
 				andb	$0x01, %dh
 				
-				andb	$0xfe, %al
-				movb	$0, %ah
-				shlw	$5, %ax
-				orw		%ax, %cx			/* シリンダ番号 */
+				shrb	$1, %al
+				mov		%al, %ch			/* シリンダ番号 */
 				
 				movb	$0x00, %dl			/* ドライブ番号 */
 				

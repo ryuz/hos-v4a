@@ -56,7 +56,7 @@ SRC_DIRS += . ..
 # %jp{オプションフラグ}%en{option flags}
 AFLAGS  = -march=i386
 CFLAGS  = -march=i386
-LNFLAGS = -nostdlib -nostartfiles -lc -lgcc -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+LNFLAGS = -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 # LNFLAGS = -nostdlib -fno-exceptions -ffreestanding -fno-builtin -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
