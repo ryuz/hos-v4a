@@ -139,7 +139,6 @@ ipl.bin: $(OBJS_DIR)/ipl.o
 # %jP{フロッピーディスクイメージ生成}%en{FD image}
 $(TARGET).img: ipl.bin $(TARGET_BIN)
 	./fd_img.pl $(TARGET).img ipl.bin $(TARGET_BIN)
-	cp $(TARGET).img $(TARGET)_2.img
 
 .PHONY : bochs
 bochs: $(TARGET).img
