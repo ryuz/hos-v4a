@@ -53,6 +53,8 @@
 				"sysmem_getmemif.c",
 				"sysmem_getsize.c",
 				"sysmem_realloc.c",
+				"sysmem_allociomem.c",
+				"sysmem_freeiomem.c",
 				"sysmtx_create.c",
 				"sysmtx_delete.c",
 				"sysmtx_lock.c",

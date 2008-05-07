@@ -96,6 +96,12 @@ $(OBJS_DIR)\sysmem_getsize.c : $(SYSAPI_DIR)\sysmem_getsize.c
 $(OBJS_DIR)\sysmem_realloc.c : $(SYSAPI_DIR)\sysmem_realloc.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysmem_realloc.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\sysmem_allociomem.c : $(SYSAPI_DIR)\sysmem_allociomem.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysmem_allociomem.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmem_freeiomem.c : $(SYSAPI_DIR)\sysmem_freeiomem.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysmem_freeiomem.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\sysmtx_create.c : $(SYSAPI_DIR)\sysmtx_create.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysmtx_create.c $(OBJS_DIR)\
 
@@ -1650,6 +1656,8 @@ $(OBJS_DIR)\sysmem_free.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_free.c	$(COMMON_HEADERS) 
 $(OBJS_DIR)\sysmem_getmemif.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_getmemif.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmem_getsize.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_getsize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmem_realloc.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_realloc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmem_allociomem.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_allociomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmem_freeiomem.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_freeiomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmtx_create.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmtx_delete.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmtx_lock.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_lock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
