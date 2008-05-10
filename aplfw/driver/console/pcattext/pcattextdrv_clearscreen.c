@@ -19,7 +19,7 @@ void PcatTextDrv_ClearScreen(C_PCATTEXTDRV *self)
 	/* Text-VRAM初期化 */
 	for ( i = 0; i < self->iScreenWidth * self->iScreenHeight; i++ )
 	{
-		self->puhVramBase[i] = 0x0720;
+		self->puhTextVram[i] = 0x0720;
 	}
 	
 	/* カーソル初期化 */

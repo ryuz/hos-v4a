@@ -12,8 +12,9 @@
 #include "pcattextdrv_local.h"
 
 
-void PcatTextDrv_SetCursor(C_PCATTEXTDRV *self, int iX, int iY);
+void PcatTextDrv_SetCursor(C_PCATTEXTDRV *self, int iX, int iY)
 {
+	/* カーソル移動 */
 	self->iCursorX = iX;
 	self->iCursorY = iY;
 }

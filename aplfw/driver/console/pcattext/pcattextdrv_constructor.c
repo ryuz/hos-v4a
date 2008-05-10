@@ -19,10 +19,10 @@ const T_DRVOBJ_METHODS PcatTextDrv_Methods =
 		PcatTextDrv_Open,
 		PcatTextDrv_Close,
 		PcatTextDrv_IoControl,
-		PcatTextDrv_Seek,
-		PcatTextDrv_Read,
+		DrvObj_Seek,
+		DrvObj_Read,
 		PcatTextDrv_Write,
-		PcatTextDrv_Flush,
+		DrvObj_Flush,
 	};
 
 
