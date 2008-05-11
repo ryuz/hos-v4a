@@ -52,6 +52,10 @@ FILE_ERR PcatTextDrv_Constructor(C_PCATTEXTDRV *self, const T_DRVOBJ_METHODS *pM
 	self->iCursorY      = 0;
 	
 	
+	PcatTextDrv_ClearScreen(self);
+	PcatTextDrv_SetCursor(self, 0, 0);
+	
+	
 	return FILE_ERR_OK;
 }
 
