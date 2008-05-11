@@ -128,7 +128,8 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	
 	Process_SetTerminal(HANDLE_NULL, hTty);
-	Process_SetConsole(HANDLE_NULL, hCon);
+	Process_SetConIn(HANDLE_NULL, hCon);
+	Process_SetConOut(HANDLE_NULL, hCon);
 	Process_SetStdIn(HANDLE_NULL, hCon);
 	Process_SetStdOut(HANDLE_NULL, hCon);
 	Process_SetStdErr(HANDLE_NULL, hCon);
@@ -179,7 +180,8 @@ int Boot_Process(VPARAM Param)
 	ProcInf.StackSize      = 2048;									/* スタックサイズ */
 	ProcInf.Priority       = PROCESS_PRIORITY_NORMAL;				/* プロセス優先度 */
 	ProcInf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
-	ProcInf.hConsole       = Process_GetConsole(HANDLE_NULL);		/* コンソール */
+	ProcInf.hConIn         = Process_GetConIn(HANDLE_NULL);			/* コンソール入力 */
+	ProcInf.hConOut        = Process_GetConOut(HANDLE_NULL);		/* コンソール出力 */
 	ProcInf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
 	ProcInf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
 	ProcInf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */

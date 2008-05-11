@@ -43,7 +43,8 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		Inf.StackSize      = 2048;									/* スタックサイズ */
 		Inf.Priority       = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
 		Inf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
-		Inf.hConsole       = Process_GetConsole(HANDLE_NULL);		/* コンソール */
+		Inf.hConIn         = Process_GetConIn(HANDLE_NULL);			/* コンソール */
+		Inf.hConOut        = Process_GetConIn(HANDLE_NULL);			/* コンソール出力 */
 		Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
 		Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
 		Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
