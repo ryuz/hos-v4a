@@ -44,7 +44,8 @@ typedef struct c_process
 	char				SysMode;						/**< システムモード */
 	char				Exit;							/**< 終了フラグ */
 	HANDLE				hTerminal;						/**< ターミナル */
-	HANDLE				hConsole;						/**< コンソール */
+	HANDLE				hConIn;							/**< コンソール入力 */
+	HANDLE				hConOut;						/**< コンソール出力 */
 	HANDLE				hStdIn;							/**< 標準入力 */
 	HANDLE				hStdOut;						/**< 標準出力 */
 	HANDLE				hStdErr;						/**< 標準エラー出力 */

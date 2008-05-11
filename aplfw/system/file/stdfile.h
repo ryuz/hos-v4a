@@ -30,10 +30,11 @@ extern "C" {
 #define StdIo_PutString(str)	File_PutString(Process_GetStdOut(HANDLE_NULL), (str));
 int     StdIo_PrintFormat(const char *pszFormat, ...);
 
-#define StdCon_GetCh()			Console_GetCh(Process_GetConsole(HANDLE_NULL));
-#define StdCon_GetChar()		File_GetChar(Process_GetConsole(HANDLE_NULL));
-#define StdCon_PutChar(c)		File_PutChar(Process_GetConsole(HANDLE_NULL), (c));
-#define StdCon_PutString(str)	File_PutString(Process_GetConsole(HANDLE_NULL), (str));
+#define StdCon_GetCh()			Console_GetCh(Process_GetConIn(HANDLE_NULL));
+#define StdCon_GetChar()		File_GetChar(Process_GetConIn(HANDLE_NULL));
+
+#define StdCon_PutChar(c)		File_PutChar(Process_GetConOut(HANDLE_NULL), (c));
+#define StdCon_PutString(str)	File_PutString(Process_GetConOut(HANDLE_NULL), (str));
 
 #ifdef __cplusplus
 }

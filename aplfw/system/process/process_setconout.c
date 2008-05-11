@@ -14,7 +14,7 @@
 
 
 /** プロセスの標準コンソール設定 */
-void Process_SetConsole(HANDLE hProcess, HANDLE hFile)
+void Process_SetConOut(HANDLE hProcess, HANDLE hFile)
 {
 	C_PROCESS *self;
 	
@@ -28,7 +28,7 @@ void Process_SetConsole(HANDLE hProcess, HANDLE hFile)
 	self = (C_PROCESS *)hProcess;
 	
 	/* ハンドルを設定 */
-	self->hConsole = hFile;
+	self->hConOut = hFile;
 }
 
 

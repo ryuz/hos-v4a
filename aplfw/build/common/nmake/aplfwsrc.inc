@@ -71,6 +71,12 @@ LINK_STRINGFORMAT     = Yes
 !ifndef LINK_VT100
 LINK_VT100            = Yes
 !endif
+!ifndef LINK_PCATTEXT
+LINK_PCATTEXT         = No
+!endif
+!ifndef LINK_PCATKEY
+LINK_PCATKEY          = No
+!endif
 !ifndef LINK_TCPIP
 LINK_TCPIP            = Yes
 !endif
@@ -359,10 +365,14 @@ CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setterminal.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setterminal.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getterminal.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_getterminal.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setconsole.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\process_setconsole.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getconsole.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\process_getconsole.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setconin.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_setconin.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getconin.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_getconin.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setconout.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_setconout.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getconout.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_getconout.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setstdin.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_setstdin.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getstdin.c
@@ -753,6 +763,66 @@ CSRCS = $(CSRCS) $(VT100_DIR)\vt100drv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\vt100drv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(VT100_DIR)\vt100drv_getch.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\vt100drv_getch.$(EXT_OBJ)
+!endif
+
+
+# PC/AT text mode screen
+!if "$(LINK_PCATTEXT)" == "Yes"
+PCATTEXT_DIR = $(HOSAPLFW_DIR)\driver\console\pcattext
+HEADERS = $(HEADERS) $(OBJS_DIR)\pcattextdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\pcattextdrv_local.h
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_write.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_putchar.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_putchar.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_setcursor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_setcursor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATTEXT_DIR)\pcattextdrv_clearscreen.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcattextdrv_clearscreen.$(EXT_OBJ)
+!endif
+
+
+# PC/AT Keyboard
+!if "$(LINK_PCATKEY)" == "Yes"
+PCATKEY_DIR = $(HOSAPLFW_DIR)\driver\console\pcatkey
+HEADERS = $(HEADERS) $(OBJS_DIR)\pcatkeydrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\pcatkeydrv_local.h
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_seek.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_seek.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_read.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_read.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_write.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PCATKEY_DIR)\pcatkeydrv_flush.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\pcatkeydrv_flush.$(EXT_OBJ)
 !endif
 
 

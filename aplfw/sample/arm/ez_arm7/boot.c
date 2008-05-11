@@ -166,12 +166,7 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*      シェル起動       */
 	/*************************/
-#if 0
-	for ( ; ; )
-	{
-		Command_Execute("sh -i", NULL);
-	}
-#else
+
 	/* プロセスの生成*/
 	ProcInf.pszCommandLine = "sh -i";								/* 実行コマンド */
 	ProcInf.pszCurrentDir  = "";									/* 起動ディレクトリ */
@@ -191,7 +186,6 @@ int Boot_Process(VPARAM Param)
 		Process_WaitExit(hProcess);
 		Process_Delete(hProcess);
 	}
-#endif
 }
 
 

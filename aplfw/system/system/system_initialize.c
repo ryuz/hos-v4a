@@ -57,7 +57,8 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->StackSize      = pInf->SystemStackSize;	/* スタックサイズ */
 	pProcessInf->Priority       = 1;						/* プロセス優先度 */
 	pProcessInf->hTerminal      = HANDLE_NULL;				/* ターミナル */
-	pProcessInf->hConsole       = HANDLE_NULL;				/* コンソール */
+	pProcessInf->hConIn         = HANDLE_NULL;				/* コンソール入力 */
+	pProcessInf->hConOut        = HANDLE_NULL;				/* コンソール出力 */
 	pProcessInf->hStdIn         = HANDLE_NULL;				/* 標準入力 */
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */
@@ -71,7 +72,8 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->StackSize      = pInf->BootStackSize;		/* スタックサイズ */
 	pProcessInf->Priority       = PROCESS_PRIORITY_NORMAL;	/* プロセス優先度 */
 	pProcessInf->hTerminal      = HANDLE_NULL;				/* ターミナル */
-	pProcessInf->hConsole       = HANDLE_NULL;				/* コンソール */
+	pProcessInf->hConIn         = HANDLE_NULL;				/* コンソール入力 */
+	pProcessInf->hConOut        = HANDLE_NULL;				/* コンソール出力 */
 	pProcessInf->hStdIn         = HANDLE_NULL;				/* 標準入力 */
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */

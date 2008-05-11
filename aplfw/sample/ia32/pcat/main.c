@@ -4,7 +4,7 @@
  * @file  main.c
  * @brief %jp{メイン関数}%en{main}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

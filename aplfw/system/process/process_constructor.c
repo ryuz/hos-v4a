@@ -42,7 +42,8 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	self->SysMode   = 0;					/* システムモード */
 	self->Exit      = 0;					/* 終了フラグ */
 	self->hTerminal = pInf->hTerminal;		/* ターミナル */
-	self->hConsole  = pInf->hConsole;		/* コンソール */
+	self->hConIn    = pInf->hConIn;			/* コンソール入力 */
+	self->hConOut   = pInf->hConOut;		/* コンソール出力 */
 	self->hStdIn    = pInf->hStdIn;			/* 標準入力 */
 	self->hStdOut   = pInf->hStdOut;		/* 標準出力 */
 	self->hStdErr   = pInf->hStdErr;		/* 標準エラー出力 */

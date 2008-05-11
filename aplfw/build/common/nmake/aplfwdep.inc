@@ -265,11 +265,17 @@ $(OBJS_DIR)\process_setterminal.c : $(PROCESS_DIR)\process_setterminal.c
 $(OBJS_DIR)\process_getterminal.c : $(PROCESS_DIR)\process_getterminal.c
 	$(CMD_CP) $(PROCESS_DIR)\process_getterminal.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\process_setconsole.c : $(PROCESS_DIR)\process_setconsole.c
-	$(CMD_CP) $(PROCESS_DIR)\process_setconsole.c $(OBJS_DIR)\
+$(OBJS_DIR)\process_setconin.c : $(PROCESS_DIR)\process_setconin.c
+	$(CMD_CP) $(PROCESS_DIR)\process_setconin.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\process_getconsole.c : $(PROCESS_DIR)\process_getconsole.c
-	$(CMD_CP) $(PROCESS_DIR)\process_getconsole.c $(OBJS_DIR)\
+$(OBJS_DIR)\process_getconin.c : $(PROCESS_DIR)\process_getconin.c
+	$(CMD_CP) $(PROCESS_DIR)\process_getconin.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\process_setconout.c : $(PROCESS_DIR)\process_setconout.c
+	$(CMD_CP) $(PROCESS_DIR)\process_setconout.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\process_getconout.c : $(PROCESS_DIR)\process_getconout.c
+	$(CMD_CP) $(PROCESS_DIR)\process_getconout.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\process_setstdin.c : $(PROCESS_DIR)\process_setstdin.c
 	$(CMD_CP) $(PROCESS_DIR)\process_setstdin.c $(OBJS_DIR)\
@@ -801,6 +807,86 @@ $(OBJS_DIR)\vt100drv_flush.c : $(VT100_DIR)\vt100drv_flush.c
 
 $(OBJS_DIR)\vt100drv_getch.c : $(VT100_DIR)\vt100drv_getch.c
 	$(CMD_CP) $(VT100_DIR)\vt100drv_getch.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\pcattextdrv.h : $(PCATTEXT_DIR)\pcattextdrv.h
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_local.h : $(PCATTEXT_DIR)\pcattextdrv_local.h
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_create.c : $(PCATTEXT_DIR)\pcattextdrv_create.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_delete.c : $(PCATTEXT_DIR)\pcattextdrv_delete.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_constructor.c : $(PCATTEXT_DIR)\pcattextdrv_constructor.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_destructor.c : $(PCATTEXT_DIR)\pcattextdrv_destructor.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_open.c : $(PCATTEXT_DIR)\pcattextdrv_open.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_open.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_close.c : $(PCATTEXT_DIR)\pcattextdrv_close.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_close.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_iocontrol.c : $(PCATTEXT_DIR)\pcattextdrv_iocontrol.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_iocontrol.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_write.c : $(PCATTEXT_DIR)\pcattextdrv_write.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_write.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_putchar.c : $(PCATTEXT_DIR)\pcattextdrv_putchar.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_putchar.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_setcursor.c : $(PCATTEXT_DIR)\pcattextdrv_setcursor.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_setcursor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcattextdrv_clearscreen.c : $(PCATTEXT_DIR)\pcattextdrv_clearscreen.c
+	$(CMD_CP) $(PCATTEXT_DIR)\pcattextdrv_clearscreen.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\pcatkeydrv.h : $(PCATKEY_DIR)\pcatkeydrv.h
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_local.h : $(PCATKEY_DIR)\pcatkeydrv_local.h
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_create.c : $(PCATKEY_DIR)\pcatkeydrv_create.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_delete.c : $(PCATKEY_DIR)\pcatkeydrv_delete.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_constructor.c : $(PCATKEY_DIR)\pcatkeydrv_constructor.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_destructor.c : $(PCATKEY_DIR)\pcatkeydrv_destructor.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_open.c : $(PCATKEY_DIR)\pcatkeydrv_open.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_open.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_close.c : $(PCATKEY_DIR)\pcatkeydrv_close.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_close.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_iocontrol.c : $(PCATKEY_DIR)\pcatkeydrv_iocontrol.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_iocontrol.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_seek.c : $(PCATKEY_DIR)\pcatkeydrv_seek.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_seek.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_read.c : $(PCATKEY_DIR)\pcatkeydrv_read.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_read.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_write.c : $(PCATKEY_DIR)\pcatkeydrv_write.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_write.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\pcatkeydrv_flush.c : $(PCATKEY_DIR)\pcatkeydrv_flush.c
+	$(CMD_CP) $(PCATKEY_DIR)\pcatkeydrv_flush.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\tcpip.h : $(TCPIP_DIR)\tcpip.h
@@ -1708,8 +1794,10 @@ $(OBJS_DIR)\process_getexecutiontime.$(EXT_OBJ):	$(OBJS_DIR)\process_getexecutio
 $(OBJS_DIR)\process_getcommandline.$(EXT_OBJ):	$(OBJS_DIR)\process_getcommandline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setterminal.$(EXT_OBJ):	$(OBJS_DIR)\process_setterminal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getterminal.$(EXT_OBJ):	$(OBJS_DIR)\process_getterminal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\process_setconsole.$(EXT_OBJ):	$(OBJS_DIR)\process_setconsole.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\process_getconsole.$(EXT_OBJ):	$(OBJS_DIR)\process_getconsole.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_setconin.$(EXT_OBJ):	$(OBJS_DIR)\process_setconin.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_getconin.$(EXT_OBJ):	$(OBJS_DIR)\process_getconin.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_setconout.$(EXT_OBJ):	$(OBJS_DIR)\process_setconout.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_getconout.$(EXT_OBJ):	$(OBJS_DIR)\process_getconout.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setstdin.$(EXT_OBJ):	$(OBJS_DIR)\process_setstdin.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getstdin.$(EXT_OBJ):	$(OBJS_DIR)\process_getstdin.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setstdout.$(EXT_OBJ):	$(OBJS_DIR)\process_setstdout.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1857,6 +1945,30 @@ $(OBJS_DIR)\vt100drv_read.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_read.c	$(COMMON_HEADE
 $(OBJS_DIR)\vt100drv_write.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_write.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\vt100drv_flush.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_flush.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\vt100drv_getch.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_getch.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\pcattextdrv_create.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_open.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_open.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_close.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_close.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_iocontrol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_write.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_putchar.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_putchar.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_setcursor.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_setcursor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcattextdrv_clearscreen.$(EXT_OBJ):	$(OBJS_DIR)\pcattextdrv_clearscreen.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\pcatkeydrv_create.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_open.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_open.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_close.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_close.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_iocontrol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_seek.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_seek.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_read.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_read.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_write.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_write.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\pcatkeydrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\pcatkeydrv_flush.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\tcpip_create.$(EXT_OBJ):	$(OBJS_DIR)\tcpip_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\tcpip_delete.$(EXT_OBJ):	$(OBJS_DIR)\tcpip_delete.c	$(COMMON_HEADERS)

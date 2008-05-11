@@ -42,7 +42,8 @@ typedef struct t_process_create_inf
 	MEMSIZE		StackSize;							/**< スタックサイズ */
 	int			Priority;							/**< プロセス優先度 */
 	HANDLE		hTerminal;							/**< ターミナル */
-	HANDLE		hConsole;							/**< コンソール */
+	HANDLE		hConIn;								/**< コンソール入力 */
+	HANDLE		hConOut;							/**< コンソール出力 */
 	HANDLE		hStdIn;								/**< 標準入力 */
 	HANDLE		hStdOut;							/**< 標準出力 */
 	HANDLE		hStdErr;							/**< 標準エラー出力 */
@@ -79,8 +80,10 @@ const char    *Process_GetCurrentDir(HANDLE hProcess);									/**< プロセス
 
 void          Process_SetTerminal(HANDLE hProcess, HANDLE hFile);						/**< プロセスの標準ターミナル設定 */
 HANDLE        Process_GetTerminal(HANDLE hProcess);										/**< プロセスの標準ターミナル取得 */
-void          Process_SetConsole(HANDLE hProcess, HANDLE hFile);						/**< プロセスの標準コンソール設定 */
-HANDLE        Process_GetConsole(HANDLE hProcess);				 						/**< プロセスの標準コンソール取得 */
+void          Process_SetConIn(HANDLE hProcess, HANDLE hFile);							/**< プロセスの標準コンソール設定 */
+HANDLE        Process_GetConIn(HANDLE hProcess);				 						/**< プロセスの標準コンソール取得 */
+void          Process_SetConOut(HANDLE hProcess, HANDLE hFile);							/**< プロセスの標準コンソール設定 */
+HANDLE        Process_GetConOut(HANDLE hProcess);				 						/**< プロセスの標準コンソール取得 */
 void          Process_SetStdIn(HANDLE hProcess, HANDLE hFile);							/**< プロセスの標準入力設定 */
 HANDLE        Process_GetStdIn(HANDLE hProcess);			   							/**< プロセスの標準入力取得 */
 void          Process_SetStdOut(HANDLE hProcess, HANDLE hFile);							/**< プロセスの標準出力設定 */

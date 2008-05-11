@@ -35,6 +35,8 @@ LINK_STRINGFORMAT     ?= Yes
 
 # Device Drivers
 LINK_VT100            ?= Yes
+LINK_PCATTEXT         ?= No
+LINK_PCATKEY          ?= No
 LINK_TCPIP            ?= Yes
 LINK_IPETHER          ?= Yes
 LINK_NE2000           ?= No
@@ -191,8 +193,10 @@ CSRCS += $(PROCESS_DIR)/process_getexecutiontime.c
 CSRCS += $(PROCESS_DIR)/process_getcommandline.c
 CSRCS += $(PROCESS_DIR)/process_setterminal.c
 CSRCS += $(PROCESS_DIR)/process_getterminal.c
-CSRCS += $(PROCESS_DIR)/process_setconsole.c
-CSRCS += $(PROCESS_DIR)/process_getconsole.c
+CSRCS += $(PROCESS_DIR)/process_setconin.c
+CSRCS += $(PROCESS_DIR)/process_getconin.c
+CSRCS += $(PROCESS_DIR)/process_setconout.c
+CSRCS += $(PROCESS_DIR)/process_getconout.c
 CSRCS += $(PROCESS_DIR)/process_setstdin.c
 CSRCS += $(PROCESS_DIR)/process_getstdin.c
 CSRCS += $(PROCESS_DIR)/process_setstdout.c
@@ -422,6 +426,42 @@ CSRCS += $(VT100_DIR)/vt100drv_read.c
 CSRCS += $(VT100_DIR)/vt100drv_write.c
 CSRCS += $(VT100_DIR)/vt100drv_flush.c
 CSRCS += $(VT100_DIR)/vt100drv_getch.c
+endif
+
+
+# PC/AT text mode screen
+ifeq ($(LINK_PCATTEXT),Yes)
+PCATTEXT_DIR = $(HOSAPLFW_DIR)/driver/console/pcattext
+SRC_DIRS += $(PCATTEXT_DIR)
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_create.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_delete.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_constructor.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_destructor.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_open.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_close.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_iocontrol.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_write.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_putchar.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_setcursor.c
+CSRCS += $(PCATTEXT_DIR)/pcattextdrv_clearscreen.c
+endif
+
+
+# PC/AT Keyboard
+ifeq ($(LINK_PCATKEY),Yes)
+PCATKEY_DIR = $(HOSAPLFW_DIR)/driver/console/pcatkey
+SRC_DIRS += $(PCATKEY_DIR)
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_create.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_delete.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_constructor.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_destructor.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_open.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_close.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_iocontrol.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_seek.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_read.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_write.c
+CSRCS += $(PCATKEY_DIR)/pcatkeydrv_flush.c
 endif
 
 

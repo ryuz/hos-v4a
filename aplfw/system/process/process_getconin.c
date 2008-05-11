@@ -13,8 +13,8 @@
 
 
 
-/** プロセスの標準コンソール取得 */
-HANDLE Process_GetConsole(HANDLE hProcess)
+/** プロセスの標準コンソール入力取得 */
+HANDLE Process_GetConIn(HANDLE hProcess)
 {
 	C_PROCESS *self;
 	
@@ -28,7 +28,7 @@ HANDLE Process_GetConsole(HANDLE hProcess)
 	self = (C_PROCESS *)hProcess;
 	
 	/* ハンドルを返す */
-	return self->hConsole;
+	return self->hConIn;
 }
 
 
