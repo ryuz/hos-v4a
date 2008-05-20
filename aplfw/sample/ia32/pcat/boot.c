@@ -62,10 +62,10 @@ void Boot_Task(VP_INT exinf)
 	/* システム初期化 */
 	SysInf.pHeapMem        = g_SystemHeap;
 	SysInf.HeapSize        = sizeof(g_SystemHeap);
-	SysInf.SystemStackSize = 1024;
+	SysInf.SystemStackSize = 2048;
 	SysInf.pfncBoot        = Boot_Process;
 	SysInf.BootParam       = (VPARAM)0;
-	SysInf.BootStackSize   = 1024;
+	SysInf.BootStackSize   = 2048;
 	System_Initialize(&SysInf);
 }
 
