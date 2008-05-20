@@ -57,7 +57,7 @@ _kernel_fiq_hdr:
 				bl		_kernel_sta_inh							/* 割り込み開始 */
 				
 			/* ---- 割込みハンドラ実行 */
-				mov		r0, #INHNO_IRQ
+				mov		r0, #INHNO_FIQ
 				bl		_kernel_exe_inh
 				
 			/* ---- 割込み処理の終了設定 */

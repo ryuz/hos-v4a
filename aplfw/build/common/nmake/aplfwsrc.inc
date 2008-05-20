@@ -130,6 +130,12 @@ LINK_MEMDUMP          = Yes
 !ifndef LINK_MEMWRITE
 LINK_MEMWRITE         = Yes
 !endif
+!ifndef LINK_MEMSAVE
+LINK_MEMSAVE          = Yes
+!endif
+!ifndef LINK_MEMLOAD
+LINK_MEMLOAD          = Yes
+!endif
 !ifndef LINK_MEMTEST
 LINK_MEMTEST          = Yes
 !endif
@@ -1377,6 +1383,24 @@ MEMWRITE_DIR = $(HOSAPLFW_DIR)\application\utility\memwrite
 HEADERS = $(HEADERS) $(OBJS_DIR)\memwrite.h
 CSRCS = $(CSRCS) $(MEMWRITE_DIR)\memwrite_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memwrite_main.$(EXT_OBJ)
+!endif
+
+
+# Memory Save
+!if "$(LINK_MEMSAVE)" == "Yes"
+MEMSAVE_DIR = $(HOSAPLFW_DIR)\application\utility\memsave
+HEADERS = $(HEADERS) $(OBJS_DIR)\memsave.h
+CSRCS = $(CSRCS) $(MEMSAVE_DIR)\memsave_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memsave_main.$(EXT_OBJ)
+!endif
+
+
+# Memory Load
+!if "$(LINK_MEMLOAD)" == "Yes"
+MEMLOAD_DIR = $(HOSAPLFW_DIR)\application\utility\memload
+HEADERS = $(HEADERS) $(OBJS_DIR)\memload.h
+CSRCS = $(CSRCS) $(MEMLOAD_DIR)\memload_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memload_main.$(EXT_OBJ)
 !endif
 
 

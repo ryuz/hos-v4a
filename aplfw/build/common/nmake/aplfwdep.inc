@@ -1635,6 +1635,20 @@ $(OBJS_DIR)\memwrite_main.c : $(MEMWRITE_DIR)\memwrite_main.c
 	$(CMD_CP) $(MEMWRITE_DIR)\memwrite_main.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\memsave.h : $(MEMSAVE_DIR)\memsave.h
+	$(CMD_CP) $(MEMSAVE_DIR)\memsave.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memsave_main.c : $(MEMSAVE_DIR)\memsave_main.c
+	$(CMD_CP) $(MEMSAVE_DIR)\memsave_main.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\memload.h : $(MEMLOAD_DIR)\memload.h
+	$(CMD_CP) $(MEMLOAD_DIR)\memload.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memload_main.c : $(MEMLOAD_DIR)\memload_main.c
+	$(CMD_CP) $(MEMLOAD_DIR)\memload_main.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\memtest.h : $(MEMTEST_DIR)\memtest.h
 	$(CMD_CP) $(MEMTEST_DIR)\memtest.h $(OBJS_DIR)\
 
@@ -2190,6 +2204,10 @@ $(OBJS_DIR)\commandlist_main.$(EXT_OBJ):	$(OBJS_DIR)\commandlist_main.c	$(COMMON
 $(OBJS_DIR)\memdump_main.$(EXT_OBJ):	$(OBJS_DIR)\memdump_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\memwrite_main.$(EXT_OBJ):	$(OBJS_DIR)\memwrite_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\memsave_main.$(EXT_OBJ):	$(OBJS_DIR)\memsave_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\memload_main.$(EXT_OBJ):	$(OBJS_DIR)\memload_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\memtest_main.$(EXT_OBJ):	$(OBJS_DIR)\memtest_main.c	$(COMMON_HEADERS)
 

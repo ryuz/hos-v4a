@@ -444,6 +444,8 @@ $(OBJS_DIR)/processlist_main.$(EXT_OBJ):	$(PROCESSLIST_DIR)/processlist_main.c	$
 $(OBJS_DIR)/commandlist_main.$(EXT_OBJ):	$(COMMANDLIST_DIR)/commandlist_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/memdump_main.$(EXT_OBJ):	$(MEMDUMP_DIR)/memdump_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/memwrite_main.$(EXT_OBJ):	$(MEMWRITE_DIR)/memwrite_main.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/memsave_main.$(EXT_OBJ):	$(MEMSAVE_DIR)/memsave_main.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/memload_main.$(EXT_OBJ):	$(MEMLOAD_DIR)/memload_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/memtest_main.$(EXT_OBJ):	$(MEMTEST_DIR)/memtest_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/keytest_main.$(EXT_OBJ):	$(KEYTEST_DIR)/keytest_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/timecmd_main.$(EXT_OBJ):	$(TIMECMD_DIR)/timecmd_main.c	$(COMMON_HEADERS)

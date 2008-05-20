@@ -951,6 +951,32 @@
 			]
 		],
 		[
+			"Memory Save",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/utility/memsave",
+			"MEMSAVE",
+			"Yes",
+			[
+				"memsave.h",
+			],
+			[
+				"memsave_main.c",
+			],
+		],
+		[
+			"Memory Load",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/utility/memload",
+			"MEMLOAD",
+			"Yes",
+			[
+				"memload.h",
+			],
+			[
+				"memload_main.c",
+			]
+		],
+		[
 			"Memory Test",
 			"\$(COMMON_HEADERS)",
 			"\$(HOSAPLFW_DIR)/application/utility/memtest",

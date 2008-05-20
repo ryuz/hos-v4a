@@ -50,8 +50,8 @@ CSRCS +=
 
 
 # %jp{リンク制御対象制御}
-LINK_PCATKEY  = Yes
 LINK_PCATTEXT = Yes
+# LINK_PCATKEY  = Yes
 
 
 

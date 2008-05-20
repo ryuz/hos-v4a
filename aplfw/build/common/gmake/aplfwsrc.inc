@@ -56,6 +56,8 @@ LINK_PROCESSLIST      ?= Yes
 LINK_COMMANDLIST      ?= Yes
 LINK_MEMDUMP          ?= Yes
 LINK_MEMWRITE         ?= Yes
+LINK_MEMSAVE          ?= Yes
+LINK_MEMLOAD          ?= Yes
 LINK_MEMTEST          ?= Yes
 LINK_KEYTEST          ?= Yes
 LINK_TIMECMD          ?= Yes
@@ -790,6 +792,22 @@ ifeq ($(LINK_MEMWRITE),Yes)
 MEMWRITE_DIR = $(HOSAPLFW_DIR)/application/utility/memwrite
 SRC_DIRS += $(MEMWRITE_DIR)
 CSRCS += $(MEMWRITE_DIR)/memwrite_main.c
+endif
+
+
+# Memory Save
+ifeq ($(LINK_MEMSAVE),Yes)
+MEMSAVE_DIR = $(HOSAPLFW_DIR)/application/utility/memsave
+SRC_DIRS += $(MEMSAVE_DIR)
+CSRCS += $(MEMSAVE_DIR)/memsave_main.c
+endif
+
+
+# Memory Load
+ifeq ($(LINK_MEMLOAD),Yes)
+MEMLOAD_DIR = $(HOSAPLFW_DIR)/application/utility/memload
+SRC_DIRS += $(MEMLOAD_DIR)
+CSRCS += $(MEMLOAD_DIR)/memload_main.c
 endif
 
 
