@@ -65,9 +65,9 @@ SRC_DIRS += . ..
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -mcpu=arm7tdmi -mthumb-interwork
-CFLAGS  = -mcpu=arm7tdmi -mthumb-interwork
-LNFLAGS = -mcpu=arm7tdmi -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+AFLAGS  = -mcpu=arm7tdmi -mthumb-interwork -gdwarf-2
+CFLAGS  = -mcpu=arm7tdmi -mthumb-interwork -gdwarf-2
+LNFLAGS = -mcpu=arm7tdmi -mthumb-interwork -gdwarf-2 -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
