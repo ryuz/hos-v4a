@@ -19,10 +19,10 @@ void Assoc_Create(C_ASSOC *self)
 }
 
 /* 連想バッファの生成 */
-void Assoc_CreateEx(C_ASSOC *self, C_MEMIF *pMemIf)
+void Assoc_CreateEx(C_ASSOC *self, C_MEMHEAP *pMemHeap)
 {
-	self->pMemIf = pMemIf;
-	List_CreateEx(&self->List, pMemIf);
+	self->pMemHeap = pMemHeap;
+	List_CreateEx(&self->List, pMemHeap);
 }
 
 /* 連想バッファの削除 */
@@ -38,8 +38,8 @@ ASSOC_ERR Assoc_Add(C_ASSOC *self, const char *pszKey, const void *pData, long l
 	int  iKeyLen;
 	void *pMem;
 	
-	iKeyLen = MEMIF_ALIGNSIZE(strlen(pszKey) + 1);
-	if ( (pMem = MemIf_Alloc(self->pMemIf, iKeyLen + lSize)) == NULL )
+	iKeyLen = MemHeap_AlignSize(self->pMemHeap, strlen(pszKey) + 1);
+	if ( (pMem = MemHeap_Alloc(self->pMemHeap, iKeyLen + lSize)) == NULL )
 	{
 		return ASSOC_ERR_NG;
 	}
@@ -48,7 +48,7 @@ ASSOC_ERR Assoc_Add(C_ASSOC *self, const char *pszKey, const void *pData, long l
 	memcpy((char *)pMem + iKeyLen, pData, lSize);
 	err = List_AddTail(&self->List, pMem, iKeyLen + lSize);
 	
-	MemIf_Free(self->pMemIf, pMem);
+	MemHeap_Free(self->pMemHeap, pMem);
 
 	return err;
 }
@@ -66,7 +66,7 @@ const void *Assoc_Get(C_ASSOC *self, const char *pszKey)
 		pDataKey = List_GetAt(&self->List, Pos);
 		if ( strcmp(pDataKey, pszKey) == 0 )
 		{
-			return (void *)(pDataKey + MEMIF_ALIGNSIZE(strlen(pszKey) + 1));
+			return (void *)(pDataKey + MemHeap_AlignSize(self->pMemHeap, strlen(pszKey) + 1));
 		}
 		Pos = List_GetNextPos(&self->List, Pos);
 	}
@@ -94,6 +94,6 @@ const void *Assoc_GetAt(C_ASSOC *self, ASSOC_POS *Pos, const char **ppszKey)
 	pDataKey = List_GetAt(&self->List, Pos);
 	*ppszKey = pDataKey;
 	
-	return (void *)(pDataKey + MEMIF_ALIGNSIZE(strlen(pDataKey) + 1));
+	return (void *)(pDataKey + MemHeap_AlignSize(self->pMemHeap, strlen(pDataKey) + 1));
 }
 

@@ -42,8 +42,11 @@ LINK_COMMAND          = Yes
 !endif
 
 # Librarys
-!ifndef LINK_MEMPOL
-LINK_MEMPOL           = Yes
+!ifndef LINK_VALMEMHEAP
+LINK_VALMEMHEAP       = Yes
+!endif
+!ifndef LINK_FIXMEMHEAP
+LINK_FIXMEMHEAP       = Yes
 !endif
 !ifndef LINK_ASSOC
 LINK_ASSOC            = Yes
@@ -198,6 +201,8 @@ CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_process.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_process.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_getnextprocess.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_getnextprocess.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_getsystemprocess.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\system_getsystemprocess.$(EXT_OBJ)
 !endif
 
 
@@ -238,16 +243,12 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_alloc.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_alloc.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_free.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_free.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_getmemif.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_getmemif.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_getmemheap.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_getmemheap.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_getsize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_getsize.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_realloc.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_realloc.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_allociomem.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_allociomem.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmem_freeiomem.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\sysmem_freeiomem.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmtx_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysmtx_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysmtx_delete.c
@@ -282,6 +283,10 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_cputimetosecond.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_cputimetosecond.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_cputimetonanosecond.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_cputimetonanosecond.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysio_allociomem.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysio_allociomem.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysio_freeiomem.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysio_freeiomem.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\syshos_hook.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\syshos_hook.$(EXT_OBJ)
 !endif
@@ -583,12 +588,51 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\command.$(EXT_OBJ)
 #  Librarys
 # --------------------------------------------------
 
-# Memory Pool
-!if "$(LINK_MEMPOL)" == "Yes"
-MEMPOL_DIR = $(HOSAPLFW_DIR)\library\container\mempol
-HEADERS = $(HEADERS) $(OBJS_DIR)\mempol.h
-CSRCS = $(CSRCS) $(MEMPOL_DIR)\mempol.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\mempol.$(EXT_OBJ)
+# Valiable size memory heap
+!if "$(LINK_VALMEMHEAP)" == "Yes"
+VALMEMHEAP_DIR = $(HOSAPLFW_DIR)\library\container\valmemheap
+HEADERS = $(HEADERS) $(OBJS_DIR)\valmemheap.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\valmemheap_local.h
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_alloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_alloc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_realloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_realloc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_free.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_free.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_getalign.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_getalign.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_getsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_getsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_alignsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_alignsize.$(EXT_OBJ)
+!endif
+
+
+# Fixed size memory heap
+!if "$(LINK_FIXMEMHEAP)" == "Yes"
+FIXMEMHEAP_DIR = $(HOSAPLFW_DIR)\library\container\fixmemheap
+HEADERS = $(HEADERS) $(OBJS_DIR)\fixmemheap.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\fixmemheap_local.h
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_alloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_alloc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_realloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_realloc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_free.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_free.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_getalign.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_getalign.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_getsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_getsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ)
 !endif
 
 

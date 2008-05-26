@@ -32,6 +32,9 @@ $(OBJS_DIR)\system_process.c : $(SYSTEM_DIR)\system_process.c
 $(OBJS_DIR)\system_getnextprocess.c : $(SYSTEM_DIR)\system_getnextprocess.c
 	$(CMD_CP) $(SYSTEM_DIR)\system_getnextprocess.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\system_getsystemprocess.c : $(SYSTEM_DIR)\system_getsystemprocess.c
+	$(CMD_CP) $(SYSTEM_DIR)\system_getsystemprocess.c $(OBJS_DIR)\
+
 
 $(OBJS_DIR)\sysapi.h : $(SYSAPI_DIR)\sysapi.h
 	$(CMD_CP) $(SYSAPI_DIR)\sysapi.h $(OBJS_DIR)\
@@ -87,20 +90,14 @@ $(OBJS_DIR)\sysmem_alloc.c : $(SYSAPI_DIR)\sysmem_alloc.c
 $(OBJS_DIR)\sysmem_free.c : $(SYSAPI_DIR)\sysmem_free.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysmem_free.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\sysmem_getmemif.c : $(SYSAPI_DIR)\sysmem_getmemif.c
-	$(CMD_CP) $(SYSAPI_DIR)\sysmem_getmemif.c $(OBJS_DIR)\
+$(OBJS_DIR)\sysmem_getmemheap.c : $(SYSAPI_DIR)\sysmem_getmemheap.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysmem_getmemheap.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\sysmem_getsize.c : $(SYSAPI_DIR)\sysmem_getsize.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysmem_getsize.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\sysmem_realloc.c : $(SYSAPI_DIR)\sysmem_realloc.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysmem_realloc.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sysmem_allociomem.c : $(SYSAPI_DIR)\sysmem_allociomem.c
-	$(CMD_CP) $(SYSAPI_DIR)\sysmem_allociomem.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\sysmem_freeiomem.c : $(SYSAPI_DIR)\sysmem_freeiomem.c
-	$(CMD_CP) $(SYSAPI_DIR)\sysmem_freeiomem.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\sysmtx_create.c : $(SYSAPI_DIR)\sysmtx_create.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysmtx_create.c $(OBJS_DIR)\
@@ -152,6 +149,12 @@ $(OBJS_DIR)\systim_cputimetosecond.c : $(SYSAPI_DIR)\systim_cputimetosecond.c
 
 $(OBJS_DIR)\systim_cputimetonanosecond.c : $(SYSAPI_DIR)\systim_cputimetonanosecond.c
 	$(CMD_CP) $(SYSAPI_DIR)\systim_cputimetonanosecond.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysio_allociomem.c : $(SYSAPI_DIR)\sysio_allociomem.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysio_allociomem.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysio_freeiomem.c : $(SYSAPI_DIR)\sysio_freeiomem.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysio_freeiomem.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\syshos_hook.c : $(SYSAPI_DIR)\syshos_hook.c
 	$(CMD_CP) $(SYSAPI_DIR)\syshos_hook.c $(OBJS_DIR)\
@@ -581,11 +584,66 @@ $(OBJS_DIR)\command.c : $(COMMAND_DIR)\command.c
 	$(CMD_CP) $(COMMAND_DIR)\command.c $(OBJS_DIR)\
 
 
-$(OBJS_DIR)\mempol.h : $(MEMPOL_DIR)\mempol.h
-	$(CMD_CP) $(MEMPOL_DIR)\mempol.h $(OBJS_DIR)\
+$(OBJS_DIR)\valmemheap.h : $(VALMEMHEAP_DIR)\valmemheap.h
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap.h $(OBJS_DIR)\
 
-$(OBJS_DIR)\mempol.c : $(MEMPOL_DIR)\mempol.c
-	$(CMD_CP) $(MEMPOL_DIR)\mempol.c $(OBJS_DIR)\
+$(OBJS_DIR)\valmemheap_local.h : $(VALMEMHEAP_DIR)\valmemheap_local.h
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\valmemheap_constructor.c : $(VALMEMHEAP_DIR)\valmemheap_constructor.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\valmemheap_alloc.c : $(VALMEMHEAP_DIR)\valmemheap_alloc.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_alloc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\valmemheap_realloc.c : $(VALMEMHEAP_DIR)\valmemheap_realloc.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_realloc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\valmemheap_free.c : $(VALMEMHEAP_DIR)\valmemheap_free.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_free.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\valmemheap_getalign.c : $(VALMEMHEAP_DIR)\valmemheap_getalign.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_getalign.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\valmemheap_getsize.c : $(VALMEMHEAP_DIR)\valmemheap_getsize.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_getsize.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\valmemheap_alignsize.c : $(VALMEMHEAP_DIR)\valmemheap_alignsize.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_alignsize.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\fixmemheap.h : $(FIXMEMHEAP_DIR)\fixmemheap.h
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_local.h : $(FIXMEMHEAP_DIR)\fixmemheap_local.h
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_create.c : $(FIXMEMHEAP_DIR)\fixmemheap_create.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_delete.c : $(FIXMEMHEAP_DIR)\fixmemheap_delete.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_constructor.c : $(FIXMEMHEAP_DIR)\fixmemheap_constructor.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_alloc.c : $(FIXMEMHEAP_DIR)\fixmemheap_alloc.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_alloc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_realloc.c : $(FIXMEMHEAP_DIR)\fixmemheap_realloc.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_realloc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_free.c : $(FIXMEMHEAP_DIR)\fixmemheap_free.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_free.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_getalign.c : $(FIXMEMHEAP_DIR)\fixmemheap_getalign.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_getalign.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_getsize.c : $(FIXMEMHEAP_DIR)\fixmemheap_getsize.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_getsize.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_alignsize.c : $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\assoc.h : $(ASSOC_DIR)\assoc.h
@@ -1736,6 +1794,7 @@ $(OBJS_DIR)\system_initialize.$(EXT_OBJ):	$(OBJS_DIR)\system_initialize.c	$(COMM
 $(OBJS_DIR)\system_requestproc.$(EXT_OBJ):	$(OBJS_DIR)\system_requestproc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\system_process.$(EXT_OBJ):	$(OBJS_DIR)\system_process.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\system_getnextprocess.$(EXT_OBJ):	$(OBJS_DIR)\system_getnextprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\system_getsystemprocess.$(EXT_OBJ):	$(OBJS_DIR)\system_getsystemprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\sysapi_initialize.$(EXT_OBJ):	$(OBJS_DIR)\sysapi_initialize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysctx_isisr.$(EXT_OBJ):	$(OBJS_DIR)\sysctx_isisr.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1753,11 +1812,9 @@ $(OBJS_DIR)\sysisr_create.$(EXT_OBJ):	$(OBJS_DIR)\sysisr_create.c	$(COMMON_HEADE
 $(OBJS_DIR)\sysisr_delete.$(EXT_OBJ):	$(OBJS_DIR)\sysisr_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmem_alloc.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_alloc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmem_free.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_free.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\sysmem_getmemif.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_getmemif.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmem_getmemheap.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_getmemheap.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmem_getsize.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_getsize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmem_realloc.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_realloc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\sysmem_allociomem.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_allociomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
-$(OBJS_DIR)\sysmem_freeiomem.$(EXT_OBJ):	$(OBJS_DIR)\sysmem_freeiomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmtx_create.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmtx_delete.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysmtx_lock.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_lock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1775,6 +1832,8 @@ $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getsystemtime.c	
 $(OBJS_DIR)\systim_getcputime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getcputime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_cputimetosecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_cputimetosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_cputimetonanosecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_cputimetonanosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysio_allociomem.$(EXT_OBJ):	$(OBJS_DIR)\sysio_allociomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysio_freeiomem.$(EXT_OBJ):	$(OBJS_DIR)\sysio_freeiomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\syshos_hook.$(EXT_OBJ):	$(OBJS_DIR)\syshos_hook.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\handle_close.$(EXT_OBJ):	$(OBJS_DIR)\handle_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1894,7 +1953,23 @@ $(OBJS_DIR)\volumeobj_remove.$(EXT_OBJ):	$(OBJS_DIR)\volumeobj_remove.c	$(COMMON
 
 $(OBJS_DIR)\command.$(EXT_OBJ):	$(OBJS_DIR)\command.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
-$(OBJS_DIR)\mempol.$(EXT_OBJ):	$(OBJS_DIR)\mempol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_constructor.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_alloc.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_alloc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_realloc.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_realloc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_free.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_free.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_getalign.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_getsize.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_alignsize.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\fixmemheap_create.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_delete.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_constructor.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_alloc.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_alloc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_realloc.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_realloc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_free.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_free.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getalign.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getsize.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_alignsize.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\assoc.$(EXT_OBJ):	$(OBJS_DIR)\assoc.c	$(COMMON_HEADERS)
 

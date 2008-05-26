@@ -20,7 +20,7 @@ void *List_GetAt(C_LIST *self, LIST_POS Pos)
 	long       lObjSize;
 
 	pListObj = (T_LIST_OBJ *)Pos;
-	lObjSize = MemIf_AlignSize(self->pMemIf, sizeof(T_LIST_OBJ));
+	lObjSize = MemHeap_AlignSize(self->pMemHeap, sizeof(T_LIST_OBJ));
 
 	return (void *)((char *)pListObj + lObjSize);
 }

@@ -15,7 +15,7 @@
 
 #include "kernel.h"
 #include "sysapi.h"
-#include "library/container/mempol/mempol.h"
+#include "library/container/valmemheap/valmemheap_local.h"
 
 
 /* HOS-V4a 内部変数の参照(インチキ) */
@@ -39,7 +39,9 @@ typedef struct t_sysisr_inf
 } T_SYSISR_INF;
 
 extern SYSMTX_HANDLE	SysMem_hMtx;			/* システムメモリ管理用ミューテックス */
-extern C_MEMPOL			SysMem_MemPol;			/* システムヒープメモリ */
+extern C_VALMEMHEAP		SysMem_ValMemHeap;		/* システムヒープメモリ */
+extern SYSMTX_HANDLE	SysIo_hMtx;				/* I/O用ヒープメモリ管理用ミューテックス */
+extern C_VALMEMHEAP		*SysIo_pValMemHeap;		/* I/O用ヒープメモリ */
 extern T_SYSPRC_INF		*SysPrc_InfTbl;			/* プロセス管理用テーブル */
 extern T_SYSISR_INF		*SysIsr_InfTbl;			/* ISR管理用テーブル */
 extern SYSTIM_CPUTIME	SysTim_TimeCounter;		/* デフォルトのタイマカウンタ */

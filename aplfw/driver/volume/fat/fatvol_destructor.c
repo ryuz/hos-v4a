@@ -23,7 +23,7 @@ void FatVol_Destructor(C_FATVOL *self)
 	/* クラスタバッファ開放 */
 	for ( i = 0; i < self->iClusterBufNum; i++ )
 	{
-		SysMem_Free(self->pClusterBuf[i].pubBuf);
+		SysIo_FreeIoMem(self->pClusterBuf[i].pubBuf);
 	}
 	SysMem_Free(self->pClusterBuf[i].pubBuf);
 	

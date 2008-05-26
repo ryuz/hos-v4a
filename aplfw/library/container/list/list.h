@@ -13,7 +13,7 @@
 #define __HOS__list_h__
 
 
-#include "library/container/memif/memif.h"
+#include "library/container/memheap/memheap.h"
 
 
 #define LIST_ERR_OK			0
@@ -27,7 +27,7 @@ typedef void*	LIST_POS;
 /* ストリームバッファクラス */
 typedef struct c_list
 {
-	C_MEMIF		*pMemIf;		/* 利用するメモリI/F */
+	C_MEMHEAP	*pMemHeap;		/* 利用するメモリI/F */
 	void		*pHead;			/* 先頭要素へのポインタ */
 } C_LIST;
 
@@ -38,7 +38,7 @@ extern "C" {
 
 /* 生成／削除 */
 void      List_Create(C_LIST *self);													/* リストの生成 */
-void      List_CreateEx(C_LIST *self, C_MEMIF *pMemIf);									/* リストの生成 */
+void      List_CreateEx(C_LIST *self, C_MEMHEAP *pMemHeap);									/* リストの生成 */
 void      List_Delete(C_LIST *self);													/* リストの削除 */
 
 /* 操作 */

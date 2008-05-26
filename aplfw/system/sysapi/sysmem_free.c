@@ -16,7 +16,7 @@
 void  SysMem_Free(void *pMem)
 {
 	SysMtx_Lock(SysMem_hMtx);
-	MemPol_Free(&SysMem_MemPol, pMem);
+	ValMemHeap_Free(&SysMem_ValMemHeap, pMem);
 	SysMtx_Unlock(SysMem_hMtx);
 }
 

@@ -23,8 +23,8 @@ LIST_ERR List_AddTail(C_LIST *self, const void *pData, long lSize)
 	long       lObjSize;
 	
 	/* メモリ確保 */
-	lObjSize = MemIf_AlignSize(self->pMemIf, sizeof(T_LIST_OBJ));
-	pListObj = MemIf_Alloc(self->pMemIf, lObjSize + lSize);
+	lObjSize = MemHeap_AlignSize(self->pMemHeap, sizeof(T_LIST_OBJ));
+	pListObj = MemHeap_Alloc(self->pMemHeap, lObjSize + lSize);
 	if ( pListObj == NULL )
 	{
 		return LIST_ERR_OK;

@@ -11,7 +11,7 @@ C_ASSOC Command_Assoc;
 void Command_Initialize(void)
 {
 	/* システムメモリを使う連想配列を生成 */
-	Assoc_CreateEx(&Command_Assoc, SysMem_GetMemIf());
+	Assoc_CreateEx(&Command_Assoc, SysMem_GetMemHeap());
 }
 
 /* コマンドを登録する */

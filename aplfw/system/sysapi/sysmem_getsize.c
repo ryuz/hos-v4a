@@ -17,7 +17,7 @@ MEMSIZE SysMem_GetSize(void *pMem)
 {
 	MEMSIZE Size;
 	SysMtx_Lock(SysMem_hMtx);
-	Size = MemPol_GetSize(&SysMem_MemPol, pMem);
+	Size = ValMemHeap_GetSize(&SysMem_ValMemHeap, pMem);
 	SysMtx_Unlock(SysMem_hMtx);
 
 	return Size;

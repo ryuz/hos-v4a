@@ -33,7 +33,7 @@ LIST_ERR List_Remove(C_LIST *self, LIST_POS Pos)
 			self->pHead = pListObj->pNext;
 		}
 	}
-	MemIf_Free(self->pMemIf, pListObj);
+	MemHeap_Free(self->pMemHeap, pListObj);
 
 	return LIST_ERR_OK;
 }

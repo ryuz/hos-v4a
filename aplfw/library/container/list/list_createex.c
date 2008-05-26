@@ -14,10 +14,10 @@
 
 
 /* コンストラクタ */
-void List_CreateEx(C_LIST *self, C_MEMIF *pMemIf)
+void List_CreateEx(C_LIST *self, C_MEMHEAP *pMemHeap)
 {
-	self->pMemIf = pMemIf;
-	self->pHead  = NULL;
+	self->pMemHeap = pMemHeap;
+	self->pHead    = NULL;
 }
 
 

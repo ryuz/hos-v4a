@@ -19,7 +19,7 @@
 
 
 #include "system/type/type.h"
-#include "library/container/memif/memif.h"
+#include "library/container/memheap/memheap.h"
 
 
 /* プロセスハンドル(システム用) */
@@ -58,7 +58,8 @@ extern "C" {
 #endif
 
 /* 初期化 */
-void           SysApi_Initialize(void *pMem, MEMSIZE lSize);				/**< システムの初期化処理 */
+void           SysApi_Initialize(void *pMem, MEMSIZE MemSize, MEMSIZE MemAlign, void *pIoMem, MEMSIZE IoMemSize, MEMSIZE IoMemAlign);
+																			/**< システムの初期化処理 */
 
 /* システム状態取得 */
 int            SysCtx_IsIsr(void);											/**< ISRコンテキストかどうか調べる(システム用) */
@@ -72,11 +73,7 @@ void          *SysMem_Alloc(MEMSIZE Size);									/**< メモリの割り当て
 void          *SysMem_ReAlloc(void *pMem, MEMSIZE Size);					/**< メモリの再割り当て(システム用) */
 void           SysMem_Free(void *pMem);										/**< メモリの返却(システム用) */
 MEMSIZE        SysMem_GetSize(void *pMem);									/**< メモリのサイズ取得(システム用) */
-C_MEMIF       *SysMem_GetMemIf(void);										/**< メモリインターフェースの取得(システム用) */
-
-/* システムによっては特定アドレス範囲にしかDMAが使えなかったり、非キャッシュ領域が必要なので別途設ける */
-void          *SysMem_AllocIoMem(MEMSIZE Size);								/**< I/O操作に適したメモリの割り当て(システム用) */
-void           SysMem_FreeIoMem(void *pMem);								/**< I/O操作に適したメモリの返却(システム用) */
+C_MEMHEAP      *SysMem_GetMemHeap(void);									/**< メモリインターフェースの取得(システム用) */
 
 
 /* システム用割り込み制御API */
@@ -168,6 +165,10 @@ unsigned long  SysIo_XorPortW(void *Port, unsigned long Data);				/**< I/Oポー
 #define        SysIo_XorPortH(Port, Data)	(*(volatile unsigned short *)(Port) ^= (unsigned short)(Data))
 #define        SysIo_XorPortW(Port, Data)	(*(volatile unsigned long *)(Port) ^= (unsigned long)(Data))
 #endif
+
+/* システムによっては特定アドレス範囲にしかDMAが使えなかったり、非キャッシュ領域が必要なので別途設ける */
+void          *SysIo_AllocIoMem(MEMSIZE Size);								/**< I/O操作に適したメモリの割り当て(システム用) */
+void           SysIo_FreeIoMem(void *pMem);									/**< I/O操作に適したメモリの返却(システム用) */
 
 
 #ifdef __cplusplus

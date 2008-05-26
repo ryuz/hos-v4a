@@ -24,7 +24,8 @@ LINK_FILE             ?= Yes
 LINK_COMMAND          ?= Yes
 
 # Librarys
-LINK_MEMPOL           ?= Yes
+LINK_VALMEMHEAP       ?= Yes
+LINK_FIXMEMHEAP       ?= Yes
 LINK_ASSOC            ?= Yes
 LINK_LIST             ?= Yes
 LINK_STREAMBUF        ?= Yes
@@ -93,6 +94,7 @@ CSRCS += $(SYSTEM_DIR)/system_initialize.c
 CSRCS += $(SYSTEM_DIR)/system_requestproc.c
 CSRCS += $(SYSTEM_DIR)/system_process.c
 CSRCS += $(SYSTEM_DIR)/system_getnextprocess.c
+CSRCS += $(SYSTEM_DIR)/system_getsystemprocess.c
 endif
 
 
@@ -116,11 +118,9 @@ CSRCS += $(SYSAPI_DIR)/sysisr_create.c
 CSRCS += $(SYSAPI_DIR)/sysisr_delete.c
 CSRCS += $(SYSAPI_DIR)/sysmem_alloc.c
 CSRCS += $(SYSAPI_DIR)/sysmem_free.c
-CSRCS += $(SYSAPI_DIR)/sysmem_getmemif.c
+CSRCS += $(SYSAPI_DIR)/sysmem_getmemheap.c
 CSRCS += $(SYSAPI_DIR)/sysmem_getsize.c
 CSRCS += $(SYSAPI_DIR)/sysmem_realloc.c
-CSRCS += $(SYSAPI_DIR)/sysmem_allociomem.c
-CSRCS += $(SYSAPI_DIR)/sysmem_freeiomem.c
 CSRCS += $(SYSAPI_DIR)/sysmtx_create.c
 CSRCS += $(SYSAPI_DIR)/sysmtx_delete.c
 CSRCS += $(SYSAPI_DIR)/sysmtx_lock.c
@@ -138,6 +138,8 @@ CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
 CSRCS += $(SYSAPI_DIR)/systim_getcputime.c
 CSRCS += $(SYSAPI_DIR)/systim_cputimetosecond.c
 CSRCS += $(SYSAPI_DIR)/systim_cputimetonanosecond.c
+CSRCS += $(SYSAPI_DIR)/sysio_allociomem.c
+CSRCS += $(SYSAPI_DIR)/sysio_freeiomem.c
 CSRCS += $(SYSAPI_DIR)/syshos_hook.c
 endif
 
@@ -306,11 +308,33 @@ endif
 #  Librarys
 # --------------------------------------------------
 
-# Memory Pool
-ifeq ($(LINK_MEMPOL),Yes)
-MEMPOL_DIR = $(HOSAPLFW_DIR)/library/container/mempol
-SRC_DIRS += $(MEMPOL_DIR)
-CSRCS += $(MEMPOL_DIR)/mempol.c
+# Valiable size memory heap
+ifeq ($(LINK_VALMEMHEAP),Yes)
+VALMEMHEAP_DIR = $(HOSAPLFW_DIR)/library/container/valmemheap
+SRC_DIRS += $(VALMEMHEAP_DIR)
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_constructor.c
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_alloc.c
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_realloc.c
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_free.c
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_getalign.c
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_getsize.c
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_alignsize.c
+endif
+
+
+# Fixed size memory heap
+ifeq ($(LINK_FIXMEMHEAP),Yes)
+FIXMEMHEAP_DIR = $(HOSAPLFW_DIR)/library/container/fixmemheap
+SRC_DIRS += $(FIXMEMHEAP_DIR)
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_create.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_delete.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_constructor.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_alloc.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_realloc.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_free.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_getalign.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_getsize.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_alignsize.c
 endif
 
 

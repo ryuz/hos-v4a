@@ -16,7 +16,7 @@
 void *SysMem_ReAlloc(void *pMem, MEMSIZE Size)
 {
 	SysMtx_Lock(SysMem_hMtx);
-	pMem = MemPol_ReAlloc(&SysMem_MemPol, pMem, Size);
+	pMem = ValMemHeap_ReAlloc(&SysMem_ValMemHeap, pMem, Size);
 	SysMtx_Unlock(SysMem_hMtx);
 
 	return pMem;

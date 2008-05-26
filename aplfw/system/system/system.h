@@ -20,8 +20,13 @@
 /* システム初期化情報 */
 typedef struct t_system_initialize_inf
 {
-	void	*pHeapMem;						/**< システムヒープメモリに割り当てる領域の先頭アドレス */
-	MEMSIZE	HeapSize;						/**< システムヒープメモリのサイズ */
+	void	*pSysMemBase;					/**< システムヒープメモリに割り当てる領域の先頭アドレス */
+	MEMSIZE	SysMemSize;						/**< システムヒープメモリのサイズ */
+	MEMSIZE	SysMemAlign;					/**< システムヒープメモリのアライメント単位 */
+	
+	void	*pIoMemBase;					/**< I/O用のヒープメモリ領域 */
+	MEMSIZE	IoMemSize;						/**< I/O用のヒープメモリ領域サイズ */
+	MEMSIZE	IoMemAlign;						/**< I/O用のヒープメモリのアライメント単位 */
 	
 	MEMSIZE	SystemStackSize;				/**< システムプロセスに割り当てるスタックサイズ */
 	

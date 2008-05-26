@@ -15,3 +15,10 @@ void  Memory_Free(void *pMem)
 	SysMem_Free(pMem);
 }
 
+
+/* メモリヒープクラスの取得(ユーザー用) */
+C_MEMHEAP *Memory_GetMemHeap(void)
+{
+	return SysMem_GetMemHeap();
+}
+

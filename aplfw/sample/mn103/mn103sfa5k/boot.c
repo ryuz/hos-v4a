@@ -78,8 +78,10 @@ void Boot_Task(VP_INT exinf)
 	/*************************/
 	
 	/* システム初期化 */
-	SysInf.pHeapMem        = (void *)g_uwSystemHeap;
-	SysInf.HeapSize        = sizeof(g_uwSystemHeap);
+	SysInf.pSysMemBase     = (void *)g_uwSystemHeap;
+	SysInf.SysMemSize      = sizeof(g_uwSystemHeap);
+	SysInf.SysMemAlign     = 4;
+	SysInf.pIoMemBase      = NULL;
 	SysInf.SystemStackSize = 256;
 	SysInf.pfncBoot        = Boot_Process;
 	SysInf.BootParam       = (VPARAM)0;
@@ -119,7 +121,8 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	
 	Process_SetTerminal(HANDLE_NULL, hTty);
-	Process_SetConsole(HANDLE_NULL, hCon);
+	Process_SetConIn(HANDLE_NULL, hCon);
+	Process_SetConOut(HANDLE_NULL, hCon);
 	Process_SetStdIn(HANDLE_NULL, hCon);
 	Process_SetStdOut(HANDLE_NULL, hCon);
 	Process_SetStdErr(HANDLE_NULL, hCon);
@@ -161,12 +164,6 @@ int Boot_Process(VPARAM Param)
 	return 0;
 }
 
-/*
-int putc(int c, FILE *stream)
-{
-	return c;
-}
-*/
 
 
 /* end of file */

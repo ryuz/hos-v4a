@@ -20,7 +20,7 @@ ARRAY_ERR Array_SetSize(C_ARRAY *self, ARRAY_INDEX Size)
 		{
 			if ( self->ppArray[i] != NULL )
 			{
-				MemIf_Free(self->pMemIf, self->ppArray[i]);
+				MemHeap_Free(self->pMemHeap, self->ppArray[i]);
 			}
 		}
 		self->Size = Size;
@@ -35,7 +35,7 @@ ARRAY_ERR Array_SetSize(C_ARRAY *self, ARRAY_INDEX Size)
 			
 			NewSize  = Size + ARRAY_SIZE_UNIT;
 			NewSize -= NewSize % ARRAY_SIZE_UNIT;
-			ppNewArray = (void **)MemIf_ReAlloc(self->pMemIf, self->ppArray, NewSize);
+			ppNewArray = (void **)MemHeap_ReAlloc(self->pMemHeap, self->ppArray, NewSize);
 			if ( ppNewArray == NULL )
 			{
 				return ARRAY_ERR_NG;

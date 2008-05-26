@@ -17,8 +17,8 @@
 /* コンストラクタ */
 void List_Create(C_LIST *self)
 {
-	self->pMemIf = Memory_GetMemIf();
-	self->pHead  = NULL;
+	self->pMemHeap = Memory_GetMemHeap();
+	self->pHead    = NULL;
 }
 
 

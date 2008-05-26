@@ -12,7 +12,7 @@ ARRAY_ERR Array_Add(C_ARRAY *self, const void *pData, long lSize)
 	ARRAY_ERR   err;
 
 	/* メモリ確保 */
-	if ( (pMem = (void *)MemIf_Alloc(self->pMemIf, lSize)) == NULL )
+	if ( (pMem = (void *)MemHeap_Alloc(self->pMemHeap, lSize)) == NULL )
 	{
 		return ARRAY_ERR_NG;
 	}
@@ -23,7 +23,7 @@ ARRAY_ERR Array_Add(C_ARRAY *self, const void *pData, long lSize)
 	/* サイズ拡張 */
 	if ( (err = Array_SetSize(self, self->Size + 1)) != ARRAY_ERR_OK )
 	{
-		MemIf_Free(self->pMemIf, pMem);
+		MemHeap_Free(self->pMemHeap, pMem);
 		return err;
 	}
 	

@@ -32,8 +32,9 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	self = &g_System;
 
 	/* システムAPIの初期化 */
-	SysApi_Initialize(pInf->pHeapMem, pInf->HeapSize);
-
+	SysApi_Initialize(pInf->pSysMemBase, pInf->SysMemSize, pInf->SysMemAlign,
+							pInf->pIoMemBase, pInf->IoMemSize, pInf->IoMemAlign);
+	
 	/* ファイルシステム初期化 */
 	File_Initialize();
 	
@@ -96,13 +97,6 @@ void System_BootProcess(VPARAM Param1, VPARAM Param2)
 	
 	/* プロセス生成情報用メモリ開放 */
 	SysMem_Free(pProcessInf);
-}
-
-
-/* システムプロセスを得る */
-HANDLE System_GetSystemProcess(void)
-{
-	return (HANDLE)&g_System.Process;
 }
 
 

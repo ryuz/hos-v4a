@@ -39,7 +39,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	int           i;
 	
 	/* 一時バッファ確保 */
-	if ( (pubBuf = SysMem_Alloc(512)) == NULL )
+	if ( (pubBuf = SysIo_AllocIoMem(512)) == NULL )
 	{
 		return FATVOL_ERR_NG;
 	}
@@ -61,7 +61,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	self->hBlockFile = File_Open(pszPath, FILE_OPEN_READ | FILE_OPEN_WRITE);
 	if ( self->hBlockFile == HANDLE_NULL )
 	{
-		SysMem_Free(pubBuf);
+		SysIo_FreeIoMem(pubBuf);
 		return FATVOL_ERR_NG;
 	}
 			
@@ -137,14 +137,14 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		self->RootDirCluster    = 0xf0000000;
 		
 		/* FATバッファ準備 */
-		self->pubFatBuf   = (unsigned char *)SysMem_Alloc(self->SectorPerFat * self->BytesPerSector);
+		self->pubFatBuf   = (unsigned char *)SysIo_AllocIoMem(self->SectorPerFat * self->BytesPerSector);
 		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
 		if ( self->pubFatBuf == NULL || self->pubFatDirty == NULL )
 		{
-			SysMem_Free(self->pubFatBuf);
+			SysIo_FreeIoMem(self->pubFatBuf);
 			SysMem_Free(self->pubFatDirty);
 			File_Close(self->hBlockFile);
-			SysMem_Free(pubBuf);
+			SysIo_FreeIoMem(pubBuf);
 			return FATVOL_ERR_NG;
 		}
 
@@ -154,6 +154,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		memset(self->pubFatDirty, 0, self->SectorPerFat);
 		
 		break;
+
 
 	case FATVOL_TYPE_FAT32:
 		self->BytesPerSector    = pubBuf[0x0b] + (pubBuf[0x0c] << 8);				/**< セクタサイズ */
@@ -175,14 +176,14 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		self->RootDirCluster    = pubBuf[0x2c] + (pubBuf[0x2d] << 8) + (pubBuf[0x2e] << 16) + (pubBuf[0x2f] << 24);
 		
 		/* FATバッファ準備 */
-		self->pubFatBuf   = (unsigned char *)SysMem_Alloc(self->SectorPerFat * self->BytesPerSector);
+		self->pubFatBuf   = (unsigned char *)SysIo_AllocIoMem(self->SectorPerFat * self->BytesPerSector);
 		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
 		if ( self->pubFatBuf == NULL || self->pubFatDirty == NULL )
 		{
-			SysMem_Free(self->pubFatBuf);
+			SysIo_FreeIoMem(self->pubFatBuf);
 			SysMem_Free(self->pubFatDirty);
 			File_Close(self->hBlockFile);
-			SysMem_Free(pubBuf);
+			SysIo_FreeIoMem(pubBuf);
 			return FATVOL_ERR_NG;
 		}
 		
@@ -195,7 +196,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	
 	default:
 		File_Close(self->hBlockFile);
-		SysMem_Free(pubBuf);
+		SysIo_FreeIoMem(pubBuf);
 		return FATVOL_ERR_NG;
 	}
 	
@@ -206,9 +207,8 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	{
 		self->pClusterBuf[i].uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
 		self->pClusterBuf[i].iDirty       = 0;
-		self->pClusterBuf[i].pubBuf       = SysMem_Alloc(self->BytesPerCluster);
+		self->pClusterBuf[i].pubBuf       = SysIo_AllocIoMem(self->BytesPerCluster);
 	}
-	
 	
 	/* 親クラスコンストラクタ呼び出し */
 	VolumeObj_Constructor(&self->VolumeObj, pMethods);	
@@ -217,7 +217,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 	
 	/* 一時バッファ開放 */
-	SysMem_Free(pubBuf);
+	SysIo_FreeIoMem(pubBuf);
 	
 	return FATVOL_ERR_OK;
 }
