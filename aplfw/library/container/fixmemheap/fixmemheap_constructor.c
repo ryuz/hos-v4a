@@ -44,7 +44,7 @@ void FixMemHeap_Constructor(C_FIXMEMHEAP *self, void *pMemBase, MEMSIZE BlkSize,
 	
 	/* メモリ初期化 */
 	ppBlk = (void **)self->pMemBase;
-	for ( i = 0; i < BlkSize - 1; i++ )
+	for ( i = 0; i < BlkNum - 1; i++ )
 	{
 		ppBlkNext = (void **)((char *)ppBlk + BlkSize);
 		*ppBlk    = (void *)ppBlkNext;

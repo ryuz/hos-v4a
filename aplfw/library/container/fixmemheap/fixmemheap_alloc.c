@@ -30,7 +30,7 @@ void *FixMemHeap_Alloc(void *pMemHeap, MEMSIZE Size)
 	}
 	
 	/* サイズチェック */	
-	if ( Size > self->BlkSize)
+	if ( Size > self->BlkSize )
 	{
 		return NULL;
 	}
