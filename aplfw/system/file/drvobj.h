@@ -32,6 +32,7 @@ typedef struct t_drvobj_methods
 	FILE_SIZE (*pfncRead)(struct c_drvobj *self, struct c_fileobj *pFileObj, void *pBuf, FILE_SIZE Size);
 	FILE_SIZE (*pfncWrite)(struct c_drvobj *self, struct c_fileobj *pFileObj, const void *pData, FILE_SIZE Size);
 	FILE_ERR  (*pfncFlush)(struct c_drvobj *self, struct c_fileobj *pFileObj);
+	FILE_ERR  (*pfncGetInformation)(struct c_drvobj *self, char *pszInformation, int iLen);
 } T_DRVOBJ_METHODS;
 
 

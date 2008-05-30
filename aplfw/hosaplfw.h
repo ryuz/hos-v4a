@@ -17,6 +17,9 @@
 #include "system/file/volume.h"
 #include "system/file/stdfile.h"
 
+#include "library/algorithm/stringformat/stringformat.h"
+
+
 
 #define _DEBUG_PRINTF	StdIo_PrintFormat
 

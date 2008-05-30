@@ -132,6 +132,12 @@ $(OBJS_DIR)\sysprc_getparam.c : $(SYSAPI_DIR)\sysprc_getparam.c
 $(OBJS_DIR)\sysprc_getcurrenthandle.c : $(SYSAPI_DIR)\sysprc_getcurrenthandle.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysprc_getcurrenthandle.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\sysprc_setsignalhandler.c : $(SYSAPI_DIR)\sysprc_setsignalhandler.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysprc_setsignalhandler.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysprc_sendsignal.c : $(SYSAPI_DIR)\sysprc_sendsignal.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysprc_sendsignal.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\systim_signal.c : $(SYSAPI_DIR)\systim_signal.c
 	$(CMD_CP) $(SYSAPI_DIR)\systim_signal.c $(OBJS_DIR)\
 
@@ -211,6 +217,9 @@ $(OBJS_DIR)\process_local.h : $(PROCESS_DIR)\process_local.h
 $(OBJS_DIR)\process_create.c : $(PROCESS_DIR)\process_create.c
 	$(CMD_CP) $(PROCESS_DIR)\process_create.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\process_createex.c : $(PROCESS_DIR)\process_createex.c
+	$(CMD_CP) $(PROCESS_DIR)\process_createex.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\process_delete.c : $(PROCESS_DIR)\process_delete.c
 	$(CMD_CP) $(PROCESS_DIR)\process_delete.c $(OBJS_DIR)\
 
@@ -228,6 +237,12 @@ $(OBJS_DIR)\process_exit.c : $(PROCESS_DIR)\process_exit.c
 
 $(OBJS_DIR)\process_waitexit.c : $(PROCESS_DIR)\process_waitexit.c
 	$(CMD_CP) $(PROCESS_DIR)\process_waitexit.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\process_setsignalproc.c : $(PROCESS_DIR)\process_setsignalproc.c
+	$(CMD_CP) $(PROCESS_DIR)\process_setsignalproc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\process_sendsignal.c : $(PROCESS_DIR)\process_sendsignal.c
+	$(CMD_CP) $(PROCESS_DIR)\process_sendsignal.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\process_getexitcode.c : $(PROCESS_DIR)\process_getexitcode.c
 	$(CMD_CP) $(PROCESS_DIR)\process_getexitcode.c $(OBJS_DIR)\
@@ -467,6 +482,12 @@ $(OBJS_DIR)\file_seek.c : $(FILE_DIR)\file_seek.c
 
 $(OBJS_DIR)\file_write.c : $(FILE_DIR)\file_write.c
 	$(CMD_CP) $(FILE_DIR)\file_write.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\file_driveropen.c : $(FILE_DIR)\file_driveropen.c
+	$(CMD_CP) $(FILE_DIR)\file_driveropen.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\file_getdriverinformation.c : $(FILE_DIR)\file_getdriverinformation.c
+	$(CMD_CP) $(FILE_DIR)\file_getdriverinformation.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\file_printformat.c : $(FILE_DIR)\file_printformat.c
 	$(CMD_CP) $(FILE_DIR)\file_printformat.c $(OBJS_DIR)\
@@ -1625,6 +1646,64 @@ $(OBJS_DIR)\fatfile_destructor.c : $(FATVOL_DIR)\fatfile_destructor.c
 	$(CMD_CP) $(FATVOL_DIR)\fatfile_destructor.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\memdrv.h : $(MEMDRV_DIR)\memdrv.h
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_local.h : $(MEMDRV_DIR)\memdrv_local.h
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memfile.h : $(MEMDRV_DIR)\memfile.h
+	$(CMD_CP) $(MEMDRV_DIR)\memfile.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memfile_local.h : $(MEMDRV_DIR)\memfile_local.h
+	$(CMD_CP) $(MEMDRV_DIR)\memfile_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_create.c : $(MEMDRV_DIR)\memdrv_create.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_delete.c : $(MEMDRV_DIR)\memdrv_delete.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_constructor.c : $(MEMDRV_DIR)\memdrv_constructor.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_destructor.c : $(MEMDRV_DIR)\memdrv_destructor.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_open.c : $(MEMDRV_DIR)\memdrv_open.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_open.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_close.c : $(MEMDRV_DIR)\memdrv_close.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_close.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_iocontrol.c : $(MEMDRV_DIR)\memdrv_iocontrol.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_iocontrol.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_flush.c : $(MEMDRV_DIR)\memdrv_flush.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_flush.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_read.c : $(MEMDRV_DIR)\memdrv_read.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_read.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_seek.c : $(MEMDRV_DIR)\memdrv_seek.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_seek.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memdrv_write.c : $(MEMDRV_DIR)\memdrv_write.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_write.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memfile_create.c : $(MEMDRV_DIR)\memfile_create.c
+	$(CMD_CP) $(MEMDRV_DIR)\memfile_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memfile_delete.c : $(MEMDRV_DIR)\memfile_delete.c
+	$(CMD_CP) $(MEMDRV_DIR)\memfile_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memfile_constructor.c : $(MEMDRV_DIR)\memfile_constructor.c
+	$(CMD_CP) $(MEMDRV_DIR)\memfile_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memfile_destructor.c : $(MEMDRV_DIR)\memfile_destructor.c
+	$(CMD_CP) $(MEMDRV_DIR)\memfile_destructor.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\shell.h : $(SHELL_DIR)\shell.h
 	$(CMD_CP) $(SHELL_DIR)\shell.h $(OBJS_DIR)\
 
@@ -1670,6 +1749,13 @@ $(OBJS_DIR)\processlist.h : $(PROCESSLIST_DIR)\processlist.h
 
 $(OBJS_DIR)\processlist_main.c : $(PROCESSLIST_DIR)\processlist_main.c
 	$(CMD_CP) $(PROCESSLIST_DIR)\processlist_main.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\processsignal.h : $(PROCESSSIGNAL_DIR)\processsignal.h
+	$(CMD_CP) $(PROCESSSIGNAL_DIR)\processsignal.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\processsignal_main.c : $(PROCESSSIGNAL_DIR)\processsignal_main.c
+	$(CMD_CP) $(PROCESSSIGNAL_DIR)\processsignal_main.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\commandlist.h : $(COMMANDLIST_DIR)\commandlist.h
@@ -1826,6 +1912,8 @@ $(OBJS_DIR)\sysprc_suspend.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_suspend.c	$(COMMON_HEA
 $(OBJS_DIR)\sysprc_resume.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_resume.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_getparam.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_getparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_getcurrenthandle.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_getcurrenthandle.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysprc_setsignalhandler.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_setsignalhandler.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysprc_sendsignal.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_sendsignal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_signal.$(EXT_OBJ):	$(OBJS_DIR)\systim_signal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_wait.$(EXT_OBJ):	$(OBJS_DIR)\systim_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getsystemtime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1848,12 +1936,15 @@ $(OBJS_DIR)\time_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\time_getsystemtime.c	$(CO
 $(OBJS_DIR)\time_wait.$(EXT_OBJ):	$(OBJS_DIR)\time_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\process_create.$(EXT_OBJ):	$(OBJS_DIR)\process_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_createex.$(EXT_OBJ):	$(OBJS_DIR)\process_createex.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_delete.$(EXT_OBJ):	$(OBJS_DIR)\process_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_constructor.$(EXT_OBJ):	$(OBJS_DIR)\process_constructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_destructor.$(EXT_OBJ):	$(OBJS_DIR)\process_destructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getcurrenthandle.$(EXT_OBJ):	$(OBJS_DIR)\process_getcurrenthandle.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_exit.$(EXT_OBJ):	$(OBJS_DIR)\process_exit.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_waitexit.$(EXT_OBJ):	$(OBJS_DIR)\process_waitexit.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_setsignalproc.$(EXT_OBJ):	$(OBJS_DIR)\process_setsignalproc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\process_sendsignal.$(EXT_OBJ):	$(OBJS_DIR)\process_sendsignal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getexitcode.$(EXT_OBJ):	$(OBJS_DIR)\process_getexitcode.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_getparam.$(EXT_OBJ):	$(OBJS_DIR)\process_getparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\process_setparam.$(EXT_OBJ):	$(OBJS_DIR)\process_setparam.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1914,6 +2005,8 @@ $(OBJS_DIR)\file_read.$(EXT_OBJ):	$(OBJS_DIR)\file_read.c	$(COMMON_HEADERS) $(SY
 $(OBJS_DIR)\file_readdir.$(EXT_OBJ):	$(OBJS_DIR)\file_readdir.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_seek.$(EXT_OBJ):	$(OBJS_DIR)\file_seek.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_write.$(EXT_OBJ):	$(OBJS_DIR)\file_write.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\file_driveropen.$(EXT_OBJ):	$(OBJS_DIR)\file_driveropen.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\file_getdriverinformation.$(EXT_OBJ):	$(OBJS_DIR)\file_getdriverinformation.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_printformat.$(EXT_OBJ):	$(OBJS_DIR)\file_printformat.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_printformatv.$(EXT_OBJ):	$(OBJS_DIR)\file_printformatv.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\stdio_printformat.$(EXT_OBJ):	$(OBJS_DIR)\stdio_printformat.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -2260,6 +2353,22 @@ $(OBJS_DIR)\fatfile_delete.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_delete.c	$(COMMON_HEA
 $(OBJS_DIR)\fatfile_constructor.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_constructor.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ):	$(OBJS_DIR)\fatfile_destructor.c	$(COMMON_HEADERS)
 
+$(OBJS_DIR)\memdrv_create.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_open.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_open.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_close.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_close.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_iocontrol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_flush.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_read.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_read.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_seek.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_seek.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_write.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memfile_create.$(EXT_OBJ):	$(OBJS_DIR)\memfile_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memfile_delete.$(EXT_OBJ):	$(OBJS_DIR)\memfile_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memfile_constructor.$(EXT_OBJ):	$(OBJS_DIR)\memfile_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memfile_destructor.$(EXT_OBJ):	$(OBJS_DIR)\memfile_destructor.c	$(COMMON_HEADERS)
+
 $(OBJS_DIR)\shell_main.$(EXT_OBJ):	$(OBJS_DIR)\shell_main.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\shell_create.$(EXT_OBJ):	$(OBJS_DIR)\shell_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\shell_delete.$(EXT_OBJ):	$(OBJS_DIR)\shell_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -2273,6 +2382,8 @@ $(OBJS_DIR)\shell_curleft.$(EXT_OBJ):	$(OBJS_DIR)\shell_curleft.c	$(COMMON_HEADE
 $(OBJS_DIR)\shell_replaceline.$(EXT_OBJ):	$(OBJS_DIR)\shell_replaceline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\processlist_main.$(EXT_OBJ):	$(OBJS_DIR)\processlist_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\processsignal_main.$(EXT_OBJ):	$(OBJS_DIR)\processsignal_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\commandlist_main.$(EXT_OBJ):	$(OBJS_DIR)\commandlist_main.c	$(COMMON_HEADERS)
 

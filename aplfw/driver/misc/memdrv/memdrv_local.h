@@ -14,6 +14,24 @@
 
 
 #include "memdrv.h"
+#include "system/file/drvobj_local.h"
+#include "system/sysapi/sysapi.h"
+
+
+/* ドライバ制御部 */
+typedef struct c_memdrv
+{
+	C_DRVOBJ		DrvObj;			/* デバイスドライバを継承 */
+
+	int				iOpenCount;		/* オープンカウンタ */
+	unsigned char	*pubMemAddr;	/* メモリの先頭アドレス */
+	FILE_POS		MemSize;		/* メモリサイズ */
+	FILE_POS		FileSize;		/* ファイルとしてのサイズ */
+	int				iAttr;			/* 属性 */
+	
+	SYSMTX_HANDLE	hMtx;			/* 排他制御用ミューテックス */
+} C_MEMDRV;
+
 
 
 typedef struct c_memdrvfile
@@ -28,6 +46,9 @@ typedef struct c_memdrvfile
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+void      MemDrv_Constructor(C_MEMDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pMemAddr, FILE_POS MemSize, FILE_POS IniSize, int iAttr);	/** コンストラクタ */
+void      MemDrv_Destructor(C_MEMDRV *self);																									/** デストラクタ */
 
 HANDLE    MemDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
 void      MemDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);

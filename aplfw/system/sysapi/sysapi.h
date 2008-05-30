@@ -96,8 +96,8 @@ VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);							/**< プロセスの�
 void           SysPrc_Terminate(SYSPRC_HANDLE hPrc);						/**< プロセス終了(システム用) */
 void           SysPrc_Suspend(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止(システム用) */			
 void           SysPrc_Resume(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止解除(システム用) */	
-void           SysPrc_Signal(SYSPRC_HANDLE hPrc, VPARAM Signal);			/**< プロセスへのシグナル送信(システム用) */
-void           SysPrc_SetSignalHandler(SYSPRC_HANDLE hPrc, void (*pfncHanler)(VPARAM Signal));
+void           SysPrc_SendSignal(SYSPRC_HANDLE hPrc);						/**< プロセスへのシグナル送信(システム用) */
+void           SysPrc_SetSignalHandler(SYSPRC_HANDLE hPrc, void (*pfncHanler)(void));
 																			/**< プロセスへのシグナルハンドラ登録(システム用) */
 SYSPRC_HANDLE  SysPrc_GetCurrentHandle(void);								/**< 現在のプロセスの取得(システム用) */
 void           SysPrc_SetExecTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time);	/**< プロセス実行時間計測タイマを初期化 */

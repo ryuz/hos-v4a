@@ -22,6 +22,7 @@ static const T_HANDLEOBJ_METHODS Process_Methods =
 
 
 static void Process_Entry(void);
+static void Process_SignalHandler(void);
 
 
 /** コンストラクタ */
@@ -33,20 +34,22 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	}
 
 	/* メンバ変数初期化 */
-	self->iExitCode   = -1;					/* 終了コード */
-	self->pHandleList = NULL;				/* 所有するハンドルのリスト(終了時に開放) */
-	self->pfncEntry = pInf->pfncEntry; 		/* 起動アドレス */
-	self->Param     = pInf->Param;			/* ユーザーパラメータ */
-	self->StackSize = pInf->StackSize;		/* スタックサイズ */
-	self->Priority  = pInf->Priority;		/* プロセス優先度 */
-	self->SysMode   = 0;					/* システムモード */
-	self->Exit      = 0;					/* 終了フラグ */
-	self->hTerminal = pInf->hTerminal;		/* ターミナル */
-	self->hConIn    = pInf->hConIn;			/* コンソール入力 */
-	self->hConOut   = pInf->hConOut;		/* コンソール出力 */
-	self->hStdIn    = pInf->hStdIn;			/* 標準入力 */
-	self->hStdOut   = pInf->hStdOut;		/* 標準出力 */
-	self->hStdErr   = pInf->hStdErr;		/* 標準エラー出力 */
+	self->iExitCode     = -1;					/* 終了コード */
+	self->iSignal        = 0;					/* シグナル番号 */
+	self->pfncSignalProc = NULL;
+	self->pHandleList    = NULL;				/* 所有するハンドルのリスト(終了時に開放) */
+	self->pfncEntry      = pInf->pfncEntry;		/* 起動アドレス */
+	self->Param          = pInf->Param;			/* ユーザーパラメータ */
+	self->StackSize      = pInf->StackSize;		/* スタックサイズ */
+	self->Priority       = pInf->Priority;		/* プロセス優先度 */
+	self->SysMode        = 0;					/* システムモード */
+	self->Exit           = 0;					/* 終了フラグ */
+	self->hTerminal      = pInf->hTerminal;		/* ターミナル */
+	self->hConIn         = pInf->hConIn;		/* コンソール入力 */
+	self->hConOut        = pInf->hConOut;		/* コンソール出力 */
+	self->hStdIn         = pInf->hStdIn;		/* 標準入力 */
+	self->hStdOut        = pInf->hStdOut;		/* 標準出力 */
+	self->hStdErr        = pInf->hStdErr;		/* 標準エラー出力 */
 	
 	/* コマンドラインコピー */
 	if ( pInf->pszCommandLine != NULL )
@@ -131,6 +134,8 @@ void Process_Entry(void)
 	
 	self = (C_PROCESS *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
 	
+	SysPrc_SetSignalHandler(SysPrc_GetCurrentHandle(), Process_SignalHandler);
+	
 	pfncEntry = self->pfncEntry;
 	ProcParam = self->Param;
 
@@ -149,6 +154,26 @@ void Process_Entry(void)
 	}
 	
 	Process_Exit(iExitCode);
+}
+
+
+/* シグナル受信ポイント */
+void Process_SignalHandler(void)
+{
+	C_PROCESS	*self;
+
+	self = (C_PROCESS *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
+	
+	if ( self->pfncSignalProc != NULL )
+	{
+		self->pfncSignalProc(self->iSignal);
+		return;
+	}
+
+	if ( self->iSignal == PROCESS_SIGNAL_KILL )
+	{
+		Process_Exit(-1);
+	}
 }
 
 

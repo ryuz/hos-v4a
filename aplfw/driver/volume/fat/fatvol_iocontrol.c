@@ -92,6 +92,9 @@ FILE_ERR FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 			/* ファイル属性 */
 			pFileInf->Attribute = ubBuf[11];
 			
+			/* 情報 */
+			pFileInf->szInformation[0] = '\0';
+			
 			return FILE_ERR_OK;
 		}
 		break;

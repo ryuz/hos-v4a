@@ -48,7 +48,7 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
 		Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
 		Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
-		hProcess = Process_Create(&Inf);
+		hProcess = Process_CreateEx(&Inf);
 
 		if ( iBackGround )
 		{

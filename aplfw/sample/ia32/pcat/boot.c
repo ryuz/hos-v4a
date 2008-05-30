@@ -165,7 +165,7 @@ int Boot_Process(VPARAM Param)
 	ProcInf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
 	for ( ; ; )
 	{
-		hProcess = Process_Create(&ProcInf);
+		hProcess = Process_CreateEx(&ProcInf);
 		Process_WaitExit(hProcess);
 		Process_Delete(hProcess);
 	}

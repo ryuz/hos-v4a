@@ -86,6 +86,7 @@ $(OBJS_DIR)/ref_tsk.$(EXT_OBJ):	$(TSKOBJ_DIR)/ref_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/ref_tst.$(EXT_OBJ):	$(TSKOBJ_DIR)/ref_tst.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/def_tex.$(EXT_OBJ):	$(TSKOBJ_DIR)/def_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/ras_tex.$(EXT_OBJ):	$(TSKOBJ_DIR)/ras_tex.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/ena_tex.$(EXT_OBJ):	$(TSKOBJ_DIR)/ena_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/kexe_tex.$(EXT_OBJ):	$(TSKOBJ_DIR)/kexe_tex.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)/cre_sem.$(EXT_OBJ):	$(SEMOBJ_DIR)/cre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)

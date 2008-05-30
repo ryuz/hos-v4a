@@ -11,13 +11,13 @@
 
 #include <string.h>
 #include "memdrv_local.h"
-
+#include "memfile_local.h"
 
 
 FILE_SIZE MemDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
 {
-	C_MEMDRV		*self;
-	C_MEMDRVFILE	*pFile;
+	C_MEMDRV	*self;
+	C_MEMFILE	*pFile;
 	
 	SysMtx_Lock(self->hMtx);
 	

@@ -81,7 +81,8 @@
 
 
 /* IoControl機能コード(ディレクトリ) */
-#define FILE_IOCTL_DIR_READ					0x0101		/* デバイス情報を得る */
+#define FILE_IOCTL_DIR_READ					0x0101		/* ディレクトリ情報を得る */
+
 
 /* IoControl機能コード(コンソール) */
 #define FILE_IOCTL_CON_GETCH				0x0201		/* 文字読込み */
@@ -135,6 +136,8 @@ typedef struct t_file_fileinf
 	FILE_TIME	timeAceess;
 	FILE_TIME	timeWrite;
 */
+
+	char		szInformation[64];
 } T_FILE_FILEINF;
 
 
@@ -175,13 +178,17 @@ HANDLE    File_GetVolume(const char *pszName);								/* ボリュームの取�
 
 
 /* 基本API */
-HANDLE    File_Open(const char *pszPatah, int iMode);
+HANDLE    File_Open(const char *pszPath, int iMode);
 void      File_Close(HANDLE hFile);
 FILE_ERR  File_IoControl(HANDLE hFile, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 FILE_POS  File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign);
 FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size);
 FILE_ERR  File_Flush(HANDLE hFile);
+
+/* デバイスドライバ直接制御 */
+HANDLE    File_DriverOpen(HANDLE hDriver, const char *pszPath, int iMode);				/* 名無しファイルのオープン */
+FILE_ERR  File_GetDriverInformation(HANDLE hDriver, char *pszInformation, int iLen);	/* デバイスドライバ情報取得 */
 
 
 /* 同期制御API */

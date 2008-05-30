@@ -226,6 +226,9 @@ $(OBJS_DIR)\def_tex.c : $(TSKOBJ_DIR)\def_tex.c
 $(OBJS_DIR)\ras_tex.c : $(TSKOBJ_DIR)\ras_tex.c
 	$(CMD_CP) $(TSKOBJ_DIR)\ras_tex.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\ena_tex.c : $(TSKOBJ_DIR)\ena_tex.c
+	$(CMD_CP) $(TSKOBJ_DIR)\ena_tex.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\kexe_tex.c : $(TSKOBJ_DIR)\kexe_tex.c
 	$(CMD_CP) $(TSKOBJ_DIR)\kexe_tex.c $(OBJS_DIR)\
 
@@ -517,6 +520,7 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tst.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\def_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ras_tex.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ena_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kexe_tex.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)

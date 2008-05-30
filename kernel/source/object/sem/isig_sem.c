@@ -74,7 +74,7 @@ void _kernel_dpc_sig_sem(void)
 	if ( !_KERNEL_SEM_CHECK_EXS(semid) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
-		return E_NOEXS;			/* %jp{オブジェクト未生成} */
+		return;					/* %jp{オブジェクト未生成} */
 	}
 #endif
 	/* %jp{セマフォコントロールブロック取得} */

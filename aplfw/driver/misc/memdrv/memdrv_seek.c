@@ -33,7 +33,7 @@ FILE_POS MemDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, in
 		break;
 		
 	case FILE_SEEK_END:
-		pFile->FilePos = self ->FileSize - Offset;
+		pFile->FilePos = self ->FileSize + Offset;
 		break;
 		
 	default:

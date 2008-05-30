@@ -116,6 +116,9 @@ LINK_WINSOCK          = No
 !ifndef LINK_FATVOL
 LINK_FATVOL           = Yes
 !endif
+!ifndef LINK_MEMDRV
+LINK_MEMDRV           = Yes
+!endif
 
 # Applications
 !ifndef LINK_SHELL
@@ -123,6 +126,9 @@ LINK_SHELL            = Yes
 !endif
 !ifndef LINK_PROCESSLIST
 LINK_PROCESSLIST      = Yes
+!endif
+!ifndef LINK_PROCESSSIGNAL
+LINK_PROCESSSIGNAL    = Yes
 !endif
 !ifndef LINK_COMMANDLIST
 LINK_COMMANDLIST      = Yes
@@ -271,6 +277,10 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_getparam.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_getparam.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_getcurrenthandle.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_getcurrenthandle.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_setsignalhandler.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_setsignalhandler.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_sendsignal.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_sendsignal.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_signal.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_signal.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_wait.c
@@ -338,6 +348,8 @@ HEADERS = $(HEADERS) $(OBJS_DIR)\process.h
 HEADERS = $(HEADERS) $(OBJS_DIR)\process_local.h
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_createex.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_createex.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_delete.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_delete.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_constructor.c
@@ -350,6 +362,10 @@ CSRCS = $(CSRCS) $(PROCESS_DIR)\process_exit.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_exit.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_waitexit.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_waitexit.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_setsignalproc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_setsignalproc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(PROCESS_DIR)\process_sendsignal.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\process_sendsignal.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getexitcode.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\process_getexitcode.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(PROCESS_DIR)\process_getparam.c
@@ -499,6 +515,10 @@ CSRCS = $(CSRCS) $(FILE_DIR)\file_seek.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_seek.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\file_write.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\file_driveropen.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\file_driveropen.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FILE_DIR)\file_getdriverinformation.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\file_getdriverinformation.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\file_printformat.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\file_printformat.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FILE_DIR)\file_printformatv.c
@@ -1359,6 +1379,46 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\fatfile_destructor.$(EXT_OBJ)
 !endif
 
 
+# Memory maped file driver
+!if "$(LINK_MEMDRV)" == "Yes"
+MEMDRV_DIR = $(HOSAPLFW_DIR)\driver\misc\memdrv
+HEADERS = $(HEADERS) $(OBJS_DIR)\memdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\memdrv_local.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\memfile.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\memfile_local.h
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_flush.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_flush.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_read.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_read.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_seek.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_seek.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_write.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memfile_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memfile_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memfile_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memfile_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memfile_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memfile_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memfile_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memfile_destructor.$(EXT_OBJ)
+!endif
+
+
 
 # --------------------------------------------------
 #  Applications
@@ -1400,6 +1460,15 @@ PROCESSLIST_DIR = $(HOSAPLFW_DIR)\application\syscmd\processlist
 HEADERS = $(HEADERS) $(OBJS_DIR)\processlist.h
 CSRCS = $(CSRCS) $(PROCESSLIST_DIR)\processlist_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\processlist_main.$(EXT_OBJ)
+!endif
+
+
+# Process Signal
+!if "$(LINK_PROCESSSIGNAL)" == "Yes"
+PROCESSSIGNAL_DIR = $(HOSAPLFW_DIR)\application\syscmd\processsignal
+HEADERS = $(HEADERS) $(OBJS_DIR)\processsignal.h
+CSRCS = $(CSRCS) $(PROCESSSIGNAL_DIR)\processsignal_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\processsignal_main.$(EXT_OBJ)
 !endif
 
 

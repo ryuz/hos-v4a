@@ -22,15 +22,17 @@ void MemDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	/* upper cast */
 	self  = (C_MEMDRV *)pDrvObj;
 	pFile = (C_MEMDRVFILE *)pFileObj;
+
+	SysMtx_Lock(self->hMtx);
 	
 	/* クローズ処理 */
-	SysMtx_Lock(self->hMtx);
 	--self->iOpenCount;
-	SysMtx_Unlock(self->hMtx);
 	
 	/* ディスクリプタ削除 */
 	FileObj_Delete((C_FILEOBJ *)pFile);	
 	SysMem_Free(pFile);
+
+	SysMtx_Unlock(self->hMtx);
 }
 
 

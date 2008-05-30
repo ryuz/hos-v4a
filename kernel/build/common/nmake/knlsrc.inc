@@ -241,6 +241,7 @@ CSRCS = $(CSRCS) $(TSKOBJ_DIR)\ref_tsk.c
 CSRCS = $(CSRCS) $(TSKOBJ_DIR)\ref_tst.c
 CSRCS = $(CSRCS) $(TSKOBJ_DIR)\def_tex.c
 CSRCS = $(CSRCS) $(TSKOBJ_DIR)\ras_tex.c
+CSRCS = $(CSRCS) $(TSKOBJ_DIR)\ena_tex.c
 CSRCS = $(CSRCS) $(TSKOBJ_DIR)\kexe_tex.c
 OBJS = $(OBJS) $(OBJS_DIR)\acre_tsk.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kcre_tsk.$(EXT_OBJ)
@@ -259,6 +260,7 @@ OBJS = $(OBJS) $(OBJS_DIR)\ref_tsk.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\ref_tst.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\def_tex.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\ras_tex.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\ena_tex.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kexe_tex.$(EXT_OBJ)
 
 

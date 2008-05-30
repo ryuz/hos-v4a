@@ -12,37 +12,23 @@
 #include "memdrv_local.h"
 
 
-/* 仮想関数テーブル */
-static const T_DRVOBJ_METHODS MemDrv_Methods = 
-	{
-		MemDrv_Delete,
-		MemDrv_Open,
-		MemDrv_Close,
-		MemDrv_IoControl,
-		MemDrv_Seek,
-		MemDrv_Read,
-		MemDrv_Write,
-		MemDrv_Flush,
-	};
 
 
-/** コンストラクタ */
-void MemDrv_Create(C_MEMDRV *self, void *pMemAddr, FILE_POS MemSize, FILE_POS IniSize, int iAttr)
+/** 生成 */
+HANDLE MemDrv_Create(void *pMemAddr, FILE_POS MemSize, FILE_POS IniSize, int iAttr)
 {
-	void *pMem;
+	C_MEMDRV *self;
 	
-	/* 親クラスコンストラクタ呼び出し */
-	DrvObj_Create(&self->DrvObj, &MemDrv_Methods);
+	/* メモリ確保 */
+	if ( (self = (C_MEMDRV *)SysMem_Alloc(sizeof(C_MEMDRV))) == NULL )
+	{
+		return HANDLE_NULL;
+	}
 	
-	/* メンバ変数初期化 */
-	self->iOpenCount = 0;
-	self->pubMemAddr = pMemAddr;	/* メモリの先頭アドレス */
-	self->MemSize    = MemSize;		/* メモリサイズ */
-	self->FileSize   = IniSize;		/* ファイルとしてのサイズ */
-	self->iAttr      = iAttr;		/* 属性 */
+	/* コンストラクタ呼び出し */
+	MemDrv_Constructor(self, NULL, pMemAddr, MemSize, IniSize, iAttr);
 	
-	/* ミューテックス生成 */
-	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+	return (HANDLE)self;
 }
 
 

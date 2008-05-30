@@ -93,7 +93,7 @@ void System_BootProcess(VPARAM Param1, VPARAM Param2)
 	pProcessInf = (T_PROCESS_CREATE_INF *)Param2;
 	
 	/* ブートプロセスをシステムプロセスの子プロセスとして開始 */
-	self->hBootProcess = Process_Create(pProcessInf);
+	self->hBootProcess = Process_CreateEx(pProcessInf);
 	
 	/* プロセス生成情報用メモリ開放 */
 	SysMem_Free(pProcessInf);

@@ -50,10 +50,12 @@ LINK_MX1UART          ?= No
 LINK_MN103SC          ?= No
 LINK_WINSOCK          ?= No
 LINK_FATVOL           ?= Yes
+LINK_MEMDRV           ?= Yes
 
 # Applications
 LINK_SHELL            ?= Yes
 LINK_PROCESSLIST      ?= Yes
+LINK_PROCESSSIGNAL    ?= Yes
 LINK_COMMANDLIST      ?= Yes
 LINK_MEMDUMP          ?= Yes
 LINK_MEMWRITE         ?= Yes
@@ -132,6 +134,8 @@ CSRCS += $(SYSAPI_DIR)/sysprc_suspend.c
 CSRCS += $(SYSAPI_DIR)/sysprc_resume.c
 CSRCS += $(SYSAPI_DIR)/sysprc_getparam.c
 CSRCS += $(SYSAPI_DIR)/sysprc_getcurrenthandle.c
+CSRCS += $(SYSAPI_DIR)/sysprc_setsignalhandler.c
+CSRCS += $(SYSAPI_DIR)/sysprc_sendsignal.c
 CSRCS += $(SYSAPI_DIR)/systim_signal.c
 CSRCS += $(SYSAPI_DIR)/systim_wait.c
 CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
@@ -178,12 +182,15 @@ ifeq ($(LINK_PROCESS),Yes)
 PROCESS_DIR = $(HOSAPLFW_DIR)/system/process
 SRC_DIRS += $(PROCESS_DIR)
 CSRCS += $(PROCESS_DIR)/process_create.c
+CSRCS += $(PROCESS_DIR)/process_createex.c
 CSRCS += $(PROCESS_DIR)/process_delete.c
 CSRCS += $(PROCESS_DIR)/process_constructor.c
 CSRCS += $(PROCESS_DIR)/process_destructor.c
 CSRCS += $(PROCESS_DIR)/process_getcurrenthandle.c
 CSRCS += $(PROCESS_DIR)/process_exit.c
 CSRCS += $(PROCESS_DIR)/process_waitexit.c
+CSRCS += $(PROCESS_DIR)/process_setsignalproc.c
+CSRCS += $(PROCESS_DIR)/process_sendsignal.c
 CSRCS += $(PROCESS_DIR)/process_getexitcode.c
 CSRCS += $(PROCESS_DIR)/process_getparam.c
 CSRCS += $(PROCESS_DIR)/process_setparam.c
@@ -256,6 +263,8 @@ CSRCS += $(FILE_DIR)/file_read.c
 CSRCS += $(FILE_DIR)/file_readdir.c
 CSRCS += $(FILE_DIR)/file_seek.c
 CSRCS += $(FILE_DIR)/file_write.c
+CSRCS += $(FILE_DIR)/file_driveropen.c
+CSRCS += $(FILE_DIR)/file_getdriverinformation.c
 CSRCS += $(FILE_DIR)/file_printformat.c
 CSRCS += $(FILE_DIR)/file_printformatv.c
 CSRCS += $(FILE_DIR)/stdio_printformat.c
@@ -764,6 +773,28 @@ CSRCS += $(FATVOL_DIR)/fatfile_destructor.c
 endif
 
 
+# Memory maped file driver
+ifeq ($(LINK_MEMDRV),Yes)
+MEMDRV_DIR = $(HOSAPLFW_DIR)/driver/misc/memdrv
+SRC_DIRS += $(MEMDRV_DIR)
+CSRCS += $(MEMDRV_DIR)/memdrv_create.c
+CSRCS += $(MEMDRV_DIR)/memdrv_delete.c
+CSRCS += $(MEMDRV_DIR)/memdrv_constructor.c
+CSRCS += $(MEMDRV_DIR)/memdrv_destructor.c
+CSRCS += $(MEMDRV_DIR)/memdrv_open.c
+CSRCS += $(MEMDRV_DIR)/memdrv_close.c
+CSRCS += $(MEMDRV_DIR)/memdrv_iocontrol.c
+CSRCS += $(MEMDRV_DIR)/memdrv_flush.c
+CSRCS += $(MEMDRV_DIR)/memdrv_read.c
+CSRCS += $(MEMDRV_DIR)/memdrv_seek.c
+CSRCS += $(MEMDRV_DIR)/memdrv_write.c
+CSRCS += $(MEMDRV_DIR)/memfile_create.c
+CSRCS += $(MEMDRV_DIR)/memfile_delete.c
+CSRCS += $(MEMDRV_DIR)/memfile_constructor.c
+CSRCS += $(MEMDRV_DIR)/memfile_destructor.c
+endif
+
+
 
 # --------------------------------------------------
 #  Applications
@@ -792,6 +823,14 @@ ifeq ($(LINK_PROCESSLIST),Yes)
 PROCESSLIST_DIR = $(HOSAPLFW_DIR)/application/syscmd/processlist
 SRC_DIRS += $(PROCESSLIST_DIR)
 CSRCS += $(PROCESSLIST_DIR)/processlist_main.c
+endif
+
+
+# Process Signal
+ifeq ($(LINK_PROCESSSIGNAL),Yes)
+PROCESSSIGNAL_DIR = $(HOSAPLFW_DIR)/application/syscmd/processsignal
+SRC_DIRS += $(PROCESSSIGNAL_DIR)
+CSRCS += $(PROCESSSIGNAL_DIR)/processsignal_main.c
 endif
 
 

@@ -12,21 +12,15 @@
 #include "memdrv_local.h"
 
 
-/** 削除 */
-void MemDrv_Delete(HANDLE hDriver)
+/** デストラクタ */
+void MemDrv_Destructor(C_MEMDRV *self)
 {
-	C_MEMDRV	*self;
+	/* オブジェクト削除 */
+	SysMtx_Delete(self->hMtx);
 	
-	/* upper cast */
-	self = (C_MEMDRV *)hDriver;
-
-	/* デストラクタ呼び出し */
-	MemDrv_Destructor(self);
-	
-	/* メモリ削除 */
-	SysMem_Free(self);
+	/* 親クラスデストラクタ */
+	DrvObj_Destructor(&self->DrvObj);
 }
-
 
 
 /* end of file */

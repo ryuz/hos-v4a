@@ -39,6 +39,9 @@ typedef struct c_process
 	int					(*pfncEntry)(VPARAM Param);		/**< 起動アドレス */
 	VPARAM				Param;							/**< ユーザーパラメータ */
 
+	void				(*pfncSignalProc)(int iSignal);	/**< シグナル受信プロシージャ */
+	int					iSignal;						/**< ユーザーパラメータ */
+
 	MEMSIZE				StackSize;						/**< スタックサイズ */
 	int					Priority;						/**< プロセス優先度 */
 	char				SysMode;						/**< システムモード */

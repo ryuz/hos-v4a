@@ -36,8 +36,14 @@ FILE_ERR SysVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 			{
 				strcpy(pFileInf->szFileName, self->DevTable[pFile->iReadPtr].szName);
 				pFileInf->FileSize  = 0;
-				pFileInf->Attribute = self->DevTable[pFile->iReadPtr].iAttr;
+				pFileInf->Attribute = self->DevTable[pFile->iReadPtr].iAttr;				
+				if ( File_GetDriverInformation(self->DevTable[pFile->iReadPtr].hDriver, pFileInf->szInformation, sizeof(pFileInf->szInformation)) != FILE_ERR_OK )
+				{
+					pFileInf->szInformation[0] = '\0';
+				}
+				pFileInf->szInformation[sizeof(pFileInf->szInformation) - 1] = '\0';
 				pFile->iReadPtr++;
+				
 				return FILE_ERR_OK;
 			}
 		}

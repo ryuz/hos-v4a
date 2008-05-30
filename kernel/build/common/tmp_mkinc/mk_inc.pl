@@ -136,6 +136,7 @@
 		"ref_tst.c",
 		"def_tex.c",
 		"ras_tex.c",
+		"ena_tex.c",
 		"kexe_tex.c",
 	],
 	[

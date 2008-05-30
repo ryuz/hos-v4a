@@ -13,25 +13,36 @@
 
 
 /* プロセス生成 */
-HANDLE Process_Create(const T_PROCESS_CREATE_INF *pInf)
+HANDLE Process_Create(const char *pszCommand, MEMSIZE StackSize, int Priority)
 {
-	C_PROCESS *self;
+	T_PROCESS_CREATE_INF Inf;
 	
-	/* メモリ確保 */
-	if ( (self = (C_PROCESS *)SysMem_Alloc(sizeof(C_PROCESS))) == NULL )
+	/* デフォルト値 */
+	if ( StackSize == 0 )
 	{
-		return HANDLE_NULL;
+		StackSize = 4096;
+	}
+	if ( Priority == 0 )
+	{
+		Priority = PROCESS_PRIORITY_NORMAL;
 	}
 	
-	/* コンストラクタ呼び出し */
-	if ( Process_Constructor(self, NULL, pInf) != PROCESS_ERR_OK )
-	{
-		SysMem_Free(self);
-		return HANDLE_NULL;
-	}
+	Inf.pszCommandLine = pszCommand;							/**< コマンドライン */
+	Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);	/**< 起動ディレクトリ */
+	Inf.pfncEntry      = NULL;									/**< 起動アドレス */
+	Inf.Param          = 0;										/**< ユーザーパラメータ */
+	Inf.StackSize      = StackSize;								/**< スタックサイズ */
+	Inf.Priority       = Priority;								/**< プロセス優先度 */
+	Inf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/**< ターミナル */
+	Inf.hConIn         = Process_GetConIn(HANDLE_NULL);			/**< コンソール入力 */
+	Inf.hConOut        = Process_GetConOut(HANDLE_NULL);		/**< コンソール出力 */
+	Inf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/**< 標準入力 */
+	Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/**< 標準出力 */
+	Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/**< 標準エラー出力 */
 	
-	return (HANDLE)self;
+	return Process_CreateEx(&Inf);
 }
+	
 
 
 /* end of file */
