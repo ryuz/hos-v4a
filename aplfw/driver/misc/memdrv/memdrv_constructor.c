@@ -23,6 +23,7 @@ static const T_DRVOBJ_METHODS MemDrv_Methods =
 		MemDrv_Read,
 		MemDrv_Write,
 		MemDrv_Flush,
+		MemDrv_GetInformation,
 	};
 
 

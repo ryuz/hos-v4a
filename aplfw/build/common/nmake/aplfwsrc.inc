@@ -139,6 +139,12 @@ LINK_MEMDUMP          = Yes
 !ifndef LINK_MEMWRITE
 LINK_MEMWRITE         = Yes
 !endif
+!ifndef LINK_MEMFILL
+LINK_MEMFILL          = Yes
+!endif
+!ifndef LINK_MEMCOPY
+LINK_MEMCOPY          = Yes
+!endif
 !ifndef LINK_MEMSAVE
 LINK_MEMSAVE          = Yes
 !endif
@@ -1408,6 +1414,8 @@ CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_seek.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_seek.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_write.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMDRV_DIR)\memdrv_getinformation.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memdrv_getinformation.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MEMDRV_DIR)\memfile_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memfile_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MEMDRV_DIR)\memfile_delete.c
@@ -1496,6 +1504,24 @@ MEMWRITE_DIR = $(HOSAPLFW_DIR)\application\utility\memwrite
 HEADERS = $(HEADERS) $(OBJS_DIR)\memwrite.h
 CSRCS = $(CSRCS) $(MEMWRITE_DIR)\memwrite_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\memwrite_main.$(EXT_OBJ)
+!endif
+
+
+# Memory Fill
+!if "$(LINK_MEMFILL)" == "Yes"
+MEMFILL_DIR = $(HOSAPLFW_DIR)\application\utility\memfill
+HEADERS = $(HEADERS) $(OBJS_DIR)\memfill.h
+CSRCS = $(CSRCS) $(MEMFILL_DIR)\memfill_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memfill_main.$(EXT_OBJ)
+!endif
+
+
+# Memory Copy
+!if "$(LINK_MEMCOPY)" == "Yes"
+MEMCOPY_DIR = $(HOSAPLFW_DIR)\application\utility\memcopy
+HEADERS = $(HEADERS) $(OBJS_DIR)\memcopy.h
+CSRCS = $(CSRCS) $(MEMCOPY_DIR)\memcopy_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memcopy_main.$(EXT_OBJ)
 !endif
 
 

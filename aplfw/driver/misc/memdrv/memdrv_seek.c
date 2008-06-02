@@ -14,12 +14,12 @@
 
 FILE_POS MemDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
 {
-	C_MEMDRV		*self;
-	C_MEMDRVFILE	*pFile;
+	C_MEMDRV	*self;
+	C_MEMFILE	*pFile;
 	
 	/* upper cast */
 	self  = (C_MEMDRV *)pDrvObj;
-	pFile = (C_MEMDRVFILE *)pFileObj;
+	pFile = (C_MEMFILE *)pFileObj;
 	
 	/* シーク */
 	switch ( iOrign )

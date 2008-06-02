@@ -16,7 +16,7 @@ typedef struct t_stringformat_formatstring_info
 {
 	char	*pszBuf;
 	int		iBufSize;
-} T_STRINGFORAMT_FORMATSTRING_INFO;
+} T_STRINGFORAMT_FORMATSTRING_INF;
 
 
 static int StringFormat_OutputFormatStringV(int c, void *Param);
@@ -25,29 +25,35 @@ static int StringFormat_OutputFormatStringV(int c, void *Param);
 /* vsprintfもどき */	
 int StringFormat_FormatStringV(char *pszBuf, int iBufSize, const char *pszFormat, va_list argptr)
 {
-	T_STRINGFORAMT_FORMATSTRING_INFO Info;
+	T_STRINGFORAMT_FORMATSTRING_INF	Inf;
+	int 							iLen;
 	
 	/* バッファ情報生成 */
-	Info.pszBuf   = pszBuf;
-	Info.iBufSize = iBufSize;
-
-	return StringFormat_FormatV(StringFormat_OutputFormatStringV, (void *)&Info, pszFormat, argptr);
+	Inf.pszBuf   = pszBuf;
+	Inf.iBufSize = iBufSize;
+	iLen = StringFormat_FormatV(StringFormat_OutputFormatStringV, (void *)&Inf, pszFormat, argptr);
+	if ( iLen >= 0 && iLen < iBufSize )
+	{
+		pszBuf[iLen] = '\0';
+	}
+	
+	return iLen;
 }
 
 
 int StringFormat_OutputFormatStringV(int c, void *Param)
 {
-	T_STRINGFORAMT_FORMATSTRING_INFO *pInfo;
+	T_STRINGFORAMT_FORMATSTRING_INF *pInf;
 	
-	pInfo = (T_STRINGFORAMT_FORMATSTRING_INFO *)Param;
+	pInf = (T_STRINGFORAMT_FORMATSTRING_INF *)Param;
 	
-	if ( pInfo->iBufSize <= 0 )
+	if ( pInf->iBufSize <= 0 )
 	{
 		return 0;
 	}
 	
-	*pInfo->pszBuf++ = (char)c;
-	pInfo->iBufSize--;
+	*pInf->pszBuf++ = (char)c;
+	pInf->iBufSize--;
 	
 	return 1;
 }

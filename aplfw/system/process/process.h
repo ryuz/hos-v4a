@@ -4,7 +4,7 @@
  * @file  process.h
  * @brief %jp{プロセスオブジェクト}
  *
- * Copyright (C) 2006-2007 by Project HOS
+ * Copyright (C) 2006-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -51,6 +51,7 @@ typedef struct t_process_create_inf
 	HANDLE		hStdOut;							/**< 標準出力 */
 	HANDLE		hStdErr;							/**< 標準エラー出力 */
 } T_PROCESS_CREATE_INF;
+
 
 
 #ifdef __cplusplus

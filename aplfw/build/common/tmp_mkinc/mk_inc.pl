@@ -932,6 +932,7 @@
 				"memdrv_read.c",
 				"memdrv_seek.c",
 				"memdrv_write.c",
+				"memdrv_getinformation.c",
 				"memfile_create.c",
 				"memfile_delete.c",
 				"memfile_constructor.c",
@@ -1028,6 +1029,32 @@
 			],
 			[
 				"memwrite_main.c",
+			]
+		],
+		[
+			"Memory Fill",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/utility/memfill",
+			"MEMFILL",
+			"Yes",
+			[
+				"memfill.h",
+			],
+			[
+				"memfill_main.c",
+			]
+		],
+		[
+			"Memory Copy",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/utility/memcopy",
+			"MEMCOPY",
+			"Yes",
+			[
+				"memcopy.h",
+			],
+			[
+				"memcopy_main.c",
 			]
 		],
 		[

@@ -59,6 +59,8 @@ LINK_PROCESSSIGNAL    ?= Yes
 LINK_COMMANDLIST      ?= Yes
 LINK_MEMDUMP          ?= Yes
 LINK_MEMWRITE         ?= Yes
+LINK_MEMFILL          ?= Yes
+LINK_MEMCOPY          ?= Yes
 LINK_MEMSAVE          ?= Yes
 LINK_MEMLOAD          ?= Yes
 LINK_MEMTEST          ?= Yes
@@ -788,6 +790,7 @@ CSRCS += $(MEMDRV_DIR)/memdrv_flush.c
 CSRCS += $(MEMDRV_DIR)/memdrv_read.c
 CSRCS += $(MEMDRV_DIR)/memdrv_seek.c
 CSRCS += $(MEMDRV_DIR)/memdrv_write.c
+CSRCS += $(MEMDRV_DIR)/memdrv_getinformation.c
 CSRCS += $(MEMDRV_DIR)/memfile_create.c
 CSRCS += $(MEMDRV_DIR)/memfile_delete.c
 CSRCS += $(MEMDRV_DIR)/memfile_constructor.c
@@ -855,6 +858,22 @@ ifeq ($(LINK_MEMWRITE),Yes)
 MEMWRITE_DIR = $(HOSAPLFW_DIR)/application/utility/memwrite
 SRC_DIRS += $(MEMWRITE_DIR)
 CSRCS += $(MEMWRITE_DIR)/memwrite_main.c
+endif
+
+
+# Memory Fill
+ifeq ($(LINK_MEMFILL),Yes)
+MEMFILL_DIR = $(HOSAPLFW_DIR)/application/utility/memfill
+SRC_DIRS += $(MEMFILL_DIR)
+CSRCS += $(MEMFILL_DIR)/memfill_main.c
+endif
+
+
+# Memory Copy
+ifeq ($(LINK_MEMCOPY),Yes)
+MEMCOPY_DIR = $(HOSAPLFW_DIR)/application/utility/memcopy
+SRC_DIRS += $(MEMCOPY_DIR)
+CSRCS += $(MEMCOPY_DIR)/memcopy_main.c
 endif
 
 

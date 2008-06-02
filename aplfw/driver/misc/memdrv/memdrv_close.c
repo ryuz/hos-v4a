@@ -16,12 +16,12 @@
 /** クローズ */
 void MemDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
-	C_MEMDRV		*self;
-	C_MEMDRVFILE	*pFile;
+	C_MEMDRV	*self;
+	C_MEMFILE	*pFile;
 	
 	/* upper cast */
 	self  = (C_MEMDRV *)pDrvObj;
-	pFile = (C_MEMDRVFILE *)pFileObj;
+	pFile = (C_MEMFILE *)pFileObj;
 
 	SysMtx_Lock(self->hMtx);
 	

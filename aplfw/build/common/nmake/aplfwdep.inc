@@ -1691,6 +1691,9 @@ $(OBJS_DIR)\memdrv_seek.c : $(MEMDRV_DIR)\memdrv_seek.c
 $(OBJS_DIR)\memdrv_write.c : $(MEMDRV_DIR)\memdrv_write.c
 	$(CMD_CP) $(MEMDRV_DIR)\memdrv_write.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\memdrv_getinformation.c : $(MEMDRV_DIR)\memdrv_getinformation.c
+	$(CMD_CP) $(MEMDRV_DIR)\memdrv_getinformation.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\memfile_create.c : $(MEMDRV_DIR)\memfile_create.c
 	$(CMD_CP) $(MEMDRV_DIR)\memfile_create.c $(OBJS_DIR)\
 
@@ -1777,6 +1780,20 @@ $(OBJS_DIR)\memwrite.h : $(MEMWRITE_DIR)\memwrite.h
 
 $(OBJS_DIR)\memwrite_main.c : $(MEMWRITE_DIR)\memwrite_main.c
 	$(CMD_CP) $(MEMWRITE_DIR)\memwrite_main.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\memfill.h : $(MEMFILL_DIR)\memfill.h
+	$(CMD_CP) $(MEMFILL_DIR)\memfill.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memfill_main.c : $(MEMFILL_DIR)\memfill_main.c
+	$(CMD_CP) $(MEMFILL_DIR)\memfill_main.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\memcopy.h : $(MEMCOPY_DIR)\memcopy.h
+	$(CMD_CP) $(MEMCOPY_DIR)\memcopy.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memcopy_main.c : $(MEMCOPY_DIR)\memcopy_main.c
+	$(CMD_CP) $(MEMCOPY_DIR)\memcopy_main.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\memsave.h : $(MEMSAVE_DIR)\memsave.h
@@ -2364,6 +2381,7 @@ $(OBJS_DIR)\memdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_flush.c	$(COMMON_HEADERS
 $(OBJS_DIR)\memdrv_read.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_read.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\memdrv_seek.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_seek.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\memdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_write.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memdrv_getinformation.$(EXT_OBJ):	$(OBJS_DIR)\memdrv_getinformation.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\memfile_create.$(EXT_OBJ):	$(OBJS_DIR)\memfile_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\memfile_delete.$(EXT_OBJ):	$(OBJS_DIR)\memfile_delete.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\memfile_constructor.$(EXT_OBJ):	$(OBJS_DIR)\memfile_constructor.c	$(COMMON_HEADERS)
@@ -2390,6 +2408,10 @@ $(OBJS_DIR)\commandlist_main.$(EXT_OBJ):	$(OBJS_DIR)\commandlist_main.c	$(COMMON
 $(OBJS_DIR)\memdump_main.$(EXT_OBJ):	$(OBJS_DIR)\memdump_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\memwrite_main.$(EXT_OBJ):	$(OBJS_DIR)\memwrite_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\memfill_main.$(EXT_OBJ):	$(OBJS_DIR)\memfill_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\memcopy_main.$(EXT_OBJ):	$(OBJS_DIR)\memcopy_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\memsave_main.$(EXT_OBJ):	$(OBJS_DIR)\memsave_main.c	$(COMMON_HEADERS)
 

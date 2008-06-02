@@ -29,9 +29,9 @@ void HandleObj_Destructor(C_HANDLEOBJ *self)
 	}
 	else
 	{
-		if ( self->pParent == self )
+		if ( self->pParent->pChild  == self )
 		{
-			self->pParent = self->pNext;
+			self->pParent->pChild = self->pNext;
 		}
 		self->pNext->pPrev = self->pPrev;
 		self->pPrev->pNext = self->pNext;

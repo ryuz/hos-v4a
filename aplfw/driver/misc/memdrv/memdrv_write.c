@@ -19,6 +19,11 @@ FILE_SIZE MemDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 	C_MEMDRV	*self;
 	C_MEMFILE	*pFile;
 	
+	/* upper cast */
+	self  = (C_MEMDRV *)pDrvObj;
+	pFile = (C_MEMFILE *)pFileObj;
+
+	
 	SysMtx_Lock(self->hMtx);
 	
 	/* サイズクリップ */

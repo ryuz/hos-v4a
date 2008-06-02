@@ -33,14 +33,7 @@ typedef struct c_memdrv
 } C_MEMDRV;
 
 
-
-typedef struct c_memdrvfile
-{
-	C_FILEOBJ		FileObj;	/* ファイルオブジェクトを継承 */
-	
-	FILE_POS		FilePos;	/* ファイルポインタ */
-} C_MEMDRVFILE;
-
+#include "memfile_local.h"
 
 
 #ifdef __cplusplus
@@ -57,6 +50,7 @@ FILE_POS  MemDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, i
 FILE_SIZE MemDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
 FILE_SIZE MemDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
 FILE_ERR  MemDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+FILE_ERR  MemDrv_GetInformation(C_DRVOBJ *pDrvObj, char *pszInformation, int iLen);
 
 #ifdef __cplusplus
 }
