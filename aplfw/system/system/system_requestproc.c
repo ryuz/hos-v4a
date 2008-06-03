@@ -22,6 +22,8 @@ int System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM Pa
 	
 	self = &g_System;
 	
+	SysLoc_Lock();
+	
 	iTail     = self->iProcTail;
 	iNextTail = iTail + 1;
 	if ( iNextTail >= SYSTEM_PROCQUE_SIZE )
@@ -32,6 +34,7 @@ int System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM Pa
 	/* バッファフルチェック */
 	if ( iNextTail == self->iProcHead )
 	{
+		SysLoc_Unlock();
 		return 1;
 	}
 	
@@ -41,6 +44,8 @@ int System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM Pa
 	self->ProcQue[iTail].Param2   = Param2;
 	
 	self->iProcTail= iNextTail;
+
+	SysLoc_Unlock();
 	
 	/* イベント設定 */
 	SysEvt_Set(self->hEvtProc);

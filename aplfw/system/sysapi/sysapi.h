@@ -66,7 +66,7 @@ int            SysCtx_IsIsr(void);											/**< ISRコンテキストかどう
 
 /* システムロック */
 void           SysLoc_Lock(void);											/**< システム全体のロック(システム用) */
-void           SysLok_Unlock(void);											/**< システム全体のロック解除(システム用) */
+void           SysLoc_Unlock(void);											/**< システム全体のロック解除(システム用) */
 
 /* システム用メモリ制御API */
 void          *SysMem_Alloc(MEMSIZE Size);									/**< メモリの割り当て(システム用) */

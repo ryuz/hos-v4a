@@ -27,6 +27,8 @@
 #include "application/utility/timecmd/timecmd.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
+#include "application/utility/memfill/memfill.h"
+#include "application/utility/memcopy/memcopy.h"
 #include "application/utility/memtest/memtest.h"
 #include "application/utility/keytest/keytest.h"
 #include "application/example/hello/hello.h"
@@ -97,7 +99,6 @@ void Boot_Task(VP_INT exinf)
 /* ブートプロセス */
 int Boot_Process(VPARAM Param)
 {
-	T_PROCESS_CREATE_INF	ProcInf;
 	HANDLE					hProcess;
 	HANDLE					hDriver;
 	HANDLE					hTty;
@@ -147,6 +148,8 @@ int Boot_Process(VPARAM Param)
 	Command_AddCommand("time",     TimeCmd_Main);
 	Command_AddCommand("memdump",  MemDump_Main);
 	Command_AddCommand("memwrite", MemWrite_Main);
+	Command_AddCommand("memfill",  MemFill_Main);
+	Command_AddCommand("memfill",  MemCopy_Main);
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
 	Command_AddCommand("hello",    Hello_Main);
@@ -169,23 +172,10 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*      シェル起動       */
 	/*************************/
-
-	/* プロセスの生成*/
-	ProcInf.pszCommandLine = "sh -i";								/* 実行コマンド */
-	ProcInf.pszCurrentDir  = "";									/* 起動ディレクトリ */
-	ProcInf.pfncEntry      = NULL;									/* 起動アドレス */
-	ProcInf.Param          = 0;										/* ユーザーパラメータ */
-	ProcInf.StackSize      = 2048;									/* スタックサイズ */
-	ProcInf.Priority       = PROCESS_PRIORITY_NORMAL;				/* プロセス優先度 */
-	ProcInf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
-	ProcInf.hConIn         = Process_GetConIn(HANDLE_NULL);			/* コンソール入力 */
-	ProcInf.hConOut        = Process_GetConOut(HANDLE_NULL);		/* コンソール出力 */
-	ProcInf.hStdIn         = Process_GetStdIn(HANDLE_NULL);			/* 標準入力 */
-	ProcInf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
-	ProcInf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
+	
 	for ( ; ; )
 	{
-		hProcess = Process_CreateEx(&ProcInf);
+		hProcess = Process_Create("sh -i", 2048, PROCESS_PRIORITY_NORMAL);
 		Process_WaitExit(hProcess);
 		Process_Delete(hProcess);
 	}
