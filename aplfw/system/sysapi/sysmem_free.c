@@ -15,9 +15,7 @@
 /* システムメモリの返却 */
 void  SysMem_Free(void *pMem)
 {
-	SysMtx_Lock(SysMem_hMtx);
-	ValMemHeap_Free(&SysMem_ValMemHeap, pMem);
-	SysMtx_Unlock(SysMem_hMtx);
+	SysMemHeap_Free(&SysMem_SysMemHeap, pMem);
 }
 
 

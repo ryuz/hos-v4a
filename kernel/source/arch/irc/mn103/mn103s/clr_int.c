@@ -17,11 +17,13 @@
 /* 割り込み要因のクリア */
 ER vclr_int(INTNO intno)
 {
-	int mask;
+	int	mask;
+	UH	dummy;
 	
 	mask  = (0x0001 << (intno & 0x03));
 	
 	*_KERNEL_MN103S_INTC_GICR(intno) &= ~(mask << 4);
+	dummy = *_KERNEL_MN103S_INTC_GICR(intno);
 	
 	return E_OK;
 }

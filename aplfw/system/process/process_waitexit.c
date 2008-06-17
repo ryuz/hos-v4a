@@ -28,8 +28,12 @@ PROCESS_ERR Process_WaitExit(HANDLE hProcess)
 	self = (C_PROCESS *)hProcess;
 	
 	/* 終了を待つ */
-	SysEvt_Wait(self->hEvt);
-
+	while ( !self->Exit )
+	{
+		SysEvt_Wait(self->hEvt);
+		SysEvt_Clear(self->hEvt);
+	}
+	
 	return PROCESS_ERR_OK;
 }
 

@@ -15,6 +15,7 @@
 
 #include "kernel.h"
 #include "sysapi.h"
+#include "system/sysmem/sysmemheap_local.h"
 #include "library/container/valmemheap/valmemheap_local.h"
 
 
@@ -33,17 +34,17 @@ typedef struct t_sysprc_inf
 
 
 /* ISR固有情報管理 */
-typedef struct t_sysisr_inf
+typedef struct t_sysint_inf
 {
-	SYSTIM_CPUTIME		ExecTime;				/* ISR実行時間計測 */
-} T_SYSISR_INF;
+	SYSTIM_CPUTIME		ExecTime;				/* INT実行時間計測 */
+} T_SYSINT_INF;
 
-extern SYSMTX_HANDLE	SysMem_hMtx;			/* システムメモリ管理用ミューテックス */
+extern C_SYSMEMHEAP		SysMem_SysMemHeap;		/* システムメモリ */
 extern C_VALMEMHEAP		SysMem_ValMemHeap;		/* システムヒープメモリ */
 extern SYSMTX_HANDLE	SysIo_hMtx;				/* I/O用ヒープメモリ管理用ミューテックス */
 extern C_VALMEMHEAP		*SysIo_pValMemHeap;		/* I/O用ヒープメモリ */
 extern T_SYSPRC_INF		*SysPrc_InfTbl;			/* プロセス管理用テーブル */
-extern T_SYSISR_INF		*SysIsr_InfTbl;			/* ISR管理用テーブル */
+extern T_SYSINT_INF		*SysInt_InfTbl;			/* ISR管理用テーブル */
 extern SYSTIM_CPUTIME	SysTim_TimeCounter;		/* デフォルトのタイマカウンタ */
 
 

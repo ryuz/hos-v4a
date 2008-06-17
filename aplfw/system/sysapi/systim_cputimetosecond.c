@@ -19,9 +19,9 @@
 /* CPU時刻を秒に換算(システム用) */
 unsigned long  SysTim_CpuTimeToSecond(SYSTIM_CPUTIME CpuTime)
 {
-	return (unsigned long)(CpuTime / 1000000000UL);		/* デフォルトではナノ秒単位 */
+	/* デフォルトではシステム時刻と同じ単位 */
+	return SysTim_SysTimeToSecond((SYSTIM_SYSTIME)CpuTime);
 }
-
 
 
 /* end of file */

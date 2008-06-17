@@ -4,7 +4,7 @@
  * @file  system.h
  * @brief %jp{システム用API定義}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -12,10 +12,10 @@
 #include "sysapi_local.h"
 
 
-/* システムメモリの割り当て */
-void *SysMem_Alloc(MEMSIZE Size)
+/** プロセス開始 */
+void SysPrc_Start(SYSPRC_HANDLE hPrc)
 {
-	return SysMemHeap_Alloc(&SysMem_SysMemHeap, Size);
+	act_tsk((ID)hPrc);
 }
 
 

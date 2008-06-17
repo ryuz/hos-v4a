@@ -15,13 +15,8 @@
 /* システムメモリの再割り当て */
 void *SysMem_ReAlloc(void *pMem, MEMSIZE Size)
 {
-	SysMtx_Lock(SysMem_hMtx);
-	pMem = ValMemHeap_ReAlloc(&SysMem_ValMemHeap, pMem, Size);
-	SysMtx_Unlock(SysMem_hMtx);
-
-	return pMem;
+	return SysMemHeap_ReAlloc(&SysMem_SysMemHeap, pMem, Size);
 }
-
 
 
 /* end of file */

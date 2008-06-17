@@ -21,7 +21,7 @@ void _kernel_ini_irc(void)
 	
 	for ( intno = _KERNEL_INT_TMIN_INTNO; intno <= _KERNEL_INT_TMAX_INTNO; intno += 4 )
 	{
-		*_KERNEL_MN103S_INTC_GICR(intno) = 0;
+		*_KERNEL_MN103S_INTC_GICR(intno) = 0x6000;
 	}
 }
 

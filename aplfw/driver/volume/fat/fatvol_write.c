@@ -91,11 +91,11 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 		/* バッファ取得 */
 		if ( WriteStart == 0 && pFile->FilePos == pFile->FileSize )
 		{
-			pClusterBuf = FatVol_GetClusterBuf(self, uiCluster, 1);		/* 完全新規の場合 */
+			pClusterBuf = FatVol_GetClusterBuf(self, uiCluster, 0);		/* 完全新規の場合 */
 		}
 		else
 		{
-			pClusterBuf = FatVol_GetClusterBuf(self, uiCluster, 0);		/* 部分更新の場合 */
+			pClusterBuf = FatVol_GetClusterBuf(self, uiCluster, 1);		/* 部分更新の場合 */
 		}
 		if ( pClusterBuf == NULL )
 		{

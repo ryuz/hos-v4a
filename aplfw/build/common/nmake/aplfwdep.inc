@@ -117,6 +117,9 @@ $(OBJS_DIR)\sysprc_create.c : $(SYSAPI_DIR)\sysprc_create.c
 $(OBJS_DIR)\sysprc_delete.c : $(SYSAPI_DIR)\sysprc_delete.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysprc_delete.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\sysprc_start.c : $(SYSAPI_DIR)\sysprc_start.c
+	$(CMD_CP) $(SYSAPI_DIR)\sysprc_start.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\sysprc_terminate.c : $(SYSAPI_DIR)\sysprc_terminate.c
 	$(CMD_CP) $(SYSAPI_DIR)\sysprc_terminate.c $(OBJS_DIR)\
 
@@ -147,6 +150,12 @@ $(OBJS_DIR)\systim_wait.c : $(SYSAPI_DIR)\systim_wait.c
 $(OBJS_DIR)\systim_getsystemtime.c : $(SYSAPI_DIR)\systim_getsystemtime.c
 	$(CMD_CP) $(SYSAPI_DIR)\systim_getsystemtime.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\systim_systimetosecond.c : $(SYSAPI_DIR)\systim_systimetosecond.c
+	$(CMD_CP) $(SYSAPI_DIR)\systim_systimetosecond.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\systim_systimetonanosecond.c : $(SYSAPI_DIR)\systim_systimetonanosecond.c
+	$(CMD_CP) $(SYSAPI_DIR)\systim_systimetonanosecond.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\systim_getcputime.c : $(SYSAPI_DIR)\systim_getcputime.c
 	$(CMD_CP) $(SYSAPI_DIR)\systim_getcputime.c $(OBJS_DIR)\
 
@@ -164,6 +173,37 @@ $(OBJS_DIR)\sysio_freeiomem.c : $(SYSAPI_DIR)\sysio_freeiomem.c
 
 $(OBJS_DIR)\syshos_hook.c : $(SYSAPI_DIR)\syshos_hook.c
 	$(CMD_CP) $(SYSAPI_DIR)\syshos_hook.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\sysmemheap.h : $(SYSMEM_DIR)\sysmemheap.h
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_local.h : $(SYSMEM_DIR)\sysmemheap_local.h
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_alignsize.c : $(SYSMEM_DIR)\sysmemheap_alignsize.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_alignsize.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_alloc.c : $(SYSMEM_DIR)\sysmemheap_alloc.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_alloc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_constructor.c : $(SYSMEM_DIR)\sysmemheap_constructor.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_destructor.c : $(SYSMEM_DIR)\sysmemheap_destructor.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_free.c : $(SYSMEM_DIR)\sysmemheap_free.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_free.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_getalign.c : $(SYSMEM_DIR)\sysmemheap_getalign.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_getalign.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_getsize.c : $(SYSMEM_DIR)\sysmemheap_getsize.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_getsize.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sysmemheap_realloc.c : $(SYSMEM_DIR)\sysmemheap_realloc.c
+	$(CMD_CP) $(SYSMEM_DIR)\sysmemheap_realloc.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\handle.h : $(HANDLE_DIR)\handle.h
@@ -1924,6 +1964,7 @@ $(OBJS_DIR)\sysmtx_lock.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_lock.c	$(COMMON_HEADERS) 
 $(OBJS_DIR)\sysmtx_unlock.$(EXT_OBJ):	$(OBJS_DIR)\sysmtx_unlock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_create.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_delete.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_delete.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysprc_start.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_start.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_terminate.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_terminate.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_suspend.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_suspend.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysprc_resume.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_resume.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -1934,12 +1975,23 @@ $(OBJS_DIR)\sysprc_sendsignal.$(EXT_OBJ):	$(OBJS_DIR)\sysprc_sendsignal.c	$(COMM
 $(OBJS_DIR)\systim_signal.$(EXT_OBJ):	$(OBJS_DIR)\systim_signal.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_wait.$(EXT_OBJ):	$(OBJS_DIR)\systim_wait.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getsystemtime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\systim_systimetosecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_systimetosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\systim_systimetonanosecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_systimetonanosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_getcputime.$(EXT_OBJ):	$(OBJS_DIR)\systim_getcputime.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_cputimetosecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_cputimetosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\systim_cputimetonanosecond.$(EXT_OBJ):	$(OBJS_DIR)\systim_cputimetonanosecond.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysio_allociomem.$(EXT_OBJ):	$(OBJS_DIR)\sysio_allociomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysio_freeiomem.$(EXT_OBJ):	$(OBJS_DIR)\sysio_freeiomem.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\syshos_hook.$(EXT_OBJ):	$(OBJS_DIR)\syshos_hook.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+
+$(OBJS_DIR)\sysmemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_alignsize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmemheap_alloc.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_alloc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmemheap_constructor.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_constructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmemheap_destructor.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_destructor.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmemheap_free.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_free.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_getalign.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_getsize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\sysmemheap_realloc.$(EXT_OBJ):	$(OBJS_DIR)\sysmemheap_realloc.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\handle_close.$(EXT_OBJ):	$(OBJS_DIR)\handle_close.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\handleobj_create.$(EXT_OBJ):	$(OBJS_DIR)\handleobj_create.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)

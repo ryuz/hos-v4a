@@ -19,6 +19,9 @@ LINK_SYSTEM           = Yes
 !ifndef LINK_SYSAPI
 LINK_SYSAPI           = Yes
 !endif
+!ifndef LINK_SYSMEM
+LINK_SYSMEM           = Yes
+!endif
 !ifndef LINK_HANDLE
 LINK_HANDLE           = Yes
 !endif
@@ -273,6 +276,8 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_create.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_create.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_delete.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_start.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_start.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_terminate.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysprc_terminate.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysprc_suspend.c
@@ -293,6 +298,10 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_wait.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_wait.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_getsystemtime.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_getsystemtime.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_systimetosecond.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\systim_systimetosecond.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_systimetonanosecond.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\systim_systimetonanosecond.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_getcputime.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\systim_getcputime.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\systim_cputimetosecond.c
@@ -305,6 +314,30 @@ CSRCS = $(CSRCS) $(SYSAPI_DIR)\sysio_freeiomem.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\sysio_freeiomem.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSAPI_DIR)\syshos_hook.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\syshos_hook.$(EXT_OBJ)
+!endif
+
+
+# System Memory Heap
+!if "$(LINK_SYSMEM)" == "Yes"
+SYSMEM_DIR = $(HOSAPLFW_DIR)\system\sysmem
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysmemheap.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\sysmemheap_local.h
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_alignsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_alignsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_alloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_alloc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_free.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_free.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_getalign.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_getalign.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_getsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_getsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSMEM_DIR)\sysmemheap_realloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\sysmemheap_realloc.$(EXT_OBJ)
 !endif
 
 

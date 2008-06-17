@@ -24,6 +24,11 @@ void _kernel_exe_isr(INTNO intno)
 	
 	isrhdl = _KERNEL_INT_GET_HEAD(intno);
 
+	/* %jp{ISRのフック} */
+#if _KERNEL_SPT_HOK_ISRSTA
+	_kernel_isr_sta(intno);
+#endif
+	
 	while ( isrhdl != _KERNEL_ISRHDL_NULL )
 	{
 		isrcb    = _KERNEL_ISR_ISRHDL2ISRCB(isrhdl);
@@ -35,6 +40,11 @@ void _kernel_exe_isr(INTNO intno)
 		
 		isrhdl = _KERNEL_ISR_GET_NEXT(isrcb);
 	}
+	
+	/* %jp{ISRのフック} */
+#if _KERNEL_SPT_HOK_ISREND
+	_kernel_isr_end(intno);
+#endif
 }
 
 #endif

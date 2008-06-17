@@ -16,7 +16,7 @@
 /* %jp{メモリインターフェースの取得} */
 C_MEMHEAP *SysMem_GetMemHeap(void)
 {
-	return (C_MEMHEAP *)&SysMem_ValMemHeap;
+	return (C_MEMHEAP *)&SysMem_SysMemHeap;
 }
 
 

@@ -11,6 +11,7 @@
 
 #include "hosaplfw.h"
 #include "system/system/system_local.h"
+#include "system/sysapi/sysapi.h"
 
 
 /* システムプロセス */

@@ -18,8 +18,9 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 {
 	T_PROCESS_CREATE_INF Inf;
 	HANDLE	hProcess;
-	int 	iExitCode = 0;
+	int 	iExitCode   = 0;
 	int		iBackGround = 0;
+	int		iPriority   = PROCESS_PRIORITY_NORMAL;
 	int 	iLen;
 	
 	if ( self->ExecSimple )
@@ -33,15 +34,39 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		{
 			((char *)pszCommand)[iLen - 1] = '\0';
 			iBackGround = 1;
-		}	
+		}
+		
+		/* 優先度変更 */
+		if ( iLen >= 1 )
+		{
+			if ( pszCommand[0] == '-' )
+			{
+				iPriority = PROCESS_PRIORITY_LOW;
+				pszCommand++;
+				iLen--;
+			}
+			else if ( pszCommand[0] == '+' )
+			{
+				iPriority = PROCESS_PRIORITY_HIGH;
+				pszCommand++;
+				iLen--;
+			}
+			else if ( pszCommand[0] == '!' )
+			{
+				iPriority = PROCESS_PRIORITY_REALTIME;
+				pszCommand++;
+				iLen--;
+			}
+		}
+		
 		
 		/* プロセスの生成 */
 		Inf.pszCommandLine = pszCommand;
 		Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);
 		Inf.pfncEntry      = NULL;									/* 起動アドレス */
 		Inf.Param          = 0;										/* ユーザーパラメータ */
-		Inf.StackSize      = 2048;									/* スタックサイズ */
-		Inf.Priority       = PROCESS_PRIORITY_NORMAL+1;				/* プロセス優先度 */
+		Inf.StackSize      = 4096;									/* スタックサイズ */
+		Inf.Priority       = iPriority;								/* プロセス優先度 */
 		Inf.hTerminal      = Process_GetTerminal(HANDLE_NULL);		/* ターミナル */
 		Inf.hConIn         = Process_GetConIn(HANDLE_NULL);			/* コンソール */
 		Inf.hConOut        = Process_GetConIn(HANDLE_NULL);			/* コンソール出力 */
@@ -49,7 +74,7 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		Inf.hStdOut        = Process_GetStdOut(HANDLE_NULL);		/* 標準出力 */
 		Inf.hStdErr        = Process_GetStdErr(HANDLE_NULL);		/* 標準エラー出力 */
 		hProcess = Process_CreateEx(&Inf);
-
+		
 		if ( iBackGround )
 		{
 			T_SHELL_BACKGROUND *pBg;
@@ -72,6 +97,17 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		{
 			/* フォアグランドなら終わるまで待つ */
 			Process_WaitExit(hProcess);
+			
+			/* 実行時間表示 */
+			if ( self->ExecTime )
+			{
+				unsigned long ulCpuSecond;
+				unsigned long ulCpuNanosecond;
+				ulCpuSecond = Process_GetExecutionTime(hProcess, &ulCpuNanosecond);
+				StdIo_PrintFormat("\ncpu time: %lu[s] + %lu[ns]\n", ulCpuSecond, ulCpuNanosecond);
+			}
+			
+			/* プロセス削除 */
 			Process_Delete(hProcess);
 		}
 		

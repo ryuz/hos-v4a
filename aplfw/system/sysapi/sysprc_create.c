@@ -37,10 +37,7 @@ SYSPRC_HANDLE SysPrc_Create(void (*pfncEntry)(void), VPARAM Param, void *pStack,
 	
 	/* 計測カウンタ初期化 */
 	SysPrc_SetExecTime((SYSPRC_HANDLE)erid, 0);
-	
-	/* タスク開始 */
-	act_tsk((ID)erid);
-	
+		
 	return (SYSPRC_HANDLE)erid;
 }
 

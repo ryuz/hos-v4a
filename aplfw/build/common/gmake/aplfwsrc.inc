@@ -15,6 +15,7 @@
 # System
 LINK_SYSTEM           ?= Yes
 LINK_SYSAPI           ?= Yes
+LINK_SYSMEM           ?= Yes
 LINK_HANDLE           ?= Yes
 LINK_MEMORY           ?= Yes
 LINK_TIME             ?= Yes
@@ -131,6 +132,7 @@ CSRCS += $(SYSAPI_DIR)/sysmtx_lock.c
 CSRCS += $(SYSAPI_DIR)/sysmtx_unlock.c
 CSRCS += $(SYSAPI_DIR)/sysprc_create.c
 CSRCS += $(SYSAPI_DIR)/sysprc_delete.c
+CSRCS += $(SYSAPI_DIR)/sysprc_start.c
 CSRCS += $(SYSAPI_DIR)/sysprc_terminate.c
 CSRCS += $(SYSAPI_DIR)/sysprc_suspend.c
 CSRCS += $(SYSAPI_DIR)/sysprc_resume.c
@@ -141,12 +143,29 @@ CSRCS += $(SYSAPI_DIR)/sysprc_sendsignal.c
 CSRCS += $(SYSAPI_DIR)/systim_signal.c
 CSRCS += $(SYSAPI_DIR)/systim_wait.c
 CSRCS += $(SYSAPI_DIR)/systim_getsystemtime.c
+CSRCS += $(SYSAPI_DIR)/systim_systimetosecond.c
+CSRCS += $(SYSAPI_DIR)/systim_systimetonanosecond.c
 CSRCS += $(SYSAPI_DIR)/systim_getcputime.c
 CSRCS += $(SYSAPI_DIR)/systim_cputimetosecond.c
 CSRCS += $(SYSAPI_DIR)/systim_cputimetonanosecond.c
 CSRCS += $(SYSAPI_DIR)/sysio_allociomem.c
 CSRCS += $(SYSAPI_DIR)/sysio_freeiomem.c
 CSRCS += $(SYSAPI_DIR)/syshos_hook.c
+endif
+
+
+# System Memory Heap
+ifeq ($(LINK_SYSMEM),Yes)
+SYSMEM_DIR = $(HOSAPLFW_DIR)/system/sysmem
+SRC_DIRS += $(SYSMEM_DIR)
+CSRCS += $(SYSMEM_DIR)/sysmemheap_alignsize.c
+CSRCS += $(SYSMEM_DIR)/sysmemheap_alloc.c
+CSRCS += $(SYSMEM_DIR)/sysmemheap_constructor.c
+CSRCS += $(SYSMEM_DIR)/sysmemheap_destructor.c
+CSRCS += $(SYSMEM_DIR)/sysmemheap_free.c
+CSRCS += $(SYSMEM_DIR)/sysmemheap_getalign.c
+CSRCS += $(SYSMEM_DIR)/sysmemheap_getsize.c
+CSRCS += $(SYSMEM_DIR)/sysmemheap_realloc.c
 endif
 
 

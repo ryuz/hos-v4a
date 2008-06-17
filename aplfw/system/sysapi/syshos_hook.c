@@ -20,20 +20,30 @@ ID					SysHos_TaskId;
 /** 割込み計測タイマを初期化 */
 void SysInt_SetIntTime(int iIntNum, SYSTIM_CPUTIME Time)
 {
-	SysIsr_InfTbl[iIntNum - _kernel_min_intno].ExecTime = Time;
+	if ( iIntNum < _kernel_min_intno || iIntNum > _kernel_max_intno )
+	{
+		return;
+	}
+
+	SysInt_InfTbl[iIntNum - _kernel_min_intno].ExecTime = Time;
 }
 
 
 /** 割込み計測タイマを取得 */
 SYSTIM_CPUTIME SysInt_GetIntTime(int iIntNum)
 {
-	return SysIsr_InfTbl[iIntNum - _kernel_min_intno].ExecTime;
+	if ( iIntNum < _kernel_min_intno || iIntNum > _kernel_max_intno )
+	{
+		return 0;
+	}
+	
+	return SysInt_InfTbl[iIntNum - _kernel_min_intno].ExecTime;
 }
 
 
 /** プロセス実行時間計測タイマを初期化 */
 void SysPrc_SetExecTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time)
-{
+{	
 	SysPrc_InfTbl[(ID)hPrc].ExecTime = Time;
 }
 
@@ -93,7 +103,7 @@ void _kernel_isr_end(INTNO intno)
 	PastTime = NewTime - SysHos_OldTime;
 	
 	/* 実行時間を累算 */
-	SysIsr_InfTbl[intno - _kernel_min_intno].ExecTime += PastTime;
+	SysInt_InfTbl[intno - _kernel_min_intno].ExecTime += PastTime;
 }
 
 

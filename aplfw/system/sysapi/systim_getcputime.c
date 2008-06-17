@@ -23,5 +23,4 @@ SYSTIM_CPUTIME SysTim_GetCpuTime(void)
 }
 
 
-
 /* end of file */

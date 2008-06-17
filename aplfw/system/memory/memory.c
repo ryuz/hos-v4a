@@ -5,6 +5,13 @@
 /* メモリの割り当て(ユーザー用) */
 void *Memory_Alloc(long lSize)
 {
+	if ( SysCtx_IsIsr() )
+	{
+		for ( ; ; ) ;	/* assert */
+		
+		return NULL;
+	}
+
 	/* とりあえずそのまま、そのうちプロセス終了で開放できるように改造 */
 	return SysMem_Alloc(lSize);
 }

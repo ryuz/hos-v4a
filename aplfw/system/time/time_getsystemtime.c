@@ -16,7 +16,11 @@
 /* システム時刻(起動からのミリ秒)を得る */
 TIME_SYSTEM Time_GetSystemTime(void)
 {
-	return SysTim_GetSystemTime();
+	SYSTIM_SYSTIME	SysTime;
+
+	SysTime = SysTim_GetSystemTime();
+	
+	return (SysTim_SysTimeToSecond(SysTime) * 1000) + (SysTim_SysTimeToNanosecond(SysTime) / 1000000);
 }
 
 

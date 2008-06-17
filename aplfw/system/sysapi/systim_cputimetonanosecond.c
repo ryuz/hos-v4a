@@ -20,7 +20,8 @@
 /** CPU時刻をナノ秒に換算(システム用) */
 unsigned long SysTim_CpuTimeToNanosecond(SYSTIM_CPUTIME CpuTime)
 {
-	return (unsigned long)(CpuTime % 1000000000UL);		/* デフォルトではナノ秒単位 */
+	/* デフォルトではシステム時刻と同じ単位 */
+	return SysTim_SysTimeToNanosecond((SYSTIM_SYSTIME)CpuTime);
 }
 
 

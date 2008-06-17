@@ -93,6 +93,7 @@ SYSPRC_HANDLE  SysPrc_Create(void (*pfncEntry)(void), VPARAM Param, void *pStack
 void           SysPrc_Delete(SYSPRC_HANDLE hPrc);							/**< プロセス削除(システム用) */
 VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);							/**< プロセスのパラメータ取得(システム用) */
 
+void           SysPrc_Start(SYSPRC_HANDLE hPrc);							/**< プロセス開始(システム用) */
 void           SysPrc_Terminate(SYSPRC_HANDLE hPrc);						/**< プロセス終了(システム用) */
 void           SysPrc_Suspend(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止(システム用) */			
 void           SysPrc_Resume(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止解除(システム用) */	
@@ -120,10 +121,12 @@ void           SysEvt_Clear(SYSEVT_HANDLE hEvt);							/**< イベントクリ�
 int            SysEvt_RefStatus(SYSEVT_HANDLE hEvt);						/**< イベントの状態を取得(システム用) */
 
 /* 時間管理 */
-void           SysTim_Signal(unsigned long ulTic);							/**< タイムティックを与える(システム用) */
+void           SysTim_Signal(unsigned long ulTic);							/**< システムタイムにティックを与える(システム用) */
 void           SysTim_Wait(unsigned long ulTime);							/**< 時間待ち(システム用) */
 TIME           SysTim_GetCurrentTime(void);									/**< 現在の時刻取得(システム用) */
 SYSTIM_SYSTIME SysTim_GetSystemTime(void);									/**< 現在のシステム時刻取得(システム用) */
+unsigned long  SysTim_SysTimeToSecond(SYSTIM_SYSTIME SysTime);				/**< システム時刻を秒に換算(システム用) */
+unsigned long  SysTim_SysTimeToNanosecond(SYSTIM_SYSTIME SysTime);			/**< システム時刻をナノ秒に換算(システム用) */
 SYSTIM_CPUTIME SysTim_GetCpuTime(void);										/**< 現在のCPU時刻取得(システム用) */
 unsigned long  SysTim_CpuTimeToSecond(SYSTIM_CPUTIME CpuTime);				/**< CPU時刻を秒に換算(システム用) */
 unsigned long  SysTim_CpuTimeToNanosecond(SYSTIM_CPUTIME CpuTime);			/**< CPU時刻をナノ秒に換算(システム用) */

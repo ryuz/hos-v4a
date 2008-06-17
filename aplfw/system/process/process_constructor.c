@@ -98,7 +98,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 		return PROCESS_ERR_NG;
 	}
 	SysEvt_Clear(self->hEvt);
-
+	
 	/* プロセス生成 */
 	self->hPrc = SysPrc_Create(Process_Entry, (VPARAM)self, self->pStack, self->StackSize, self->Priority, SYSPRC_ATTR_NORMAL);
 	if ( self->hPrc == SYSPRC_HANDLE_NULL )
@@ -116,9 +116,11 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	/* 親クラスコンストラクタ */
 	HandleObj_Constructor(&self->HandleObj, pMethods);
 	
+	/* プロセス動作開始 */
+	SysPrc_Start(self->hPrc);
+	
 	/* 起動完了待ち */
 	SysEvt_Wait(self->hEvt);
-	SysEvt_Clear(self->hEvt);
 	
 	return PROCESS_ERR_OK;
 }
