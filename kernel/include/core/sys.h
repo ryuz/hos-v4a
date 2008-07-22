@@ -130,6 +130,20 @@ extern const _KERNEL_T_SYSCB_RO		_kernel_syscb_ro;
 #define _KERNEL_SYS_FRE_HEP(ptr)			_KERNEL_FRE_HEP(_KERNEL_SYS_GET_HEP(), (ptr))						/**< %jp{カーネルメモリの開放} */
 #define _KERNEL_SYS_ALG_HEP(size)			_KERNEL_ALG_HEP(_KERNEL_SYS_GET_HEP(), (size))						/**< %jp{カーネルメモリのサイズアライメント} */
 
+/* kernel dpc queue */
+#if _KERNEL_SPT_DPC
+#define _KERNEL_SYS_GET_DPC()				(&_kernel_syscb.dpccb)												/**< %jp{DPCキューの取得} */
+#define _KERNEL_SYS_INI_DPC(que, quecnt)	_KERNEL_INI_DPC(_KERNEL_SYS_GET_DPC(), (que), (quecnt))				/**< %jp{DPCキューの初期化} */
+#define _KERNEL_SYS_REQ_DPC(svc, id, param)	_KERNEL_REQ_DPC(_KERNEL_SYS_GET_DPC(), (svc), (id), (param))		/**< %jp{DPCキューへ実行リクエスト} */
+#define _KERNEL_SYS_EXE_DPC()				_KERNEL_EXE_DPC(_KERNEL_SYS_GET_DPC())								/**< %jp{DPCキューの実行} */
+#else
+#define _KERNEL_SYS_GET_DPC()				NULL																/**< %jp{DPCキューの取得} */
+#define _KERNEL_SYS_INI_DPC(que, quecnt)	do {} while (0)														/**< %jp{DPCキューの初期化} */
+#define _KERNEL_SYS_REQ_DPC(svc, id, param)	E_NOMEM																/**< %jp{DPCキューへ実行リクエスト} */
+#define _KERNEL_SYS_EXE_DPC()				do {} while (0)														/**< %jp{DPCキューの実行} */
+#endif
+
+
 
 #define _KERNEL_SYS_INI_SYSSTK(stksz, stk)	do { _KERNEL_SYS_GET_PRCCB()->sysstksz = (stksz); _KERNEL_SYS_GET_PRCCB()->sysstk = (stk); } while(0)
 																												/**< %jp{システムスタックの初期化} */
@@ -176,9 +190,8 @@ extern const _KERNEL_T_SYSCB_RO		_kernel_syscb_ro;
 #define _KERNEL_SYS_SNS_SVC()				(_KERNEL_SYS_GET_PRCCB()->svcent)
 
 #define _KERNEL_ENTER_SVC()					do { _KERNEL_SYS_SET_SVC(); } while (0)
-#define _KERNEL_LEAVE_SVC()					do { _KERNEL_DPC_EXE_DPC(); _KERNEL_SYS_CLR_SVC(); } while (0)
+#define _KERNEL_LEAVE_SVC()					do { _KERNEL_SYS_EXE_DPC(); } while (0)
 
-#define _KERNEL_SYS_INI_DPC(que, quecnt)	_KERNEL_DPC_INI_DPC(&_kernel_syscb.dpccb, (que), (quecnt))			/**< %jp{DPCの初期化} */
 #define _KERNEL_SYS_LOC_DPC()				do { _KERNEL_DIS_INT(); } while (0)
 #define _KERNEL_SYS_UNL_DPC()				do { if (!(_KERNEL_SYS_GET_STST() & _KERNEL_TSS_LOC)){ _KERNEL_ENA_INT(); } } while (0)
 #define _KERNEL_SYS_SND_DPC(msg)			_KERNEL_DPC_SND_MSG(&_kernel_syscb.dpccb, (msg))

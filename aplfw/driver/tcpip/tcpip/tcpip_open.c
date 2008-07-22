@@ -28,18 +28,14 @@ HANDLE TcpIp_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		return HANDLE_NULL;
 	}
-	
-	if ( (hFile = SysMem_Alloc(sizeof(C_TCPIPFILE))) == NULL )
-	{
-		return HANDLE_NULL;
-	}
 	pFile = (C_TCPIPFILE *)hFile;
 	
 	
-	/* デバイスオープン処理 */
 	if ( self->iOpenCount++ == 0 )
 	{
+		/* デバイスオープン処理 */
 	}
+	
 	
 	/* オープン処理 */
 	if ( strncmp(pszPath, "udp:", 4) == 0 )

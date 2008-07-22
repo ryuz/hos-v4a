@@ -56,7 +56,7 @@ void IpEther_AddMacAddr(C_IPETHER *self, const unsigned char ubMacAddr[6], const
 	memmove(&self->ArpTbl[0], &self->ArpTbl[1], (IPETHER_ARPTBL_SIZE-1) * sizeof(T_IPETHER_ARPTBL));
 	memcpy(self->ArpTbl[0].ubIpAddr, ubIpAddr, 4);
 	memcpy(self->ArpTbl[0].ubMacAddr, ubMacAddr, 6);
-
+	
 	SysMtx_Unlock(self->hMtxArp);
 }
 

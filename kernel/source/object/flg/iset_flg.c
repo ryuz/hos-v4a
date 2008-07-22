@@ -18,7 +18,7 @@
 
 #if _KERNEL_SPT_DPC
 
-static void _kernel_dpc_set_flg(void);
+static void _kernel_dpc_set_flg(ID flgid, VP_INT param);
 
 /** %jp{イベントフラグのセット}%en{Set Eventflag}
  * @param  flgid    %jp{セット対象のイベントフラグのID番号}%en{ID number of the eventflag to be set}
@@ -29,8 +29,6 @@ static void _kernel_dpc_set_flg(void);
  */
 ER iset_flg(ID flgid, FLGPTN setptn)
 {
-	ER ercd;
-
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_ISET_FLG_E_ID
 	if ( !_KERNEL_FLG_CHECK_FLGID(flgid) )
@@ -39,27 +37,12 @@ ER iset_flg(ID flgid, FLGPTN setptn)
 	}
 #endif
 
-	_KERNEL_SYS_LOC_DPC();	/* %jp{多重割り込み対策でロックをかける} */
-
-	if (  _KERNEL_SYS_RFR_DPC() >= 3 )
-	{
-		_KERNEL_SYS_SND_DPC((VP_INT)_kernel_dpc_set_flg);
-		_KERNEL_SYS_SND_DPC((VP_INT)flgid);
-		_KERNEL_SYS_SND_DPC((VP_INT)setptn);
-		ercd = E_OK;		/* %jp{正常終了}%en{Normal completion} */
-	}
-	else
-	{
-		ercd = E_NOMEM;		/* %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution} */
-	}
-	
-	_KERNEL_SYS_UNL_DPC();	/* %jp{ロック解除} */
-	
-	return ercd;
+	return _KERNEL_SYS_REQ_DPC(_kernel_dpc_set_flg, flgid, (VP_INT)setptn);
 }
 
+
 /** %jp{set_flgの遅延実行}%en{service call for delayed execution(set_flg)} */
-void _kernel_dpc_set_flg(void)
+void _kernel_dpc_set_flg(ID flgid, VP_INT param)
 {
 	_KERNEL_T_QUE    *pk_que;
 	_KERNEL_T_FLGCB  *flgcb;
@@ -67,13 +50,12 @@ void _kernel_dpc_set_flg(void)
 	_KERNEL_T_TSKHDL tskhdl;
 	_KERNEL_T_TSKHDL tskhdl_next;
 	_KERNEL_T_TCB    *tcb;
-	ID               flgid;
 	FLGPTN           setptn;
 	
-	/* %jp{パラメータ取り出し} */
-	flgid  = (ID)_KERNEL_SYS_RCV_DPC();
-	setptn = (FLGPTN)_KERNEL_SYS_RCV_DPC();
-
+	/* %jp{パラメータ変換} */
+	setptn = (FLGPTN) param;
+	
+	
 	/* %jp{オブジェクト存在チェック} */
 #if _KERNEL_SPT_ISET_FLG_E_NOEXS
 	if ( !_KERNEL_FLG_CHECK_EXS(flgid) )

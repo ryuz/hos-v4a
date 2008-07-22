@@ -296,6 +296,7 @@ extern "C" {
 #endif
 
 ER   _kernel_cre_flg(ID flgid, const T_CFLG *pk_cflg);
+ER   _kernel_wai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmout);
 BOOL _kernel_chk_flg(_KERNEL_T_FLGCB *flgcb, _KERNEL_T_FLGINF *pk_flginf);
 
 #ifdef __cplusplus

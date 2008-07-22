@@ -24,19 +24,21 @@ void _kernel_end_inh(void)
 {
 	/* %jp{割り込みコンテキストを抜ける} */
 	_KERNEL_SYS_CLR_CTX();
-
-	_KERNEL_ENA_INT();			/* %jp{割込み許可} */
-
+	
+	
 	if ( !_KERNEL_SYS_SNS_SVC() )
 	{
-		_KERNEL_DPC_EXE_DPC();
-	}
-
-	_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
+		_KERNEL_SYS_SET_SVC();
+		
+		_KERNEL_ENA_INT();			/* %jp{割込み許可} */
+		_KERNEL_SYS_EXE_DPC();
+		_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
+	}	
 }
 
 
 #else
+
 
 /** %jp{割り込み処理開始}
  * @return void

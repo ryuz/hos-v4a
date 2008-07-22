@@ -21,7 +21,9 @@ void Vt100Drv_Constructor(C_VT100DRV *self, const T_DRVOBJ_METHODS *pMethods, HA
 	DrvObj_Constructor(&self->DrvObj, pMethods);
 	
 	/* メンバ変数初期化 */
-	self->hTty = hTty;
+	self->hTty      = hTty;
+	self->iEscNum   = 0;
+	self->iEscState = VT100DRV_ESC_IDLE;
 }
 
 

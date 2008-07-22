@@ -29,7 +29,7 @@ HANDLE TcpIpFile_Create(C_TCPIP *pTcpIp, int iMode)
 	}
 	
 	/* コンストラクタ呼び出し */
-	FatFile_Constructor(self, &TcpIpFile_FileObjMethods, pTcpIp, iMode);
+	TcpIpFile_Constructor(self, &TcpIpFile_FileObjMethods, pTcpIp, iMode);
 	
 	return (HANDLE)self;
 }

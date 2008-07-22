@@ -124,6 +124,12 @@ $(OBJS_DIR)\fre_hep.c : $(HEP_DIR)\fre_hep.c
 	$(CMD_CP) $(HEP_DIR)\fre_hep.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\ini_dpc.c : $(DPC_DIR)\ini_dpc.c
+	$(CMD_CP) $(DPC_DIR)\ini_dpc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\req_dpc.c : $(DPC_DIR)\req_dpc.c
+	$(CMD_CP) $(DPC_DIR)\req_dpc.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\exe_dpc.c : $(DPC_DIR)\exe_dpc.c
 	$(CMD_CP) $(DPC_DIR)\exe_dpc.c $(OBJS_DIR)\
 
@@ -484,6 +490,8 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_hep.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\alc_hep.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\fre_hep.c	$(COMMON_HEADERS)
 
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ini_dpc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\req_dpc.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\exe_dpc.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\frcv_adq.c	$(COMMON_HEADERS)

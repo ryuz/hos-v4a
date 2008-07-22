@@ -22,9 +22,9 @@ int Shell_InputLine(C_SHELL *self, char *pszBuf, int  iBufSize)
 
 
 	/* プロンプトを出す */
-	StdIo_PutString("\r% ");
+	StdCon_PutString("\r% ");
 	self->iCurScreenX = 2;
-
+	
 	self->iCommandLen = 0;
 	self->iCurPos     = 0;
 	

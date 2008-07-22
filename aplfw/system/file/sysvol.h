@@ -19,7 +19,7 @@
 #include "system/file/volumeobj.h"
 
 
-#define DEVVOL_MAX_DEVICE		8
+#define DEVVOL_MAX_DEVICE		16
 #define DEVVOL_MAX_NAME			16
 
 /* デバイス情報 */

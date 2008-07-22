@@ -32,7 +32,7 @@ FILE_SIZE IpEther_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_
 FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
 FILE_ERR  IpEther_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
-void      IpEther_Recv(VPARAM Param);																				/* 受信プロセス */
+void      IpEther_Recv(void);																						/* 受信プロセス */
 
 FILE_ERR  IpEther_GetMacAddr(C_IPETHER *self, unsigned char ubMacAddr[6], const unsigned char ubIpAddr[4]);			/* MACアドレス解決 */
 void      IpEther_AddMacAddr(C_IPETHER *self, const unsigned char ubMacAddr[6], const unsigned char ubIpAddr[4]);	/* MACアドレス登録 */

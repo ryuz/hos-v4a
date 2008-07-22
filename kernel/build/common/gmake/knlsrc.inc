@@ -154,6 +154,8 @@ CSRCS += $(HEP_DIR)/fre_hep.c
 # Deferrable procedure call
 DPC_DIR = $(KERNEL_CORE_DIR)/dpc
 SRC_DIRS += $(DPC_DIR)
+CSRCS += $(DPC_DIR)/ini_dpc.c
+CSRCS += $(DPC_DIR)/req_dpc.c
 CSRCS += $(DPC_DIR)/exe_dpc.c
 
 

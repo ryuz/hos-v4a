@@ -14,7 +14,7 @@
 #include "filecopy.h"
 
 
-#define FILECOPY_BUFSIZE	(4 * 1024)
+#define FILECOPY_BUFSIZE	(32 * 1024)
 
 
 int FileCopy_Main(int argc, char *argv[])

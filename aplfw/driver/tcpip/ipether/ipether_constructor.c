@@ -46,7 +46,8 @@ FILE_ERR IpEther_Constructor(C_IPETHER *self, const T_DRVOBJ_METHODS *pMethods, 
 
 	/* 受信プロセス生成 */
 	self->hPrcRecv = SysPrc_Create(IpEther_Recv, (VPARAM)self, NULL, 1024, 2, SYSPRC_ATTR_NORMAL);
-
+	SysPrc_Start(self->hPrcRecv);
+	
 	return FILE_ERR_OK;
 }
 

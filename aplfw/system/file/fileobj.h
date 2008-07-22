@@ -32,9 +32,11 @@ typedef struct c_fileobj
 {
 	C_HANDLEOBJ		HandleObj;				/* ハンドルオブジェクトを継承 */
 
-	int				iMode;					/* オープン時のモード */
-	
 	struct c_drvobj	*pDrvObj;				/* ドライバへの参照 */
+
+	int				iMode;					/* オープン時のモード */
+	void			*pReadBuf;				/* リードバッファ */
+	void			*pWriteBuf;				/* ライトバッファ */	
 } C_FILEOBJ;
 
 

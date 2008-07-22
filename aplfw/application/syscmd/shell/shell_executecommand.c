@@ -125,6 +125,7 @@ void Shell_CheckBackGround(C_SHELL *self)
 {
 	T_SHELL_BACKGROUND *pBg;
 	T_SHELL_BACKGROUND *pBgPrev;
+	T_SHELL_BACKGROUND *pBgNext;
 
 	/* バックグランドジョブで終わったものが無いかチェック */
 	pBg     = self->pBackGround;
@@ -158,10 +159,12 @@ void Shell_CheckBackGround(C_SHELL *self)
 			{
 				pBgPrev->pNext = pBg->pNext;
 			}
-			pBg = pBg->pNext;
+			pBgNext = pBg->pNext;
 			
 			/* メモリ開放 */
 			Memory_Free(pBg);
+			
+			pBg = pBgNext;
 		}
 		else
 		{

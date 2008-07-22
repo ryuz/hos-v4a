@@ -39,6 +39,7 @@ typedef struct c_tcpipfile
 	
 	C_STREAMBUF			RecvBuf;
 	unsigned char		ubRecvBuf[TCPIPFILE_RECV_BUFSIZE];
+	unsigned char		ubSendBuf[TCPIPFILE_RECV_BUFSIZE];
 	
 } C_TCPIPFILE;
 

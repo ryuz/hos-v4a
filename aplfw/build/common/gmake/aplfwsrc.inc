@@ -537,6 +537,7 @@ CSRCS += $(TCPIP_DIR)/tcpip_read.c
 CSRCS += $(TCPIP_DIR)/tcpip_write.c
 CSRCS += $(TCPIP_DIR)/tcpip_flush.c
 CSRCS += $(TCPIP_DIR)/tcpip_recv.c
+CSRCS += $(TCPIP_DIR)/tcpip_stringtoaddr.c
 CSRCS += $(TCPIP_DIR)/tcpipfile_create.c
 CSRCS += $(TCPIP_DIR)/tcpipfile_delete.c
 CSRCS += $(TCPIP_DIR)/tcpipfile_constructor.c

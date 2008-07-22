@@ -19,7 +19,7 @@
 #if _KERNEL_SPT_DPC
 
 
-static void _kernel_dpc_sig_tim(void);
+static void _kernel_dpc_sig_tim(ID id, VP_INT param);
 
 
 /** %jp{タイムティックの供給}%en{Supply Time Tick}
@@ -27,27 +27,12 @@ static void _kernel_dpc_sig_tim(void);
  */
 ER isig_tim(void)
 {
-	ER ercd;
-
-	_KERNEL_SYS_LOC_DPC();	/* %jp{多重割り込み対策でロックをかける} */
-
-	if (  _KERNEL_SYS_RFR_DPC() >= 1 )
-	{
-		_KERNEL_SYS_SND_DPC((VP_INT)_kernel_dpc_sig_tim);
-		ercd = E_OK;		/* %jp{正常終了}%en{Normal completion} */
-	}
-	else
-	{
-		ercd = E_NOMEM;		/* %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution} */
-	}
-	
-	_KERNEL_SYS_UNL_DPC();	/* %jp{ロック解除} */
-	
-	return ercd;
+	return _KERNEL_SYS_REQ_DPC(_kernel_dpc_sig_tim, 0, 0);
 }
 
+
 /** %jp{タイムティックの供給}%en{Supply Time Tick} */
-void _kernel_dpc_sig_tim(void)
+void _kernel_dpc_sig_tim(ID id, VP_INT param)
 {
 	RELTIM tictim;
 
@@ -57,7 +42,7 @@ void _kernel_dpc_sig_tim(void)
 #if _KERNEL_SPT_TMQ
 	_KERNEL_SYS_SIG_TMQ(tictim);
 #endif
-
+	
 	/* %jp{タイムアウトキューの処理を行う} */
 #if _KERNEL_SPT_TOQ
 	_KERNEL_SYS_SIG_TOQ(tictim);

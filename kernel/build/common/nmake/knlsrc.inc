@@ -180,7 +180,11 @@ OBJS = $(OBJS) $(OBJS_DIR)\fre_hep.$(EXT_OBJ)
 
 # Deferrable procedure call
 DPC_DIR = $(KERNEL_CORE_DIR)\dpc
+CSRCS = $(CSRCS) $(DPC_DIR)\ini_dpc.c
+CSRCS = $(CSRCS) $(DPC_DIR)\req_dpc.c
 CSRCS = $(CSRCS) $(DPC_DIR)\exe_dpc.c
+OBJS = $(OBJS) $(OBJS_DIR)\ini_dpc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\req_dpc.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\exe_dpc.$(EXT_OBJ)
 
 

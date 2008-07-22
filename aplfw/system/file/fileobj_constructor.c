@@ -19,8 +19,10 @@ void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, C_D
 	HandleObj_Constructor(&self->HandleObj, &pMethods->HandlObjMethods);
 	
 	/* メンバ変数初期化 */
-	self->pDrvObj = pDrvObj;
-	self->iMode   = iMode;
+	self->pDrvObj   = pDrvObj;
+	self->iMode     = iMode;
+	self->pReadBuf  = NULL;
+	self->pWriteBuf = NULL;
 }
 
 

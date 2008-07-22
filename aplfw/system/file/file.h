@@ -26,6 +26,7 @@
 #define FILE_ERR_NG							(-1)		/* エラー */
 #define FILE_ERR_BUSY						(-2)		/* 他のプロセスが利用中(ブロッキングモード以外でポーリング失敗) */
 #define FILE_ERR_BACKGROUND					(-3)		/* バックグラウンドで処理受付成功 */
+#define FILE_ERR_TIMEOUT					(-4)		/* タイムアウト */
 
 /* 定数定義 */
 #define FILE_EOF							(-1)
@@ -227,10 +228,11 @@ FILE_ERR  File_ReadDir(HANDLE hFile, T_FILE_FILEINF *pFileInf);
 FILE_POS  File_GetFileSize(HANDLE hFile);
 FILE_SIZE File_GetReadSize(HANDLE hFile);
 FILE_SIZE File_GetWriteSize(HANDLE hFile);
+
 FILE_SIZE File_GetReadBuf(HANDLE hFile, void **ppBuf);
-FILE_SIZE File_RelReadBuf(HANDLE hFile, void *pBuf, long lSize);
+FILE_SIZE File_RelReadBuf(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_SIZE File_GetWriteBuf(HANDLE hFile, void **ppBuf);
-FILE_SIZE File_SendWriteBuf(HANDLE hFile, void *pBuf, long lSize);
+FILE_SIZE File_SendWriteBuf(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_ERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
 
 /* ディレクトリ操作 */

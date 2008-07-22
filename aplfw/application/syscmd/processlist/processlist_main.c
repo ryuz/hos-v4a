@@ -21,7 +21,7 @@ int ProcessList_Main(int argc, char *argv[])
 	HANDLE			hProcess;
 	unsigned long	ulExecSec;
 	unsigned long	ulExecNano;
-	int				iIsr = 0;
+	int				iIsr   = 0;
 	int				i;
 	
 	/* オプション解析 */

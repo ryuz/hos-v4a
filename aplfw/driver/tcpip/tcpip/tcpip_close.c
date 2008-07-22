@@ -15,9 +15,17 @@
 void TcpIp_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 {
 	C_TCPIP		*self;
+	C_TCPIPFILE	*pFile;
 	
 	/* upper cast */
-	self = (C_TCPIP *)pDrvObj;
+	self  = (C_TCPIP *)pDrvObj;
+	pFile = (C_TCPIPFILE *)pFileObj;
+	
+	/* クローズ処理 */
+	self->iOpenCount--;
+	
+	/* ディスクリプタ削除 */
+	TcpIpFile_Delete(pFile);		
 }
 
 

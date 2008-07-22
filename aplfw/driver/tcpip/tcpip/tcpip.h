@@ -60,8 +60,10 @@ typedef struct c_tcpip
 extern "C" {
 #endif
 
-HANDLE TcpIp_Create(const char *pszIp);				/**< コンストラクタ */
-void   TcpIp_Delete(HANDLE hDriver);				/**< デストラクタ */
+HANDLE   TcpIp_Create(const char *pszIp);			/**< コンストラクタ */
+void     TcpIp_Delete(HANDLE hDriver);				/**< デストラクタ */
+
+FILE_ERR TcpIp_StringToAddr(T_TCPIP_ADDRESS *pAddr, const char *pszString);
 
 #ifdef __cplusplus
 }

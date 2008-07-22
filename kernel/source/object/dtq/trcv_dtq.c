@@ -29,9 +29,9 @@
  * @retval E_TMOUT  %jp{タイムアウト}%en{Timeout}
  * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に対象データキューが削除)}%en{Waiting object deleted(data queue is deleted waiting)}
  */
-ER trcv_dtq(ID dtqid, TMO tmout)
+ER trcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 {
-	return _kernel_rcv_dtq(dtqid, tmout);
+	return _kernel_rcv_dtq(dtqid, p_data, tmout);
 }
 
 
@@ -44,7 +44,7 @@ ER trcv_dtq(ID dtqid, TMO tmout)
  * @param  dtqid    %jp{資源獲得対象のデータキューID番号}%en{ID number of the data queue from which resource is acquired}
  * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
  */
-ER trcv_dtq(ID dtqid, TMO tmout)
+ER trcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 {
 	return E_NOSPT;
 }
@@ -70,7 +70,7 @@ ER trcv_dtq(ID dtqid, TMO tmout)
  * @retval E_TMOUT  %jp{タイムアウト}%en{Timeout}
  * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に対象データキューが削除)}%en{Waiting object deleted(data queue is deleted waiting)}
  */
-ER _kernel_rcv_dtq(ID dtqid, TMO tmout)
+ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 {
 	_KERNEL_T_DTQCB_PTR  dtqcb;
 	_KERNEL_T_TSKHDL     tskhdl;

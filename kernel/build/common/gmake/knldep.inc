@@ -50,6 +50,8 @@ $(OBJS_DIR)/cre_hep.$(EXT_OBJ):	$(HEP_DIR)/cre_hep.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/alc_hep.$(EXT_OBJ):	$(HEP_DIR)/alc_hep.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/fre_hep.$(EXT_OBJ):	$(HEP_DIR)/fre_hep.c	$(COMMON_HEADERS)
 
+$(OBJS_DIR)/ini_dpc.$(EXT_OBJ):	$(DPC_DIR)/ini_dpc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/req_dpc.$(EXT_OBJ):	$(DPC_DIR)/req_dpc.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/exe_dpc.$(EXT_OBJ):	$(DPC_DIR)/exe_dpc.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)/frcv_adq.$(EXT_OBJ):	$(ADTQ_DIR)/frcv_adq.c	$(COMMON_HEADERS)

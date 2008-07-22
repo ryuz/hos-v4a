@@ -44,7 +44,7 @@ FILE_ERR  TcpIp_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
 int       TcpIp_GetSendBuf(C_TCPIP *self, void **ppBuf);		/* IPデータグラム送信バッファ取得 */
 void      TcpIp_SendBuf(C_TCPIP *self, void **ppBuf);			/* IPデータグラムバッファ送信 */
-void      TcpIp_Recv(VPARAM Param);								/* IPパケット受信プロセス */
+void      TcpIp_Recv(void);								/* IPパケット受信プロセス */
 
 
 #ifdef __cplusplus

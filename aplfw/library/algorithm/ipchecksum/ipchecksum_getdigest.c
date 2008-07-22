@@ -20,9 +20,8 @@ unsigned short IpCheckSum_GetDigest(C_IPCHECKSUM *self)
 
 	uwSum  = (uwSum & 0xffff) + (uwSum >> 16);
 	uwSum  = (uwSum & 0xffff) + (uwSum >> 16);
-	uwSum  = (~uwSum & 0xffff);
-
-	return (unsigned short)uwSum;
+	
+	return (unsigned short)~uwSum;
 }
 
 

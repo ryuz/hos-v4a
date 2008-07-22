@@ -13,6 +13,16 @@
 
 void FileObj_Destructor(C_FILEOBJ *self)
 {
+	/* バッファを確保していれば開放 */
+	if ( self->pReadBuf != NULL )
+	{
+		SysMem_Free(self->pReadBuf);
+	}
+	if ( self->pWriteBuf != NULL )
+	{
+		SysMem_Free(self->pWriteBuf);
+	}
+	
 	/* 親クラスデストラクタ呼び出し */
 	HandleObj_Destructor(&self->HandleObj);
 }

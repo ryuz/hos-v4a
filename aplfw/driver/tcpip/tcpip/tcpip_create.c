@@ -13,19 +13,6 @@
 #include "tcpip_local.h"
 
 
-/* 仮想関数テーブル */
-static const T_DRVOBJ_METHODS TcpIp_Methods = 
-	{
-		{ TcpIp_Delete },
-		TcpIp_Open,
-		TcpIp_Close,
-		TcpIp_IoControl,
-		TcpIp_Seek,
-		TcpIp_Read,
-		TcpIp_Write,
-		TcpIp_Flush,
-	};
-
 
 /** 生成 */
 HANDLE TcpIp_Create(const char *pszIp)
@@ -39,7 +26,7 @@ HANDLE TcpIp_Create(const char *pszIp)
 	}
 	
 	/* コンストラクタ呼び出し */
-	if ( TcpIp_Constructor(self, &TcpIp_Methods, pszIp) != FILE_ERR_OK )
+	if ( TcpIp_Constructor(self, NULL, pszIp) != FILE_ERR_OK )
 	{
 		SysMem_Free(self);
 		return HANDLE_NULL;

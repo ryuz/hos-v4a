@@ -12,6 +12,9 @@
 #include "fatvol_local.h"
 
 
+#include "hosaplfw.h"
+
+
 /** クラスタ書き込み */
 int FatVol_ClusterWrite(
 		C_FATVOL    *self,
@@ -20,6 +23,9 @@ int FatVol_ClusterWrite(
 {
 	FATVOL_UINT uiPos;
 	FATVOL_UINT uiSize;
+	
+/*	StdIo_PrintFormat("[FatLol] write cluster %08x\n", uiCluster);	*/
+	
 	
 	if ( uiCluster >= 0xf0000000 && (self->iFatType == FATVOL_TYPE_FAT12 || self->iFatType == FATVOL_TYPE_FAT16) )
 	{

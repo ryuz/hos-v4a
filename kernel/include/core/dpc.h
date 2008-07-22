@@ -4,7 +4,7 @@
  * @file  dpc.h
  * @brief %jp{遅延プロシージャーコールヘッダファイル}%en{Deferred Procedure Call header file}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2008 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -13,12 +13,21 @@
 #define _KERNEL__core__dpc_h__
 
 
-#include "core/adtq.h"
+
+typedef struct _kernel_t_dpcmsg
+{
+	void				(*svc)(ID id, VP_INT param);
+	ID					id;
+	VP_INT				param;
+} _KERNEL_T_DPCMSG;
 
 
 typedef struct _kernel_t_dpccb
 {
-	_KERNEL_T_ADTQCB	adtq;					/**< 遅延プロシージャコール用非同期メッセージキュー */
+	volatile _KERNEL_T_DPCMSG	*que;
+	UH							quecnt;
+	volatile UH					head;
+	volatile UH					tail;
 } _KERNEL_T_DPCCB;
 
 
@@ -26,18 +35,17 @@ typedef struct _kernel_t_dpccb
 extern "C" {
 #endif
 
-void   _kernel_exe_dpc(void);
+void _kernel_ini_dpc(_KERNEL_T_DPCCB *dcpcb, _KERNEL_T_DPCMSG *que, INT quecnt);
+ER   _kernel_req_dpc(_KERNEL_T_DPCCB *dcpcb, void (*svc)(ID id, VP_INT param), ID id, VP_INT param);
+void _kernel_exe_dpc(_KERNEL_T_DPCCB *dcpcb);
 
 #ifdef __cplusplus
 }
 #endif
 
-#define _KERNEL_DPC_INI_DPC(dcpcb, que, quecnt)		_KERNEL_ADTQ_INI_QUE(&(dcpcb)->adtq, que, quecnt)
-#define _KERNEL_DPC_EXE_DPC()						_kernel_exe_dpc()
-#define _KERNEL_DPC_SND_MSG(dcpcb, msg)				_KERNEL_ADTQ_FSND_DAT(&(dcpcb)->adtq, (msg))
-#define _KERNEL_DPC_RCV_MSG(dcpcb)					_KERNEL_ADTQ_FRCV_DAT(&(dcpcb)->adtq)
-#define _KERNEL_DPC_REF_DAT(dcpcb)					_KERNEL_ADTQ_REF_SDTQNT(&(dcpcb)->adtq)			/* データ数参照 */
-#define _KERNEL_DPC_REF_FRE(dcpcb)					_KERNEL_ADTQ_REF_FDTQNT(&(dcpcb)->adtq)			/* 空き領域参照 */
+#define _KERNEL_INI_DPC(dcpcb, que, quecnt)			_kernel_ini_dpc(dcpcb, que, quecnt)			/**< %jp{DPCキューの初期化} */
+#define _KERNEL_REQ_DPC(dcpcb, svc, id, param)		_kernel_req_dpc(dcpcb, svc, id, param)		/**< %jp{DPCキューへ実行リクエスト} */
+#define _KERNEL_EXE_DPC(dcpcb)						_kernel_exe_dpc(dcpcb)						/**< %jp{DPCキューの実行} */
 
 
 #endif	/* _KERNEL__core__dpc_h__ */

@@ -15,7 +15,7 @@
 
 /**** 暫定の手抜き(ここから) *****/
 #if _KERNEL_SPT_DPC
-VP_INT dpc_buf[32];
+_KERNEL_T_DPCMSG dpc_buf[32];
 #endif
 /**** 暫定の手抜き(ここまで) *****/
 

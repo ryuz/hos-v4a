@@ -339,25 +339,25 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ACRE_TSK			TRUE				/* acre_tsk */
 #define _KERNEL_CFG_DEL_TSK				TRUE				/* del_tsk */
 #define _KERNEL_CFG_ACT_TSK				TRUE				/* act_tsk */
-#define _KERNEL_CFG_IACT_TSK			FALSE				/* iact_tsk */
-#define _KERNEL_CFG_CAN_ACT 			FALSE				/* can_act */
-#define _KERNEL_CFG_STA_TSK 			FALSE				/* sta_tsk */
-#define _KERNEL_CFG_EXT_TSK 			FALSE				/* ext_tsk */
-#define _KERNEL_CFG_EXD_TSK 			FALSE				/* exd_tsk */
-#define _KERNEL_CFG_TER_TSK 			FALSE				/* ter_tsk */
+#define _KERNEL_CFG_IACT_TSK			TRUE				/* iact_tsk */
+#define _KERNEL_CFG_CAN_ACT 			TRUE				/* can_act */
+#define _KERNEL_CFG_STA_TSK 			TRUE				/* sta_tsk */
+#define _KERNEL_CFG_EXT_TSK 			TRUE				/* ext_tsk */
+#define _KERNEL_CFG_EXD_TSK 			TRUE				/* exd_tsk */
+#define _KERNEL_CFG_TER_TSK 			TRUE				/* ter_tsk */
 #define _KERNEL_CFG_CHG_PRI 			TRUE				/* chg_pri */
-#define _KERNEL_CFG_GET_PRI 			FALSE				/* get_pri */
+#define _KERNEL_CFG_GET_PRI 			TRUE				/* get_pri */
 #define _KERNEL_CFG_REF_TSK 			TRUE				/* ref_tsk */
-#define _KERNEL_CFG_REF_TST 			FALSE				/* ref_tst */
+#define _KERNEL_CFG_REF_TST 			TRUE				/* ref_tst */
 
 /* Task dependent synchronization functions */
 #define _KERNEL_CFG_SLP_TSK 			TRUE				/* slp_tsk */
-#define _KERNEL_CFG_TSLP_TSK			FALSE				/* tslp_tsk */
+#define _KERNEL_CFG_TSLP_TSK			TRUE				/* tslp_tsk */
 #define _KERNEL_CFG_WUP_TSK 			TRUE				/* wup_tsk */
-#define _KERNEL_CFG_IWUP_TSK			FALSE				/* iwup_tsk */
-#define _KERNEL_CFG_CAN_WUP 			FALSE				/* can_wup */
+#define _KERNEL_CFG_IWUP_TSK			TRUE				/* iwup_tsk */
+#define _KERNEL_CFG_CAN_WUP 			TRUE				/* can_wup */
 #define _KERNEL_CFG_REL_WAI 			TRUE				/* rel_wai */
-#define _KERNEL_CFG_IREL_WAI			FALSE				/* irel_wai */
+#define _KERNEL_CFG_IREL_WAI			TRUE				/* irel_wai */
 #define _KERNEL_CFG_SUS_TSK 			TRUE				/* sus_tsk */
 #define _KERNEL_CFG_RSM_TSK 			TRUE				/* rsm_tsk */
 #define _KERNEL_CFG_FRSM_TSK			TRUE				/* frsm_tsk */
@@ -392,7 +392,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_CLR_FLG 			TRUE				/* clr_flg */
 #define _KERNEL_CFG_WAI_FLG 			TRUE				/* wai_flg */
 #define _KERNEL_CFG_POL_FLG 			TRUE				/* pol_flg */
-#define _KERNEL_CFG_TWAI_FLG			FALSE				/* twai_flg */
+#define _KERNEL_CFG_TWAI_FLG			TRUE				/* twai_flg */
 #define _KERNEL_CFG_REF_FLG 			TRUE				/* ref_flg */
 
 /* Data queues */
@@ -401,12 +401,12 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_DEL_DTQ 			TRUE				/* del_dtq */
 #define _KERNEL_CFG_SND_DTQ 			TRUE				/* snd_dtq */
 #define _KERNEL_CFG_IPSND_DT			TRUE				/* ipsnd_dtq */
-#define _KERNEL_CFG_TSND_DTQ			FALSE				/* tsnd_dtq */
+#define _KERNEL_CFG_TSND_DTQ			TRUE				/* tsnd_dtq */
 #define _KERNEL_CFG_FSND_DTQ			TRUE				/* fsnd_dtq */
 #define _KERNEL_CFG_IFSND_DT			TRUE				/* ifsnd_dtq */
 #define _KERNEL_CFG_RCV_DTQ 			TRUE				/* rcv_dtq */
 #define _KERNEL_CFG_PRCV_DTQ			TRUE				/* prcv_dtq */
-#define _KERNEL_CFG_TRCV_DTQ			FALSE				/* trcv_dtq */
+#define _KERNEL_CFG_TRCV_DTQ			TRUE				/* trcv_dtq */
 #define _KERNEL_CFG_REF_DTQ 			TRUE				/* ref_dtq */
 
 /* Mailboxes */
@@ -416,7 +416,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_SND_MBX 			TRUE				/* snd_mbx */
 #define _KERNEL_CFG_RCV_MBX 			TRUE				/* rcv_mbx */
 #define _KERNEL_CFG_PRCV_MBX			TRUE				/* prcv_mbx */
-#define _KERNEL_CFG_TRCV_MBX			FALSE				/* trcv_mbx */
+#define _KERNEL_CFG_TRCV_MBX			TRUE				/* trcv_mbx */
 #define _KERNEL_CFG_REF_MBX 			TRUE				/* ref_mbx */
 
 /* Mutexes */

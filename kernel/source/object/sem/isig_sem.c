@@ -19,7 +19,7 @@
 
 #if _KERNEL_SPT_DPC
 
-static void _kernel_dpc_sig_sem(void);
+static void _kernel_dpc_sig_sem(ID semid, VP_INT param);
 
 /** %jp{セマフォ資源の返却}%en{Release Semaphore Resource}
  * @param  semid    %jp{セマフォ資源返却対象のセマフォのID番号}%en{ID number of the semaphore to which resource is released}
@@ -29,8 +29,6 @@ static void _kernel_dpc_sig_sem(void);
  */
 ER isig_sem(ID semid)
 {
-	ER ercd;
-
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_ISIG_SEM_E_ID
 	if ( !_KERNEL_SEM_CHECK_SEMID(semid) )
@@ -38,45 +36,19 @@ ER isig_sem(ID semid)
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
 	}
 #endif
-
-	_KERNEL_SYS_LOC_DPC();	/* %jp{多重割り込み対策でロックをかける} */
-
-	if ( _KERNEL_SYS_RFR_DPC() >= 2 )
-	{
-		_KERNEL_SYS_SND_DPC((VP_INT)_kernel_dpc_sig_sem);
-		_KERNEL_SYS_SND_DPC((VP_INT)semid);
-		ercd = E_OK;		/* %jp{正常終了}%en{Normal completion} */
-	}
-	else
-	{
-		ercd = E_NOMEM;		/* %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution} */
-	}
-
-	_KERNEL_SYS_UNL_DPC();	/* %jp{ロック解除} */
-		
-	return ercd;
+	
+	return _KERNEL_SYS_REQ_DPC(_kernel_dpc_sig_sem, semid, 0);
 }
 
+
 /** %jp{sig_semの遅延実行}%en{service call for delayed execution(sig_sem)} */
-void _kernel_dpc_sig_sem(void)
+void _kernel_dpc_sig_sem(ID semid, VP_INT param)
 {
 	_KERNEL_T_SEMCB_PTR  semcb;
 	_KERNEL_T_TSKHDL     tskhdl;
 	_KERNEL_T_TCB        *tcb;
 	_KERNEL_SEM_T_SEMCNT semcnt;
-	ID                   semid;
 	
-	/* %jp{パラメータ取り出し} */
-	semid = (ID)_KERNEL_SYS_RCV_DPC();
-
-	/* %jp{オブジェクト存在チェック} */
-#if _KERNEL_SPT_ISIG_SEM_E_NOEXS
-	if ( !_KERNEL_SEM_CHECK_EXS(semid) )
-	{
-		_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */
-		return;					/* %jp{オブジェクト未生成} */
-	}
-#endif
 	/* %jp{セマフォコントロールブロック取得} */
 	semcb = _KERNEL_SEM_ID2SEMCB(semid);
 	
@@ -89,7 +61,7 @@ void _kernel_dpc_sig_sem(void)
 		_KERNEL_TSK_SET_ERCD(tcb, E_OK);			/* %jp{エラーコード設定} */
 		_KERNEL_DSP_WUP_TSK(tskhdl);				/* %jp{タスクの待ち解除} */
 		_KERNEL_SEM_RMV_TOQ(tskhdl);
-
+		
 		/* %jp{待ち解除発生をマーク} */
 		_KERNEL_SYS_SET_DLY();		
 	}

@@ -20,9 +20,8 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 	C_TCPIP			*self;
 	C_TCPIPFILE		*pFile;
 	C_IPCHECKSUM	ics;
-	unsigned short	uhSum;
 	unsigned char	*pubSendBuf;
-	int				iSendSize;
+	unsigned short	uhSendSize;
 	
 	/* upper cast */
 	self  = (C_TCPIP *)pDrvObj;
@@ -31,19 +30,23 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 	
 	if ( pFile->iType == TCPIPFILE_TYPE_UDP )
 	{
+		unsigned char 			ubDumyHeader[2] = {0x00, 0x11};
 		const T_TCPIP_ADDRESS	*pAddr;
-		const unsigned char		*pubData;
+		const unsigned char		*pubPayload;
+		unsigned short			uhPayloadSize;
+		unsigned short			uhSum;
 		
-		pAddr   = (const T_TCPIP_ADDRESS *)pData;
-		pubData = (const unsigned char *)pData + sizeof(T_TCPIP_ADDRESS);
+		pAddr         = (const T_TCPIP_ADDRESS *)pData;
+		pubPayload    = (const unsigned char *)pData + sizeof(T_TCPIP_ADDRESS);
+		uhPayloadSize = Size - sizeof(T_TCPIP_ADDRESS);
+		uhSendSize    = uhPayloadSize + 28;
 		
+		/* バッファ準備 */
+		pubSendBuf   = pFile->ubSendBuf;
 		
-		SysMtx_Lock(self->hMtxSend);
-		
-		pubSendBuf = self->ubSendBuf;
 		
 		/******** IPヘッダ ********/
-	
+		
 		/* バージョン4, ヘッダ長 0x14 */
 		pubSendBuf[0] = 0x45;
 		
@@ -51,12 +54,10 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 		pubSendBuf[1] = 0x00;
 		
 		/* データ長 */
-		pubSendBuf[2] = iSendSize / 256;	
-		pubSendBuf[3] = iSendSize % 256;
+		IP_SET_HALFWORD(&pubSendBuf[2], uhSendSize);
 		
 		/* ID */
-		pubSendBuf[4] = self->uhPacketId / 256;
-		pubSendBuf[5] = self->uhPacketId % 256;
+		IP_SET_HALFWORD(&pubSendBuf[4], self->uhPacketId);
 		self->uhPacketId++;
 		
 		/* フラグメント */
@@ -67,14 +68,13 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 		pubSendBuf[8] = 0xff;
 		
 		/* プロトコル */
-		pubSendBuf[9] = 0x17;	/* UDP */
+		pubSendBuf[9] = 17;		/* UDP */
 		
 		/* チェックサム */
-		pubSendBuf[10] = 0;
-		pubSendBuf[11] = 0;
+		IP_SET_HALFWORD(&pubSendBuf[10], 0);
 		
 		/* 送信元IPアドレス */
-/*		memcpy(&pubSendBuf[12],  self->ubMyIpAddr, 4);	*/
+		memcpy(&pubSendBuf[12],  self->ubMyIpAddr, 4);
 		
 		/* 送信先IPアドレス */
 		memcpy(&pubSendBuf[16],  &pAddr->ubAddress, 4);
@@ -86,17 +86,30 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 		IP_SET_HALFWORD(&pubSendBuf[20], pFile->uhPortNum);
 		
 		/* 発信先ポート番号 */
-		IP_SET_HALFWORD(&pubSendBuf[22], pFile->uhPortNum);
+		IP_SET_HALFWORD(&pubSendBuf[22], pAddr->uhPort);
 		
 		/* データ長 */
-		IP_SET_HALFWORD(&pubSendBuf[24], Size - sizeof(T_TCPIP_ADDRESS) + 8);
+		IP_SET_HALFWORD(&pubSendBuf[24], uhPayloadSize + 8);
 		
 		/* チェックサム */
 		IP_SET_HALFWORD(&pubSendBuf[26], 0);
 		
-		/* データ */
-		memcpy(&pubSendBuf[28], pubData, Size - sizeof(T_TCPIP_ADDRESS));
+		/* ペイロードデータ */
+		memcpy(&pubSendBuf[28], pubPayload, uhPayloadSize);
 		
+		/* チェックサム計算 */
+		IpCheckSum_Create(&ics);
+		IpCheckSum_Update(&ics, &pubSendBuf[12], 8);					/* 送信元IP＋宛先IP */
+		IpCheckSum_Update(&ics, ubDumyHeader, 2);						/* 00h, 11h */
+		IpCheckSum_Update(&ics, &pubSendBuf[24], 2);					/* UDPデータ長 */
+		IpCheckSum_Update(&ics, &pubSendBuf[20], 8 + uhPayloadSize);	/* UDPヘッダ＋ペイロード */	
+		uhSum = IpCheckSum_GetDigest(&ics);
+		IP_SET_HALFWORD(&pubSendBuf[26], uhSum);
+		IpCheckSum_Delete(&ics);
+		
+		SysMtx_Lock(self->hMtxSend);
+		File_Write(self->hIp, pubSendBuf, uhSendSize);
+		SysMtx_Unlock(self->hMtxSend);
 	}
 	
 	return Size;

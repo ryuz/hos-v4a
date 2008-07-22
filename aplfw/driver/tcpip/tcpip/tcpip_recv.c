@@ -21,14 +21,14 @@ static void TcpIp_TcpRecv(C_TCPIP *self, const unsigned char *pubBuf, int iSize)
 
 
 /* 受信プロセス */
-void TcpIp_Recv(VPARAM Param)
+void TcpIp_Recv(void)
 {
 	C_TCPIP			*self;
 	unsigned char	*pubRecvBuf;
 	int				iSize;
 	
 	/* upper cast */
-	self  = (C_TCPIP *)Param;
+	self  = (C_TCPIP *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
 	
 	pubRecvBuf = self->ubRecvBuf;
 	

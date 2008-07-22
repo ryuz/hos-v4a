@@ -154,6 +154,13 @@
 #define _KERNEL_SPT_TWAI_FLG		_KERNEL_CFG_TWAI_FLG		/* twai_flg */
 #define _KERNEL_SPT_REF_FLG 		_KERNEL_CFG_REF_FLG 		/* ref_flg */
 
+#if _KERNEL_SPT_TWAI_FLG || (_KERNEL_SPT_WAI_FLG && _KERNEL_SPT_POL_FLG)
+#define _KERNEL_SPT_KWAI_FLG		TRUE
+#else
+#define _KERNEL_SPT_KWAI_FLG		FALSE
+#endif
+
+
 /* Data queues */
 #define _KERNEL_SPT_CRE_DTQ 		_KERNEL_CFG_CRE_DTQ 		/* cre_dtq */
 #define _KERNEL_SPT_ACRE_DTQ		_KERNEL_CFG_ACRE_DTQ		/* acre_dtq */

@@ -1056,6 +1056,9 @@ $(OBJS_DIR)\tcpip_flush.c : $(TCPIP_DIR)\tcpip_flush.c
 $(OBJS_DIR)\tcpip_recv.c : $(TCPIP_DIR)\tcpip_recv.c
 	$(CMD_CP) $(TCPIP_DIR)\tcpip_recv.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\tcpip_stringtoaddr.c : $(TCPIP_DIR)\tcpip_stringtoaddr.c
+	$(CMD_CP) $(TCPIP_DIR)\tcpip_stringtoaddr.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\tcpipfile_create.c : $(TCPIP_DIR)\tcpipfile_create.c
 	$(CMD_CP) $(TCPIP_DIR)\tcpipfile_create.c $(OBJS_DIR)\
 
@@ -2233,6 +2236,7 @@ $(OBJS_DIR)\tcpip_read.$(EXT_OBJ):	$(OBJS_DIR)\tcpip_read.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\tcpip_write.$(EXT_OBJ):	$(OBJS_DIR)\tcpip_write.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\tcpip_flush.$(EXT_OBJ):	$(OBJS_DIR)\tcpip_flush.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\tcpip_recv.$(EXT_OBJ):	$(OBJS_DIR)\tcpip_recv.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\tcpip_stringtoaddr.$(EXT_OBJ):	$(OBJS_DIR)\tcpip_stringtoaddr.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\tcpipfile_create.$(EXT_OBJ):	$(OBJS_DIR)\tcpipfile_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\tcpipfile_delete.$(EXT_OBJ):	$(OBJS_DIR)\tcpipfile_delete.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\tcpipfile_constructor.$(EXT_OBJ):	$(OBJS_DIR)\tcpipfile_constructor.c	$(COMMON_HEADERS)

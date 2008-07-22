@@ -603,6 +603,7 @@
 				"tcpip_write.c",
 				"tcpip_flush.c",
 				"tcpip_recv.c",
+				"tcpip_stringtoaddr.c",
 				"tcpipfile_create.c",
 				"tcpipfile_delete.c",
 				"tcpipfile_constructor.c",

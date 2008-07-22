@@ -18,7 +18,7 @@ static void IpEther_RecvIp(C_IPETHER *self, unsigned char *pubBuf, int iSize);
 
 
 /* 受信プロセス */
-void IpEther_Recv(VPARAM Param)
+void IpEther_Recv(void)
 {
 	C_IPETHER		*self;
 	int				iRecvTail;
@@ -27,7 +27,7 @@ void IpEther_Recv(VPARAM Param)
 	int				iSize;
 	
 	/* upper cast */
-	self  = (C_IPETHER *)Param;
+	self  = (C_IPETHER *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
 	
 	for ( ; ; )
 	{

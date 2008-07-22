@@ -85,6 +85,8 @@
 		"\$(COMMON_HEADERS)",
 		"\$(KERNEL_CORE_DIR)/dpc",
 		"DPC_DIR",
+		"ini_dpc.c",
+		"req_dpc.c",
 		"exe_dpc.c",
 	],
 	[
