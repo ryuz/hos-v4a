@@ -16,7 +16,7 @@
 TARGET ?= libhosv4a
 
 
-# %jp{ツール定義}%jp{tools}
+# %jp{ツール定義}%en{tools}
 GCC_ARCH ?= mipsel-elf-
 CMD_CC   ?= $(GCC_ARCH)gcc
 CMD_ASM  ?= $(GCC_ARCH)gcc
@@ -80,7 +80,12 @@ include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 # --------------------------------------
 
 # %jp{アセンブラファイルの追加}%en{assembry sources}
-ASRCS +=
+ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S
+ASRCS += $(SRC_PROC_CC_DIR)/kena_int.S
+ASRCS += $(SRC_PROC_CC_DIR)/kwai_int.S
+ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/kswi_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/krst_ctx.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
 CSRCS +=
