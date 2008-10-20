@@ -17,7 +17,7 @@ TARGET ?= libhosv4a
 
 
 # %jp{ツール定義}%en{tools}
-GCC_ARCH ?= mipsel-elf-
+GCC_ARCH ?= mips-elf-
 CMD_CC   ?= $(GCC_ARCH)gcc
 CMD_ASM  ?= $(GCC_ARCH)gcc
 CMD_LIBR ?= $(GCC_ARCH)ar
@@ -86,6 +86,7 @@ ASRCS += $(SRC_PROC_CC_DIR)/kwai_int.S
 ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/kswi_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/krst_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/kexc_hdr.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
 CSRCS +=
