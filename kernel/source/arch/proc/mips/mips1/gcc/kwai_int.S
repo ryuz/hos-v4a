@@ -21,7 +21,7 @@
 _kernel_wai_int:
 		/*		wait	*/
 				b		_kernel_wai_int
-
+				nop
 
 				.end	_kernel_wai_int
 
