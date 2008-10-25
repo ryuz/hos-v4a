@@ -44,7 +44,7 @@ _kernel_exc_hdr:
 				sw		$15, 56($sp)
 				sw		$24, 60($sp)
 				sw		$25, 64($sp)
-				sw		$ra, 68
+				sw		$ra, 68($sp)
 				mfhi	$8
 				mflo	$9
 				mfc0	$10, $14			/* EPC */ 
@@ -91,7 +91,7 @@ _kernel_exc_hdr:
 				lw		$15, 56($sp)
 				lw		$24, 60($sp)
 				lw		$25, 64($sp)
-				lw		$ra, 68
+				lw		$ra, 68($sp)
 				addiu	$sp, 84
 				jr		$26
 				rfe
