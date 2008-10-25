@@ -16,6 +16,7 @@
 
 				.text
 				.set	noreorder
+				.set	noat
 
 
 /************************************************
@@ -25,7 +26,7 @@
 				.ent	_kernel_exc_hdr
 _kernel_exc_hdr:
 			/* %jp{レジスタ退避}%en{register save} */
-				addiu	$sp, -80
+				addiu	$sp, -84
 				sw		$1, 0($sp)
 				sw		$2, 4($sp)
 				sw		$3, 8($sp)
@@ -43,33 +44,34 @@ _kernel_exc_hdr:
 				sw		$15, 56($sp)
 				sw		$24, 60($sp)
 				sw		$25, 64($sp)
+				sw		$ra, 68
 				mfhi	$8
 				mflo	$9
-				mfc0	$10, $14				/* EPC */ 
-				sw		$8, 68($sp)
-				sw		$9, 72($sp)
+				mfc0	$10, $14			/* EPC */ 
+				sw		$8, 72($sp)
+				sw		$9, 76($sp)
+				sw		$10, 80($sp)
+				
+				jal		_kernel_sta_inh		/* %jp{割込み開始処理} */
 				sw		$10, 76($sp)
 				
-				jal		_kernel_sta_inh			/* %jp{割込み開始処理} */
-				sw		$10, 76($sp)
 				
-				
-				la		a0, 0
-				jal		_kernel_exe_inh			/* %jp{割込みハンドラ実行} */
+				la		$4, 0
+				jal		_kernel_exe_inh		/* %jp{割込みハンドラ実行} */
 				nop
 				
 				
-				jal		_kernel_end_inh			/* %jp{割込み終了処理} */
+				jal		_kernel_end_inh		/* %jp{割込み終了処理} */
 				nop
 				
 				
-				mfc0	$26, $12		/* STATUS */ 
+				mfc0	$26, $12			/* STATUS */ 
 				ori		$26, $26, 0x04
 				mtc0	$26, $12
 				
-				lw		$8, 68($sp)
-				lw		$9, 72($sp)
-				lw		$26, 76($sp)	/* EPC */ 
+				lw		$8, 72($sp)
+				lw		$9, 76($sp)
+				lw		$26, 80($sp)		/* EPC */ 
 				mthi	$8
 				mtlo	$9
 				lw		$1, 0($sp)
@@ -89,7 +91,8 @@ _kernel_exc_hdr:
 				lw		$15, 56($sp)
 				lw		$24, 60($sp)
 				lw		$25, 64($sp)
-				addiu	$sp, 80
+				lw		$ra, 68
+				addiu	$sp, 84
 				jr		$26
 				rfe
 				
