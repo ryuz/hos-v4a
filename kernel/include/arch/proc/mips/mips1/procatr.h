@@ -57,8 +57,6 @@
 
 
 
-
-
 #endif	/* _KERNEL__arch__proc__mips__mips1__procatr_h__ */
 
 

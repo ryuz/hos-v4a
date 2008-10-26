@@ -28,14 +28,6 @@
 #define _KERNEL_IRC_FACTOR_PRIORITY(n)	((volatile       UW *)(_KERNEL_IRC_BASE + 0x2c + ((n) * 0x10)))
 
 
-typedef struct _kernel_t_irccb
-{
-	UB	ptr;
-	UB	mask[8];
-} _KERNEL_T_IRCCB;
-
-extern	_KERNEL_T_IRCCB		_kernel_irccb;
-
 
 #ifdef __cplusplus
 extern "C" {

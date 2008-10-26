@@ -35,8 +35,6 @@ void _kernel_ini_irc(void)
 		*_KERNEL_IRC_FACTOR_PENDING(i)  = 0;
 		*_KERNEL_IRC_FACTOR_PRIORITY(i) = pri;
 	}
-	_kernel_irccb.ptr = 0;
-	
 	
 	*_KERNEL_IRC_ENABLE = 1;
 }
