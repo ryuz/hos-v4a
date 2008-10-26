@@ -89,7 +89,7 @@ ASRCS += $(SRC_PROC_CC_DIR)/krst_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/kexc_hdr.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
-CSRCS +=
+CSRCS += $(SRC_PROC_DIR)/val_int.c
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc
