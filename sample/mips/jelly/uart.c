@@ -12,8 +12,8 @@
 #include "kernel.h"
 
 
-#define UART_DATA	((volatile UW *)0xf2000000)
-#define UART_STAT	((volatile UW *)0xf2000004)
+#define UART0_DATA	((volatile UW *)0xf2000000)
+#define UART0_STAT	((volatile UW *)0xf2000004)
 
 
 
@@ -26,20 +26,20 @@ void Uart_Initialize(void)
 /* %jp{1文字入力} */
 char Uart_GetChar(void)
 {
-	while ( !(*UART_STAT & 0x01) )
+	while ( !(*UART0_STAT & 0x01) )
 		;
 	
-	return *UART_DATA;
+	return *UART0_DATA;
 }
 
 
 /* %jp{1文字出力} */
 void Uart_PutChar(int c)
 {
-	while ( !(*UART_STAT & 0x02) )
+	while ( !(*UART0_STAT & 0x02) )
 		;
 	
-	*UART_DATA = c;
+	*UART0_DATA = c;
 }
 
 

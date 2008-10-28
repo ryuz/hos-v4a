@@ -34,7 +34,7 @@ TOP_DIR           = ../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/mips/mips1/gcc
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/mips/jelly/gcc
 
 
 # %jp{コンフィギュレータ定義}
