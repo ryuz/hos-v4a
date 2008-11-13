@@ -80,10 +80,16 @@ void Uart_PutHexByte(char c)
 }
 
 
-void Uart_PutHexWord(int i)
+void Uart_PutHexHalfWord(unsigned short h)
 {
-	Uart_PutHexByte((i >> 8) & 0xff);
-	Uart_PutHexByte((i >> 0) & 0xff);
+	Uart_PutHexByte((h >> 8) & 0xff);
+	Uart_PutHexByte((h >> 0) & 0xff);
+}
+
+void Uart_PutHexWord(unsigned long w)
+{
+	Uart_PutHexHalfWord((w >> 16) & 0xffff);
+	Uart_PutHexHalfWord((w >>  0) & 0xffff);
 }
 
 

@@ -170,13 +170,13 @@ void IpEther_RecvArp(C_IPETHER *self, unsigned char *pubBuf, int iSize)
 			pubSendBuf[37] = pubBuf[27];
 			
 			/* ターゲットプロトコルアドレス */
-			pubSendBuf[32] = pubBuf[28];
-			pubSendBuf[33] = pubBuf[29];
-			pubSendBuf[34] = pubBuf[30];
-			pubSendBuf[35] = pubBuf[31];
+			pubSendBuf[38] = pubBuf[28];
+			pubSendBuf[39] = pubBuf[29];
+			pubSendBuf[40] = pubBuf[30];
+			pubSendBuf[41] = pubBuf[31];
 			
 			/* パディング */
-			for ( i = 36; i < 60; i++ )
+			for ( i = 42; i < 60; i++ )
 			{
 				pubSendBuf[i] = 0x00;
 			}
@@ -189,11 +189,11 @@ void IpEther_RecvArp(C_IPETHER *self, unsigned char *pubBuf, int iSize)
 		}
 		else if ( pubBuf[20] == 0x00 && pubBuf[21] == 0x02 )	/* オペレーション(ARP応答) */
 		{
-			
+			/* 対局MACアドレスの登録 */
+			IpEther_AddMacAddr(self, &pubBuf[22], &pubBuf[28]);		
 		}
 	}
 }
-
 
 
 /* endof file */

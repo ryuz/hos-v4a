@@ -22,7 +22,9 @@ void Uart_PutChar(int c);					/* %jp{1文字出力} */
 void Uart_PutString(const char *text);		/* %jp{文字列出力} */
 
 void Uart_PutHexByte(char c);
-void Uart_PutHexWord(int i);
+void Uart_PutHexHalfWord(unsigned short h);
+void Uart_PutHexWord(unsigned long w);
+
 
 #ifdef __cplusplus
 }

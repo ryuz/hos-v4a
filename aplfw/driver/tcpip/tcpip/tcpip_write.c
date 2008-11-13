@@ -22,6 +22,8 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 	C_IPCHECKSUM	ics;
 	unsigned char	*pubSendBuf;
 	unsigned short	uhSendSize;
+	int				i;
+	FILE_SIZE		SizeRet;
 	
 	/* upper cast */
 	self  = (C_TCPIP *)pDrvObj;
@@ -107,9 +109,18 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 		IP_SET_HALFWORD(&pubSendBuf[26], uhSum);
 		IpCheckSum_Delete(&ics);
 		
-		SysMtx_Lock(self->hMtxSend);
-		File_Write(self->hIp, pubSendBuf, uhSendSize);
-		SysMtx_Unlock(self->hMtxSend);
+		for ( i = 0; i < 10; i++ )
+		{
+			SysMtx_Lock(self->hMtxSend);
+			SizeRet = File_Write(self->hIp, pubSendBuf, uhSendSize);
+			SysMtx_Unlock(self->hMtxSend);
+			if ( SizeRet > 0 )
+			{
+				break;
+			}
+			
+			SysTim_Wait(100);
+		}
 	}
 	
 	return Size;
