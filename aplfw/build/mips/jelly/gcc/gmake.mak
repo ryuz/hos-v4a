@@ -37,8 +37,8 @@ SRC_DIRS += $(DRV_SERIAL_DIR)
 
 
 # %jp{オプションフラグ}
-AFLAGS  = -march=mips1 -G 32
-CFLAGS  = -march=mips1 -G 32
+AFLAGS  = -march=mips1 -msoft-float -G 0
+CFLAGS  = -march=mips1 -msoft-float -G 0
 ARFLAGS = 
 
 
