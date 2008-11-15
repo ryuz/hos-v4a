@@ -1,25 +1,18 @@
-OUTPUT_ARCH(arm)
+OUTPUT_ARCH(mips)
 ENTRY(_reset_handler)
 
 MEMORY
 {
-	vector : o = 0x00000000, l = 0x00000040
-	rom    : o = 0x00000040, l = 0x0000ffc0
-	ram    : o = 0x40000000, l = 0x00100000
+	rom    : o = 0x00000000, l = 0x00010000
+	ram    : o = 0x00010000, l = 0x00010000
 }
 
 SECTIONS
 {
-	.vector :
-	{
-		___vector = . ; 
-		*/vectors.o(.text)
-		FILL(0xff)
-		___vector_end = . ; 
-	} > vector
 	.text :
 	{
 		 ___text = . ; 
+		*/crt0.o(.text)
 		*(.text)
 		*(.strings)
 		*(.rodata*)
@@ -41,14 +34,18 @@ SECTIONS
 	    ___data_rom = ADDR(.tors) + SIZEOF(.tors);
 		___data = . ;
 		*(.data)
+		_gp = ALIGN(16) + 0x7ff0;
+		*(.sdata)
 		___data_end = . ;
 	} > ram
 	.bss :
 	{
 		___bss = . ;
+		*(.sbss)
 		*(.bss)
 		*(COMMON)
+		*(.scommon)
 		___bss_end = . ;  
-	}  >ram
+	} > ram
 }
 

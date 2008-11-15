@@ -46,12 +46,12 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 
 # %jp{リンカスクリプト}%en{linker script}
-LINK_SCRIPT = link.x
+LINK_SCRIPT = rom.lds
 
 
 # %jp{内蔵RAM}%en{internal RAM}
 ifeq ($(MEMMAP),ram)
-LINK_SCRIPT  = linkram.x
+LINK_SCRIPT  = ram.lds
 TARGET      := $(TARGET)_ram
 endif
 
@@ -62,9 +62,9 @@ SRC_DIRS += . ..
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -march=mips1
-CFLAGS  = -march=mips1
-LNFLAGS = -march=mips1 -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+AFLAGS  = -march=mips1 -msoft-float -G 0
+CFLAGS  = -march=mips1 -msoft-float -G 0
+LNFLAGS = -march=mips1 -msoft-float -G 0 -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}

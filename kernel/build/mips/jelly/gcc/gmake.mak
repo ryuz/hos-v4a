@@ -24,7 +24,7 @@ CMD_LIBR ?= $(GCC_ARCH)ar
 
 
 # %jp{アーキテクチャ定義}%en{architecture}
-ARCH_NAME ?= mips1
+ARCH_NAME ?= jelly
 ARCH_PROC ?= mips/mips1
 ARCH_IRC  ?= mips/jelly
 ARCH_CC   ?= gcc
@@ -61,8 +61,8 @@ SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -march=mips1
-CFLAGS  = -march=mips1
+AFLAGS  = -march=mips1 -msoft-float -G 0 
+CFLAGS  = -march=mips1 -msoft-float -G 0
 ARFLAGS = 
 
 

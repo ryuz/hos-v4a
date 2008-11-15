@@ -128,7 +128,7 @@ clean: makeexe_clean
 depend: makeexe_depend
 
 .PHONY : mostlyclean
-mostlyclean: clean
+mostlyclean: clean kernel_clean
 	$(MAKE) -C $(APLFW_BUILD_DIR) -f gmake.mak clean
 
 .PHONY : mostlydepend
