@@ -101,6 +101,7 @@ CSRCS += ../kernel_cfg.c
 CSRCS += ../main.c
 CSRCS += ../boot.c
 CSRCS += ../ostimer.c
+CSRCS += memcpy.c
 
 
 # %jp{ライブラリファイルの追加}
