@@ -1592,6 +1592,49 @@ $(OBJS_DIR)\winsockdrv_write.c : $(WINSOCK_DIR)\winsockdrv_write.c
 	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv_write.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\jellyuartdrv.h : $(JELLYUART_DIR)\jellyuartdrv.h
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_local.h : $(JELLYUART_DIR)\jellyuartdrv_local.h
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_create.c : $(JELLYUART_DIR)\jellyuartdrv_create.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_delete.c : $(JELLYUART_DIR)\jellyuartdrv_delete.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_constructor.c : $(JELLYUART_DIR)\jellyuartdrv_constructor.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_destructor.c : $(JELLYUART_DIR)\jellyuartdrv_destructor.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_open.c : $(JELLYUART_DIR)\jellyuartdrv_open.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_open.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_close.c : $(JELLYUART_DIR)\jellyuartdrv_close.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_close.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_iocontrol.c : $(JELLYUART_DIR)\jellyuartdrv_iocontrol.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_iocontrol.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_seek.c : $(JELLYUART_DIR)\jellyuartdrv_seek.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_seek.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_read.c : $(JELLYUART_DIR)\jellyuartdrv_read.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_read.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_write.c : $(JELLYUART_DIR)\jellyuartdrv_write.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_write.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_flush.c : $(JELLYUART_DIR)\jellyuartdrv_flush.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_flush.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyuartdrv_isr.c : $(JELLYUART_DIR)\jellyuartdrv_isr.c
+	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_isr.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\fatvol.h : $(FATVOL_DIR)\fatvol.h
 	$(CMD_CP) $(FATVOL_DIR)\fatvol.h $(OBJS_DIR)\
 
@@ -2396,6 +2439,19 @@ $(OBJS_DIR)\winsockdrv_recv.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_recv.c	$(COMMON_H
 $(OBJS_DIR)\winsockdrv_seek.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_seek.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\winsockdrv_send.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_send.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\winsockdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_write.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\jellyuartdrv_create.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_open.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_open.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_close.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_close.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_iocontrol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_seek.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_seek.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_read.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_read.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_write.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_flush.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyuartdrv_isr.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_isr.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\fatvol_create.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_delete.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_delete.c	$(COMMON_HEADERS)

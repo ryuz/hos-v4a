@@ -50,6 +50,7 @@ LINK_RENESASSCI       ?= No
 LINK_MX1UART          ?= No
 LINK_MN103SC          ?= No
 LINK_WINSOCK          ?= No
+LINK_JELLYUART        ?= No
 LINK_FATVOL           ?= Yes
 LINK_MEMDRV           ?= Yes
 
@@ -757,6 +758,25 @@ CSRCS += $(WINSOCK_DIR)/winsockdrv_recv.c
 CSRCS += $(WINSOCK_DIR)/winsockdrv_seek.c
 CSRCS += $(WINSOCK_DIR)/winsockdrv_send.c
 CSRCS += $(WINSOCK_DIR)/winsockdrv_write.c
+endif
+
+
+# Jelly UART
+ifeq ($(LINK_JELLYUART),Yes)
+JELLYUART_DIR = $(HOSAPLFW_DIR)/driver/serial/jelly
+SRC_DIRS += $(JELLYUART_DIR)
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_create.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_delete.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_constructor.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_destructor.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_open.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_close.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_iocontrol.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_seek.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_read.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_write.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_flush.c
+CSRCS += $(JELLYUART_DIR)/jellyuartdrv_isr.c
 endif
 
 

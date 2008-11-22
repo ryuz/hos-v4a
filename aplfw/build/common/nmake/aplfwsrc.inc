@@ -116,6 +116,9 @@ LINK_MN103SC          = No
 !ifndef LINK_WINSOCK
 LINK_WINSOCK          = No
 !endif
+!ifndef LINK_JELLYUART
+LINK_JELLYUART        = No
+!endif
 !ifndef LINK_FATVOL
 LINK_FATVOL           = Yes
 !endif
@@ -1351,6 +1354,38 @@ CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_send.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_send.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(WINSOCK_DIR)\winsockdrv_write.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\winsockdrv_write.$(EXT_OBJ)
+!endif
+
+
+# Jelly UART
+!if "$(LINK_JELLYUART)" == "Yes"
+JELLYUART_DIR = $(HOSAPLFW_DIR)\driver\serial\jelly
+HEADERS = $(HEADERS) $(OBJS_DIR)\jellyuartdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\jellyuartdrv_local.h
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_seek.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_seek.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_read.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_read.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_write.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_flush.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_flush.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_isr.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_isr.$(EXT_OBJ)
 !endif
 
 

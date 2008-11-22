@@ -19,7 +19,7 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "driver/serial/pc16550/pc16550drv.h"
+#include "driver/serial/jelly/jellyuartdrv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "application//syscmd/shell/shell.h"
 #include "application//syscmd/commandlist/commandlist.h"
@@ -43,12 +43,6 @@ int Boot_Process(VPARAM Param);
 void Boot_Task(VP_INT exinf)
 {
 	T_SYSTEM_INITIALIZE_INF	SysInf;
-	
-	
-	/*************************/
-	/*    固有初期設定       */
-	/*************************/
-	
 	
 	
 	/*************************/
@@ -86,8 +80,8 @@ int Boot_Process(VPARAM Param)
 	/* タイマ初期化 */	
 	OsTimer_Initialize(0);
 	
-	/* 16550デバドラ生成 (/dev/com0 に登録) */
-	hDriver = Pc16550Drv_Create((void *)0xf1000000, 2, 6, 14700000/4, 64);
+	/* Jelly UART デバドラ生成 (/dev/com0 に登録) */
+	hDriver = JellyUartDrv_Create((void *)0xf1000000, 1, 2, 64);
 	File_AddDevice("com0", hDriver);
 	
 	/* シリアルを開く */
