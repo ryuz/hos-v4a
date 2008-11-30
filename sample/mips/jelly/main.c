@@ -18,7 +18,7 @@
 /** %jp{メイン関数} */
 int main()
 {
-	Uart_PutString("---- start ----\r\n");
+/*	Uart_PutString("---- start ----\r\n");	*/
 	
 	
 	/* %jp{カーネルの動作開始} */

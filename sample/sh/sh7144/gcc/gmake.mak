@@ -38,10 +38,10 @@ endif
 ifeq ($(MEMMAP),ram)
 # %jp{RAM実行(モニタプログラム利用を想定)}
 TARGET     := $(TARGET)_ram
-LINK_SCRIPT = link_ram.x
+LINK_SCRIPT = ram.lds
 else
 # %jp{ROM焼きする場合}
-LINK_SCRIPT = link_rom.x
+LINK_SCRIPT = rom.lds
 endif
 
 

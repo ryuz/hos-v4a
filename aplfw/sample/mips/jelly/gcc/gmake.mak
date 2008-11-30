@@ -53,19 +53,13 @@ endif
 
 
 # %jp{メモリマップ}
-ifeq ($(MEMMAP),ext)
-# %jp{外部メモリ}
-TARGET       := $(TARGET)ext
-LINK_SCRIPT = linkext.x
-else
 ifeq ($(MEMMAP),ram)
 # %jp{内蔵RAM}
-TARGET       := $(TARGET)ram
+TARGET       := $(TARGET)_ram
 LINK_SCRIPT = ram.lds
 else
 # %jp{内蔵ROM}
 LINK_SCRIPT = rom.lds
-endif
 endif
 
 
@@ -79,6 +73,7 @@ LNFLAGS = -march=mips1 -msoft-float -G 0 -nostartfiles -Wl,-Map,$(TARGET).map,-T
 TARGET_EXE = $(TARGET).elf
 TARGET_MOT = $(TARGET).mot
 TARGET_HEX = $(TARGET).hex
+TARGET_BIN = $(TARGET).bin
 
 
 # %jp{gcc用の設定読込み}
@@ -102,6 +97,8 @@ CSRCS += ../main.c
 CSRCS += ../boot.c
 CSRCS += ../ostimer.c
 CSRCS += memcpy.c
+CSRCS += strlen.c
+CSRCS += ../uart.c
 
 
 # %jp{ライブラリファイルの追加}
@@ -114,7 +111,7 @@ LIBS += $(APLFW_LIB) -lc
 # --------------------------------------
 
 .PHONY : all
-all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
+all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(TARGET_BIN)
 
 
 .PHONY : make_subprj
@@ -141,6 +138,8 @@ mostlydepend: depend
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
+
+$(TARGET_EXE): $(LINK_SCRIPT)
 
 
 # %jp{ライブラリ生成用設定読込み}

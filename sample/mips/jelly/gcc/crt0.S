@@ -35,25 +35,9 @@ _reset_handler:
 				nop
 				
 				la		$gp, _gp
-				la		$sp, 0x01008000
-	//			la		$v0, _kernel_int_isp
-	//			lw		$sp, ($v0)
-				
-				
-			// test
-				la		$8, 0x02012345
-				la		$9, 0x12345678
-				sw		$9, 0($8)
-				nop
-				nop
-				lw		$9, 0($8)
-				
-				
-				la		$8, 0x1234
-				la		$9, 0x5678
-				mult	$8, $9
-				mfhi	$8
-				mflo	$9
+	//			la		$sp, 0x01008000
+				la		$8, _kernel_int_isp
+				lw		$sp, ($8)
 				
 				
 				// BSS initialize

@@ -31,6 +31,15 @@ typedef struct t_print_msg
 } T_PRINT_MSG;
 
 
+void Uart_IsrRx(VP_INT exinf)
+{
+	int c;
+	c = Uart_GetChar();
+	Uart_PutChar(c);
+	vclr_int(1);
+}
+
+
 /** %jp{初期化ハンドラ} */
 void Sample_Initialize(VP_INT exinf)
 {
@@ -46,13 +55,13 @@ void Sample_Initialize(VP_INT exinf)
 	cmpf.blksz  = sizeof(T_PRINT_MSG);		
 	cmpf.mpf    = NULL;						
 	mpfid = acre_mpf(&cmpf);
-
+	
 	/* %jp{メールボックス生成} */
 	cmbx.mbxatr  = TA_TFIFO | TA_TFIFO;		
 	cmbx.maxmpri = 1;						
 	cmbx.mprihd  = NULL;					
 	mbxid = acre_mbx(&cmbx);
-
+	
 	/* %jp{タスク起動} */
 	act_tsk(TSKID_PRINT);
 	act_tsk(TSKID_SAMPLE1);
@@ -60,6 +69,21 @@ void Sample_Initialize(VP_INT exinf)
 	act_tsk(TSKID_SAMPLE3);
 	act_tsk(TSKID_SAMPLE4);
 	act_tsk(TSKID_SAMPLE5);
+	
+	
+	{
+		T_CISR cisr;
+		
+		/* %jp{割り込みサービスルーチン生成} */
+		cisr.isratr = TA_HLNG;
+		cisr.exinf  = 0;
+		cisr.intno  = 1;
+		cisr.isr    = (FP)Uart_IsrRx;
+		acre_isr(&cisr);
+	
+		/* 割込み許可 */
+		ena_int(1);
+	}
 }
 
 

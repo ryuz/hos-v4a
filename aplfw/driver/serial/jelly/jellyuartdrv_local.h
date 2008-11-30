@@ -19,8 +19,9 @@
 #include "system/sysapi/sysapi.h"
 
 
-#define JELLYUART_STATUS			0x00		/* Control Register */
-#define JELLYUART_DATA				0x04		/* Mode Register */
+#define JELLYUART_DATA				0x00		/* Mode Register */
+#define JELLYUART_STATUS			0x04		/* Control Register */
+
 
 #define JELLYUART_REG_WRITE(self, offset, val)		SysIo_OutPortW(((char *)(self)->pRegBase + (offset)), val)
 #define JELLYUART_REG_READ(self, offset)			SysIo_InPortW(((char *)(self)->pRegBase + (offset)))

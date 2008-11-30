@@ -46,7 +46,7 @@ ARFLAGS =
 ASRCS += 
 
 # C言語ファイルの追加
-CSRCS += 
+CSRCS +=
 
 
 # %jp{リンク制御対象制御}

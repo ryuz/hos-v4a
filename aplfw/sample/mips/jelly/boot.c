@@ -32,6 +32,7 @@
 #include "application/example/hello/hello.h"
 #include "boot.h"
 #include "ostimer.h"
+#include "uart.h"
 
 
 long	g_SystemHeap[64 * 1024 / sizeof(long)];
@@ -55,10 +56,10 @@ void Boot_Task(VP_INT exinf)
 	SysInf.SysMemSize      = sizeof(g_SystemHeap);
 	SysInf.SysMemAlign     = 8;
 	SysInf.pIoMemBase      = NULL;
-	SysInf.SystemStackSize = 1024;
+	SysInf.SystemStackSize = 2048;
 	SysInf.pfncBoot        = Boot_Process;
 	SysInf.BootParam       = (VPARAM)0;
-	SysInf.BootStackSize   = 1024;
+	SysInf.BootStackSize   = 2048;
 	System_Initialize(&SysInf);
 }
 
@@ -76,12 +77,12 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*   デバイスドライバ    */
 	/*************************/
-
+	
 	/* タイマ初期化 */	
 	OsTimer_Initialize(0);
 	
 	/* Jelly UART デバドラ生成 (/dev/com0 に登録) */
-	hDriver = JellyUartDrv_Create((void *)0xf1000000, 1, 2, 64);
+	hDriver = JellyUartDrv_Create((void *)0xf2000000, 1, 2, 64);
 	File_AddDevice("com0", hDriver);
 	
 	/* シリアルを開く */
@@ -119,6 +120,7 @@ int Boot_Process(VPARAM Param)
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
 	Command_AddCommand("hello",    Hello_Main);
+	
 	
 	
 	/*************************/
