@@ -12,6 +12,7 @@
 #include "kernel.h"
 #include "kernel_id.h"
 #include "sci1.h"
+#include "regs_sh7144.h"
 
 
 #define LEFT(num)	((num) <= 1 ? 5 : (num) - 1)
@@ -43,19 +44,27 @@ void Sample_Initialize(VP_INT exinf)
 	T_CMPF cmpf;
 	T_CMBX cmbx;
 	
+	/* %jp{ハードウェア固有設定} */
+	*REG_STANDBY_MSTCR1 &= ~0x0002;	/* %jp{SCI1のスタンバイモードを解除} */
+	*REG_PFC_PACRL2 |= 0x0100;		/* %jp{端子設定} */
+	*REG_INTC_IPRF = ((*REG_INTC_IPRF & 0xfff0) | 0x0001);
+	
+	/* %jp{SCI1の初期化} */
+	Sci1_Initialize();
+	
 	/* %jp{固定長メモリプール生成} */
 	cmpf.mpfatr = TA_TFIFO;					
 	cmpf.blkcnt = 3;						
 	cmpf.blksz  = sizeof(T_PRINT_MSG);		
 	cmpf.mpf    = NULL;						
 	mpfid = acre_mpf(&cmpf);
-
+	
 	/* %jp{メールボックス生成} */
 	cmbx.mbxatr  = TA_TFIFO | TA_TFIFO;		
 	cmbx.maxmpri = 1;						
 	cmbx.mprihd  = NULL;					
 	mbxid = acre_mbx(&cmbx);
-
+	
 	/* %jp{タスク起動} */
 	act_tsk(TSKID_PRINT);
 	act_tsk(TSKID_SAMPLE1);
@@ -166,9 +175,6 @@ void Sample_Print(VP_INT exinf)
 		rel_mpf(mpfid, msg);
 	}
 }
-
-
-
 
 
 
