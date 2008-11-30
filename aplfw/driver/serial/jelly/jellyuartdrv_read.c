@@ -41,6 +41,7 @@ FILE_SIZE JellyUartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, 
 	for ( i = 0; i < Size; i++ )
 	{
 		/* 読み出し */
+#if 0
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
 			/* ブロッキングモードでなければ抜ける */
@@ -56,6 +57,11 @@ FILE_SIZE JellyUartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, 
 			/* 読込みシグナルをクリアしてリトライ */
 			SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_READ);
 		}
+#else
+		while ( !(JELLYUART_REG_READ(self, JELLYUART_STATUS) & 0x01) )
+			;
+		c = JELLYUART_REG_READ(self, JELLYUART_DATA);
+#endif
 		
 		/* 読み出せた文字を格納 */	
 		*pubBuf++ = (unsigned char)c;

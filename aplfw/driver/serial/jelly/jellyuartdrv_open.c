@@ -31,7 +31,7 @@ HANDLE JellyUartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	if ( self->iOpenCount++ == 0 )
 	{
 		/* 受信割込みを許可 */
-		SysInt_Enable(self->iIntNumRx);
+/*		SysInt_Enable(self->iIntNumRx);		*/
 	}
 	
 	return hFile;

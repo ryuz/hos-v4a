@@ -22,7 +22,11 @@ ER ena_int(INTNO intno)
 		return E_PAR;
 	}
 	
+	*_KERNEL_IRC_ENABLE = 0;
+	
 	*_KERNEL_IRC_FACTOR_ENABLE(intno) = 1;
+
+	*_KERNEL_IRC_ENABLE = 1;
 	
 	return E_OK;
 }

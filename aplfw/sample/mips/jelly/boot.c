@@ -35,7 +35,7 @@
 #include "uart.h"
 
 
-long	g_SystemHeap[64 * 1024 / sizeof(long)];
+long	g_SystemHeap[128 * 1024 / sizeof(long)];
 
 
 int Boot_Process(VPARAM Param);

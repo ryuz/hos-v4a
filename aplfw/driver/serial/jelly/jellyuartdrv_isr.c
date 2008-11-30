@@ -19,7 +19,7 @@ void JellyUartDrv_IsrRx(VPARAM Param)
 	int			c;
 	
 	self = (C_JELLYUARTDRV *)Param;
-	
+		
 	/* 受信 */	
 	if ( (JELLYUART_REG_READ(self, JELLYUART_STATUS) & 0x01) )
 	{
@@ -47,8 +47,6 @@ void JellyUartDrv_IsrTx(VPARAM Param)
 	C_JELLYUARTDRV	*self;
 	
 	self = (C_JELLYUARTDRV *)Param;
-
-	Uart_PutString("TX");
 	
 	/* 送信 */	
 	if ( (JELLYUART_REG_READ(self, JELLYUART_STATUS) & 0x02) )
