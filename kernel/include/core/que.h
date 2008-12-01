@@ -34,6 +34,9 @@ typedef struct _kernel_t_que
 #define _KERNEL_QUEOBJ	\
 	_KERNEL_TCB_T_TSKHDL queobj_next	_KERNEL_TCB_TBITDEF_TSKHDL;
 
+#define _KERNEL_CRE_QUEOBJ(tcb)				do{ (tcb)->queobj_next = _KERNEL_TSKHDL_NULL; }  while (0)
+#define _KERNEL_DEL_QUEOBJ(tcb)				do{ }  while (0)
+
 
 /* accessor */
 #define _KERNEL_QUE_SET_TAIL(pk_que, x)		do { (pk_que)->tail = x; } while (0)
@@ -102,6 +105,9 @@ typedef struct _kernel_t_que
 #define _KERNEL_QUEOBJ									\
 	_KERNEL_TCB_T_TSKHDL queobj_next		_KERNEL_TCB_TBITDEF_TSKHDL;	\
 	_KERNEL_TCB_T_TSKHDL queobj_prev		_KERNEL_TCB_TBITDEF_TSKHDL;
+
+#define _KERNEL_CRE_QUEOBJ(tcb)				do{ (tcb)->queobj_next = _KERNEL_TSKHDL_NULL; }  while (0)
+#define _KERNEL_DEL_QUEOBJ(tcb)				do{ }  while (0)
 
 
 #define _KERNEL_QUE_SET_HEAD(pk_que, x)		do { (pk_que)->head = x; } while (0)
