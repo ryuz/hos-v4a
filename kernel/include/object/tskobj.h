@@ -915,6 +915,16 @@ extern  _KERNEL_T_TCB					*_kernel_tcb_tbl[];										/**< %jp{タスクコン�
 #define _KERNEL_TSK_GET_QUE(tcb)				_kernel_get_que(tcb)
 #endif
 
+/* toqobj */
+#if _KERNEL_TCB_QUEOBJ
+#define _KERNEL_TSK_CRE_TOQOBJ(tcb)				_KERNEL_CRE_TOQOBJ(tcb)
+#define _KERNEL_TSK_DEL_TOQOBJ(tcb)				_KERNEL_DEL_TOQOBJ(tcb)
+#else
+#define _KERNEL_TSK_CRE_TOQOBJ(tcb)				do { } while(0)
+#define _KERNEL_TSK_DEL_TOQOBJ(tcb)				do { } while(0)
+#endif
+
+
 /* tskstat */
 #if _KERNEL_TCB_TSKSTAT
 #define _KERNEL_TSK_SET_TSKSTAT(tcb, x)			do { (tcb)->tskstat = (_KERNEL_TCB_T_TSKSTAT)(x); } while(0)

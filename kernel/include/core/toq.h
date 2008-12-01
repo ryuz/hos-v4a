@@ -33,6 +33,10 @@ typedef struct _kernel_t_toqcb
 	_KERNEL_TCB_T_RELTIM	 toqobj_diftim		_KERNEL_TCB_TBITDEF_RELTIM;
 
 
+#define _KERNEL_CRE_TOQOBJ(tcb)					do { (tcb)->toqobj_prev = _KERNEL_TSKHDL_NULL; } while (0)
+#define _KERNEL_DEL_TOQOBJ(tcb)					do { } while (0)
+
+
 #define _KERNEL_TSK_SET_TOQNEXT(tcb, x)			do { (tcb)->toqobj_next = (x); } while (0)
 #define _KERNEL_TSK_GET_TOQNEXT(tcb)			((tcb)->toqobj_next)
 #define _KERNEL_TSK_SET_TOQPREV(tcb, x)			do { (tcb)->toqobj_prev = (x); } while (0)
