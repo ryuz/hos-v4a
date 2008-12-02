@@ -39,7 +39,7 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 ifeq ($(MEMMAP),ram)
 # %jp{RAM実行(モニタプログラム利用を想定)}%en{external RAM}
-TARGET := $(TARGET)ram
+TARGET := $(TARGET)_ram
 SECTION_VECT ?= 000400000
 SECTION_ROM  ?= 000400400
 SECTION_RAM  ?= 000410000
