@@ -158,7 +158,7 @@ int Boot_Process(VPARAM Param)
 	StdIo_PutString(
 			"\n\n"
 			"================================================================\n"
-			" Hyper Operating System  Application Flamework\n"
+			" Hyper Operating System  Application Framework\n"
 			"\n"
 			"                          Copyright (C) 1998-2008 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"

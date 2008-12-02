@@ -41,7 +41,7 @@ FILE_SIZE JellyUartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, 
 	for ( i = 0; i < Size; i++ )
 	{
 		/* 読み出し */
-#if 0
+#if 1
 		while ( (c = StreamBuf_RecvChar(&self->StmBufRecv)) < 0 )
 		{
 			/* ブロッキングモードでなければ抜ける */

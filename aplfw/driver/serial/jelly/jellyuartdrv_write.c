@@ -45,8 +45,8 @@ FILE_SIZE JellyUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 		/* 送信可能かチェック */
 		while ( !(JELLYUART_REG_READ(self, JELLYUART_STATUS) & 0x02) )
 		{
-		#if 0
 			/* 送信割り込み許可 */
+			SysInt_Clear(self->iIntNumTx);
 			SysInt_Enable(self->iIntNumTx);
 			
 			/* ブロッキングモードでなければ抜ける */
@@ -61,7 +61,6 @@ FILE_SIZE JellyUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 			
 			/* 書込みシグナルをクリアしてリトライ */
 			SyncFile_ClearSignal(pFile, SYNCDRV_FACTOR_WRITE);
-		#endif
 		}
 		
 		/* 送信処理 */
