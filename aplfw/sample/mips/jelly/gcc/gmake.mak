@@ -10,11 +10,12 @@
 TARGET ?= sample
 
 # %jp{ツール定義}
-GCC_ARCH   ?= mips-elf-
-CMD_CC     ?= $(GCC_ARCH)gcc
-CMD_ASM    ?= $(GCC_ARCH)gcc
-CMD_LINK   ?= $(GCC_ARCH)gcc
-CMD_OBJCNV ?= $(GCC_ARCH)objcopy
+GCC_ARCH     ?= mips-elf-
+CMD_CC       ?= $(GCC_ARCH)gcc
+CMD_ASM      ?= $(GCC_ARCH)gcc
+CMD_LINK     ?= $(GCC_ARCH)gcc
+CMD_OBJCNV   ?= $(GCC_ARCH)objcopy
+
 
 # %jp{ディレクトリ}
 OS_DIR            = ../../../../..
@@ -98,7 +99,6 @@ CSRCS += ../boot.c
 CSRCS += ../ostimer.c
 CSRCS += memcpy.c
 CSRCS += strlen.c
-CSRCS += ../uart.c
 
 
 # %jp{ライブラリファイルの追加}
@@ -112,6 +112,10 @@ LIBS += $(APLFW_LIB) -lc
 
 .PHONY : all
 all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(TARGET_BIN)
+
+.PHONY : run
+run: $(TARGET_BIN)
+	jelly_loader -r $(TARGET_BIN)
 
 
 .PHONY : make_subprj

@@ -9,51 +9,46 @@
  */
 
 
-#include "kernel.h"
+#include "hosaplfw.h"
+#include "system/sysapi/sysapi.h"
 #include "ostimer.h"
 
 
-#define TIMER0_CONTROL	((volatile UW *)0xf1000000)
-#define TIMER0_COMPARE	((volatile UW *)0xf1000004)
-#define TIMER0_COUNTER	((volatile UW *)0xf100000c)
+#define TIMER0_CONTROL	((volatile unsigned long *)0xf1000000)
+#define TIMER0_COMPARE	((volatile unsigned long *)0xf1000004)
+#define TIMER0_COUNTER	((volatile unsigned long *)0xf100000c)
 
 #define INTNO_TIMER0	0
 
 
 
-static void OsTimer_Isr(VP_INT exinf);		/**< %jp{タイマ割込みサービスルーチン} */
+static void OsTimer_Isr(VPARAM Param);		/**< %jp{タイマ割込みサービスルーチン} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
-void OsTimer_Initialize(VP_INT exinf)
+void OsTimer_Initialize(void)
 {
-	T_CISR cisr;
+	/* %jp{割込みサービスルーチン生成} */
+	SysIsr_Create(INTNO_TIMER0, OsTimer_Isr, (VPARAM)0);
 	
-	/* %jp{割り込みサービスルーチン生成} */
-	cisr.isratr = TA_HLNG;
-	cisr.exinf  = 0;
-	cisr.intno  = INTNO_TIMER0;
-	cisr.isr    = (FP)OsTimer_Isr;
-	acre_isr(&cisr);
-	
-	/* 開始 */
+	/* %jp{開始} */
 	*TIMER0_COMPARE = (50000 - 1);		/* 50Mhz / 50000 = 1kHz (1ms) */
 	*TIMER0_CONTROL = 0x0002;			/* clear */
 	*TIMER0_CONTROL = 0x0001;			/* start */
 	
-	/* 割込み許可 */
-	ena_int(INTNO_TIMER0);
+	/* %jp{割込み許可} */
+	SysInt_Enable(INTNO_TIMER0);
 }
 
 
 /** %jp{タイマ割込みハンドラ} */
-void OsTimer_Isr(VP_INT exinf)
+void OsTimer_Isr(VPARAM Param)
 {
 	/* %jp{要因クリア} */
-	vclr_int(INTNO_TIMER0);
+	SysInt_Clear(INTNO_TIMER0);
 	
 	/* %jp{タイムティック供給} */
-	isig_tim();
+	SysTim_Signal(1000000);	/* 1ms */
 }
 
 

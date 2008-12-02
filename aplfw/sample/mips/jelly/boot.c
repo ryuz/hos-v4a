@@ -79,7 +79,7 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	
 	/* タイマ初期化 */	
-	OsTimer_Initialize(0);
+	OsTimer_Initialize();
 	
 	/* Jelly UART デバドラ生成 (/dev/com0 に登録) */
 	hDriver = JellyUartDrv_Create((void *)0xf2000000, 1, 2, 64);
