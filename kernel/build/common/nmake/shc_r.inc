@@ -80,6 +80,17 @@ CFLAGS = $(CFLAGS) $(CFLAGS_INC) $(CFLAGS_DEF)
 AFLAGS = $(AFLAGS) $(AFLAGS_INC)
 
 
+!ifdef LIBS
+LIBS = $(LIBS:	= )
+LIBS  = $(LIBS:  = )
+LIBS = $(LIBS:  = )
+LIBS  = $(LIBS:  = )
+LIBS = @$(LIBS)@
+LIBS  = $(LIBS:@ =)
+LIBS  = $(LIBS: @=)
+LIBS  = $(LIBS:@=)
+!endif
+
 
 # --------------------------------------
 #  %jpルール定義}%en{Rules}
