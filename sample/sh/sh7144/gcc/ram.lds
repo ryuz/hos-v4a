@@ -3,9 +3,9 @@ ENTRY(_reset_handler)
 
 MEMORY
 {
-	vector : o = 0x400000, l = 0x00400
-	rom    : o = 0x400400, l = 0x0fc00
-	ram    : o = 0x410000, l = 0x10000
+	vector : o = 0xFFFFE160, l = 0x00400
+	rom    : o = 0x00400400, l = 0x0fc00
+	ram    : o = 0x00410000, l = 0x10000
 }
 
 SECTIONS
