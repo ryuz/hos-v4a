@@ -39,7 +39,7 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)\h4acfg-$(ARCH_NAME)
 # %jp{メモリマップ}
 !if "$(MEMMAP)" == "ram"
 # %jp{外部メモリ}
-TARGET       = $(TARGET)ext
+TARGET       = $(TARGET)_ram
 SECTION_VECT = 0FFFFE160
 SECTION_ROM  = 000400400
 SECTION_RAM  = 000410000
@@ -116,7 +116,7 @@ LIBS = $(LIBS) $(STD_LIBS)
 # --------------------------------------
 
 # %jp{ALL}%en{all}
-all: makeexe_all srcobjcp $(TARGET_EXE)
+all: makeexe_all srcobjcp $(TARGET_EXE) $(TARGET_MOT)
 
 # %jp{クリーン}%en{clean}
 clean: makeexe_clean
