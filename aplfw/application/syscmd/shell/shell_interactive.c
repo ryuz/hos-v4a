@@ -59,6 +59,7 @@ int Shell_Interactive(C_SHELL *self)
 						{
 							self->ppszHistory[j] = 	self->ppszHistory[j+1];
 						}
+						self->ppszHistory[self->iHistoryMax-1] = NULL;
 						break;
 					}
 				}
