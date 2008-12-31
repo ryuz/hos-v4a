@@ -107,6 +107,10 @@ CSRCS += ../ostimer.c
 .PHONY : all
 all: kernel_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(TARGET_BIN)
 
+.PHONY : run
+run: $(TARGET_BIN)
+	jelly_loader -r $(TARGET_BIN)
+
 # %jp{クリーン}%en{clean}
 .PHONY : clean
 clean: makeexe_clean

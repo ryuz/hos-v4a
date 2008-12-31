@@ -50,21 +50,43 @@ _kernel_exc_hdr:
 				mfc0	$10, $14			/* EPC */ 
 				sw		$8, 72($sp)
 				sw		$9, 76($sp)
+				la		$26, _kernel_ictxcb
+				lbu		$27, 0($26)
 				sw		$10, 80($sp)
 				
-				jal		_kernel_sta_inh		/* %jp{割込み開始処理} */
+			/* %jp{多重割込み判定} */
+				bne		$0, $27, multiple_int
+				addiu	$27, 1
+				sb		$27, 0($26)
+				
+			/* %jp{スタック入れ替え} */
+				move	$27, $sp
+				lw		$sp, 4($26)
+				nop
+				add		$sp, -4
+				sw		$27, 0($sp)
+				
+			/* %jp{割込み開始処理} */
+				jal		_kernel_sta_inh
 				sw		$10, 76($sp)
 				
-				
+			/* %jp{割込みハンドラ実行} */
 				la		$4, 0
-				jal		_kernel_exe_inh		/* %jp{割込みハンドラ実行} */
+				jal		_kernel_exe_inh
+				nop
+				
+			/* %jp{スタック復帰} */
+				lw		$sp, 0($sp)
+				la		$26, _kernel_ictxcb
+				sb		$0, 0($26)
+				
+				
+			/* %jp{割込み終了処理} */
+				jal		_kernel_end_inh
 				nop
 				
 				
-				jal		_kernel_end_inh		/* %jp{割込み終了処理} */
-				nop
-				
-				
+ret_exc_hdr:
 				mfc0	$26, $12			/* STATUS */ 
 				ori		$26, $26, 0x04
 				mtc0	$26, $12
@@ -95,6 +117,17 @@ _kernel_exc_hdr:
 				addiu	$sp, 84
 				jr		$26
 				rfe
+
+
+multiple_int:	
+				sb		$27, 0($26)
+				
+			/* %jp{割込みハンドラ実行} */
+				la		$4, 0
+				jal		_kernel_exe_inh
+				nop
+				
+				j		ret_exc_hdr
 				
 				
 				.end	_kernel_exc_hdr

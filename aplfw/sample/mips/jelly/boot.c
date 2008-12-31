@@ -32,10 +32,24 @@
 #include "application/example/hello/hello.h"
 #include "boot.h"
 #include "ostimer.h"
-#include "uart.h"
 
+
+#if 0
 
 long	g_SystemHeap[128 * 1024 / sizeof(long)];
+#define SYSTEM_HEAP_ADDR	((void *)g_SystemHeap)
+#define SYSTEM_HEAP_SIZE	sizeof(g_SystemHeap)
+
+#else
+
+#define SYSTEM_HEAP_ADDR	((void *)0x00200000)
+#define SYSTEM_HEAP_SIZE	0x00100000
+
+#endif
+
+
+extern SYSTIM_CPUTIME		SysTim_TimeCounter;		/* デフォルトのタイマカウンタ */
+
 
 
 int Boot_Process(VPARAM Param);
@@ -52,8 +66,8 @@ void Boot_Task(VP_INT exinf)
 	
 	/* システム初期化 */
 	memset(&SysInf, 0, sizeof(SysInf));
-	SysInf.pSysMemBase     = g_SystemHeap;
-	SysInf.SysMemSize      = sizeof(g_SystemHeap);
+	SysInf.pSysMemBase     = SYSTEM_HEAP_ADDR;
+	SysInf.SysMemSize      = SYSTEM_HEAP_SIZE;
 	SysInf.SysMemAlign     = 8;
 	SysInf.pIoMemBase      = NULL;
 	SysInf.SystemStackSize = 2048;
@@ -120,7 +134,6 @@ int Boot_Process(VPARAM Param)
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
 	Command_AddCommand("hello",    Hello_Main);
-	
 	
 	
 	/*************************/

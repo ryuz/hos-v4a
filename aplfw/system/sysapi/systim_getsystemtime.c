@@ -15,11 +15,6 @@
 /* システム時刻取得 */
 SYSTIM_SYSTIME SysTim_GetSystemTime(void)
 {
-/*
-	SYSTIM tim;
-	get_tim(&tim);	
-	return tim;
-*/
 	return SysTim_TimeCounter;
 }
 

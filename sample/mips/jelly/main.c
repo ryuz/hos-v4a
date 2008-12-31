@@ -18,9 +18,6 @@
 /** %jp{メイン関数} */
 int main()
 {
-/*	Uart_PutString("---- start ----\r\n");	*/
-	
-	
 	/* %jp{カーネルの動作開始} */
 	vsta_knl();
 	

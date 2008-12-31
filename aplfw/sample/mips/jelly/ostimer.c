@@ -48,9 +48,26 @@ void OsTimer_Isr(VPARAM Param)
 	SysInt_Clear(INTNO_TIMER0);
 	
 	/* %jp{タイムティック供給} */
-	SysTim_Signal(1000000);	/* 1ms */
+	SysTim_Signal(1000000);		/* 1ms = 1,000,000 ns */
+}
+
+
+/** システム時刻をナノ秒に換算(システム用) */
+unsigned long SysTim_SysTimeToNanosecond(SYSTIM_SYSTIME SysTime)
+{
+	return (unsigned long)(SysTime % 1000000000);
+}
+
+/* システム時刻を秒に換算(システム用) */
+unsigned long  SysTim_SysTimeToSecond(SYSTIM_SYSTIME SysTime)
+{
+	return (unsigned long)(SysTime / 1000000000);
 }
 
 
 
+
+
+
 /* end of file */
+
