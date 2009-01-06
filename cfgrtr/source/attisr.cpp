@@ -162,7 +162,22 @@ void  CApiAttIsr::WriteCfgDef(FILE* fp)
 // cfgファイル初期化部書き出し
 void  CApiAttIsr::WriteCfgIni(FILE* fp)
 {
+	int i;
 
+	for ( i = 0; i < m_iObjs; i++ )
+	{
+		fprintf(
+				fp,
+				"\t{\n"
+				"\t\tconst T_CISR\tcisr = {(ATR)(%s), (VP_INT)(%s), (INTNO)(%s), (FP)(%s)};\n"
+				"\t\tacre_isr(&cisr);\n"
+				"\t}\n",
+				m_pParamPacks[i]->GetParam(ATTISR_ISRATR),
+				m_pParamPacks[i]->GetParam(ATTISR_EXINF),
+				m_pParamPacks[i]->GetParam(ATTISR_INTNO),
+				m_pParamPacks[i]->GetParam(ATTISR_ISR)
+			);
+	}
 }
 
 
