@@ -309,17 +309,6 @@ void  CApiCreFlg::WriteCfgIni(FILE* fp)
 	{
 		return;
 	}
-
-	// 初期化部出力
-	fprintf(
-		fp,
-		"\t\n\t\n"
-		"\t/* initialize event flag control block */\n"
-		"\tfor ( i = 0; i < %d; i++ )\n"
-		"\t{\n"
-		"\t\tkernel_flgcb_ram[i].flgcb_rom = &kernel_flgcb_rom[i];\n"
-		"\t}\n",
-		m_iObjs);
 }
 
 
@@ -331,11 +320,7 @@ void  CApiCreFlg::WriteCfgStart(FILE* fp)
 	{
 		return;
 	}
-
-	fputs("\tkernel_ini_flg();\t\t/* initialize event flag */\n", fp);
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

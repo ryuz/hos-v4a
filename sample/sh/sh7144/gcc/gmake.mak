@@ -95,7 +95,7 @@ all: makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
-../kernel_cfg.c ../kernel_id.h: ../system.cfg
+../kernel_cfg.c ../kernel_id.h: ../system.cfg $(KERNEL_CFGRTR)
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
