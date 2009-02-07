@@ -24,7 +24,7 @@ CMD_OBJCNV ?= $(GCC_ARCH)objcopy
 
 
 # %jp{アーキテクチャ定義}%en{architecture}
-ARCH_NAME ?= mips1
+ARCH_NAME ?= jelly
 ARCH_CC   ?= gcc
 EXT_EXE   ?= elf
 

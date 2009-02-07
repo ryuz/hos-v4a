@@ -32,11 +32,11 @@ CApiCreMbf::CApiCreMbf()
 	m_iParams = 2;
 }
 
+
 // デストラクタ
 CApiCreMbf::~CApiCreMbf()
 {
 }
-
 
 
 // APIの解析
@@ -60,7 +60,7 @@ int CApiCreMbf::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -131,7 +131,13 @@ void CApiCreMbf::WriteId(FILE* fp)
 void  CApiCreMbf::WriteCfgDef(FILE* fp)
 {
 	const char* pszParam;
-	bool blOutput;	int  i, j;
+	bool blOutput;
+	int  i, j;
+
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// コメント出力
 	fputs(
@@ -255,6 +261,11 @@ void  CApiCreMbf::WriteCfgDef(FILE* fp)
 // cfgファイル初期化部書き出し
 void  CApiCreMbf::WriteCfgIni(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+
 	// オブジェクト存在チェック
 	if ( m_iObjs == 0 )
 	{
@@ -277,16 +288,17 @@ void  CApiCreMbf::WriteCfgIni(FILE* fp)
 // cfgファイル起動部書き出し
 void  CApiCreMbf::WriteCfgStart(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+
 	// オブジェクト存在チェック
 	if ( m_iObjs == 0 )
 	{
 		return;
 	}
-
-	fputs("\tkernel_ini_mbf();\t\t/* initialize message buffer */\n", fp);
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

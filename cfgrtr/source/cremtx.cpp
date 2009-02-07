@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4 Advance configurator                           
+//  Hyper Operating System V4a Advance configurator                           
 //    CRE_MTX API の処理                                                      
 //                                                                            
-//                                    Copyright (C) 1998-2006 by Project HOS  
+//                                    Copyright (C) 1998-2009 by Project HOS  
 //                                    http://sourceforge.jp/projects/hos/     
 // ---------------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ int CApiCreMtx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -75,10 +75,14 @@ void CApiCreMtx::WriteId(FILE* fp)
 {
 	int i;
 
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+	
 	// %jp{コメントを出力}
 	fputs("\n\n/* Mtxaphore object ID definetion */\n\n", fp);
-
-
+	
 	// %jp{ID定義を出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
@@ -107,7 +111,12 @@ void CApiCreMtx::WriteId(FILE* fp)
 void  CApiCreMtx::WriteCfgDef(FILE* fp)
 {
 	int  i;
-
+	
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+	
 	// %jp{コメント出力}
 	fputs(
 		"\n\n\n"
@@ -290,6 +299,11 @@ void CApiCreMtx::WriteMtxcbRom(FILE *fp, int iObj)
 // cfgファイル初期化部書き出し
 void  CApiCreMtx::WriteCfgIni(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+
 #if _KERNEL_MTXCB_ALGORITHM == _KERNEL_MTXCB_ALG_PTRARRAY && _KERNEL_MTXCB_SPLIT_RO
 	if ( m_iObjs <= 0 )
 	{
@@ -308,9 +322,12 @@ void  CApiCreMtx::WriteCfgIni(FILE* fp)
 // cfgファイル起動部書き出し
 void  CApiCreMtx::WriteCfgStart(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2007 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file
+

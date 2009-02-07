@@ -63,7 +63,7 @@ int CApiCreMbx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -98,6 +98,10 @@ int CApiCreMbx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 // ID 定義ファイル書き出し
 void CApiCreMbx::WriteId(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 }
 
@@ -107,6 +111,11 @@ void  CApiCreMbx::WriteCfgDef(FILE* fp)
 {
 	int  i;
 
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+	
 	// コメント出力
 	fputs(
 		"\n\n\n"
@@ -281,32 +290,21 @@ void CApiCreMbx::WriteMbxcbRom(FILE *fp, int iObj)
 // %jp{cfgファイル初期化部書き出し}
 void CApiCreMbx::WriteCfgIni(FILE* fp)
 {
-	// %jp{オブジェクト存在チェック}
-	if ( m_iObjs == 0 )
+	if ( m_iMaxId <= 0 )
 	{
 		return;
 	}
-
-	// %jp{初期化部出力}
-	fprintf(
-		fp,
-		"\t\n\t\n"
-		"\t/* initialize mailbox control block */\n"
-		"\tfor ( i = 0; i < %d; i++ )\n"
-		"\t{\n"
-		"\t\tkernel_mbxcb_ram[i].mbxcb_rom = &kernel_mbxcb_rom[i];\n"
-		"\t}\n",
-		m_iObjs);
 }
 
 
 // cfgファイル起動部書き出し
 void  CApiCreMbx::WriteCfgStart(FILE* fp)
 {
-
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2006 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

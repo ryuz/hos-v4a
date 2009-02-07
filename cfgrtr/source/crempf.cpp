@@ -64,7 +64,7 @@ int CApiCreMpf::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -99,6 +99,10 @@ int CApiCreMpf::AnalyzeApi(const char* pszApiName, const char* pszParams)
 // ID 定義ファイル書き出し
 void CApiCreMpf::WriteId(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 }
 
 
@@ -107,6 +111,11 @@ void  CApiCreMpf::WriteCfgDef(FILE* fp)
 {
 	const char* pszParam;
 	int         i;
+
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// コメント出力
 	fputs(
@@ -314,14 +323,20 @@ void CApiCreMpf::WriteMpfcbRom(FILE *fp, int iObj)
 // cfgファイル初期化部書き出し
 void  CApiCreMpf::WriteCfgIni(FILE* fp)
 {
-
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 }
 
 
 // cfgファイル起動部書き出し
 void  CApiCreMpf::WriteCfgStart(FILE* fp)
 {
-
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 }
 
 

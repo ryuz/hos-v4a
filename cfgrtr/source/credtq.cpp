@@ -81,7 +81,7 @@ int CApiCreDtq::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -90,7 +90,7 @@ int CApiCreDtq::AnalyzeApi(const char* pszApiName, const char* pszParams)
 
 		return CFG_ERR_OK;
 	}
-
+	
 	return CFG_ERR_NOPROC;
 }
 
@@ -99,6 +99,11 @@ int CApiCreDtq::AnalyzeApi(const char* pszApiName, const char* pszParams)
 void CApiCreDtq::WriteId(FILE* fp)
 {
 	int i;
+
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// ID 直接指定でないオブジェクトが在るかどうかサーチ
 	for ( i = 0; i < m_iObjs; i++ )
@@ -136,6 +141,11 @@ void  CApiCreDtq::WriteCfgDef(FILE* fp)
 	const char* pszParam;
 	bool blOutput;
 	int  i, j;
+
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// コメント出力
 	fputs(
@@ -252,22 +262,16 @@ void  CApiCreDtq::WriteCfgDef(FILE* fp)
 // cfgファイル初期化部書き出し
 void  CApiCreDtq::WriteCfgIni(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+
 	// オブジェクト存在チェック
 	if ( m_iObjs == 0 )
 	{
 		return;
 	}
-
-	// 初期化部出力
-	fprintf(
-		fp,
-		"\t\n\t\n"
-		"\t/* initialize data queue control block */\n"
-		"\tfor ( i = 0; i < %d; i++ )\n"
-		"\t{\n"
-		"\t\tkernel_dtqcb_ram[i].dtqcb_rom = &kernel_dtqcb_rom[i];\n"
-		"\t}\n",
-		m_iObjs);
 }
 
 
@@ -280,10 +284,11 @@ void  CApiCreDtq::WriteCfgStart(FILE* fp)
 		return;
 	}
 
-	fputs("\tkernel_ini_dtq();\t\t/* initialize data queue */\n", fp);
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

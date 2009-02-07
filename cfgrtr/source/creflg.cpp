@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
+//  Hyper Operating System V4a  コンフィギュレーター                           
 //    CRE_FLG API の処理                                                      
 //                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
+//                                    Copyright (C) 1998-2009 by Project HOS  
 //                                    http://sourceforge.jp/projects/hos/     
 // ---------------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ int CApiCreFlg::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -97,6 +97,11 @@ int CApiCreFlg::AnalyzeApi(const char* pszApiName, const char* pszParams)
 void CApiCreFlg::WriteId(FILE* fp)
 {
 	int i;
+	
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// %jp{コメントを出力}
 	fputs("\n\n/* event flag ID definetion */\n", fp);
@@ -129,6 +134,11 @@ void CApiCreFlg::WriteId(FILE* fp)
 void  CApiCreFlg::WriteCfgDef(FILE* fp)
 {
 	int  i;
+
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// コメント出力
 	fputs(
@@ -299,27 +309,15 @@ void CApiCreFlg::WriteFlgcbRom(FILE *fp, int iObj)
 
 
 
-
-
 // cfgファイル初期化部書き出し
 void  CApiCreFlg::WriteCfgIni(FILE* fp)
 {
-	// オブジェクト存在チェック
-	if ( m_iObjs == 0 )
-	{
-		return;
-	}
 }
 
 
 // cfgファイル起動部書き出し
 void  CApiCreFlg::WriteCfgStart(FILE* fp)
 {
-	// オブジェクト存在チェック
-	if ( m_iObjs == 0 )
-	{
-		return;
-	}
 }
 
 

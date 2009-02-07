@@ -353,9 +353,9 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/cycobj.h\"\n");
 	
 //	fprintf(fp, "#include \"%s\"\n", s_szIdFile);
-	fprintf(fp, "#include \"kernel_id.h\"\n", s_szIdFile);
-
-
+	fprintf(fp, "#include \"kernel_id.h\"\n");
+	
+	
 	// ID 定義ファイル出力
 	for ( i = 0; i < API_COUNT; i++ )
 	{

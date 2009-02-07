@@ -21,8 +21,8 @@ CApiDef::CApiDef()
 	int i;
 
 	m_iDefaultMaxId = 0;
-	m_iMaxId = 0;
-	m_iObjs  = 0;
+	m_iMaxId  = -1;
+	m_iObjs   = 0;
 	m_iResObj = 0;
 	for ( i = 0; i < API_MAX_OBJS; i++ )
 	{
@@ -194,7 +194,7 @@ int CApiDef::AutoId(void)
 	}
 
 	// 指定が無い場合はデフォルト値に設定
-	if ( m_iMaxId == 0 )
+	if ( m_iMaxId < 0 )
 	{
 		m_iMaxId = m_iDefaultMaxId;
 	}

@@ -4,9 +4,10 @@
  * @file  sample.c
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
+
 
 #include <stdlib.h>
 #include <string.h>
@@ -19,25 +20,12 @@
 #define RIGHT(num)	((num) >= 5 ? 1 : (num) + 1)
 
 
-ID mbxid;
-ID mpfid;
-
-
 /** %jp{メッセージ構造体} */
 typedef struct t_print_msg
 {
 	T_MSG msg;
 	char  text[32];
 } T_PRINT_MSG;
-
-
-void Uart_IsrRx(VP_INT exinf)
-{
-	int c;
-	c = Uart_GetChar();
-	Uart_PutChar(c);
-	vclr_int(1);
-}
 
 
 /** %jp{初期化ハンドラ} */
@@ -49,46 +37,17 @@ void Sample_Initialize(VP_INT exinf)
 	/* %jp{UART初期化} */
 	Uart_Initialize();
 	
-	/* %jp{固定長メモリプール生成} */
-	cmpf.mpfatr = TA_TFIFO;					
-	cmpf.blkcnt = 3;						
-	cmpf.blksz  = sizeof(T_PRINT_MSG);		
-	cmpf.mpf    = NULL;						
-	mpfid = acre_mpf(&cmpf);
-	
-	/* %jp{メールボックス生成} */
-	cmbx.mbxatr  = TA_TFIFO | TA_TFIFO;		
-	cmbx.maxmpri = 1;						
-	cmbx.mprihd  = NULL;					
-	mbxid = acre_mbx(&cmbx);
-	
 	/* %jp{タスク起動} */
-	act_tsk(TSKID_PRINT);
 	act_tsk(TSKID_SAMPLE1);
 	act_tsk(TSKID_SAMPLE2);
 	act_tsk(TSKID_SAMPLE3);
 	act_tsk(TSKID_SAMPLE4);
 	act_tsk(TSKID_SAMPLE5);
-	
-	
-	{
-		T_CISR cisr;
-		
-		/* %jp{割り込みサービスルーチン生成} */
-		cisr.isratr = TA_HLNG;
-		cisr.exinf  = 0;
-		cisr.intno  = 1;
-		cisr.isr    = (FP)Uart_IsrRx;
-		acre_isr(&cisr);
-	
-		/* 割込み許可 */
-		ena_int(1);
-	}
 }
 
 
 /** %jp{適当な時間待つ} */
-void rand_wait(void)
+void Sample_RandWait(void)
 {
 	static unsigned long seed = 12345;
 	unsigned long r;
@@ -103,31 +62,27 @@ void rand_wait(void)
 
 
 /** %jp{状態表示} */
-void print_state(int num, char *text)
+void Sample_PrintSatet(int num, char *text)
 {
-	T_PRINT_MSG	*msg;
-	VP			mem;
-	int			i;
+	int	i;
 	
-	/* %jp{メモリ取得} */
-	get_mpf(mpfid, &mem);
-	msg = (T_PRINT_MSG *)mem;
+	wai_sem(SEMID_UART);
 	
-	/* %jp{文字列生成} */
-	msg->text[0] = '0' + num;
-	msg->text[1] = ' ';
-	msg->text[2] = ':';
-	msg->text[3] = ' ';
+	/* %jp{文字列出力} */
+	Uart_PutChar('0' + num);
+	Uart_PutChar(' ');
+	Uart_PutChar(':');
+	Uart_PutChar(' ');
 	for ( i = 0; text[i] != '\0'; i++ )
 	{
-		msg->text[4+i] = text[i];
+		Uart_PutChar(text[i]);
 	}
-	msg->text[4+i] = '\n';
-	msg->text[5+i] = '\0';
+	Uart_PutChar('\n');
+	Uart_PutChar('\0');
 	
-	/* %jp{表示タスクに送信} */
-	snd_mbx(mbxid, (T_MSG *)msg);
+	sig_sem(SEMID_UART);
 }
+
 
 
 /** %jp{サンプルタスク} */
@@ -141,8 +96,8 @@ void Sample_Task(VP_INT exinf)
 	for ( ; ; )
 	{
 		/* %jp{適当な時間考える} */
-		print_state(num, "thinking");
-		rand_wait();
+		Sample_PrintSatet(num, "thinking");
+		Sample_RandWait();
 		
 		/* %jp{左右のフォークを取るまでループ} */
 		for ( ; ; )
@@ -156,9 +111,9 @@ void Sample_Task(VP_INT exinf)
 			sig_sem(LEFT(num));	/* %jp{取れなければ離す} */
 			
 			/* %jp{適当な時間待つ} */
-			print_state(num, "hungry");
-			rand_wait();
-
+			Sample_PrintSatet(num, "hungry");
+			Sample_RandWait();
+			
 			/* %jp{右から順に取る} */
 			wai_sem(RIGHT(num));
 			if ( pol_sem(LEFT(num)) == E_OK )
@@ -166,33 +121,19 @@ void Sample_Task(VP_INT exinf)
 				break;	/* %jp{両方取れた} */
 			}
 			sig_sem(RIGHT(num));	/* %jp{取れなければ離す} */
-
+			
 			/* %jp{適当な時間待つ} */
-			print_state(num, "hungry");
-			rand_wait();
+			Sample_PrintSatet(num, "hungry");
+			Sample_RandWait();
 		}
 		
 		/* %jp{適当な時間、食べる} */
-		print_state(num, "eating");
-		rand_wait();
+		Sample_PrintSatet(num, "eating");
+		Sample_RandWait();
 		
 		/* %jp{フォークを置く} */
 		sig_sem(LEFT(num));
 		sig_sem(RIGHT(num));
-	}
-}
-
-
-/** %jp{表示タスク} */
-void Sample_Print(VP_INT exinf)
-{
-	T_PRINT_MSG *msg;
-	
-	for ( ; ; )
-	{
-		rcv_mbx(mbxid, (T_MSG **)&msg);
-		Uart_PutString(msg->text);
-		rel_mpf(mpfid, msg);
 	}
 }
 

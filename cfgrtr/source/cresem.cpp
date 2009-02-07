@@ -62,13 +62,13 @@ int CApiCreSem::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 		
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
-
+		
 		m_iMaxId = iId;
-
+		
 		return CFG_ERR_OK;
 	}
 	else if ( strcmp(pszApiName, "KERNEL_RSV_SEMID") == 0 )
@@ -84,7 +84,7 @@ int CApiCreSem::AnalyzeApi(const char* pszApiName, const char* pszParams)
 		{
 			return CFG_ERR_PARAM;
 		}
-
+		
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
@@ -98,6 +98,11 @@ int CApiCreSem::AnalyzeApi(const char* pszApiName, const char* pszParams)
 void CApiCreSem::WriteId(FILE* fp)
 {
 	int i;
+	
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// %jp{コメントを出力}
 	fputs("\n\n/* Semaphore object ID definetion */\n\n", fp);
@@ -131,6 +136,11 @@ void CApiCreSem::WriteId(FILE* fp)
 void  CApiCreSem::WriteCfgDef(FILE* fp)
 {
 	int  i;
+
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
 
 	// %jp{コメント出力}
 	fputs(
@@ -306,6 +316,11 @@ void CApiCreSem::WriteSemcbRom(FILE *fp, int iObj)
 // cfgファイル初期化部書き出し
 void  CApiCreSem::WriteCfgIni(FILE* fp)
 {
+	if ( m_iMaxId <= 0 )
+	{
+		return;
+	}
+	
 #if _KERNEL_SEMCB_ALGORITHM == _KERNEL_SEMCB_ALG_PTRARRAY && _KERNEL_SEMCB_SPLIT_RO
 	if ( m_iObjs <= 0 )
 	{
