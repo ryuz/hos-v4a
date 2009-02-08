@@ -20,20 +20,9 @@
 #define RIGHT(num)	((num) >= 5 ? 1 : (num) + 1)
 
 
-/** %jp{メッセージ構造体} */
-typedef struct t_print_msg
-{
-	T_MSG msg;
-	char  text[32];
-} T_PRINT_MSG;
-
-
 /** %jp{初期化ハンドラ} */
 void Sample_Initialize(VP_INT exinf)
 {
-	T_CMPF cmpf;
-	T_CMBX cmbx;
-	
 	/* %jp{UART初期化} */
 	Uart_Initialize();
 	
@@ -62,7 +51,7 @@ void Sample_RandWait(void)
 
 
 /** %jp{状態表示} */
-void Sample_PrintSatet(int num, char *text)
+void Sample_PrintSatet(int num, const char *text)
 {
 	int	i;
 	
@@ -77,8 +66,8 @@ void Sample_PrintSatet(int num, char *text)
 	{
 		Uart_PutChar(text[i]);
 	}
+	Uart_PutChar('\r');
 	Uart_PutChar('\n');
-	Uart_PutChar('\0');
 	
 	sig_sem(SEMID_UART);
 }
@@ -136,7 +125,6 @@ void Sample_Task(VP_INT exinf)
 		sig_sem(RIGHT(num));
 	}
 }
-
 
 
 /* end of file */

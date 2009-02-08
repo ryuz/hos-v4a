@@ -12,7 +12,6 @@
 #include "kernel.h"
 #include "uart.h"
 
-#define SDRAM	((volatile UW*)0x02000000)
 
 
 /** %jp{メイン関数} */
