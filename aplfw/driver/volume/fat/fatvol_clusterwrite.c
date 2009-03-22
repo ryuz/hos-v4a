@@ -4,7 +4,7 @@
  * @file  fatvol.c
  * @brief %jp{FATボリューム用デバイスドライバ}
  *
- * Copyright (C) 2006-2007 by Project HOS
+ * Copyright (C) 2006-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -27,10 +27,10 @@ int FatVol_ClusterWrite(
 /*	StdIo_PrintFormat("[FatLol] write cluster %08x\n", uiCluster);	*/
 	
 	
-	if ( uiCluster >= 0xf0000000 && (self->iFatType == FATVOL_TYPE_FAT12 || self->iFatType == FATVOL_TYPE_FAT16) )
+	if ( uiCluster >= 0x0f000000 && (self->iFatType == FATVOL_TYPE_FAT12 || self->iFatType == FATVOL_TYPE_FAT16) )
 	{
-		/* FAT12/16 のルートディレクトリを 0xf0000000 にマップ */
-		uiCluster -= 0xf0000000;
+		/* FAT12/16 のルートディレクトリを 0x0f000000 にマップ */
+		uiCluster -= 0x0f000000;
 		
 		/* 書き出し位置移動 */
 		uiPos = (self->RootDirSector + (uiCluster * self->SectorsPerCluster)) * self->BytesPerSector + self->Offset;

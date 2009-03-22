@@ -19,7 +19,7 @@
 
 /* 最終クラスタマーカー */
 #define FATVOL_CLUSTER_FREE				0x00000000
-#define FATVOL_CLUSTER_ENDMARKER		0xffffffff
+#define FATVOL_CLUSTER_ENDMARKER		0x0fffffff
 
 
 /* ファイルシステムのタイプ */

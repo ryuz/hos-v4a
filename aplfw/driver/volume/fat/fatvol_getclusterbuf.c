@@ -44,7 +44,7 @@ int FatVol_AlloctClusterBuf(C_FATVOL *self, FATVOL_UINT uiCluster, int iRead)
 {
 	int iIndex;
 	
-	if ( uiCluster < 2 || uiCluster >= 0xfffffff7 )
+	if ( uiCluster < 2 || uiCluster >= 0x0ffffff7 )
 	{
 		return -1;
 	}

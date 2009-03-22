@@ -221,8 +221,8 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	/* ディレクトリに存在しない場合 */
 	if ( !iEntryHit )
 	{
-		/* 新規作成でなければエラー */
-		if ( !(iMode & FILE_OPEN_CREATE) )
+		/* 新規作成禁止ならばエラー */
+		if ( iMode & FILE_OPEN_EXIST )
 		{
 			SysMtx_Unlock(self->hMtx);
 			return HANDLE_NULL;			
@@ -259,7 +259,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 				if ( uiDirCluster == FATVOL_CLUSTER_ENDMARKER )
 				{
 					/* FAT32以外のルートディレクトリなら拡張不能 */
-					if ( self->iFatType != FATVOL_TYPE_FAT32 && uiDirCluster >= 0xf0000000 )
+					if ( self->iFatType != FATVOL_TYPE_FAT32 && uiDirCluster >= 0x0f000000 )
 					{
 						SysMtx_Unlock(self->hMtx);
 						return HANDLE_NULL;						
@@ -293,7 +293,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		memset(&pubBuf[0], 0, 32);								/* 初期化 */
 		memcpy(&pubBuf[0], szName, 8+3);						/* ファイル名 */
 		pubBuf[11] = (iMode & FILE_OPEN_DIR) ? 0x10 : 0x20;		/* 属性 */
-		pubBuf[26] = ((uiFileCluster >>  0) & 0xff);					/* 開始クラスタ */
+		pubBuf[26] = ((uiFileCluster >>  0) & 0xff);			/* 開始クラスタ */
 		pubBuf[27] = ((uiFileCluster >>  8) & 0xff);
 		pubBuf[20] = ((uiFileCluster >> 16) & 0xff);
 		pubBuf[21] = ((uiFileCluster >> 24) & 0xff);

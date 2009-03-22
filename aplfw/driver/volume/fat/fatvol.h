@@ -23,8 +23,8 @@
 
 /* 型定義 */
 typedef	int				FATVOL_ERR;
-typedef	long			FATVOL_INT;
-typedef unsigned long	FATVOL_UINT;
+typedef	_HOS_SINT64		FATVOL_INT;
+typedef _HOS_UINT64		FATVOL_UINT;
 
 #ifdef __cplusplus
 extern "C" {

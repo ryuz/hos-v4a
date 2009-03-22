@@ -24,10 +24,10 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 	switch ( self->iFatType )
 	{
 	case FATVOL_TYPE_FAT12:
-		/* 0xf0000000 からルートディレクトリをマップ */
-		if ( uiCluster >= 0xf0000000 )
+		/* 0x0f000000 からルートディレクトリをマップ */
+		if ( uiCluster >= 0x0f000000 )
 		{
-			if ( uiCluster >= 0xf000001f )
+			if ( uiCluster >= 0x0f00001f )
 			{
 				return FATVOL_CLUSTER_ENDMARKER;
 			}
@@ -53,10 +53,10 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 		break;
 	
 	case FATVOL_TYPE_FAT16:
-		/* 0xf0000000 からルートディレクトリをマップ */
-		if ( uiCluster >= 0xf0000000 )
+		/* 0x0f000000 からルートディレクトリをマップ */
+		if ( uiCluster >= 0x0f000000 )
 		{
-			if ( uiCluster >= 0xf000001f )
+			if ( uiCluster >= 0x0f00001f )
 			{
 				return FATVOL_CLUSTER_ENDMARKER;
 			}
@@ -77,7 +77,7 @@ FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster)
 				+ (self->pubFatBuf[uiCluster * 4 + 2] << 16)
 				+ (self->pubFatBuf[uiCluster * 4 + 3] << 24);
 		
-		if ( uiCluster >= 0xfffffff7 )
+		if ( uiCluster >= 0x0ffffff7 )
 		{
 			return FATVOL_CLUSTER_ENDMARKER;
 		}

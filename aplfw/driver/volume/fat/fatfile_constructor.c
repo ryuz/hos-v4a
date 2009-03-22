@@ -24,6 +24,10 @@ void FatFile_Constructor(C_FATFILE *self, const T_FILEOBJ_METHODS *pMethods, C_F
 	self->uiDirEntryPos  = uiDirEntryPos;
 	self->FileSize       = FileSize;
 	self->FilePos        = 0;				/* ファイルポインタ初期化 */
+	if ( iMode & FILE_OPEN_APPEND )
+	{
+		self->FilePos = self->FileSize;
+	}
 }
 
 

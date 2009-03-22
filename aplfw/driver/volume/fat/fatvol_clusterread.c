@@ -21,10 +21,10 @@ int FatVol_ClusterRead(
 	FATVOL_UINT uiPos;
 	FATVOL_UINT uiSize;
 
-	if ( uiCluster >= 0xf0000000 && (self->iFatType == FATVOL_TYPE_FAT12 || self->iFatType == FATVOL_TYPE_FAT16) )
+	if ( uiCluster >= 0x0f000000 && (self->iFatType == FATVOL_TYPE_FAT12 || self->iFatType == FATVOL_TYPE_FAT16) )
 	{
 		/* FAT12/16 のルートディレクトリを 0xf0000000 にマップ */
-		uiCluster -= 0xf0000000;
+		uiCluster -= 0x0f000000;
 		
 		/* 読み出し位置移動 */
 		uiPos = (self->RootDirSector + (uiCluster * self->SectorsPerCluster)) * self->BytesPerSector + self->Offset;

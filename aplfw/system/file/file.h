@@ -32,14 +32,15 @@
 #define FILE_EOF							(-1)
 
 /* Openモード定義 */
-#define FILE_OPEN_READ						0x01		/* 読込み許可 */
-#define FILE_OPEN_WRITE						0x02		/* 書込み許可 */
-#define FILE_OPEN_CREATE					0x04		/* 常に新規作成 */
-#define FILE_OPEN_EXIST						0x08		/* 存在しなければエラー */
-#define FILE_OPEN_SHARE_READ				0x10		/* 読込み共有許可 */
-#define FILE_OPEN_SHARE_WRITE				0x20		/* 書込み共有許可 */
-#define FILE_OPEN_TEXT						0x40		/* テキストモード */
-#define FILE_OPEN_DIR						0x80		/* ディレクトリをオープン */
+#define FILE_OPEN_READ						0x0001		/* 読込み許可 */
+#define FILE_OPEN_WRITE						0x0002		/* 書込み許可 */
+#define FILE_OPEN_CREATE					0x0004		/* 常に新規作成 */
+#define FILE_OPEN_EXIST						0x0008		/* 存在しなければエラー */
+#define FILE_OPEN_APPEND					0x0010		/* 存在しなければエラー */
+#define FILE_OPEN_TEXT						0x0080		/* テキストモード */
+#define FILE_OPEN_SHARE_READ				0x0100		/* 読込み共有許可 */
+#define FILE_OPEN_SHARE_WRITE				0x0200		/* 書込み共有許可 */
+#define FILE_OPEN_DIR						0x0800		/* ディレクトリをオープン */
 
 /* シーク */
 #define FILE_SEEK_SET						0

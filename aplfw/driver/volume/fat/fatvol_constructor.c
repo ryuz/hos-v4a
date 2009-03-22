@@ -134,7 +134,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 										- (2 * self->SectorsPerCluster);			/**< クラスタ0の開始セクタ */
 		self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster;
 																					/**< 総クラスタ数 */
-		self->RootDirCluster    = 0xf0000000;
+		self->RootDirCluster    = 0x0f000000;
 		
 		/* FATバッファ準備 */
 		self->pubFatBuf   = (unsigned char *)SysIo_AllocIoMem(self->SectorPerFat * self->BytesPerSector);
