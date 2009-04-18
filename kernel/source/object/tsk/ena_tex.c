@@ -21,8 +21,6 @@ ER ena_tex(void)
 {
 	_KERNEL_T_TSKHDL      tskhdl;
 	_KERNEL_T_TCB         *tcb;
-	_KERNEL_TSK_T_TSKSTAT tskstat;
-
 
 #if _KERNEL_SPT_ENA_TSK_E_CTX
 	if ( _KERNEL_SYS_SNS_CTX() )

@@ -359,8 +359,9 @@ extern  _KERNEL_T_DTQCB					*_kernel_dtqcb_tbl[];									/**< %jp{データキ�
 extern "C" {
 #endif
 
-ER _kernel_cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq);	/**< %jp{データキュー生成}%en{Create Data queue} */
-ER _kernel_wai_dtq(ID dtqid, TMO tmout);				/**< %jp{データキュー資源の獲得(統合版)}%en{Acquire Data queue Resource} */
+ER _kernel_cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq);		/**< %jp{データキュー生成}%en{Create Data queue} */
+ER _kernel_snd_dtq(ID dtqid, VP_INT data, TMO tmout);		/**< %jp{データキューへの送信(統合版)}%en{Send Data Queue} */
+ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout);	/**< %jp{データキューから受信(統合版)}%en{Receive from Data Queue} */
 
 #ifdef __cplusplus
 }
