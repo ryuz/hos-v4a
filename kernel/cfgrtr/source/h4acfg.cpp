@@ -25,6 +25,8 @@ int main(int argc, char *argv[])
 	SrcInf.iColumnNum  = 1;
 	Parser.Analyze(fp, &SrcInf);
 	
+	getchar();
+
 	return 0;
 }
 

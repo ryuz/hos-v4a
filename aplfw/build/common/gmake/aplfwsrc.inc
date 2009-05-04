@@ -286,6 +286,7 @@ CSRCS += $(FILE_DIR)/file_readdir.c
 CSRCS += $(FILE_DIR)/file_seek.c
 CSRCS += $(FILE_DIR)/file_write.c
 CSRCS += $(FILE_DIR)/file_driveropen.c
+CSRCS += $(FILE_DIR)/file_relpathtoabspath.c
 CSRCS += $(FILE_DIR)/file_getdriverinformation.c
 CSRCS += $(FILE_DIR)/file_printformat.c
 CSRCS += $(FILE_DIR)/file_printformatv.c

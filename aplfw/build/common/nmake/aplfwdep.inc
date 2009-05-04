@@ -526,6 +526,9 @@ $(OBJS_DIR)\file_write.c : $(FILE_DIR)\file_write.c
 $(OBJS_DIR)\file_driveropen.c : $(FILE_DIR)\file_driveropen.c
 	$(CMD_CP) $(FILE_DIR)\file_driveropen.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\file_relpathtoabspath.c : $(FILE_DIR)\file_relpathtoabspath.c
+	$(CMD_CP) $(FILE_DIR)\file_relpathtoabspath.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\file_getdriverinformation.c : $(FILE_DIR)\file_getdriverinformation.c
 	$(CMD_CP) $(FILE_DIR)\file_getdriverinformation.c $(OBJS_DIR)\
 
@@ -2121,6 +2124,7 @@ $(OBJS_DIR)\file_readdir.$(EXT_OBJ):	$(OBJS_DIR)\file_readdir.c	$(COMMON_HEADERS
 $(OBJS_DIR)\file_seek.$(EXT_OBJ):	$(OBJS_DIR)\file_seek.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_write.$(EXT_OBJ):	$(OBJS_DIR)\file_write.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_driveropen.$(EXT_OBJ):	$(OBJS_DIR)\file_driveropen.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\file_relpathtoabspath.$(EXT_OBJ):	$(OBJS_DIR)\file_relpathtoabspath.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_getdriverinformation.$(EXT_OBJ):	$(OBJS_DIR)\file_getdriverinformation.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_printformat.$(EXT_OBJ):	$(OBJS_DIR)\file_printformat.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\file_printformatv.$(EXT_OBJ):	$(OBJS_DIR)\file_printformatv.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)

@@ -50,7 +50,7 @@ ifeq ($(MEMMAP),ext)
 # %jp{外部メモリ}
 TARGET       := $(TARGET)ext
 SECTION_ROM  ?= 0x80008000
-SECTION_RAM  ?= 0x80010000
+SECTION_RAM  ?= 0x80020000
 else
 ifeq ($(MEMMAP),ram)
 # %jp{内蔵RAM}

@@ -142,6 +142,7 @@ $(OBJS_DIR)/file_readdir.$(EXT_OBJ):	$(FILE_DIR)/file_readdir.c	$(COMMON_HEADERS
 $(OBJS_DIR)/file_seek.$(EXT_OBJ):	$(FILE_DIR)/file_seek.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/file_write.$(EXT_OBJ):	$(FILE_DIR)/file_write.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/file_driveropen.$(EXT_OBJ):	$(FILE_DIR)/file_driveropen.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)/file_relpathtoabspath.$(EXT_OBJ):	$(FILE_DIR)/file_relpathtoabspath.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/file_getdriverinformation.$(EXT_OBJ):	$(FILE_DIR)/file_getdriverinformation.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/file_printformat.$(EXT_OBJ):	$(FILE_DIR)/file_printformat.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/file_printformatv.$(EXT_OBJ):	$(FILE_DIR)/file_printformatv.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)

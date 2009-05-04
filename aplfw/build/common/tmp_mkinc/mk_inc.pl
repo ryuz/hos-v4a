@@ -271,6 +271,7 @@
 				"file_seek.c",
 				"file_write.c",
 				"file_driveropen.c",
+				"file_relpathtoabspath.c",
 				"file_getdriverinformation.c",
 				"file_printformat.c",
 				"file_printformatv.c",

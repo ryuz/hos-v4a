@@ -215,10 +215,10 @@ int       File_PutString(HANDLE hFile, const char *pszString);
 int       File_PrintFormatV(HANDLE hFile, const char *pszFormat, va_list argptr);
 int       File_PrintFormat(HANDLE hFile, const char *pszFormat, ...);
 
-int       File_PrintHexNibble(HANDLE hFile, unsigned char c);		/* 4bitの16進数を出力 */
+int       File_PrintHexNibble(HANDLE hFile, unsigned char c);							/* 4bitの16進数を出力 */
 
-int       File_PrintFormatDecimal(HANDLE hFile, long lNum, int iWidth, int iPadChar);		/* 書式付き10進数出力 */
-int       File_PrintFormatVL(HANDLE hFile, const char *pszFormat, va_list argptr);			/* 書式付き出力軽量版 */
+int       File_PrintFormatDecimal(HANDLE hFile, long lNum, int iWidth, int iPadChar);	/* 書式付き10進数出力 */
+int       File_PrintFormatVL(HANDLE hFile, const char *pszFormat, va_list argptr);		/* 書式付き出力軽量版 */
 
 
 /* ディレクトリ読み出し */
@@ -237,10 +237,11 @@ FILE_SIZE File_SendWriteBuf(HANDLE hFile, void *pBuf, FILE_SIZE Size);
 FILE_ERR  File_CanWriteBuf(HANDLE hFile, void *pBuf);
 
 /* ディレクトリ操作 */
-HANDLE    File_OpenDir(const char *pszName);						/* ディレクトリを開く */
-FILE_ERR  File_ReadDir(HANDLE hDir, T_FILE_FILEINF *pFileInf);		/* ディレクトリからファイルを検索 */
-HANDLE    File_MakeDir(const char *pszName);						/* サブディレクトリを作成 */
-HANDLE    File_Remove(const char *pszName);							/* ファイルを削除 */
+HANDLE    File_OpenDir(const char *pszName);											/**< ディレクトリを開く */
+FILE_ERR  File_ReadDir(HANDLE hDir, T_FILE_FILEINF *pFileInf);							/**< ディレクトリからファイルを検索 */
+HANDLE    File_MakeDir(const char *pszName);											/**< サブディレクトリを作成 */
+HANDLE    File_Remove(const char *pszName);												/**< ファイルを削除 */
+FILE_ERR  File_RelPathToAbsPath(char *pszDstPath, const char *pszSrcPath, int iMaxLen);	/**< 相対パスを絶対パスに変換 */
 
 
 #ifdef __cplusplus

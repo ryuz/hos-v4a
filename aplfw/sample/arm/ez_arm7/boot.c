@@ -4,7 +4,7 @@
  * @file  sample.c
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
- * Copyright (C) 1998-2008 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -24,6 +24,11 @@
 #include "application//syscmd/shell/shell.h"
 #include "application//syscmd/commandlist/commandlist.h"
 #include "application//syscmd/processlist/processlist.h"
+#include "application/filecmd/filelist/filelist.h"
+#include "application/filecmd/filecopy/filecopy.h"
+#include "application/filecmd/filedump/filedump.h"
+#include "application/filecmd/filecat/filecat.h"
+#include "application/fatcmd/fatmount/fatmount.h"
 #include "application/utility/timecmd/timecmd.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
@@ -141,6 +146,7 @@ int Boot_Process(VPARAM Param)
 	/*************************/
 	/*     コマンド登録      */
 	/*************************/
+	
 	Command_AddCommand("sh",       Shell_Main);
 	Command_AddCommand("ps",       ProcessList_Main);
 	Command_AddCommand("help",     CommandList_Main);
@@ -149,18 +155,23 @@ int Boot_Process(VPARAM Param)
 	Command_AddCommand("memwrite", MemWrite_Main);
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
+	Command_AddCommand("ls",       FileList_Main);
+	Command_AddCommand("cp",       FileCopy_Main);
+	Command_AddCommand("cat",      FileCat_Main);
+	Command_AddCommand("fatmount", FatMount_Main);
 	Command_AddCommand("hello",    Hello_Main);
 	
 	
 	/*************************/
 	/*    起動メッセージ     */
 	/*************************/
+	
 	StdIo_PutString(
 			"\n\n"
 			"================================================================\n"
 			" Hyper Operating System  Application Framework\n"
 			"\n"
-			"                          Copyright (C) 1998-2008 by Project HOS\n"
+			"                          Copyright (C) 1998-2009 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");
@@ -172,7 +183,7 @@ int Boot_Process(VPARAM Param)
 
 	/* プロセスの生成*/
 	ProcInf.pszCommandLine = "sh -i";								/* 実行コマンド */
-	ProcInf.pszCurrentDir  = "";									/* 起動ディレクトリ */
+	ProcInf.pszCurrentDir  = "/";									/* 起動ディレクトリ */
 	ProcInf.pfncEntry      = NULL;									/* 起動アドレス */
 	ProcInf.Param          = 0;										/* ユーザーパラメータ */
 	ProcInf.StackSize      = 2048;									/* スタックサイズ */

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hosv4a", "hosv4a.vcproj", "{4BF8992D-EEF4-4895-82AB-2BB59BB1A803}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h4acfg", "..\..\..\..\..\cfgrtr\build\vc2008\h4acfg.vcproj", "{6F535A30-2F71-4FF1-AC7F-FE5ADC7BEE0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{4BF8992D-EEF4-4895-82AB-2BB59BB1A803}.Debug|Win32.Build.0 = Debug|Win32
 		{4BF8992D-EEF4-4895-82AB-2BB59BB1A803}.Release|Win32.ActiveCfg = Release|Win32
 		{4BF8992D-EEF4-4895-82AB-2BB59BB1A803}.Release|Win32.Build.0 = Release|Win32
+		{6F535A30-2F71-4FF1-AC7F-FE5ADC7BEE0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6F535A30-2F71-4FF1-AC7F-FE5ADC7BEE0C}.Debug|Win32.Build.0 = Debug|Win32
+		{6F535A30-2F71-4FF1-AC7F-FE5ADC7BEE0C}.Release|Win32.ActiveCfg = Release|Win32
+		{6F535A30-2F71-4FF1-AC7F-FE5ADC7BEE0C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

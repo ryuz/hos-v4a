@@ -85,8 +85,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 			self->Offset *= 512;
 		}
 	}
-	
-	
+		
 	/* サイズ取得 */
 	self->DriveSize  = File_Seek(self->hBlockFile, 0, FILE_SEEK_END);
 

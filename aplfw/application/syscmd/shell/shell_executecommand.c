@@ -23,6 +23,35 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 	int		iPriority   = PROCESS_PRIORITY_NORMAL;
 	int 	iLen;
 	
+	/* 組み込みコマンド */
+	if ( pszCommand[0] == 'c' && pszCommand[1] == 'd' && pszCommand[2] == ' ' )
+	{
+		HANDLE		hDir;
+		char		szPath[FILE_MAX_PATH] = "";
+		
+		/* 相対パスを絶対パスに変換 */
+		File_RelPathToAbsPath(szPath, &pszCommand[3], FILE_MAX_PATH);
+		
+		/* ダミーオープン */
+		if ( (hDir = File_Open(szPath, FILE_OPEN_READ | FILE_OPEN_DIR)) == HANDLE_NULL )
+		{
+			StdIo_PrintFormat("Open Error\n");
+			return 1;
+		}
+		File_Close(hDir);
+		
+		/* カレントディレクトリ設定 */
+		Process_SetCurrentDir(Process_GetCurrentHandle(), szPath);
+		
+		return 0;		
+	}
+	if ( pszCommand[0] == 'p' && pszCommand[1] == 'w' && pszCommand[2] == 'd' && pszCommand[3] == '\0' )
+	{
+		StdIo_PrintFormat("%s\n", Process_GetCurrentDir(Process_GetCurrentHandle()));
+		return 0;
+	}
+	
+	
 	if ( self->ExecSimple )
 	{
 		Command_Execute(pszCommand, &iExitCode);
