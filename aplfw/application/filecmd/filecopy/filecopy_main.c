@@ -29,7 +29,7 @@ int FileCopy_Main(int argc, char *argv[])
 	{
 		return 1;
 	}
-
+	
 	/* バッファ確保 */
 	pBuf = Memory_Alloc(FILECOPY_BUFSIZE);
 	if ( pBuf == NULL )
@@ -42,6 +42,7 @@ int FileCopy_Main(int argc, char *argv[])
 	{
 		return 1;
 	}
+	
 	if ( (hFileDst = File_Open(argv[2], FILE_OPEN_WRITE | FILE_OPEN_CREATE)) == HANDLE_NULL )
 	{
 		File_Close(hFileSrc);

@@ -13,7 +13,7 @@
 
 
 /* 空きクラスタの獲得 */
-FATVOL_UINT  FatVol_GetNewCluster(C_FATVOL *self)
+FATVOL_UINT  FatVol_AllocCluster(C_FATVOL *self)
 {
 	FATVOL_UINT	uiCluster;
 	

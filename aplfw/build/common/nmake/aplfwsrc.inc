@@ -72,6 +72,9 @@ LINK_CRC16            = Yes
 !ifndef LINK_STRINGFORMAT
 LINK_STRINGFORMAT     = Yes
 !endif
+!ifndef LINK_MEMUTIL
+LINK_MEMUTIL          = Yes
+!endif
 
 # Device Drivers
 !ifndef LINK_VT100
@@ -843,6 +846,25 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\stringformat_nibble.$(EXT_OBJ)
 !endif
 
 
+# Memory Operation Utility
+!if "$(LINK_MEMUTIL)" == "Yes"
+MEMUTIL_DIR = $(HOSAPLFW_DIR)\library\utility\memutil
+HEADERS = $(HEADERS) $(OBJS_DIR)\memutil.h
+CSRCS = $(CSRCS) $(MEMUTIL_DIR)\memutil_memcopyb.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memutil_memcopyb.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMUTIL_DIR)\memutil_memcopyh.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memutil_memcopyh.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMUTIL_DIR)\memutil_memcopyw.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memutil_memcopyw.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMUTIL_DIR)\memutil_memsetb.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memutil_memsetb.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMUTIL_DIR)\memutil_memseth.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memutil_memseth.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(MEMUTIL_DIR)\memutil_memsetw.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\memutil_memsetw.$(EXT_OBJ)
+!endif
+
+
 
 # --------------------------------------------------
 #  Device Drivers
@@ -1438,8 +1460,10 @@ CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_getclusterbuf.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_getclusterbuf.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_relclusterbuf.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_relclusterbuf.$(EXT_OBJ)
-CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_getnewcluster.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_getnewcluster.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_alloccluster.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_alloccluster.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_freecluster.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_freecluster.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_getnextcluster.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fatvol_getnextcluster.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FATVOL_DIR)\fatvol_setnextcluster.c

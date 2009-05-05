@@ -62,7 +62,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 		if ( uiNextCluster == FATVOL_CLUSTER_ENDMARKER )
 		{
 			/* 次クラスタが無ければ作る */
-			uiNextCluster = FatVol_GetNewCluster(self);
+			uiNextCluster = FatVol_AllocCluster(self);
 			if ( uiNextCluster == FATVOL_CLUSTER_ENDMARKER )
 			{
 				return 0;	/* ディスクフル */
@@ -132,7 +132,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 		if ( uiNextCluster == FATVOL_CLUSTER_ENDMARKER )
 		{
 			/* 次クラスタが無ければ作る */
-			uiNextCluster = FatVol_GetNewCluster(self);
+			uiNextCluster = FatVol_AllocCluster(self);
 			if ( uiNextCluster == FATVOL_CLUSTER_ENDMARKER )
 			{
 				break;	/* ディスクフル */

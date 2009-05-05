@@ -83,33 +83,35 @@ struct c_fatfile;
 extern "C" {
 #endif
 
-FATVOL_ERR  FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethods, const char *pszPath);
-void        FatVol_Destructor(C_FATVOL *self);
+FATVOL_ERR          FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethods, const char *pszPath);
+void                FatVol_Destructor(C_FATVOL *self);
 
-HANDLE      FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void        FatVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR    FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS    FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE   FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE   FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR    FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE              FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
+void                FatVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+FILE_ERR            FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS            FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
+FILE_SIZE           FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
+FILE_SIZE           FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
+FILE_ERR            FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
 
-FILE_ERR    FatVol_Shutdown(C_VOLUMEOBJ *pVolObj);														/* シャットダウン */
-FILE_ERR    FatVol_MakeDir(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/* サブディレクトリを作成 */
-FILE_ERR    FatVol_Remove(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/* ファイルを削除 */
+FILE_ERR            FatVol_Shutdown(C_VOLUMEOBJ *pVolObj);														/**< シャットダウン */
+FILE_ERR            FatVol_MakeDir(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/**< サブディレクトリを作成 */
+FILE_ERR            FatVol_Remove(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/**< ファイルを削除 */
 
-void        FatVol_SyncFileSize(C_FATVOL *self, struct c_fatfile *pFile);										/* サイズ同期 */
+void                FatVol_SyncFileSize(C_FATVOL *self, struct c_fatfile *pFile);								/**< サイズ同期 */
 
-int         FatVol_ClusterWrite(C_FATVOL *self, FATVOL_UINT uiCluster, const void *pBuf);				/**< クラスタ書き込み */
-int         FatVol_ClusterRead(C_FATVOL *self, FATVOL_UINT uiCluster, void *pBuf);						/**< クラスタ読み込み */
+int                 FatVol_ClusterWrite(C_FATVOL *self, FATVOL_UINT uiCluster, const void *pBuf);				/**< クラスタ書き込み */
+int                 FatVol_ClusterRead(C_FATVOL *self, FATVOL_UINT uiCluster, void *pBuf);						/**< クラスタ読み込み */
 
 T_FATVOL_CLUSTERBUF *FatVol_GetClusterBuf(C_FATVOL *self, FATVOL_UINT uiCluster, int iRead);
 void                FatVol_RelClusterBuf(C_FATVOL *self, T_FATVOL_CLUSTERBUF *pClusterBuf, int iDirty);							
 void                FatVol_FlushClusterBuf(C_FATVOL *self);
 
-FATVOL_UINT FatVol_GetNewCluster(C_FATVOL *self);
-FATVOL_UINT FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster);
-void        FatVol_SetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster, FATVOL_UINT uiNextCluster);
+FATVOL_UINT         FatVol_AllocCluster(C_FATVOL *self);
+void                FatVol_FreeCluster(C_FATVOL *self, FATVOL_UINT uiCluster);
+FATVOL_UINT         FatVol_GetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster);
+void                FatVol_SetNextCluster(C_FATVOL *self, FATVOL_UINT uiCluster, FATVOL_UINT uiNextCluster);
+
 
 void        FatVol_FlushFat(C_FATVOL *self);
 

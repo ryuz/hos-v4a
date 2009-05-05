@@ -888,6 +888,28 @@ $(OBJS_DIR)\stringformat_nibble.c : $(STRINGFORMAT_DIR)\stringformat_nibble.c
 	$(CMD_CP) $(STRINGFORMAT_DIR)\stringformat_nibble.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\memutil.h : $(MEMUTIL_DIR)\memutil.h
+	$(CMD_CP) $(MEMUTIL_DIR)\memutil.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\memutil_memcopyb.c : $(MEMUTIL_DIR)\memutil_memcopyb.c
+	$(CMD_CP) $(MEMUTIL_DIR)\memutil_memcopyb.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memutil_memcopyh.c : $(MEMUTIL_DIR)\memutil_memcopyh.c
+	$(CMD_CP) $(MEMUTIL_DIR)\memutil_memcopyh.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memutil_memcopyw.c : $(MEMUTIL_DIR)\memutil_memcopyw.c
+	$(CMD_CP) $(MEMUTIL_DIR)\memutil_memcopyw.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memutil_memsetb.c : $(MEMUTIL_DIR)\memutil_memsetb.c
+	$(CMD_CP) $(MEMUTIL_DIR)\memutil_memsetb.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memutil_memseth.c : $(MEMUTIL_DIR)\memutil_memseth.c
+	$(CMD_CP) $(MEMUTIL_DIR)\memutil_memseth.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\memutil_memsetw.c : $(MEMUTIL_DIR)\memutil_memsetw.c
+	$(CMD_CP) $(MEMUTIL_DIR)\memutil_memsetw.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\vt100drv.h : $(VT100_DIR)\vt100drv.h
 	$(CMD_CP) $(VT100_DIR)\vt100drv.h $(OBJS_DIR)\
 
@@ -1710,8 +1732,11 @@ $(OBJS_DIR)\fatvol_getclusterbuf.c : $(FATVOL_DIR)\fatvol_getclusterbuf.c
 $(OBJS_DIR)\fatvol_relclusterbuf.c : $(FATVOL_DIR)\fatvol_relclusterbuf.c
 	$(CMD_CP) $(FATVOL_DIR)\fatvol_relclusterbuf.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\fatvol_getnewcluster.c : $(FATVOL_DIR)\fatvol_getnewcluster.c
-	$(CMD_CP) $(FATVOL_DIR)\fatvol_getnewcluster.c $(OBJS_DIR)\
+$(OBJS_DIR)\fatvol_alloccluster.c : $(FATVOL_DIR)\fatvol_alloccluster.c
+	$(CMD_CP) $(FATVOL_DIR)\fatvol_alloccluster.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fatvol_freecluster.c : $(FATVOL_DIR)\fatvol_freecluster.c
+	$(CMD_CP) $(FATVOL_DIR)\fatvol_freecluster.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\fatvol_getnextcluster.c : $(FATVOL_DIR)\fatvol_getnextcluster.c
 	$(CMD_CP) $(FATVOL_DIR)\fatvol_getnextcluster.c $(OBJS_DIR)\
@@ -2234,6 +2259,13 @@ $(OBJS_DIR)\stringformat_decimal.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_decimal.c	
 $(OBJS_DIR)\stringformat_hexadecimal.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_hexadecimal.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\stringformat_nibble.$(EXT_OBJ):	$(OBJS_DIR)\stringformat_nibble.c	$(COMMON_HEADERS)
 
+$(OBJS_DIR)\memutil_memcopyb.$(EXT_OBJ):	$(OBJS_DIR)\memutil_memcopyb.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memutil_memcopyh.$(EXT_OBJ):	$(OBJS_DIR)\memutil_memcopyh.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memutil_memcopyw.$(EXT_OBJ):	$(OBJS_DIR)\memutil_memcopyw.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memutil_memsetb.$(EXT_OBJ):	$(OBJS_DIR)\memutil_memsetb.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memutil_memseth.$(EXT_OBJ):	$(OBJS_DIR)\memutil_memseth.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\memutil_memsetw.$(EXT_OBJ):	$(OBJS_DIR)\memutil_memsetw.c	$(COMMON_HEADERS)
+
 $(OBJS_DIR)\vt100drv_create.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\vt100drv_delete.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_delete.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\vt100drv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\vt100drv_constructor.c	$(COMMON_HEADERS)
@@ -2477,7 +2509,8 @@ $(OBJS_DIR)\fatvol_flushclusterbuf.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_flushclusterbu
 $(OBJS_DIR)\fatvol_flushfat.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_flushfat.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_getclusterbuf.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_getclusterbuf.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_relclusterbuf.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_relclusterbuf.c	$(COMMON_HEADERS)
-$(OBJS_DIR)\fatvol_getnewcluster.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_getnewcluster.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fatvol_alloccluster.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_alloccluster.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fatvol_freecluster.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_freecluster.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_getnextcluster.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_getnextcluster.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_setnextcluster.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_setnextcluster.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_syncfilesize.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_syncfilesize.c	$(COMMON_HEADERS)

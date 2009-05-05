@@ -18,6 +18,7 @@
 #include "system/file/stdfile.h"
 
 #include "library/algorithm/stringformat/stringformat.h"
+#include "library/utility/memutil/memutil.h"
 
 
 

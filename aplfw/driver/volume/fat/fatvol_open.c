@@ -227,8 +227,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 			SysMtx_Unlock(self->hMtx);
 			return HANDLE_NULL;			
 		}
-		
-		
+				
 		/* ディレクトリを開く */
 		uiDirCluster  = uiDirStartCluster;
 		uiDirEntryPos = 0;
@@ -264,7 +263,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 						SysMtx_Unlock(self->hMtx);
 						return HANDLE_NULL;						
 					}
-					if ( (uiFileCluster = FatVol_GetNewCluster(self)) == FATVOL_CLUSTER_ENDMARKER )
+					if ( (uiFileCluster = FatVol_AllocCluster(self)) == FATVOL_CLUSTER_ENDMARKER )
 					{
 						SysMtx_Unlock(self->hMtx);
 						return HANDLE_NULL;						
@@ -282,7 +281,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		}
 		
 		/* 新規クラスタ作成 */
-		if ( (uiFileCluster = FatVol_GetNewCluster(self)) == FATVOL_CLUSTER_ENDMARKER )
+		if ( (uiFileCluster = FatVol_AllocCluster(self)) == FATVOL_CLUSTER_ENDMARKER )
 		{
 			FatVol_RelClusterBuf(self, pClusterBuf, 0);
 			SysMtx_Unlock(self->hMtx);
@@ -290,8 +289,8 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		}
 		FatVol_SetNextCluster(self, uiFileCluster, FATVOL_CLUSTER_ENDMARKER);
 		
-		memset(&pubBuf[0], 0, 32);								/* 初期化 */
-		memcpy(&pubBuf[0], szName, 8+3);						/* ファイル名 */
+		MemUtil_MemSetB(&pubBuf[0], 0, 32);						/* 初期化 */
+		MemUtil_MemCopyB(&pubBuf[0], szName, 8+3);				/* ファイル名 */
 		pubBuf[11] = (iMode & FILE_OPEN_DIR) ? 0x10 : 0x20;		/* 属性 */
 		pubBuf[26] = ((uiFileCluster >>  0) & 0xff);			/* 開始クラスタ */
 		pubBuf[27] = ((uiFileCluster >>  8) & 0xff);
@@ -299,7 +298,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		pubBuf[21] = ((uiFileCluster >> 24) & 0xff);
 		FileSize   = 0;
 		ubFileAttr = pubBuf[11];
-
+		
 		/* ディレクトリを閉じる */
 		FatVol_RelClusterBuf(self, pClusterBuf, 1);
 	}

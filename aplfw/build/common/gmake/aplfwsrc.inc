@@ -34,6 +34,7 @@ LINK_PACKETBUF        ?= Yes
 LINK_IPCHECKSUM       ?= Yes
 LINK_CRC16            ?= Yes
 LINK_STRINGFORMAT     ?= Yes
+LINK_MEMUTIL          ?= Yes
 
 # Device Drivers
 LINK_VT100            ?= Yes
@@ -463,6 +464,19 @@ CSRCS += $(STRINGFORMAT_DIR)/stringformat_nibble.c
 endif
 
 
+# Memory Operation Utility
+ifeq ($(LINK_MEMUTIL),Yes)
+MEMUTIL_DIR = $(HOSAPLFW_DIR)/library/utility/memutil
+SRC_DIRS += $(MEMUTIL_DIR)
+CSRCS += $(MEMUTIL_DIR)/memutil_memcopyb.c
+CSRCS += $(MEMUTIL_DIR)/memutil_memcopyh.c
+CSRCS += $(MEMUTIL_DIR)/memutil_memcopyw.c
+CSRCS += $(MEMUTIL_DIR)/memutil_memsetb.c
+CSRCS += $(MEMUTIL_DIR)/memutil_memseth.c
+CSRCS += $(MEMUTIL_DIR)/memutil_memsetw.c
+endif
+
+
 
 # --------------------------------------------------
 #  Device Drivers
@@ -805,7 +819,8 @@ CSRCS += $(FATVOL_DIR)/fatvol_flushclusterbuf.c
 CSRCS += $(FATVOL_DIR)/fatvol_flushfat.c
 CSRCS += $(FATVOL_DIR)/fatvol_getclusterbuf.c
 CSRCS += $(FATVOL_DIR)/fatvol_relclusterbuf.c
-CSRCS += $(FATVOL_DIR)/fatvol_getnewcluster.c
+CSRCS += $(FATVOL_DIR)/fatvol_alloccluster.c
+CSRCS += $(FATVOL_DIR)/fatvol_freecluster.c
 CSRCS += $(FATVOL_DIR)/fatvol_getnextcluster.c
 CSRCS += $(FATVOL_DIR)/fatvol_setnextcluster.c
 CSRCS += $(FATVOL_DIR)/fatvol_syncfilesize.c
