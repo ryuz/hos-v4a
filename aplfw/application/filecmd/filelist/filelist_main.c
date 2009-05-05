@@ -41,7 +41,7 @@ int FileList_Main(int argc, char *argv[])
 	
 	
 	/* ディレクトリを開く */	
-	if ( (hDir = File_Open(pPath, FILE_OPEN_READ | FILE_OPEN_DIR)) == HANDLE_NULL )
+	if ( (hDir = File_Open(pPath, FILE_OPEN_READ | FILE_OPEN_EXIST | FILE_OPEN_DIR)) == HANDLE_NULL )
 	{
 		return 0;
 	}
