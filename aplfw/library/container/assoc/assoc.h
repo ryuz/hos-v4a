@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  assocbuf.h
- * @brief %jp{連想バッファクラス}
+ * @file  assoc.h
+ * @brief %jp{連想配列クラス}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -12,23 +12,33 @@
 #ifndef __HOS__assoc_h__
 #define __HOS__assoc_h__
 
+#include "library/container/memheap/memheap.h"
 
-#include "library/container/list/list.h"
 
 #define ASSOC_ERR_OK		0
 #define ASSOC_ERR_NG		(-1)
-#define ASSOC_POS_NULL		LIST_POS_NULL
+#define ASSOC_POS_NULL		(0)
 
 typedef void*	ASSOC_POS;
 typedef int     ASSOC_ERR;
 
 
-/* ストリームバッファクラス */
-typedef struct c_assocbuf
+/** ノード格納用構造体 */
+typedef struct t_assoc_node
 {
-	C_LIST		List;	/* とりあえず手抜き(そのうちB-Treeとかに....) */
-	C_MEMHEAP	*pMemHeap;
+	struct t_assoc_node	*pLeft;
+	struct t_assoc_node	*pRight;
+	struct t_assoc_node	*pParent;
+} T_ASSOC_NODE;
+
+
+/** 連想配列クラス */
+typedef struct c_assoc
+{
+	T_ASSOC_NODE	*pRoot;
+	C_MEMHEAP		*pMemHeap;
 } C_ASSOC;
+
 
 
 #ifdef __cplusplus
@@ -36,9 +46,17 @@ extern "C" {
 #endif
 
 /* 生成／削除 */
+#if 0
+C_ASSOC	   *Assoc_Create(void);																/* 連想バッファの生成 */
+void        Assoc_Delete(C_ASSOC *self);													/* 連想バッファの削除 */
+
+void        Assoc_Constructor(C_ASSOC *self, C_MEMHEAP *pMemHeap);							/* 連想バッファのコンストラクタ */
+void        Assoc_Destructor(C_ASSOC *self);												/* 連想バッファのデストラクタ */
+#endif
 void        Assoc_Create(C_ASSOC *self);													/* 連想バッファの生成 */
 void        Assoc_CreateEx(C_ASSOC *self, C_MEMHEAP *pMemHeap);								/* 連想バッファの生成 */
 void        Assoc_Delete(C_ASSOC *self);													/* 連想バッファの削除 */
+
 
 /* 操作 */
 ASSOC_ERR   Assoc_Add(C_ASSOC *self, const char *pszKey, const void *pData, long lSize);	/* データの登録 */
