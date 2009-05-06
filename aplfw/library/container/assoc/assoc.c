@@ -4,7 +4,7 @@
  * @file  assoc.c
  * @brief %jp{連想配列クラス}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
