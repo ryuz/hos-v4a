@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_CYC API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4 Advance コンフィギュレーター
+//    CRE_CYC API の処理
+//
+//                                    Copyright (C) 1998-2009 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 

@@ -655,6 +655,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="command"
+				>
+				<File
+					RelativePath="..\..\..\..\system\command\command.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\command\command.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="application"

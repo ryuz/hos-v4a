@@ -46,17 +46,11 @@ extern "C" {
 #endif
 
 /* 生成／削除 */
-#if 0
 C_ASSOC	   *Assoc_Create(void);																/* 連想バッファの生成 */
+C_ASSOC	   *Assoc_CreateEx(C_MEMHEAP *pMemHeap);											/* 連想バッファの生成 */
 void        Assoc_Delete(C_ASSOC *self);													/* 連想バッファの削除 */
-
 void        Assoc_Constructor(C_ASSOC *self, C_MEMHEAP *pMemHeap);							/* 連想バッファのコンストラクタ */
 void        Assoc_Destructor(C_ASSOC *self);												/* 連想バッファのデストラクタ */
-#endif
-void        Assoc_Create(C_ASSOC *self);													/* 連想バッファの生成 */
-void        Assoc_CreateEx(C_ASSOC *self, C_MEMHEAP *pMemHeap);								/* 連想バッファの生成 */
-void        Assoc_Delete(C_ASSOC *self);													/* 連想バッファの削除 */
-
 
 /* 操作 */
 ASSOC_ERR   Assoc_Add(C_ASSOC *self, const char *pszKey, const void *pData, long lSize);	/* データの登録 */

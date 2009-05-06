@@ -14,10 +14,20 @@
 #include "assoc.h"
 
 
+C_ASSOC *Assoc_Create(void)
+{
+	return NULL;
+}
+
+
+C_ASSOC *Assoc_CreateEx(C_MEMHEAP *pMemHeap)
+{
+	return NULL;
+}
+
 
 /* 連想バッファのコンストラクタ */
-/*void Assoc_Constructor(C_ASSOC *self, C_MEMHEAP *pMemHeap) */
-void Assoc_CreateEx(C_ASSOC *self, C_MEMHEAP *pMemHeap)
+void Assoc_Constructor(C_ASSOC *self, C_MEMHEAP *pMemHeap)
 {
 	self->pMemHeap = pMemHeap;
 	self->pRoot    = NULL;

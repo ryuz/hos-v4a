@@ -21,8 +21,8 @@ ER sta_cyc(ID cycid)
 	_KERNEL_T_CYCCB    *cyccb;
 	_KERNEL_T_CYCCB_RO *cyccb_ro;
 	_KERNEL_T_TIMOBJ   *pk_timobj;
-
-
+	
+	
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_STA_CYC_E_ID
 	if ( !_KERNEL_CYC_CHECK_CYCID(cycid) )

@@ -46,9 +46,8 @@ FILE_ERR FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 				{
 					return FILE_ERR_NG;
 				}				
-			} while ( ubBuf[0] == 0xe5 || ubBuf[0] == 0x2e );
-			
-			
+			} while ( ubBuf[0] == 0xe5 || ubBuf[0] == 0x2e || ubBuf[11] == 0x0f );
+						
 			/* ファイル名 */
 			p = pFileInf->szFileName;
 			for ( i = 0; i < 8; i++ )

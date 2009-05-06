@@ -27,7 +27,7 @@
 ID cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 {
 	ER_ID erid;
-
+	
 	/* %jp{IDチェック}%en{check ID} */
 #if _KERNEL_SPT_CRE_CYC_E_ID
 	if ( !_KERNEL_CYC_CHECK_CYCID(cycid) )
@@ -35,7 +35,7 @@ ID cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
 	}	
 #endif
-
+	
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{存在チェック}%en{check object} */

@@ -17,17 +17,12 @@
 HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
 	C_FATVOL 			*self;
-
 	HANDLE 				hFile;
-
-
 	FATVOL_UINT			uiDirStartCluster;	
 	FATVOL_UINT			uiDirCluster;	
 	FATVOL_UINT			uiDirEntryPos;
-
 	char   				szName[8+3];
 	int    				iNameLen;
-
 	FATVOL_UINT			uiFileCluster;
 	unsigned char		ubFileAttr;
 	FILE_POS			FileSize;
@@ -301,6 +296,16 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		
 		/* ディレクトリを閉じる */
 		FatVol_RelClusterBuf(self, pClusterBuf, 1);
+	}
+	else
+	{
+		/* 存在した場合 */
+		if ( iMode & FILE_OPEN_CREATE )
+		{
+			FatVol_FreeCluster(self, uiFileCluster);
+			FatVol_SetNextCluster(self, uiFileCluster, FATVOL_CLUSTER_ENDMARKER);
+			FileSize = 0;
+		}
 	}
 	
 	/* モードチェック */
