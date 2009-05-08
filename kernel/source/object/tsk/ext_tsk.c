@@ -34,7 +34,7 @@ void ext_tsk(void)
 
 	/* %jp{TCB取得} */
 	tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
-	tcb_ro = _KERNEL_TSK_GET_TCB_RO(tskid, tcb);
+	tcb_ro = _KERNEL_TSK_GET_TCB_RO(_KERNEL_TSK_TSKHDL2ID(tskhdl), tcb);
 	
 	
 	/* %jp{所有ミューテックスがあれば開放} */
@@ -73,7 +73,7 @@ void ext_tsk(void)
 	
 	/* %jp{リスタート} */
 	_KERNEL_RST_CTX(
-				_KERNEL_TSK_GET_CTXCB(tcb),				/* %jp{コンテキスト制御ブロック} */
+				_KERNEL_TSK_GET_CTXCB(tcb),					/* %jp{コンテキスト制御ブロック} */
 				_KERNEL_TSK_GET_STKSZ(tcb_ro),				/* %jp{タスクのスタック領域サイズ} */
 				_KERNEL_TSK_GET_STK(tcb_ro),				/* %jp{タスクのスタック領域の先頭番地} */
 				_KERNEL_TSK_GET_ISP(tcb_ro),				/* %jp{スタックポインタの初期値} */
