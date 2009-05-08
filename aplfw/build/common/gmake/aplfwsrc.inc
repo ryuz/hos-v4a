@@ -375,7 +375,12 @@ endif
 ifeq ($(LINK_ASSOC),Yes)
 ASSOC_DIR = $(HOSAPLFW_DIR)/library/container/assoc
 SRC_DIRS += $(ASSOC_DIR)
-CSRCS += $(ASSOC_DIR)/assoc.c
+CSRCS += $(ASSOC_DIR)/assoc_constructor.c
+CSRCS += $(ASSOC_DIR)/assoc_add.c
+CSRCS += $(ASSOC_DIR)/assoc_get.c
+CSRCS += $(ASSOC_DIR)/assoc_getat.c
+CSRCS += $(ASSOC_DIR)/assoc_getfirst.c
+CSRCS += $(ASSOC_DIR)/assoc_getnext.c
 endif
 
 

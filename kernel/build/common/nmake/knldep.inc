@@ -181,6 +181,9 @@ $(OBJS_DIR)\sns_ctx.c : $(SYSOBJ_DIR)\sns_ctx.c
 	$(CMD_CP) $(SYSOBJ_DIR)\sns_ctx.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\cre_tsk.c : $(TSKOBJ_DIR)\cre_tsk.c
+	$(CMD_CP) $(TSKOBJ_DIR)\cre_tsk.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\acre_tsk.c : $(TSKOBJ_DIR)\acre_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\acre_tsk.c $(OBJS_DIR)\
 
@@ -193,11 +196,35 @@ $(OBJS_DIR)\del_tsk.c : $(TSKOBJ_DIR)\del_tsk.c
 $(OBJS_DIR)\act_tsk.c : $(TSKOBJ_DIR)\act_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\act_tsk.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\iact_tsk.c : $(TSKOBJ_DIR)\iact_tsk.c
+	$(CMD_CP) $(TSKOBJ_DIR)\iact_tsk.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\can_act.c : $(TSKOBJ_DIR)\can_act.c
+	$(CMD_CP) $(TSKOBJ_DIR)\can_act.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\ext_tsk.c : $(TSKOBJ_DIR)\ext_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\ext_tsk.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\exd_tsk.c : $(TSKOBJ_DIR)\exd_tsk.c
+	$(CMD_CP) $(TSKOBJ_DIR)\exd_tsk.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\ter_tsk.c : $(TSKOBJ_DIR)\ter_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\ter_tsk.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\chg_pri.c : $(TSKOBJ_DIR)\chg_pri.c
+	$(CMD_CP) $(TSKOBJ_DIR)\chg_pri.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\kchg_pri.c : $(TSKOBJ_DIR)\kchg_pri.c
+	$(CMD_CP) $(TSKOBJ_DIR)\kchg_pri.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\get_pri.c : $(TSKOBJ_DIR)\get_pri.c
+	$(CMD_CP) $(TSKOBJ_DIR)\get_pri.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\ref_tsk.c : $(TSKOBJ_DIR)\ref_tsk.c
+	$(CMD_CP) $(TSKOBJ_DIR)\ref_tsk.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\ref_tst.c : $(TSKOBJ_DIR)\ref_tst.c
+	$(CMD_CP) $(TSKOBJ_DIR)\ref_tst.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\slp_tsk.c : $(TSKOBJ_DIR)\slp_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\slp_tsk.c $(OBJS_DIR)\
@@ -220,12 +247,6 @@ $(OBJS_DIR)\rsm_tsk.c : $(TSKOBJ_DIR)\rsm_tsk.c
 $(OBJS_DIR)\dly_tsk.c : $(TSKOBJ_DIR)\dly_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\dly_tsk.c $(OBJS_DIR)\
 
-$(OBJS_DIR)\ref_tsk.c : $(TSKOBJ_DIR)\ref_tsk.c
-	$(CMD_CP) $(TSKOBJ_DIR)\ref_tsk.c $(OBJS_DIR)\
-
-$(OBJS_DIR)\ref_tst.c : $(TSKOBJ_DIR)\ref_tst.c
-	$(CMD_CP) $(TSKOBJ_DIR)\ref_tst.c $(OBJS_DIR)\
-
 $(OBJS_DIR)\def_tex.c : $(TSKOBJ_DIR)\def_tex.c
 	$(CMD_CP) $(TSKOBJ_DIR)\def_tex.c $(OBJS_DIR)\
 
@@ -237,6 +258,9 @@ $(OBJS_DIR)\ena_tex.c : $(TSKOBJ_DIR)\ena_tex.c
 
 $(OBJS_DIR)\kexe_tex.c : $(TSKOBJ_DIR)\kexe_tex.c
 	$(CMD_CP) $(TSKOBJ_DIR)\kexe_tex.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\tcb2id.c : $(TSKOBJ_DIR)\tcb2id.c
+	$(CMD_CP) $(TSKOBJ_DIR)\tcb2id.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\cre_sem.c : $(SEMOBJ_DIR)\cre_sem.c
@@ -511,12 +535,21 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dis_dsp.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sns_dsp.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sns_ctx.c	$(COMMON_HEADERS)
 
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\act_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\iact_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\can_act.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ext_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\exd_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ter_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\chg_pri.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kchg_pri.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\get_pri.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tst.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\slp_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\wup_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\can_wup.c	$(COMMON_HEADERS)
@@ -524,12 +557,11 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rel_wai.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sus_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rsm_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dly_tsk.c	$(COMMON_HEADERS)
-$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tsk.c	$(COMMON_HEADERS)
-$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tst.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\def_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ras_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ena_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kexe_tex.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\tcb2id.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_sem.c	$(COMMON_HEADERS) $(SEMOBJ_HEADERS)

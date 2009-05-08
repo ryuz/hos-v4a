@@ -410,6 +410,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\..\source\object\tsk\exd_tsk.c"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\..\source\object\tsk\ext_tsk.c"
 						>
 					</File>

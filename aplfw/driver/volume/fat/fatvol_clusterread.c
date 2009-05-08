@@ -19,7 +19,7 @@ int FatVol_ClusterRead(
 		void        *pBuf)
 {
 	FATVOL_UINT uiPos;
-	FATVOL_UINT uiSize;
+	FILE_SIZE	uiSize;
 
 	if ( uiCluster >= 0x0f000000 && (self->iFatType == FATVOL_TYPE_FAT12 || self->iFatType == FATVOL_TYPE_FAT16) )
 	{
@@ -34,7 +34,7 @@ int FatVol_ClusterRead(
 		}
 		
 		/* 読み出し */
-		uiSize = self->BytesPerCluster;
+		uiSize = (FILE_SIZE)self->BytesPerCluster;
 		if ( File_Read(self->hBlockFile, pBuf, uiSize) != uiSize )
 		{
 			return FATVOL_ERR_NG;
@@ -50,7 +50,7 @@ int FatVol_ClusterRead(
 		}
 
 		/* 読み出し */
-		uiSize = self->BytesPerCluster;
+		uiSize = (FILE_SIZE)self->BytesPerCluster;
 		if ( File_Read(self->hBlockFile, pBuf, uiSize) != uiSize )
 		{
 			return FATVOL_ERR_NG;

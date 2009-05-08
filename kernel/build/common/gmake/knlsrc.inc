@@ -187,12 +187,21 @@ CSRCS += $(SYSOBJ_DIR)/sns_ctx.c
 # Tasks
 TSKOBJ_DIR = $(KERNEL_OBJ_DIR)/tsk
 SRC_DIRS += $(TSKOBJ_DIR)
+CSRCS += $(TSKOBJ_DIR)/cre_tsk.c
 CSRCS += $(TSKOBJ_DIR)/acre_tsk.c
 CSRCS += $(TSKOBJ_DIR)/kcre_tsk.c
 CSRCS += $(TSKOBJ_DIR)/del_tsk.c
 CSRCS += $(TSKOBJ_DIR)/act_tsk.c
+CSRCS += $(TSKOBJ_DIR)/iact_tsk.c
+CSRCS += $(TSKOBJ_DIR)/can_act.c
 CSRCS += $(TSKOBJ_DIR)/ext_tsk.c
+CSRCS += $(TSKOBJ_DIR)/exd_tsk.c
 CSRCS += $(TSKOBJ_DIR)/ter_tsk.c
+CSRCS += $(TSKOBJ_DIR)/chg_pri.c
+CSRCS += $(TSKOBJ_DIR)/kchg_pri.c
+CSRCS += $(TSKOBJ_DIR)/get_pri.c
+CSRCS += $(TSKOBJ_DIR)/ref_tsk.c
+CSRCS += $(TSKOBJ_DIR)/ref_tst.c
 CSRCS += $(TSKOBJ_DIR)/slp_tsk.c
 CSRCS += $(TSKOBJ_DIR)/wup_tsk.c
 CSRCS += $(TSKOBJ_DIR)/can_wup.c
@@ -200,12 +209,11 @@ CSRCS += $(TSKOBJ_DIR)/rel_wai.c
 CSRCS += $(TSKOBJ_DIR)/sus_tsk.c
 CSRCS += $(TSKOBJ_DIR)/rsm_tsk.c
 CSRCS += $(TSKOBJ_DIR)/dly_tsk.c
-CSRCS += $(TSKOBJ_DIR)/ref_tsk.c
-CSRCS += $(TSKOBJ_DIR)/ref_tst.c
 CSRCS += $(TSKOBJ_DIR)/def_tex.c
 CSRCS += $(TSKOBJ_DIR)/ras_tex.c
 CSRCS += $(TSKOBJ_DIR)/ena_tex.c
 CSRCS += $(TSKOBJ_DIR)/kexe_tex.c
+CSRCS += $(TSKOBJ_DIR)/tcb2id.c
 
 
 # Semaphores

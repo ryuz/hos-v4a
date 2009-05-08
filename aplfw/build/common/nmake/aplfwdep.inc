@@ -713,8 +713,23 @@ $(OBJS_DIR)\fixmemheap_alignsize.c : $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c
 $(OBJS_DIR)\assoc.h : $(ASSOC_DIR)\assoc.h
 	$(CMD_CP) $(ASSOC_DIR)\assoc.h $(OBJS_DIR)\
 
-$(OBJS_DIR)\assoc.c : $(ASSOC_DIR)\assoc.c
-	$(CMD_CP) $(ASSOC_DIR)\assoc.c $(OBJS_DIR)\
+$(OBJS_DIR)\assoc_constructor.c : $(ASSOC_DIR)\assoc_constructor.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_add.c : $(ASSOC_DIR)\assoc_add.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_add.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_get.c : $(ASSOC_DIR)\assoc_get.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_get.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_getat.c : $(ASSOC_DIR)\assoc_getat.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_getat.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_getfirst.c : $(ASSOC_DIR)\assoc_getfirst.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_getfirst.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_getnext.c : $(ASSOC_DIR)\assoc_getnext.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_getnext.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\list.h : $(LIST_DIR)\list.h
@@ -2208,7 +2223,12 @@ $(OBJS_DIR)\fixmemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getalign.c	$(
 $(OBJS_DIR)\fixmemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getsize.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_alignsize.c	$(COMMON_HEADERS)
 
-$(OBJS_DIR)\assoc.$(EXT_OBJ):	$(OBJS_DIR)\assoc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_constructor.$(EXT_OBJ):	$(OBJS_DIR)\assoc_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_add.$(EXT_OBJ):	$(OBJS_DIR)\assoc_add.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_get.$(EXT_OBJ):	$(OBJS_DIR)\assoc_get.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_getat.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getat.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_getfirst.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getfirst.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_getnext.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getnext.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\list_create.$(EXT_OBJ):	$(OBJS_DIR)\list_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\list_createex.$(EXT_OBJ):	$(OBJS_DIR)\list_createex.c	$(COMMON_HEADERS)

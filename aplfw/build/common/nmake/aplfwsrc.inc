@@ -707,8 +707,18 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ)
 !if "$(LINK_ASSOC)" == "Yes"
 ASSOC_DIR = $(HOSAPLFW_DIR)\library\container\assoc
 HEADERS = $(HEADERS) $(OBJS_DIR)\assoc.h
-CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc.c
-OBJS  = $(OBJS)  $(OBJS_DIR)\assoc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_add.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_add.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_get.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_get.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getat.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getat.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getfirst.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getfirst.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getnext.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getnext.$(EXT_OBJ)
 !endif
 
 

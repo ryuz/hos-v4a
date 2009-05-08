@@ -379,7 +379,12 @@
 				"assoc.h",
 			],
 			[
-				"assoc.c",
+				"assoc_constructor.c",
+				"assoc_add.c",
+				"assoc_get.c",
+				"assoc_getat.c",
+				"assoc_getfirst.c",
+				"assoc_getnext.c",
 			]
 		],
 		[

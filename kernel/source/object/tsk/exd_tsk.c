@@ -14,8 +14,11 @@
 #include "object/mtxobj.h"
 
 
-static void _kernel_exd_tsk(VP_INT exinf1, VP_INT exinf2);
 
+#if _KERNEL_SPT_EXD_TSK
+
+
+static void _kernel_exd_tsk(VP_INT exinf1, VP_INT exinf2);
 
 
 /** %jp{自タスクの終了と削除}%en{Terminate and Delete Invoking Task}
@@ -95,6 +98,11 @@ void _kernel_exd_tsk(VP_INT exinf1, VP_INT exinf2)
 	_kernel_idl_lop();
 }
 
+
+#else	/* _KERNEL_SPT_EXD_TSK */
+
+
+#endif	/* _KERNEL_SPT_EXD_TSK */
 
 
 /* end of file */

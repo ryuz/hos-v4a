@@ -47,7 +47,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="2"
+				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -746,11 +746,31 @@
 					Name="assoc"
 					>
 					<File
-						RelativePath="..\..\..\..\library\container\assoc\assoc.c"
+						RelativePath="..\..\..\..\library\container\assoc\assoc.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\..\..\library\container\assoc\assoc.h"
+						RelativePath="..\..\..\..\library\container\assoc\assoc_add.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_constructor.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_get.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_getat.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_getfirst.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_getnext.c"
 						>
 					</File>
 				</Filter>
