@@ -27,12 +27,12 @@
 CApiCreSem::CApiCreSem()
 {
 	// %jp{デフォルトの最大ID設定}
-	m_iDefaultMaxId = _KERNEL_TMAX_SEMID;
+	m_iDefaultMaxId = _KERNEL_DEF_TMAX_SEMID;
 	
 	// %jp{パラメーター構文設定}
 	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}
 	m_iParamSyntax[1] = 3;		// %jp{3パラメーターのブロック}
-	m_iParams = 2;
+	m_iParams         = 2;
 }
 
 // デストラクタ
@@ -342,6 +342,4 @@ void  CApiCreSem::WriteCfgStart(FILE* fp)
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2006 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

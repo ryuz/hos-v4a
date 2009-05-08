@@ -291,6 +291,26 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="parser"
+				>
+				<File
+					RelativePath="..\..\..\..\include\parser\parserr.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\include\parser\parshok.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\include\parser\parsknl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\include\parser\parssys.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="source"
@@ -415,6 +435,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\..\source\object\tsk\ext_tsk.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\source\object\tsk\frsm_tsk.c"
 						>
 					</File>
 					<File

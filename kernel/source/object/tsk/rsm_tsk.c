@@ -2,9 +2,9 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  rsm_tsk.c
- * @brief 
+ * @brief %jp{強制待ち状態からの再開}%en{Resume Suspended Task}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -16,6 +16,13 @@
 #if _KERNEL_SPT_RSM_TSK
 
 
+/** %jp{強制待ち状態からの再開}%en{Resume Suspended Task}
+ * @param  tskid    %jp{再開対象のタスクのID番号}%en{ID number of the task to be resumed}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(tskidが不正あるいは使用できない)}%en{Invalid ID number(tskid is invalid or unusable)}
+ * @retval E_NOEXS  %jp{予約属性(sematrが不正あるいは使用できない)}%en{Reserved attribute(specified task is not registered)}
+ * @retval E_OBJ    %jp{オブジェクト状態エラー(対象タスクが強制待ち状態でない)}%en{Object state error(specified task is neither in SUSPENDED state nor WAITING-SUSPENDED state)}
+ */
 ER rsm_tsk(
 		ID tskid)
 {
@@ -28,21 +35,21 @@ ER rsm_tsk(
 #if _KERNEL_SPT_SUS_TSK_E_ID
 	if ( !_KERNEL_TSK_CHECK_TSKID(tskid) )
 	{
-		return E_ID;	/* %jp{不正ID番号} */
+		return E_ID;				/* %jp{不正ID番号} */
 	}
 #endif
 	
-	_KERNEL_ENTER_SVC();			/* %jp{enter service-call}%jp{サービスコールに入る} */
+	_KERNEL_ENTER_SVC();			/* %jp{サービスコールに入る}%en{enter service-call} */
 		
 	/* %jp{オブジェクト存在チェック} */
 #if _KERNEL_SPT_SUS_TSK_E_NOEXS
 	if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 	{
-		_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
+		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールを出る}%en{leave service-call} */
 		return E_NOEXS;				/* %jp{オブジェクト未生成} */
 	}
 #endif
-
+	
 	/* ID番号指定時の変換 */
 	tskhdl = _KERNEL_TSK_ID2TSKHDL(tskid);
 	
@@ -53,10 +60,10 @@ ER rsm_tsk(
 	tskstat = _KERNEL_TSK_GET_TSKSTAT(tcb);
 	if ( !(tskstat & _KERNEL_TTS_SUS) )
 	{
-		_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
-		return E_OBJ;				
+		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールを出る}%en{leave service-call} */
+		return E_OBJ;
 	}
-
+	
 	suscnt = _KERNEL_TSK_GET_SUSCNT(tcb);
 	if ( suscnt > 0 )
 	{
@@ -80,6 +87,11 @@ ER rsm_tsk(
 
 #if _KERNEL_SPT_RSM_TSK_E_NOSPT
 
+
+/** %jp{強制待ち状態からの強制再開}%en{Forcibly Resume Suspended Task}
+ * @param  tskid    %jp{再開対象のタスクのID番号}%en{ID number of the task to be resumed}
+ * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
+ */
 ER rsm_tsk(
 		ID tskid)
 {

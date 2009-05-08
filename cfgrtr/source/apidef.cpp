@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター
+//  Hyper Operating System V4 Advance コンフィギュレーター
 //    API定義クラス
 //
-//                                    Copyright (C) 1998-2003 by Project HOS
+//                                    Copyright (C) 1998-2009 by Project HOS
 //                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
@@ -21,9 +21,9 @@ CApiDef::CApiDef()
 	int i;
 
 	m_iDefaultMaxId = 0;
-	m_iMaxId  = -1;
-	m_iObjs   = 0;
-	m_iResObj = 0;
+	m_iMaxId        = -1;
+	m_iObjs         = 0;
+	m_iResObj       = 0;
 	for ( i = 0; i < API_MAX_OBJS; i++ )
 	{
 		m_pParamPacks[i] = NULL;
@@ -137,62 +137,65 @@ int CApiDef::AddParams(const char* pszParams)
 // 自動ID番号割り当て
 int CApiDef::AutoId(void)
 {
-	bool blUsedId[255];
+	bool blUsedId[65536];
 	int iId;
 	int i;
-
-	// 変数初期化
-	for ( i = 0; i < 255; i++ )
+	
+	if ( m_iObjs > 0 )
 	{
-		blUsedId[i] = false;
-	}
-
-	// 固定値指定のIDをサーチ
-	for ( i = 0; i < m_iObjs; i++ )
-	{
-		iId = atoi(m_pParamPacks[i]->GetParam(0));
-		if ( iId > 0 )
+		// 変数初期化
+		for ( i = 0; i < 65536; i++ )
 		{
-			if ( m_iId[i] != 0 )
+			blUsedId[i] = false;
+		}
+		
+		// 固定値指定のIDをサーチ
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			iId = atoi(m_pParamPacks[i]->GetParam(0));
+			if ( iId > 0 )
 			{
-				return CFG_ERR_ID_CONFLICT;		// ID衝突
-			}
-			m_iId[i] = iId;
-			blUsedId[iId - 1] = true;
-			if ( iId > m_iMaxId )
-			{
-				m_iMaxId = iId;
+				if ( m_iId[i] != 0 )
+				{
+					return CFG_ERR_ID_CONFLICT;		// ID衝突
+				}
+				m_iId[i] = iId;
+				blUsedId[iId - 1] = true;
+				if ( iId > m_iMaxId )
+				{
+					m_iMaxId = iId;
+				}
 			}
 		}
-	}
 
-	// ID 自動割当
-	iId = 1;
-	for ( i = 0; i < m_iObjs; i++ )
-	{
-		if ( m_iId[i] == 0 )
+		// ID 自動割当
+		iId = 1;
+		for ( i = 0; i < m_iObjs; i++ )
 		{
-			// 使用済みIDのスキップ
-			while ( blUsedId[iId - 1] )
+			if ( m_iId[i] == 0 )
 			{
-				iId++;
+				// 使用済みIDのスキップ
+				while ( blUsedId[iId - 1] )
+				{
+					iId++;
+				}
+				m_iId[i] = iId++;
 			}
-			m_iId[i] = iId++;
+		}
+		iId--;
+
+		if ( iId > m_iMaxId )
+		{
+			m_iMaxId = iId;
 		}
 	}
-	iId--;
-
-	if ( iId > m_iMaxId )
-	{
-		m_iMaxId = iId;
-	}
-
+	
 	// 最大ID番号を予約オブジェクト数分増加
-	if ( m_iMaxId < m_iObjs + m_iResObj )
+	if ( m_iResObj > 0 && m_iMaxId < m_iObjs + m_iResObj )
 	{
 		m_iMaxId = m_iObjs + m_iResObj;
 	}
-
+	
 	// 指定が無い場合はデフォルト値に設定
 	if ( m_iMaxId < 0 )
 	{
@@ -243,7 +246,4 @@ void CApiDef::WriteCfgStart(FILE* fpCfg)
 {
 }
 
-
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS
-// ---------------------------------------------------------------------------
+// end of file

@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_DTQ API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2002 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4 Advance コンフィギュレーター
+//    CRE_DTQ API の処理
+//
+//                                    Copyright (C) 1998-2009 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -33,6 +33,4 @@ public:
 #endif	// __HOSV4CFG_CreDtq_h__
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2002 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

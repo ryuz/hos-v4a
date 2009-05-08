@@ -271,10 +271,20 @@ int ReadConfigFile(FILE* fpConfig)
 		}
 		if ( iErr != CFG_ERR_OK )
 		{
-                       fprintf(stderr, "%s line(%d) : %s\n",
-					read.GetLogicalInputFile(),
-					read.GetLogicalLineNum(), GetErrMessage(iErr));
-			return 1;
+			if ( iErr != CFG_ERR_NOPROC )
+			{
+				fprintf(stderr, "%s line(%d) : %s\n",
+						read.GetLogicalInputFile(),
+						read.GetLogicalLineNum(), GetErrMessage(iErr));
+				return 1;
+			}
+			else
+			{
+				fprintf(stderr, "%s line(%d) : Warning!  Ignore unknown API(%s)\n",
+						read.GetLogicalInputFile(),
+						read.GetLogicalLineNum(),
+						szApiName);
+			}
 		}
 	}
 

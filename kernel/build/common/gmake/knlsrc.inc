@@ -208,6 +208,7 @@ CSRCS += $(TSKOBJ_DIR)/can_wup.c
 CSRCS += $(TSKOBJ_DIR)/rel_wai.c
 CSRCS += $(TSKOBJ_DIR)/sus_tsk.c
 CSRCS += $(TSKOBJ_DIR)/rsm_tsk.c
+CSRCS += $(TSKOBJ_DIR)/frsm_tsk.c
 CSRCS += $(TSKOBJ_DIR)/dly_tsk.c
 CSRCS += $(TSKOBJ_DIR)/def_tex.c
 CSRCS += $(TSKOBJ_DIR)/ras_tex.c

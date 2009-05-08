@@ -1,14 +1,14 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_CYC API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2002 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4 Advance コンフィギュレーター
+//    CRE_CYC API の処理
+//
+//                                    Copyright (C) 1998-2009 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
-#ifndef __HOSV4CFG_CreCyc_h__
-#define __HOSV4CFG_CreCyc_h__
+#ifndef __HOSV4ACFG_CreCyc_h__
+#define __HOSV4ACFG_CreCyc_h__
 
 
 #include "apidef.h"
@@ -34,9 +34,7 @@ protected:
 };
 
 
-#endif	// __HOSV4CFG_CreCyc_h__
+#endif	// __HOSV4ACFG_CreCyc_h__
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2002 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

@@ -1,14 +1,14 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4a  コンフィギュレーター                           
-//    API定義クラス                                                           
-//                                                                            
+//  Hyper Operating System V4 Adcance コンフィギュレーター
+//    API定義クラス
+//
 //                                    Copyright (C) 1998-2009 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
-#ifndef __HOSV4CFG_ApiDef_h__
-#define __HOSV4CFG_ApiDef_h__
+#ifndef __HOSV4ACFG_ApiDef_h__
+#define __HOSV4ACFG_ApiDef_h__
 
 
 #include "parpack.h"
@@ -47,7 +47,7 @@ protected:
 };
 
 
-#endif	// __HOSV4CFG_ApiDef_h__
+#endif	// __HOSV4ACFG_ApiDef_h__
 
 
 

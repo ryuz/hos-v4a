@@ -142,6 +142,7 @@
 		"rel_wai.c",
 		"sus_tsk.c",
 		"rsm_tsk.c",
+		"frsm_tsk.c",
 		"dly_tsk.c",
 		"def_tex.c",
 		"ras_tex.c",

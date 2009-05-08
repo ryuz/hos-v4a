@@ -27,7 +27,7 @@ CApiDefExc::CApiDefExc()
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 2;		// 2つのパラメーターブロック
-	m_iParams = 2;
+	m_iParams         = 2;
 
 	m_iMaxExcNo = 0;
 	m_iMinExcNo = 0;

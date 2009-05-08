@@ -26,6 +26,9 @@
 // コンストラクタ
 CApiCreMbf::CApiCreMbf()
 {
+	// %jp{デフォルトの最大ID設定}
+	m_iDefaultMaxId = _KERNEL_DEF_TMAX_MBFID;
+
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 4;		// 4パラメーターのブロック

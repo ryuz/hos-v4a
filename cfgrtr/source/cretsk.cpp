@@ -30,7 +30,7 @@
 CApiCreTsk::CApiCreTsk()
 {
 	// %jp{デフォルトの最大ID設定}
-	m_iDefaultMaxId = _KERNEL_TMAX_TSKID;
+	m_iDefaultMaxId = _KERNEL_DEF_TMAX_TSKID;
 
 	// %jp{パラメーター構文設定}
 	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}

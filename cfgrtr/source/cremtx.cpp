@@ -26,13 +26,14 @@
 CApiCreMtx::CApiCreMtx()
 {
 	// %jp{デフォルトの最大ID設定}
-	m_iDefaultMaxId = _KERNEL_TMAX_MTXID;
+	m_iDefaultMaxId = _KERNEL_DEF_TMAX_MTXID;
 	
 	// %jp{パラメーター構文設定}
 	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}
 	m_iParamSyntax[1] = 2;		// %jp{2パラメーターのブロック}
-	m_iParams = 2;
+	m_iParams         = 2;
 }
+
 
 // デストラクタ
 CApiCreMtx::~CApiCreMtx()
@@ -111,10 +112,15 @@ void CApiCreMtx::WriteId(FILE* fp)
 void  CApiCreMtx::WriteCfgDef(FILE* fp)
 {
 	int  i;
-	
+
+
 	if ( m_iMaxId <= 0 )
 	{
+#if _KERNEL_SPT_MTX
+		m_iMaxId = 1;
+#else
 		return;
+#endif
 	}
 	
 	// %jp{コメント出力}

@@ -244,6 +244,9 @@ $(OBJS_DIR)\sus_tsk.c : $(TSKOBJ_DIR)\sus_tsk.c
 $(OBJS_DIR)\rsm_tsk.c : $(TSKOBJ_DIR)\rsm_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\rsm_tsk.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\frsm_tsk.c : $(TSKOBJ_DIR)\frsm_tsk.c
+	$(CMD_CP) $(TSKOBJ_DIR)\frsm_tsk.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\dly_tsk.c : $(TSKOBJ_DIR)\dly_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\dly_tsk.c $(OBJS_DIR)\
 
@@ -556,6 +559,7 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\can_wup.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rel_wai.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sus_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rsm_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\frsm_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\dly_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\def_tex.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ras_tex.c	$(COMMON_HEADERS)

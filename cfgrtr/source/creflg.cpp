@@ -26,7 +26,7 @@
 CApiCreFlg::CApiCreFlg()
 {
 	// %jp{デフォルトの最大ID設定}
-	m_iDefaultMaxId = _KERNEL_TMAX_FLGID;
+	m_iDefaultMaxId = _KERNEL_DEF_TMAX_FLGID;
 	
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター

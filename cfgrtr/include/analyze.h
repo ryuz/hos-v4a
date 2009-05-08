@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-//  HOS V4 コンフィギュレーター                                               
+//  Hyper Operating System V4 Adcance コンフィギュレーター
 //    構文解析クラス                                                          
 //                                                                            
 //                                    Copyright (C) 1998-2002 by Project HOS  
@@ -7,8 +7,8 @@
 // ---------------------------------------------------------------------------
 
 
-#ifndef __HOSV4CFG__Analyze_h__
-#define __HOSV4CFG__Analyze_h__
+#ifndef __HOSV4ACFG__Analyze_h__
+#define __HOSV4ACFG__Analyze_h__
 
 
 
@@ -24,9 +24,7 @@ public:
 };
 
 
-#endif	// __HOSV4CFG__Analyze_h__
+#endif	// __HOSV4ACFG__Analyze_h__
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2002 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

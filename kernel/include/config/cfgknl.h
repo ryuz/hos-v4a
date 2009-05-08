@@ -4,7 +4,7 @@
  * @file  cfgknl.h
  * @brief %jp{カーネル仕様のコンフィギュレーション用ヘッダファイル}%en{kernel configuration heder file}
  *
- * Copyright (C) 1998-2008 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -43,7 +43,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /*  ID number                                     */
 /* ---------------------------------------------- */
 
-/* %jp{オブジェクト数} */
+/* %jp{最大オブジェクトID値} */
 #define _KERNEL_CFG_TMAX_TSKID			127					/**< %jp{タスクIDの最大値} */
 #define _KERNEL_CFG_TMAX_SEMID			127					/**< %jp{セマフォIDの最大値} */
 #define _KERNEL_CFG_TMAX_FLGID			127					/**< %jp{イベントフラグIDの最大値} */
@@ -58,6 +58,22 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_TMAX_ALMID			127					/**< %jp{アラームハンドラIDの最大値} */
 #define _KERNEL_CFG_TMAX_OVRID			127					/**< %jp{オーバーランハンドラIDの最大値} */
 #define _KERNEL_CFG_TMAX_ISRID			127					/**< %jp{割り込みサービスルーチンIDの最大値} */
+
+/* %jp{コンフィギュレータ未指定時デフォルト最大ID値} */
+#define _KERNEL_CFG_DEF_TMAX_TSKID		15					/**< %jp{タスクIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_SEMID		15					/**< %jp{セマフォIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_FLGID		15					/**< %jp{イベントフラグIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_DTQID		15					/**< %jp{データキューIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_MBXID		15					/**< %jp{メールボックスIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_MTXID		15					/**< %jp{ミューテックスIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_MBFID		15					/**< %jp{メッセージバッファIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_PORID		15					/**< %jp{ランデブーIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_MPFID		15					/**< %jp{固定長メモリプールIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_MPLID		15					/**< %jp{可変長メモリプールIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_CYCID		15					/**< %jp{周期ハンドラIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_ALMID		15					/**< %jp{アラームハンドラIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_OVRID		15					/**< %jp{オーバーランハンドラIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_ISRID		15					/**< %jp{割り込みサービスルーチンIDの最大値} */
 
 
 
