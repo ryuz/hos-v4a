@@ -28,7 +28,6 @@ void exd_tsk(void)
 {
 	_KERNEL_T_TSKHDL     tskhdl;
 	_KERNEL_T_TCB        *tcb;
-	_KERNEL_T_TCB_RO     *tcb_ro;
 
 	/* %jp{実行中タスクを取得}%en{get current task} */
 	tskhdl = _KERNEL_SYS_GET_RUNTSK();
@@ -40,7 +39,6 @@ void exd_tsk(void)
 	
 	/* %jp{TCB取得}%en{get TCB} */
 	tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
-	tcb_ro = _KERNEL_TSK_GET_TCB_RO(_KERNEL_TSK_TSKHDL2ID(tskhdl), tcb);
 	
 	/* %jp{所有ミューテックスがあれば開放} */
 #if _KERNEL_SPT_MTX

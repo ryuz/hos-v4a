@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  act_tsk.c
- * @brief %en{Activate Task}%jp{タスクの起動}
+ * @file  sta_tsk.c
+ * @brief %jp{タスクの起動}%en{Activate Task}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

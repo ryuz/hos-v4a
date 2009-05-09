@@ -93,7 +93,11 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* rel_wai */
 #define _KERNEL_CFG_REL_WAI_E_ID		TRUE
 #define _KERNEL_CFG_REL_WAI_E_NOEXS		TRUE
+#define _KERNEL_CFG_REL_WAI_E_OBJ		TRUE
+#define _KERNEL_CFG_REL_WAI_E_NOSPT		FALSE
+
 /* irel_wai */
+
 /* sus_tsk */
 #define _KERNEL_CFG_SUS_TSK_E_ID		TRUE		
 #define _KERNEL_CFG_SUS_TSK_E_CTX		TRUE
@@ -103,7 +107,16 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_SUS_TSK_E_NOSPT		FALSE
 
 /* rsm_tsk */
+#define _KERNEL_CFG_RSM_TSK_E_ID		TRUE
+#define _KERNEL_CFG_RSM_TSK_E_NOEXS		TRUE
+#define _KERNEL_CFG_RSM_TSK_E_OBJ		TRUE
+#define _KERNEL_CFG_RSM_TSK_E_NOSPT		FALSE
+
 /* frsm_tsk */
+#define _KERNEL_CFG_FRSM_TSK_E_ID		TRUE
+#define _KERNEL_CFG_FRSM_TSK_E_NOEXS	TRUE
+#define _KERNEL_CFG_FRSM_TSK_E_OBJ		TRUE
+#define _KERNEL_CFG_FRSM_TSK_E_NOSPT	FALSE
 
 /* dly_tsk */
 #define _KERNEL_CFG_DLY_TSK_E_CTX		TRUE

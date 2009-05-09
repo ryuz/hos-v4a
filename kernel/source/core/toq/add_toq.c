@@ -31,10 +31,10 @@ void _kernel_add_toq(
 
 	/* %jp{TCB取得} */
 	tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
-
-	/* %jp{先頭タスク取得} */
+	
+	/* %jp{タイムアウトキューの先頭タスク取得} */
 	tskhdl_head = _KERNEL_TOQ_GET_HEAD(toqcb);
-
+	
 	if ( tskhdl_head == _KERNEL_TSKHDL_NULL )
 	{
 		/* %jp{最初の１つをキューに登録} */
@@ -51,6 +51,8 @@ void _kernel_add_toq(
 	/* %jp{挿入場所を検索} */
 	tskhdl_next = tskhdl_head;
 	tcb_next    = _KERNEL_TSK_TSKHDL2TCB(tskhdl_next);
+	tskhdl_prev = _KERNEL_TSK_GET_TOQPREV(tcb_next);
+	tcb_prev    = _KERNEL_TSK_TSKHDL2TCB(tskhdl_prev);
 	do
 	{
 		tmout_next = _KERNEL_TSK_GET_TOQDIFTIM(tcb_next);
@@ -62,10 +64,8 @@ void _kernel_add_toq(
 			if ( tskhdl_next == tskhdl_head )
 			{
 				_KERNEL_TOQ_SET_HEAD(toqcb, tskhdl);	/* %jp{先頭ポインタ更新} */
-				tskhdl_prev = _KERNEL_TSK_GET_TOQPREV(tcb_next);
-				tcb_prev    = _KERNEL_TSK_TSKHDL2TCB(tskhdl_prev);
 			}
-
+			
 			/* %jp{時間の差分を設定} */
 			_KERNEL_TSK_SET_TOQDIFTIM(tcb_next, tmout_next - tmout);
 			_KERNEL_TSK_SET_TOQDIFTIM(tcb, tmout);
