@@ -25,15 +25,19 @@ void _kernel_end_inh(void)
 	/* %jp{割り込みコンテキストを抜ける} */
 	_KERNEL_SYS_CLR_CTX();
 	
-	
-	if ( !_KERNEL_SYS_SNS_SVC() )
+	/* %jp{サービスコールの中なら何もしない} */
+	if ( _KERNEL_SYS_SNS_SVC() )
 	{
-		_KERNEL_SYS_SET_SVC();
+		return;
+	}
+	
+	/* %jp{タスクコンテキストでDPC処理} */
+	_KERNEL_ENA_INT();			/* %jp{割込み許可} */
+
+	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
+	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 		
-		_KERNEL_ENA_INT();			/* %jp{割込み許可} */
-		_KERNEL_SYS_EXE_DPC();
-		_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
-	}	
+	_KERNEL_DIS_INT();			/* %jp{割込み禁止} */
 }
 
 

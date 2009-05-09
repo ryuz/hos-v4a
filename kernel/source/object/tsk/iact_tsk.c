@@ -18,17 +18,16 @@
 
 #if _KERNEL_SPT_DPC
 
-static void _kernel_dpc_act_tsk(void);
+static void _kernel_dpc_act_tsk(ID tskid, VP_INT param);
 
-/** %en{Activate Task}%jp{タスクの起動}
- * @param  tskid   %en{ID number of the task to be activated}%jp{タスクID}
+
+/** %jp{タスクの起動}%en{Activate Task}
+ * @param  tskid   %jp{タスクID}%en{ID number of the task to be activated}
  * @return void
  */
 ER iact_tsk(
 		ID tskid)
 {
-	ER ercd;
-
 	/* %jp{ID のチェック} */
 #if _KERNEL_SPT_IACT_TSK_E_ID
 	if ( !_KERNEL_TSK_CHECK_TSKID(flgid) )
@@ -43,36 +42,19 @@ ER iact_tsk(
 		return E_CTX;		/* %jp{コンテキスト不正} */
 	}
 #endif
-
-	_KERNEL_SYS_LOC_DPC();	/* %jp{多重割り込み対策でロックをかける} */
-
-	if (  _KERNEL_SYS_RFR_DPC() >= 2 )
-	{
-		_KERNEL_SYS_SND_DPC((VP_INT)_kernel_dpc_act_tsk);
-		_KERNEL_SYS_SND_DPC((VP_INT)tskid);
-		ercd = E_OK;		/* %jp{正常終了}%en{Normal completion} */
-	}
-	else
-	{
-		ercd = E_NOMEM;		/* %jp{遅延実行用のキューイングメモリ不足}%en{Insufficient memory to store a service call for delayed execution} */
-	}
-
-	_KERNEL_SYS_UNL_DPC();	/* %jp{ロック解除} */
-
-	return ercd;
+	
+	/* %jp{遅延実行要求} */
+	return _KERNEL_SYS_REQ_DPC(_kernel_dpc_act_tsk, tskid, 0);
 }
 
 
 /** %jp{iact_tskの遅延実行}%en{service call for delayed executioniact_tsk)} */
-void _kernel_dpc_act_tsk(void)		
+void _kernel_dpc_act_tsk(ID tskid, VP_INT param)		
 {
 	_KERNEL_T_TSKHDL       tskhdl;
 	_KERNEL_T_TCB          *tcb;
 	const _KERNEL_T_TCB_RO *tcb_ro;
-	ID                     tskid;
 	
-	/* %jp{パラメータ取り出し} */
-	tskid = (ID)_KERNEL_SYS_RCV_DPC();
 	
 	/* %jp{オブジェクト存在チェック} */
 #if _KERNEL_SPT_IACT_TSK_E_NOEXS
@@ -82,7 +64,7 @@ void _kernel_dpc_act_tsk(void)
 		return ;					/* %jp{オブジェクト未生成} */
 	}
 #endif
-
+	
 	/* %jp{TCB取得} */
 	tcb = _KERNEL_TSK_ID2TCB(tskid);
 	
@@ -100,7 +82,7 @@ void _kernel_dpc_act_tsk(void)
 			actcnt = _KERNEL_TSK_GET_ACTCNT(tcb);
 		
 			/* %jp{既に実行状態なら起動要求をキューイング} */
-		#ifdef _KERNEL_CFG_ACT_TSK_E_QOVR
+		#ifdef _KERNEL_CFG_IACT_TSK_E_QOVR
 			if ( actcnt >= _KERNEL_TMAX_ACTCNT )
 			{
 				return;		/* %jp{キューイングオーバーフロー} */
@@ -140,9 +122,6 @@ void _kernel_dpc_act_tsk(void)
 		
 		/* %jp{タスク実行可能状態に設定} */
 		_KERNEL_DSP_STA_TSK(tskhdl);
-		
-		/* %jp{ディスパッチ遅延をセット} */
-		_KERNEL_SYS_SET_DLY();
 	}
 		
 	return;	/* 成功 */

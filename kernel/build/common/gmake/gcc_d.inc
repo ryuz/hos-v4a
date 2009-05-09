@@ -32,7 +32,7 @@ EXT_BIN ?= bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}%en{common options}
-CFLAGS +=
+CFLAGS += -Wall
 
 
 # %jp{デバッグオプションの定義}%en{debug options}

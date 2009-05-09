@@ -39,7 +39,7 @@ ER _kernel_req_dpc(_KERNEL_T_DPCCB *dcpcb, void (*svc)(ID id, VP_INT param1), ID
 	
 	dcpcb->tail = next_tail;
 
-	_KERNEL_SYS_UNL_DPC();	/* %jp{ロック解除} */
+	_KERNEL_SYS_UNL_DPC();		/* %jp{ロック解除} */
 	
 	/* %jp{実行予約} */
 	msg = &dcpcb->que[tail];
@@ -47,7 +47,6 @@ ER _kernel_req_dpc(_KERNEL_T_DPCCB *dcpcb, void (*svc)(ID id, VP_INT param1), ID
 	msg->id     = id;
 	msg->param  = param;
 	
-
 	return E_OK;
 }
 

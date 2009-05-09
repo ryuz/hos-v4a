@@ -25,9 +25,9 @@ typedef struct _kernel_t_dpcmsg
 typedef struct _kernel_t_dpccb
 {
 	volatile _KERNEL_T_DPCMSG	*que;
-	UH							quecnt;
-	volatile UH					head;
-	volatile UH					tail;
+	UB							quecnt;
+	volatile UB					head;
+	volatile UB					tail;
 } _KERNEL_T_DPCCB;
 
 

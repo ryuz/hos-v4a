@@ -4,7 +4,7 @@
  * @file  sys.h
  * @brief %en{system heder file}%jp{システム制御のヘッダファイル}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
