@@ -1,0 +1,126 @@
+/** 
+ *  Hyper Operating System V4 Advance
+ *
+ * @file  irel_wai.c
+ * @brief %jp{待ち状態の強制解除}%en{Release Task from Waiting}
+ *
+ * Copyright (C) 1998-2009 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
+
+
+
+#include "core/core.h"
+
+
+
+#if _KERNEL_SPT_IREL_WAI
+
+
+#if _KERNEL_SPT_DPC
+
+static void _kernel_dpc_rel_wai(ID tskid, VP_INT param);
+
+/** %jp{待ち状態の強制解除}%en{Release Task from Waiting}
+ * @param  tskid    %jp{待ち状態の強制解除対象のタスクのID番号}%en{ID number of the task to be release task from waiting}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(tskidが不正あるいは使用できない)}%en{Invalid ID number(tskid is invalid or unusable)}
+ * @retval E_NOMEM  %jp{メモリ不足}%en{Insufficient memory}
+ */
+ER irel_wai(
+		ID tskid)
+{
+	
+	
+#if _KERNEL_SPT_IREL_WAI_E_ID
+	if ( tskid == TSK_SELF )		/* %jp{自タスク指定時の変換} */
+	{
+		return E_ID;			/* %jp{不正ID番号}%en{Invalid ID number} */
+	}
+	
+	if ( !_KERNEL_TSK_CHECK_TSKID(tskid) )
+	{
+		return E_ID;			/* %jp{不正ID番号}%en{Invalid ID number} */
+	}
+
+#endif
+
+	/* %jp{遅延実行要求} */
+	return _KERNEL_SYS_REQ_DPC(_kernel_dpc_rel_wai, tskid, 0);
+}
+
+
+void _kernel_dpc_rel_wai(ID tskid, VP_INT param)
+{
+	_KERNEL_T_TSKHDL tskhdl;
+	_KERNEL_T_TCB    *tcb;
+
+	/* %jp{実行中タスクを取得} */
+	tskhdl = _KERNEL_SYS_GET_RUNTSK();
+	
+	/* %jp{TCB取得}%en{get TCB} */
+	tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
+	
+	/* %jp{タスク状態取得チェック} */
+#if _KERNEL_SPT_IREL_WAI_E_OBJ
+	{
+		_KERNEL_TSK_T_TSKSTAT tskstat;
+
+		tskstat = _KERNEL_TSK_GET_TSKSTAT(tcb);
+		if ( !(tskstat & _KERNEL_TTS_WAI) )
+		{
+			return;			/* %jp{オブジェクト状態エラー}%en{Object state error} */
+		}
+	}
+#endif
+	
+	/* %jp{待ち解除} */
+	_KERNEL_TRM_QUE(tskhdl);
+	_KERNEL_TSK_SET_ERCD(tcb, E_RLWAI);		/* %jp{エラーコード設定} */
+	_KERNEL_DSP_WUP_TSK(tskhdl);			/* %jp{タスクの待ち解除} */
+}
+
+
+#else	/* _KERNEL_SPT_DPC */
+
+
+/** %jp{待ち状態の強制解除}%en{Release Task from Waiting}
+ * @param  tskid    %jp{待ち状態の強制解除対象のタスクのID番号}%en{ID number of the task to be release task from waiting}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(tskidが不正あるいは使用できない)}%en{Invalid ID number(tskid is invalid or unusable)}
+ * @retval E_NOEXS  %jp{オブジェクト未生成(対象タスクが未登録)}%en{Non-existant object(specified task is not registered)}
+ * @retval E_OBJ    %jp{オブジェクト状態エラー(対象タスクが待ち状態でない)}%en{Object state error(specified task is neither in WAITING state)}
+ */
+ER irel_wai(
+		ID tskid)
+{
+	return rel_wai(tskid);
+}
+
+#endif	/* _KERNEL_SPT_DPC*/
+
+
+
+#else	/* _KERNEL_SPT_IREL_WAI */
+
+
+#if _KERNEL_SPT_REL_WAI_E_NOSPT
+
+/** %jp{待ち状態の強制解除}%en{Release Task from Waiting}
+ * @param  tskid    %jp{待ち状態の強制解除対象のタスクのID番号}%en{ID number of the task to be release task from waiting}
+ * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
+ */
+ER irel_wai(
+		ID tskid)
+{
+	return E_NOSPT;
+}
+
+#endif
+
+
+#endif	/* _KERNEL_SPT_IREL_WAI */
+
+
+
+/* end of file */
