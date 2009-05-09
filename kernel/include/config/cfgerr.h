@@ -28,7 +28,18 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 
 /* cre_tsk */
+#define _KERNEL_CFG_CRE_TSK_E_ID		TRUE
+#define _KERNEL_CFG_CRE_TSK_E_RSATR 	TRUE
+#define _KERNEL_CFG_CRE_TSK_E_OBJ		TRUE
+#define _KERNEL_CFG_CRE_TSK_E_NOMEM		TRUE
+#define _KERNEL_CFG_CRE_TSK_E_NOSPT		FALSE
+
 /* acre_tsk */
+#define _KERNEL_CFG_ACRE_TSK_E_NOID		TRUE
+#define _KERNEL_CFG_ACRE_TSK_E_RSATR	TRUE
+#define _KERNEL_CFG_ACRE_TSK_E_NOMEM	TRUE	
+#define _KERNEL_CFG_ACRE_TSK_E_NOSPT	FALSE
+
 /* del_tsk */
 #define _KERNEL_CFG_DEL_TSK_E_ID		TRUE
 #define _KERNEL_CFG_DEL_TSK_E_NOEXS		TRUE
@@ -57,9 +68,12 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_STA_TSK_E_OBJ		TRUE
 #define _KERNEL_CFG_STA_TSK_E_NOSPT		FALSE
  
- 
 /* ext_tsk */
+#define _KERNEL_CFG_EXT_TSK_E_NOSPT		FALSE
+
 /* exd_tsk */
+#define _KERNEL_CFG_EXD_TSK_E_NOSPT		FALSE
+
 /* ter_tsk */
 #define _KERNEL_CFG_TER_TSK_E_ID		TRUE
 #define _KERNEL_CFG_TER_TSK_E_NOEXS		TRUE
@@ -86,6 +100,8 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_WUP_TSK_E_QOVR		TRUE
 
 /* iwup_tsk */
+
+
 /* can_wup */
 #define _KERNEL_CFG_CAN_WUP_E_ID		TRUE
 #define _KERNEL_CFG_CAN_WUP_E_NOEXS		TRUE
@@ -97,6 +113,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_REL_WAI_E_NOSPT		FALSE
 
 /* irel_wai */
+#define _KERNEL_CFG_IREL_WAI_E_ID		TRUE
+#define _KERNEL_CFG_IREL_WAI_E_NOEXS	TRUE
+#define _KERNEL_CFG_IREL_WAI_E_OBJ		TRUE
+#define _KERNEL_CFG_IREL_WAI_E_NOSPT	FALSE
 
 /* sus_tsk */
 #define _KERNEL_CFG_SUS_TSK_E_ID		TRUE		

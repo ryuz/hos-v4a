@@ -4,7 +4,7 @@
  * @file  wup_tsk.c
  * @brief %jp{タスクの起床}%en{Wakeup Task}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -13,28 +13,35 @@
 #include "core/core.h"
 
 
+#if _KERNEL_SPT_WUP_TSK
+
 
 /** %jp{タスクの起床}%en{Wakeup Task}
- * @retval E_OK  %jp{成功}
+ * @param  tskid    %jp{起床対象のタスクのID番号}%en{ID number of the task to be woken up}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(tskidが不正あるいは使用できない)}%en{Invalid ID number(tskid is invalid or unusable)}
+ * @retval E_NOEXS  %jp{オブジェクト未生成(対象タスクが未登録)}%en{Non-existant object(specified task is not registered)}
+ * @retval E_OBJ    %jp{オブジェクト状態エラー(対象タスクが休止状態)}%en{Object state error(specified task is in DORMANT state)}
+ * @retval E_QOVR   %jp{キューイングオーバーフロー(起床要求キューイングのオーバーフロー)}%en{Queue overflow(overflow of wakeup request count)}
  */
 ER wup_tsk(
 		ID tskid)
 {
 	_KERNEL_T_TSKHDL tskhdl;
 	_KERNEL_T_TCB    *tcb;
-
-	if ( tskid == TSK_SELF )		/* %jp{自タスク指定時の変換} */
+	
+	if ( tskid == TSK_SELF )	/* %jp{自タスク指定時の変換} */
 	{
 #if _KERNEL_SPT_WUP_TSK_E_ID
 		if ( _KERNEL_SYS_SNS_CTX() )
 		{
-			return E_ID;		/* %jp{不正ID番号} */
+			return E_ID;		/* %jp{不正ID番号}%en{Invalid ID number} */
 		}
 #endif	
 		/* %jp{実行中タスクを取得} */
 		tskhdl = _KERNEL_SYS_GET_RUNTSK();
 		
-		_KERNEL_ENTER_SVC();		/* %jp{enter service-call}%jp{サービスコールに入る} */
+		_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
 	}
 	else
 	{
@@ -45,23 +52,23 @@ ER wup_tsk(
 		}
 #endif
 		
-		_KERNEL_ENTER_SVC();			/* %jp{enter service-call}%jp{サービスコールに入る} */
+		_KERNEL_ENTER_SVC();			/* %jp{サービスコールに入る}%en{enter service-call} */
 		
 		/* %jp{オブジェクト存在チェック} */
 #if _KERNEL_SPT_WUP_TSK_E_NOEXS
 		if ( !_KERNEL_TSK_CHECK_EXS(tskid) )
 		{
-			_KERNEL_LEAVE_SVC();		/* %jp{leave service-call}%jp{サービスコールを出る} */
-			return E_NOEXS;				/* %jp{オブジェクト未生成} */
+			_KERNEL_LEAVE_SVC();		/* %jp{サービスコールを出る}%en{leave service-call} */
+			return E_NOEXS;				/* %jp{オブジェクト未生成}%en{Non-existant object} */
 		}
 #endif
-		/* ID番号指定時の変換 */
+		/* %jp{ID番号指定時の変換} */
 		tskhdl = _KERNEL_TSK_ID2TSKHDL(tskid);
 	}
-
+	
 	/* %jp{TCB取得} */
 	tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);
-
+	
 	if ( ((_KERNEL_TSK_GET_TSKSTAT(tcb) & _KERNEL_TTS_WAI)) && _KERNEL_TSK_GET_TSKWAIT(tcb) == _KERNEL_TTW_SLP )
 	{
 		/* %jp{待ち解除} */
@@ -96,6 +103,21 @@ ER wup_tsk(
 
 	return E_OK;
 }
+
+
+#else	/* _KERNEL_SPT_WUP_TSK */
+
+/** %jp{タスクの起床}%en{Wakeup Task}
+ * @param  tskid    %jp{起床対象のタスクのID番号}%en{ID number of the task to be woken up}
+ * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
+ */
+ER wup_tsk(
+		ID tskid)
+{
+	return E_NOSPT;
+}
+
+#endif	/* _KERNEL_SPT_WUP_TSK */
 
 
 /* end of file */

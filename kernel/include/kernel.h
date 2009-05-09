@@ -282,15 +282,15 @@ typedef struct t_cisr
 extern "C" {
 #endif
 
-/* OSの起動 */
-ER      vsta_knl(void);										/* カーネルの開始(独自サービスコール) */
+/* %jp{OSの起動}%en{Kernel Management Functions} */
+ER      vsta_knl(void);										/**< %jp{カーネルの開始(独自サービスコール)}%en{Start Kernel(HOS original)} */
 
-/* タスク管理機能 */
-ER      cre_tsk(ID tskid, const T_CTSK *pk_ctsk);			/* タスクの生成 */
-ER_ID   acre_tsk(const T_CTSK *pk_ctsk);					/* タスクの生成(ID番号自動割付け) */
-ER      del_tsk(ID tskid);									/* タスクの削除 */
-ER      act_tsk(ID tskid);									/* タスクの起動(非タスクコンテキスト用) */
-ER      iact_tsk(ID tskid);									/* タスクの起動 */
+/* %jp{タスク管理機能}%en{Task Management Functions} */
+ER      cre_tsk(ID tskid, const T_CTSK *pk_ctsk);			/**< %jp{タスクの生成}%en{Create Task} */
+ER_ID   acre_tsk(const T_CTSK *pk_ctsk);					/**< %jp{タスクの生成(ID番号自動割付け)}%en{Create Task(ID Number Automatic Assignment)} */
+ER      del_tsk(ID tskid);									/**< %jp{タスクの削除}%en{Delete Task} */
+ER      act_tsk(ID tskid);									/* %jp{タスクの起動}%en{Activate Task} */
+ER      iact_tsk(ID tskid);									/* タスクの起動(非タスクコンテキスト用) */
 ER_UINT can_act(ID tskid);									/* タスク起動要求のキャンセル */
 ER      sta_tsk(ID tskid, VP_INT stacd);					/* タスクの起動(起動コード指定) */
 void    ext_tsk(void);										/* 自タスクの終了 */
@@ -305,10 +305,10 @@ ER      ref_tst(ID tskid, T_RTST *p_rtst);					/* タスクの状態参照(簡�
 ER      slp_tsk(void);										/* タスクの起床待ち */
 ER      tslp_tsk(TMO tmout);								/* タスクの起床待ち(タイムアウトあり) */
 ER      wup_tsk(ID tskid);									/* タスクの起床 */
-#define iwup_tsk		wup_tsk
+ER      iwup_tsk(ID tskid);									/* タスクの起床(非タスクコンテキスト用) */
 ER_UINT can_wup(ID tskid);									/* タスク起床要求のキャンセル */
 ER      rel_wai(ID tskid);									/* 待ち状態の強制解除 */
-#define irel_wai		rel_wai
+ER      irel_wai(ID tskid);									/* 待ち状態の強制解除(非タスクコンテキスト用) */
 ER      sus_tsk(ID tskid);									/* 強制待ち状態への移行 */
 ER      rsm_tsk(ID tskid);									/* 強制待ち状態からの再開 */
 ER      frsm_tsk(ID tskid);									/* 強制待ち状態からの強制再開 */

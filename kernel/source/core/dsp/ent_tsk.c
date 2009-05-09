@@ -4,7 +4,7 @@
  * @file  dsp_tsk.c
  * @brief %en{Task dispatch}%jp{タスクディスパッチ}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -27,7 +27,9 @@ void _kernel_ent_tsk(VP_INT exinf1, VP_INT exinf2)
 
 	task(exinf1);
 
+#if _KERNEL_SPT_EXT_TSK
 	ext_tsk();
+#endif
 }
 
 

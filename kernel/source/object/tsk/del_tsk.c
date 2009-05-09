@@ -2,9 +2,9 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  del_tsk.c
- * @brief %jp{セマフォの削除}%en{Delete Semaphore}
+ * @brief %jp{タスクの削除}%en{Delete Task}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -31,11 +31,11 @@ ER del_tsk(ID tskid)
 #if _KERNEL_SPT_DEL_TSK_E_ID
 	if ( !_KERNEL_TSK_CHECK_TSKID(tskid) )
 	{
-		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
+		return E_ID;			/* %jp{不正ID番号}%en{Invalid ID number} */
 	}	
 #endif
 	
-	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
+	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{存在チェック}%en{check object} */
 #if _KERNEL_SPT_DEL_TSK_E_NOEXS
@@ -60,7 +60,7 @@ ER del_tsk(ID tskid)
 	
 	/* %jp{オブジェクト削除} */
 #if _KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_PTRARRAY
-	_KERNEL_SYS_FRE_HEP(tcb);						/* %jp{メモリ開放} */
+	_KERNEL_SYS_FRE_HEP(tcb);			/* %jp{メモリ開放} */
 	_KERNEL_TSK_ID2TCB(tskid) = NULL;
 #elif _KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_BLKARRAY
 	_KERNEL_TSK_SET_TASK(tcb, 0);

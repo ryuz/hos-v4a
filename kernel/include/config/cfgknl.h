@@ -81,13 +81,13 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /*  Kernel-internal                               */
 /* ---------------------------------------------- */
 
-/* %jp{遅延プロシージャーコール} */
-#define _KERNEL_CFG_DPC					TRUE				/**< Deferred Procedure Call */
+/* %jp{遅延プロシージャーコール}%en{Deferred Procedure Call} */
+#define _KERNEL_CFG_DPC					FALSE
 
-/* %jp{対称型マルチプロセッサ対応[未実装]} */
-#define _KERNEL_CFG_SMP					FALSE				/**< Symmetric Multiple Processor */
+/* %jp{対称型マルチプロセッサ対応[未実装]}{%en{Symmetric Multiple Processor[unsupported]} */
+#define _KERNEL_CFG_SMP					FALSE
 
-/* %jp{多重割り込み対応} */
+/* %jp{多重割込み対応}%en{Multiple interrupt} */
 #define _KERNEL_CFG_MULTIPLE_INT		TRUE
 
 /* %jp{システムタスクにTCBを割り当てる(高速化するがメモリがやや増える？) [未実装]} */

@@ -232,11 +232,17 @@ $(OBJS_DIR)\slp_tsk.c : $(TSKOBJ_DIR)\slp_tsk.c
 $(OBJS_DIR)\wup_tsk.c : $(TSKOBJ_DIR)\wup_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\wup_tsk.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\iwup_tsk.c : $(TSKOBJ_DIR)\iwup_tsk.c
+	$(CMD_CP) $(TSKOBJ_DIR)\iwup_tsk.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\can_wup.c : $(TSKOBJ_DIR)\can_wup.c
 	$(CMD_CP) $(TSKOBJ_DIR)\can_wup.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\rel_wai.c : $(TSKOBJ_DIR)\rel_wai.c
 	$(CMD_CP) $(TSKOBJ_DIR)\rel_wai.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\irel_wai.c : $(TSKOBJ_DIR)\irel_wai.c
+	$(CMD_CP) $(TSKOBJ_DIR)\irel_wai.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\sus_tsk.c : $(TSKOBJ_DIR)\sus_tsk.c
 	$(CMD_CP) $(TSKOBJ_DIR)\sus_tsk.c $(OBJS_DIR)\
@@ -555,8 +561,10 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_tst.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\slp_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\wup_tsk.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\iwup_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\can_wup.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rel_wai.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\irel_wai.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sus_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rsm_tsk.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\frsm_tsk.c	$(COMMON_HEADERS)

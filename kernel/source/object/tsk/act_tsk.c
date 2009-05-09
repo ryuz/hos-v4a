@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  act_tsk.c
- * @brief %en{Activate Task}%jp{タスクの起動}
+ * @brief %jp{タスクの起動}%en{Activate Task}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -14,11 +14,18 @@
 
 
 
-/** %en{Activate Task}%jp{タスクの起動}
- * @param  tskid   %en{ID number of the task to be activated}%jp{タスクID}
- * @return void
+#if _KERNEL_SPT_ACT_TSK
+
+
+/** %jp{タスクの起動}%en{Activate Task}
+ * @param  tskid    %jp{起動対象のタスクのID番号}%en{ID number of the task to be activated}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(tskidが不正あるいは使用できない)}%en{Invalid ID number(tskid is invalid or unusable)}
+ * @retval E_NOEXS  %jp{オブジェクト未生成(対象タスクが未登録)}%en{Non-existant object(specified task is not registerd)}
+ * @retval E_QOVR   %jp{キューイングオーバーフロー(起動要求キューイングのオーバーフロー)}%en{Queue overflow(overflow of activate queuing count)}
  */
-ER act_tsk(ID tskid)
+ER act_tsk(
+		ID tskid)
 {
 	_KERNEL_T_TSKHDL		tskhdl;
 	_KERNEL_T_TCB_PTR		tcb;
@@ -125,6 +132,22 @@ ER act_tsk(ID tskid)
 	
 	return E_OK;	/* 成功 */
 }
+
+
+#else	/* _KERNEL_SPT_ACT_TSK */
+
+
+/** %en{Activate Task}%jp{タスクの起動}
+ * @param  tskid    %jp{起動対象のタスクのID番号}%en{ID number of the task to be activated}
+ * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
+ */
+ER act_tsk(
+		ID tskid)
+{
+	return E_NOSPT;
+}
+
+#endif	/* _KERNEL_SPT_ACT_TSK */
 
 
 /* end of file */

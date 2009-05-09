@@ -450,6 +450,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\..\source\object\tsk\irel_wai.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\source\object\tsk\iwup_tsk.c"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\..\source\object\tsk\kchg_pri.c"
 						>
 					</File>
