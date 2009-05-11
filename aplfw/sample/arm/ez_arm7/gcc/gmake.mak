@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
 #
-# Copyright (C) 1998-2007 by Project HOS
+# Copyright (C) 1998-2009 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -56,15 +56,15 @@ endif
 ifeq ($(MEMMAP),ext)
 # %jp{外部メモリ}
 TARGET       := $(TARGET)ext
-LINK_SCRIPT = linkext.x
+LINK_SCRIPT = linkext.lds
 else
 ifeq ($(MEMMAP),ram)
 # %jp{内蔵RAM}
 TARGET       := $(TARGET)ram
-LINK_SCRIPT = linkram.x
+LINK_SCRIPT = linkram.lds
 else
 # %jp{内蔵ROM}
-LINK_SCRIPT = link.x
+LINK_SCRIPT = link.lds
 endif
 endif
 
