@@ -4,7 +4,7 @@
  * @file  system.h
  * @brief %jp{システム用API定義}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

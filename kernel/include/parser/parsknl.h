@@ -195,6 +195,13 @@
 #define _KERNEL_SPT_UNL_MTX 		_KERNEL_CFG_UNL_MTX 		/* unl_mtx */
 #define _KERNEL_SPT_REF_MTX 		_KERNEL_CFG_REF_MTX 		/* ref_mtx */
 
+#if _KERNEL_SPT_TLOC_MTX || (_KERNEL_SPT_LOC_MTX && _KERNEL_SPT_LOC_MTX)
+#define _KERNEL_SPT_KLOC_MTX		TRUE
+#else
+#define _KERNEL_SPT_KLOC_MTX		FALSE
+#endif
+
+
 /* Message buffers */
 #define _KERNEL_SPT_CRE_MBF 		_KERNEL_CFG_CRE_MBF 		/* cre_mbf */
 #define _KERNEL_SPT_ACRE_MBF		_KERNEL_CFG_ACRE_MBF		/* acre_mbf */

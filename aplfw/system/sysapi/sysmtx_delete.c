@@ -16,7 +16,11 @@
 /* システム用ミューテックス削除 */
 void SysMtx_Delete(SYSMTX_HANDLE hMtx)
 {
+#ifdef _HOS_SYSPAI_USEMTX
+	del_mtx((ID)hMtx);
+#else
 	del_sem((ID)hMtx);
+#endif
 }
 
 

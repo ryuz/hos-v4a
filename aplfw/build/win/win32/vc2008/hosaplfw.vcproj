@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../.."
+				AdditionalIncludeDirectories="../../../..;../../../../../kernel/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -843,6 +843,194 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="sysapi"
+				>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysapi.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysapi_initialize.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysapi_local.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysctx_isisr.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysevt_clear.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysevt_create.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysevt_delete.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysevt_set.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysevt_wait.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\syshos_hook.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysint_clear.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysint_disable.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysint_enable.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysio_allociomem.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysio_freeiomem.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysisr_create.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysisr_delete.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysloc_lock.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysloc_unlock.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmem_alloc.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmem_free.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmem_getmemheap.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmem_getsize.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmem_realloc.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmtx_create.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmtx_delete.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmtx_lock.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysmtx_unlock.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_create.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_delete.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_getcurrenthandle.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_getparam.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_resume.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_sendsignal.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_setsignalhandler.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_start.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_suspend.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\sysprc_terminate.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_cputimetonanosecond.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_cputimetosecond.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_getcputime.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_getsystemtime.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_signal.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_systimetonanosecond.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_systimetosecond.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\sysapi\systim_wait.c"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="application"
@@ -952,6 +1140,10 @@
 				</Filter>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath="..\..\..\..\hosaplfw.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

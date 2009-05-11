@@ -15,7 +15,11 @@
 /* システム用ミューテックスロック*/
 void SysMtx_Lock(SYSMTX_HANDLE hMtx)
 {
+#ifdef _HOS_SYSPAI_USEMTX
+	loc_mtx((ID)hMtx);
+#else
 	wai_sem((ID)hMtx);
+#endif
 }
 
 

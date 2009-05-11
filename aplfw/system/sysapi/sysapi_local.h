@@ -18,6 +18,8 @@
 #include "system/sysmem/sysmemheap_local.h"
 #include "library/container/valmemheap/valmemheap_local.h"
 
+#define _HOS_SYSPAI_USEMTX
+
 
 /* HOS-V4a 内部変数の参照(インチキ) */
 extern const ID		_kernel_max_tskid;

@@ -139,7 +139,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 
 /* %jp{
    _KERNEL_RDQ_ALG_SINGLE_QUE         : シングルキュー(省メモリだが、タスク数が増えると遅い)
-   _KERNEL_RDQ_ALG_ARRAYED_QUE        : 優先度数だけキューを配列化(ある程度高速だが、優先度数でメモリ消費) [未実装]
+   _KERNEL_RDQ_ALG_ARRAYED_QUE        : 優先度数だけキューを配列化(ある程度高速だが、優先度数でメモリ消費)
    _KERNEL_RDQ_ALG_BITMAP_ARRAYED_QUE : 配列化キューに探索ビットマップを備える(優先度数が少なければ高速)   [未実装]
    _KERNEL_RDQ_ALG_HEAP_QUE           : ヒープ木(優先度数が多くてもそこそこ裁ける)                         [未実装]
 }%en{

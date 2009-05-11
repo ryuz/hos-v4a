@@ -4,7 +4,7 @@
  * @file  cfgerr.h
  * @brief %jp{エラー処理のコンフィギュレーション用ヘッダファイル}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -392,10 +392,26 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_LOC_MTX_E_CTX		TRUE
 #define _KERNEL_CFG_LOC_MTX_E_ID		TRUE
 #define _KERNEL_CFG_LOC_MTX_E_NOEXS		TRUE
+#define _KERNEL_CFG_LOC_MTX_E_ILUSE		TRUE
 #define _KERNEL_CFG_LOC_MTX_E_NOSPT		FALSE
 
 /* ploc_mtx */
+#define _KERNEL_CFG_PLOC_MTX_E_ID		TRUE
+#define _KERNEL_CFG_PLOC_MTX_E_NOEXS	TRUE
+#define _KERNEL_CFG_PLOC_MTX_E_ILUSE	TRUE
+#define _KERNEL_CFG_PLOC_MTX_E_TMOUT	TRUE
+#define _KERNEL_CFG_PLOC_MTX_E_NOSPT	FALSE
+
 /* tloc_mtx */
+#define _KERNEL_CFG_TLOC_MTX_E_ID		TRUE
+#define _KERNEL_CFG_TLOC_MTX_E_CTX		TRUE
+#define _KERNEL_CFG_TLOC_MTX_E_NOEXS	TRUE
+#define _KERNEL_CFG_TLOC_MTX_E_ILUSE	TRUE
+#define _KERNEL_CFG_TLOC_MTX_E_TMOUT	TRUE
+#define _KERNEL_CFG_TLOC_MTX_E_RLWAI 	TRUE
+#define _KERNEL_CFG_TLOC_MTX_E_DLT   	TRUE
+#define _KERNEL_CFG_TLOC_MTX_E_NOSPT	FALSE
+
 /* unl_mtx */
 #define _KERNEL_CFG_UNL_MTX_E_CTX		TRUE
 #define _KERNEL_CFG_UNL_MTX_E_ID		TRUE

@@ -4,12 +4,13 @@
  * @file  fatvol.c
  * @brief %jp{FATボリューム用デバイスドライバ}
  *
- * Copyright (C) 2006-2007 by Project HOS
+ * Copyright (C) 2006-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
 #include <string.h>
+#include "hosaplfw.h"
 #include "fatvol_local.h"
 
 

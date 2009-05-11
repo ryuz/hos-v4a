@@ -374,6 +374,16 @@ ER      prcv_mbx(ID mbxid, T_MSG **ppk_msg);				/**< %jp{メールボックス�
 ER      trcv_mbx(ID mbxid, T_MSG **ppk_msg, TMO tmout);		/**< %jp{メールボックスからの受信(タイムアウトあり)} */
 ER      ref_mbx(ID mbxid, T_RMBX *pk_rmbx);					/**< %jp{メールボックスの状態参照} */
 
+/* %jp{ミューテックス} */
+ER      cre_mtx(ID mtxid, const T_CMTX *pk_cmtx);			/**< %jp{ミューテックスの生成}%en{Create Mutex} */
+ER_ID   acre_mtx(const T_CMTX *pk_cmtx);					/**< %jp{ミューテックスの生成(ID番号自動割付け)}%en{Create Mutex(ID Number Automatic Assignment)} */
+ER      del_mtx(ID mtxid);									/**< %jp{ミューテックスの削除}%en{Delete Mutex} */
+ER      loc_mtx(ID mtxid);									/**< %jp{ミューテックスのロック獲得} */
+ER      ploc_mtx(ID mtxid);									/**< %jp{ミューテックスのロック獲得(ポーリング)} */
+ER      tloc_mtx(ID mtxid, TMO tmout);						/**< %jp{ミューテックスのロック獲得(タイムアウトあり)} */
+ER      unl_mtx(ID mtxid);									/**< %jp{ミューテックスのロック解除} */
+
+
 /* %jp{固定長メモリプール} */
 ER      cre_mpf(ID mpfid, const T_CMPF *pk_cmpf);			/**< %jp{固定長メモリプールの生成} */
 ER_ID   acre_mpf(const T_CMPF *pk_cmpf);					/**< %jp{固定長メモリプールの生成(ID番号自動割付け)} */
