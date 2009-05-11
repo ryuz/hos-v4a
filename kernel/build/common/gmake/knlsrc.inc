@@ -288,6 +288,7 @@ CSRCS += $(MTXOBJ_DIR)/acre_mtx.c
 CSRCS += $(MTXOBJ_DIR)/kcre_mtx.c
 CSRCS += $(MTXOBJ_DIR)/del_mtx.c
 CSRCS += $(MTXOBJ_DIR)/loc_mtx.c
+CSRCS += $(MTXOBJ_DIR)/tloc_mtx.c
 CSRCS += $(MTXOBJ_DIR)/unl_mtx.c
 CSRCS += $(MTXOBJ_DIR)/kadd_mtx.c
 CSRCS += $(MTXOBJ_DIR)/krmv_mtx.c

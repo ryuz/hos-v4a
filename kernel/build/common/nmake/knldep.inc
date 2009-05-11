@@ -414,6 +414,9 @@ $(OBJS_DIR)\del_mtx.c : $(MTXOBJ_DIR)\del_mtx.c
 $(OBJS_DIR)\loc_mtx.c : $(MTXOBJ_DIR)\loc_mtx.c
 	$(CMD_CP) $(MTXOBJ_DIR)\loc_mtx.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\tloc_mtx.c : $(MTXOBJ_DIR)\tloc_mtx.c
+	$(CMD_CP) $(MTXOBJ_DIR)\tloc_mtx.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\unl_mtx.c : $(MTXOBJ_DIR)\unl_mtx.c
 	$(CMD_CP) $(MTXOBJ_DIR)\unl_mtx.c $(OBJS_DIR)\
 
@@ -625,6 +628,7 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_mtx.c	$(COMMON_HEADERS) $(MTXO
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\loc_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\tloc_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\unl_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kadd_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\krmv_mtx.c	$(COMMON_HEADERS) $(MTXOBJ_HEADERS)
