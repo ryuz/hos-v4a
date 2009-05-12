@@ -4,7 +4,7 @@
  * @file  unl_mtx.c
  * @brief %jp{ミューテックスのロック解除}%en{Unlock mutex}
  *
- * Copyright (C) 1998-2007 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -18,7 +18,14 @@
 #if _KERNEL_SPT_UNL_MTX
 
 
-/** %jp{ミューテックスのロック解除} */
+/** %jp{ミューテックスのロック解除}%en{Unlock Mutex}
+ * @param  mtxid    %jp{ロック解除対象のミューテックスID番号}%en{ID number of the mutex to be unlocked}
+ * @retval E_OK     %jp{正常終了}%en{Normal completion}
+ * @retval E_ID     %jp{不正ID番号(mtxidが不正あるいは使用できない)}%en{Invalid ID number(mtxid is invalid or unusable)}
+ * @retval E_CTX    %jp{コンテキストエラー}%en{Context error}
+ * @retval E_NOEXS  %jp{オブジェクト未生成(対象ミューテックスが未登録)}%en{Non-existant object(specified mutex is not registerd)}
+ * @retval E_ILUSE  %jp{サービスコール不正使用(対象ミューテックスをロックしていない)}%en{Illegal service call use(the invoking task does not have the specified mutex locked)}
+ */
 ER unl_mtx(ID mtxid)
 {
 	_KERNEL_T_MTXCB_PTR		mtxcb;
@@ -38,7 +45,7 @@ ER unl_mtx(ID mtxid)
 #if _KERNEL_SPT_UNL_MTX_E_ID
 	if ( !_KERNEL_MTX_CHECK_MTXID(mtxid) )
 	{
-		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
+		return E_ID;			/* %jp{不正ID番号}%en{Invalid ID number} */
 	}
 #endif
 	
@@ -64,7 +71,7 @@ ER unl_mtx(ID mtxid)
 	if ( tskhdl != _KERNEL_MTX_GET_TSKHDL(mtxcb) )
 	{
 		_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
-		return E_ILUSE;			/*  */
+		return E_ILUSE;			/* %jp{サービスコール不正使用}%en{Illegal service call use} */
 	}
 #endif
 	
@@ -100,7 +107,10 @@ ER unl_mtx(ID mtxid)
 
 #if _KERNEL_SPT_UNL_MTX_E_NOSPT
 
-/** %jp{ミューテックスのロック解除} */
+/** %jp{ミューテックスのロック解除}%en{Unlock Mutex}
+ * @param  mtxid    %jp{ロック解除対象のミューテックスID番号}%en{ID number of the mutex to be unlocked}
+ * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
+ */
 ER unl_mtx(ID mtxid)
 {
 	return E_NOSPT;
