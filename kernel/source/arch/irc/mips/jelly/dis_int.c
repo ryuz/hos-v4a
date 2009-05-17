@@ -15,7 +15,7 @@
 
 
 
-/* 割り込みの禁止 */
+/* 割込みの禁止 */
 ER dis_int(INTNO intno)
 {
 	if ( intno < _KERNEL_IRCATR_TMIN_INTNO || intno > *_KERNEL_IRC_FACTOR_ID_MAX )

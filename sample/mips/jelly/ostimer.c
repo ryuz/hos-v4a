@@ -29,7 +29,7 @@ void OsTimer_Initialize(VP_INT exinf)
 {
 	T_CISR cisr;
 	
-	/* %jp{割り込みサービスルーチン生成} */
+	/* %jp{割込みサービスルーチン生成} */
 	cisr.isratr = TA_HLNG;
 	cisr.exinf  = 0;
 	cisr.intno  = INTNO_TIMER0;

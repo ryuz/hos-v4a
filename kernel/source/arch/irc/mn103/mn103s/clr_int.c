@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* 割り込み要因のクリア */
+/* 割込み要因のクリア */
 ER vclr_int(INTNO intno)
 {
 	int	mask;

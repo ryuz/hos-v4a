@@ -34,7 +34,7 @@ void _kernel_exe_irc(INHNO inhno)
 		return;
 	}
 	
-	/* %jp{割り込み番号取得} */
+	/* %jp{割込み番号取得} */
 	for ( intno = 0; intno <= 31; intno++ )
 	{
 		if ( intsta & 1 )

@@ -45,7 +45,7 @@ FILE_SIZE JellyUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 		/* 送信可能かチェック */
 		while ( !(JELLYUART_REG_READ(self, JELLYUART_STATUS) & 0x02) )
 		{
-			/* 送信割り込み許可 */
+			/* 送信割込み許可 */
 			SysInt_Clear(self->iIntNumTx);
 			SysInt_Enable(self->iIntNumTx);
 			

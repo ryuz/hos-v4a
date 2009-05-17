@@ -4,7 +4,7 @@
  * @file  dtqobj.h
  * @brief %jp{データキュージェクトのヘッダファイル}%en{Data queue object heder file}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2009 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

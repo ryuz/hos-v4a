@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* 割り込みレベルの取得 */
+/* 割込みレベルの取得 */
 ER vget_ilv(INTNO intno, INT *p_ilv)
 {
 	*p_ilv = (*_KERNEL_MN103S_INTC_GICR(intno) >> 12) & 0x7;

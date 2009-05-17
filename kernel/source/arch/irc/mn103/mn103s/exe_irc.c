@@ -14,14 +14,14 @@
 #include "object/isrobj.h"
 
 
-/* IRQ割り込み処理 */
+/* IRQ割込み処理 */
 void _kernel_exe_irc(void)
 {
 	INTNO intno;
 	UH    gicr;
 	int   i;
 	
-	/* %jp{割り込み番号取得} */
+	/* %jp{割込み番号取得} */
 	intno = *_KERNEL_MN103S_INTC_IAGR;
 	gicr  = *_KERNEL_MN103S_INTC_GICR(intno);
 	for ( i = 0; i < 4; i++ )

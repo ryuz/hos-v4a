@@ -46,7 +46,7 @@ void Ne2000Drv_Create(C_NE2000DRV *self, void *pRegAddr, int iIntNum)
 	/* ミューテックス生成 */
 	self->hMtx = SysMtx_Create(SYSMTX_ATTR_NORMAL);
 
-	/* 割り込み処理登録 */
+	/* 割込み処理登録 */
 	SysIsr_Create(iIntNum, Ne2000Drv_Isr, (VPARAM)self);
 }
 
@@ -182,7 +182,7 @@ FILE_SIZE Ne2000Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pD
 }
 
 
-/* 割り込み処理 */
+/* 割込み処理 */
 void Ne2000Drv_Isr(VPARAM Param)
 {
 	C_NE2000DRV *self;

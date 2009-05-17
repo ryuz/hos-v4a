@@ -135,7 +135,7 @@ ER ipsnd_dtq(ID dtqid, VP_INT data)
 
 
 
-#else	/* _KERNEL_SPT_SND_DTQ */
+#else	/* _KERNEL_SPT_IPSND_DTQ */
 
 
 #if _KERNEL_SPT_SND_DTQ_E_NOSPT
@@ -145,7 +145,7 @@ ER ipsnd_dtq(ID dtqid, VP_INT data)
  * @param  data     %jp{データキューへ送信するデータ}%en{Data element tobe sent}
  * @retval E_NOSPT  %jp{未サポート機能}%en{Unsupported function}
  */
-ER snd_dtq(ID dtqid, VP_INT data)
+ER ipsnd_dtq(ID dtqid, VP_INT data)
 {
 	return E_NOSPT;
 }
@@ -153,7 +153,7 @@ ER snd_dtq(ID dtqid, VP_INT data)
 #endif
 
 
-#endif	/* _KERNEL_SPT_SND_DTQ */
+#endif	/* _KERNEL_SPT_SIPSND_DTQ */
 
 
 

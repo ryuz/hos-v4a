@@ -13,7 +13,7 @@
 
 
 
-/* 受信割り込み */
+/* 受信割込み */
 void SciDrv_IsrRx(VPARAM Param)
 {
 	C_SCIDRV *self;

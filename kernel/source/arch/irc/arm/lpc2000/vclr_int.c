@@ -13,7 +13,7 @@
 #include "object/isrobj.h"
 
 
-/* %jp{割り込みのクリア} */
+/* %jp{割込みのクリア} */
 ER vclr_int(INTNO intno)
 {
 	*_KERNEL_IRC_VICSoftIntClear = (1 << intno);

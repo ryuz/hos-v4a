@@ -43,7 +43,7 @@ FILE_SIZE Mx1UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 		while ( !(MX1UART_REG_READ(self, MX1UART_USR2) & 0x0008) )
 		{
 #if 0
-			/* 送信割り込み許可 */
+			/* 送信割込み許可 */
 
 			
 			/* ブロッキングモードでなければ抜ける */

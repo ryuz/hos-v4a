@@ -13,7 +13,7 @@
 #include "ostimer.h"
 
 
-#define OSTIMER_TIMER_INHNO		24			/**< %jp{割り込みハンドラ番号} */
+#define OSTIMER_TIMER_INHNO		24			/**< %jp{割込みハンドラ番号} */
 
 
 #define REG_TIM16_TSTR		((volatile UB *)0xffffff60)
@@ -37,7 +37,7 @@
 #define REG_TIM16_GRB0L		((volatile UB *)0xffffff6f)
 
 
-static void OsTimer_IrqHandler(void);		/**< %jp{タイマ割り込みハンドラ} */
+static void OsTimer_IrqHandler(void);		/**< %jp{タイマ割込みハンドラ} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
@@ -45,7 +45,7 @@ void OsTimer_Initialize(VP_INT exinf)
 {
 	T_DINH dfinh;
 	
-	/* %jp{割り込みハンドラ定義} */
+	/* %jp{割込みハンドラ定義} */
 	dfinh.inthdr = (FP)OsTimer_IrqHandler;
 	def_inh(OSTIMER_TIMER_INHNO, &dfinh);
 	
@@ -54,17 +54,17 @@ void OsTimer_Initialize(VP_INT exinf)
 	*REG_TIM16_TCR0   = 0x23;		/* φ/8でカウント, GRAのコンペアマッチでクリア */
 	*REG_TIM16_TCNT0  = 0;			/* カウンタクリア */
 	*REG_TIM16_GRA0   = 2500 - 1;	/* 10 msec のインターバル（20MHz/8 = 2.5MHz） */
-	*REG_TIM16_TISRA &= ~0x01;		/* 割り込み要因クリア */
-	*REG_TIM16_TISRA |= 0x10;		/* 割り込み許可 */
+	*REG_TIM16_TISRA &= ~0x01;		/* 割込み要因クリア */
+	*REG_TIM16_TISRA |= 0x10;		/* 割込み許可 */
 	*REG_TIM16_TSTR  |= 0x01;		/* TCNT0動作開始 */
 }
 
 
-/** %jp{タイマ割り込みハンドラ} */
+/** %jp{タイマ割込みハンドラ} */
 void OsTimer_IrqHandler(void)
 {
-	/* 割り込み要因クリア */
-	*REG_TIM16_TISRA &= ~0x01;		/* 割り込み要因クリア */
+	/* 割込み要因クリア */
+	*REG_TIM16_TISRA &= ~0x01;		/* 割込み要因クリア */
 	
 /*	Sci1_PutChar('T');	*/
 	

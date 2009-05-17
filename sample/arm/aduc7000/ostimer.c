@@ -27,7 +27,7 @@ void OsTimer_Initialize(VP_INT exinf)
 {
 	T_CISR cisr;
 	
-	/* %jp{割り込みサービスルーチン生成} */
+	/* %jp{割込みサービスルーチン生成} */
 	cisr.isratr = TA_HLNG;
 	cisr.exinf  = 0;
 	cisr.intno  = 2;
@@ -41,10 +41,10 @@ void OsTimer_Initialize(VP_INT exinf)
 }
 
 
-/** %jp{タイマ割り込みハンドラ} */
+/** %jp{タイマ割込みハンドラ} */
 void OsTimer_Isr(VP_INT exinf)
 {
-	/* %jp{割り込み要因クリア} */
+	/* %jp{割込み要因クリア} */
 	*T0CLRI = 0;
 	
 	/* %jp{タイムティック供給} */

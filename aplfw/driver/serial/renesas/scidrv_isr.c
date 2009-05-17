@@ -13,14 +13,14 @@
 
 
 
-/* 受信エラー割り込み */
+/* 受信エラー割込み */
 void SciDrv_IsrRecvErr(VPARAM Param)
 {
 	SciDrv_IsrRecv(Param);
 }
 
 
-/* 受信割り込み */
+/* 受信割込み */
 void SciDrv_IsrRecv(VPARAM Param)
 {
 	C_SCIDRV *self;

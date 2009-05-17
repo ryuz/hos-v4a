@@ -13,12 +13,12 @@
 #define _KERNEL__arch__proc__h8__h8300ha__proc_h__
 
 
-#define _KERNEL_IMSK_I		0x80		/**< %jp{割り込みマスクビット} */
-#define _KERNEL_IMSK_UI		0x40		/**< %jp{ユーザービット／割り込みマスクビット} */
+#define _KERNEL_IMSK_I		0x80		/**< %jp{割込みマスクビット} */
+#define _KERNEL_IMSK_UI		0x40		/**< %jp{ユーザービット／割込みマスクビット} */
 
-#define _KERNEL_IMSK_LV0	0xc0		/**< %jp{割り込みマスクレベル0(すべてマスク)} */
-#define _KERNEL_IMSK_LV1	0x80		/**< %jp{割り込みマスクレベル1(高優先割込みのみ許可)} */
-#define _KERNEL_IMSK_LV2	0x00		/**< %jp{割り込みマスクレベル2(すべて許可)} */
+#define _KERNEL_IMSK_LV0	0xc0		/**< %jp{割込みマスクレベル0(すべてマスク)} */
+#define _KERNEL_IMSK_LV1	0x80		/**< %jp{割込みマスクレベル1(高優先割込みのみ許可)} */
+#define _KERNEL_IMSK_LV2	0x00		/**< %jp{割込みマスクレベル2(すべて許可)} */
 
 
 /** %jp{コンテキスト情報保存ブロック} */
@@ -46,9 +46,9 @@ extern _KERNEL_T_ICTXCB _kernel_ictxcb;	/**< %jp{割込みコンテキスト情�
 extern "C" {
 #endif
 
-void    _kernel_ena_int(void);																		/**< %jp{割り込み許可} */
-void    _kernel_dis_int(void);																		/**< %jp{割り込み禁止} */
-void    _kernel_wai_int(void);																		/**< %jp{割り込み待ち(アイドル時の処理)} */
+void    _kernel_ena_int(void);																		/**< %jp{割込み許可} */
+void    _kernel_dis_int(void);																		/**< %jp{割込み禁止} */
+void    _kernel_wai_int(void);																		/**< %jp{割込み待ち(アイドル時の処理)} */
 
 void    _kernel_cre_ctx(_KERNEL_T_CTXCB *pk_ctxcb, VP isp, FP entry, VP_INT par1, VP_INT par2);		/**< %jp{実行コンテキストの作成} */
 void    _kernel_del_ctx(_KERNEL_T_CTXCB *pk_ctxcb);													/**< %jp{実行コンテキストの削除} */
@@ -64,9 +64,9 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 #define _KERNEL_INI_PRC()	do {} while (0)
 
 #define _KERNEL_INI_INT(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)
-#define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割り込み許可} */
-#define _KERNEL_DIS_INT()			_kernel_dis_int()												/**< %jp{割り込み禁止} */
-#define _KERNEL_WAI_INT()			_kernel_wai_int()												/**< %jp{割り込み待ち(アイドル時の処理)} */
+#define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割込み許可} */
+#define _KERNEL_DIS_INT()			_kernel_dis_int()												/**< %jp{割込み禁止} */
+#define _KERNEL_WAI_INT()			_kernel_wai_int()												/**< %jp{割込み待ち(アイドル時の処理)} */
 
 #define _KERNEL_CRE_CTX(pk_ctxcb, stksz, stk, isp, entry, exinf1, exinf2)		\
 									_kernel_cre_ctx((pk_ctxcb), (isp), (entry), (exinf1), (exinf2))

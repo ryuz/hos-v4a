@@ -28,7 +28,7 @@ typedef struct c_lan9000drv
 	C_LAN9000HAL	Lan9000Hal;		/* ハードウェア制御クラス */
 	int				iOpenCount;		/* オープンカウンタ */
 	int				iIntNum;		/* 割込み番号 */
-	SYSISR_HANDLE	hIsr;			/* 割り込みサービスハンドル */
+	SYSISR_HANDLE	hIsr;			/* 割込みサービスハンドル */
 	SYSMTX_HANDLE	hMtx;			/* 排他制御ミューテックス */
 } C_LAN9000DRV;
 

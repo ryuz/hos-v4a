@@ -51,10 +51,10 @@ void OsTimer_Initialize(void)
 }
 
 
-/** %jp{タイマ割り込みハンドラ} */
+/** %jp{タイマ割込みハンドラ} */
 void OsTimer_Isr(VPARAM Param)
 {
-	/* %jp{割り込み要因クリア} */
+	/* %jp{割込み要因クリア} */
 	*T0IR= 1; 
 	
 	/* %jp{タイムティック供給} */

@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  ircatr.h
- * @brief %jp{割り込みコントローラ固有属性定義}%jp{Interrupt controler attribute}
+ * @brief %jp{割込みコントローラ固有属性定義}%jp{Interrupt controler attribute}
  *  %jp{割込みハンドラと割込みサービスルーチンが単純対応する場合}
  *
  * Copyright (C) 1998-2006 by Project HOS

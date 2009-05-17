@@ -34,8 +34,8 @@ extern       _KERNEL_T_INTINF	_kernel_int_tbl[];
 extern const _KERNEL_T_INTINF	_kernel_int_tbl[];
 #endif
 
-extern const INTNO _kernel_min_intno;			/**< %jp{割り込み番号の最小値} */
-extern const INTNO _kernel_max_intno;			/**< %jp{割り込み番号の最大値} */
+extern const INTNO _kernel_min_intno;			/**< %jp{割込み番号の最小値} */
+extern const INTNO _kernel_max_intno;			/**< %jp{割込み番号の最大値} */
 
 #define _KERNEL_INT_TMIN_INTNO					(_kernel_min_intno)
 #define _KERNEL_INT_TMAX_INTNO					(_kernel_max_intno)
@@ -60,7 +60,7 @@ typedef VP_INT							_KERNEL_ISR_T_EXINF;
 typedef VP_INT							_KERNEL_ISRCB_T_EXINF;
 #define _KERNEL_ISRCB_TBITDEF_EXINF
 
-/* %jp{割り込みサービスルーチンの開始番地の型} */
+/* %jp{割込みサービスルーチンの開始番地の型} */
 typedef void (*_KERNEL_ISR_T_ISR)(VP_INT exinf);
 typedef void (*_KERNEL_ISRCB_T_ISR)(VP_INT exinf);
 #define _KERNEL_ISRCB_TBITDEF_ISR
@@ -136,8 +136,8 @@ extern const ID							_kernel_max_isrid;					/* %jp{割込みサービスルー�
 #if _KERNEL_ISRCB_SPLIT_RO
 
 /* %jp{ブロック配列管理でRO分離の場合}%en{block array} */
-extern  _KERNEL_T_ISRCB					_kernel_isrcb_tbl[];									/**< %jp{割り込みサービスルーチンコントロールブロックテーブル} */
-extern const _KERNEL_T_ISRCB_RO			_kernel_isrcb_ro_tbl[];									/**< %jp{割り込みサービスルーチンコントロールブロック(リードオンリー部)テーブル} */
+extern  _KERNEL_T_ISRCB					_kernel_isrcb_tbl[];									/**< %jp{割込みサービスルーチンコントロールブロックテーブル} */
+extern const _KERNEL_T_ISRCB_RO			_kernel_isrcb_ro_tbl[];									/**< %jp{割込みサービスルーチンコントロールブロック(リードオンリー部)テーブル} */
 #define _KERNEL_ISR_ID2ISRCB(isrid)		(&_kernel_isrcb_tbl[(isrid) - _KERNEL_ISR_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
 #define _KERNEL_ISR_CHECK_EXS(isrid)	(_kernel_isrcb_ro_tbl[(isrid) - _KERNEL_ISR_TMIN_ID].isr != NULL)
 																								/**< %jp{オブジェクトの存在チェック} */
@@ -145,7 +145,7 @@ extern const _KERNEL_T_ISRCB_RO			_kernel_isrcb_ro_tbl[];									/**< %jp{割�
 #else
 
 /* %jp{ブロック配列管理の場合}%en{block array} */
-extern  _KERNEL_T_ISRCB					_kernel_isrcb_tbl[];									/**< %jp{割り込みサービスルーチンコントロールブロックテーブル} */
+extern  _KERNEL_T_ISRCB					_kernel_isrcb_tbl[];									/**< %jp{割込みサービスルーチンコントロールブロックテーブル} */
 #define _KERNEL_ISR_ID2ISRCB(isrid)		(&_kernel_isrcb_tbl[(isrid) - _KERNEL_ISR_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
 #define _KERNEL_ISR_CHECK_EXS(isrid)	(_kernel_isrcb_tbl[(isrid) - _KERNEL_ISR_TMIN_ID].isr  != NULL)				
 																								/**< %jp{オブジェクトの存在チェック} */
@@ -155,8 +155,8 @@ extern  _KERNEL_T_ISRCB					_kernel_isrcb_tbl[];									/**< %jp{割り込み�
 #elif _KERNEL_ISRCB_ALGORITHM == _KERNEL_ISRCB_ALG_PTRARRAY
 
 /* %jp{ポインタ配列管理の場合}%en{pointer array} */
-extern  _KERNEL_T_ISRCB					*_kernel_isrcb_tbl[];									/**< %jp{割り込みサービスルーチンコントロールブロックテーブル} */
-#define _KERNEL_ISR_ID2ISRCB(isrid)		(_kernel_isrcb_tbl[(isrid) - _KERNEL_ISR_TMIN_ID])		/**< %jp{割り込みサービスルーチンIDからISRCB アドレスを取得} */
+extern  _KERNEL_T_ISRCB					*_kernel_isrcb_tbl[];									/**< %jp{割込みサービスルーチンコントロールブロックテーブル} */
+#define _KERNEL_ISR_ID2ISRCB(isrid)		(_kernel_isrcb_tbl[(isrid) - _KERNEL_ISR_TMIN_ID])		/**< %jp{割込みサービスルーチンIDからISRCB アドレスを取得} */
 #define _KERNEL_ISR_CHECK_EXS(isrid)	(_KERNEL_ISR_ID2ISRCB(isrid) != NULL)					/**< %jp{オブジェクトの存在チェック} */
 
 #endif

@@ -25,6 +25,7 @@
  * @retval E_ID     %jp{不正ID番号(semidが不正あるいは使用できない)}%en{Invalid ID number(semid is invalid or unusable)}
  * @retval E_CTX    %jp{コンテキストエラー}%en{Context error}
  * @retval E_NOEXS  %jp{オブジェクト未生成(対象セマフォが未登録)}%en{Non-existant object(specified semaphore is not registerd)}
+ * @retval E_PAR    %jp{パラメータエラー(tmoutが不正)}%en{Parameter error(tmout is invalid)}
  * @retval E_RLWAI  %jp{待ち状態の強制解除(待ち状態の間にrel_waiを受付)}%en{Forced release from waiting(accept rel_wai while waiting)}
  * @retval E_TMOUT  %jp{タイムアウト}%en{Timeout}
  * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に対象セマフォが削除)}%en{Waiting object deleted(semaphore is deleted waiting)}
@@ -66,6 +67,7 @@ ER twai_sem(ID semid, TMO tmout)
  * @retval E_ID     %jp{不正ID番号(semidが不正あるいは使用できない)}%en{Invalid ID number(semid is invalid or unusable)}
  * @retval E_CTX    %jp{コンテキストエラー}%en{Context error}
  * @retval E_NOEXS  %jp{オブジェクト未生成(対象セマフォが未登録)}%en{Non-existant object(specified semaphore is not registerd)}
+ * @retval E_PAR    %jp{パラメータエラー(tmoutが不正)}%en{Parameter error(tmout is invalid)}
  * @retval E_RLWAI  %jp{待ち状態の強制解除(待ち状態の間にrel_waiを受付)}%en{Forced release from waiting(accept rel_wai while waiting)}
  * @retval E_TMOUT  %jp{タイムアウト}%en{Timeout}
  * @retval E_DLT    %jp{待ちオブジェクトの削除(待ち状態の間に対象セマフォが削除)}%en{Waiting object deleted(semaphore is deleted waiting)}
@@ -93,7 +95,15 @@ ER _kernel_wai_sem(ID semid, TMO tmout)
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
 	}
 #endif
-		
+
+	/* %jp{パラメータのチェック} */
+#if _KERNEL_SPT_TWAI_SEM_E_PAR
+	if ( tmout < 0 && tmout != TMO_FEVR && tmout != TMO_POL)
+	{
+		return E_PAR;	/* %jp{パラメータエラー(tmoutが不正)}%en{Parameter error(tmout is invalid)} */
+	}
+#endif
+	
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 	
 	/* %jp{オブジェクト存在チェック} */

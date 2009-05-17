@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* 割り込みの禁止 */
+/* 割込みの禁止 */
 ER dis_int(INTNO intno)
 {
 	*_KERNEL_IRC_VICIntEnClr |= (1 << intno);

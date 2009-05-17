@@ -13,7 +13,7 @@
 
 
 
-/** %jp{割り込み許可} */
+/** %jp{割込み許可} */
 void Pc16550Hal_EnableInterrupt(C_PC16550HAL *self, unsigned char flag)
 {
 	PC16550HAL_WRITE_IER(self, flag);

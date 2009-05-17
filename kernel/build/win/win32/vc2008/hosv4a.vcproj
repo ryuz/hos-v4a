@@ -366,11 +366,19 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\..\source\object\dtq\ipsnd_dt.c"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\..\source\object\dtq\kcre_dtq.c"
 						>
 					</File>
 					<File
 						RelativePath="..\..\..\..\source\object\dtq\prcv_dtq.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\source\object\dtq\psnd_dtq.c"
 						>
 					</File>
 					<File
@@ -383,6 +391,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\..\source\object\dtq\trcv_dtq.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\source\object\dtq\tsnd_dtq.c"
 						>
 					</File>
 				</Filter>
@@ -627,6 +639,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\..\source\object\mtx\loc_mtx.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\source\object\mtx\ploc_mtx.c"
 						>
 					</File>
 					<File

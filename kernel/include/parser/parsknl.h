@@ -18,7 +18,7 @@
 /*  Processor Attribute                                               */
 /* ------------------------------------------------------------------ */
 
-/* 割り込み用スタックの本数 */
+/* 割込み用スタックの本数 */
 #ifndef _KERNEL_PROCATR_INTSTK_NUM
 #define _KERNE_INTSTK_NUM			1
 #else
@@ -64,7 +64,7 @@
 /* %jp{対称型マルチプロセッサ対応(きっと永遠に未実装)} */
 #define _KERNEL_SPT_SMP				_KERNEL_CFG_SMP				/**< Symmetric Multiple Processor */
 
-/* %jp{多重割り込み} */
+/* %jp{多重割込み} */
 #define _KERNEL_SPT_MULTIPLE_INT	_KERNEL_CFG_MULTIPLE_INT
 
 
@@ -166,7 +166,8 @@
 #define _KERNEL_SPT_ACRE_DTQ		_KERNEL_CFG_ACRE_DTQ		/* acre_dtq */
 #define _KERNEL_SPT_DEL_DTQ 		_KERNEL_CFG_DEL_DTQ 		/* del_dtq */
 #define _KERNEL_SPT_SND_DTQ 		_KERNEL_CFG_SND_DTQ 		/* snd_dtq */
-#define _KERNEL_SPT_IPSND_DT		_KERNEL_CFG_IPSND_DT		/* ipsnd_dtq */
+#define _KERNEL_SPT_PSND_DTQ		_KERNEL_CFG_PSND_DTQ		/* psnd_dtq */
+#define _KERNEL_SPT_IPSND_DTQ		_KERNEL_CFG_IPSND_DTQ		/* ipsnd_dtq */
 #define _KERNEL_SPT_TSND_DTQ		_KERNEL_CFG_TSND_DTQ		/* tsnd_dtq */
 #define _KERNEL_SPT_FSND_DTQ		_KERNEL_CFG_FSND_DTQ		/* fsnd_dtq */
 #define _KERNEL_SPT_IFSND_DT		_KERNEL_CFG_IFSND_DT		/* ifsnd_dtq */
@@ -174,6 +175,13 @@
 #define _KERNEL_SPT_PRCV_DTQ		_KERNEL_CFG_PRCV_DTQ		/* prcv_dtq */
 #define _KERNEL_SPT_TRCV_DTQ		_KERNEL_CFG_TRCV_DTQ		/* trcv_dtq */
 #define _KERNEL_SPT_REF_DTQ 		_KERNEL_CFG_REF_DTQ 		/* ref_dtq */
+
+#if _KERNEL_SPT_TSND_DTQ || (_KERNEL_SPT_SND_DTQ && _KERNEL_SPT_PSND_DTQ)
+#define _KERNEL_SPT_KSND_DTQ		TRUE
+#else
+#define _KERNEL_SPT_KSND_DTQ		FALSE
+#endif
+
 
 /* Mailboxes */
 #define _KERNEL_SPT_CRE_MBX 		_KERNEL_CFG_CRE_MBX 		/* cre_mbx */

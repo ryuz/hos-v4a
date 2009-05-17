@@ -76,14 +76,14 @@ MEMSIZE        SysMem_GetSize(void *pMem);									/**< メモリのサイズ取
 C_MEMHEAP      *SysMem_GetMemHeap(void);									/**< メモリインターフェースの取得(システム用) */
 
 
-/* システム用割り込み制御API */
+/* システム用割込み制御API */
 void           SysInt_Enable(int iIntNum);									/**< 割込み許可(システム用) */
 void           SysInt_Disable(int iIntNum);									/**< 割込み禁止(システム用) */
 void           SysInt_Clear(int iIntNum);									/**< 割込み要因クリア(システム用) */
 void           SysInt_SetIntTime(int iIntNum, SYSTIM_CPUTIME Time);			/**< 割込み計測タイマを初期化 */
 SYSTIM_CPUTIME SysInt_GetIntTime(int iIntNum);								/**< 割込み計測タイマを取得 */
 
-/* 割り込みサービスルーチン制御API */
+/* 割込みサービスルーチン制御API */
 SYSISR_HANDLE  SysIsr_Create(int iIntNum, void (*pfncIsr)(VPARAM Param), VPARAM Param);
 void           SysIsr_Delete(SYSISR_HANDLE hIsr);
 

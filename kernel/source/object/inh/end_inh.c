@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  sta_inte.c
- * @brief %jp{割り込み処理開始}
+ * @brief %jp{割込み処理開始}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -17,12 +17,12 @@
 #if _KERNEL_SPT_DPC
 
 
-/** %jp{割り込み処理開始}
+/** %jp{割込み処理開始}
  * @return void
  */
 void _kernel_end_inh(void)
 {
-	/* %jp{割り込みコンテキストを抜ける} */
+	/* %jp{割込みコンテキストを抜ける} */
 	_KERNEL_SYS_CLR_CTX();
 	
 	/* %jp{サービスコールの中なら何もしない} */
@@ -44,12 +44,12 @@ void _kernel_end_inh(void)
 #else
 
 
-/** %jp{割り込み処理開始}
+/** %jp{割込み処理開始}
  * @return void
  */
 void _kernel_end_inh(void)
 {
-	/* %jp{割り込みコンテキストを抜ける} */
+	/* %jp{割込みコンテキストを抜ける} */
 	_KERNEL_SYS_CLR_CTX();
 	
 	/* %jp{遅延しているディスパッチがあれば実施} */

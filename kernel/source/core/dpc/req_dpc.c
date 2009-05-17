@@ -22,7 +22,7 @@ ER _kernel_req_dpc(_KERNEL_T_DPCCB *dcpcb, void (*svc)(ID id, VP_INT param1), ID
 	UINT						tail;
 	UINT						next_tail;
 	
-	_KERNEL_SYS_LOC_DPC();		/* %jp{多重割り込み対策でロックをかける} */
+	_KERNEL_SYS_LOC_DPC();		/* %jp{多重割込み対策でロックをかける} */
 	
 	tail      = dcpcb->tail;
 	next_tail = tail + 1;

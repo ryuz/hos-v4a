@@ -12,7 +12,7 @@
 #include "lan9118drv_local.h"
 
 
-/* 割り込み */
+/* 割込み */
 void Lan9118Drv_Isr(VPARAM Param)
 {
 	C_LAN9118DRV	*self;

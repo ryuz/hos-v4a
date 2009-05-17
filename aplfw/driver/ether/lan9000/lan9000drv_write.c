@@ -47,7 +47,7 @@ FILE_SIZE Lan9000Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 			break;
 		}
 
-		/* ブロッキングなら送信割り込み許可 */
+		/* ブロッキングなら送信割込み許可 */
 		uhStatus = Lan9000Hal_GetInterruptStatus(&self->Lan9000Hal);
 		Lan9000Hal_SetInterruptMask(&self->Lan9000Hal, (uhStatus | LAN9000HAL_IMASK_ALLOCINT));
 

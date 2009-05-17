@@ -45,7 +45,7 @@ FILE_SIZE Mn103ScDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 		/* 送信可能かチェック */
 		while ( (MN103SC_READ_STR(self) & 0x80 ) )
 		{
-			/* 送信割り込み許可 */
+			/* 送信割込み許可 */
 			SysInt_Enable(self->iIntNumTx);
 			
 			/* ブロッキングモードでなければ抜ける */

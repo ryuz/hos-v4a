@@ -10,7 +10,7 @@
 
 
 #include "core/core.h"
-#include "object/semobj.h"
+#include "object/tskobj.h"
 
 
 
@@ -65,7 +65,7 @@ ER del_tsk(ID tskid)
 #elif _KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_BLKARRAY
 	_KERNEL_TSK_SET_TASK(tcb, 0);
 #endif
-
+	
 	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 	
 	return E_OK;

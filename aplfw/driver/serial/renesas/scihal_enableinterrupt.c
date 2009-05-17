@@ -13,7 +13,7 @@
 
 
 
-/** %jp{割り込み許可} */
+/** %jp{割込み許可} */
 void SciHal_EnableInterrupt(C_SCIHAL *self, unsigned char flag)
 {
 	unsigned char scr;

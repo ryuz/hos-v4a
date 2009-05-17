@@ -24,7 +24,7 @@ void Mx1UartDrv_IsrTx(VPARAM Param)
 }
 
 
-/* 受信割り込み */
+/* 受信割込み */
 void Mx1UartDrv_IsrRx(VPARAM Param)
 {
 	C_MX1UARTDRV	*self;

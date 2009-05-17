@@ -66,9 +66,9 @@ extern "C" {
 
 void    _kernel_ini_prc(void);																/**< %jp{アーキテクチャ固有の初期化} */
 
-void    _kernel_ena_int(void);																/**< %jp{割り込み許可} */
-void    _kernel_dis_int(void);																/**< %jp{割り込み禁止} */
-void    _kernel_wai_int(void);																/**< %jp{割り込み待ち(アイドル時の処理)} */
+void    _kernel_ena_int(void);																/**< %jp{割込み許可} */
+void    _kernel_dis_int(void);																/**< %jp{割込み禁止} */
+void    _kernel_wai_int(void);																/**< %jp{割込み待ち(アイドル時の処理)} */
 
 void    _kernel_cre_ctx(_KERNEL_T_CTXCB *ctxcb, FP entry, VP_INT exinf1, VP_INT exinf2);	/**< %jp{実行コンテキストの作成} */
 void    _kernel_del_ctx(_KERNEL_T_CTXCB *ctxcb);											/**< %jp{実行コンテキストの削除} */
@@ -86,9 +86,9 @@ void     vsig_int(int inhno);																/**< %jp{擬似割込みサポー�
 #define _KERNEL_INI_PRC()				_kernel_ini_prc()
 
 #define _KERNEL_INI_INT(stksz, stk)		do {} while(0)
-#define _KERNEL_ENA_INT()				_kernel_ena_int()									/**< %jp{割り込み許可} */
-#define _KERNEL_DIS_INT()				_kernel_dis_int()									/**< %jp{割り込み禁止} */
-#define _KERNEL_WAI_INT()				_kernel_wai_int()									/**< %jp{割り込み待ち(アイドル時の処理)} */
+#define _KERNEL_ENA_INT()				_kernel_ena_int()									/**< %jp{割込み許可} */
+#define _KERNEL_DIS_INT()				_kernel_dis_int()									/**< %jp{割込み禁止} */
+#define _KERNEL_WAI_INT()				_kernel_wai_int()									/**< %jp{割込み待ち(アイドル時の処理)} */
 
 
 #define _KERNEL_CRE_CTX(ctxcb, stksz, stk, isp, entry, par1, par2)		\

@@ -51,7 +51,7 @@ void JellyUartDrv_IsrTx(VPARAM Param)
 	/* 送信 */	
 	if ( (JELLYUART_REG_READ(self, JELLYUART_STATUS) & 0x02) )
 	{
-		/* 送信割り込み禁止 */
+		/* 送信割込み禁止 */
 		SysInt_Disable(self->iIntNumTx);
 		
 		/* 書込みシグナルを発生 */

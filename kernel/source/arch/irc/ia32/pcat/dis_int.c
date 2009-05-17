@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* 割り込みの禁止 */
+/* 割込みの禁止 */
 ER dis_int(INTNO intno)
 {
 	if ( intno < 0 || intno > 15 )

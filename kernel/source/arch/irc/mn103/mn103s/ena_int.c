@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* 割り込みの許可 */
+/* 割込みの許可 */
 ER ena_int(INTNO intno)
 {
 	int mask;

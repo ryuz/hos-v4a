@@ -14,11 +14,11 @@
 #include "regs_sh7144.h"
 
 
-#define INHNO_OSTIMER			144							/**< %jp{割り込みハンドラ番号} */
+#define INHNO_OSTIMER			144							/**< %jp{割込みハンドラ番号} */
 #define PERIPHERAL_CLOCK		(24000000UL)				/**< %jp{ペリフェラルクロック(24MHz)} */
 
 
-static void OsTimer_IrqHandler(void);						/**< %jp{タイマ割り込みハンドラ} */
+static void OsTimer_IrqHandler(void);						/**< %jp{タイマ割込みハンドラ} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
@@ -26,7 +26,7 @@ void OsTimer_Initialize(VP_INT exinf)
 {
 	T_DINH dfinh;
 	
-	/* %jp{割り込みハンドラ定義} */
+	/* %jp{割込みハンドラ定義} */
 	dfinh.inthdr = (FP)OsTimer_IrqHandler;
 	def_inh(INHNO_OSTIMER, &dfinh);
 	
@@ -38,12 +38,12 @@ void OsTimer_Initialize(VP_INT exinf)
 	*REG_CMT0_CMCSR  = 0x0042;								/* %jp{128分周に設定} */
 	*REG_CMT_CMSTR  |= 0x0001;								/* %jp{動作開始} */
 	
-	/* %jp{割り込み許可} */
+	/* %jp{割込み許可} */
 	*REG_INTC_IPRG = ((*REG_INTC_IPRG & 0xff0f) | 0x0010);
 }
 
 
-/** %jp{タイマ割り込みハンドラ} */
+/** %jp{タイマ割込みハンドラ} */
 void OsTimer_IrqHandler(void)
 {
 	*REG_CMT0_CMCSR &= 0xff7f;

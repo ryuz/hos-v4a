@@ -19,7 +19,7 @@
 #include "arch/proc/win/win32/proc.h"
 
 
-static DWORD WINAPI WinTimer_Thread(LPVOID param);		/**< %jp{タイマ割り込み用スレッド関数} */
+static DWORD WINAPI WinTimer_Thread(LPVOID param);		/**< %jp{タイマ割込み用スレッド関数} */
 static HANDLE hEventTimer;								/**< %jp{タイマハンドル} */
 
 
@@ -39,7 +39,7 @@ void WinTimer_Start(INHNO inhno, int iInterval)
 }
 
 
-/** %jp{タイマ割り込み用スレッド関数} */
+/** %jp{タイマ割込み用スレッド関数} */
 DWORD WINAPI WinTimer_Thread(LPVOID param)
 {
 	INHNO inhno;
@@ -51,7 +51,7 @@ DWORD WINAPI WinTimer_Thread(LPVOID param)
 		/* %jp{タイマイベントを待つ} */
 		WaitForSingleObject(hEventTimer, INFINITE);
 		
-		/* %jp{割り込みシグナルを入れる} */
+		/* %jp{割込みシグナルを入れる} */
 		vsig_int(inhno);
 	}
 }

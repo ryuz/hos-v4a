@@ -17,7 +17,7 @@
 /** %jp{割込みコントローラの初期化} */
 void _kernel_ini_irc(void)
 {
-	/* 割り込み禁止 */
+	/* 割込み禁止 */
 	*_KERNEL_IRC_INTENABLEH  = 0x00000000;
 	*_KERNEL_IRC_INTENABLEL  = 0x00000000;
 	

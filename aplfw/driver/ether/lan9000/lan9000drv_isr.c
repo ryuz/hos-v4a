@@ -12,7 +12,7 @@
 #include "lan9000drv_local.h"
 
 
-/* 受信割り込み */
+/* 受信割込み */
 void Lan9000Drv_Isr(VPARAM Param)
 {
 	C_LAN9000DRV	*self;

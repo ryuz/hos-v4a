@@ -45,7 +45,7 @@ FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void 
 		/* 送信可能かチェック */
 		while ( !(AT91USART_REG_READ(self, AT91USART_US_CSR) & 0x0002) )
 		{
-			/* 送信割り込み許可 */
+			/* 送信割込み許可 */
 			AT91USART_REG_WRITE(self, AT91USART_US_IER, 0x00000002);
 			
 			/* ブロッキングモードでなければ抜ける */

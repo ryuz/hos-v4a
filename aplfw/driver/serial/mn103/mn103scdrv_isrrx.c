@@ -12,7 +12,7 @@
 #include "mn103scdrv_local.h"
 
 
-/* 受信割り込み */
+/* 受信割込み */
 void Mn103ScDrv_IsrRx(VPARAM Param)
 {
 	C_MN103SCDRV	*self;
@@ -20,7 +20,7 @@ void Mn103ScDrv_IsrRx(VPARAM Param)
 	
 	self = (C_MN103SCDRV *)Param;
 	
-	/* 割り込み要因クリア */
+	/* 割込み要因クリア */
 	SysInt_Clear(self->iIntNumRx);
 
 

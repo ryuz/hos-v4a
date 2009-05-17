@@ -32,7 +32,7 @@ HANDLE Mn103ScDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		MN103SC_WRITE_CTR(self, 0xc083);	/* 設定 */
 
-		SysInt_Enable(self->iIntNumRx);		/* 受信割り込みを許可 */
+		SysInt_Enable(self->iIntNumRx);		/* 受信割込みを許可 */
 	}
 	
 	return hFile;

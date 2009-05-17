@@ -31,7 +31,7 @@ HANDLE XxxxDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	{
 		/* ここでデバイスを初期化 */
 		
-		/* 割り込みを許可 */
+		/* 割込みを許可 */
 		SysInt_Enable(self->iIntNum);
 	}
 	

@@ -12,7 +12,7 @@
 #include "core/core.h"
 
 
-/** %jp{割り込み許可} */
+/** %jp{割込み許可} */
 void _kernel_ena_int(void)
 {
 	if ( _kernel_ictxcb.blIntCtx )

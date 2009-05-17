@@ -13,7 +13,7 @@
 #include "object/inhobj.h"
 #include "object/isrobj.h"
 
-/* 割り込みの禁止 */
+/* 割込みの禁止 */
 ER dis_int(INTNO intno)
 {
 	int mask;

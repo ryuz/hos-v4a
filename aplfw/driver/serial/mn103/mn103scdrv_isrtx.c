@@ -12,17 +12,17 @@
 #include "mn103scdrv_local.h"
 
 
-/* 送信割り込み */
+/* 送信割込み */
 void Mn103ScDrv_IsrTx(VPARAM Param)
 {
 	C_MN103SCDRV	*self;
 	
 	self = (C_MN103SCDRV *)Param;
 	
-	/* 割り込み要因クリア */
+	/* 割込み要因クリア */
 	SysInt_Clear(self->iIntNumTx);
 	
-	/* 送信割り込みを禁止 */
+	/* 送信割込みを禁止 */
 	SysInt_Disable(self->iIntNumTx);
 
 	/* 書込みシグナルを発生 */

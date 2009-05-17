@@ -79,7 +79,7 @@ void _kernel_sig_toq(
 		tskhdl = tskhdl_next;
 		tcb    = tcb_next;
 		
-		/* %jp{ここで一度、多重割り込みの機会を与えるべき？} */
+		/* %jp{ここで一度、多重割込みの機会を与えるべき？} */
 	}
 	
 	/* %jp{メモリに書き戻す} */

@@ -348,14 +348,13 @@ ER      twai_flg(ID flgid, FLGPTN waiptn, MODE wfmode, FLGPTN *p_flgptn, TMO tmo
 ER      ref_flg(ID flgid, T_RFLG *pk_rflg);					/**< %jp{イベントフラグの状態参照}%en{Reference Eventflag State} */
 
 /* %jp{データキュー}%en{Data queue} */
-#define _kernel_ini_dtq()									/**< %jp{データキューの初期化} */
 ER      cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq);			/**< %jp{データキューの生成} */
 ER_ID   acre_dtq(const T_CDTQ *pk_cdtq);					/**< %jp{データキューの生成(ID番号自動割付け)} */
 ER      kernel_cre_dtq(ID dtqid, const T_CDTQ *pk_cdtq);	/**< %jp{データキューの生成(カーネル内部関数)} */
 ER      del_dtq(ID dtqid);									/**< %jp{データキューの削除} */
 ER      snd_dtq(ID dtqid, VP_INT data);						/**< %jp{データキューへの送信} */
 ER      psnd_dtq(ID dtqid, VP_INT data);					/**< %jp{データキューへの送信(ポーリング)} */
-#define ipsnd_dtq	psnd_dtq								/**< %jp{データキューへの送信(ポーリング 非タスクコンテキスト用マクロ)} */
+ER      ipsnd_dtq(ID dtqid, VP_INT data);					/**< %jp{データキューへの送信(ポーリング 非タスクコンテキスト用)} */
 ER      tsnd_dtq(ID dtqid, VP_INT data, TMO tmout);			/**< %jp{データキューへの送信(タイムアウトあり)} */
 ER      fsnd_dtq(ID dtqid, VP_INT data);					/**< %jp{データキューへの強制送信} */
 #define ifsnd_dtq	fsnd_dtq								/**< %jp{データキューへの強制送信(非タスクコンテキスト用マクロ)} */
@@ -424,18 +423,18 @@ BOOL    sns_dpn(void);										/**< %jp{ ディスパッチ保留状態の参�
 
 
 ER      def_inh(INHNO inhno, const T_DINH *pk_dinh);
-ER      cre_isr(ID isrid, const T_CISR *pk_cisr);			/**< %jp{割り込みサービスルーチンの生成} */
-ER_ID   acre_isr(const T_CISR *pk_cisr);					/**< %jp{割り込みサービスルーチンの生成(ID番号自動割付け)} */
-ER      del_isr(ID isrid);									/**< %jp{割り込みサービスルーチンの削除} */
+ER      cre_isr(ID isrid, const T_CISR *pk_cisr);			/**< %jp{割込みサービスルーチンの生成} */
+ER_ID   acre_isr(const T_CISR *pk_cisr);					/**< %jp{割込みサービスルーチンの生成(ID番号自動割付け)} */
+ER      del_isr(ID isrid);									/**< %jp{割込みサービスルーチンの削除} */
 
 
-ER      dis_int(INTNO intno);								/**< %jp{割り込みの禁止} */
-ER      ena_int(INTNO intno);								/**< %jp{割り込みの許可} */
-ER      vclr_int(INTNO intno);								/**< %jp{割り込み要因のクリア(独自サービスコール)} */
-ER      chg_imsk(INT imsk);									/**< %jp{割り込みマスクの変更(実装依存サービスコール)} */
-ER      get_imsk(INT *p_imsk);								/**< %jp{割り込みマスクの参照(実装依存サービスコール)} */
-ER      vchg_ilv(INTNO intno, INT ilv);						/**< %jp{割り込みレベル変更(独自サービスコール)} */
-ER      vget_ilv(INTNO intno, INT *p_ilv);					/**< %jp{割り込みレベル参照(独自サービスコール)} */
+ER      dis_int(INTNO intno);								/**< %jp{割込みの禁止} */
+ER      ena_int(INTNO intno);								/**< %jp{割込みの許可} */
+ER      vclr_int(INTNO intno);								/**< %jp{割込み要因のクリア(独自サービスコール)} */
+ER      chg_imsk(INT imsk);									/**< %jp{割込みマスクの変更(実装依存サービスコール)} */
+ER      get_imsk(INT *p_imsk);								/**< %jp{割込みマスクの参照(実装依存サービスコール)} */
+ER      vchg_ilv(INTNO intno, INT ilv);						/**< %jp{割込みレベル変更(独自サービスコール)} */
+ER      vget_ilv(INTNO intno, INT *p_ilv);					/**< %jp{割込みレベル参照(独自サービスコール)} */
 
 
 /* %jp{システム構成管理機能} */

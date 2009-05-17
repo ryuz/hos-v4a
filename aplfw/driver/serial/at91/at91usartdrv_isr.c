@@ -12,7 +12,7 @@
 #include "at91usartdrv_local.h"
 
 
-/* 受信割り込み */
+/* 受信割込み */
 void At91UsartDrv_Isr(VPARAM Param)
 {
 	C_AT91USARTDRV	*self;
@@ -41,7 +41,7 @@ void At91UsartDrv_Isr(VPARAM Param)
 	/* 送信 */	
 	if ( uwCsr & 0x00000002 )
 	{
-		/* 送信割り込み禁止 */
+		/* 送信割込み禁止 */
 		AT91USART_REG_WRITE(self, AT91USART_US_IDR, 0x00000002);
 		
 		/* 書込みシグナルを発生 */

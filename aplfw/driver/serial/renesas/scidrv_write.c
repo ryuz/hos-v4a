@@ -45,7 +45,7 @@ FILE_SIZE SciDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 		/* 送信 */
 		while ( SciHal_SendChar(&self->SciHal, c) < 0 )
 		{
-			/* 送信割り込み許可 */
+			/* 送信割込み許可 */
 			SciHal_EnableInterrupt(&self->SciHal, SCIHAL_INT_TIE | SCIHAL_INT_RIE);
 
 			/* ブロッキングモードでなければ抜ける */

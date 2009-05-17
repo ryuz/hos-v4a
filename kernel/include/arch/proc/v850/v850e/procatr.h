@@ -27,7 +27,7 @@
 #define _KERNEL_PROCATR_TMIN_STKSZ			(4*16)		/**< %jp{最低限必要なスタックサイズ(byte単位)} */
 
 #define _KERNEL_PROCATR_SPT_SMP				FALSE		/**< %jp{SMPに対応しているか？} */
-#define _KERNEL_PROCATR_SPT_MULTINT			TRUE		/**< %jp{多重割り込みに対応しているか？} */
+#define _KERNEL_PROCATR_SPT_MULTINT			TRUE		/**< %jp{多重割込みに対応しているか？} */
 
 #define _KERNEL_PROCATR_TMIN_INHNO			64			/**< %jp{割込みハンドラ番号の最小値} */
 #define _KERNEL_PROCATR_TMAX_INHNO			255			/**< %jp{割込みハンドラ番号の最大値} */
@@ -36,7 +36,7 @@
 #define _KERNEL_PROCATR_TMAX_EXCNO			63			/**< %jp{CPU例外ハンドラ番号の最大値} */
 
 #define _KERNEL_PROCATR_EXCSTK_NUM			0			/**< %jp{CPU例外処理用スタックは何本必要か？} */
-#define _KERNEL_PROCATR_INTSTK_NUM			1			/**< %jp{割り込みスタックは何本必要か？} */
+#define _KERNEL_PROCATR_INTSTK_NUM			1			/**< %jp{割込みスタックは何本必要か？} */
 
 #define _KERNEL_PROCATR_SIGNED_INT			0			/**< %jp{符号付整数と符号無し整数のどちらが得意か？(符号付き:1, 符号無し:-1, 同じ:0)} */
 #define _KERNEL_PROCATR_TBIT_INT			32			/**< %jp{プロセッサに最適な整数型のビット数} */

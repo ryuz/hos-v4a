@@ -19,13 +19,13 @@ void _kernel_exe_irc(INHNO inhno)
 {
 	INTNO intno;
 	
-	/* %jp{割り込み番号取得} */
+	/* %jp{割込み番号取得} */
 	intno = *_KERNEL_IRC_AIC_IVR;
 	
 	/* %jp{割込みサービスルーチン呼び出し} */
 	_kernel_exe_isr(intno);
 
-	/* %jp{割り込み終了} */
+	/* %jp{割込み終了} */
 	*_KERNEL_IRC_AIC_EOICR = 0;
 }
 

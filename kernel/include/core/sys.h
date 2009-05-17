@@ -23,7 +23,7 @@
 
 /* %jp{システムの状態} */
 #define _KERNEL_TSS_TSK			0x00		/**< %jp{タスク部実行中} */
-#define _KERNEL_TSS_LOC			0x01		/**< %jp{割り込み禁止(loc_cpu 有効)} */
+#define _KERNEL_TSS_LOC			0x01		/**< %jp{割込み禁止(loc_cpu 有効)} */
 #define _KERNEL_TSS_DSP			0x02		/**< %jp{ディスパッチ禁止 (dis_dsp 有効)} */
 #define _KERNEL_TSS_CTX			0x04		/**< %jp{タスク独立部実行中} */
 #define _KERNEL_TSS_SYS			0x08		/**< %jp{システムモード} */
@@ -43,8 +43,8 @@ typedef struct _kernel_t_proccb
 	_KERNEL_T_CTXCB		sysctxcb;			/**< %jp{システムコンテキスト(アイドル実行等)のコンテキスト} */
 	SIZE				sysstksz;			/**< %jp{システムコンテキストのスタックサイズ} */
 	VP					sysstk;				/**< %jp{システムコンテキストのスタック} */
-	SIZE				intstksz;			/**< %jp{割り込みコンテキストのスタックサイズ} */
-	VP					intstk;				/**< %jp{割り込みコンテキストのスタック} */
+	SIZE				intstksz;			/**< %jp{割込みコンテキストのスタックサイズ} */
+	VP					intstk;				/**< %jp{割込みコンテキストのスタック} */
 } _KERNEL_T_PROCCB;
 
 

@@ -14,7 +14,7 @@
 
 
 
-static void OsTimer_IrqHandler(void);						/**< %jp{タイマ割り込みハンドラ} */
+static void OsTimer_IrqHandler(void);						/**< %jp{タイマ割込みハンドラ} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
@@ -23,7 +23,7 @@ void OsTimer_Initialize(VP_INT exinf)
 }
 
 
-/** %jp{タイマ割り込みハンドラ} */
+/** %jp{タイマ割込みハンドラ} */
 void OsTimer_IrqHandler(void)
 {
 	isig_tim();

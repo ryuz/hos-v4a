@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* %jp{割り込みのクリア} */
+/* %jp{割込みのクリア} */
 ER vclr_int(INTNO intno)
 {
 	if ( intno < _KERNEL_IRCATR_TMIN_INTNO || intno > *_KERNEL_IRC_FACTOR_ID_MAX )

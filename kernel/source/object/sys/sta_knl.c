@@ -88,7 +88,7 @@ void _kernel_sys_sta(void)
 	_KERNEL_SYS_CLR_DSP();
 	_KERNEL_SYS_CLR_SYS();
 	
-	/* %jp{DPC対応ならここで割り込み許可} */
+	/* %jp{DPC対応ならここで割込み許可} */
 #if _KERNEL_SPT_DPC
 	_KERNEL_ENA_INT();
 #endif

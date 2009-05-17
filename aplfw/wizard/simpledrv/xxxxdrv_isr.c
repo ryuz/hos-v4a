@@ -37,7 +37,7 @@ void XxxxDrv_Isr(VPARAM Param)
 	/* 送信 */	
 	if ( 0 )
 	{
-		/* 送信割り込み禁止 */
+		/* 送信割込み禁止 */
 		
 		/* 書込みシグナルを発生 */
 		SyncDrv_SendSignal(&self->SyncDrv, SYNCDRV_FACTOR_WRITE);

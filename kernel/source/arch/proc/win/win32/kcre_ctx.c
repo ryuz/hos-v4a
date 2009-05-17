@@ -82,7 +82,7 @@ unsigned __stdcall _kernel_ctx_int(void *param)
 
 		_kernel_ictxcb.blDisInt = TRUE;
 
-		/* %jp{割り込み処理} */
+		/* %jp{割込み処理} */
 		_kernel_sta_inh();
 		_kernel_ictxcb.blIntCtx = TRUE;
 		_kernel_exe_inh(_kernel_ictxcb.inhno);

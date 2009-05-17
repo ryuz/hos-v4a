@@ -227,6 +227,7 @@
 		"kcre_mtx.c",
 		"del_mtx.c",
 		"loc_mtx.c",
+		"ploc_mtx.c",
 		"tloc_mtx.c",
 		"unl_mtx.c",
 		"kadd_mtx.c",

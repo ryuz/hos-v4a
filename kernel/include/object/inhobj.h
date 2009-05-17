@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  inhobj.h
- * @brief %jp{割り込み制御のヘッダファイル}%en{interrupt control heder file}
+ * @brief %jp{割込み制御のヘッダファイル}%en{interrupt control heder file}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/

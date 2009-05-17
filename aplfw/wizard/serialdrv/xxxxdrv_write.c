@@ -44,7 +44,7 @@ FILE_SIZE XxxxDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pDat
 		/* 送信可能かチェック */
 		while ( !0 )
 		{
-			/* 送信割り込み許可 */
+			/* 送信割込み許可 */
 			
 			
 			/* ブロッキングモードでなければ抜ける */

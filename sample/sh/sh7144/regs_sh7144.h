@@ -119,11 +119,11 @@
 #define	REG_INTC_IPRF		((volatile UH*)0xffff8352)		/* インタラプトプライオリティレジスタF */
 #define	REG_INTC_IPRG		((volatile UH*)0xffff8354)		/* インタラプトプライオリティレジスタG */
 #define	REG_INTC_IPRH		((volatile UH*)0xffff8356)		/* インタラプトプライオリティレジスタH */
-#define	REG_INTC_ICR1		((volatile UH*)0xffff8358)		/* 割り込みコントロールレジスタ1 */
+#define	REG_INTC_ICR1		((volatile UH*)0xffff8358)		/* 割込みコントロールレジスタ1 */
 #define	REG_INTC_ISR 		((volatile UH*)0xffff835a)		/* IRQステータスレジスタ */
 #define	REG_INTC_IPRI		((volatile UH*)0xffff835c)		/* インタラプトプライオリティレジスタI */
 #define	REG_INTC_IPRJ		((volatile UH*)0xffff835e)		/* インタラプトプライオリティレジスタJ */
-#define	REG_INTC_ICR2		((volatile UH*)0xffff8366)		/* 割り込みコントロールレジスタ2 */
+#define	REG_INTC_ICR2		((volatile UH*)0xffff8366)		/* 割込みコントロールレジスタ2 */
 
 /* I/O, PFC (port-A) */
 #define	REG_PA_DR			((volatile UW*)0xffff8380)		/* ポートA データレジスタ(H/L) */

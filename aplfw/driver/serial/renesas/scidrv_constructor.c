@@ -41,7 +41,7 @@ FILE_ERR SciDrv_Constructor(C_SCIDRV *self, const T_DRVOBJ_METHODS *pMethods, vo
 	/* バッファ生成 */
 	StreamBuf_Create(&self->StmBufRecv, iBufSize, pMem);
 
-	/* 割り込み処理登録 */
+	/* 割込み処理登録 */
 	self->hIsrRxErr = SysIsr_Create(iIntNum + 0, SciDrv_IsrRxErr, (VPARAM)self);
 	self->hIsrRx    = SysIsr_Create(iIntNum + 1, SciDrv_IsrRx,    (VPARAM)self);
 	self->hIsrTx    = SysIsr_Create(iIntNum + 2, SciDrv_IsrTx,    (VPARAM)self);

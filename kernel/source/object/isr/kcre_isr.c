@@ -92,7 +92,7 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 	_KERNEL_DIS_INT();										/* %jp{割込み禁止} */
 #endif
 
-	/* %jp{割り込みリストの先頭に繋ぐ} */
+	/* %jp{割込みリストの先頭に繋ぐ} */
 	_KERNEL_ISR_SET_NEXT(isrcb, _KERNEL_INT_GET_HEAD(pk_cisr->intno));
 	_KERNEL_INT_SET_HEAD(pk_cisr->intno, _KERNEL_ISR_GET_ISRHDL(isrid, isrcb));
 	

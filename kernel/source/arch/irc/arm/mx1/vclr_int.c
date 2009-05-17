@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* %jp{割り込みのクリア} */
+/* %jp{割込みのクリア} */
 ER vclr_int(INTNO intno)
 {
 	return E_OK;

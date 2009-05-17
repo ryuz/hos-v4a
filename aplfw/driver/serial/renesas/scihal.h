@@ -13,9 +13,9 @@
 #define __HOS__renesas__scihal_h__
 
 
-#define SCIHAL_INT_TIE		0x80				/* 送信割り込み許可 */
-#define SCIHAL_INT_RIE		0x40				/* 受信割り込み許可 */
-#define SCIHAL_INT_TEIE		0x04				/* 受信割り込み許可 */
+#define SCIHAL_INT_TIE		0x80				/* 送信割込み許可 */
+#define SCIHAL_INT_RIE		0x40				/* 受信割込み許可 */
+#define SCIHAL_INT_TEIE		0x04				/* 受信割込み許可 */
 
 
 /* SCI用ハードウェアアクセス層 */
@@ -38,7 +38,7 @@ void SciHal_SetSpeed(C_SCIHAL *self, unsigned long ulSpeed);					/**< %jp{SCIの
 void SciHal_Stop(C_SCIHAL *self);												/**< %jp{SCIの停止} */
 int  SciHal_SendChar(C_SCIHAL *self, int c);									/**< %jp{1文字送信} */
 int  SciHal_RecvChar(C_SCIHAL *self);											/**< %jp{1文字受信} */
-void SciHal_EnableInterrupt(C_SCIHAL *self, unsigned char flag);				/**< %jp{割り込み許可} */
+void SciHal_EnableInterrupt(C_SCIHAL *self, unsigned char flag);				/**< %jp{割込み許可} */
 
 #ifdef __cplusplus
 }

@@ -13,16 +13,16 @@
 
 
 
-/* %jp{割り込み用処理} */
+/* %jp{割込み用処理} */
 void vsig_int(int inhno)
 {
-	/* %jp{割り込み用セマフォを取る} */
+	/* %jp{割込み用セマフォを取る} */
 	WaitForSingleObject(_kernel_ictxcb.hSemIntLock, INFINITE);
 	
 	/* %jp{クリティカルセクションに入る} */
 	EnterCriticalSection(&_kernel_ictxcb.CriticalSection);
 
-	/* %jp{割り込み状態に設定} */
+	/* %jp{割込み状態に設定} */
 	_kernel_ictxcb.inhno = inhno;
 
 	/* %jp{現在実行中のコンテキストを割込みモードに移行} */

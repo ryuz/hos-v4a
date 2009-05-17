@@ -54,7 +54,7 @@ void OsTimer_Initialize(void)
 }
 
 
-/** %jp{タイマ割り込みハンドラ} */
+/** %jp{タイマ割込みハンドラ} */
 void OsTimer_Isr(VPARAM Param)
 {
 	SysInt_Clear(6);

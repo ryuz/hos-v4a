@@ -13,7 +13,7 @@
 
 
 
-/** %jp{割り込み禁止} */
+/** %jp{割込み禁止} */
 void _kernel_dis_int(void)
 {
 	if ( _kernel_ictxcb.blIntCtx )

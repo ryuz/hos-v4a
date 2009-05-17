@@ -47,7 +47,7 @@ FILE_SIZE Lan9000Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 			break;
 		}
 
-		/* 受信割り込みを許可する */
+		/* 受信割込みを許可する */
 		uhStatus = Lan9000Hal_GetInterruptStatus(&self->Lan9000Hal);
 		Lan9000Hal_SetInterruptMask(&self->Lan9000Hal, (uhStatus | LAN9000HAL_IMASK_RCVINT));
 		

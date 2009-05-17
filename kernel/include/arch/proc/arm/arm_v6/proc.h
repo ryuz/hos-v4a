@@ -14,12 +14,12 @@
 
 
 
-#define _KERNEL_IMSK_F		0x40		/**< %jp{FIQ割り込みマスクビット} */
-#define _KERNEL_IMSK_I		0x80		/**< %jp{IRQ割り込みマスクビット} */
+#define _KERNEL_IMSK_F		0x40		/**< %jp{FIQ割込みマスクビット} */
+#define _KERNEL_IMSK_I		0x80		/**< %jp{IRQ割込みマスクビット} */
 
-#define _KERNEL_IMSK_LV0	0xc0		/**< %jp{割り込みマスクレベル0(すべてマスク)} */
-#define _KERNEL_IMSK_LV1	0x80		/**< %jp{割り込みマスクレベル1(FIQのみ許可)} */
-#define _KERNEL_IMSK_LV2	0x00		/**< %jp{割り込みマスクレベル2(すべて許可)} */
+#define _KERNEL_IMSK_LV0	0xc0		/**< %jp{割込みマスクレベル0(すべてマスク)} */
+#define _KERNEL_IMSK_LV1	0x80		/**< %jp{割込みマスクレベル1(FIQのみ許可)} */
+#define _KERNEL_IMSK_LV2	0x00		/**< %jp{割込みマスクレベル2(すべて許可)} */
 
 
 

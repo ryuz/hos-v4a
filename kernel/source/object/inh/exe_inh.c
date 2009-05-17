@@ -2,7 +2,7 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  exe_inh.c
- * @brief %jp{割り込みハンドラの処理}
+ * @brief %jp{割込みハンドラの処理}
  *
  * Copyright (C) 1998-2006 by Project HOS
  * http://sourceforge.jp/projects/hos/
@@ -13,10 +13,10 @@
 #include "object/inhobj.h"
 
 
-/* %jp{割り込みハンドラの処理} */
+/* %jp{割込みハンドラの処理} */
 void _kernel_exe_inh(INHNO inhno)
 {
-	/* %jp{割り込みハンドラの処理} */
+	/* %jp{割込みハンドラの処理} */
 #if _KERNEL_SPT_INH
 	{
 		const _KERNEL_T_INHINF *pk_inhinf;
@@ -32,7 +32,7 @@ void _kernel_exe_inh(INHNO inhno)
 	}
 #endif
 	
-	/* %jp{割り込みコントローラの処理} */
+	/* %jp{割込みコントローラの処理} */
 #if _KERNEL_SPT_ISR
 	_KERNEL_EXE_IRC(inhno);
 #endif

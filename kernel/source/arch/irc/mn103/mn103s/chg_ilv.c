@@ -14,7 +14,7 @@
 #include "object/isrobj.h"
 
 
-/* 割り込みレベルの設定 */
+/* 割込みレベルの設定 */
 ER vchg_ilv(INTNO intno, INT ilv)
 {
 	*_KERNEL_MN103S_INTC_GICR(intno) = ((ilv & 0x7) << 12);

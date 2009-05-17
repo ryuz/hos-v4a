@@ -15,7 +15,7 @@
 
 #if _KERNEL_SPT_ISR
 
-/* %jp{割り込みの処理} */
+/* %jp{割込みの処理} */
 void _kernel_exe_isr(INTNO intno)
 {
 	_KERNEL_T_ISRCB_RO_PTR isrcb_ro;

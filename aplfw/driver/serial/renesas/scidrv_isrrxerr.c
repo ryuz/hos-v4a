@@ -13,7 +13,7 @@
 
 
 
-/* 受信エラー割り込み */
+/* 受信エラー割込み */
 void SciDrv_IsrRxErr(VPARAM Param)
 {
 	SciDrv_IsrRx(Param);

@@ -57,7 +57,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_TMAX_CYCID			127					/**< %jp{周期ハンドラIDの最大値} */
 #define _KERNEL_CFG_TMAX_ALMID			127					/**< %jp{アラームハンドラIDの最大値} */
 #define _KERNEL_CFG_TMAX_OVRID			127					/**< %jp{オーバーランハンドラIDの最大値} */
-#define _KERNEL_CFG_TMAX_ISRID			127					/**< %jp{割り込みサービスルーチンIDの最大値} */
+#define _KERNEL_CFG_TMAX_ISRID			127					/**< %jp{割込みサービスルーチンIDの最大値} */
 
 /* %jp{コンフィギュレータ未指定時デフォルト最大ID値} */
 #define _KERNEL_CFG_DEF_TMAX_TSKID		15					/**< %jp{タスクIDの最大値} */
@@ -73,7 +73,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_DEF_TMAX_CYCID		15					/**< %jp{周期ハンドラIDの最大値} */
 #define _KERNEL_CFG_DEF_TMAX_ALMID		15					/**< %jp{アラームハンドラIDの最大値} */
 #define _KERNEL_CFG_DEF_TMAX_OVRID		15					/**< %jp{オーバーランハンドラIDの最大値} */
-#define _KERNEL_CFG_DEF_TMAX_ISRID		15					/**< %jp{割り込みサービスルーチンIDの最大値} */
+#define _KERNEL_CFG_DEF_TMAX_ISRID		15					/**< %jp{割込みサービスルーチンIDの最大値} */
 
 
 
@@ -106,7 +106,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /* %jp{ミューテックスハンドルをIDで管理(省メモリだが低速)にするかどうか [未実装]} */
 #define _KERNEL_CFG_MTXHDL_ID			TRUE
 
-/* %jp{割り込みサービスルーチンハンドルをIDで管理(省メモリだが低速)にするかどうか} */
+/* %jp{割込みサービスルーチンハンドルをIDで管理(省メモリだが低速)にするかどうか} */
 #define _KERNEL_CFG_ISRHDL_ID			FALSE
 
 
@@ -416,7 +416,8 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_ACRE_DTQ			TRUE				/* acre_dtq */
 #define _KERNEL_CFG_DEL_DTQ 			TRUE				/* del_dtq */
 #define _KERNEL_CFG_SND_DTQ 			TRUE				/* snd_dtq */
-#define _KERNEL_CFG_IPSND_DT			TRUE				/* ipsnd_dtq */
+#define _KERNEL_CFG_PSND_DTQ			TRUE				/* psnd_dtq */
+#define _KERNEL_CFG_IPSND_DTQ			TRUE				/* ipsnd_dtq */
 #define _KERNEL_CFG_TSND_DTQ			TRUE				/* tsnd_dtq */
 #define _KERNEL_CFG_FSND_DTQ			TRUE				/* fsnd_dtq */
 #define _KERNEL_CFG_IFSND_DT			TRUE				/* ifsnd_dtq */

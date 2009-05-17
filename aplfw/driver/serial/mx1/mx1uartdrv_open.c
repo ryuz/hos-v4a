@@ -40,7 +40,7 @@ HANDLE Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		MX1UART_REG_WRITE(self, MX1UART_UBIR, 1152-1);
 		MX1UART_REG_WRITE(self, MX1UART_UBMR, 10000-1);
 		
-		/* 受信割り込み許可 */
+		/* 受信割込み許可 */
 		SysInt_Enable(self->iIntNum + 5);
 	}
 

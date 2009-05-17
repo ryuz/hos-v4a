@@ -27,7 +27,7 @@
 #define _KERNEL_PROCATR_DEF_INTSTKSZ		256
 
 #define _KERNEL_PROCATR_SPT_SMP				FALSE		/**< %jp{SMPに対応しているか？} */
-#define _KERNEL_PROCATR_SPT_MULTINT			FALSE		/**< %jp{多重割り込みに対応しているか？} */
+#define _KERNEL_PROCATR_SPT_MULTINT			FALSE		/**< %jp{多重割込みに対応しているか？} */
 
 #define _KERNEL_PROCATR_TMIN_INHNO			1			/**< %jp{割込みハンドラ番号の最小値} */
 #define _KERNEL_PROCATR_TMAX_INHNO			256			/**< %jp{割込みハンドラ番号の最大値} */

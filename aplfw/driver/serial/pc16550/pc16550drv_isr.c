@@ -13,7 +13,7 @@
 #include "pc16550drv_local.h"
 
 
-/* 割り込みサービスルーチン */
+/* 割込みサービスルーチン */
 void Pc16550Drv_Isr(VPARAM Param)
 {
 	C_PC16550DRV	*self;

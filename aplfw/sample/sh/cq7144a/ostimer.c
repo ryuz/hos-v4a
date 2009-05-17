@@ -18,13 +18,13 @@
 #define PERIPHERAL_CLOCK		(24000000UL)				/**< %jp{ペリフェラルクロック(24MHz)} */
 
 
-static void OsTimer_Isr(VPARAM Param);				/**< %jp{タイマ割り込みハンドラ} */
+static void OsTimer_Isr(VPARAM Param);				/**< %jp{タイマ割込みハンドラ} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
 void OsTimer_Initialize(void)
 {
-	/* %jp{割り込みサービスルーチン登録} */
+	/* %jp{割込みサービスルーチン登録} */
 	SysIsr_Create(144, OsTimer_Isr, (VPARAM)0);
 	
 	/* %jp{タイマ動作開始} */
@@ -35,12 +35,12 @@ void OsTimer_Initialize(void)
 	*REG_CMT0_CMCSR  = 0x0042;								/* %jp{128分周に設定} */
 	*REG_CMT_CMSTR  |= 0x0001;								/* %jp{動作開始} */
 	
-	/* %jp{割り込み許可} */
+	/* %jp{割込み許可} */
 	*REG_INTC_IPRG = ((*REG_INTC_IPRG & 0xff0f) | 0x0010);
 }
 
 
-/** %jp{タイマ割り込みハンドラ} */
+/** %jp{タイマ割込みハンドラ} */
 void OsTimer_Isr(VPARAM Param)
 {
 	*REG_CMT0_CMCSR &= 0xff7f;
