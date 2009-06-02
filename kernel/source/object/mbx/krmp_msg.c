@@ -23,7 +23,7 @@ T_MSG *_kernel_rmp_msg(_KERNEL_T_MBXCB_PTR mbxcb, _KERNEL_MBXCB_T_MPRI maxmpri)
 	/* %jp{メッセージキューの配列として取得} */
 	pppk_msgque = (T_MSG ***)_KERNEL_MBX_GET_MSGQUE(mbxcb);
 
-	for ( mpri = TMIN_MPRI; mpri < maxmpri; mpri++ )
+	for ( mpri = 0; mpri <= maxmpri - TMIN_MPRI; mpri++ )
 	{
 		if ( (*pppk_msgque)[mpri] != NULL )
 		{
