@@ -713,11 +713,29 @@ $(OBJS_DIR)\fixmemheap_alignsize.c : $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c
 $(OBJS_DIR)\assoc.h : $(ASSOC_DIR)\assoc.h
 	$(CMD_CP) $(ASSOC_DIR)\assoc.h $(OBJS_DIR)\
 
+$(OBJS_DIR)\assoc_local.h : $(ASSOC_DIR)\assoc_local.h
+	$(CMD_CP) $(ASSOC_DIR)\assoc_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_create.c : $(ASSOC_DIR)\assoc_create.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_createex.c : $(ASSOC_DIR)\assoc_createex.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_createex.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_delete.c : $(ASSOC_DIR)\assoc_delete.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_delete.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\assoc_constructor.c : $(ASSOC_DIR)\assoc_constructor.c
 	$(CMD_CP) $(ASSOC_DIR)\assoc_constructor.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\assoc_destructor.c : $(ASSOC_DIR)\assoc_destructor.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_destructor.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\assoc_add.c : $(ASSOC_DIR)\assoc_add.c
 	$(CMD_CP) $(ASSOC_DIR)\assoc_add.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_set.c : $(ASSOC_DIR)\assoc_set.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_set.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\assoc_get.c : $(ASSOC_DIR)\assoc_get.c
 	$(CMD_CP) $(ASSOC_DIR)\assoc_get.c $(OBJS_DIR)\
@@ -730,6 +748,21 @@ $(OBJS_DIR)\assoc_getfirst.c : $(ASSOC_DIR)\assoc_getfirst.c
 
 $(OBJS_DIR)\assoc_getnext.c : $(ASSOC_DIR)\assoc_getnext.c
 	$(CMD_CP) $(ASSOC_DIR)\assoc_getnext.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_remove.c : $(ASSOC_DIR)\assoc_remove.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_remove.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_addnode.c : $(ASSOC_DIR)\assoc_addnode.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_addnode.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_getnode.c : $(ASSOC_DIR)\assoc_getnode.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_getnode.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_removenode.c : $(ASSOC_DIR)\assoc_removenode.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_removenode.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_getminnode.c : $(ASSOC_DIR)\assoc_getminnode.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_getminnode.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\list.h : $(LIST_DIR)\list.h
@@ -2223,12 +2256,22 @@ $(OBJS_DIR)\fixmemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getalign.c	$(
 $(OBJS_DIR)\fixmemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getsize.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_alignsize.c	$(COMMON_HEADERS)
 
+$(OBJS_DIR)\assoc_create.$(EXT_OBJ):	$(OBJS_DIR)\assoc_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_createex.$(EXT_OBJ):	$(OBJS_DIR)\assoc_createex.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_delete.$(EXT_OBJ):	$(OBJS_DIR)\assoc_delete.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_constructor.$(EXT_OBJ):	$(OBJS_DIR)\assoc_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_destructor.$(EXT_OBJ):	$(OBJS_DIR)\assoc_destructor.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_add.$(EXT_OBJ):	$(OBJS_DIR)\assoc_add.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_set.$(EXT_OBJ):	$(OBJS_DIR)\assoc_set.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_get.$(EXT_OBJ):	$(OBJS_DIR)\assoc_get.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_getat.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getat.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_getfirst.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getfirst.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_getnext.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getnext.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_remove.$(EXT_OBJ):	$(OBJS_DIR)\assoc_remove.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_addnode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_addnode.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_getnode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getnode.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_removenode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_removenode.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_getminnode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getminnode.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\list_create.$(EXT_OBJ):	$(OBJS_DIR)\list_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\list_createex.$(EXT_OBJ):	$(OBJS_DIR)\list_createex.c	$(COMMON_HEADERS)

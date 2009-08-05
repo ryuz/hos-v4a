@@ -377,14 +377,25 @@
 			"Yes",
 			[
 				"assoc.h",
+				"assoc_local.h",
 			],
 			[
+				"assoc_create.c",
+				"assoc_createex.c",
+				"assoc_delete.c",
 				"assoc_constructor.c",
+				"assoc_destructor.c",
 				"assoc_add.c",
+				"assoc_set.c",
 				"assoc_get.c",
 				"assoc_getat.c",
 				"assoc_getfirst.c",
 				"assoc_getnext.c",
+				"assoc_remove.c",
+				"assoc_addnode.c",
+				"assoc_getnode.c",
+				"assoc_removenode.c",
+				"assoc_getminnode.c",
 			]
 		],
 		[

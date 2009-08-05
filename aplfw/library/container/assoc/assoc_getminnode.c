@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  assoc.c
+ * @file  assoc_removenode.c
  * @brief %jp{連想配列クラス}
  *
  * Copyright (C) 2006-2009 by Project HOS
@@ -15,13 +15,16 @@
 
 
 
-/* 連想バッファのコンストラクタ */
-void Assoc_Constructor(C_ASSOC *self, C_MEMHEAP *pMemHeap)
+/* 最小値探索 */
+T_ASSOC_NODE *Assoc_GetMinNode(T_ASSOC_NODE *pNode)
 {
-	self->pMemHeap = pMemHeap;
-	self->pRoot    = NULL;
+	if ( pNode->pLeft == NULL )
+	{
+		return pNode;
+	}
+	
+	return Assoc_GetMinNode(pNode->pLeft);
 }
-
 
 
 /* end of file */

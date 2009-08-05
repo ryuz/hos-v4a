@@ -12,6 +12,7 @@
 #ifndef __HOS__assoc_h__
 #define __HOS__assoc_h__
 
+
 #include "library/container/memheap/memheap.h"
 
 
@@ -68,5 +69,7 @@ const void *Assoc_GetAt(C_ASSOC *self, ASSOC_POS *Pos, const char **ppszKey);
 
 
 
-#endif	/* __HOS__assocbuf_h__ */
+#endif	/* __HOS__assoc_h__ */
 
+
+/* end of file */

@@ -14,12 +14,13 @@
 #include "assoc_local.h"
 
 
-
-/* 連想バッファのコンストラクタ */
-void Assoc_Constructor(C_ASSOC *self, C_MEMHEAP *pMemHeap)
+/* 連想バッファのデストラクタ */
+void Assoc_Destructor(C_ASSOC *self)
 {
-	self->pMemHeap = pMemHeap;
-	self->pRoot    = NULL;
+	while ( self->pRoot != NULL )
+	{
+		Assoc_RemoveNode(self, Assoc_GetMinNode(self->pRoot));
+	}
 }
 
 

@@ -36,10 +36,11 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	/* メンバ変数初期化 */
 	self->iExitCode     = -1;					/* 終了コード */
 	self->iSignal        = 0;					/* シグナル番号 */
-	self->pfncSignalProc = NULL;
+	self->pfncSignalProc = NULL;				/* シグナルハンドラ */
 	self->pHandleList    = NULL;				/* 所有するハンドルのリスト(終了時に開放) */
 	self->pfncEntry      = pInf->pfncEntry;		/* 起動アドレス */
 	self->Param          = pInf->Param;			/* ユーザーパラメータ */
+	self->pEnv           = NULL;				/* 環境変数用 */
 	self->StackSize      = pInf->StackSize;		/* スタックサイズ */
 	self->Priority       = pInf->Priority;		/* プロセス優先度 */
 	self->SysMode        = 0;					/* システムモード */

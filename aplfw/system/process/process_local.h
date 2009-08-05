@@ -38,6 +38,7 @@ typedef struct c_process
 
 	int					(*pfncEntry)(VPARAM Param);		/**< 起動アドレス */
 	VPARAM				Param;							/**< ユーザーパラメータ */
+	C_ASSOC				*pEnv;							/**< 環境変数用 */
 
 	void				(*pfncSignalProc)(int iSignal);	/**< シグナル受信プロシージャ */
 	int					iSignal;						/**< ユーザーパラメータ */

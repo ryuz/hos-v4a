@@ -30,10 +30,16 @@ void Process_Destructor(C_PROCESS *self)
 
 	/* カレントディレクトリ用メモリ開放 */
 	SysMem_Free(self->pszCurrentDir);
-
+	
 	/* システムから登録解除 */
 	System_UnregistryProcess(self);
-
+	
+	/* 環境変数削除 */
+	if ( self->pEnv != NULL )
+	{
+		Assoc_Delete(self->pEnv);
+	}
+	
 	/* 親クラスデストラクタ呼び出し */
 	HandleObj_Destructor(&self->HandleObj);
 }

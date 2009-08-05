@@ -707,10 +707,21 @@ OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ)
 !if "$(LINK_ASSOC)" == "Yes"
 ASSOC_DIR = $(HOSAPLFW_DIR)\library\container\assoc
 HEADERS = $(HEADERS) $(OBJS_DIR)\assoc.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\assoc_local.h
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_createex.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_createex.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_delete.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_constructor.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_destructor.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_add.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_add.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_set.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_set.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_get.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_get.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getat.c
@@ -719,6 +730,16 @@ CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getfirst.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getfirst.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getnext.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getnext.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_remove.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_remove.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_addnode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_addnode.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getnode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getnode.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_removenode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_removenode.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getminnode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getminnode.$(EXT_OBJ)
 !endif
 
 
