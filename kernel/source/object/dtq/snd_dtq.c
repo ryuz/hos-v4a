@@ -129,11 +129,10 @@ ER snd_dtq(ID dtqid, VP_INT data)
 			_KERNEL_TSK_SET_DATA(tcb, data);
 			_KERNEL_DSP_WAI_TSK(tskhdl);
 			_KERNEL_DTQ_ADD_SQUE(dtqcb, dtqcb_ro, tskhdl);		/* %jp{待ち行列に追加} */
-
-		
+			
 			/* %jp{タスクディスパッチの実行} */
 			_KERNEL_DSP_TSK();
-
+			
 			/* %jp{エラーコードの取得} */
 			ercd = _KERNEL_TSK_GET_ERCD(tcb);
 		}		

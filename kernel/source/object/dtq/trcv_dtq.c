@@ -72,12 +72,13 @@ ER trcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
  */
 ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 {
-	_KERNEL_T_DTQCB_PTR  dtqcb;
-	_KERNEL_T_TSKHDL     tskhdl;
-	_KERNEL_T_TCB        *tcb;
-	_KERNEL_DTQ_T_DTQCNT dtqcnt;
-	ER                   ercd;
-
+	_KERNEL_T_DTQCB				*dtqcb;
+	const _KERNEL_T_DTQCB_RO	*dtqcb_ro;
+	_KERNEL_T_TSKHDL			tskhdl;
+	_KERNEL_T_TCB				*tcb;
+	_KERNEL_DTQ_T_DTQCNT		sdtqcnt;
+	ER							ercd;
+	
 	/* %jp{コンテキストチェック} */
 #if _KERNEL_SPT_KRCV_DTQ_E_CTX
 	if ( tmout != TMO_POL && _KERNEL_SYS_SNS_DPN() )
@@ -104,8 +105,8 @@ ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 		return E_NOEXS;			/* %jp{オブジェクト未生成}%en{Non-existant object} */
 	}
 #endif
-
-	/* %jp{コントロールブロック取得} */
+	
+	/* %jp{データキューコントロールブロック取得} */
 	dtqcb = _KERNEL_DTQ_ID2DTQCB(dtqid);
 	
 	/* %jp{送信待ち行列先頭からタスク取り出し} */
@@ -115,60 +116,82 @@ ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 		/* %jp{待ちタスクがあれば待ち解除} */
 		tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);		/* %jp{TCB取得} */
 		
-		/* %jp{送信データ取得} */
-		*p_data = (VP_INT)_KERNEL_TSK_GET_DATA(tcb);
-		
 		/* %jp{タスクを起す} */
 		_KERNEL_TSK_SET_ERCD(tcb, E_OK);	/* %jp{エラーコード設定} */
 		_KERNEL_DSP_WUP_TSK(tskhdl);		/* %jp{タスクの待ち解除} */
 		_KERNEL_DTQ_RMV_STOQ(tskhdl);		/* %jp{タイムアウトキューからはずす} */
-		
-		/* %jp{タスクディスパッチの実行} */
-		_KERNEL_DSP_TSK();
-
-		ercd = E_OK;	/* %jp{正常終了}%en{Normal completion} */
 	}
-	else
+	
+	
+#if _KERNEL_SPT_DTQ_DTQCNT_NONZERO		/* %jp{データキュー情報取得} */
+	sdtqcnt = _KERNEL_DTQ_GET_SDTQCNT(dtqcb);
+	if ( sdtqcnt > 0 )		/* %jp{キューにデータはあるか？} */
 	{
-		const _KERNEL_T_DTQCB_RO *dtqcb_ro;
-		_KERNEL_DTQ_T_DTQCNT     sdtqcnt;
-		VP_INT		             *dtq;
+		_KERNEL_DTQ_T_DTQCNT		dtqcnt;
+		VP_INT						*dtq;
+		_KERNEL_DTQ_T_DTQCNT		head;
 		
 		/* %jp{RO部取得} */
 		dtqcb_ro = _KERNEL_DTQ_GET_DTQCB_RO(dtqid, dtqcb);
-
-		/* %jp{データキュー情報取得} */
-		sdtqcnt = _KERNEL_DTQ_GET_SDTQCNT(dtqcb);
-		dtq     = _KERNEL_DTQ_GET_DTQ(dtqcb_ro);
-
-		if ( sdtqcnt > 0 )		/* %jp{キューにデータはあるか？} */
+		
+		/* %jp{データキュー取得} */
+		dtq = _KERNEL_DTQ_GET_DTQ(dtqcb_ro);
+		
+		/* %jp{キューからデータを取り出し} */
+		head   = _KERNEL_DTQ_GET_HEAD(dtqcb);
+		dtqcnt = _KERNEL_DTQ_GET_DTQCNT(dtqcb_ro);
+		*p_data = dtq[head];
+		
+		/* %jp{送信待ちタスクがあればデータを追加} */
+		if ( tskhdl != _KERNEL_TSKHDL_NULL )
 		{
-			_KERNEL_DTQ_T_DTQCNT head;
-			_KERNEL_DTQ_T_DTQCNT dtqcnt;
-
-			/* %jp{キューからデータを取り出し} */
-			head   = _KERNEL_DTQ_GET_HEAD(dtqcb);
-			dtqcnt = _KERNEL_DTQ_GET_DTQCNT(dtqcb_ro);
-			*p_data = dtq[head];
-			
-			/* %jp{データ個数を減ずる} */
+			/* %jp{送信データ格納} */
+			tcb = _KERNEL_TSK_TSKHDL2TCB(tskhdl);		/* %jp{TCB取得} */
+			dtq[head] = (VP_INT)_KERNEL_TSK_GET_DATA(tcb);
+		}
+		else
+		{
+			/* %jp{送信待ちが無ければキューのデータ個数を減ずる} */
 			sdtqcnt--;
 			_KERNEL_DTQ_SET_SDTQCNT(dtqcb, sdtqcnt);
+		}
+		
+		/* %jp{先頭位置をずらす} */
+		if ( head + 1 < dtqcnt )
+		{
+			head++;
+		}
+		else
+		{
+			head = 0;
+		}
+		_KERNEL_DTQ_SET_HEAD(dtqcb, head);
 
-			/* %jp{先頭位置をずらす} */
-			if ( head + 1 < dtqcnt )
-			{
-				head++;
-			}
-			else
-			{
-				head = 0;
-			}
-			_KERNEL_DTQ_SET_HEAD(dtqcb, head);
+		if ( tskhdl != _KERNEL_TSKHDL_NULL )
+		{
+			/* %jp{タスクディスパッチの実行} */
+			_KERNEL_DSP_TSK();
+		}
+		
+		ercd = E_OK;	/* %jp{正常終了}%en{Normal completion} */
+	}
+	else
+#endif
+	{
+#if _KERNEL_SPT_DTQ_DTQCNT_ZERO
+		if ( tskhdl != _KERNEL_TSKHDL_NULL )
+		{
+			/* %jp{送信データ取得} */
+			tcb     = _KERNEL_TSK_TSKHDL2TCB(tskhdl);		/* %jp{TCB取得} */
+			*p_data = (VP_INT)_KERNEL_TSK_GET_DATA(tcb);	/* %jp{送信データ格納} */
+
+			/* %jp{タスクディスパッチの実行} */
+			_KERNEL_DSP_TSK();
 
 			ercd = E_OK;	/* %jp{正常終了}%en{Normal completion} */
 		}
 		else
+#endif
 		{
 			if ( tmout == TMO_POL )
 			{
@@ -176,6 +199,9 @@ ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 			}
 			else
 			{
+				/* %jp{RO部取得} */
+				dtqcb_ro = _KERNEL_DTQ_GET_DTQCB_RO(dtqid, dtqcb);
+				
 				/* %jp{実行中タスクを取得} */
 				tskhdl = _KERNEL_SYS_GET_RUNTSK();			/* %jp{タスクハンドル取得} */
 				tcb    = _KERNEL_TSK_TSKHDL2TCB(tskhdl);	/* %jp{TCB取得} */
@@ -192,17 +218,17 @@ ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 #if _KERNEL_SPT_TRCV_DTQ
 				if ( tmout != TMO_FEVR )
 				{
-					_KERNEL_DTQ_ADD_TOQ(tskhdl, tmout);				/* %jp{タイムアウトキューに追加} */
+					_KERNEL_DTQ_ADD_RTOQ(tskhdl, tmout);				/* %jp{タイムアウトキューに追加} */
 				}
 #endif
-			
+				
 				/* %jp{タスクディスパッチの実行} */
 				_KERNEL_DSP_TSK();
-
+				
 				/* %jp{エラーコードの取得} */
 				ercd = _KERNEL_TSK_GET_ERCD(tcb);
 			}
-		}
+		}		
 	}
 	
 	_KERNEL_LEAVE_SVC();	/* %jp{サービスコールから出る}%en{leave service-call} */
@@ -211,9 +237,7 @@ ER _kernel_rcv_dtq(ID dtqid, VP_INT *p_data, TMO tmout)
 }
 
 
-
 #endif	/* _KERNEL_SPT_KRCV_DTQ */
-
 
 
 /* end of file */

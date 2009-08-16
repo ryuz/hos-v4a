@@ -182,6 +182,12 @@
 #define _KERNEL_SPT_KSND_DTQ		FALSE
 #endif
 
+#if _KERNEL_SPT_TRCV_DTQ || (_KERNEL_SPT_RCV_DTQ && _KERNEL_SPT_PRCV_DTQ)
+#define _KERNEL_SPT_KRCV_DTQ		TRUE
+#else
+#define _KERNEL_SPT_KRCV_DTQ		FALSE
+#endif
+
 
 /* Mailboxes */
 #define _KERNEL_SPT_CRE_MBX 		_KERNEL_CFG_CRE_MBX 		/* cre_mbx */
@@ -985,6 +991,12 @@
 #define _KERNEL_DTQCB_SPLIT_RO		_KERNEL_CFG_DTQCB_SPLIT_RO
 #endif
 
+/* Configuration */
+#define _KERNEL_SPT_DTQ_DTQCNT_ZERO		_KERNEL_CFG_DTQ_DTQCNT_ZERO		/**< %jp{キューサイズ0に対応する} */
+#define _KERNEL_SPT_DTQ_DTQCNT_NONZERO	_KERNEL_CFG_DTQ_DTQCNT_NONZERO	/**< %jp{キューサイズ非0に対応する} */
+#if !_KERNEL_SPT_DTQ_DTQCNT_ZERO && !_KERNEL_SPT_DTQ_DTQCNT_NONZERO
+#error "!_KERNEL_SPT_DTQ_DTQCNT_ZERO && !_KERNEL_SPT_DTQ_DTQCNT_NONZERO"
+#endif
 
 /* Attribute */
 #define _KERNEL_SPT_DTQ_TA_TFIFO	_KERNEL_CFG_DTQ_TA_TFIFO			/**< %jp{TA_TFIFO属性に対応する} */

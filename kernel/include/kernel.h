@@ -181,9 +181,9 @@ typedef struct t_cdtq
 /** %jp{データキュー状態}%en{Data queue state packet} */
 typedef struct t_rdtq
 {
-	ID   stskid;			/**< %jp{データキューの送信待ち行列の先頭のタスクのID番号}%en{ID number of the task at the head of the send-wait queue} */
-	ID   rtskid;			/**< %jp{データキューの受信待ち行列の先頭のタスクのID番号}%en{ID number of the task at the head of the receive-wait queue} */
-	UINT sdtqcnt;			/**< %jp{データキューに入っているデータの数}%en{The number of data elemnts int the data queue} */
+	ID		stskid;			/**< %jp{データキューの送信待ち行列の先頭のタスクのID番号}%en{ID number of the task at the head of the send-wait queue} */
+	ID		rtskid;			/**< %jp{データキューの受信待ち行列の先頭のタスクのID番号}%en{ID number of the task at the head of the receive-wait queue} */
+	UINT	sdtqcnt;		/**< %jp{データキューに入っているデータの数}%en{The number of data elemnts int the data queue} */
 } T_RDTQ;
 
 

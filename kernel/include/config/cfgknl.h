@@ -228,6 +228,10 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 /*  Data queues                                   */
 /* ---------------------------------------------- */
 
+/* Configuration */
+#define _KERNEL_CFG_DTQ_DTQCNT_ZERO		TRUE				/**< %jp{キューサイズ0に対応する} */
+#define _KERNEL_CFG_DTQ_DTQCNT_NONZERO	TRUE				/**< %jp{キューサイズ非0に対応する} */
+
 /* Attribute */
 #define _KERNEL_CFG_DTQ_TA_TFIFO		TRUE				/**< %jp{TA_TFIFO属性に対応する} */
 #define _KERNEL_CFG_DTQ_TA_TPRI			TRUE				/**< %jp{TA_TPRI属性に対応する} */
