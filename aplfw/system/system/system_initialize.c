@@ -35,17 +35,20 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	SysApi_Initialize(pInf->pSysMemBase, pInf->SysMemSize, pInf->SysMemAlign,
 							pInf->pIoMemBase, pInf->IoMemSize, pInf->IoMemAlign);
 	
+	/* システム排他制御用ミューテックス生成 */
+	self->hMtxSys = SysMtx_Create(SYSMTX_ATTR_NORMAL);
+
+	/* システム変数の初期化 */
+	self->hEvtProc     = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
+	self->iProcHead    = 0;
+	self->iProcTail    = 0;
+	self->paWhiteBoard = NULL;
+
 	/* ファイルシステム初期化 */
 	File_Initialize();
 	
 	/* コマンドシステム初期化 */
 	Command_Initialize();
-	
-	
-	/* システム変数の初期化 */
-	g_System.hEvtProc  = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
-	g_System.iProcHead = 0;
-	g_System.iProcTail = 0;
 	
 	/* プロセス生成情報用メモリ確保 */
 	pProcessInf = (T_PROCESS_CREATE_INF *)SysMem_Alloc(sizeof(T_PROCESS_CREATE_INF));

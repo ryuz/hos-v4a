@@ -835,11 +835,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\system\system\system_lock.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\system\system_process.c"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\system\system_requestproc.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\system\system_unlock.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\system\whiteboard_getstring.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\system\whiteboard_setstring.c"
 					>
 				</File>
 			</Filter>
@@ -1118,7 +1134,27 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_addnode.c"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\..\library\container\assoc\assoc_constructor.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_create.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_createex.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_delete.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_destructor.c"
 						>
 					</File>
 					<File
@@ -1134,7 +1170,31 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_getminnode.c"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\..\library\container\assoc\assoc_getnext.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_getnode.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_local.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_remove.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_removenode.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_set.c"
 						>
 					</File>
 				</Filter>

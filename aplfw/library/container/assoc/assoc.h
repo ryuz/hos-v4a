@@ -54,7 +54,8 @@ void        Assoc_Constructor(C_ASSOC *self, C_MEMHEAP *pMemHeap);							/* 連�
 void        Assoc_Destructor(C_ASSOC *self);												/* 連想バッファのデストラクタ */
 
 /* 操作 */
-ASSOC_ERR   Assoc_Add(C_ASSOC *self, const char *pszKey, const void *pData, long lSize);	/* データの登録 */
+ASSOC_ERR   Assoc_Add(C_ASSOC *self, const char *pszKey, const void *pData, long lSize);	/* データの追加 */
+ASSOC_ERR   Assoc_Set(C_ASSOC *self, const char *pszKey, const void *pData, long lSize);	/* データの設定 */
 const void *Assoc_Get(C_ASSOC *self, const char *pszKey);									/* データの参照 */
 ASSOC_ERR   Assoc_Remove(C_ASSOC *self, const char *pszKey);								/* データの削除 */
 

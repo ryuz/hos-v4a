@@ -17,8 +17,8 @@
 /* 割込み要因のクリア */
 ER vclr_int(INTNO intno)
 {
-	int	mask;
-	UH	dummy;
+	int			mask;
+	volatile UH	dummy;
 	
 	mask  = (0x0001 << (intno & 0x03));
 	

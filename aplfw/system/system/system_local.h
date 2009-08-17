@@ -18,6 +18,7 @@
 #include "system/sysapi/sysapi.h"
 #include "system/file/file_local.h"
 #include "system/process/process_local.h"
+#include "library/container/assoc/assoc.h"
 
 
 #define SYSTEM_PROCQUE_SIZE		64		/* システムプロシージャ要求キューイング数 */
@@ -42,6 +43,9 @@ typedef struct c_system
 		
 	HANDLE				hBootProcess;
 	
+	C_ASSOC				*paWhiteBoard;	/**< ホワイトボード */
+	
+	SYSMTX_HANDLE		hMtxSys;
 	SYSPRC_HANDLE		hPrcProc;						
 	SYSEVT_HANDLE		hEvtProc;
 	volatile int		iProcHead;

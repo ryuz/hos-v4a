@@ -43,7 +43,17 @@ extern "C" {
 void   System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf);												/**< システム初期化 */
 int    System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM Param1, VPARAM Param2);	/**< システムプロセスへの処理依頼 */
 
+void   System_Lock(void);
+void   System_Unlock(void);
+
 HANDLE System_GetNextProcess(HANDLE hProcess);																/**< 次のプロセスを取得 */
+
+
+void          Whiteboard_SetString(const char *pszKey, const char *pszValue);
+const char   *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSize, const char *pszDefault);
+void          Whiteboard_SetInteger(const char *pszKey, unsigned long ulValue);
+unsigned long Whiteboard_GetInteger(const char *pszKey, unsigned long ulDefault);
+
 
 #ifdef __cplusplus
 }
