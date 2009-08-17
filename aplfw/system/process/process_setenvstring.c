@@ -39,7 +39,7 @@ void Process_SetEnvString(HANDLE hProcess, const char *pszKey, const char *pszVa
 	}
 	
 	/* パラメータを設定 */
-	Assoc_Add(self->pEnv, pszKey, pszValue, strlen(pszValue)+1);
+	Assoc_Set(self->pEnv, pszKey, pszValue, strlen(pszValue)+1);
 }
 
 

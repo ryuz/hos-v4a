@@ -20,7 +20,7 @@ int Shell_ExecuteScript(C_SHELL *self, const char *pszFileName)
 	int		iLen;
 	
 	/* ファイルオープン */
-	if ( (hFile = File_Open(pszFileName, FILE_OPEN_READ | FILE_OPEN_TEXT)) == HANDLE_NULL )
+	if ( (hFile = File_Open(pszFileName, FILE_OPEN_READ | FILE_OPEN_EXIST | FILE_OPEN_TEXT)) == HANDLE_NULL )
 	{
 		StdIo_PrintFormat("open error : %s\n", pszFileName);
 		return 1;

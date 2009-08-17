@@ -86,7 +86,7 @@ void          Process_SetParam(HANDLE hProcess, VPARAM Param);									/**< プ�
 VPARAM        Process_GetParam(HANDLE hProcess);												/**< プロセス固有情報の取得 */
 
 void          Process_SetEnvString(HANDLE hProcess, const char *pszKey, const char *pszValue);	/**< 環境変数設定 */
-const char    *Process_GetEnvString(HANDLE hProcess, const char *pszKey, const char *pszValue);	/**< 環境変数取得 */
+const char    *Process_GetEnvString(HANDLE hProcess, const char *pszKey);						/**< 環境変数取得 */
 
 int           Process_SetCurrentDir(HANDLE hProcess, const char *pszPath);						/**< プロセスのカレントディレクトリ設定 */
 const char    *Process_GetCurrentDir(HANDLE hProcess);											/**< プロセスのカレントディレクトリ取得 */

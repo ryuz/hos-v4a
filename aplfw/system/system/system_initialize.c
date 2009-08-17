@@ -63,7 +63,7 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->hStdIn         = HANDLE_NULL;				/* 標準入力 */
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */
-	pProcessInf->pszCurrentDir  = "";						/* カレントディレクトリ */
+	pProcessInf->pszCurrentDir  = "/";						/* カレントディレクトリ */
 	Process_Constructor(&self->Process, NULL, pProcessInf);
 	
 	/* ブートプロセスの起動依頼 */
@@ -78,7 +78,7 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->hStdIn         = HANDLE_NULL;				/* 標準入力 */
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */
-	pProcessInf->pszCurrentDir  = "";						/* カレントディレクトリ */
+	pProcessInf->pszCurrentDir  = "/";						/* カレントディレクトリ */
 	System_RequestProc(System_BootProcess, (VPARAM)self, (VPARAM)pProcessInf);
 }
 
