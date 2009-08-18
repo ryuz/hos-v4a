@@ -133,6 +133,9 @@ LINK_MEMDRV           = Yes
 !ifndef LINK_SHELL
 LINK_SHELL            = Yes
 !endif
+!ifndef LINK_WHITEBOARDCMD
+LINK_WHITEBOARDCMD    = Yes
+!endif
 !ifndef LINK_PROCESSLIST
 LINK_PROCESSLIST      = Yes
 !endif
@@ -224,6 +227,14 @@ CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_getnextprocess.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_getnextprocess.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_getsystemprocess.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\system_getsystemprocess.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_lock.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\system_lock.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\system_unlock.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\system_unlock.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_setstring.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_setstring.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_getstring.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_getstring.$(EXT_OBJ)
 !endif
 
 
@@ -1586,6 +1597,15 @@ CSRCS = $(CSRCS) $(SHELL_DIR)\shell_curleft.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\shell_curleft.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SHELL_DIR)\shell_replaceline.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\shell_replaceline.$(EXT_OBJ)
+!endif
+
+
+# Whitboard
+!if "$(LINK_WHITEBOARDCMD)" == "Yes"
+WHITEBOARDCMD_DIR = $(HOSAPLFW_DIR)\application\syscmd\whiteboardcmd
+HEADERS = $(HEADERS) $(OBJS_DIR)\whiteboardcmd.h
+CSRCS = $(CSRCS) $(WHITEBOARDCMD_DIR)\whiteboardcmd_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboardcmd_main.$(EXT_OBJ)
 !endif
 
 

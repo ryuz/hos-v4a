@@ -1079,6 +1079,22 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="syscmd"
+				>
+				<Filter
+					Name="whiteboardcmd"
+					>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\whiteboardcmd\whiteboardcmd.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\whiteboardcmd\whiteboardcmd_main.c"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="library"

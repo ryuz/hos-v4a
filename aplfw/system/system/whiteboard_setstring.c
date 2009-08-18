@@ -33,7 +33,7 @@ void Whiteboard_SetString(const char *pszKey, const char *pszValue)
 		Assoc_Set(self->paWhiteBoard, pszKey, pszValue, strlen(pszValue) + 1);
 	}
 	
-	System_UnLock();
+	System_Unlock();
 }
 
 

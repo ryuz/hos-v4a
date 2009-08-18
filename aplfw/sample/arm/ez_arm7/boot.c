@@ -24,6 +24,7 @@
 #include "application//syscmd/shell/shell.h"
 #include "application//syscmd/commandlist/commandlist.h"
 #include "application//syscmd/processlist/processlist.h"
+#include "application//syscmd/whiteboardcmd/whiteboardcmd.h"
 #include "application/filecmd/filelist/filelist.h"
 #include "application/filecmd/filecopy/filecopy.h"
 #include "application/filecmd/filedump/filedump.h"
@@ -147,19 +148,21 @@ int Boot_Process(VPARAM Param)
 	/*     コマンド登録      */
 	/*************************/
 	
-	Command_AddCommand("sh",       Shell_Main);
-	Command_AddCommand("ps",       ProcessList_Main);
-	Command_AddCommand("help",     CommandList_Main);
-	Command_AddCommand("time",     TimeCmd_Main);
-	Command_AddCommand("memdump",  MemDump_Main);
-	Command_AddCommand("memwrite", MemWrite_Main);
-	Command_AddCommand("memtest",  MemTest_Main);
-	Command_AddCommand("keytest",  KeyTest_Main);
-	Command_AddCommand("ls",       FileList_Main);
-	Command_AddCommand("cp",       FileCopy_Main);
-	Command_AddCommand("cat",      FileCat_Main);
-	Command_AddCommand("fatmount", FatMount_Main);
-	Command_AddCommand("hello",    Hello_Main);
+	Command_AddCommand("sh",         Shell_Main);
+	Command_AddCommand("ps",         ProcessList_Main);
+	Command_AddCommand("whiteboard", WhiteboardCmd_Main);
+	Command_AddCommand("help",       CommandList_Main);
+	Command_AddCommand("time",       TimeCmd_Main);
+	Command_AddCommand("memdump",    MemDump_Main);
+	Command_AddCommand("memwrite",   MemWrite_Main);
+	Command_AddCommand("memtest",    MemTest_Main);
+	Command_AddCommand("keytest",    KeyTest_Main);
+	Command_AddCommand("ls",         FileList_Main);
+	Command_AddCommand("cp",         FileCopy_Main);
+	Command_AddCommand("cat",        FileCat_Main);
+	Command_AddCommand("fatmount",   FatMount_Main);
+	Command_AddCommand("hello",      Hello_Main);
+	
 	
 	
 	/*************************/
@@ -176,11 +179,11 @@ int Boot_Process(VPARAM Param)
 			"================================================================\n"
 			"\n");
 	
-
+	
 	/*************************/
 	/*      シェル起動       */
 	/*************************/
-
+	
 	/* プロセスの生成*/
 	ProcInf.pszCommandLine = "sh -i";								/* 実行コマンド */
 	ProcInf.pszCurrentDir  = "/";									/* 起動ディレクトリ */

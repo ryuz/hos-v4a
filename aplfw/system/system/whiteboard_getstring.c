@@ -18,7 +18,7 @@
 const char   *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSize, const char *pszDefault)
 {
 	C_SYSTEM	*self;
-	char		*pszValue = NULL;
+	const char	*pszValue = NULL;
 	
 	self = &g_System;
 	
@@ -37,9 +37,10 @@ const char   *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSiz
 	if ( pszValue != NULL )
 	{
 		strncpy(pszBuf, pszValue, iBufSize);
+		pszBuf[iBufSize-1] = '\0';
 	}
 	
-	System_UnLock();
+	System_Unlock();
 	
 	return pszBuf;
 }

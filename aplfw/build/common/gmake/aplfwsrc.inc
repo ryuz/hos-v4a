@@ -57,6 +57,7 @@ LINK_MEMDRV           ?= Yes
 
 # Applications
 LINK_SHELL            ?= Yes
+LINK_WHITEBOARDCMD    ?= Yes
 LINK_PROCESSLIST      ?= Yes
 LINK_PROCESSSIGNAL    ?= Yes
 LINK_COMMANDLIST      ?= Yes
@@ -102,6 +103,10 @@ CSRCS += $(SYSTEM_DIR)/system_requestproc.c
 CSRCS += $(SYSTEM_DIR)/system_process.c
 CSRCS += $(SYSTEM_DIR)/system_getnextprocess.c
 CSRCS += $(SYSTEM_DIR)/system_getsystemprocess.c
+CSRCS += $(SYSTEM_DIR)/system_lock.c
+CSRCS += $(SYSTEM_DIR)/system_unlock.c
+CSRCS += $(SYSTEM_DIR)/whiteboard_setstring.c
+CSRCS += $(SYSTEM_DIR)/whiteboard_getstring.c
 endif
 
 
@@ -889,6 +894,14 @@ CSRCS += $(SHELL_DIR)/shell_putchar.c
 CSRCS += $(SHELL_DIR)/shell_curright.c
 CSRCS += $(SHELL_DIR)/shell_curleft.c
 CSRCS += $(SHELL_DIR)/shell_replaceline.c
+endif
+
+
+# Whitboard
+ifeq ($(LINK_WHITEBOARDCMD),Yes)
+WHITEBOARDCMD_DIR = $(HOSAPLFW_DIR)/application/syscmd/whiteboardcmd
+SRC_DIRS += $(WHITEBOARDCMD_DIR)
+CSRCS += $(WHITEBOARDCMD_DIR)/whiteboardcmd_main.c
 endif
 
 

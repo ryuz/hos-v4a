@@ -35,6 +35,18 @@ $(OBJS_DIR)\system_getnextprocess.c : $(SYSTEM_DIR)\system_getnextprocess.c
 $(OBJS_DIR)\system_getsystemprocess.c : $(SYSTEM_DIR)\system_getsystemprocess.c
 	$(CMD_CP) $(SYSTEM_DIR)\system_getsystemprocess.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\system_lock.c : $(SYSTEM_DIR)\system_lock.c
+	$(CMD_CP) $(SYSTEM_DIR)\system_lock.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\system_unlock.c : $(SYSTEM_DIR)\system_unlock.c
+	$(CMD_CP) $(SYSTEM_DIR)\system_unlock.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\whiteboard_setstring.c : $(SYSTEM_DIR)\whiteboard_setstring.c
+	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_setstring.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\whiteboard_getstring.c : $(SYSTEM_DIR)\whiteboard_getstring.c
+	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_getstring.c $(OBJS_DIR)\
+
 
 $(OBJS_DIR)\sysapi.h : $(SYSAPI_DIR)\sysapi.h
 	$(CMD_CP) $(SYSAPI_DIR)\sysapi.h $(OBJS_DIR)\
@@ -1909,6 +1921,13 @@ $(OBJS_DIR)\shell_replaceline.c : $(SHELL_DIR)\shell_replaceline.c
 	$(CMD_CP) $(SHELL_DIR)\shell_replaceline.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\whiteboardcmd.h : $(WHITEBOARDCMD_DIR)\whiteboardcmd.h
+	$(CMD_CP) $(WHITEBOARDCMD_DIR)\whiteboardcmd.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\whiteboardcmd_main.c : $(WHITEBOARDCMD_DIR)\whiteboardcmd_main.c
+	$(CMD_CP) $(WHITEBOARDCMD_DIR)\whiteboardcmd_main.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\processlist.h : $(PROCESSLIST_DIR)\processlist.h
 	$(CMD_CP) $(PROCESSLIST_DIR)\processlist.h $(OBJS_DIR)\
 
@@ -2060,6 +2079,10 @@ $(OBJS_DIR)\system_requestproc.$(EXT_OBJ):	$(OBJS_DIR)\system_requestproc.c	$(CO
 $(OBJS_DIR)\system_process.$(EXT_OBJ):	$(OBJS_DIR)\system_process.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\system_getnextprocess.$(EXT_OBJ):	$(OBJS_DIR)\system_getnextprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\system_getsystemprocess.$(EXT_OBJ):	$(OBJS_DIR)\system_getsystemprocess.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\system_lock.$(EXT_OBJ):	$(OBJS_DIR)\system_lock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\system_unlock.$(EXT_OBJ):	$(OBJS_DIR)\system_unlock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\whiteboard_setstring.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_setstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\whiteboard_getstring.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_getstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\sysapi_initialize.$(EXT_OBJ):	$(OBJS_DIR)\sysapi_initialize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysctx_isisr.$(EXT_OBJ):	$(OBJS_DIR)\sysctx_isisr.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -2610,6 +2633,8 @@ $(OBJS_DIR)\shell_putchar.$(EXT_OBJ):	$(OBJS_DIR)\shell_putchar.c	$(COMMON_HEADE
 $(OBJS_DIR)\shell_curright.$(EXT_OBJ):	$(OBJS_DIR)\shell_curright.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\shell_curleft.$(EXT_OBJ):	$(OBJS_DIR)\shell_curleft.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\shell_replaceline.$(EXT_OBJ):	$(OBJS_DIR)\shell_replaceline.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+
+$(OBJS_DIR)\whiteboardcmd_main.$(EXT_OBJ):	$(OBJS_DIR)\whiteboardcmd_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\processlist_main.$(EXT_OBJ):	$(OBJS_DIR)\processlist_main.c	$(COMMON_HEADERS)
 

@@ -22,6 +22,10 @@
 				"system_process.c",
 				"system_getnextprocess.c",
 				"system_getsystemprocess.c",
+				"system_lock.c",
+				"system_unlock.c",
+				"whiteboard_setstring.c",
+				"whiteboard_getstring.c",
 			],
 		],
 		[
@@ -1051,6 +1055,19 @@
 				"shell_curleft.c",
 				"shell_replaceline.c",
 			]
+		],
+		[
+			"Whitboard",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/syscmd/whiteboardcmd",
+			"WHITEBOARDCMD",
+			"Yes",
+			[
+				"whiteboardcmd.h",
+			],
+			[
+				"whiteboardcmd_main.c",
+			],
 		],
 		[
 			"Process List",
