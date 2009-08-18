@@ -15,31 +15,26 @@
 
 
 
-/* データの参照 */
-const void *Assoc_Get(C_ASSOC *self, const char *pszKey)
+/* データの位置取得 */
+ASSOC_POS Assoc_GetPos(C_ASSOC *self, const char *pszKey)
 {
 	T_ASSOC_NODE	*pNode;
-	char			*pszNodeKey;
-	int				iKeyLen;
 	
 	if ( self->pRoot == NULL )
 	{
-		return NULL;
+		return ASSOC_POS_NULL;
 	}
 	
 	/* 探索 */
 	pNode = Assoc_GetNode(self, self->pRoot, pszKey);
 	if ( pNode == NULL )
 	{
-		return NULL;
+		return ASSOC_POS_NULL;
 	}
 	
-	/* 値取り出し */
-	pszNodeKey   = (char *)pNode + sizeof(T_ASSOC_NODE);
-	iKeyLen = MemHeap_AlignSize(self->pMemHeap, strlen(pszKey) + 1);
-	return (void *)(pszNodeKey + iKeyLen);
+	/* 位置を返す */
+	return (ASSOC_POS)pNode;
 }
-
 
 
 /* end of file */

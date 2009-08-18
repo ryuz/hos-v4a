@@ -107,6 +107,7 @@ CSRCS += $(SYSTEM_DIR)/system_lock.c
 CSRCS += $(SYSTEM_DIR)/system_unlock.c
 CSRCS += $(SYSTEM_DIR)/whiteboard_setstring.c
 CSRCS += $(SYSTEM_DIR)/whiteboard_getstring.c
+CSRCS += $(SYSTEM_DIR)/whiteboard_getnextkey.c
 endif
 
 
@@ -390,6 +391,7 @@ CSRCS += $(ASSOC_DIR)/assoc_set.c
 CSRCS += $(ASSOC_DIR)/assoc_get.c
 CSRCS += $(ASSOC_DIR)/assoc_getat.c
 CSRCS += $(ASSOC_DIR)/assoc_getfirst.c
+CSRCS += $(ASSOC_DIR)/assoc_getpos.c
 CSRCS += $(ASSOC_DIR)/assoc_getnext.c
 CSRCS += $(ASSOC_DIR)/assoc_remove.c
 CSRCS += $(ASSOC_DIR)/assoc_addnode.c

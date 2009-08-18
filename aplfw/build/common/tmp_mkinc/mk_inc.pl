@@ -26,6 +26,7 @@
 				"system_unlock.c",
 				"whiteboard_setstring.c",
 				"whiteboard_getstring.c",
+				"whiteboard_getnextkey.c",
 			],
 		],
 		[
@@ -394,6 +395,7 @@
 				"assoc_get.c",
 				"assoc_getat.c",
 				"assoc_getfirst.c",
+				"assoc_getpos.c",
 				"assoc_getnext.c",
 				"assoc_remove.c",
 				"assoc_addnode.c",

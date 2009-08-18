@@ -61,6 +61,7 @@ ASSOC_ERR   Assoc_Remove(C_ASSOC *self, const char *pszKey);								/* データ
 
 /* イテレータ操作 */
 ASSOC_POS   Assoc_GetFirst(C_ASSOC *self);
+ASSOC_POS   Assoc_GetPos(C_ASSOC *self, const char *pszKey);
 ASSOC_POS   Assoc_GetNext(C_ASSOC *self, ASSOC_POS *Pos);
 const void *Assoc_GetAt(C_ASSOC *self, ASSOC_POS *Pos, const char **ppszKey);
 

@@ -235,6 +235,8 @@ CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_setstring.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_setstring.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_getstring.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_getstring.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_getnextkey.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_getnextkey.$(EXT_OBJ)
 !endif
 
 
@@ -739,6 +741,8 @@ CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getat.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getat.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getfirst.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getfirst.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getpos.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getpos.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getnext.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getnext.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_remove.c

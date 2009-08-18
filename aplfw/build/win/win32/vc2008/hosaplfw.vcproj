@@ -851,6 +851,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\system\system\whiteboard_getnextkey.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\system\whiteboard_getstring.c"
 					>
 				</File>
@@ -1195,6 +1199,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\..\library\container\assoc\assoc_getnode.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\assoc\assoc_getpos.c"
 						>
 					</File>
 					<File

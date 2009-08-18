@@ -30,7 +30,14 @@ void Whiteboard_SetString(const char *pszKey, const char *pszValue)
 
 	if ( self->paWhiteBoard != NULL )
 	{
-		Assoc_Set(self->paWhiteBoard, pszKey, pszValue, strlen(pszValue) + 1);
+		if ( pszValue == NULL )
+		{
+			Assoc_Remove(self->paWhiteBoard, pszKey);
+		}
+		else
+		{
+			Assoc_Set(self->paWhiteBoard, pszKey, pszValue, strlen(pszValue) + 1);
+		}
 	}
 	
 	System_Unlock();

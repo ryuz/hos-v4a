@@ -53,7 +53,7 @@ void          Whiteboard_SetString(const char *pszKey, const char *pszValue);
 const char   *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSize, const char *pszDefault);
 void          Whiteboard_SetInteger(const char *pszKey, unsigned long ulValue);
 unsigned long Whiteboard_GetInteger(const char *pszKey, unsigned long ulDefault);
-
+const char   *Whiteboard_GetNextKey(const char *pszKey, char *pszBuf, int iBufSize);
 
 #ifdef __cplusplus
 }

@@ -47,6 +47,9 @@ $(OBJS_DIR)\whiteboard_setstring.c : $(SYSTEM_DIR)\whiteboard_setstring.c
 $(OBJS_DIR)\whiteboard_getstring.c : $(SYSTEM_DIR)\whiteboard_getstring.c
 	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_getstring.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\whiteboard_getnextkey.c : $(SYSTEM_DIR)\whiteboard_getnextkey.c
+	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_getnextkey.c $(OBJS_DIR)\
+
 
 $(OBJS_DIR)\sysapi.h : $(SYSAPI_DIR)\sysapi.h
 	$(CMD_CP) $(SYSAPI_DIR)\sysapi.h $(OBJS_DIR)\
@@ -757,6 +760,9 @@ $(OBJS_DIR)\assoc_getat.c : $(ASSOC_DIR)\assoc_getat.c
 
 $(OBJS_DIR)\assoc_getfirst.c : $(ASSOC_DIR)\assoc_getfirst.c
 	$(CMD_CP) $(ASSOC_DIR)\assoc_getfirst.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\assoc_getpos.c : $(ASSOC_DIR)\assoc_getpos.c
+	$(CMD_CP) $(ASSOC_DIR)\assoc_getpos.c $(OBJS_DIR)\
 
 $(OBJS_DIR)\assoc_getnext.c : $(ASSOC_DIR)\assoc_getnext.c
 	$(CMD_CP) $(ASSOC_DIR)\assoc_getnext.c $(OBJS_DIR)\
@@ -2083,6 +2089,7 @@ $(OBJS_DIR)\system_lock.$(EXT_OBJ):	$(OBJS_DIR)\system_lock.c	$(COMMON_HEADERS) 
 $(OBJS_DIR)\system_unlock.$(EXT_OBJ):	$(OBJS_DIR)\system_unlock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\whiteboard_setstring.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_setstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\whiteboard_getstring.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_getstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\whiteboard_getnextkey.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_getnextkey.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\sysapi_initialize.$(EXT_OBJ):	$(OBJS_DIR)\sysapi_initialize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\sysctx_isisr.$(EXT_OBJ):	$(OBJS_DIR)\sysctx_isisr.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
@@ -2289,6 +2296,7 @@ $(OBJS_DIR)\assoc_set.$(EXT_OBJ):	$(OBJS_DIR)\assoc_set.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_get.$(EXT_OBJ):	$(OBJS_DIR)\assoc_get.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_getat.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getat.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_getfirst.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getfirst.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\assoc_getpos.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getpos.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_getnext.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getnext.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_remove.$(EXT_OBJ):	$(OBJS_DIR)\assoc_remove.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_addnode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_addnode.c	$(COMMON_HEADERS)
