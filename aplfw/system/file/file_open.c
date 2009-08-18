@@ -20,8 +20,6 @@ HANDLE File_Open(const char *pszPath, int iMode)
 	C_FILE		*self;
 	FILE_ERR	ErrCode;
 	char		szBuf[FILE_MAX_PATH];
-	int			iLen;
-	int			i, j, k;
 	
 	self = &g_File;
 	

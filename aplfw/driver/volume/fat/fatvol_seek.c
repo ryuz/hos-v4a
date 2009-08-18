@@ -17,8 +17,6 @@ FILE_POS FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, in
 {
 	C_FATVOL	*self;
 	C_FATFILE	*pFile;
-	FATVOL_UINT	uiCluster;
-	FATVOL_UINT	i;
 	
 	/* upper cast */
 	self  = (C_FATVOL *)pDrvObj;

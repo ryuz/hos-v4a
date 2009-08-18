@@ -41,7 +41,7 @@ int FatVol_ClusterWrite(
 		
 		/* 書き出し */
 		uiSize = self->BytesPerSector * self->SectorsPerCluster;
-		if ( File_Write(self->hBlockFile, pBuf, uiSize) != uiSize )
+		if ( File_Write(self->hBlockFile, pBuf, (FILE_SIZE)uiSize) != uiSize )
 		{
 			return FATVOL_ERR_NG;
 		}
@@ -57,7 +57,7 @@ int FatVol_ClusterWrite(
 		
 		/* 書き出し */
 		uiSize = self->BytesPerSector * self->SectorsPerCluster;
-		if ( File_Write(self->hBlockFile, pBuf, uiSize) != uiSize )
+		if ( File_Write(self->hBlockFile, pBuf, (FILE_SIZE)uiSize) != uiSize )
 		{
 			return FATVOL_ERR_NG;
 		}

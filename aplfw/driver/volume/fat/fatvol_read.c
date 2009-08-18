@@ -42,7 +42,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 			/* サイズ更新されていないかディレクトリテーブルを参照するべき？ */
 
 			/* サイズクリップ */
-			Size = pFile->FileSize - pFile->FilePos;
+			Size = (FILE_SIZE)(pFile->FileSize - pFile->FilePos);
 		}
 	}
 	
@@ -51,7 +51,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	
 	/* クラスタを検索 */
 	uiCluster = pFile->uiStartCluster;
-	for ( i = 0; pFile->FilePos >= (i + 1) * self->BytesPerCluster; i++ )
+	for ( i = 0; pFile->FilePos >= (FILE_POS)((i + 1) * self->BytesPerCluster); i++ )
 	{
 		uiCluster = FatVol_GetNextCluster(self, uiCluster);
 	}
@@ -71,7 +71,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 		
 		/* 転送位置計算 */
 		ReadStart = (pFile->FilePos & (self->BytesPerCluster) - 1);
-		ReadSize  = self->BytesPerCluster - ReadStart;
+		ReadSize  = (FILE_SIZE)(self->BytesPerCluster - ReadStart);
 		if ( ReadSize > Size )
 		{
 			ReadSize     = Size;

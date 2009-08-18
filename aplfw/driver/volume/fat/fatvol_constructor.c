@@ -131,13 +131,24 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		self->Cluster0Sector    = self->RootDirSector
 										+ (((self->RootDirEntryNum * 32) + self->BytesPerSector - 1) / self->BytesPerSector)
 										- (2 * self->SectorsPerCluster);			/**< クラスタ0の開始セクタ */
-		self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster;
-																					/**< 総クラスタ数 */
+		
+		/* 総クラスタ数算出 */
+		if ( self->iFatType == FATVOL_TYPE_FAT12 )
+		{
+			self->ClusterNum = (self->SectorPerFat * self->BytesPerSector) / 4 * 3;
+		}
+		else
+		{
+			self->ClusterNum = (self->SectorPerFat * self->BytesPerSector) / 2;
+		}
+		/* self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster; */
+		
+		/* ルートディレクトリを仮想位置に設置 */
 		self->RootDirCluster    = 0x0f000000;
 		
 		/* FATバッファ準備 */
-		self->pubFatBuf   = (unsigned char *)SysIo_AllocIoMem(self->SectorPerFat * self->BytesPerSector);
-		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
+		self->pubFatBuf   = (unsigned char *)SysIo_AllocIoMem((MEMSIZE)(self->SectorPerFat * self->BytesPerSector));
+		self->pubFatDirty = (unsigned char *)SysMem_Alloc((MEMSIZE)self->SectorPerFat);
 		if ( self->pubFatBuf == NULL || self->pubFatDirty == NULL )
 		{
 			SysIo_FreeIoMem(self->pubFatBuf);
@@ -149,8 +160,8 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 
 		/* FAT読み出し */
 		File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector  + self->Offset, FILE_SEEK_SET);
-		File_Read(self->hBlockFile, self->pubFatBuf, self->SectorPerFat * self->BytesPerSector);
-		memset(self->pubFatDirty, 0, self->SectorPerFat);
+		File_Read(self->hBlockFile, self->pubFatBuf, (FILE_SIZE)(self->SectorPerFat * self->BytesPerSector));
+		memset(self->pubFatDirty, 0, (size_t)self->SectorPerFat);
 		
 		break;
 
@@ -170,13 +181,16 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		self->Cluster0Sector    = self->RootDirSector
 										+ (((self->RootDirEntryNum * 32) + self->BytesPerSector - 1) / self->BytesPerSector)
 										- (2 * self->SectorsPerCluster);			/**< クラスタ0の開始セクタ */
-		self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster;
+		
+	/*	self->ClusterNum        = (self->SectorNum - self->Cluster0Sector) / self->SectorsPerCluster;	*/
+		self->ClusterNum        = (self->SectorPerFat * self->BytesPerSector) / 4;
 																					/**< 総クラスタ数 */
+
 		self->RootDirCluster    = pubBuf[0x2c] + (pubBuf[0x2d] << 8) + (pubBuf[0x2e] << 16) + (pubBuf[0x2f] << 24);
 		
 		/* FATバッファ準備 */
-		self->pubFatBuf   = (unsigned char *)SysIo_AllocIoMem(self->SectorPerFat * self->BytesPerSector);
-		self->pubFatDirty = (unsigned char *)SysMem_Alloc(self->SectorPerFat);
+		self->pubFatBuf   = (unsigned char *)SysIo_AllocIoMem((MEMSIZE)(self->SectorPerFat * self->BytesPerSector));
+		self->pubFatDirty = (unsigned char *)SysMem_Alloc((MEMSIZE)self->SectorPerFat);
 		if ( self->pubFatBuf == NULL || self->pubFatDirty == NULL )
 		{
 			SysIo_FreeIoMem(self->pubFatBuf);
@@ -188,8 +202,8 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 		
 		/* FAT読み出し */
 		File_Seek(self->hBlockFile, self->FatStartSector * self->BytesPerSector  + self->Offset, FILE_SEEK_SET);
-		File_Read(self->hBlockFile, self->pubFatBuf, self->SectorPerFat * self->BytesPerSector);
-		memset(self->pubFatDirty, 0, self->SectorPerFat);
+		File_Read(self->hBlockFile, self->pubFatBuf, (FILE_SIZE)(self->SectorPerFat * self->BytesPerSector));
+		memset(self->pubFatDirty, 0, (size_t)self->SectorPerFat);
 
 		break;
 	
@@ -206,7 +220,7 @@ FATVOL_ERR FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethod
 	{
 		self->pClusterBuf[i].uiClusterNum = FATVOL_CLUSTER_ENDMARKER;
 		self->pClusterBuf[i].iDirty       = 0;
-		self->pClusterBuf[i].pubBuf       = SysIo_AllocIoMem(self->BytesPerCluster);
+		self->pClusterBuf[i].pubBuf       = SysIo_AllocIoMem((MEMSIZE)self->BytesPerCluster);
 	}
 	
 	/* 親クラスコンストラクタ呼び出し */

@@ -29,7 +29,7 @@ void FatVol_FlushFat(C_FATVOL *self)
 		{
 			if ( self->pubFatDirty[j] )
 			{
-				File_Write(self->hBlockFile, &self->pubFatBuf[j * self->BytesPerSector], self->BytesPerSector);
+				File_Write(self->hBlockFile, &self->pubFatBuf[j * self->BytesPerSector], (FILE_SIZE)self->BytesPerSector);
 			}
 			else
 			{
@@ -39,7 +39,7 @@ void FatVol_FlushFat(C_FATVOL *self)
 	}
 	
 	/* 更新フラグクリア */
-	memset(self->pubFatDirty, 0, self->SectorPerFat);
+	memset(self->pubFatDirty, 0, (size_t)self->SectorPerFat);
 }
 
 

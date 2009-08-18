@@ -55,7 +55,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 	
 	/* ファイルポインタ位置のクラスタを検索 */
 	uiCluster = pFile->uiStartCluster;
-	for ( i = 0; pFile->FilePos >= (i + 1) * self->BytesPerCluster; i++ )
+	for ( i = 0; pFile->FilePos >= (FILE_POS)((i + 1) * self->BytesPerCluster); i++ )
 	{
 		/* 次のクラスタを探す */
 		uiNextCluster = FatVol_GetNextCluster(self, uiCluster);
@@ -82,7 +82,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 				
 		/* 転送位置計算 */
 		WriteStart = (pFile->FilePos & (self->BytesPerCluster - 1));
-		WriteSize  = self->BytesPerCluster - WriteStart;
+		WriteSize  = (FILE_SIZE)(self->BytesPerCluster - WriteStart);
 		if ( WriteSize > Size )
 		{
 			WriteSize = Size;

@@ -19,7 +19,6 @@ const void *Assoc_GetAt(C_ASSOC *self, ASSOC_POS *Pos, const char **ppszKey)
 {
 	T_ASSOC_NODE *pNode;
 	char	*pszNodeKey;
-	int		iCmp;
 	int		iKeyLen;
 
 	pNode = (T_ASSOC_NODE *)Pos;

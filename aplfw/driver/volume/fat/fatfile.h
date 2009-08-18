@@ -33,7 +33,6 @@ typedef struct c_fatfile
 
 
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
