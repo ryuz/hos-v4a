@@ -690,6 +690,9 @@ $(OBJS_DIR)\valmemheap_getsize.c : $(VALMEMHEAP_DIR)\valmemheap_getsize.c
 $(OBJS_DIR)\valmemheap_alignsize.c : $(VALMEMHEAP_DIR)\valmemheap_alignsize.c
 	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_alignsize.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\valmemheap_ismember.c : $(VALMEMHEAP_DIR)\valmemheap_ismember.c
+	$(CMD_CP) $(VALMEMHEAP_DIR)\valmemheap_ismember.c $(OBJS_DIR)\
+
 
 $(OBJS_DIR)\fixmemheap.h : $(FIXMEMHEAP_DIR)\fixmemheap.h
 	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap.h $(OBJS_DIR)\
@@ -723,6 +726,49 @@ $(OBJS_DIR)\fixmemheap_getsize.c : $(FIXMEMHEAP_DIR)\fixmemheap_getsize.c
 
 $(OBJS_DIR)\fixmemheap_alignsize.c : $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c
 	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\fixmemheap_ismember.c : $(FIXMEMHEAP_DIR)\fixmemheap_ismember.c
+	$(CMD_CP) $(FIXMEMHEAP_DIR)\fixmemheap_ismember.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\automemheap.h : $(AUTOMEMHEAP_DIR)\automemheap.h
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_local.h : $(AUTOMEMHEAP_DIR)\automemheap_local.h
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_alignsize.c : $(AUTOMEMHEAP_DIR)\automemheap_alignsize.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_alignsize.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_alloc.c : $(AUTOMEMHEAP_DIR)\automemheap_alloc.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_alloc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_constructor.c : $(AUTOMEMHEAP_DIR)\automemheap_constructor.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_create.c : $(AUTOMEMHEAP_DIR)\automemheap_create.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_delete.c : $(AUTOMEMHEAP_DIR)\automemheap_delete.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_destructor.c : $(AUTOMEMHEAP_DIR)\automemheap_destructor.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_free.c : $(AUTOMEMHEAP_DIR)\automemheap_free.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_free.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_getalign.c : $(AUTOMEMHEAP_DIR)\automemheap_getalign.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_getalign.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_getsize.c : $(AUTOMEMHEAP_DIR)\automemheap_getsize.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_getsize.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_realloc.c : $(AUTOMEMHEAP_DIR)\automemheap_realloc.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_realloc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\automemheap_searchheap.c : $(AUTOMEMHEAP_DIR)\automemheap_searchheap.c
+	$(CMD_CP) $(AUTOMEMHEAP_DIR)\automemheap_searchheap.c $(OBJS_DIR)\
 
 
 $(OBJS_DIR)\assoc.h : $(ASSOC_DIR)\assoc.h
@@ -2275,6 +2321,7 @@ $(OBJS_DIR)\valmemheap_free.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_free.c	$(COMMON_H
 $(OBJS_DIR)\valmemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_getalign.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\valmemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_getsize.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\valmemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_alignsize.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\valmemheap_ismember.$(EXT_OBJ):	$(OBJS_DIR)\valmemheap_ismember.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\fixmemheap_create.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fixmemheap_delete.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_delete.c	$(COMMON_HEADERS)
@@ -2285,6 +2332,19 @@ $(OBJS_DIR)\fixmemheap_free.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_free.c	$(COMMON_H
 $(OBJS_DIR)\fixmemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getalign.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fixmemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_getsize.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_alignsize.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\fixmemheap_ismember.$(EXT_OBJ):	$(OBJS_DIR)\fixmemheap_ismember.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\automemheap_alignsize.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_alignsize.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_alloc.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_alloc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_constructor.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_create.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_delete.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_destructor.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_free.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_free.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_getalign.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_getalign.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_getsize.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_getsize.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_realloc.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_realloc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\automemheap_searchheap.$(EXT_OBJ):	$(OBJS_DIR)\automemheap_searchheap.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\assoc_create.$(EXT_OBJ):	$(OBJS_DIR)\assoc_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_createex.$(EXT_OBJ):	$(OBJS_DIR)\assoc_createex.c	$(COMMON_HEADERS)

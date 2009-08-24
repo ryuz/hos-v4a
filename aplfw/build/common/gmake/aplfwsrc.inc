@@ -27,6 +27,7 @@ LINK_COMMAND          ?= Yes
 # Librarys
 LINK_VALMEMHEAP       ?= Yes
 LINK_FIXMEMHEAP       ?= Yes
+LINK_AUTOMEMHEAP      ?= Yes
 LINK_ASSOC            ?= Yes
 LINK_LIST             ?= Yes
 LINK_STREAMBUF        ?= Yes
@@ -358,6 +359,7 @@ CSRCS += $(VALMEMHEAP_DIR)/valmemheap_free.c
 CSRCS += $(VALMEMHEAP_DIR)/valmemheap_getalign.c
 CSRCS += $(VALMEMHEAP_DIR)/valmemheap_getsize.c
 CSRCS += $(VALMEMHEAP_DIR)/valmemheap_alignsize.c
+CSRCS += $(VALMEMHEAP_DIR)/valmemheap_ismember.c
 endif
 
 
@@ -374,6 +376,25 @@ CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_free.c
 CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_getalign.c
 CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_getsize.c
 CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_alignsize.c
+CSRCS += $(FIXMEMHEAP_DIR)/fixmemheap_ismember.c
+endif
+
+
+# Auto size memory heap
+ifeq ($(LINK_AUTOMEMHEAP),Yes)
+AUTOMEMHEAP_DIR = $(HOSAPLFW_DIR)/library/container/automemheap
+SRC_DIRS += $(AUTOMEMHEAP_DIR)
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_alignsize.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_alloc.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_constructor.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_create.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_delete.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_destructor.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_free.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_getalign.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_getsize.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_realloc.c
+CSRCS += $(AUTOMEMHEAP_DIR)/automemheap_searchheap.c
 endif
 
 

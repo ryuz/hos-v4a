@@ -44,6 +44,7 @@ void	FixMemHeap_Free(void *pMemHeap, void *pMem);						/**< メモリの開放 *
 MEMSIZE	FixMemHeap_GetSize(void *pMemHeap, void *pMem);						/**< メモリのサイズ取得 */
 MEMSIZE	FixMemHeap_GetAlign(void *pMemHeap);								/**< メモリアライメントの取得 */
 MEMSIZE	FixMemHeap_AlignSize(void *pMemHeap, MEMSIZE Size);					/**< サイズをアライメント単位に拡張 */
+int     FixMemHeap_IsMember(void *pMemHeap, void *pMem);					/**< メモリがヒープに属しているかチェック */
 
 #ifdef __cplusplus
 }

@@ -54,6 +54,7 @@ void	ValMemHeap_Free(void *pMemHeap, void *pMem);						/**< メモリの開放 *
 MEMSIZE	ValMemHeap_GetSize(void *pMemHeap, void *pMem);						/**< メモリのサイズ取得 */
 MEMSIZE	ValMemHeap_GetAlign(void *pMemHeap);								/**< メモリアライメントの取得 */
 MEMSIZE	ValMemHeap_AlignSize(void *pMemHeap, MEMSIZE Size);					/**< サイズをアライメント単位に拡張 */
+int     ValMemHeap_IsMember(void *pMemHeap, void *pMem);					/**< メモリがヒープに属しているかチェック */
 
 #define ValMemHeap_GetMemBlockSize(self)	(ValMemHeap_AlignSize((self), sizeof(T_VALMEMHEAP_MEMBLK)))
 

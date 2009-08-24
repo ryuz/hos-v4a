@@ -350,6 +350,7 @@
 				"valmemheap_getalign.c",
 				"valmemheap_getsize.c",
 				"valmemheap_alignsize.c",
+				"valmemheap_ismember.c",
 			]
 		],
 		[
@@ -372,6 +373,31 @@
 				"fixmemheap_getalign.c",
 				"fixmemheap_getsize.c",
 				"fixmemheap_alignsize.c",
+				"fixmemheap_ismember.c",
+			]
+		],
+		[
+			"Auto size memory heap",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/library/container/automemheap",
+			"AUTOMEMHEAP",
+			"Yes",
+			[
+				"automemheap.h",
+				"automemheap_local.h",
+			],
+			[
+				"automemheap_alignsize.c",
+				"automemheap_alloc.c",
+				"automemheap_constructor.c",
+				"automemheap_create.c",
+				"automemheap_delete.c",
+				"automemheap_destructor.c",
+				"automemheap_free.c",
+				"automemheap_getalign.c",
+				"automemheap_getsize.c",
+				"automemheap_realloc.c",
+				"automemheap_searchheap.c",
 			]
 		],
 		[

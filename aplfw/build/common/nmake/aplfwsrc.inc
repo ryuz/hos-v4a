@@ -51,6 +51,9 @@ LINK_VALMEMHEAP       = Yes
 !ifndef LINK_FIXMEMHEAP
 LINK_FIXMEMHEAP       = Yes
 !endif
+!ifndef LINK_AUTOMEMHEAP
+LINK_AUTOMEMHEAP      = Yes
+!endif
 !ifndef LINK_ASSOC
 LINK_ASSOC            = Yes
 !endif
@@ -687,6 +690,8 @@ CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_getsize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_getsize.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_alignsize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_alignsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(VALMEMHEAP_DIR)\valmemheap_ismember.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\valmemheap_ismember.$(EXT_OBJ)
 !endif
 
 
@@ -713,6 +718,38 @@ CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_getsize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_getsize.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_alignsize.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_alignsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(FIXMEMHEAP_DIR)\fixmemheap_ismember.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\fixmemheap_ismember.$(EXT_OBJ)
+!endif
+
+
+# Auto size memory heap
+!if "$(LINK_AUTOMEMHEAP)" == "Yes"
+AUTOMEMHEAP_DIR = $(HOSAPLFW_DIR)\library\container\automemheap
+HEADERS = $(HEADERS) $(OBJS_DIR)\automemheap.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\automemheap_local.h
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_alignsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_alignsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_alloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_alloc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_free.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_free.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_getalign.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_getalign.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_getsize.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_getsize.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_realloc.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_realloc.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(AUTOMEMHEAP_DIR)\automemheap_searchheap.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\automemheap_searchheap.$(EXT_OBJ)
 !endif
 
 

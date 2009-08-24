@@ -27,7 +27,7 @@ typedef struct t_memheap_methods
 	MEMSIZE	(*pfncGetSize)(void *pMemHeap, void *pMem);						/**< メモリのサイズ取得 */
 	MEMSIZE	(*pfncGetAlign)(void *pMemHeap);								/**< メモリアライメントの取得 */
 	MEMSIZE	(*pfncAlignSize)(void *pMemHeap, MEMSIZE Size);					/**< サイズをアライメント単位に拡張 */
-	
+	int		(*pfncIsMember)(void *pMemHeap, void *pMem);					/**< メモリがヒープに属しているかチェック */
 } T_MEMHEAP_METHODS;
 
 
@@ -49,6 +49,7 @@ extern "C" {
 #define MemHeap_GetSize(self, pMem)				((self)->pMethods->pfncGetSize((self), (pMem)))
 #define MemHeap_GetAlign(self)					((self)->pMethods->pfncGetAlign((self)))
 #define MemHeap_AlignSize(self, Size)			((self)->pMethods->pfncAlignSize((self), (Size)))
+#define MemHeap_IsMember(self, pMem)			((self)->pMethods->pfncIsMember((self), (pMem)))
 
 #ifdef __cplusplus
 }

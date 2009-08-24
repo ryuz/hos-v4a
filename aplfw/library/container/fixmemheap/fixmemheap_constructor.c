@@ -23,6 +23,7 @@ const static T_MEMHEAP_METHODS FixMemHeap_Methods =
 		FixMemHeap_GetSize,			/**< メモリのサイズ取得 */
 		FixMemHeap_GetAlign,		/**< メモリアライメントの取得 */
 		FixMemHeap_AlignSize,		/**< サイズをアライメント単位に拡張 */
+		FixMemHeap_IsMember,		/**< メモリがヒープに属しているかチェック */
 	};
 
 

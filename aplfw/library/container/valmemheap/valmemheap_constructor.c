@@ -23,6 +23,7 @@ const static T_MEMHEAP_METHODS ValMemHeap_Methods =
 		ValMemHeap_GetSize,			/**< メモリのサイズ取得 */
 		ValMemHeap_GetAlign,		/**< メモリアライメントの取得 */
 		ValMemHeap_AlignSize,		/**< サイズをアライメント単位に拡張 */
+		ValMemHeap_IsMember,		/**< メモリがヒープに属しているかチェック */
 	};
 
 
