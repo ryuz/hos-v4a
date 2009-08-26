@@ -23,28 +23,28 @@
 typedef int     HASHTABLE_ERR;
 
 
-struct c_hashtableiterator;
+struct t_hashtable_iterator;
 struct c_hashtable;
 
 
 /** %jp{ノード格納用構造体}%en{node} */
 typedef struct t_hashtable_node
 {
-	int							iIndex;
 	struct t_hashtable_node		*pNext;
-	struct c_hashtableiterator	*pIterator;
+	struct t_hashtable_iterator	*pIterator;
 } T_HASHTABLE_NODE;
 
 
-/** %jp{ハッシュ用イテレータクラス}%en{Iterator class} */
-typedef struct c_hashtableiterator
+/** %jp{ハッシュ用イテレータ}%en{Iterator} */
+typedef struct t_hashtable_iterator
 {
-	struct c_hashtable			*pHashTable;
-	struct c_hashtableiterator	*pNext;
-	struct c_hashtableiterator	*pPrev;
-	
 	struct t_hashtable_node		*pNode;
-} C_HASHTABLEITERATOR;
+	int							iIndex;
+	
+	struct t_hashtable_iterator	*pNext;
+	struct t_hashtable_iterator	*pPrev;
+} T_HASHTABLE_ITERATOR;
+
 
 
 /** %jp{ハッシュテーブルクラス}%en{Hash table class} */
@@ -61,22 +61,22 @@ extern "C" {
 #endif
 
 /* 生成／削除 */
-C_HASHTABLE         *HashTable_Create(void);																/* %jp{生成}%en{Create} */
-C_HASHTABLE         *HashTable_CreateEx(C_MEMHEAP *pMemHeap);												/* %jp{生成}%en{Create} */
-void                HashTable_Delete(C_HASHTABLE *self);													/* %jp{削除}%en{Delete} */
-void                HashTable_Constructor(C_HASHTABLE *self, C_MEMHEAP *pMemHeap);							/* %jp{コンストラクタ}%en{Constructor} */
-void                HashTable_Destructor(C_HASHTABLE *self);												/* %jp{デストラクタ}%en{Destructor} */
+C_HASHTABLE          *HashTable_Create(int iTableSize);																	/**< %jp{生成}%en{Create} */
+C_HASHTABLE          *HashTable_CreateEx(int iTableSize, C_MEMHEAP *pMemHeap);											/**< %jp{生成}%en{Create} */
+void                  HashTable_Delete(C_HASHTABLE *self);																/**< %jp{削除}%en{Delete} */
+void                  HashTable_Constructor(C_HASHTABLE *self, C_MEMHEAP *pMemHeap);									/**< %jp{コンストラクタ}%en{Constructor} */
+void                  HashTable_Destructor(C_HASHTABLE *self);															/**< %jp{デストラクタ}%en{Destructor} */
 
 /* 操作 */
-HASHTABLE_ERR       HashTable_Add(C_HASHTABLE *self, const char *pszKey, const void *pData, MEMSIZE Size);	/* データの追加 */
-HASHTABLE_ERR       HashTable_Set(C_HASHTABLE *self, const char *pszKey, const void *pData, MEMSIZE Size);	/* データの設定 */
-const void         *HashTable_Get(C_HASHTABLE *self, const char *pszKey);									/* データの参照 */
-HASHTABLE_ERR       HashTable_Remove(C_HASHTABLE *self, const char *pszKey);								/* データの削除 */
+HASHTABLE_ERR         HashTable_Add(C_HASHTABLE *self, const char *pszKey, const void *pData, MEMSIZE Size);			/**< データの追加 */
+HASHTABLE_ERR         HashTable_Set(C_HASHTABLE *self, const char *pszKey, const void *pData, MEMSIZE Size);			/**< データの設定 */
+const void           *HashTable_Get(C_HASHTABLE *self, const char *pszKey);												/**< データの参照 */
+HASHTABLE_ERR         HashTable_Remove(C_HASHTABLE *self, const char *pszKey);											/**< データの削除 */
 
 /* イテレータ */
-C_HASHTABLEITERATOR *HashTableIterator_Create(C_HASHTABLE *pHashTable);										/* イテレータの生成 */
-void                HashTableIterator_Delete(C_HASHTABLEITERATOR *self, C_HASHTABLEITERATOR *pIterator);	/* イテレータの削除 */
-const void          *HashtableIterator_FindNext(C_HASHTABLEITERATOR *self, const char **ppszKey);			/**/
+T_HASHTABLE_ITERATOR *HashTable_FindOpen(C_HASHTABLE *self);															/**< イテレータの生成 */
+#define              HashTable_FindClose(self, pIterator)	do{ MemHeap_Free((self)->pMemHeap, (pIterator)); } while(0)	/**< イテレータの削除 */
+const void           *Hashtable_FindNext(C_HASHTABLE *self, T_HASHTABLE_ITERATOR *pIterator, const char **ppszKey);		/**< 次を取得 */
 
 #ifdef __cplusplus
 }
@@ -84,7 +84,7 @@ const void          *HashtableIterator_FindNext(C_HASHTABLEITERATOR *self, const
 
 
 
-#endif	/* __HOS__assoc_h__ */
+#endif	/* __HOS__hashtable_h__ */
 
 
 /* end of file */

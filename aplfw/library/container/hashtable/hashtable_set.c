@@ -17,11 +17,11 @@
 /* データの設定 */
 HASHTABLE_ERR HashTable_Set(C_HASHTABLE *self, const char *pszKey, const void *pData, MEMSIZE Size)
 {
-	T_HASHTABLE_NODE	*pNode;
-	T_HASHTABLE_NODE	*pNodeOld;
-	T_HASHTABLE_NODE	*pNodePrev;
-	C_HASHTABLEITERATOR	*pIterator;
-	int					iIndex;
+	T_HASHTABLE_NODE		*pNode;
+	T_HASHTABLE_NODE		*pNodeOld;
+	T_HASHTABLE_NODE		*pNodePrev;
+	T_HASHTABLE_ITERATOR	*pIterator;
+	int						iIndex;
 	
 	/* ノード生成 */
 	if ( (pNode = HashTable_CreateNode(self, pszKey, pData, Size)) == NULL )
@@ -60,7 +60,6 @@ HASHTABLE_ERR HashTable_Set(C_HASHTABLE *self, const char *pszKey, const void *p
 	}
 	
 	/* 新ノード設定 */
-	pNode->iIndex = iIndex;
 	pNode->pNext  = self->ppTable[iIndex];
 	self->ppTable[iIndex] = pNode;
 	
