@@ -65,7 +65,7 @@ extern "C" {
 C_HASHTABLE          *HashTable_Create(int iTableSize);																	/**< %jp{生成}%en{Create} */
 C_HASHTABLE          *HashTable_CreateEx(int iTableSize, C_MEMHEAP *pMemHeap);											/**< %jp{生成}%en{Create} */
 void                  HashTable_Delete(C_HASHTABLE *self);																/**< %jp{削除}%en{Delete} */
-HASHTABLE_ERR         HashTable_Constructor(C_HASHTABLE *self, C_MEMHEAP *pMemHeap, int iTableSize);					/**< %jp{コンストラクタ}%en{Constructor} */
+HASHTABLE_ERR         HashTable_Constructor(C_HASHTABLE *self, int iTableSize, C_MEMHEAP *pMemHeap);					/**< %jp{コンストラクタ}%en{Constructor} */
 void                  HashTable_Destructor(C_HASHTABLE *self);															/**< %jp{デストラクタ}%en{Destructor} */
 
 /* 操作 */

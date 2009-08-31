@@ -16,7 +16,7 @@
 
 
 /**< %jp{コンストラクタ}%en{Constructor} */
-HASHTABLE_ERR HashTable_Constructor(C_HASHTABLE *self, C_MEMHEAP *pMemHeap, int iTableSize)
+HASHTABLE_ERR HashTable_Constructor(C_HASHTABLE *self, int iTableSize, C_MEMHEAP *pMemHeap)
 {
 	T_HASHTABLE_NODE	**ppTable;
 	int					i;
