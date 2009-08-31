@@ -73,6 +73,7 @@ HASHTABLE_ERR         HashTable_Add(C_HASHTABLE *self, const char *pszKey, const
 HASHTABLE_ERR         HashTable_Set(C_HASHTABLE *self, const char *pszKey, const void *pData, MEMSIZE Size);			/**< データの設定 */
 const void           *HashTable_Get(C_HASHTABLE *self, const char *pszKey);												/**< データの参照 */
 HASHTABLE_ERR         HashTable_Remove(C_HASHTABLE *self, const char *pszKey);											/**< データの削除 */
+void                  HashTable_RemoveAll(C_HASHTABLE *self);															/**< データの全削除 */
 
 /* イテレータ */
 T_HASHTABLE_ITERATOR *HashTable_FindOpen(C_HASHTABLE *self);															/**< イテレータの生成 */

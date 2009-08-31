@@ -89,11 +89,11 @@ const void *Hashtable_FindNext(C_HASHTABLE *self, T_HASHTABLE_ITERATOR *pIterato
 		pIterator->pNext->pPrev = pIterator;
 		pIterator->pPrev->pNext = pIterator;
 	}
-
+	
 	/* データ取り出し */
 	pszKey = (const char *)pNode + sizeof(T_HASHTABLE_NODE);
 	pData  = (const void *)(pszKey + MemHeap_AlignSize(self->pMemHeap, strlen(pszKey)));
-
+	
 	/* データ部を返す */
 	*ppszKey = pszKey;
 	return pData;

@@ -47,7 +47,7 @@ T_HASHTABLE_NODE *HashTable_SearchNode(C_HASHTABLE *self, const char *pszKey, T_
 	}
 	
 	*ppNodePrev = NULL;
-
+	
 	return NULL;
 }
 

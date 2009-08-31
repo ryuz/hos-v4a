@@ -22,7 +22,7 @@ HASHTABLE_ERR HashTable_Remove(C_HASHTABLE *self, const char *pszKey)
 	T_HASHTABLE_NODE		*pNodePrev;
 	T_HASHTABLE_ITERATOR	*pIterator;
 	int						iIndex;
-
+	
 	/* 探索 */
 	if ( (pNode = HashTable_SearchNode(self, pszKey, &pNodePrev, &iIndex)) == NULL )
 	{
