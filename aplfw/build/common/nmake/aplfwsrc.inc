@@ -57,6 +57,9 @@ LINK_AUTOMEMHEAP      = Yes
 !ifndef LINK_ASSOC
 LINK_ASSOC            = Yes
 !endif
+!ifndef LINK_HASHTABLE
+LINK_HASHTABLE        = Yes
+!endif
 !ifndef LINK_LIST
 LINK_LIST             = Yes
 !endif
@@ -792,6 +795,42 @@ CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_removenode.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_removenode.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(ASSOC_DIR)\assoc_getminnode.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\assoc_getminnode.$(EXT_OBJ)
+!endif
+
+
+# Hash Table
+!if "$(LINK_HASHTABLE)" == "Yes"
+HASHTABLE_DIR = $(HOSAPLFW_DIR)\library\container\hashtable
+HEADERS = $(HEADERS) $(OBJS_DIR)\hashtable.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\hashtable_local.h
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_createex.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_createex.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_get.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_get.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_set.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_set.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_remove.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_remove.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_removeall.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_removeall.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_findclose.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_findclose.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_findnext.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_findnext.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_findopen.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_findopen.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_searchnode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_searchnode.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(HASHTABLE_DIR)\hashtable_createnode.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\hashtable_createnode.$(EXT_OBJ)
 !endif
 
 

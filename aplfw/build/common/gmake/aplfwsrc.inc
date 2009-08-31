@@ -29,6 +29,7 @@ LINK_VALMEMHEAP       ?= Yes
 LINK_FIXMEMHEAP       ?= Yes
 LINK_AUTOMEMHEAP      ?= Yes
 LINK_ASSOC            ?= Yes
+LINK_HASHTABLE        ?= Yes
 LINK_LIST             ?= Yes
 LINK_STREAMBUF        ?= Yes
 LINK_PACKETBUF        ?= Yes
@@ -419,6 +420,27 @@ CSRCS += $(ASSOC_DIR)/assoc_addnode.c
 CSRCS += $(ASSOC_DIR)/assoc_getnode.c
 CSRCS += $(ASSOC_DIR)/assoc_removenode.c
 CSRCS += $(ASSOC_DIR)/assoc_getminnode.c
+endif
+
+
+# Hash Table
+ifeq ($(LINK_HASHTABLE),Yes)
+HASHTABLE_DIR = $(HOSAPLFW_DIR)/library/container/hashtable
+SRC_DIRS += $(HASHTABLE_DIR)
+CSRCS += $(HASHTABLE_DIR)/hashtable_create.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_createex.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_delete.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_constructor.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_destructor.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_get.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_set.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_remove.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_removeall.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_findclose.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_findnext.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_findopen.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_searchnode.c
+CSRCS += $(HASHTABLE_DIR)/hashtable_createnode.c
 endif
 
 

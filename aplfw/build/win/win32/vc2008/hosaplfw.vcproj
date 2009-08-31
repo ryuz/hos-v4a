@@ -1386,6 +1386,74 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="hashtable"
+					>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_constructor.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_create.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_createex.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_createnode.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_delete.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_destructor.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_findclose.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_findnext.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_findopen.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_get.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_local.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_remove.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_removeall.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_searchnode.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\library\container\hashtable\hashtable_set.c"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<File

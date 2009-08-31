@@ -431,6 +431,33 @@
 			]
 		],
 		[
+			"Hash Table",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/library/container/hashtable",
+			"HASHTABLE",
+			"Yes",
+			[
+				"hashtable.h",
+				"hashtable_local.h",
+			],
+			[
+				"hashtable_create.c",
+				"hashtable_createex.c",
+				"hashtable_delete.c",
+				"hashtable_constructor.c",
+				"hashtable_destructor.c",
+				"hashtable_get.c",
+				"hashtable_set.c",
+				"hashtable_remove.c",
+				"hashtable_removeall.c",
+				"hashtable_findclose.c",
+				"hashtable_findnext.c",
+				"hashtable_findopen.c",
+				"hashtable_searchnode.c",
+				"hashtable_createnode.c",
+			]
+		],
+		[
 			"List",
 			"\$(COMMON_HEADERS)",
 			"\$(HOSAPLFW_DIR)/library/container/list",

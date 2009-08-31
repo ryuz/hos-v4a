@@ -829,6 +829,55 @@ $(OBJS_DIR)\assoc_getminnode.c : $(ASSOC_DIR)\assoc_getminnode.c
 	$(CMD_CP) $(ASSOC_DIR)\assoc_getminnode.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\hashtable.h : $(HASHTABLE_DIR)\hashtable.h
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_local.h : $(HASHTABLE_DIR)\hashtable_local.h
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_create.c : $(HASHTABLE_DIR)\hashtable_create.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_createex.c : $(HASHTABLE_DIR)\hashtable_createex.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_createex.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_delete.c : $(HASHTABLE_DIR)\hashtable_delete.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_constructor.c : $(HASHTABLE_DIR)\hashtable_constructor.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_destructor.c : $(HASHTABLE_DIR)\hashtable_destructor.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_get.c : $(HASHTABLE_DIR)\hashtable_get.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_get.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_set.c : $(HASHTABLE_DIR)\hashtable_set.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_set.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_remove.c : $(HASHTABLE_DIR)\hashtable_remove.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_remove.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_removeall.c : $(HASHTABLE_DIR)\hashtable_removeall.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_removeall.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_findclose.c : $(HASHTABLE_DIR)\hashtable_findclose.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_findclose.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_findnext.c : $(HASHTABLE_DIR)\hashtable_findnext.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_findnext.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_findopen.c : $(HASHTABLE_DIR)\hashtable_findopen.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_findopen.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_searchnode.c : $(HASHTABLE_DIR)\hashtable_searchnode.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_searchnode.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\hashtable_createnode.c : $(HASHTABLE_DIR)\hashtable_createnode.c
+	$(CMD_CP) $(HASHTABLE_DIR)\hashtable_createnode.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\list.h : $(LIST_DIR)\list.h
 	$(CMD_CP) $(LIST_DIR)\list.h $(OBJS_DIR)\
 
@@ -2363,6 +2412,21 @@ $(OBJS_DIR)\assoc_addnode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_addnode.c	$(COMMON_HEADE
 $(OBJS_DIR)\assoc_getnode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getnode.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_removenode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_removenode.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\assoc_getminnode.$(EXT_OBJ):	$(OBJS_DIR)\assoc_getminnode.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\hashtable_create.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_createex.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_createex.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_delete.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_constructor.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_destructor.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_get.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_get.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_set.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_set.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_remove.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_remove.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_removeall.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_removeall.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_findclose.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_findclose.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_findnext.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_findnext.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_findopen.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_findopen.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_searchnode.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_searchnode.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\hashtable_createnode.$(EXT_OBJ):	$(OBJS_DIR)\hashtable_createnode.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\list_create.$(EXT_OBJ):	$(OBJS_DIR)\list_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\list_createex.$(EXT_OBJ):	$(OBJS_DIR)\list_createex.c	$(COMMON_HEADERS)
