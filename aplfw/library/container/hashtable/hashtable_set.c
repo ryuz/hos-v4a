@@ -58,9 +58,13 @@ HASHTABLE_ERR HashTable_Set(C_HASHTABLE *self, const char *pszKey, const void *p
 		/* 削除 */
 		HashTable_DeleteNode(self, pNodeOld);
 	}
+	else
+	{
+		self->iDataNum++;
+	}
 	
 	/* 新ノード設定 */
-	pNode->pNext  = self->ppTable[iIndex];
+	pNode->pNext          = self->ppTable[iIndex];
 	self->ppTable[iIndex] = pNode;
 	
 	return HASHTABLE_ERR_OK;

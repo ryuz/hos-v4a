@@ -57,7 +57,7 @@ const void *Hashtable_FindNext(C_HASHTABLE *self, T_HASHTABLE_ITERATOR *pIterato
 	
 	if ( pNode == NULL )
 	{
-		for ( iIndex = pIterator->iIndex; iIndex < self->iTableNum; iIndex++ )
+		for ( iIndex = pIterator->iIndex; iIndex < self->iTableSize; iIndex++ )
 		{
 			if ( (pNode = self->ppTable[iIndex]) != NULL )
 			{

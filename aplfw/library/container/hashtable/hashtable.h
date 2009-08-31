@@ -52,7 +52,8 @@ typedef struct c_hashtable
 {
 	T_HASHTABLE_NODE	**ppTable;
 	C_MEMHEAP			*pMemHeap;
-	int					iTableNum;
+	int					iTableSize;
+	int					iDataNum;
 } C_HASHTABLE;
 
 
@@ -64,7 +65,7 @@ extern "C" {
 C_HASHTABLE          *HashTable_Create(int iTableSize);																	/**< %jp{生成}%en{Create} */
 C_HASHTABLE          *HashTable_CreateEx(int iTableSize, C_MEMHEAP *pMemHeap);											/**< %jp{生成}%en{Create} */
 void                  HashTable_Delete(C_HASHTABLE *self);																/**< %jp{削除}%en{Delete} */
-void                  HashTable_Constructor(C_HASHTABLE *self, C_MEMHEAP *pMemHeap);									/**< %jp{コンストラクタ}%en{Constructor} */
+HASHTABLE_ERR         HashTable_Constructor(C_HASHTABLE *self, C_MEMHEAP *pMemHeap, int iTableSize);					/**< %jp{コンストラクタ}%en{Constructor} */
 void                  HashTable_Destructor(C_HASHTABLE *self);															/**< %jp{デストラクタ}%en{Destructor} */
 
 /* 操作 */
@@ -75,7 +76,7 @@ HASHTABLE_ERR         HashTable_Remove(C_HASHTABLE *self, const char *pszKey);		
 
 /* イテレータ */
 T_HASHTABLE_ITERATOR *HashTable_FindOpen(C_HASHTABLE *self);															/**< イテレータの生成 */
-#define              HashTable_FindClose(self, pIterator)	do{ MemHeap_Free((self)->pMemHeap, (pIterator)); } while(0)	/**< イテレータの削除 */
+void                 HashTable_FindClose(C_HASHTABLE *self, T_HASHTABLE_ITERATOR *pIterator);							/**< イテレータの削除 */
 const void           *Hashtable_FindNext(C_HASHTABLE *self, T_HASHTABLE_ITERATOR *pIterator, const char **ppszKey);		/**< 次を取得 */
 
 #ifdef __cplusplus
