@@ -20,6 +20,11 @@ ID					SysHos_TaskId;
 /** 割込み計測タイマを初期化 */
 void SysInt_SetIntTime(int iIntNum, SYSTIM_CPUTIME Time)
 {
+	if ( SysInt_InfTbl == NULL )
+	{
+		return;
+	}
+
 	if ( iIntNum < _kernel_min_intno || iIntNum > _kernel_max_intno )
 	{
 		return;
@@ -32,6 +37,11 @@ void SysInt_SetIntTime(int iIntNum, SYSTIM_CPUTIME Time)
 /** 割込み計測タイマを取得 */
 SYSTIM_CPUTIME SysInt_GetIntTime(int iIntNum)
 {
+	if ( SysInt_InfTbl == NULL )
+	{
+		return 0;
+	}
+
 	if ( iIntNum < _kernel_min_intno || iIntNum > _kernel_max_intno )
 	{
 		return 0;
@@ -43,7 +53,12 @@ SYSTIM_CPUTIME SysInt_GetIntTime(int iIntNum)
 
 /** プロセス実行時間計測タイマを初期化 */
 void SysPrc_SetExecTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time)
-{	
+{
+	if ( SysPrc_InfTbl == NULL )
+	{
+		return;
+	}
+	
 	SysPrc_InfTbl[(ID)hPrc].ExecTime = Time;
 }
 
@@ -51,6 +66,11 @@ void SysPrc_SetExecTime(SYSPRC_HANDLE hPrc, SYSTIM_CPUTIME Time)
 /** プロセス実行時間計測タイマを取得 */
 SYSTIM_CPUTIME SysPrc_GetExecTime(SYSPRC_HANDLE hPrc)
 {
+	if ( SysPrc_InfTbl == NULL )
+	{
+		return 0;
+	}
+	
 	return SysPrc_InfTbl[(ID)hPrc].ExecTime;
 }
 
@@ -66,7 +86,10 @@ void _kernel_tsk_swi(ID tskid_old, ID tskid_new)
 	PastTime = NewTime - SysHos_OldTime;
 	
 	/* 実行時間を累算 */
-	SysPrc_InfTbl[tskid_old].ExecTime += PastTime;
+	if ( SysPrc_InfTbl != NULL )
+	{
+		SysPrc_InfTbl[tskid_old].ExecTime += PastTime;
+	}
 	
 	/* 次回計測を設定 */
 	SysHos_OldTime = NewTime;
@@ -85,8 +108,11 @@ void _kernel_isr_sta(INHNO inhno)
 	PastTime = NewTime - SysHos_OldTime;
 	
 	/* 実行時間を累算 */
-	SysPrc_InfTbl[SysHos_TaskId].ExecTime += PastTime;
-	
+	if ( SysPrc_InfTbl != NULL )
+	{
+		SysPrc_InfTbl[SysHos_TaskId].ExecTime += PastTime;
+	}
+
 	/* 次回計測を設定 */
 	SysHos_OldTime = NewTime;	
 }
@@ -103,7 +129,10 @@ void _kernel_isr_end(INTNO intno)
 	PastTime = NewTime - SysHos_OldTime;
 	
 	/* 実行時間を累算 */
-	SysInt_InfTbl[intno - _kernel_min_intno].ExecTime += PastTime;
+	if ( SysInt_InfTbl != NULL )
+	{
+		SysInt_InfTbl[intno - _kernel_min_intno].ExecTime += PastTime;
+	}
 }
 
 
