@@ -104,7 +104,7 @@ ER snd_dtq(ID dtqid, VP_INT data)
 			dtq  = _KERNEL_DTQ_GET_DTQ(dtqcb_ro);
 
 			/* %jp{データキュー末尾に追加} */
-			if ( head < dtqcnt - sdtqcnt - 1 )
+			if ( head < dtqcnt - sdtqcnt )
 			{
 				dtq[head + sdtqcnt] = data;
 			}
