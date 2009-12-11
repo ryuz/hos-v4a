@@ -250,7 +250,7 @@ kernel_id.h(IDなどを宣言したヘッダファイル)と、kernel_cfg.c(カ�
   【パラメータ】
       ID      tskidno    予約するタスクID数
       ID      semidno    予約するセマフォID数
-      ID      flgidno    予約するセマフォID数
+      ID      flgidno    予約するイベントフラグID数
       ID      dtqidno    予約するデータキューID数
       ID      mbxidno    予約するメールボックスID数
       ID      mbfidno    予約するメッセージバッファID数

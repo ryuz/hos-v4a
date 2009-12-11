@@ -106,8 +106,8 @@ void CApiCreSem::WriteId(FILE* fp)
 
 	// %jp{コメントを出力}
 	fputs("\n\n/* Semaphore object ID definetion */\n\n", fp);
-
-
+	
+	
 	// %jp{ID定義を出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{

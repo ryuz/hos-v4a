@@ -105,6 +105,32 @@ void CApiCreDtq::WriteId(FILE* fp)
 		return;
 	}
 
+	// %jp{コメントを出力}
+	fputs("\n\n/* Data queue object ID definetion */\n\n", fp);
+	
+	
+	// %jp{ID定義を出力}
+	for ( i = 0; i < m_iObjs; i++ )
+	{
+		if ( atoi(m_pParamPacks[i]->GetParam(CREDTQ_DTQID)) == 0 )
+		{
+			fprintf(
+				fp,
+				"#define %s\t\t%d\n",
+				m_pParamPacks[i]->GetParam(CREDTQ_DTQID),
+				m_iId[i]);
+		}
+	}
+	
+	// %jp{ID最大値定義を出力}
+	fprintf( fp,
+		"\n"
+		"#ifdef  TMAX_DTQID\n"
+		"#undef  TMAX_DTQID\n"
+		"#endif\n"
+		"\n"
+		"#define TMAX_DTQID\t\t%d\n\n", m_iMaxId );
+
 	// ID 直接指定でないオブジェクトが在るかどうかサーチ
 	for ( i = 0; i < m_iObjs; i++ )
 	{
@@ -117,21 +143,6 @@ void CApiCreDtq::WriteId(FILE* fp)
 	{
 		return;
 	}
-
-	fputs("\n\n/* data queue ID definetion */\n", fp);
-	for ( i = 0; i < m_iObjs; i++ )
-	{
-		if ( atoi(m_pParamPacks[i]->GetParam(CREDTQ_DTQID)) == 0 )
-		{
-			fprintf(
-				fp,
-				"#define %s\t\t%d\n",
-				m_pParamPacks[i]->GetParam(CREDTQ_DTQID),
-				m_iId[i]);
-		}
-	}
-
-	fprintf( fp,"\n#define TMAX_DTQID\t\t%d\n", m_iMaxId );
 }
 
 
@@ -139,124 +150,228 @@ void CApiCreDtq::WriteId(FILE* fp)
 void  CApiCreDtq::WriteCfgDef(FILE* fp)
 {
 	const char* pszParam;
-	bool blOutput;
-	int  i, j;
+	int  i;
 
 	if ( m_iMaxId <= 0 )
 	{
 		return;
 	}
 
-	// コメント出力
+	// %jp{コメント出力}
 	fputs(
 		"\n\n\n"
 		"/* ------------------------------------------ */\n"
 		"/*        create data queue objects           */\n"
-		"/* ------------------------------------------ */\n"
+		"/* ------------------------------------------ */\n\n\n"
 		, fp);
 
-	// データキュー領域出力
-	blOutput = false;
+
+	// %jp{データキュー領域出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
 		pszParam = m_pParamPacks[i]->GetParam(CREDTQ_DTQ);
 		if ( strcmp(pszParam, "NULL") == 0 )
 		{
-			if ( !blOutput )
+			pszParam = m_pParamPacks[i]->GetParam(CREDTQ_DTQCNT);
+			if ( strcmp(pszParam, "0") != 0 )
 			{
-				fputs("\n/* data que area */\n", fp);
-				blOutput = true;
+				fprintf(
+					fp,
+					"static VP_INT _kernel_dtq%d_dtq[(%s)];\n",
+					m_iId[i],
+					m_pParamPacks[i]->GetParam(CREDTQ_DTQCNT));
 			}
-
-			fprintf(
-				fp,
-				"static VP_INT kernel_dtq%d_dtq[%s];\n",
-				m_iId[i],
-				m_pParamPacks[i]->GetParam(CREDTQ_DTQCNT));
 		}
 	}
-
-	if ( m_iObjs > 0 )
+	
+	
+	if ( m_iMaxId > 0 )
 	{
-		fprintf(
-			fp,
-			"\n/* data queue control block for rom area */\n"
-			"const T_KERNEL_DTQCB_ROM kernel_dtqcb_rom[%d] =\n"
-			"\t{\n",
-			m_iObjs);
-
-		// コントロールブロック(ROM部)出力
-		for ( i = 0; i < m_iObjs; i++ )
+#if _KERNEL_DTQCB_ALGORITHM == _KERNEL_DTQCB_ALG_BLKARRAY
+#if _KERNEL_DTQCB_SPLIT_RO
+	// %jp{ブロック配列＆ROM分離}
+	{
+		// %jp{RAM部出力}
+		fprintf(fp, "\n_KERNEL_T_DTQCB _kernel_dtqcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
 		{
-			fprintf(
-				fp,
-				"\t\t{(ATR)(%s), (UINT)(%s), ",
-				m_pParamPacks[i]->GetParam(CREDTQ_DTQATR),
-				m_pParamPacks[i]->GetParam(CREDTQ_DTQCNT));
-			pszParam = m_pParamPacks[i]->GetParam(CREDTQ_DTQ);
-			if ( strcmp(pszParam, "NULL") == 0 )
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
 			{
-				fprintf(fp,	"kernel_dtq%d_dtq},\n", m_iId[i]);
+				fprintf(fp, "\t\t{");
+				WriteDtqcbRam(fp, iObjNum);
+				fprintf(fp, "},\n");
 			}
 			else
 			{
-				fprintf(fp,	"(VP_INT *)(%s)},\n", pszParam);
+				fprintf(fp, "\t\t{0},\n");
+			}
+		}
+		fprintf(fp, "\t};\n");
+		
+		// %jp{ROM部出力}
+		fprintf(fp, "\nconst _KERNEL_T_DTQCB_RO _kernel_dtqcb_ro_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t{");
+				WriteDtqcbRom(fp, iObjNum);
+				fprintf(fp, "},\n");
+			}
+			else
+			{
+				fprintf(fp, "\t\t{0},\n");
+			}
+		}
+		fprintf(fp, "\t};\n\n");
+	}
+#else
+	// %jp{ブロック配列＆統合DTQCB}
+	{
+		// %jp{RAM部出力}
+		fprintf(fp, "\n_KERNEL_T_DTQCB _kernel_dtqcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t{");
+				WriteDtqcbRam(fp, iObjNum);
+				WriteDtqcbRom(fp, iObjNum);
+				fprintf(fp, "},\n");
+			}
+			else
+			{
+				fprintf(fp, "\t\t{{0}, },\n");
 			}
 		}
 		fprintf(fp, "\t};\n");
 	}
-
-	// コントロールブロック(RAM部)出力
-	if ( m_iObjs > 0 )
+#endif
+#elif _KERNEL_DTQCB_ALGORITHM == _KERNEL_DTQCB_ALG_PTRARRAY
+#if _KERNEL_DTQCB_SPLIT_RO
+	// %jp{ポインタ配列＆ROM分離}
 	{
-		fprintf(
-			fp,
-			"\n/* data queue control block for ram area */\n"
-			"T_KERNEL_DTQCB_RAM kernel_dtqcb_ram[%d];\n",
-			m_iObjs);
-	}
-
-	// コントロールブロックテーブル出力
-	if ( m_iMaxId > 0 )
-	{
-		fprintf(
-			fp,
-			"\n/* data queue control block table */\n"
-			"T_KERNEL_DTQCB_RAM *kernel_dtqcb_ram_tbl[%d] =\n"
-			"\t{\n",
-			m_iMaxId);
-
-		for ( i = 0; i < m_iMaxId; i++ )
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
 		{
-			// ID検索
-			for ( j = 0; j < m_iObjs; j++ )
+			fprintf(fp, "const _KERNEL_T_DTQCB_RO _kernel_dtqcb_ro_blk_%d = {", m_iId[i]);
+			WriteDtqcbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_DTQCB _kernel_dtqcb_blk_%d = {", m_iId[i]);
+			WriteDtqcbRam(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_DTQCB *_kernel_dtqcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
 			{
-				if ( m_iId[j] == i + 1 )
-				{
-					break;
-				}
-			}
-			if ( j < m_iObjs )
-			{
-				// オブジェクトが存在した場合
-				fprintf(fp, "\t\t&kernel_dtqcb_ram[%d],\n", j);
+				fprintf(fp, "\t\t&_kernel_dtqcb_blk_%d,\n", i);
 			}
 			else
 			{
-				// オブジェクトが無い場合
-				fputs("\t\tNULL,\n", fp);
+				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fputs("\t};\n", fp);
+		fprintf(fp, "\t};\n");		
+	}
+#else
+	// %jp{ポインタ配列＆統合DTQCB}
+	{
+		fprintf(fp, "\n");
+		for ( i = 0; i < m_iObjs; i++ )
+		{
+			fprintf(fp, "_KERNEL_T_DTQCB _kernel_dtqcb_blk_%d = {", m_iId[i]);
+			WriteDtqcbRam(fp, i);
+			WriteDtqcbRom(fp, i);
+			fprintf(fp, "};\n");
+		}
+		fprintf(fp, "\n");
+		fprintf(fp, "\n_KERNEL_T_DTQCB *_kernel_dtqcb_tbl[%d] =\n\t{\n", m_iMaxId);
+		for ( i = 1; i <= m_iMaxId; i++ )
+		{
+			int iObjNum = IdToObjNum(i);
+			if ( iObjNum >= 0 )
+			{
+				fprintf(fp, "\t\t&_kernel_dtqcb_blk_%d,\n", i);
+			}
+			else
+			{
+				fprintf(fp, "\t\tNULL,\n");
+			}
+		}
+		fprintf(fp, "\t};\n");		
+	}
+#endif
+#endif
 	}
 
 	// テーブルサイズ情報出力
 	fprintf(
 		fp,
-		"\n/* data queue control block count */\n"
-		"const INT kernel_dtqcb_cnt = %d;\n",
+		"\nconst ID	_kernel_max_dtqid = %d;\n",
 		m_iMaxId);
 }
+
+
+void CApiCreDtq::WriteDtqcbRam(FILE *fp, int iObj)
+{
+#if _KERNEL_DTQCB_SQUE
+	fprintf(fp, "{0}, ");													/* %jp{データキュー送信待ちタスクキュー} */
+#endif
+
+#if _KERNEL_DTQCB_RQUE
+	fprintf(fp, "{0}, ");													/* %jp{データキュー受信待ちタスクキュー} */
+#endif
+
+#if _KERNEL_DTQCB_SDTQCNT
+	fprintf(fp, "0, ");														/* %jp{データキューに入っているデータの数}%en{The number of data elemnts int the data queue} */
+#endif
+
+#if _KERNEL_DTQCB_HEAD
+	fprintf(fp, "0, ");														/* %jp{データキューのデータ先頭位置} */
+#endif
+}
+
+
+void CApiCreDtq::WriteDtqcbRom(FILE *fp, int iObj)
+{
+#if _KERNEL_DTQCB_DTQATR
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREDTQ_DTQATR));	/* %jp{データキュー属性}%en{Data queue attribute} */
+#endif
+
+#if _KERNEL_DTQCB_DTQCNT
+	fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREDTQ_DTQCNT));	/* %jp{データキュー領域の容量(データの個数)}%en{Capacity of the data queue area(the number of data elements)} */
+#endif
+
+#if _KERNEL_DTQCB_DTQ		/* %jp{データキュー領域の先頭番地}%en{Start address of the data queue area} */
+	if ( strcmp(m_pParamPacks[iObj]->GetParam(CREDTQ_DTQCNT), "0") == 0 )
+	{
+		fprintf(fp, "NULL, ");
+	}
+	else
+	{
+		if ( strcmp(m_pParamPacks[iObj]->GetParam(CREDTQ_DTQCNT), "NULL") == 0 )
+		{
+			fprintf(fp, "_kernel_dtq%d_dtq, ", m_iId[iObj]);
+		}
+		else
+		{
+			fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREDTQ_DTQ));	
+		}
+	}
+#endif
+}
+
 
 
 // cfgファイル初期化部書き出し

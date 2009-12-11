@@ -473,7 +473,7 @@ int NorFlashCmd_Main(int argc, char *argv[])
 		{
 			iBusWidth = NORFLASH_BUSWIDTH_32BIT;
 		}
-		if ( strcmp(&argv[i][1], "d8") == 0 )
+		else if ( strcmp(&argv[i][1], "d8") == 0 )
 		{
 			iDevType = NORFLASH_DEVTYPE_8BIT;
 		}

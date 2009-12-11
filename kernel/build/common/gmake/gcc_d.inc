@@ -32,11 +32,11 @@ EXT_BIN ?= bin
 # ----------------------------------
 
 # %jp{共通オプションの設定}%en{common options}
-CFLAGS += -Wall
+CFLAGS += -Wall -g
 
 
 # %jp{デバッグオプションの定義}%en{debug options}
-CFLAGS_DBG ?= -g
+CFLAGS_DBG ?=
 
 
 # %jp{最適化オプションの定義}%en{optimize options}

@@ -74,7 +74,7 @@ int CApiCreCyc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 
 		return CFG_ERR_OK;
 	}
-	else if ( strcmp(pszApiName, "KERNEL_RSV_DTQID") == 0 )
+	else if ( strcmp(pszApiName, "KERNEL_RSV_CYCID") == 0 )
 	{
 		int iId;
 

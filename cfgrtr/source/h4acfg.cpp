@@ -90,7 +90,7 @@ static CApiDef* g_ApiList[] =
 //		&g_ApiDefTex,
 		&g_ApiCreSem,
 		&g_ApiCreFlg,
-//		&g_ApiCreDtq,
+		&g_ApiCreDtq,
 		&g_ApiCreMbx,
 		&g_ApiCreMtx,
 //		&g_ApiCreMbf,
@@ -355,6 +355,7 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/tskobj.h\"\n");
 	fprintf(fp, "#include \"object/semobj.h\"\n");
 	fprintf(fp, "#include \"object/flgobj.h\"\n");
+	fprintf(fp, "#include \"object/dtqobj.h\"\n");
 	fprintf(fp, "#include \"object/mbxobj.h\"\n");
 	fprintf(fp, "#include \"object/mtxobj.h\"\n");
 	fprintf(fp, "#include \"object/mpfobj.h\"\n");

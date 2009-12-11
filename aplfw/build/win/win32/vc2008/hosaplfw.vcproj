@@ -1099,6 +1099,22 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="flashcmd"
+				>
+				<Filter
+					Name="norflashcmd"
+					>
+					<File
+						RelativePath="..\..\..\..\application\flashcmd\norflashcmd\norflashcmd.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\flashcmd\norflashcmd\norflashcmd_main.c"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="library"

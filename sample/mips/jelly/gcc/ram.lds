@@ -29,7 +29,7 @@ SECTIONS
 		*(.dtors)
 		___dtors_end = . ;
 	} > rom
-	data : AT (ADDR(.tors) + SIZEOF(.tors))
+	.data : AT (ADDR(.tors) + SIZEOF(.tors))
 	{
 	    ___data_rom = ADDR(.tors) + SIZEOF(.tors);
 		___data = . ;
