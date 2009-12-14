@@ -82,7 +82,7 @@ int CApiAttIsr::AnalyzeApi(const char* pszApiName, const char* pszParams)
 		
 		return CFG_ERR_OK;
 	}
-	else if ( strcmp(pszApiName, "KERNEL_RES_ISRID") == 0 )
+	else if ( strcmp(pszApiName, "KERNEL_RSV_ISRID") == 0 )
 	{
 		int iId;
 
