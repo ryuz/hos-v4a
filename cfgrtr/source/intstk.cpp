@@ -142,7 +142,7 @@ void CApiIntStack::WriteCfgIni(FILE* fp)
 	{
 		fprintf(
 			fp,
-			"\t_KERNEL_SYS_INI_SYSSTK((SIZE)(%s), (VP)(%s));\n",
+			"\t_KERNEL_SYS_INI_INTSTK((SIZE)(%s), (VP)(%s));\n",
 			pszSize, pszStack);
 	}
 }
