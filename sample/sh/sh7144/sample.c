@@ -4,11 +4,13 @@
  * @file  sample.c
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2010 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
+#include <stdlib.h>
+#include <string.h>
 #include "kernel.h"
 #include "kernel_id.h"
 #include "sci1.h"
@@ -108,7 +110,6 @@ void print_state(int num, char *text)
 /** %jp{サンプルタスク} */
 void Sample_Task(VP_INT exinf)
 {
-	char buf[16];
 	int  num;
 	
 	num = (int)exinf;
