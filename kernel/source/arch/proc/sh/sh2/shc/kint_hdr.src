@@ -1311,7 +1311,7 @@ multiple_int:
 				mov.b	r0, @(ICTXCB_INTCNT, r1)
 				
 		; ---- 割込みマスク値の復帰
-				mov.l	r3, @-r15			; 古いマスク値を復帰
+				mov.l	@r15+, r3 			; 古いマスク値を復帰
 				bra		return_int
 				mov.w	r3, @r1
 
