@@ -34,7 +34,7 @@ ER_ID acre_isr(const T_CISR *pk_cisr)
 			break;
 		}
 	}
-	if ( isrid <= _KERNEL_ISR_TMIN_ID )
+	if ( isrid < _KERNEL_ISR_TMIN_ID )
 	{
 		_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
 		return E_NOID;				/* %jp{ID番号不足} */
