@@ -24,8 +24,8 @@ void _kernel_sta_ctx(_KERNEL_T_CTXCB *ctxcb)
 	if ( GetCurrentThreadId() == _kernel_ictxcb.dwPrimaryThreadId )
 	{
 		/* %jp{ダイアログを表示} */
-		MessageBox(NULL, "Press OK, Exit a process", "Hyper Operationg System V4 Advance for Win32", MB_OK);
-
+		MessageBox(NULL, _T("Press OK, Exit a process"), _T("Hyper Operationg System V4 Advance for Win32"), MB_OK);
+		
 		/* %jp{終了} */
 		ExitProcess(0);
 	}

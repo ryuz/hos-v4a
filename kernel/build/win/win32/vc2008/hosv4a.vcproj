@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\..\include;..\..\..\..\include\arch\proc\win\win32;..\..\..\..\include\arch\irc\none"
+				AdditionalIncludeDirectories="..\..\..\..\include;..\..\..\..\include\arch\proc\win\win32;..\..\..\..\include\arch\irc\simple"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -158,6 +158,38 @@
 			<Filter
 				Name="arch"
 				>
+				<Filter
+					Name="irc"
+					>
+					<Filter
+						Name="simple"
+						>
+						<File
+							RelativePath="..\..\..\..\include\arch\irc\simple\irc.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\include\arch\irc\simple\ircatr.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="proc"
+					>
+					<Filter
+						Name="win32"
+						>
+						<File
+							RelativePath="..\..\..\..\include\arch\proc\win\win32\proc.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\include\arch\proc\win\win32\procatr.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="core"
@@ -1049,6 +1081,94 @@
 						RelativePath="..\..\..\..\source\core\toq\sig_toq.c"
 						>
 					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="arch"
+				>
+				<Filter
+					Name="proc"
+					>
+					<Filter
+						Name="win32"
+						>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\kcre_ctx.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\kdis_int.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\kena_int.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\kini_prc.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\krst_ctx.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\ksta_ctx.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\kswi_ctx.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\kwai_int.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\val_int.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\proc\win\win32\vsig_int.c"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="irc"
+					>
+					<Filter
+						Name="simple"
+						>
+						<File
+							RelativePath="..\..\..\..\source\arch\irc\simple\chg_ilv.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\irc\simple\chg_imsk.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\irc\simple\clr_int.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\irc\simple\dis_int.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\irc\simple\ena_int.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\irc\simple\get_ilv.c"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\..\source\arch\irc\simple\get_imsk.c"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 		</Filter>

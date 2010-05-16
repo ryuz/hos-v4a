@@ -17,6 +17,7 @@
 #define SIZE	WIN_SIZE
 #define BOOL	WIN_BOOL
 #include <windows.h>
+#include <tchar.h>
 #undef	SIZE
 #undef	BOOL
 

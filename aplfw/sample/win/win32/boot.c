@@ -45,8 +45,12 @@ void Boot_Task(VP_INT exinf)
 	/*************************/
 	
 	/* システム初期化 */
-	SysInf.pHeapMem        = g_SystemHeap;
-	SysInf.HeapSize        = sizeof(g_SystemHeap);
+	SysInf.pSysMemBase     = g_SystemHeap;
+	SysInf.SysMemSize      = sizeof(g_SystemHeap);
+	SysInf.SysMemAlign     = 16;
+	SysInf.pIoMemBase      = NULL;
+	SysInf.IoMemSize       = 0;
+	SysInf.IoMemAlign      = 16;
 	SysInf.SystemStackSize = 1024;
 	SysInf.pfncBoot        = Boot_Process;
 	SysInf.BootParam       = (VPARAM)0;
@@ -64,7 +68,7 @@ int Boot_Process(VPARAM Param)
 	HANDLE	hCon;
 	HANDLE	hDriver;
 	
-
+	
 	/*************************/
 	/*     デバドラ登録      */
 	/*************************/
@@ -75,21 +79,22 @@ int Boot_Process(VPARAM Param)
 	
 	/* ターミナルを開く */
 	hTty = File_Open("/dev/com0", FILE_OPEN_READ | FILE_OPEN_WRITE);
-
+	
 	/* /dev/com0 の上に VT100コンソールを形成 */
 	hDriver = Vt100Drv_Create(hTty);
 	File_AddDevice("con0", hDriver);
-
+	
 	/* コンソールを開く */
 	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
-
-
+	
+	
 	/*************************/
 	/*     標準入出力設定    */
 	/*************************/
 	
 	Process_SetTerminal(HANDLE_NULL, hTty);
-	Process_SetConsole(HANDLE_NULL, hCon);
+	Process_SetConIn(HANDLE_NULL, hCon);
+	Process_SetConOut(HANDLE_NULL, hCon);
 	Process_SetStdIn(HANDLE_NULL, hCon);
 	Process_SetStdOut(HANDLE_NULL, hCon);
 	Process_SetStdErr(HANDLE_NULL, hCon);
@@ -109,7 +114,7 @@ int Boot_Process(VPARAM Param)
 			"================================================================\n"
 			" Hyper Operating System  Application Framework\n"
 			"\n"
-			"                          Copyright (C) 1998-2008 by Project HOS\n"
+			"                          Copyright (C) 1998-2010 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");

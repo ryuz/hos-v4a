@@ -2,7 +2,7 @@
 //  Hyper Operating System V4a  コンフィギュレーター                           
 //    ATT_ISR API の処理                                                      
 //                                                                            
-//                                    Copyright (C) 1998-2002 by Project HOS  
+//                                    Copyright (C) 1998-2010 by Project HOS  
 //                                    http://sourceforge.jp/projects/hos/     
 // ---------------------------------------------------------------------------
 
@@ -181,6 +181,4 @@ void  CApiAttIsr::WriteCfgIni(FILE* fp)
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2006 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

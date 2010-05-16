@@ -74,7 +74,7 @@ unsigned __stdcall _kernel_ctx_int(void *param)
 
 	/* %jp{コンテキスト情報取得} */
 	ctxcb = (_KERNEL_T_CTXCB *)param;
-
+	
 	for ( ; ; )
 	{
 		/* %jp{開始待ち} */
