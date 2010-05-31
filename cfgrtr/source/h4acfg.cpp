@@ -4,7 +4,7 @@
  * @file  hos4cfg.cpp
  * @brief %jp{メインルーチン}%en{main}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2010 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 

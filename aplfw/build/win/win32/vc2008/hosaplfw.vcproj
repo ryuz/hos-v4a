@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../..;../../../../../kernel/include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1311,6 +1311,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="time"
+				>
+				<File
+					RelativePath="..\..\..\..\system\time\time.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\time\time_getsystemtime.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\time\time_wait.c"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="application"
@@ -1339,6 +1355,30 @@
 					</File>
 					<File
 						RelativePath="..\..\..\..\application\filecmd\filelist\filelist_main.c"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="filedump"
+					>
+					<File
+						RelativePath="..\..\..\..\application\filecmd\filedump\filedump.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\filecmd\filedump\filedump_main.c"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="filecat"
+					>
+					<File
+						RelativePath="..\..\..\..\application\filecmd\filecat\filecat.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\filecmd\filecat\filecat_main.c"
 						>
 					</File>
 				</Filter>
@@ -1414,6 +1454,42 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="commandlist"
+					>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\commandlist\commandlist.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\commandlist\commandlist_main.c"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="processlist"
+					>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\processlist\processlist.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\processlist\processlist_main.c"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="processsignal"
+					>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\processsignal\processsignal.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\syscmd\processsignal\processsignal_main.c"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="flashcmd"
@@ -1443,6 +1519,62 @@
 					</File>
 					<File
 						RelativePath="..\..\..\..\application\example\hello\hello_main.c"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="fatcmd"
+				>
+				<Filter
+					Name="fatmount"
+					>
+					<File
+						RelativePath="..\..\..\..\application\fatcmd\fatmount\fatmount.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\fatcmd\fatmount\fatmount_main.c"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="utility"
+				>
+				<Filter
+					Name="memdump"
+					>
+					<File
+						RelativePath="..\..\..\..\application\utility\memdump\memdump.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\utility\memdump\memdump_main.c"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="memwrite"
+					>
+					<File
+						RelativePath="..\..\..\..\application\utility\memwrite\memwrite.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\utility\memwrite\memwrite_main.c"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="timecmd"
+					>
+					<File
+						RelativePath="..\..\..\..\application\utility\timecmd\timecmd.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\..\application\utility\timecmd\timecmd_main.c"
 						>
 					</File>
 				</Filter>
@@ -1911,6 +2043,26 @@
 					</File>
 				</Filter>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="parser"
+			>
+			<File
+				RelativePath="..\..\..\..\..\kernel\include\parser\parserr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\kernel\include\parser\parshok.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\kernel\include\parser\parsknl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\kernel\include\parser\parssys.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\..\..\..\hosaplfw.h"

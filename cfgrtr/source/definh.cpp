@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
+//  Hyper Operating System V4a  コンフィギュレーター                           
 //    DEF_INH API の処理                                                      
 //                                                                            
-//                                    Copyright (C) 1998-2002 by Project HOS  
+//                                    Copyright (C) 1998-2010 by Project HOS  
 //                                    http://sourceforge.jp/projects/hos/     
 // ---------------------------------------------------------------------------
 

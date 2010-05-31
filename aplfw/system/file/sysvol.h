@@ -17,6 +17,7 @@
 
 #include "system/file/file.h"
 #include "system/file/volumeobj.h"
+#include "library/container/assoc/assoc.h"
 
 
 #define DEVVOL_MAX_DEVICE		16
@@ -26,7 +27,6 @@
 struct c_drvobj;
 typedef struct t_sysvol_devinf
 {
-	char			szName[DEVVOL_MAX_NAME];		/* デバイス名 */
 	HANDLE			hDriver;						/* デバイスドライバのハンドル */
 	int				iAttr;							/* デバイスの属性 */
 } T_SYSVOL_DEVINF;
@@ -36,8 +36,7 @@ typedef struct t_sysvol_devinf
 typedef struct c_sysvol
 {
 	C_VOLUMEOBJ		VolumeObj;		/* ボリュームオブジェクトを継承 */
-	
-	T_SYSVOL_DEVINF DevTable[DEVVOL_MAX_DEVICE];
+	C_ASSOC			asDevice;		/* デバイスの連想配列 */
 } C_SYSVOL;
 
 

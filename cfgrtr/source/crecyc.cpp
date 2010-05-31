@@ -1,10 +1,11 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4 Advance コンフィギュレーター
-//    CRE_CYC API の処理
-//
-//                                    Copyright (C) 1998-2009 by Project HOS
+//  Hyper Operating System V4 Advance  configurator
+//    CRE_CYC API
+//                                                                            
+//                                    Copyright (C) 1998-2010 by Project HOS
 //                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
+
 
 
 #include <stdio.h>
@@ -340,6 +341,4 @@ void  CApiCreCyc::WriteCfgStart(FILE* fp)
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

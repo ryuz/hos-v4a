@@ -14,7 +14,7 @@
 
 
 /* %jp{メモリマップドレジスタ定義} */
-#define _KERNEL_IRC_BASE			0xf0000000
+#define _KERNEL_IRC_BASE				0xffff8000
 
 #define _KERNEL_IRC_ENABLE				((volatile       UW *)(_KERNEL_IRC_BASE + 0x00))		/* Enable Register */
 #define _KERNEL_IRC_MASK				((volatile       UW *)(_KERNEL_IRC_BASE + 0x04))		/* Mask Register */

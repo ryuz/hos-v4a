@@ -15,23 +15,17 @@
 /* システムボリュームに登録されたデバイスを取り外し */
 FILE_ERR SysVol_RemoveDevice(HANDLE hSysVol, const char *pszName)
 {
-	C_SYSVOL	*self;
-	int			i;
+	C_SYSVOL		*self;
 	
 	self = (C_SYSVOL *)hSysVol;
-
-
-	/* テーブルを検索 */
-	for ( i = 0; i < DEVVOL_MAX_DEVICE; i++ )
+	
+	/* 登録解除 */
+	if ( Assoc_Remove(&self->asDevice, pszName) != ASSOC_ERR_OK )
 	{
-		if ( strcmp(self->DevTable[i].szName, pszName) == 0 )
-		{
-			self->DevTable[i].hDriver = HANDLE_NULL;
-			return FILE_ERR_OK;
-		}
+		return FILE_ERR_NG;
 	}
-		
-	return FILE_ERR_NG;	
+	
+	return FILE_ERR_OK;
 }
 
 

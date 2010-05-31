@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_ALM API の処理                                                      
+//  Hyper Operating System V4 Advance  configurator
+//    CRE_ALM API
 //                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//                                    Copyright (C) 1998-2010 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -253,6 +253,4 @@ void  CApiCreAlm::WriteCfgStart(FILE* fp)
 }
 
 
-// ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS                                    
-// ---------------------------------------------------------------------------
+// end of file

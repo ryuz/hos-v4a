@@ -19,9 +19,10 @@
 /* ファイルを開く */
 HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 {
-	C_SYSVOL	*self;
-	int			iLen;
-	int			i;
+	C_SYSVOL		*self;
+	T_SYSVOL_DEVINF	*pDevInf;
+	char			szName[DEVVOL_MAX_NAME];
+	int				iLen;
 	
 	/* upper cast */
 	self = (C_SYSVOL *)pDrvObj;
@@ -46,19 +47,13 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		return hDir;
 	}
 	
-	/* 下位デバイスを検索 */
-	for ( i = 0; i < DEVVOL_MAX_DEVICE; i++ )
+	/* 名前部分探索 */
+	for ( iLen =0; pszPath[iLen] != '\0' && pszPath[iLen] != '/'; iLen++ )
 	{
-		/* 名前部分探索 */
-		for ( iLen =0; pszPath[iLen] != '\0' && pszPath[iLen] != '/'; iLen++ )
-			;
-		
-		if ( self->DevTable[i].hDriver != HANDLE_NULL && strncmp(pszPath, self->DevTable[i].szName, iLen) == 0 && self->DevTable[i].szName[iLen] == '\0' )
-		{
-			break;
-		}
+		szName[iLen] = pszPath[iLen];
 	}
-	if ( i >= DEVVOL_MAX_DEVICE )
+	szName[iLen] = '\0';
+	if ( (pDevInf = (T_SYSVOL_DEVINF *)Assoc_Get(&self->asDevice, szName)) == NULL )
 	{
 		return HANDLE_NULL;
 	}
@@ -68,7 +63,8 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 		iLen++;
 	}
 	
-	return DrvObj_vOpen((C_DRVOBJ *)self->DevTable[i].hDriver, &pszPath[iLen], iMode);
+	/* 下位デバイスを検索 */
+	return DrvObj_vOpen((C_DRVOBJ *)pDevInf->hDriver, &pszPath[iLen], iMode);
 }
 
 

@@ -25,6 +25,20 @@
 #include "driver/serial/winsock/winsockdrv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "application/syscmd/shell/shell.h"
+#include "application/syscmd/shell/shell.h"
+#include "application/syscmd/commandlist/commandlist.h"
+#include "application/syscmd/processlist/processlist.h"
+#include "application/syscmd/whiteboardcmd/whiteboardcmd.h"
+#include "application/filecmd/filelist/filelist.h"
+#include "application/filecmd/filecopy/filecopy.h"
+#include "application/filecmd/filedump/filedump.h"
+#include "application/filecmd/filecat/filecat.h"
+#include "application/fatcmd/fatmount/fatmount.h"
+#include "application/utility/timecmd/timecmd.h"
+#include "application/utility/memdump/memdump.h"
+#include "application/utility/memwrite/memwrite.h"
+#include "application/utility/memtest/memtest.h"
+#include "application/utility/keytest/keytest.h"
 #include "application/example/hello/hello.h"
 #include "boot.h"
 
@@ -104,9 +118,18 @@ int Boot_Process(VPARAM Param)
 	/*     コマンド登録      */
 	/*************************/
 	Command_Initialize();
-	Command_AddCommand("sh",     Shell_Main);
-	Command_AddCommand("hello",  Hello_Main);
-	
+	Command_AddCommand("sh",         Shell_Main);
+	Command_AddCommand("help",       CommandList_Main);
+	Command_AddCommand("hello",      Hello_Main);
+	Command_AddCommand("whiteboard", WhiteboardCmd_Main);
+	Command_AddCommand("time",       TimeCmd_Main);
+	Command_AddCommand("memdump",    MemDump_Main);
+	Command_AddCommand("memwrite",   MemWrite_Main);
+	Command_AddCommand("ps",         ProcessList_Main);
+	Command_AddCommand("ls",         FileList_Main);
+	Command_AddCommand("cp",         FileCopy_Main);
+	Command_AddCommand("cat",        FileCat_Main);
+	Command_AddCommand("hello",      Hello_Main);
 	
 	/* 起動メッセージ */
 	StdIo_PutString(

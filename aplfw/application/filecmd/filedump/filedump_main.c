@@ -53,9 +53,8 @@ int FileDump_Main(int argc, char *argv[])
 	{
 		return 1;
 	}
-	ulPos = File_Seek(hFile, ulPos, FILE_SEEK_SET);
-
-	
+	ulPos = (unsigned long)File_Seek(hFile, ulPos, FILE_SEEK_SET);
+		
 	/* バッファ確保 */
 	pubBuf = (unsigned char *)Memory_Alloc(FILEDUMP_BUFSIZE);
 	if ( pubBuf == NULL )

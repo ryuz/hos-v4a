@@ -15,24 +15,20 @@
 /* システムボリュームにデバイスをぶら下げる */
 FILE_ERR SysVol_AddDevice(HANDLE hSysVol, const char *pszName, HANDLE hDriver, int iAttr)
 {
-	C_SYSVOL	*self;
-	int			i;
+	T_SYSVOL_DEVINF	DevInf;
+	C_SYSVOL		*self;
 	
 	self = (C_SYSVOL *)hSysVol;
 	
-	/* テーブルの空きを検索 */
-	for ( i = 0; i < DEVVOL_MAX_DEVICE; i++ )
+	/* 登録 */
+	DevInf.hDriver = hDriver;
+	DevInf.iAttr   = iAttr;
+	if ( Assoc_Add(&self->asDevice, pszName, &DevInf, sizeof(T_SYSVOL_DEVINF)) != ASSOC_ERR_OK )
 	{
-		if ( self->DevTable[i].hDriver == HANDLE_NULL )
-		{
-			strcpy(self->DevTable[i].szName, pszName);
-			self->DevTable[i].hDriver = hDriver;
-			self->DevTable[i].iAttr   = iAttr;
-			return FILE_ERR_OK;
-		}
+		return FILE_ERR_NG;	
 	}
-	
-	return FILE_ERR_NG;	
+
+	return FILE_ERR_OK;
 }
 
 

@@ -28,22 +28,33 @@ FILE_ERR SysVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 	{
 	case FILE_IOCTL_DIR_READ:
 		{
-			T_FILE_FILEINF *pFileInf;
+			T_FILE_FILEINF	*pFileInf;
+			const char		*pszName;
 			
 			pFileInf = (T_FILE_FILEINF *)pInBuf;
 			
-			if ( self->DevTable[pFile->iReadPtr].hDriver != HANDLE_NULL )
+			if ( pFile->posRead == ASSOC_POS_NULL )
 			{
-				strcpy(pFileInf->szFileName, self->DevTable[pFile->iReadPtr].szName);
+				pFile->posRead = Assoc_GetFirst(&self->asDevice);
+			}
+			else
+			{
+				pFile->posRead = Assoc_GetNext(&self->asDevice, pFile->posRead);
+			}
+
+			if ( pFile->posRead != ASSOC_POS_NULL )
+			{
+				T_SYSVOL_DEVINF	*pDevInf;
+				
+				pDevInf = (T_SYSVOL_DEVINF *)Assoc_GetAt(&self->asDevice, pFile->posRead, &pszName);
+				strcpy(pFileInf->szFileName, pszName);
 				pFileInf->FileSize  = 0;
-				pFileInf->Attribute = self->DevTable[pFile->iReadPtr].iAttr;				
-				if ( File_GetDriverInformation(self->DevTable[pFile->iReadPtr].hDriver, pFileInf->szInformation, sizeof(pFileInf->szInformation)) != FILE_ERR_OK )
+				pFileInf->Attribute = pDevInf->iAttr;				
+				if ( File_GetDriverInformation(pDevInf->hDriver, pFileInf->szInformation, sizeof(pFileInf->szInformation)) != FILE_ERR_OK )
 				{
 					pFileInf->szInformation[0] = '\0';
 				}
 				pFileInf->szInformation[sizeof(pFileInf->szInformation) - 1] = '\0';
-				pFile->iReadPtr++;
-				
 				return FILE_ERR_OK;
 			}
 		}

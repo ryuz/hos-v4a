@@ -27,7 +27,7 @@ ER get_tim(SYSTIM *p_system)
 		return E_PAR;
 	}
 #endif
-
+	
 	_KERNEL_ENTER_SVC();		/* %jp{サービスコールに入る}%en{enter service-call} */
 
 	*p_system = *_KERNEL_SYS_GET_TIM();

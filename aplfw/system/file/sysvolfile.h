@@ -16,7 +16,7 @@
 
 
 #include "system/file/fileobj.h"
-
+#include "library/container/assoc/assoc.h"
 
 struct c_sysvol;
 
@@ -24,8 +24,9 @@ struct c_sysvol;
 typedef struct c_sysvolfile
 {
 	C_FILEOBJ	FileObj;			/* ディレクトリオブジェクトを継承 */
-	
-	int			iReadPtr;			/* リードポインタ */
+	ASSOC_POS	posRead;
+
+/*	int			iReadPtr;	*/		/* リードポインタ */
 } C_SYSVOLFILE;
 
 

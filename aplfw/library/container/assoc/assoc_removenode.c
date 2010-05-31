@@ -26,11 +26,15 @@ static void Assoc_SetParentLink(C_ASSOC *self, T_ASSOC_NODE *pNode, T_ASSOC_NODE
 	{
 		if ( pNode->pParent->pLeft == pNode )
 		{
-			pNode->pParent->pLeft = pNewNode;
+			pNode->pParent->pLeft  = pNewNode;
 		}
 		else
 		{
 			pNode->pParent->pRight = pNewNode;
+		}
+		if ( pNewNode != NULL )
+		{
+			pNewNode->pParent = pNode->pParent;
 		}
 	}
 }

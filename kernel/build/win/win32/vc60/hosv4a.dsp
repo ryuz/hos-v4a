@@ -707,6 +707,10 @@ SOURCE=..\..\..\..\source\object\isr\acre_isr.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\isr\del_isr.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\isr\exe_isr.c
 # End Source File
 # Begin Source File
@@ -883,7 +887,15 @@ SOURCE=..\..\..\..\source\object\dtq\cre_dtq.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\source\object\dtq\del_dtq.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\source\object\dtq\fsnd_dtq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\ipsnd_dt.c
 # End Source File
 # Begin Source File
 
@@ -892,6 +904,10 @@ SOURCE=..\..\..\..\source\object\dtq\kcre_dtq.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\dtq\prcv_dtq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\psnd_dtq.c
 # End Source File
 # Begin Source File
 
@@ -904,6 +920,10 @@ SOURCE=..\..\..\..\source\object\dtq\snd_dtq.c
 # Begin Source File
 
 SOURCE=..\..\..\..\source\object\dtq\trcv_dtq.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\source\object\dtq\tsnd_dtq.c
 # End Source File
 # End Group
 # Begin Group "cyc"

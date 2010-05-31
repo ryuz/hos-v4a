@@ -1,10 +1,12 @@
-// ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    構文解析クラス                                                          
-//                                                                            
-//                                    Copyright (C) 1998-2002 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
-// ---------------------------------------------------------------------------
+/**
+ *  Hyper Operating System V4 Advance Configurator
+ *
+ * @file  analyze.cpp
+ * @brief  %jp{構文解析クラス}%en{lexer cless}
+ *
+ * Copyright (C) 1998-2010 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
 
 
 #include <stdio.h>

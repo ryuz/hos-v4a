@@ -17,7 +17,7 @@
 ER def_inh(INHNO inhno, const T_DINH *pk_dinh)
 {
 	_KERNEL_INH_SET_INTHDR(inhno, pk_dinh->inthdr);
-
+	
 	return E_OK;
 }
 

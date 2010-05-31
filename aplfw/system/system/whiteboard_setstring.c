@@ -27,7 +27,7 @@ void Whiteboard_SetString(const char *pszKey, const char *pszValue)
 	{
 		self->paWhiteBoard = Assoc_CreateEx(SysMem_GetMemHeap());
 	}
-
+	
 	if ( self->paWhiteBoard != NULL )
 	{
 		if ( pszValue == NULL )

@@ -33,7 +33,7 @@ void _kernel_exe_isr(INTNO intno)
 	{
 		isrcb    = _KERNEL_ISR_ISRHDL2ISRCB(isrhdl);
 		isrcb_ro = _KERNEL_ISR_ISRHDL2ISRCBRO(isrhdl);
-
+		
 		_KERNEL_ENA_INT();			/* %jp{多重割込み許可} */
 		_KERNEL_ISR_GET_ISR(isrcb_ro)(_KERNEL_ISR_GET_EXINF(isrcb_ro));
 		_KERNEL_DIS_INT();			/* %jp{割込み禁止} */

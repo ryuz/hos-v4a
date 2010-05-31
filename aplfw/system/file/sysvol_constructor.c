@@ -17,16 +17,13 @@
 /* コンストラクタ */
 void SysVol_Constructor(C_SYSVOL *self, const T_VOLUMEOBJ_METHODS *pMethods)
 {
-	int i;
+/*	int i;	*/
 	
 	/* 親クラスコンストラクタ呼び出し */
 	VolumeObj_Constructor(&self->VolumeObj, pMethods);	
 	
 	/* メンバ変数初期化 */
-	for ( i = 0; i < DEVVOL_MAX_DEVICE; i++ )
-	{
-		self->DevTable[i].hDriver = HANDLE_NULL;
-	}
+	Assoc_Constructor(&self->asDevice, SysMem_GetMemHeap());
 }
 
 

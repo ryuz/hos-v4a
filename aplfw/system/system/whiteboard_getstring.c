@@ -15,7 +15,7 @@
 
 
 /* ホワイトボードから文字列を取得 */
-const char   *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSize, const char *pszDefault)
+const char *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSize, const char *pszDefault)
 {
 	C_SYSTEM	*self;
 	const char	*pszValue = NULL;
@@ -28,7 +28,7 @@ const char   *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSiz
 	{
 		pszValue = Assoc_Get(self->paWhiteBoard, pszKey);
 	}
-
+	
 	if ( pszValue == NULL )
 	{
 		pszValue = pszDefault;

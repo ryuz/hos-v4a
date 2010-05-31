@@ -142,6 +142,12 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 # %jp{カーネル依存関係読込み}{dependency list of kernel sources}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
+$(OBJS_DIR)/val_int.$(EXT_OBJ):		$(SRC_PROC_DIR)/val_int.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/kini_irc.$(EXT_OBJ):	$(SRC_IRC_DIR)/kini_irc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/kexe_irc.$(EXT_OBJ):	$(SRC_IRC_DIR)/kexe_irc.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/dis_int.$(EXT_OBJ):		$(SRC_IRC_DIR)/dis_int.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/ena_int.$(EXT_OBJ):		$(SRC_IRC_DIR)/ena_int.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/vclr_int.$(EXT_OBJ):	$(SRC_IRC_DIR)/vclr_int.c	$(COMMON_HEADERS)
 
 
 # end of file

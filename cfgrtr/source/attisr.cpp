@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4a  コンフィギュレーター                           
-//    ATT_ISR API の処理                                                      
+//  Hyper Operating System V4 Advance  configurator
+//    ATT_ISR API
 //                                                                            
-//                                    Copyright (C) 1998-2010 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//                                    Copyright (C) 1998-2010 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 

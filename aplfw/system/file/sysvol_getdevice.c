@@ -4,7 +4,7 @@
  * @file  sysvol.h
  * @brief %jp{システムボリューム}
  *
- * Copyright (C) 2006-2007 by Project HOS
+ * Copyright (C) 2006-2010 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -15,21 +15,18 @@
 /* システムボリュームに登録されたデバイスを検索 */
 HANDLE SysVol_GetDevice(HANDLE hSysVol, const char *pszName)
 {
-	C_SYSVOL	*self;
-	int			i;
+	T_SYSVOL_DEVINF	*pDevInf;
+	C_SYSVOL		*self;
 	
 	self = (C_SYSVOL *)hSysVol;
 	
-	/* テーブルを検索 */
-	for ( i = 0; i < DEVVOL_MAX_DEVICE; i++ )
+	/* 検索 */
+	if ( (pDevInf = (T_SYSVOL_DEVINF *)Assoc_Get(&self->asDevice, pszName)) == NULL )
 	{
-		if ( strcmp(self->DevTable[i].szName, pszName) == 0 )
-		{
-			return self->DevTable[i].hDriver;
-		}
+		return HANDLE_NULL;	
 	}
 	
-	return HANDLE_NULL;	
+	return pDevInf->hDriver;
 }
 
 

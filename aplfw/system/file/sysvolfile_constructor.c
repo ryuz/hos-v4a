@@ -21,7 +21,7 @@ void SysVolFile_Constructor(C_SYSVOLFILE *self, const T_FILEOBJ_METHODS *pMethod
 	FileObj_Constructor(&self->FileObj, pMethods, &pSysVol->VolumeObj.DrvObj, iMode);
 	
 	/* メンバ変数初期化 */
-	self->iReadPtr = 0;
+	self->posRead = ASSOC_POS_NULL;
 }
 
 

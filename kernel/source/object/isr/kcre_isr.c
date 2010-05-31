@@ -74,7 +74,7 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 			return E_NOMEM;
 		}
 #endif
-
+		
 		/* %jp{メモリ割り当て} */
 		isrcb    = (_KERNEL_T_ISRCB *)mem;
 		isrcb_ro = (_KERNEL_T_ISRCB_RO *)mem;
@@ -82,7 +82,7 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 	}
 #endif
 #endif
-
+	
 	/* %jp{メンバ初期化} */
 	_KERNEL_ISR_SET_EXINF(isrcb_ro, pk_cisr->exinf);
 	_KERNEL_ISR_SET_ISR(isrcb_ro, pk_cisr->isr);

@@ -1,10 +1,12 @@
-// ---------------------------------------------------------------------------
-//  Hyper Operating System V4 Advance コンフィギュレーター
-//    API定義クラス
-//
-//                                    Copyright (C) 1998-2009 by Project HOS
-//                                    http://sourceforge.jp/projects/hos/
-// ---------------------------------------------------------------------------
+/**
+ *  Hyper Operating System V4 Advance Configurator
+ *
+ * @file  apidef.cpp
+ * @brief  %jp{API定義クラス}%en{API definition cless}
+ *
+ * Copyright (C) 1998-2010 by Project HOS
+ * http://sourceforge.jp/projects/hos/
+ */
 
 
 #include <stdio.h>

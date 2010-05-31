@@ -78,11 +78,11 @@ int NorFlash_Constructor(C_NORFLASH *self, unsigned long uwBaseAddr, int iDevTyp
 			
 			/* クエリチェック */
 			uhData = puhBaseAddr[0x10];
-			ubQry[0] = uhData;
+			ubQry[0] = (unsigned char)uhData;
 			uhData = puhBaseAddr[0x11];
-			ubQry[1] = uhData;
+			ubQry[1] = (unsigned char)uhData;
 			uhData = puhBaseAddr[0x12];
-			ubQry[2] = uhData;
+			ubQry[2] = (unsigned char)uhData;
 			if ( ubQry[0] != 'Q' || ubQry[1] != 'R' || ubQry[2] != 'Y' )
 			{
 				return 1;
@@ -90,11 +90,11 @@ int NorFlash_Constructor(C_NORFLASH *self, unsigned long uwBaseAddr, int iDevTyp
 			
 			/* デバイスサイズ */
 			uhData = puhBaseAddr[0x27];
-			self->ubDevSize = uhData;
+			self->ubDevSize = (unsigned char)uhData;
 			
 			/* 消去ブロック数 */
 			uhData = puhBaseAddr[0x2c];
-			self->ubBlockNum = uhData;
+			self->ubBlockNum = (unsigned char)uhData;
 			
 			/* メモリ確保 */
 			if ( self->ubBlockNum > 0 )
