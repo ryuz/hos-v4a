@@ -14,10 +14,11 @@
 #include "system/system/system_local.h"
 
 
-/* ホワイトボードに文字列を設定 */
-void Whiteboard_SetString(const char *pszKey, const char *pszValue)
+/* ホワイトボードに数値を設定 */
+void Whiteboard_SetInteger(const char *pszKey, unsigned long ulValue)
 {
 	C_SYSTEM	*self;
+	char		szBuf[16];
 	
 	self = &g_System;
 	
@@ -28,17 +29,8 @@ void Whiteboard_SetString(const char *pszKey, const char *pszValue)
 		self->paWhiteBoard = Assoc_CreateEx(SysMem_GetMemHeap());
 	}
 	
-	if ( self->paWhiteBoard != NULL )
-	{
-		if ( pszValue == NULL )
-		{
-			Assoc_Remove(self->paWhiteBoard, pszKey);
-		}
-		else
-		{
-			Assoc_Set(self->paWhiteBoard, pszKey, pszValue, strlen(pszValue) + 1);
-		}
-	}
+	StringFormat_FormatString(szBuf, sizeof(szBuf), "%lu", ulValue);
+	Assoc_Set(self->paWhiteBoard, pszKey, szBuf, strlen(szBuf) + 1);
 	
 	System_Unlock();
 }
