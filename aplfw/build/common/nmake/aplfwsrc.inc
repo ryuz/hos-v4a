@@ -241,6 +241,10 @@ CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_setstring.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_setstring.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_getstring.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_getstring.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_setinteger.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_setinteger.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_getinteger.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_getinteger.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(SYSTEM_DIR)\whiteboard_getnextkey.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\whiteboard_getnextkey.$(EXT_OBJ)
 !endif

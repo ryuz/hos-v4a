@@ -26,6 +26,8 @@
 				"system_unlock.c",
 				"whiteboard_setstring.c",
 				"whiteboard_getstring.c",
+				"whiteboard_setinteger.c",
+				"whiteboard_getinteger.c",
 				"whiteboard_getnextkey.c",
 			],
 		],

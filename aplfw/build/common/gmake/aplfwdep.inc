@@ -17,6 +17,8 @@ $(OBJS_DIR)/system_lock.$(EXT_OBJ):	$(SYSTEM_DIR)/system_lock.c	$(COMMON_HEADERS
 $(OBJS_DIR)/system_unlock.$(EXT_OBJ):	$(SYSTEM_DIR)/system_unlock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/whiteboard_setstring.$(EXT_OBJ):	$(SYSTEM_DIR)/whiteboard_setstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/whiteboard_getstring.$(EXT_OBJ):	$(SYSTEM_DIR)/whiteboard_getstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)/whiteboard_setinteger.$(EXT_OBJ):	$(SYSTEM_DIR)/whiteboard_setinteger.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)/whiteboard_getinteger.$(EXT_OBJ):	$(SYSTEM_DIR)/whiteboard_getinteger.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/whiteboard_getnextkey.$(EXT_OBJ):	$(SYSTEM_DIR)/whiteboard_getnextkey.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/sysapi_initialize.$(EXT_OBJ):	$(SYSAPI_DIR)/sysapi_initialize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)/sysctx_isisr.$(EXT_OBJ):	$(SYSAPI_DIR)/sysctx_isisr.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)

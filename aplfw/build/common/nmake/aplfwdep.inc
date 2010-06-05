@@ -47,6 +47,12 @@ $(OBJS_DIR)\whiteboard_setstring.c : $(SYSTEM_DIR)\whiteboard_setstring.c
 $(OBJS_DIR)\whiteboard_getstring.c : $(SYSTEM_DIR)\whiteboard_getstring.c
 	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_getstring.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\whiteboard_setinteger.c : $(SYSTEM_DIR)\whiteboard_setinteger.c
+	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_setinteger.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\whiteboard_getinteger.c : $(SYSTEM_DIR)\whiteboard_getinteger.c
+	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_getinteger.c $(OBJS_DIR)\
+
 $(OBJS_DIR)\whiteboard_getnextkey.c : $(SYSTEM_DIR)\whiteboard_getnextkey.c
 	$(CMD_CP) $(SYSTEM_DIR)\whiteboard_getnextkey.c $(OBJS_DIR)\
 
@@ -2184,6 +2190,8 @@ $(OBJS_DIR)\system_lock.$(EXT_OBJ):	$(OBJS_DIR)\system_lock.c	$(COMMON_HEADERS) 
 $(OBJS_DIR)\system_unlock.$(EXT_OBJ):	$(OBJS_DIR)\system_unlock.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\whiteboard_setstring.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_setstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\whiteboard_getstring.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_getstring.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\whiteboard_setinteger.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_setinteger.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
+$(OBJS_DIR)\whiteboard_getinteger.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_getinteger.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 $(OBJS_DIR)\whiteboard_getnextkey.$(EXT_OBJ):	$(OBJS_DIR)\whiteboard_getnextkey.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)
 
 $(OBJS_DIR)\sysapi_initialize.$(EXT_OBJ):	$(OBJS_DIR)\sysapi_initialize.c	$(COMMON_HEADERS) $(SYSTEM_HEADERS)

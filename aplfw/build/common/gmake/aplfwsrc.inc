@@ -109,6 +109,8 @@ CSRCS += $(SYSTEM_DIR)/system_lock.c
 CSRCS += $(SYSTEM_DIR)/system_unlock.c
 CSRCS += $(SYSTEM_DIR)/whiteboard_setstring.c
 CSRCS += $(SYSTEM_DIR)/whiteboard_getstring.c
+CSRCS += $(SYSTEM_DIR)/whiteboard_setinteger.c
+CSRCS += $(SYSTEM_DIR)/whiteboard_getinteger.c
 CSRCS += $(SYSTEM_DIR)/whiteboard_getnextkey.c
 endif
 
