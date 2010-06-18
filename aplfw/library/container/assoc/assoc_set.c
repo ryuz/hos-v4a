@@ -52,7 +52,21 @@ ASSOC_ERR Assoc_Set(C_ASSOC *self, const char *pszKey, const void *pData, long l
 			pNode->pParent = pOldNode->pParent;
 			pNode->pLeft   = pOldNode->pLeft;
 			pNode->pRight  = pOldNode->pRight;
-			if ( pNode->pParent == NULL ) { self->pRoot    = pNode; }
+			if ( pNode->pParent != NULL )
+			{
+				if ( pNode->pParent->pLeft == pOldNode )
+				{
+					pNode->pParent->pLeft = pNode;
+				}
+				else
+				{
+					pNode->pParent->pRight = pNode;
+				}
+			}
+			else
+			{
+				self->pRoot    = pNode;
+			}
 			if ( pNode->pLeft   != NULL ) { pNode->pLeft->pParent  = pNode; }
 			if ( pNode->pRight  != NULL ) { pNode->pRight->pParent = pNode; }
 			MemHeap_Free(self->pMemHeap, pOldNode);

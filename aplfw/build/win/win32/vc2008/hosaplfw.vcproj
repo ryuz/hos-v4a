@@ -987,11 +987,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\system\system\whiteboard_getinteger.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\system\whiteboard_getnextkey.c"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\system\whiteboard_getstring.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\system\whiteboard_setinteger.c"
 					>
 				</File>
 				<File

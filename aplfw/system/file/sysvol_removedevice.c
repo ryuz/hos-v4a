@@ -15,7 +15,7 @@
 /* システムボリュームに登録されたデバイスを取り外し */
 FILE_ERR SysVol_RemoveDevice(HANDLE hSysVol, const char *pszName)
 {
-	C_SYSVOL		*self;
+	C_SYSVOL	*self;
 	
 	self = (C_SYSVOL *)hSysVol;
 	
