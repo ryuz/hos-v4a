@@ -38,6 +38,8 @@ void _kernel_cyc_hdr(_KERNEL_T_TIMOBJ *pk_timobj, RELTIM ovrtim)
 		/* %jp{ ハンドラ内で自身が停止されていたら処理を打ち切る} */
 		if ( !_KERNEL_SYS_BSY_TMQ(pk_timobj) )
 		{
+
+			break;
 			return;	
 		}
 		

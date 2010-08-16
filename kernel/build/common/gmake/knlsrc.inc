@@ -69,6 +69,8 @@ MTXOBJ_HEADERS = $(KERNEL_INC_DIR)/object/mtxobj.h
 
 MPFOBJ_HEADERS = $(KERNEL_INC_DIR)/object/mpfobj.h
 
+CYCOBJ_HEADERS = $(KERNEL_INC_DIR)/object/cycobj.h
+
 INHOBJ_HEADERS = $(KERNEL_INC_DIR)/object/inhobj.h
 
 ISROBJ_HEADERS = $(KERNEL_INC_DIR)/object/isrobj.h
@@ -303,6 +305,19 @@ CSRCS += $(MPFOBJ_DIR)/kcre_mpf.c
 CSRCS += $(MPFOBJ_DIR)/get_mpf.c
 CSRCS += $(MPFOBJ_DIR)/pget_mpf.c
 CSRCS += $(MPFOBJ_DIR)/rel_mpf.c
+
+
+# Cycle
+CYCOBJ_DIR = $(KERNEL_OBJ_DIR)/cyc
+SRC_DIRS += $(CYCOBJ_DIR)
+CSRCS += $(CYCOBJ_DIR)/cre_cyc.c
+CSRCS += $(CYCOBJ_DIR)/acre_cyc.c
+CSRCS += $(CYCOBJ_DIR)/kcre_cyc.c
+CSRCS += $(CYCOBJ_DIR)/kcyc_hdr.c
+CSRCS += $(CYCOBJ_DIR)/del_cyc.c
+CSRCS += $(CYCOBJ_DIR)/sta_cyc.c
+CSRCS += $(CYCOBJ_DIR)/stp_cyc.c
+CSRCS += $(CYCOBJ_DIR)/ref_cyc.c
 
 
 # System Time Management

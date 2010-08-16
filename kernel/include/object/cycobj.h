@@ -164,7 +164,7 @@ extern const ID							_kernel_max_cycid;										/**< %jp{周期ハンドラID�
 extern  _KERNEL_T_CYCCB					_kernel_cyccb_tbl[];									/**< %jp{周期ハンドラコントロールブロックテーブル} */
 extern const _KERNEL_T_CYCCB_RO			_kernel_cyccb_ro_tbl[];									/**< %jp{周期ハンドラコントロールブロック(リードオンリー部)テーブル} */
 #define _KERNEL_CYC_ID2CYCCB(cycid)		(&_kernel_cyccb_tbl[(cycid) - _KERNEL_CYC_TMIN_ID])		/**< %jp{コントロールブロックの取得} */
-#define _KERNEL_CYC_CYCCB2ID(cyccb)		(((cyccb) - _kernel_cyccb_tbl) + _KERNEL_CYC_TMIN_ID])	/**< %jp{IDの取得} */
+#define _KERNEL_CYC_CYCCB2ID(cyccb)		(((cyccb) - &_kernel_cyccb_tbl[0]) + _KERNEL_CYC_TMIN_ID])	/**< %jp{IDの取得} */
 #define _KERNEL_CYC_CHECK_EXS(cycid)	(_kernel_cyccb_ro_tbl[(cycid) - _KERNEL_CYC_TMIN_ID].cychdr != NULL)				
 																								/**< %jp{オブジェクトの存在チェック} */
 

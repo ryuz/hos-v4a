@@ -97,6 +97,7 @@ ER _kernel_cre_cyc(ID cycid, const T_CCYC *pk_ccyc)
 	_KERNEL_TIMOBJ_CRE_TIMOBJ(pk_timobj);
 	_KERNEL_TIMOBJ_SET_TIMHDR(pk_timobj, _kernel_cyc_hdr);
 	_KERNEL_CYC_SET_CYCATR(cyccb_ro, pk_ccyc->cycatr);
+	_KERNEL_CYC_SET_EXINF(cyccb_ro, pk_ccyc->exinf);
 	_KERNEL_CYC_SET_CYCHDR(cyccb_ro, pk_ccyc->cychdr);
 	_KERNEL_CYC_SET_CYCTIM(cyccb_ro, pk_ccyc->cyctim);
 	_KERNEL_CYC_SET_CYCPHS(cyccb_ro, pk_ccyc->cycphs);
