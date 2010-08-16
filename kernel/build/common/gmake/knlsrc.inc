@@ -307,25 +307,25 @@ CSRCS += $(MPFOBJ_DIR)/pget_mpf.c
 CSRCS += $(MPFOBJ_DIR)/rel_mpf.c
 
 
-# Cycle
-CYCOBJ_DIR = $(KERNEL_OBJ_DIR)/cyc
-SRC_DIRS += $(CYCOBJ_DIR)
-CSRCS += $(CYCOBJ_DIR)/cre_cyc.c
-CSRCS += $(CYCOBJ_DIR)/acre_cyc.c
-CSRCS += $(CYCOBJ_DIR)/kcre_cyc.c
-CSRCS += $(CYCOBJ_DIR)/kcyc_hdr.c
-CSRCS += $(CYCOBJ_DIR)/del_cyc.c
-CSRCS += $(CYCOBJ_DIR)/sta_cyc.c
-CSRCS += $(CYCOBJ_DIR)/stp_cyc.c
-CSRCS += $(CYCOBJ_DIR)/ref_cyc.c
-
-
 # System Time Management
 TIMOBJ_DIR = $(KERNEL_OBJ_DIR)/tim
 SRC_DIRS += $(TIMOBJ_DIR)
 CSRCS += $(TIMOBJ_DIR)/set_tim.c
 CSRCS += $(TIMOBJ_DIR)/get_tim.c
 CSRCS += $(TIMOBJ_DIR)/isig_tim.c
+
+
+# Cyclic Handlers
+CYCOBJ_DIR = $(KERNEL_OBJ_DIR)/cyc
+SRC_DIRS += $(CYCOBJ_DIR)
+CSRCS += $(CYCOBJ_DIR)/cre_cyc.c
+CSRCS += $(CYCOBJ_DIR)/acre_cyc.c
+CSRCS += $(CYCOBJ_DIR)/kcre_cyc.c
+CSRCS += $(CYCOBJ_DIR)/del_cyc.c
+CSRCS += $(CYCOBJ_DIR)/sta_cyc.c
+CSRCS += $(CYCOBJ_DIR)/stp_cyc.c
+CSRCS += $(CYCOBJ_DIR)/ref_cyc.c
+CSRCS += $(CYCOBJ_DIR)/kcyc_hdr.c
 
 
 # Interrupt handlers

@@ -38,14 +38,14 @@ ER _kernel_cre_isr(ID isrid, const T_CISR *pk_cisr)
 		/* %jp{ISRCB領域がポインタ管理で、ROM/RAM分離の場合} */
 		VP   mem;
 		SIZE memsz;
-
+		
 		/* %jp{メモリサイズ決定} */
 		memsz = _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_ISRCB))
 					+ _KERNEL_SYS_ALG_HEP(sizeof(_KERNEL_T_ISRCB_RO));
-
+		
 		/* %jp{メモリ確保} */
 		mem = _KERNEL_SYS_ALC_HEP(memsz);
-
+		
 		/* %jp{メモリ不足チェック} */
 #if _KERNEL_SPT_KCRE_ISR_E_NOMEM
 		if ( mem == NULL )

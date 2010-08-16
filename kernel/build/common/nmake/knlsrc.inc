@@ -69,6 +69,8 @@ MTXOBJ_HEADERS = $(KERNEL_INC_DIR)\object\mtxobj.h
 
 MPFOBJ_HEADERS = $(KERNEL_INC_DIR)\object\mpfobj.h
 
+CYCOBJ_HEADERS = $(KERNEL_INC_DIR)\object\cycobj.h
+
 INHOBJ_HEADERS = $(KERNEL_INC_DIR)\object\inhobj.h
 
 ISROBJ_HEADERS = $(KERNEL_INC_DIR)\object\isrobj.h
@@ -434,6 +436,26 @@ CSRCS = $(CSRCS) $(TIMOBJ_DIR)\isig_tim.c
 OBJS = $(OBJS) $(OBJS_DIR)\set_tim.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\get_tim.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\isig_tim.$(EXT_OBJ)
+
+
+# Cyclic Handlers
+CYCOBJ_DIR = $(KERNEL_OBJ_DIR)\cyc
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\cre_cyc.c
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\acre_cyc.c
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\kcre_cyc.c
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\del_cyc.c
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\sta_cyc.c
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\stp_cyc.c
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\ref_cyc.c
+CSRCS = $(CSRCS) $(CYCOBJ_DIR)\kcyc_hdr.c
+OBJS = $(OBJS) $(OBJS_DIR)\cre_cyc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\acre_cyc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kcre_cyc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\del_cyc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\sta_cyc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\stp_cyc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\ref_cyc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\kcyc_hdr.$(EXT_OBJ)
 
 
 # Interrupt handlers

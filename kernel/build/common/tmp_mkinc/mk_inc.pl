@@ -254,6 +254,20 @@
 		"isig_tim.c",
 	],
 	[
+		"Cyclic Handlers",
+		"\$(COMMON_HEADERS) \$(CYCOBJ_HEADERS)",
+		"\$(KERNEL_OBJ_DIR)/cyc",
+		"CYCOBJ_DIR",
+		"cre_cyc.c",
+		"acre_cyc.c",
+		"kcre_cyc.c",
+		"del_cyc.c",
+		"sta_cyc.c",
+		"stp_cyc.c",
+		"ref_cyc.c",
+		"kcyc_hdr.c",
+	],
+	[
 		"Interrupt handlers",
 		"\$(COMMON_HEADERS) \$(INHOBJ_HEADERS)",
 		"\$(KERNEL_OBJ_DIR)/inh",
@@ -325,6 +339,8 @@ MBXOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/mbxobj.h
 MTXOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/mtxobj.h
 
 MPFOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/mpfobj.h
+
+CYCOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/cycobj.h
 
 INHOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/inhobj.h
 

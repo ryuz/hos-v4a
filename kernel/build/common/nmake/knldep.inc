@@ -456,6 +456,31 @@ $(OBJS_DIR)\isig_tim.c : $(TIMOBJ_DIR)\isig_tim.c
 	$(CMD_CP) $(TIMOBJ_DIR)\isig_tim.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\cre_cyc.c : $(CYCOBJ_DIR)\cre_cyc.c
+	$(CMD_CP) $(CYCOBJ_DIR)\cre_cyc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\acre_cyc.c : $(CYCOBJ_DIR)\acre_cyc.c
+	$(CMD_CP) $(CYCOBJ_DIR)\acre_cyc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\kcre_cyc.c : $(CYCOBJ_DIR)\kcre_cyc.c
+	$(CMD_CP) $(CYCOBJ_DIR)\kcre_cyc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\del_cyc.c : $(CYCOBJ_DIR)\del_cyc.c
+	$(CMD_CP) $(CYCOBJ_DIR)\del_cyc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\sta_cyc.c : $(CYCOBJ_DIR)\sta_cyc.c
+	$(CMD_CP) $(CYCOBJ_DIR)\sta_cyc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\stp_cyc.c : $(CYCOBJ_DIR)\stp_cyc.c
+	$(CMD_CP) $(CYCOBJ_DIR)\stp_cyc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\ref_cyc.c : $(CYCOBJ_DIR)\ref_cyc.c
+	$(CMD_CP) $(CYCOBJ_DIR)\ref_cyc.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\kcyc_hdr.c : $(CYCOBJ_DIR)\kcyc_hdr.c
+	$(CMD_CP) $(CYCOBJ_DIR)\kcyc_hdr.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\def_inh.c : $(INHOBJ_DIR)\def_inh.c
 	$(CMD_CP) $(INHOBJ_DIR)\def_inh.c $(OBJS_DIR)\
 
@@ -646,6 +671,15 @@ $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\rel_mpf.c	$(COMMON_HEADERS) $(MPFOB
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\set_tim.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\get_tim.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\isig_tim.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\cre_cyc.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\acre_cyc.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcre_cyc.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\del_cyc.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sta_cyc.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\stp_cyc.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\ref_cyc.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
+$(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\kcyc_hdr.c	$(COMMON_HEADERS) $(CYCOBJ_HEADERS)
 
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\def_inh.c	$(COMMON_HEADERS) $(INHOBJ_HEADERS)
 $(OBJS_DIR)\exe_isr..$(EXT_OBJ):	$(OBJS_DIR)\sta_inh.c	$(COMMON_HEADERS) $(INHOBJ_HEADERS)
