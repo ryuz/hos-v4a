@@ -30,7 +30,7 @@ __kernel_int_hdr:
 				mov		__kernel_ictxcb, a0
 				movbu	(4, a0), d0
 				add		1, d0
-				movbu	d0, (12, a0)
+				movbu	d0, (4, a0)
 				cmp		1, d0
 				bne		multiple_int
 				
