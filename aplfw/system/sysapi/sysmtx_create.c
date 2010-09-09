@@ -21,7 +21,7 @@ SYSMTX_HANDLE SysMtx_Create(int iAttr)
 	ER_ID	erid;
 
 	/* ロック用セマフォ生成 */
-	cmtx.mtxatr  = TA_TPRI | TA_INHERIT;
+	cmtx.mtxatr  = TA_INHERIT;
 	erid = acre_mtx(&cmtx);
 	if ( erid < 0 )
 	{
