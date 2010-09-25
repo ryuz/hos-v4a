@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{452F2A61-BECE-429E-8CE4-C57DF3A259CD}</ProjectGuid>
+    <RootNamespace>hosaplfw</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../..;../../../../../kernel/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile.h" />
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile_local.h" />
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatvol.h" />
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatvol_local.h" />
+    <ClInclude Include="..\..\..\..\driver\console\vt100\vt100drv.h" />
+    <ClInclude Include="..\..\..\..\driver\console\vt100\vt100drv_local.h" />
+    <ClInclude Include="..\..\..\..\driver\serial\winsock\winsockdrv.h" />
+    <ClInclude Include="..\..\..\..\driver\serial\winsock\winsockdrv_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\console.h" />
+    <ClInclude Include="..\..\..\..\system\file\drvobj.h" />
+    <ClInclude Include="..\..\..\..\system\file\drvobj_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\file.h" />
+    <ClInclude Include="..\..\..\..\system\file\file_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\fileobj.h" />
+    <ClInclude Include="..\..\..\..\system\file\fileobj_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\stdfile.h" />
+    <ClInclude Include="..\..\..\..\system\file\syncdrv.h" />
+    <ClInclude Include="..\..\..\..\system\file\syncdrv_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\syncfile.h" />
+    <ClInclude Include="..\..\..\..\system\file\syncfile_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\sysvol.h" />
+    <ClInclude Include="..\..\..\..\system\file\sysvol_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\sysvolfile.h" />
+    <ClInclude Include="..\..\..\..\system\file\sysvolfile_local.h" />
+    <ClInclude Include="..\..\..\..\system\file\volume.h" />
+    <ClInclude Include="..\..\..\..\system\file\volumeobj.h" />
+    <ClInclude Include="..\..\..\..\system\file\volumeobj_local.h" />
+    <ClInclude Include="..\..\..\..\system\type\type.h" />
+    <ClInclude Include="..\..\..\..\system\command\command.h" />
+    <ClInclude Include="..\..\..\..\system\process\process.h" />
+    <ClInclude Include="..\..\..\..\system\process\process_local.h" />
+    <ClInclude Include="..\..\..\..\system\system\system.h" />
+    <ClInclude Include="..\..\..\..\system\system\system_local.h" />
+    <ClInclude Include="..\..\..\..\system\sysapi\sysapi.h" />
+    <ClInclude Include="..\..\..\..\system\sysapi\sysapi_local.h" />
+    <ClInclude Include="..\..\..\..\system\handle\handle.h" />
+    <ClInclude Include="..\..\..\..\system\handle\handleobj.h" />
+    <ClInclude Include="..\..\..\..\system\handle\handleobj_local.h" />
+    <ClInclude Include="..\..\..\..\system\memory\memory.h" />
+    <ClInclude Include="..\..\..\..\system\sysmem\sysmemheap.h" />
+    <ClInclude Include="..\..\..\..\system\sysmem\sysmemheap_local.h" />
+    <ClInclude Include="..\..\..\..\system\event\event.h" />
+    <ClInclude Include="..\..\..\..\system\event\event_local.h" />
+    <ClInclude Include="..\..\..\..\system\time\time.h" />
+    <ClInclude Include="..\..\..\..\application\filecmd\filecopy\filecopy.h" />
+    <ClInclude Include="..\..\..\..\application\filecmd\filelist\filelist.h" />
+    <ClInclude Include="..\..\..\..\application\filecmd\filedump\filedump.h" />
+    <ClInclude Include="..\..\..\..\application\filecmd\filecat\filecat.h" />
+    <ClInclude Include="..\..\..\..\application\syscmd\whiteboardcmd\whiteboardcmd.h" />
+    <ClInclude Include="..\..\..\..\application\syscmd\shell\shell.h" />
+    <ClInclude Include="..\..\..\..\application\syscmd\shell\shell_local.h" />
+    <ClInclude Include="..\..\..\..\application\syscmd\commandlist\commandlist.h" />
+    <ClInclude Include="..\..\..\..\application\syscmd\processlist\processlist.h" />
+    <ClInclude Include="..\..\..\..\application\syscmd\processsignal\processsignal.h" />
+    <ClInclude Include="..\..\..\..\application\flashcmd\norflashcmd\norflashcmd.h" />
+    <ClInclude Include="..\..\..\..\application\example\hello\hello.h" />
+    <ClInclude Include="..\..\..\..\application\fatcmd\fatmount\fatmount.h" />
+    <ClInclude Include="..\..\..\..\application\utility\memdump\memdump.h" />
+    <ClInclude Include="..\..\..\..\application\utility\memwrite\memwrite.h" />
+    <ClInclude Include="..\..\..\..\application\utility\timecmd\timecmd.h" />
+    <ClInclude Include="..\..\..\..\library\utility\memutil\memutil.h" />
+    <ClInclude Include="..\..\..\..\library\container\assoc\assoc.h" />
+    <ClInclude Include="..\..\..\..\library\container\assoc\assoc_local.h" />
+    <ClInclude Include="..\..\..\..\library\container\automemheap\automemheap.h" />
+    <ClInclude Include="..\..\..\..\library\container\automemheap\automemheap_local.h" />
+    <ClInclude Include="..\..\..\..\library\container\fixmemheap\fixmemheap.h" />
+    <ClInclude Include="..\..\..\..\library\container\fixmemheap\fixmemheap_local.h" />
+    <ClInclude Include="..\..\..\..\library\container\valmemheap\valmemheap.h" />
+    <ClInclude Include="..\..\..\..\library\container\valmemheap\valmemheap_local.h" />
+    <ClInclude Include="..\..\..\..\library\container\memheap\memheap.h" />
+    <ClInclude Include="..\..\..\..\library\container\memheap\memheap_local.h" />
+    <ClInclude Include="..\..\..\..\library\container\hashtable\hashtable.h" />
+    <ClInclude Include="..\..\..\..\library\container\hashtable\hashtable_local.h" />
+    <ClInclude Include="..\..\..\..\library\container\streambuf\streambuf.h" />
+    <ClInclude Include="..\..\..\..\library\container\streambuf\streambuf_local.h" />
+    <ClInclude Include="..\..\..\..\library\algorithm\stringformat\stringformat.h" />
+    <ClInclude Include="..\..\..\..\library\algorithm\stringformat\stringformat_local.h" />
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parserr.h" />
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parshok.h" />
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parsknl.h" />
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parssys.h" />
+    <ClInclude Include="..\..\..\..\hosaplfw.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_constructor.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_create.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_delete.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_destructor.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_alloccluster.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_close.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_clusterread.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_clusterwrite.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_constructor.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_create.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_delete.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_destructor.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_flush.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_flushclusterbuf.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_flushfat.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_freecluster.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_getclusterbuf.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_getnextcluster.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_makedir.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_open.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_read.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_relclusterbuf.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_remove.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_seek.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_setnextcluster.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_shutdown.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_syncfilesize.c" />
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_write.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_close.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_constructor.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_create.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_delete.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_destructor.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_flush.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_getch.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_open.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_read.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_seek.c" />
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_write.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_close.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_constructor.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_create.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_delete.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_destructor.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_flush.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_isr.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_open.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_read.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_recv.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_seek.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_send.c" />
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_write.c" />
+    <ClCompile Include="..\..\..\..\system\file\console_getch.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_close.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_flush.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_open.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_read.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_seek.c" />
+    <ClCompile Include="..\..\..\..\system\file\drvobj_write.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_adddevice.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_addvolume.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_close.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_driveropen.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_getchar.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_getdriverinformation.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_getstring.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_getvolume.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_initialize.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_open.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_printformat.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_printformatv.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_putchar.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_putstring.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_read.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_readdir.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_relpathtoabspath.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_removevolume.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_seek.c" />
+    <ClCompile Include="..\..\..\..\system\file\file_write.c" />
+    <ClCompile Include="..\..\..\..\system\file\fileobj_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\fileobj_create.c" />
+    <ClCompile Include="..\..\..\..\system\file\fileobj_delete.c" />
+    <ClCompile Include="..\..\..\..\system\file\fileobj_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\stdio_printformat.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_endprocess.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_sendsignal.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_startprocess.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncfile_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncfile_create.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncfile_delete.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncfile_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\syncfile_setsignal.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_adddevice.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_close.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_create.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_delete.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_getdevice.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_open.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvol_removedevice.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_create.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_delete.c" />
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\volume_shutdown.c" />
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_create.c" />
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_delete.c" />
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_makedir.c" />
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_remove.c" />
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_shutdown.c" />
+    <ClCompile Include="..\..\..\..\system\command\command.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_create.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_createex.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_delete.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_entersystemmode.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_exit.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getcommandline.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getconin.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getconout.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getcurrentdir.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getcurrenthandle.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getexecutiontime.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getexitcode.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getparam.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getparentprocess.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getstderr.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getstdin.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getstdout.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getterminal.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_issystemmode.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_leavesystemmode.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_sendsignal.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setconin.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setconout.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setcurrentdir.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setparam.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setsignalproc.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setstderr.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setstdin.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setstdout.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_setterminal.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_waitexit.c" />
+    <ClCompile Include="..\..\..\..\system\system\system_getnextprocess.c" />
+    <ClCompile Include="..\..\..\..\system\system\system_getsystemprocess.c" />
+    <ClCompile Include="..\..\..\..\system\system\system_initialize.c" />
+    <ClCompile Include="..\..\..\..\system\system\system_lock.c" />
+    <ClCompile Include="..\..\..\..\system\system\system_process.c" />
+    <ClCompile Include="..\..\..\..\system\system\system_requestproc.c" />
+    <ClCompile Include="..\..\..\..\system\system\system_unlock.c" />
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_getinteger.c" />
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_getnextkey.c" />
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_getstring.c" />
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_setinteger.c" />
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_setstring.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysapi_initialize.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysctx_isisr.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_clear.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_create.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_delete.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_set.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_wait.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\syshos_hook.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysint_clear.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysint_disable.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysint_enable.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysio_allociomem.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysio_freeiomem.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysisr_create.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysisr_delete.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysloc_lock.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysloc_unlock.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_alloc.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_free.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_getmemheap.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_getsize.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_realloc.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_create.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_delete.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_lock.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_unlock.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_create.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_delete.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_getcurrenthandle.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_getparam.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_resume.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_sendsignal.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_setsignalhandler.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_start.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_suspend.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_terminate.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_cputimetonanosecond.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_cputimetosecond.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_getcputime.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_getsystemtime.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_signal.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_systimetonanosecond.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_systimetosecond.c" />
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_wait.c" />
+    <ClCompile Include="..\..\..\..\system\handle\handle_close.c" />
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_create.c" />
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_delete.c" />
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\memory\memory.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_alignsize.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_alloc.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_free.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_getalign.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_getsize.c" />
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_realloc.c" />
+    <ClCompile Include="..\..\..\..\system\event\event_clear.c" />
+    <ClCompile Include="..\..\..\..\system\event\event_create.c" />
+    <ClCompile Include="..\..\..\..\system\event\event_delete.c" />
+    <ClCompile Include="..\..\..\..\system\event\event_set.c" />
+    <ClCompile Include="..\..\..\..\system\event\event_wait.c" />
+    <ClCompile Include="..\..\..\..\system\time\time_getsystemtime.c" />
+    <ClCompile Include="..\..\..\..\system\time\time_wait.c" />
+    <ClCompile Include="..\..\..\..\application\filecmd\filecopy\filecopy_main.c" />
+    <ClCompile Include="..\..\..\..\application\filecmd\filelist\filelist_main.c" />
+    <ClCompile Include="..\..\..\..\application\filecmd\filedump\filedump_main.c" />
+    <ClCompile Include="..\..\..\..\application\filecmd\filecat\filecat_main.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\whiteboardcmd\whiteboardcmd_main.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_create.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_curleft.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_curright.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_delete.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_executecommand.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_executescript.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_inputline.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_interactive.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_main.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_putchar.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_replaceline.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\commandlist\commandlist_main.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\processlist\processlist_main.c" />
+    <ClCompile Include="..\..\..\..\application\syscmd\processsignal\processsignal_main.c" />
+    <ClCompile Include="..\..\..\..\application\flashcmd\norflashcmd\norflashcmd_main.c" />
+    <ClCompile Include="..\..\..\..\application\example\hello\hello_main.c" />
+    <ClCompile Include="..\..\..\..\application\fatcmd\fatmount\fatmount_main.c" />
+    <ClCompile Include="..\..\..\..\application\utility\memdump\memdump_main.c" />
+    <ClCompile Include="..\..\..\..\application\utility\memwrite\memwrite_main.c" />
+    <ClCompile Include="..\..\..\..\application\utility\timecmd\timecmd_main.c" />
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memcopyb.c" />
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memcopyh.c" />
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memcopyw.c" />
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memsetb.c" />
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memseth.c" />
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memsetw.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_add.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_addnode.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_constructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_create.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_createex.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_delete.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_destructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_get.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getat.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getfirst.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getminnode.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getnext.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getnode.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getpos.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_remove.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_removenode.c" />
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_set.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_alignsize.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_alloc.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_constructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_create.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_delete.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_destructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_free.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_getalign.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_getsize.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_realloc.c" />
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_searchheap.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_alignsize.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_alloc.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_constructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_create.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_delete.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_free.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_getalign.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_getsize.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_ismember.c" />
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_realloc.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_alignsize.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_alloc.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_constructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_free.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_getalign.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_getsize.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_ismember.c" />
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_realloc.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_constructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_create.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_createex.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_createnode.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_delete.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_destructor.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_findclose.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_findnext.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_findopen.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_get.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_remove.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_removeall.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_searchnode.c" />
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_set.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_clear.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_create.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_getbuf.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_recvbuf.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_recvchar.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_recvdata.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_refdatasize.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_reffreesize.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_relbuf.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_sendbuf.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_sendchar.c" />
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_senddata.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_decimal.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_format.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_formatstring.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_formatstringv.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_formatv.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_hexadecimal.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_nibble.c" />
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_string.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

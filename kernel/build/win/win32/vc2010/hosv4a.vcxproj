@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4BF8992D-EEF4-4895-82AB-2BB59BB1A803}</ProjectGuid>
+    <RootNamespace>hosv4a</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\include;..\..\..\..\include\arch\proc\win\win32;..\..\..\..\include\arch\irc\simple;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\itron.h" />
+    <ClInclude Include="..\..\..\..\include\kernel.h" />
+    <ClInclude Include="..\..\..\..\include\arch\irc\simple\irc.h" />
+    <ClInclude Include="..\..\..\..\include\arch\irc\simple\ircatr.h" />
+    <ClInclude Include="..\..\..\..\include\arch\proc\win\win32\proc.h" />
+    <ClInclude Include="..\..\..\..\include\arch\proc\win\win32\procatr.h" />
+    <ClInclude Include="..\..\..\..\include\core\adtq.h" />
+    <ClInclude Include="..\..\..\..\include\core\basetyp.h" />
+    <ClInclude Include="..\..\..\..\include\core\chkptr.h" />
+    <ClInclude Include="..\..\..\..\include\core\cmpl.h" />
+    <ClInclude Include="..\..\..\..\include\core\core.h" />
+    <ClInclude Include="..\..\..\..\include\core\dpc.h" />
+    <ClInclude Include="..\..\..\..\include\core\dsp.h" />
+    <ClInclude Include="..\..\..\..\include\core\hep.h" />
+    <ClInclude Include="..\..\..\..\include\core\objhdl.h" />
+    <ClInclude Include="..\..\..\..\include\core\objid.h" />
+    <ClInclude Include="..\..\..\..\include\core\que.h" />
+    <ClInclude Include="..\..\..\..\include\core\rdq.h" />
+    <ClInclude Include="..\..\..\..\include\core\sys.h" />
+    <ClInclude Include="..\..\..\..\include\core\tim.h" />
+    <ClInclude Include="..\..\..\..\include\core\tmq.h" />
+    <ClInclude Include="..\..\..\..\include\core\toq.h" />
+    <ClInclude Include="..\..\..\..\include\config\cfgerr.h" />
+    <ClInclude Include="..\..\..\..\include\config\cfghok.h" />
+    <ClInclude Include="..\..\..\..\include\config\cfgknl.h" />
+    <ClInclude Include="..\..\..\..\include\config\cfgsys.h" />
+    <ClInclude Include="..\..\..\..\include\object\cycobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\dtqobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\flgobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\inhobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\isrobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\mbxobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\mpfobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\mtxobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\semobj.h" />
+    <ClInclude Include="..\..\..\..\include\object\tskobj.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\object\cyc\acre_cyc.c" />
+    <ClCompile Include="..\..\..\..\source\object\cyc\cre_cyc.c" />
+    <ClCompile Include="..\..\..\..\source\object\cyc\kcre_cyc.c" />
+    <ClCompile Include="..\..\..\..\source\object\cyc\kcyc_hdr.c" />
+    <ClCompile Include="..\..\..\..\source\object\cyc\sta_cyc.c" />
+    <ClCompile Include="..\..\..\..\source\object\cyc\stp_cyc.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\acre_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\cre_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\del_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\fsnd_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\ipsnd_dt.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\kcre_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\prcv_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\psnd_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\rcv_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\snd_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\trcv_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\dtq\tsnd_dtq.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\acre_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\act_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\can_act.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\can_wup.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\chg_pri.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\cre_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\def_tex.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\del_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\dly_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\ena_tex.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\exd_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\ext_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\frsm_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\get_pri.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\iact_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\irel_wai.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\iwup_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\kchg_pri.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\kcre_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\kexe_tex.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\ras_tex.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\ref_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\ref_tst.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\rel_wai.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\rsm_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\slp_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\sta_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\sus_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\tcb2id.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\ter_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\tget_que.c" />
+    <ClCompile Include="..\..\..\..\source\object\tsk\wup_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\acre_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\clr_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\cre_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\del_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\iset_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\kchk_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\kcre_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\pol_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\ref_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\set_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\twai_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\flg\wai_flg.c" />
+    <ClCompile Include="..\..\..\..\source\object\mpf\acre_mpf.c" />
+    <ClCompile Include="..\..\..\..\source\object\mpf\get_mpf.c" />
+    <ClCompile Include="..\..\..\..\source\object\mpf\kcre_mpf.c" />
+    <ClCompile Include="..\..\..\..\source\object\mpf\pget_mpf.c" />
+    <ClCompile Include="..\..\..\..\source\object\mpf\rel_mpf.c" />
+    <ClCompile Include="..\..\..\..\source\object\mpf\tget_mpf.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\acre_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\cre_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\del_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\kadd_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\kcre_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\krmv_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\loc_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\ploc_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\tloc_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mtx\unl_mtx.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\acre_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\cre_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\del_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\isig_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\kcre_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\pol_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\ref_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\sig_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\twai_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sem\wai_sem.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\dis_dsp.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\ena_dsp.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\get_tid.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\loc_cpu.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\sns_ctx.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\sns_dsp.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\sns_loc.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\sta_knl.c" />
+    <ClCompile Include="..\..\..\..\source\object\sys\unl_cpu.c" />
+    <ClCompile Include="..\..\..\..\source\object\tim\get_tim.c" />
+    <ClCompile Include="..\..\..\..\source\object\tim\isig_tim.c" />
+    <ClCompile Include="..\..\..\..\source\object\tim\set_tim.c" />
+    <ClCompile Include="..\..\..\..\source\object\inh\def_inh.c" />
+    <ClCompile Include="..\..\..\..\source\object\inh\end_inh.c" />
+    <ClCompile Include="..\..\..\..\source\object\inh\exe_inh.c" />
+    <ClCompile Include="..\..\..\..\source\object\inh\sta_inh.c" />
+    <ClCompile Include="..\..\..\..\source\object\isr\acre_isr.c" />
+    <ClCompile Include="..\..\..\..\source\object\isr\del_isr.c" />
+    <ClCompile Include="..\..\..\..\source\object\isr\exe_isr.c" />
+    <ClCompile Include="..\..\..\..\source\object\isr\kcre_isr.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\acre_mbx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\kadd_msq.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\kadf_msg.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\kadp_msg.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\kcre_mbx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\krmf_msg.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\krmp_msg.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\krmv_msq.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\rcv_mbx.c" />
+    <ClCompile Include="..\..\..\..\source\object\mbx\snd_mbx.c" />
+    <ClCompile Include="..\..\..\..\source\core\adtq\frcv_adq.c" />
+    <ClCompile Include="..\..\..\..\source\core\adtq\fsnd_adq.c" />
+    <ClCompile Include="..\..\..\..\source\core\adtq\rcv_adq.c" />
+    <ClCompile Include="..\..\..\..\source\core\adtq\reff_adq.c" />
+    <ClCompile Include="..\..\..\..\source\core\adtq\refs_adq.c" />
+    <ClCompile Include="..\..\..\..\source\core\adtq\snd_adq.c" />
+    <ClCompile Include="..\..\..\..\source\core\dpc\exe_dpc.c" />
+    <ClCompile Include="..\..\..\..\source\core\dpc\ini_dpc.c" />
+    <ClCompile Include="..\..\..\..\source\core\dpc\req_dpc.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_ext.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_rsm.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_sta.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_sus.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_ter.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_wai.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_wup.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\ent_tsk.c" />
+    <ClCompile Include="..\..\..\..\source\core\dsp\idl_lop.c" />
+    <ClCompile Include="..\..\..\..\source\core\hep\alc_hep.c" />
+    <ClCompile Include="..\..\..\..\source\core\hep\cre_hep.c" />
+    <ClCompile Include="..\..\..\..\source\core\hep\fre_hep.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\add_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\adf_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\adp_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\nxt_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\rmh_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\rmv_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\rot_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\que\trm_que.c" />
+    <ClCompile Include="..\..\..\..\source\core\rdq\add_rdq.c" />
+    <ClCompile Include="..\..\..\..\source\core\rdq\cre_rdq.c" />
+    <ClCompile Include="..\..\..\..\source\core\rdq\del_rdq.c" />
+    <ClCompile Include="..\..\..\..\source\core\rdq\ref_rdq.c" />
+    <ClCompile Include="..\..\..\..\source\core\rdq\rmh_rdq.c" />
+    <ClCompile Include="..\..\..\..\source\core\rdq\rmv_rdq.c" />
+    <ClCompile Include="..\..\..\..\source\core\tim\sig_tim.c" />
+    <ClCompile Include="..\..\..\..\source\core\tmq\add_tmq.c" />
+    <ClCompile Include="..\..\..\..\source\core\tmq\rmv_tmq.c" />
+    <ClCompile Include="..\..\..\..\source\core\tmq\sig_tmq.c" />
+    <ClCompile Include="..\..\..\..\source\core\toq\add_toq.c" />
+    <ClCompile Include="..\..\..\..\source\core\toq\rmv_toq.c" />
+    <ClCompile Include="..\..\..\..\source\core\toq\sig_toq.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kcre_ctx.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kdis_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kena_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kini_prc.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\krst_ctx.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\ksta_ctx.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kswi_ctx.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kwai_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\val_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\vsig_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\chg_ilv.c" />
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\chg_imsk.c" />
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\clr_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\dis_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\ena_int.c" />
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\get_ilv.c" />
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\get_imsk.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
