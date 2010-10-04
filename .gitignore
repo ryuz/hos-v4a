@@ -24,5 +24,6 @@ kernel_cfg.c
 *.vcproj.*
 *.suo
 *.sdf
+*.opensdf
 Debug/
 Release/
