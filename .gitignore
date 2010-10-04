@@ -1,0 +1,28 @@
+# configurator files
+*.i
+kernel_id.h
+kernel_cfg.c
+
+# output files
+*.elf
+*.bin
+*.hex
+*.mot
+*.map
+*.exe
+
+# liblary files
+*.a
+*.lib
+
+# object files
+*.o
+*.obj
+
+# VC++ file
+*.vcxproj.*
+*.vcproj.*
+*.suo
+*.sdf
+Debug/
+Release/
