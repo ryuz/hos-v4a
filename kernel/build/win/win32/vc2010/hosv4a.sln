@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hosv4a", "hosv4a.vcxproj", "{4BF8992D-EEF4-4895-82AB-2BB59BB1A803}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h4acfg", "..\..\..\..\..\cfgrtr\build\vc2008\h4acfg.vcxproj", "{6F535A30-2F71-4FF1-AC7F-FE5ADC7BEE0C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h4acfg", "..\..\..\..\..\cfgrtr\build\vc2010\h4acfg.vcxproj", "{6F535A30-2F71-4FF1-AC7F-FE5ADC7BEE0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

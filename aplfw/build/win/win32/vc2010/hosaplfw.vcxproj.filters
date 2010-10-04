@@ -1,0 +1,1456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="driver">
+      <UniqueIdentifier>{b703562e-8a8b-42a9-8a90-39e020a5ec3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\volume">
+      <UniqueIdentifier>{5e798b11-3fa8-4853-ad00-017b6efb12e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\volume\fat">
+      <UniqueIdentifier>{94eaf1dc-f621-417c-906e-365b871d510b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\console">
+      <UniqueIdentifier>{bf2508b0-f4ee-426c-9198-3f62cca372f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\console\vt100">
+      <UniqueIdentifier>{25d3376a-a7fe-432c-bed1-083add97e2fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\serial">
+      <UniqueIdentifier>{2ff6349b-f834-4cdf-a9aa-70bee3cf3c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\serial\winsock">
+      <UniqueIdentifier>{fe664af1-0ca1-4d1a-af3f-bac01636090d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system">
+      <UniqueIdentifier>{0e76954d-b628-431b-aca0-251ad20aea72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\file">
+      <UniqueIdentifier>{4a2f32d4-00dc-4258-af29-122615a77968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\type">
+      <UniqueIdentifier>{3d5f48a5-c42f-408d-8d12-42ab66100b90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\command">
+      <UniqueIdentifier>{dbf77d83-2b5c-4777-ab03-bbe666c64446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\process">
+      <UniqueIdentifier>{9b79de1f-dc9c-4a59-be6d-535521ebc2b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\system">
+      <UniqueIdentifier>{19e72e91-dda8-4a0b-a49d-d6985cd7d47d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\sysapi">
+      <UniqueIdentifier>{e29c394e-2145-4dfc-a4c3-fbbd722d43fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\handle">
+      <UniqueIdentifier>{90898c3d-f68b-4450-af47-dbbed8883f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\memory">
+      <UniqueIdentifier>{1a9d75f6-1706-4c95-ac39-544392bfe107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\sysmem">
+      <UniqueIdentifier>{fe48ca50-4cc2-4d3a-a1f4-c4736e2844b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\event">
+      <UniqueIdentifier>{f69d1837-6577-444b-a04b-82e12726cc59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\time">
+      <UniqueIdentifier>{cc61a88e-3cdf-4b92-8954-0bf10128a1e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application">
+      <UniqueIdentifier>{b5fb06e6-de96-4331-8c42-0e65924922f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\filecmd">
+      <UniqueIdentifier>{9eca767b-c361-4b73-9ae7-c691ae018f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\filecmd\filecopy">
+      <UniqueIdentifier>{e46fd0ba-de58-4e25-a6b5-ee99339d54cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\filecmd\filelist">
+      <UniqueIdentifier>{b5a79b90-65ec-4148-bff4-d86b81618dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\filecmd\filedump">
+      <UniqueIdentifier>{58369957-f9be-44de-adba-8619ba7f09c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\filecmd\filecat">
+      <UniqueIdentifier>{9ead1f66-c096-43a6-b45b-6ff2c0b0607b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\syscmd">
+      <UniqueIdentifier>{8fc56ba8-8fd0-4f30-9a76-314b5ba1ca08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\syscmd\whiteboardcmd">
+      <UniqueIdentifier>{533af07e-866d-4f79-9578-b0af02ea15f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\syscmd\shell">
+      <UniqueIdentifier>{e66df67a-c257-4c03-b877-0f3a08544e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\syscmd\commandlist">
+      <UniqueIdentifier>{cf4975ec-8447-494f-8acb-f77aaa3d9938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\syscmd\processlist">
+      <UniqueIdentifier>{8ed17d14-5ef9-4fd5-910e-d21ef5d1424d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\syscmd\processsignal">
+      <UniqueIdentifier>{e12513bc-1407-45fa-a775-66d1ff9d8af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\flashcmd">
+      <UniqueIdentifier>{ee87bb41-50e2-41c4-a660-701ae7357b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\flashcmd\norflashcmd">
+      <UniqueIdentifier>{2ee45f7e-acfe-462e-a0ba-28e0eda28661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\example">
+      <UniqueIdentifier>{eeb4fc49-713e-4872-a8bb-e965d90d7078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\example\hello">
+      <UniqueIdentifier>{f928ef16-9b81-4fa4-9010-17741f7bf357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\fatcmd">
+      <UniqueIdentifier>{6e07d526-da77-4ff6-ab9f-614a95b71c02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\fatcmd\fatmount">
+      <UniqueIdentifier>{7eb388a3-70f4-4ba5-a5a7-643c3d86b763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\utility">
+      <UniqueIdentifier>{e7d1b8d2-8a0c-41d6-bfbc-3c525d03437b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\utility\memdump">
+      <UniqueIdentifier>{52fb1a03-d4bf-43b1-8f54-7d08d3cc5c0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\utility\memwrite">
+      <UniqueIdentifier>{cfcfa74b-f194-4208-9065-f2af7f1ac69b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\utility\timecmd">
+      <UniqueIdentifier>{99f34dc8-4e38-44de-b36c-f8bd52ef632d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library">
+      <UniqueIdentifier>{531176d1-a727-42d8-91c8-ca712485b03b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\utility">
+      <UniqueIdentifier>{550a1a30-1748-4af9-a116-5d076234fb81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\utility\memutil">
+      <UniqueIdentifier>{105f2a6b-bf48-4437-8ef1-746a0dd15ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container">
+      <UniqueIdentifier>{d52e0248-55af-426b-af94-6e38483122f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container\assoc">
+      <UniqueIdentifier>{ec532d66-a60a-4985-9b2b-dc148294fd96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container\automemheap">
+      <UniqueIdentifier>{d31cc319-0eac-4b52-b07f-e58f8fb26039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container\fixmemheap">
+      <UniqueIdentifier>{0191d140-4752-484b-bbb9-9efbd8c3ab23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container\valmemheap">
+      <UniqueIdentifier>{27a7524c-c925-4a90-b3cd-7bc314cdd867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container\memheap">
+      <UniqueIdentifier>{753fca0c-7a84-4db2-a02c-8f6c6bd6813a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container\hashtable">
+      <UniqueIdentifier>{6618626d-8bc0-4ddb-a3b3-ae3b4ee30021}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\container\streambuf">
+      <UniqueIdentifier>{d263fd54-a53a-4791-936c-adf86641e5ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\algorithm">
+      <UniqueIdentifier>{d7e13474-2685-47fb-be8a-834bb9519f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\algorithm\stringformat">
+      <UniqueIdentifier>{50a6956a-aa08-4b87-8421-b45ab4e83cf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser">
+      <UniqueIdentifier>{6d2a1680-9496-4c80-9813-ff9b8e2f63c7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile.h">
+      <Filter>driver\volume\fat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile_local.h">
+      <Filter>driver\volume\fat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatvol.h">
+      <Filter>driver\volume\fat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\volume\fat\fatvol_local.h">
+      <Filter>driver\volume\fat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\console\vt100\vt100drv.h">
+      <Filter>driver\console\vt100</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\console\vt100\vt100drv_local.h">
+      <Filter>driver\console\vt100</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\serial\winsock\winsockdrv.h">
+      <Filter>driver\serial\winsock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\serial\winsock\winsockdrv_local.h">
+      <Filter>driver\serial\winsock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\console.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\drvobj.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\drvobj_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\file.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\file_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\fileobj.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\fileobj_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\stdfile.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\syncdrv.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\syncdrv_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\syncfile.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\syncfile_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\sysvol.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\sysvol_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\sysvolfile.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\sysvolfile_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\volume.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\volumeobj.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\volumeobj_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\type\type.h">
+      <Filter>system\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\command\command.h">
+      <Filter>system\command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\process\process.h">
+      <Filter>system\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\process\process_local.h">
+      <Filter>system\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\system\system.h">
+      <Filter>system\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\system\system_local.h">
+      <Filter>system\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\sysapi\sysapi.h">
+      <Filter>system\sysapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\sysapi\sysapi_local.h">
+      <Filter>system\sysapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\handle\handle.h">
+      <Filter>system\handle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\handle\handleobj.h">
+      <Filter>system\handle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\handle\handleobj_local.h">
+      <Filter>system\handle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\memory\memory.h">
+      <Filter>system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\sysmem\sysmemheap.h">
+      <Filter>system\sysmem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\sysmem\sysmemheap_local.h">
+      <Filter>system\sysmem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\event\event.h">
+      <Filter>system\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\event\event_local.h">
+      <Filter>system\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\time\time.h">
+      <Filter>system\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\filecmd\filecopy\filecopy.h">
+      <Filter>application\filecmd\filecopy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\filecmd\filelist\filelist.h">
+      <Filter>application\filecmd\filelist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\filecmd\filedump\filedump.h">
+      <Filter>application\filecmd\filedump</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\filecmd\filecat\filecat.h">
+      <Filter>application\filecmd\filecat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\syscmd\whiteboardcmd\whiteboardcmd.h">
+      <Filter>application\syscmd\whiteboardcmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\syscmd\shell\shell.h">
+      <Filter>application\syscmd\shell</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\syscmd\shell\shell_local.h">
+      <Filter>application\syscmd\shell</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\syscmd\commandlist\commandlist.h">
+      <Filter>application\syscmd\commandlist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\syscmd\processlist\processlist.h">
+      <Filter>application\syscmd\processlist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\syscmd\processsignal\processsignal.h">
+      <Filter>application\syscmd\processsignal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\flashcmd\norflashcmd\norflashcmd.h">
+      <Filter>application\flashcmd\norflashcmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\example\hello\hello.h">
+      <Filter>application\example\hello</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\fatcmd\fatmount\fatmount.h">
+      <Filter>application\fatcmd\fatmount</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\utility\memdump\memdump.h">
+      <Filter>application\utility\memdump</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\utility\memwrite\memwrite.h">
+      <Filter>application\utility\memwrite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\utility\timecmd\timecmd.h">
+      <Filter>application\utility\timecmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\utility\memutil\memutil.h">
+      <Filter>library\utility\memutil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\assoc\assoc.h">
+      <Filter>library\container\assoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\assoc\assoc_local.h">
+      <Filter>library\container\assoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\automemheap\automemheap.h">
+      <Filter>library\container\automemheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\automemheap\automemheap_local.h">
+      <Filter>library\container\automemheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\fixmemheap\fixmemheap.h">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\fixmemheap\fixmemheap_local.h">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\valmemheap\valmemheap.h">
+      <Filter>library\container\valmemheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\valmemheap\valmemheap_local.h">
+      <Filter>library\container\valmemheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\memheap\memheap.h">
+      <Filter>library\container\memheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\memheap\memheap_local.h">
+      <Filter>library\container\memheap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\hashtable\hashtable.h">
+      <Filter>library\container\hashtable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\hashtable\hashtable_local.h">
+      <Filter>library\container\hashtable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\streambuf\streambuf.h">
+      <Filter>library\container\streambuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\container\streambuf\streambuf_local.h">
+      <Filter>library\container\streambuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\algorithm\stringformat\stringformat.h">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\library\algorithm\stringformat\stringformat_local.h">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parserr.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parshok.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parsknl.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\kernel\include\parser\parssys.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\hosaplfw.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_constructor.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_create.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_delete.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_destructor.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_alloccluster.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_close.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_clusterread.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_clusterwrite.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_constructor.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_create.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_delete.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_destructor.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_flush.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_flushclusterbuf.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_flushfat.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_freecluster.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_getclusterbuf.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_getnextcluster.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_iocontrol.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_makedir.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_open.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_read.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_relclusterbuf.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_remove.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_seek.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_setnextcluster.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_shutdown.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_syncfilesize.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\volume\fat\fatvol_write.c">
+      <Filter>driver\volume\fat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_close.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_constructor.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_create.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_delete.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_destructor.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_flush.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_getch.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_iocontrol.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_open.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_read.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_seek.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\console\vt100\vt100drv_write.c">
+      <Filter>driver\console\vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_close.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_constructor.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_create.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_delete.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_destructor.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_flush.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_iocontrol.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_isr.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_open.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_read.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_recv.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_seek.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_send.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_write.c">
+      <Filter>driver\serial\winsock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\console_getch.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_close.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_flush.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_iocontrol.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_open.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_read.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_seek.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\drvobj_write.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_adddevice.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_addvolume.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_close.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_driveropen.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_getchar.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_getdriverinformation.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_getstring.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_getvolume.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_initialize.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_iocontrol.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_open.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_printformat.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_printformatv.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_putchar.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_putstring.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_read.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_readdir.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_relpathtoabspath.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_removevolume.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_seek.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\file_write.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_create.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_delete.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\stdio_printformat.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_endprocess.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_iocontrol.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_sendsignal.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncdrv_startprocess.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncfile_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncfile_create.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncfile_delete.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncfile_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\syncfile_setsignal.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_adddevice.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_close.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_create.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_delete.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_getdevice.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_iocontrol.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_open.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvol_removedevice.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_create.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_delete.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\sysvolfile_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volume_shutdown.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_create.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_delete.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_makedir.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_remove.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\volumeobj_shutdown.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\command\command.c">
+      <Filter>system\command</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_constructor.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_create.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_createex.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_delete.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_destructor.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_entersystemmode.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_exit.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getcommandline.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getconin.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getconout.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getcurrentdir.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getcurrenthandle.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getexecutiontime.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getexitcode.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getparam.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getparentprocess.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getstderr.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getstdin.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getstdout.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getterminal.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_issystemmode.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_leavesystemmode.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_sendsignal.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setconin.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setconout.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setcurrentdir.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setparam.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setsignalproc.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setstderr.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setstdin.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setstdout.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_setterminal.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_waitexit.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\system_getnextprocess.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\system_getsystemprocess.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\system_initialize.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\system_lock.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\system_process.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\system_requestproc.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\system_unlock.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_getinteger.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_getnextkey.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_getstring.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_setinteger.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\system\whiteboard_setstring.c">
+      <Filter>system\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysapi_initialize.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysctx_isisr.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_clear.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_create.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_delete.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_set.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysevt_wait.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\syshos_hook.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysint_clear.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysint_disable.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysint_enable.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysio_allociomem.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysio_freeiomem.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysisr_create.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysisr_delete.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysloc_lock.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysloc_unlock.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_alloc.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_free.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_getmemheap.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_getsize.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmem_realloc.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_create.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_delete.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_lock.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysmtx_unlock.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_create.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_delete.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_getcurrenthandle.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_getparam.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_resume.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_sendsignal.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_setsignalhandler.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_start.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_suspend.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\sysprc_terminate.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_cputimetonanosecond.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_cputimetosecond.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_getcputime.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_getsystemtime.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_signal.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_systimetonanosecond.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_systimetosecond.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysapi\systim_wait.c">
+      <Filter>system\sysapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\handle_close.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_constructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_create.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_delete.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\handleobj_destructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\memory\memory.c">
+      <Filter>system\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_alignsize.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_alloc.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_constructor.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_destructor.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_free.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_getalign.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_getsize.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_realloc.c">
+      <Filter>system\sysmem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\event\event_clear.c">
+      <Filter>system\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\event\event_create.c">
+      <Filter>system\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\event\event_delete.c">
+      <Filter>system\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\event\event_set.c">
+      <Filter>system\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\event\event_wait.c">
+      <Filter>system\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\time\time_getsystemtime.c">
+      <Filter>system\time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\time\time_wait.c">
+      <Filter>system\time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\filecmd\filecopy\filecopy_main.c">
+      <Filter>application\filecmd\filecopy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\filecmd\filelist\filelist_main.c">
+      <Filter>application\filecmd\filelist</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\filecmd\filedump\filedump_main.c">
+      <Filter>application\filecmd\filedump</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\filecmd\filecat\filecat_main.c">
+      <Filter>application\filecmd\filecat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\whiteboardcmd\whiteboardcmd_main.c">
+      <Filter>application\syscmd\whiteboardcmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_create.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_curleft.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_curright.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_delete.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_executecommand.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_executescript.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_inputline.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_interactive.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_main.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_putchar.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\shell\shell_replaceline.c">
+      <Filter>application\syscmd\shell</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\commandlist\commandlist_main.c">
+      <Filter>application\syscmd\commandlist</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\processlist\processlist_main.c">
+      <Filter>application\syscmd\processlist</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\syscmd\processsignal\processsignal_main.c">
+      <Filter>application\syscmd\processsignal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\flashcmd\norflashcmd\norflashcmd_main.c">
+      <Filter>application\flashcmd\norflashcmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\example\hello\hello_main.c">
+      <Filter>application\example\hello</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\fatcmd\fatmount\fatmount_main.c">
+      <Filter>application\fatcmd\fatmount</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\utility\memdump\memdump_main.c">
+      <Filter>application\utility\memdump</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\utility\memwrite\memwrite_main.c">
+      <Filter>application\utility\memwrite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\utility\timecmd\timecmd_main.c">
+      <Filter>application\utility\timecmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memcopyb.c">
+      <Filter>library\utility\memutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memcopyh.c">
+      <Filter>library\utility\memutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memcopyw.c">
+      <Filter>library\utility\memutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memsetb.c">
+      <Filter>library\utility\memutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memseth.c">
+      <Filter>library\utility\memutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\utility\memutil\memutil_memsetw.c">
+      <Filter>library\utility\memutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_add.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_addnode.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_constructor.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_create.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_createex.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_delete.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_destructor.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_get.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getat.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getfirst.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getminnode.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getnext.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getnode.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_getpos.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_remove.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_removenode.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\assoc\assoc_set.c">
+      <Filter>library\container\assoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_alignsize.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_alloc.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_constructor.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_create.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_delete.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_destructor.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_free.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_getalign.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_getsize.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_realloc.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\automemheap\automemheap_searchheap.c">
+      <Filter>library\container\automemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_alignsize.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_alloc.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_constructor.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_create.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_delete.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_free.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_getalign.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_getsize.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_ismember.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\fixmemheap\fixmemheap_realloc.c">
+      <Filter>library\container\fixmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_alignsize.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_alloc.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_constructor.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_free.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_getalign.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_getsize.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_ismember.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\valmemheap\valmemheap_realloc.c">
+      <Filter>library\container\valmemheap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_constructor.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_create.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_createex.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_createnode.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_delete.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_destructor.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_findclose.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_findnext.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_findopen.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_get.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_remove.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_removeall.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_searchnode.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\hashtable\hashtable_set.c">
+      <Filter>library\container\hashtable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_clear.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_create.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_getbuf.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_recvbuf.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_recvchar.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_recvdata.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_refdatasize.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_reffreesize.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_relbuf.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_sendbuf.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_sendchar.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\container\streambuf\streambuf_senddata.c">
+      <Filter>library\container\streambuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_decimal.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_format.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_formatstring.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_formatstringv.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_formatv.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_hexadecimal.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_nibble.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_string.c">
+      <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,765 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{d6bd6cd1-bf3e-48c7-a8fc-0ede03ed3156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\arch">
+      <UniqueIdentifier>{5111e205-0abc-4877-a3f8-37d65fa7b44b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\arch\irc">
+      <UniqueIdentifier>{41dc5b69-2139-4573-b272-95825659e2e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\arch\irc\simple">
+      <UniqueIdentifier>{09360b01-523a-4041-968e-1d1945c0276b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\arch\proc">
+      <UniqueIdentifier>{1cc706b7-5060-4304-b291-63e36e765244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\arch\proc\win32">
+      <UniqueIdentifier>{d7f16f22-b93c-4812-b2d0-314488487243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\core">
+      <UniqueIdentifier>{a0941915-aad6-436f-836a-59be397abe6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\config">
+      <UniqueIdentifier>{d60e9818-211e-4d90-9221-5d5bff530cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object">
+      <UniqueIdentifier>{90c218ff-4d55-4f63-8632-45df433703ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{908b2d92-96ef-4a28-95c6-cf5338dcce24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object">
+      <UniqueIdentifier>{ed580eb7-6dbf-4a66-b022-eacd619b940b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\cyc">
+      <UniqueIdentifier>{bc217a0a-a0f9-483f-9331-adecd00217b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\dtq">
+      <UniqueIdentifier>{398a80f8-33c6-4cfd-bbc2-e64f39a31a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\tsk">
+      <UniqueIdentifier>{ddb60d56-4da6-488a-b560-dc3031a8c24a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\flg">
+      <UniqueIdentifier>{7c069741-dfe7-4b1e-b407-0261564614cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\mpf">
+      <UniqueIdentifier>{a045ea86-5100-4c31-95f9-38e002a164f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\mtx">
+      <UniqueIdentifier>{e635b833-af36-4e7a-8d36-848ac28e59c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\sem">
+      <UniqueIdentifier>{7bcd22b2-bcd6-43c0-8041-2e6b6f1a5026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\sys">
+      <UniqueIdentifier>{0a08ebb2-dd53-427e-b588-1ffa30675078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\tim">
+      <UniqueIdentifier>{07992732-5eeb-4b83-bc59-a098318c1ca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\inh">
+      <UniqueIdentifier>{80be6691-53ad-4707-9f47-d9bddc21c475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\isr">
+      <UniqueIdentifier>{c7cfba13-3f9e-477b-8c51-25b7b9f851dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\object\mbx">
+      <UniqueIdentifier>{553a9e37-7121-4a9e-8c9a-e2e768aa701e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core">
+      <UniqueIdentifier>{918a5c5b-17c4-4baa-84f1-6299f13ece88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\adtq">
+      <UniqueIdentifier>{d827b95c-27a7-429f-bac7-d412a1df4df9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\dpc">
+      <UniqueIdentifier>{46666925-f485-4b1d-a361-409620873d7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\dsp">
+      <UniqueIdentifier>{7f185217-76d3-49cd-8099-8d7a9b25f7d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\hep">
+      <UniqueIdentifier>{f081c775-a307-475f-800b-ca0cae98d199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\que">
+      <UniqueIdentifier>{c9d36ef6-3847-49ee-a026-a041fd2f44f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\rdq">
+      <UniqueIdentifier>{1f67b410-068e-4d93-9c7f-db6db3dd3d39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\tim">
+      <UniqueIdentifier>{1868aded-085c-44cc-b4aa-73757ff7ab54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\tmq">
+      <UniqueIdentifier>{2860085c-0a75-451c-bf00-8a0f7469e215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\toq">
+      <UniqueIdentifier>{ff14592c-ee5c-4506-b1de-e845799abf8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\arch">
+      <UniqueIdentifier>{ec012d73-ac16-4061-9fb7-2ae25adad962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\arch\proc">
+      <UniqueIdentifier>{f97d34dd-1dc2-4757-9a80-cd6865cb0181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\arch\proc\win32">
+      <UniqueIdentifier>{a0d1c1fd-14b6-4b11-8d89-b8c8a6752a03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\arch\irc">
+      <UniqueIdentifier>{4cc64f27-ebcf-40ba-9781-654e74faddaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\arch\irc\simple">
+      <UniqueIdentifier>{35a9b445-630e-40c8-9d2c-67e4f49b56be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\itron.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\kernel.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\arch\irc\simple\irc.h">
+      <Filter>include\arch\irc\simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\arch\irc\simple\ircatr.h">
+      <Filter>include\arch\irc\simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\arch\proc\win\win32\proc.h">
+      <Filter>include\arch\proc\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\arch\proc\win\win32\procatr.h">
+      <Filter>include\arch\proc\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\adtq.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\basetyp.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\chkptr.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\cmpl.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\core.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\dpc.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\dsp.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\hep.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\objhdl.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\objid.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\que.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\rdq.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\sys.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\tim.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\tmq.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\core\toq.h">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\config\cfgerr.h">
+      <Filter>include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\config\cfghok.h">
+      <Filter>include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\config\cfgknl.h">
+      <Filter>include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\config\cfgsys.h">
+      <Filter>include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\cycobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\dtqobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\flgobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\inhobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\isrobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\mbxobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\mpfobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\mtxobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\semobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\object\tskobj.h">
+      <Filter>include\object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\object\cyc\acre_cyc.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\cyc\cre_cyc.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\cyc\kcre_cyc.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\cyc\kcyc_hdr.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\cyc\sta_cyc.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\cyc\stp_cyc.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\acre_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\cre_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\del_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\fsnd_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\ipsnd_dt.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\kcre_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\prcv_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\psnd_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\rcv_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\snd_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\trcv_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\dtq\tsnd_dtq.c">
+      <Filter>source\object\dtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\acre_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\act_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\can_act.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\can_wup.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\chg_pri.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\cre_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\def_tex.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\del_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\dly_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\ena_tex.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\exd_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\ext_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\frsm_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\get_pri.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\iact_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\irel_wai.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\iwup_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\kchg_pri.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\kcre_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\kexe_tex.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\ras_tex.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\ref_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\ref_tst.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\rel_wai.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\rsm_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\slp_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\sta_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\sus_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\tcb2id.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\ter_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\tget_que.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tsk\wup_tsk.c">
+      <Filter>source\object\tsk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\acre_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\clr_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\cre_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\del_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\iset_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\kchk_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\kcre_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\pol_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\ref_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\set_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\twai_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\flg\wai_flg.c">
+      <Filter>source\object\flg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mpf\acre_mpf.c">
+      <Filter>source\object\mpf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mpf\get_mpf.c">
+      <Filter>source\object\mpf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mpf\kcre_mpf.c">
+      <Filter>source\object\mpf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mpf\pget_mpf.c">
+      <Filter>source\object\mpf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mpf\rel_mpf.c">
+      <Filter>source\object\mpf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mpf\tget_mpf.c">
+      <Filter>source\object\mpf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\acre_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\cre_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\del_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\kadd_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\kcre_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\krmv_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\loc_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\ploc_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\tloc_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mtx\unl_mtx.c">
+      <Filter>source\object\mtx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\acre_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\cre_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\del_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\isig_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\kcre_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\pol_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\ref_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\sig_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\twai_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sem\wai_sem.c">
+      <Filter>source\object\sem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\dis_dsp.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\ena_dsp.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\get_tid.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\loc_cpu.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\sns_ctx.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\sns_dsp.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\sns_loc.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\sta_knl.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\sys\unl_cpu.c">
+      <Filter>source\object\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tim\get_tim.c">
+      <Filter>source\object\tim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tim\isig_tim.c">
+      <Filter>source\object\tim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\tim\set_tim.c">
+      <Filter>source\object\tim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\inh\def_inh.c">
+      <Filter>source\object\inh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\inh\end_inh.c">
+      <Filter>source\object\inh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\inh\exe_inh.c">
+      <Filter>source\object\inh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\inh\sta_inh.c">
+      <Filter>source\object\inh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\isr\acre_isr.c">
+      <Filter>source\object\isr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\isr\del_isr.c">
+      <Filter>source\object\isr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\isr\exe_isr.c">
+      <Filter>source\object\isr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\isr\kcre_isr.c">
+      <Filter>source\object\isr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\acre_mbx.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\kadd_msq.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\kadf_msg.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\kadp_msg.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\kcre_mbx.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\krmf_msg.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\krmp_msg.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\krmv_msq.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\rcv_mbx.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\mbx\snd_mbx.c">
+      <Filter>source\object\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\adtq\frcv_adq.c">
+      <Filter>source\core\adtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\adtq\fsnd_adq.c">
+      <Filter>source\core\adtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\adtq\rcv_adq.c">
+      <Filter>source\core\adtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\adtq\reff_adq.c">
+      <Filter>source\core\adtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\adtq\refs_adq.c">
+      <Filter>source\core\adtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\adtq\snd_adq.c">
+      <Filter>source\core\adtq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dpc\exe_dpc.c">
+      <Filter>source\core\dpc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dpc\ini_dpc.c">
+      <Filter>source\core\dpc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dpc\req_dpc.c">
+      <Filter>source\core\dpc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_ext.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_rsm.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_sta.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_sus.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_ter.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_tsk.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_wai.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\dsp_wup.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\ent_tsk.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\dsp\idl_lop.c">
+      <Filter>source\core\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\hep\alc_hep.c">
+      <Filter>source\core\hep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\hep\cre_hep.c">
+      <Filter>source\core\hep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\hep\fre_hep.c">
+      <Filter>source\core\hep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\add_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\adf_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\adp_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\nxt_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\rmh_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\rmv_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\rot_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\que\trm_que.c">
+      <Filter>source\core\que</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\rdq\add_rdq.c">
+      <Filter>source\core\rdq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\rdq\cre_rdq.c">
+      <Filter>source\core\rdq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\rdq\del_rdq.c">
+      <Filter>source\core\rdq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\rdq\ref_rdq.c">
+      <Filter>source\core\rdq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\rdq\rmh_rdq.c">
+      <Filter>source\core\rdq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\rdq\rmv_rdq.c">
+      <Filter>source\core\rdq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\tim\sig_tim.c">
+      <Filter>source\core\tim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\tmq\add_tmq.c">
+      <Filter>source\core\tmq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\tmq\rmv_tmq.c">
+      <Filter>source\core\tmq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\tmq\sig_tmq.c">
+      <Filter>source\core\tmq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\toq\add_toq.c">
+      <Filter>source\core\toq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\toq\rmv_toq.c">
+      <Filter>source\core\toq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\core\toq\sig_toq.c">
+      <Filter>source\core\toq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kcre_ctx.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kdis_int.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kena_int.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kini_prc.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\krst_ctx.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\ksta_ctx.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kswi_ctx.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\kwai_int.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\val_int.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\proc\win\win32\vsig_int.c">
+      <Filter>source\arch\proc\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\chg_ilv.c">
+      <Filter>source\arch\irc\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\chg_imsk.c">
+      <Filter>source\arch\irc\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\clr_int.c">
+      <Filter>source\arch\irc\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\dis_int.c">
+      <Filter>source\arch\irc\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\ena_int.c">
+      <Filter>source\arch\irc\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\get_ilv.c">
+      <Filter>source\arch\irc\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\arch\irc\simple\get_imsk.c">
+      <Filter>source\arch\irc\simple</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
