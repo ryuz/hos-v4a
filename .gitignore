@@ -21,6 +21,8 @@ kernel_cfg.c
 
 # VC++ file
 *.vcxproj.*
+!*.vcxproj.filters
+*.ipch
 *.vcproj.*
 *.suo
 *.sdf
