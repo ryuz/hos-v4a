@@ -69,6 +69,10 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\driver\i2c\i2c\i2cdrv.h" />
+    <ClInclude Include="..\..\..\..\driver\i2c\i2c\i2cdrv_local.h" />
+    <ClInclude Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv.h" />
+    <ClInclude Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_local.h" />
     <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile.h" />
     <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile_local.h" />
     <ClInclude Include="..\..\..\..\driver\volume\fat\fatvol.h" />
@@ -153,6 +157,15 @@
     <ClInclude Include="..\..\..\..\hosaplfw.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_bytewrite.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_access.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_close.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_constructor.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_create.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_delete.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_destructor.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_iocontrol.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_open.c" />
     <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_constructor.c" />
     <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_create.c" />
     <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_delete.c" />

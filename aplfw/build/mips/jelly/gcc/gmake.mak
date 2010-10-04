@@ -51,6 +51,7 @@ CSRCS +=
 
 # %jp{リンク制御対象制御}
 LINK_JELLYUART = Yes
+LINK_JELLYI2C  = Yes
 
 
 .PHONY : all

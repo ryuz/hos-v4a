@@ -166,6 +166,15 @@
     <Filter Include="parser">
       <UniqueIdentifier>{6d2a1680-9496-4c80-9813-ff9b8e2f63c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="driver\i2c">
+      <UniqueIdentifier>{67cf465f-573e-4538-b951-4bfdf121264b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\i2c\i2c">
+      <UniqueIdentifier>{2ff644f8-abd0-4f4c-bb69-18d3d79f8080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver\i2c\jelly">
+      <UniqueIdentifier>{741e5caa-1346-47ec-a9e0-0fb9174070b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile.h">
@@ -412,6 +421,18 @@
       <Filter>parser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\hosaplfw.h" />
+    <ClInclude Include="..\..\..\..\driver\i2c\i2c\i2cdrv_local.h">
+      <Filter>driver\i2c\i2c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\i2c\i2c\i2cdrv.h">
+      <Filter>driver\i2c\i2c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv.h">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_local.h">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_constructor.c">
@@ -1451,6 +1472,33 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\library\algorithm\stringformat\stringformat_string.c">
       <Filter>library\algorithm\stringformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_close.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_constructor.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_create.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_delete.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_destructor.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_iocontrol.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_open.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_access.c">
+      <Filter>driver\i2c\jelly</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_bytewrite.c">
+      <Filter>driver\i2c\i2c</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

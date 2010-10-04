@@ -103,6 +103,9 @@
 #define FILE_IOCTL_IP_GETMASK				0x2303		/* IPサブネットマスク取得 */
 #define FILE_IOCTL_IP_SETMASK				0x2304		/* IPサブネットマスク設定 */
 
+#define FILE_IOCTL_IP_GETMASK				0x2303		/* IPサブネットマスク取得 */
+#define FILE_IOCTL_IP_SETMASK				0x2304		/* IPサブネットマスク設定 */
+
 /* IoControl機能コード(ユーザー定義) */
 #define FILE_IOCTL_USER						0x6000		/* 0x6000〜0x7fff */
 

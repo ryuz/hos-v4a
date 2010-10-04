@@ -1827,6 +1827,50 @@ $(OBJS_DIR)\jellyuartdrv_isr.c : $(JELLYUART_DIR)\jellyuartdrv_isr.c
 	$(CMD_CP) $(JELLYUART_DIR)\jellyuartdrv_isr.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\i2cdrv.h : $(I2CDRV_DIR)\i2cdrv.h
+	$(CMD_CP) $(I2CDRV_DIR)\i2cdrv.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\i2cdrv_local.h : $(I2CDRV_DIR)\i2cdrv_local.h
+	$(CMD_CP) $(I2CDRV_DIR)\i2cdrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\i2cdrv_bytewrite.c : $(I2CDRV_DIR)\i2cdrv_bytewrite.c
+	$(CMD_CP) $(I2CDRV_DIR)\i2cdrv_bytewrite.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\i2cdrv_byteread.c : $(I2CDRV_DIR)\i2cdrv_byteread.c
+	$(CMD_CP) $(I2CDRV_DIR)\i2cdrv_byteread.c $(OBJS_DIR)\
+
+
+$(OBJS_DIR)\jellyi2cdrv.h : $(JELLYI2C_DIR)\jellyi2cdrv.h
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_local.h : $(JELLYI2C_DIR)\jellyi2cdrv_local.h
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_create.c : $(JELLYI2C_DIR)\jellyi2cdrv_create.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_delete.c : $(JELLYI2C_DIR)\jellyi2cdrv_delete.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_constructor.c : $(JELLYI2C_DIR)\jellyi2cdrv_constructor.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_destructor.c : $(JELLYI2C_DIR)\jellyi2cdrv_destructor.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_open.c : $(JELLYI2C_DIR)\jellyi2cdrv_open.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_open.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_close.c : $(JELLYI2C_DIR)\jellyi2cdrv_close.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_close.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_iocontrol.c : $(JELLYI2C_DIR)\jellyi2cdrv_iocontrol.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_iocontrol.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\jellyi2cdrv_access.c : $(JELLYI2C_DIR)\jellyi2cdrv_access.c
+	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv_access.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\fatvol.h : $(FATVOL_DIR)\fatvol.h
 	$(CMD_CP) $(FATVOL_DIR)\fatvol.h $(OBJS_DIR)\
 
@@ -2714,6 +2758,18 @@ $(OBJS_DIR)\jellyuartdrv_read.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_read.c	$(COMM
 $(OBJS_DIR)\jellyuartdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_write.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\jellyuartdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_flush.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\jellyuartdrv_isr.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_isr.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\i2cdrv_bytewrite.$(EXT_OBJ):	$(OBJS_DIR)\i2cdrv_bytewrite.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\i2cdrv_byteread.$(EXT_OBJ):	$(OBJS_DIR)\i2cdrv_byteread.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\jellyi2cdrv_create.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyi2cdrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyi2cdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyi2cdrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyi2cdrv_open.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_open.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyi2cdrv_close.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_close.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyi2cdrv_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_iocontrol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\jellyi2cdrv_access.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_access.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\fatvol_create.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\fatvol_delete.$(EXT_OBJ):	$(OBJS_DIR)\fatvol_delete.c	$(COMMON_HEADERS)

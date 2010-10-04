@@ -1012,6 +1012,42 @@
 			],
 		],
 		[
+			"I2C driver",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/driver/i2c/i2c",
+			"I2CDRV",
+			"Yes",
+			[
+				"i2cdrv.h",
+				"i2cdrv_local.h",
+			],
+			[
+				"i2cdrv_bytewrite.c",
+				"i2cdrv_byteread.c",
+			],
+		],
+		[
+			"Jelly I2C driver",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/driver/i2c/jelly",
+			"JELLYI2C",
+			"No",
+			[
+				"jellyi2cdrv.h",
+				"jellyi2cdrv_local.h",
+			],
+			[
+				"jellyi2cdrv_create.c",
+				"jellyi2cdrv_delete.c",
+				"jellyi2cdrv_constructor.c",
+				"jellyi2cdrv_destructor.c",
+				"jellyi2cdrv_open.c",
+				"jellyi2cdrv_close.c",
+				"jellyi2cdrv_iocontrol.c",
+				"jellyi2cdrv_access.c",
+			],
+		],
+		[
 			"FAT volume",
 			"\$(COMMON_HEADERS)",
 			"\$(HOSAPLFW_DIR)/driver/volume/fat",

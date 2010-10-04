@@ -54,6 +54,8 @@ LINK_MX1UART          ?= No
 LINK_MN103SC          ?= No
 LINK_WINSOCK          ?= No
 LINK_JELLYUART        ?= No
+LINK_I2CDRV           ?= Yes
+LINK_JELLYI2C         ?= No
 LINK_FATVOL           ?= Yes
 LINK_MEMDRV           ?= Yes
 
@@ -859,6 +861,30 @@ CSRCS += $(JELLYUART_DIR)/jellyuartdrv_read.c
 CSRCS += $(JELLYUART_DIR)/jellyuartdrv_write.c
 CSRCS += $(JELLYUART_DIR)/jellyuartdrv_flush.c
 CSRCS += $(JELLYUART_DIR)/jellyuartdrv_isr.c
+endif
+
+
+# I2C driver
+ifeq ($(LINK_I2CDRV),Yes)
+I2CDRV_DIR = $(HOSAPLFW_DIR)/driver/i2c/i2c
+SRC_DIRS += $(I2CDRV_DIR)
+CSRCS += $(I2CDRV_DIR)/i2cdrv_bytewrite.c
+CSRCS += $(I2CDRV_DIR)/i2cdrv_byteread.c
+endif
+
+
+# Jelly I2C driver
+ifeq ($(LINK_JELLYI2C),Yes)
+JELLYI2C_DIR = $(HOSAPLFW_DIR)/driver/i2c/jelly
+SRC_DIRS += $(JELLYI2C_DIR)
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_create.c
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_delete.c
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_constructor.c
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_destructor.c
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_open.c
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_close.c
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_iocontrol.c
+CSRCS += $(JELLYI2C_DIR)/jellyi2cdrv_access.c
 endif
 
 

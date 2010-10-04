@@ -128,6 +128,12 @@ LINK_WINSOCK          = No
 !ifndef LINK_JELLYUART
 LINK_JELLYUART        = No
 !endif
+!ifndef LINK_I2CDRV
+LINK_I2CDRV           = Yes
+!endif
+!ifndef LINK_JELLYI2C
+LINK_JELLYI2C         = No
+!endif
 !ifndef LINK_FATVOL
 LINK_FATVOL           = Yes
 !endif
@@ -1536,6 +1542,42 @@ CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_flush.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_flush.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(JELLYUART_DIR)\jellyuartdrv_isr.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\jellyuartdrv_isr.$(EXT_OBJ)
+!endif
+
+
+# I2C driver
+!if "$(LINK_I2CDRV)" == "Yes"
+I2CDRV_DIR = $(HOSAPLFW_DIR)\driver\i2c\i2c
+HEADERS = $(HEADERS) $(OBJS_DIR)\i2cdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\i2cdrv_local.h
+CSRCS = $(CSRCS) $(I2CDRV_DIR)\i2cdrv_bytewrite.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\i2cdrv_bytewrite.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(I2CDRV_DIR)\i2cdrv_byteread.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\i2cdrv_byteread.$(EXT_OBJ)
+!endif
+
+
+# Jelly I2C driver
+!if "$(LINK_JELLYI2C)" == "Yes"
+JELLYI2C_DIR = $(HOSAPLFW_DIR)\driver\i2c\jelly
+HEADERS = $(HEADERS) $(OBJS_DIR)\jellyi2cdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\jellyi2cdrv_local.h
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(JELLYI2C_DIR)\jellyi2cdrv_access.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\jellyi2cdrv_access.$(EXT_OBJ)
 !endif
 
 
