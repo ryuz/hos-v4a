@@ -184,6 +184,9 @@ LINK_KEYTEST          = Yes
 !ifndef LINK_TIMECMD
 LINK_TIMECMD          = Yes
 !endif
+!ifndef LINK_I2CCMD
+LINK_I2CCMD           = Yes
+!endif
 !ifndef LINK_FILELIST
 LINK_FILELIST         = Yes
 !endif
@@ -1840,6 +1843,15 @@ TIMECMD_DIR = $(HOSAPLFW_DIR)\application\utility\timecmd
 HEADERS = $(HEADERS) $(OBJS_DIR)\timecmd.h
 CSRCS = $(CSRCS) $(TIMECMD_DIR)\timecmd_main.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\timecmd_main.$(EXT_OBJ)
+!endif
+
+
+# I2C Command
+!if "$(LINK_I2CCMD)" == "Yes"
+I2CCMD_DIR = $(HOSAPLFW_DIR)\application\utility\i2ccmd
+HEADERS = $(HEADERS) $(OBJS_DIR)\i2ccmd.h
+CSRCS = $(CSRCS) $(I2CCMD_DIR)\i2ccmd_main.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\i2ccmd_main.$(EXT_OBJ)
 !endif
 
 

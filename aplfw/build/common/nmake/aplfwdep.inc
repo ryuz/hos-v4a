@@ -2163,6 +2163,13 @@ $(OBJS_DIR)\timecmd_main.c : $(TIMECMD_DIR)\timecmd_main.c
 	$(CMD_CP) $(TIMECMD_DIR)\timecmd_main.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\i2ccmd.h : $(I2CCMD_DIR)\i2ccmd.h
+	$(CMD_CP) $(I2CCMD_DIR)\i2ccmd.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\i2ccmd_main.c : $(I2CCMD_DIR)\i2ccmd_main.c
+	$(CMD_CP) $(I2CCMD_DIR)\i2ccmd_main.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\filelist.h : $(FILELIST_DIR)\filelist.h
 	$(CMD_CP) $(FILELIST_DIR)\filelist.h $(OBJS_DIR)\
 
@@ -2855,6 +2862,8 @@ $(OBJS_DIR)\memtest_main.$(EXT_OBJ):	$(OBJS_DIR)\memtest_main.c	$(COMMON_HEADERS
 $(OBJS_DIR)\keytest_main.$(EXT_OBJ):	$(OBJS_DIR)\keytest_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\timecmd_main.$(EXT_OBJ):	$(OBJS_DIR)\timecmd_main.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\i2ccmd_main.$(EXT_OBJ):	$(OBJS_DIR)\i2ccmd_main.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\filelist_main.$(EXT_OBJ):	$(OBJS_DIR)\filelist_main.c	$(COMMON_HEADERS)
 

@@ -175,6 +175,9 @@
     <Filter Include="driver\i2c\jelly">
       <UniqueIdentifier>{741e5caa-1346-47ec-a9e0-0fb9174070b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="application\utility\i2ccmd">
+      <UniqueIdentifier>{a944f2ed-8cd6-4c90-ba08-1ddd12037937}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\driver\volume\fat\fatfile.h">
@@ -432,6 +435,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_local.h">
       <Filter>driver\i2c\jelly</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\application\utility\i2ccmd\i2ccmd.h">
+      <Filter>application\utility\i2ccmd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1499,6 +1505,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_bytewrite.c">
       <Filter>driver\i2c\i2c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_byteread.c">
+      <Filter>driver\i2c\i2c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\application\utility\i2ccmd\i2ccmd_main.c">
+      <Filter>application\utility\i2ccmd</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

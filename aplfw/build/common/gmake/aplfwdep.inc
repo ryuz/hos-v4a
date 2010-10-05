@@ -584,6 +584,7 @@ $(OBJS_DIR)/memload_main.$(EXT_OBJ):	$(MEMLOAD_DIR)/memload_main.c	$(COMMON_HEAD
 $(OBJS_DIR)/memtest_main.$(EXT_OBJ):	$(MEMTEST_DIR)/memtest_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/keytest_main.$(EXT_OBJ):	$(KEYTEST_DIR)/keytest_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/timecmd_main.$(EXT_OBJ):	$(TIMECMD_DIR)/timecmd_main.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/i2ccmd_main.$(EXT_OBJ):	$(I2CCMD_DIR)/i2ccmd_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/filelist_main.$(EXT_OBJ):	$(FILELIST_DIR)/filelist_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/filecat_main.$(EXT_OBJ):	$(FILECAT_DIR)/filecat_main.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/filecopy_main.$(EXT_OBJ):	$(FILECOPY_DIR)/filecopy_main.c	$(COMMON_HEADERS)

@@ -69,6 +69,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\application\utility\i2ccmd\i2ccmd.h" />
     <ClInclude Include="..\..\..\..\driver\i2c\i2c\i2cdrv.h" />
     <ClInclude Include="..\..\..\..\driver\i2c\i2c\i2cdrv_local.h" />
     <ClInclude Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv.h" />
@@ -157,6 +158,8 @@
     <ClInclude Include="..\..\..\..\hosaplfw.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\application\utility\i2ccmd\i2ccmd_main.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_byteread.c" />
     <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_bytewrite.c" />
     <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_access.c" />
     <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_close.c" />

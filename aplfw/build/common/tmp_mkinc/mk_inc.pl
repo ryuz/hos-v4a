@@ -1319,6 +1319,19 @@
 			],
 		],
 		[
+			"I2C Command",
+			"\$(COMMON_HEADERS)",
+			"\$(HOSAPLFW_DIR)/application/utility/i2ccmd",
+			"I2CCMD",
+			"Yes",
+			[
+				"i2ccmd.h",
+			],
+			[
+				"i2ccmd_main.c",
+			],
+		],
+		[
 			"File List",
 			"\$(COMMON_HEADERS)",
 			"\$(HOSAPLFW_DIR)/application/filecmd/filelist",

@@ -74,6 +74,7 @@ LINK_MEMLOAD          ?= Yes
 LINK_MEMTEST          ?= Yes
 LINK_KEYTEST          ?= Yes
 LINK_TIMECMD          ?= Yes
+LINK_I2CCMD           ?= Yes
 LINK_FILELIST         ?= Yes
 LINK_FILECAT          ?= Yes
 LINK_FILECOPY         ?= Yes
@@ -1071,6 +1072,14 @@ ifeq ($(LINK_TIMECMD),Yes)
 TIMECMD_DIR = $(HOSAPLFW_DIR)/application/utility/timecmd
 SRC_DIRS += $(TIMECMD_DIR)
 CSRCS += $(TIMECMD_DIR)/timecmd_main.c
+endif
+
+
+# I2C Command
+ifeq ($(LINK_I2CCMD),Yes)
+I2CCMD_DIR = $(HOSAPLFW_DIR)/application/utility/i2ccmd
+SRC_DIRS += $(I2CCMD_DIR)
+CSRCS += $(I2CCMD_DIR)/i2ccmd_main.c
 endif
 
 

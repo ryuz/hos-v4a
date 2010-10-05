@@ -18,7 +18,7 @@ int I2cDrv_ByteRead(HANDLE hFile, unsigned char ubDev, unsigned char ubAddr)
 	unsigned char	ubWriteBuf[2];
 	unsigned char	ubReadBuf[1];
 
-	ubWriteBuf[0] = (unsigned char)((ubDev << 1) & 0x00);
+	ubWriteBuf[0] = (unsigned char)((ubDev << 1) & 0x01);
 	ubWriteBuf[1] = ubAddr;
 	
 	Access.pubWriteBuf  = ubWriteBuf;
