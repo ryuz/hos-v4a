@@ -32,11 +32,11 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 ifeq ($(MEMMAP),ram)
 # %jp{RAM実行(モニタプログラム利用を想定)}
 TARGET := $(TARGET)_ram
-LINKER_SCRIPT ?= link_ram.x
+LINKER_SCRIPT ?= link_ram.lds
 C_DEFS        += _RAM
 else
 # %jp{ROM焼きする場合}
-LINKER_SCRIPT ?= link_rom.x
+LINKER_SCRIPT ?= link_rom.lds
 C_DEFS        += 
 endif
 

@@ -50,10 +50,10 @@ HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)/hosaplfw.$(EXT_LIB)
 ifeq ($(MEMMAP),ext)
 # %jp{外部メモリ(モニタプログラム利用を想定)}
 TARGET     := $(TARGET)ext
-LINK_SCRIPT = link_ext.x
+LINK_SCRIPT = link_ext.lds
 else
 # %jp{ROM実行}
-LINK_SCRIPT = link_rom.x
+LINK_SCRIPT = link_rom.lds
 endif
 
 

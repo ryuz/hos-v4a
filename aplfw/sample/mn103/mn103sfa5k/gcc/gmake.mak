@@ -48,7 +48,7 @@ endif
 
 
 # %jp{メモリマップ}
-LINK_SCRIPT = link.x
+LINK_SCRIPT = link.lds
 
 
 # %jp{フラグ設定}

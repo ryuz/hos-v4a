@@ -33,7 +33,7 @@ TARGET := $(TARGET)dbg
 endif
 
 # リンカスクリプト
-LINK_SCRIPT = link.x
+LINK_SCRIPT = link.lds
 
 
 # %jp{フラグ設定}

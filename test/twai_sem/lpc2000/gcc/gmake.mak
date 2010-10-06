@@ -45,17 +45,17 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 
 # %jp{リンカスクリプト}%en{linker script}
-LINK_SCRIPT = link.x
+LINK_SCRIPT = link.lds
 
 # %jp{外部メモリ}%en{external memory}
 ifeq ($(MEMMAP),ext)
 TARGET     := $(TARGET)_ext
-LINK_SCRIPT = linkext.x
+LINK_SCRIPT = linkext.lds
 endif
 
 # %jp{内蔵RAM}%en{internal RAM}
 ifeq ($(MEMMAP),ram)
-LINK_SCRIPT = linkram.x
+LINK_SCRIPT = linkram.lds
 endif
 
 
