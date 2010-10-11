@@ -10,6 +10,7 @@ kernel_cfg.c
 *.mot
 *.map
 *.exe
+*.x
 
 # liblary files
 *.a
@@ -23,9 +24,10 @@ kernel_cfg.c
 *.vcxproj.*
 !*.vcxproj.filters
 *.ipch
-*.vcproj.*
 *.suo
 *.sdf
 *.opensdf
+*.vcproj.*
+*.ncb
 Debug/
 Release/
