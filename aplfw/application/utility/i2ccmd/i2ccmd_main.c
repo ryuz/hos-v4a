@@ -84,12 +84,13 @@ int I2cCmd_Main(int argc, char *argv[])
 
 	if ( strcmp(pszRw, "r") == 0 )
 	{
-		// read
+		/* read */
 		ubData = I2cDrv_ByteRead(hDev, ubDev, ubAddr);
 		StdIo_PrintFormat("[I2C read] dev:%02x adr:%02x => %02x\n", ubDev, ubAddr, ubData);
 	}
 	else if ( strcmp(pszRw, "w") == 0 && pszData != NULL )
 	{
+		/* write */
 		ubData = (unsigned char)strtoul(pszData, 0, 0);
 		I2cDrv_ByteWrite(hDev, ubDev, ubAddr, ubData);
 		StdIo_PrintFormat("[I2C write] dev:%02x adr:%02x <= %02x\n", ubDev, ubAddr, ubData);

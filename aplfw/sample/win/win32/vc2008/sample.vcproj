@@ -102,6 +102,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="HOS-V4A configurator"
+				CommandLine="cd ..&#x0D;&#x0A;cl /E system.cfg &gt; system.i&#x0D;&#x0A;$(OutDir)\h4acfg.exe&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"

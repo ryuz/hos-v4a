@@ -15,11 +15,17 @@
 
 #include "hosaplfw.h"
 
-#define I2CDRV_IOCTL_ACCESS		0x3101
+#define I2CDRV_IOCTL_ACCESS			0x3101
+
+#define I2CDRV_ACCESS_FLAG_START	0x0001
+#define I2CDRV_ACCESS_FLAG_STOP		0x0002
+#define I2CDRV_ACCESS_FLAG_ACK		0x0004
+#define I2CDRV_ACCESS_FLAG_NAK		0x0008
 
 
 typedef struct t_i2cdrv_access
 {
+	int					iFlag;
 	const unsigned char	*pubWriteBuf;
 	int					iWriteLength;
 	unsigned char		*pubReadBuf;
