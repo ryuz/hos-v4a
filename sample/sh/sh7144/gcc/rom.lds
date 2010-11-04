@@ -4,8 +4,8 @@ ENTRY(_reset_handler)
 MEMORY
 {
 	vector : o = 0x00000000, l = 0x00400
-	rom    : o = 0x00000400, l = 0x07c00
-	ram    : o = 0xffffe000, l = 0x02000
+	ro     : o = 0x00000400, l = 0x07c00
+	rw     : o = 0xffffe000, l = 0x02000
 }
 
 SECTIONS
@@ -24,7 +24,7 @@ SECTIONS
 		*(.strings)
 		*(.rodata*)
 		 ___text_end = . ; 
-	}  > rom
+	}  > ro
 	.tors :
 	{
 		. = ALIGN(4);
@@ -34,21 +34,21 @@ SECTIONS
 		___dtors = . ;
 		*(.dtors)
 		___dtors_end = . ;
-	} > rom
+	} > ro
 	data : AT (ADDR(.tors) + SIZEOF(.tors))
 	{
 	    ___data_rom = ADDR(.tors) + SIZEOF(.tors);
 		___data = . ;
 		*(.data)
 		___data_end = . ;
-	} > ram
+	} > rw
 	.bss :
 	{
 		___bss = . ;
 		*(.bss)
 		*(COMMON)
 		___bss_end = . ;  
-	}  >ram
+	} > rw
 }
 
 

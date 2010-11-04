@@ -15,10 +15,12 @@ kernel_cfg.c
 # liblary files
 *.a
 *.lib
+*.l
 
 # object files
 *.o
 *.obj
+*.ro
 
 # VC++ file
 *.vcxproj.*
