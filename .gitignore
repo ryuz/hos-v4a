@@ -6,6 +6,7 @@ kernel_cfg.c
 # output files
 *.elf
 *.bin
+*.out
 *.hex
 *.mot
 *.map
