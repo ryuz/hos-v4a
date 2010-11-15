@@ -761,5 +761,11 @@
     <ClCompile Include="..\..\..\..\source\arch\irc\simple\get_imsk.c">
       <Filter>source\arch\irc\simple</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\cyc\del_cyc.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\object\cyc\ref_cyc.c">
+      <Filter>source\object\cyc</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

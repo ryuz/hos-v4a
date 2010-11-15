@@ -39,6 +39,8 @@ extern "C" {
 
 FILE_ERR I2cDrv_ByteWrite(HANDLE hFile, unsigned char ubDev, unsigned char ubAddr, unsigned char ubData);
 int      I2cDrv_ByteRead(HANDLE hFile, unsigned char ubDev, unsigned char ubAddr);
+FILE_ERR I2cDrv_BurstWrite(HANDLE hFile, unsigned char ubDev, unsigned char ubAddr, const unsigned char *pubData, int iLength);
+FILE_ERR I2cDrv_BurstRead(HANDLE hFile, unsigned char ubDev, unsigned char ubAddr, unsigned char *pubBuf, int iLength);
 
 #ifdef __cplusplus
 }

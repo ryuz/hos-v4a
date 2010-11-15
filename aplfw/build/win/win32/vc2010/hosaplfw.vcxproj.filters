@@ -1512,5 +1512,11 @@
     <ClCompile Include="..\..\..\..\application\utility\i2ccmd\i2ccmd_main.c">
       <Filter>application\utility\i2ccmd</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_burstwrite.c">
+      <Filter>driver\i2c\i2c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_burstread.c">
+      <Filter>driver\i2c\i2c</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
  * @file  ref_cyc.c
  * @brief %jp{周期ハンドラの状態参照}%en{Reference Cyclic Handler State}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2010 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -60,15 +60,18 @@ ER ref_cyc(ID cycid, T_RCYC *pk_rcyc)
 	cyccb    = _KERNEL_CYC_ID2CYCCB(cycid);
 	
 	/* %jp{情報取得} */
-	if( _KERNEL_CYC_GET_TIMOBJ(cyccb)->next == NULL){
+	if( _KERNEL_CYC_GET_TIMOBJ(cyccb)->next == NULL)
+	{
 		pk_rcyc->cycatr = TCYC_STP;
-	}else{
+	}
+	else
+	{
 		pk_rcyc->cycatr = TCYC_STA;
 	}
 	pk_rcyc->lefttim = _KERNEL_TIMOBJ_GET_LEFTTIM( _KERNEL_CYC_GET_TIMOBJ(cyccb) );
 	
 
-	_KERNEL_LEAVE_SVC();	/* %jp{オブジェクト未生成}%en{Non-existant object} */
+	_KERNEL_LEAVE_SVC();	/* %jp{サービスコール終了} */	
 	
 	return E_OK;
 }

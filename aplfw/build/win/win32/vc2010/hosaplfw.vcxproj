@@ -162,6 +162,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\application\utility\i2ccmd\i2ccmd_main.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_burstread.c" />
+    <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_burstwrite.c" />
     <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_byteread.c" />
     <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_bytewrite.c" />
     <ClCompile Include="..\..\..\..\driver\i2c\jelly\jellyi2cdrv_access.c" />

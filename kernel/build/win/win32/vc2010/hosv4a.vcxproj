@@ -114,8 +114,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\object\cyc\acre_cyc.c" />
     <ClCompile Include="..\..\..\..\source\object\cyc\cre_cyc.c" />
+    <ClCompile Include="..\..\..\..\source\object\cyc\del_cyc.c" />
     <ClCompile Include="..\..\..\..\source\object\cyc\kcre_cyc.c" />
     <ClCompile Include="..\..\..\..\source\object\cyc\kcyc_hdr.c" />
+    <ClCompile Include="..\..\..\..\source\object\cyc\ref_cyc.c" />
     <ClCompile Include="..\..\..\..\source\object\cyc\sta_cyc.c" />
     <ClCompile Include="..\..\..\..\source\object\cyc\stp_cyc.c" />
     <ClCompile Include="..\..\..\..\source\object\dtq\acre_dtq.c" />
