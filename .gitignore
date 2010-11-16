@@ -1,3 +1,7 @@
+#backup
+*.bak
+*~
+
 # configurator files
 *.i
 kernel_id.h
@@ -10,6 +14,8 @@ kernel_cfg.c
 *.hex
 *.mot
 *.map
+*.lst
+*.abs
 *.exe
 *.x
 
@@ -19,6 +25,7 @@ kernel_cfg.c
 *.l
 
 # object files
+objs_*/
 *.o
 *.obj
 *.ro
