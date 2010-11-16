@@ -871,6 +871,8 @@ I2CDRV_DIR = $(HOSAPLFW_DIR)/driver/i2c/i2c
 SRC_DIRS += $(I2CDRV_DIR)
 CSRCS += $(I2CDRV_DIR)/i2cdrv_bytewrite.c
 CSRCS += $(I2CDRV_DIR)/i2cdrv_byteread.c
+CSRCS += $(I2CDRV_DIR)/i2cdrv_burstwrite.c
+CSRCS += $(I2CDRV_DIR)/i2cdrv_burstread.c
 endif
 
 

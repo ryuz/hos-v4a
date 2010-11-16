@@ -163,14 +163,14 @@ makeexe_clean:
 # %jp{カーネル生成}
 kernel_make:
 	$(CMD_CD) $(KERNEL_BUILD_DIR)
-	$(MAKE) -f nmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL)
+	$(MAKE) DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL)
 	$(CMD_CD) $(MAKEDIR)
 
 
 # %jp{カーネル生成}
 kernel_clean:
 	$(CMD_CD) $(KERNEL_BUILD_DIR)
-	$(MAKE) -f nmake.mak DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
+	$(MAKE) DEBUG=$(KERNEL_DEBUG) ERRLEVEL=$(KERNEL_ERRLEVEL) clean
 	$(CMD_CD) $(MAKEDIR)
 
 

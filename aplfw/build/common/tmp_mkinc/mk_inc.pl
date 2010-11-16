@@ -1024,6 +1024,8 @@
 			[
 				"i2cdrv_bytewrite.c",
 				"i2cdrv_byteread.c",
+				"i2cdrv_burstwrite.c",
+				"i2cdrv_burstread.c",
 			],
 		],
 		[

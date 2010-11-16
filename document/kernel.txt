@@ -49,10 +49,10 @@
   ビルドディレクトリにおいて
 
   [GNU make の場合]
-    make -f gmake.mak
+    make
 
   [nmake の場合]
-    nmake -f nmake.mak
+    nmake
 
   など、と実行すれば、カーネルライブラリが出来上がります。
 

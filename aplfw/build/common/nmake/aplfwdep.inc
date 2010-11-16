@@ -1839,6 +1839,12 @@ $(OBJS_DIR)\i2cdrv_bytewrite.c : $(I2CDRV_DIR)\i2cdrv_bytewrite.c
 $(OBJS_DIR)\i2cdrv_byteread.c : $(I2CDRV_DIR)\i2cdrv_byteread.c
 	$(CMD_CP) $(I2CDRV_DIR)\i2cdrv_byteread.c $(OBJS_DIR)\
 
+$(OBJS_DIR)\i2cdrv_burstwrite.c : $(I2CDRV_DIR)\i2cdrv_burstwrite.c
+	$(CMD_CP) $(I2CDRV_DIR)\i2cdrv_burstwrite.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\i2cdrv_burstread.c : $(I2CDRV_DIR)\i2cdrv_burstread.c
+	$(CMD_CP) $(I2CDRV_DIR)\i2cdrv_burstread.c $(OBJS_DIR)\
+
 
 $(OBJS_DIR)\jellyi2cdrv.h : $(JELLYI2C_DIR)\jellyi2cdrv.h
 	$(CMD_CP) $(JELLYI2C_DIR)\jellyi2cdrv.h $(OBJS_DIR)\
@@ -2768,6 +2774,8 @@ $(OBJS_DIR)\jellyuartdrv_isr.$(EXT_OBJ):	$(OBJS_DIR)\jellyuartdrv_isr.c	$(COMMON
 
 $(OBJS_DIR)\i2cdrv_bytewrite.$(EXT_OBJ):	$(OBJS_DIR)\i2cdrv_bytewrite.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\i2cdrv_byteread.$(EXT_OBJ):	$(OBJS_DIR)\i2cdrv_byteread.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\i2cdrv_burstwrite.$(EXT_OBJ):	$(OBJS_DIR)\i2cdrv_burstwrite.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\i2cdrv_burstread.$(EXT_OBJ):	$(OBJS_DIR)\i2cdrv_burstread.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\jellyi2cdrv_create.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\jellyi2cdrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\jellyi2cdrv_delete.c	$(COMMON_HEADERS)

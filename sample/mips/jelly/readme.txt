@@ -34,7 +34,7 @@
 
   gcc の場合：  hos-v4a/sample/mips/jelly/gcc
 
-  に移動して、gmake -f gmake.mak
+  に移動して、gmake 
 
   と打ち込みます。
 
@@ -44,7 +44,7 @@
 シリアルに表示されれば成功です。
 
 ＜備考＞
-  gmake -f gmake.mak MEMMAP=ram
+  gmake MEMMAP=ram
 
   としすると、RAMを0番地に配置したモデルで sample_ram.bin を生成します。
   ROM化せずにRAMをマッピングしてデバッグする場合にご利用ください。

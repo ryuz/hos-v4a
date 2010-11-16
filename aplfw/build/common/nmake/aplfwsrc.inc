@@ -1557,6 +1557,10 @@ CSRCS = $(CSRCS) $(I2CDRV_DIR)\i2cdrv_bytewrite.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\i2cdrv_bytewrite.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(I2CDRV_DIR)\i2cdrv_byteread.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\i2cdrv_byteread.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(I2CDRV_DIR)\i2cdrv_burstwrite.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\i2cdrv_burstwrite.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(I2CDRV_DIR)\i2cdrv_burstread.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\i2cdrv_burstread.$(EXT_OBJ)
 !endif
 
 

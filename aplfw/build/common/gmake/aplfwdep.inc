@@ -507,6 +507,8 @@ $(OBJS_DIR)/jellyuartdrv_flush.$(EXT_OBJ):	$(JELLYUART_DIR)/jellyuartdrv_flush.c
 $(OBJS_DIR)/jellyuartdrv_isr.$(EXT_OBJ):	$(JELLYUART_DIR)/jellyuartdrv_isr.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/i2cdrv_bytewrite.$(EXT_OBJ):	$(I2CDRV_DIR)/i2cdrv_bytewrite.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/i2cdrv_byteread.$(EXT_OBJ):	$(I2CDRV_DIR)/i2cdrv_byteread.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/i2cdrv_burstwrite.$(EXT_OBJ):	$(I2CDRV_DIR)/i2cdrv_burstwrite.c	$(COMMON_HEADERS)
+$(OBJS_DIR)/i2cdrv_burstread.$(EXT_OBJ):	$(I2CDRV_DIR)/i2cdrv_burstread.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/jellyi2cdrv_create.$(EXT_OBJ):	$(JELLYI2C_DIR)/jellyi2cdrv_create.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/jellyi2cdrv_delete.$(EXT_OBJ):	$(JELLYI2C_DIR)/jellyi2cdrv_delete.c	$(COMMON_HEADERS)
 $(OBJS_DIR)/jellyi2cdrv_constructor.$(EXT_OBJ):	$(JELLYI2C_DIR)/jellyi2cdrv_constructor.c	$(COMMON_HEADERS)

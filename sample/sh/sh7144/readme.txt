@@ -39,7 +39,7 @@
   gcc の場合：  hos-v4a/sample/sh/sh7144/gcc
 
 
-  に移動して、gmake -f gmake.mak
+  に移動して、gmake
 
   と打ち込みます。
 
@@ -57,7 +57,7 @@
 
   ビルド時に
 
-  gmake -f gmake.mak MEMMAP=ram
+  gmake MEMMAP=ram
 
   とすることで、RAMロード用の sample_ram.mot が出来上がります。
 

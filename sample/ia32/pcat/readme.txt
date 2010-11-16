@@ -15,7 +15,7 @@
 
   gcc ディレクトリで
 
-  make -f gmake.mak
+  make
 
   で、sample.img という 1.44M FDD 用のイメージが出来上がるはずです。
 
