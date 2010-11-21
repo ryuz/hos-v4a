@@ -27,14 +27,14 @@ TARGET := $(TARGET)dbg
 endif
 
 # %jp{メモリマップ}
-SECTION_ROM  ?= 0x00000000
-SECTION_RAM  ?= 0x00010000
+SECTION_RO  ?= 0x00000000
+SECTION_RW  ?= 0x00010000
 
 
 # %jp{フラグ設定}
 CFLAGS  = --cpu=ARM7TDMI --apcs=inter --thumb
 AFLAGS  = --cpu=ARM7TDMI --apcs=inter --thumb
-LNFLAGS = --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --entry=$(SECTION_ROM)
+LNFLAGS = --ro_base=$(SECTION_RO) --rw_base=$(SECTION_RW) --first=vectors.o --entry=$(SECTION_RO)
 
 
 # %jp{コンフィギュレータ定義}

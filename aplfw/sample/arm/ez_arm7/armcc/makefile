@@ -42,18 +42,18 @@ HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)\hosaplfwdbg.$(EXT_LIB)
 !if "$(MEMMAP)" == "ext"
 # %jp{外部メモリ}
 TARGET      = $(TARGET)ext
-SECTION_ROM = 0x80008000
-SECTION_RAM = 0x80010000
+SECTION_RO = 0x80008000
+SECTION_RW = 0x80010000
 !else
 !if "$(MEMMAP)" == "ram"
 # %jp{内蔵RAM}
-SECTION_ROM = 0x00000000
-SECTION_RAM = 0x80010000
+SECTION_RO = 0x00000000
+SECTION_RW = 0x80010000
 !else
 # %jp{内蔵ROM}
 AFLAGS      = $(AFLAGS) --predefine="ROM_AT_ADDRESS_ZERO SETL {TRUE}"
-SECTION_ROM = 0x00000000
-SECTION_RAM = 0x80010000
+SECTION_RO = 0x00000000
+SECTION_RW = 0x80010000
 !endif
 !endif
 
@@ -62,7 +62,7 @@ SECTION_RAM = 0x80010000
 # %jp{フラグ設定}
 CFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
 AFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
-LNFLAGS = --ro_base=$(SECTION_ROM) --rw_base=$(SECTION_RAM) --first=vectors.o --entry=$(SECTION_ROM)
+LNFLAGS = --ro_base=$(SECTION_RO) --rw_base=$(SECTION_RW) --first=vectors.o --entry=$(SECTION_RO)
 
 
 # %jp{出力ファイル名}

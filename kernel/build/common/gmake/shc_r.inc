@@ -54,7 +54,7 @@ $(TARGET_EXE): $(OBJS) $(LIBS)
 	$(CMD_ECHO) "-SHow SY,R,X"                                       >> $(OBJS_DIR)/linksub.txt
 	$(CMD_ECHO) "-Input=$(subst $(space),$(comma),$(strip $(OBJS)))" >> $(OBJS_DIR)/linksub.txt
 	$(CMD_ECHO) "-LIB=$(subst $(space),$(comma),$(strip $(LIBS)))"   >> $(OBJS_DIR)/linksub.txt
-	$(CMD_ECHO) "-start=VECTTBL/$(SECTION_VECT),P,C,C\$$BSEC,C\$$DSEC,D/$(SECTION_ROM),B,R,S/$(SECTION_RAM)" >> $(OBJS_DIR)/linksub.txt
+	$(CMD_ECHO) "-start=VECTTBL/$(SECTION_VECT),P,C,C\$$BSEC,C\$$DSEC,D/$(SECTION_RO),B,R,S/$(SECTION_RW)" >> $(OBJS_DIR)/linksub.txt
 	$(CMD_ECHO) "-output=$(TARGET_EXE)"                              >> $(OBJS_DIR)/linksub.txt
 	$(CMD_LINK) -SU=$(OBJS_DIR)/linksub.txt
 

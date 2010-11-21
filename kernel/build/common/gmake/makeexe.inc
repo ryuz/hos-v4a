@@ -44,10 +44,10 @@ KERNEL_LIB_NAME ?= libhosv4a
 KERNEL_MAKOPT   ?=
 
 # %jp{デバッグ指定}
-KERNEL_MAKOPT += DEBUG=$(KERNEL_DEBUG)
-ifeq ($(KERNEL_DEBUG),Yes)
-KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)dbg
-endif
+#KERNEL_MAKOPT += DEBUG=$(KERNEL_DEBUG)
+#ifeq ($(KERNEL_DEBUG),Yes)
+#KERNEL_LIB_NAME := $(KERNEL_LIB_NAME)dbg
+#endif
 
 
 # %jp{エラーレベル指定}

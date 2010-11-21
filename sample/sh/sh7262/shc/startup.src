@@ -1,0 +1,36 @@
+
+				.EXPORT		_ResetHandler
+				.IMPORT     __INITSCT
+				.IMPORT     _main
+
+				.SECTION    VECTTBL, DATA, ALIGN=4 
+
+				.SECTION	P, CODE, ALIGN=4
+_ResetHandler:	
+				mov.l	addr_VECTTBL, r1
+	;			ldc		r1, VBR
+				mov.l	addr_INITSCT, r0
+				jsr		@r0
+				nop
+				
+				mov.l	addr_main, r0
+				jsr		@r0
+				nop
+				sleep
+				
+				
+				.ALIGN		4
+addr_VECTTBL:
+				.DATA.L		STARTOF VECTTBL
+addr_INITSCT:
+				.DATA.L		__INITSCT
+addr_main:
+				.DATA.L		_main
+				
+
+				.SECTION	S, STACK, ALIGN=4
+				.RES.B		1024
+
+
+				.END		_ResetHandler
+

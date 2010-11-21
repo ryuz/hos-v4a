@@ -1,0 +1,45 @@
+; --------------------------------------------------------------------------- 
+;  Hyper Operating System V4 Advance
+;                                                                             
+;                                     Copyright (C) 1998-2006 by Project HOS  
+;                                     http://sourceforge.jp/projects/hos/     
+; --------------------------------------------------------------------------- 
+
+
+
+				.CPU	SH2
+
+
+				.SECTION  P, CODE, ALIGN=4
+
+				.IMPORT	__kernel_ictxcb
+
+;------------------------------------------------
+; 割り込み許可
+; void _kernel_ena_int(void)
+;------------------------------------------------
+				.ALIGN	4
+				.EXPORT	__kernel_ena_int
+				.STACK	__kernel_ena_int=0
+__kernel_ena_int:
+				mov.l	addr_ictxcb, r2
+				stc		sr, r0
+				mov.w	@r2, r1
+				or		#h'f0, r0
+				xor		#h'f0, r0
+				or		r1, r0					; 割り込みマスクの値を設定
+				ldc		r0, sr
+				rts
+				nop								; SH/Tiny対策
+
+
+				.ALIGN	4
+addr_ictxcb:
+				.DATA.L	__kernel_ictxcb			; 割り込みマスク
+
+
+
+				.END
+
+
+; end of file

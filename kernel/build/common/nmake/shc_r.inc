@@ -106,7 +106,7 @@ $(TARGET_EXE): $(OBJS) $(LIBS)
 -SHow SY,R,X
 -Input=$(OBJS: =,)
 -LIB=$(LIBS: =,)
--start=VECTTBL/$(SECTION_VECT),P,C,C$$BSEC,C$$DSEC,D/$(SECTION_ROM),B,R,S/$(SECTION_RAM)
+-start=VECTTBL/$(SECTION_VECT),P,C,C$$BSEC,C$$DSEC,D/$(SECTION_RO),B,R,S/$(SECTION_RW)
 -output=$(TARGET_EXE)
 <<
 !endif
