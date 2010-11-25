@@ -13,6 +13,12 @@
 #define _KERNEL__arch__proc__sh__sh2a_fpu__proc_h__
 
 
+
+#define _KERNEL_SH2AFPU_REG_IBCR		((volatile UH *)0xfffe080c)
+#define _KERNEL_SH2AFPU_REG_IBNR		((volatile UH *)0xfffe080e)
+
+
+
 /** %jp{コンテキスト情報保存ブロック}%en{Execution context control block} */
 typedef struct _kernel_t_ctxcb
 {
@@ -51,7 +57,7 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxcb_nxt, _KERNEL_T_CTXCB *pk_ctxcb
 
 
 
-#define _KERNEL_INI_PRC()	do{}while(0)															/**< %jp{プロセッサの初期化}%en{Initialize processor} */
+#define _KERNEL_INI_PRC()			do { *_KERNEL_SH2AFPU_REG_IBNR = 0x4000; }while(0)				/**< %jp{プロセッサの初期化}%en{Initialize processor} */
 
 #define _KERNEL_INI_INT(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)
 #define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割込み許可}%en{Enable interrupt} */

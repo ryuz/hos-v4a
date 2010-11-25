@@ -52,16 +52,16 @@ void Sample_Initialize(VP_INT exinf)
 	Sci1_Initialize();
 	
 	/* %jp{固定長メモリプール生成} */
-	cmpf.mpfatr = TA_TFIFO;					
-	cmpf.blkcnt = 3;						
-	cmpf.blksz  = sizeof(T_PRINT_MSG);		
-	cmpf.mpf    = NULL;						
+	cmpf.mpfatr = TA_TFIFO;
+	cmpf.blkcnt = 3;
+	cmpf.blksz  = sizeof(T_PRINT_MSG);
+	cmpf.mpf    = NULL;
 	mpfid = acre_mpf(&cmpf);
 	
 	/* %jp{メールボックス生成} */
-	cmbx.mbxatr  = TA_TFIFO | TA_TFIFO;		
-	cmbx.maxmpri = 1;						
-	cmbx.mprihd  = NULL;					
+	cmbx.mbxatr  = TA_TFIFO | TA_TFIFO;
+	cmbx.maxmpri = 1;
+	cmbx.mprihd  = NULL;
 	mbxid = acre_mbx(&cmbx);
 	
 	/* %jp{タスク起動} */
@@ -90,7 +90,7 @@ void print_state(int num, char *text)
 	/* %jp{メモリ取得} */
 	get_mpf(mpfid, &mem);
 	msg = (T_PRINT_MSG *)mem;
-
+	
 	/* %jp{文字列生成} */
 	msg->text[0] = '0' + num;
 	msg->text[1] = ' ';

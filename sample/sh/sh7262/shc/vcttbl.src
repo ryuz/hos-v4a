@@ -2,77 +2,93 @@
 
 
 				.IMPORT     _ResetHandler				; リセットベクタ
-				.IMPORT		__kernel_int_hdr			; 割込みベクタ
+				.IMPORT		__kernel_int_hdr			; 割込みハンドラ
+				.IMPORT		__kernel_exc_hdr			; CPU例外ハンドラ
+
+				.IMPORT		__kernel_vector_004
+				.IMPORT		__kernel_vector_005
+				.IMPORT		__kernel_vector_006
+				.IMPORT		__kernel_vector_007
+				.IMPORT		__kernel_vector_008
+				.IMPORT		__kernel_vector_009
+				.IMPORT		__kernel_vector_010
+				.IMPORT		__kernel_vector_011
+				.IMPORT		__kernel_vector_012
+				.IMPORT		__kernel_vector_013
+				.IMPORT		__kernel_vector_014
+				.IMPORT		__kernel_vector_015
+				.IMPORT		__kernel_vector_016
+				.IMPORT		__kernel_vector_017
+				.IMPORT		__kernel_vector_018
 
 
 
 				.SECTION    VECTTBL, DATA, ALIGN=4 
-
 _Vectors:
 				.DATA.L		_ResetHandler				; ベクタ0
 				.DATA.L		STARTOF S + SIZEOF S		; ベクタ1
 				.DATA.L		_ResetHandler				; ベクタ2
 				.DATA.L		STARTOF S + SIZEOF S		; ベクタ3
-				.DATA.L		__kernel_int_hdr			; ベクタ4
-				.DATA.L		0							; ベクタ5
-				.DATA.L		__kernel_int_hdr			; ベクタ6
-				.DATA.L		0							; ベクタ7
-				.DATA.L		h'c91f0606					; ベクタ8
-				.DATA.L		__kernel_int_hdr			; ベクタ9
-				.DATA.L		__kernel_int_hdr			; ベクタ10
-				.DATA.L		__kernel_int_hdr			; ベクタ11
-				.DATA.L		__kernel_int_hdr			; ベクタ12
-				.DATA.L		__kernel_int_hdr			; ベクタ13
-				.DATA.L		__kernel_int_hdr			; ベクタ14
-				.DATA.L		__kernel_int_hdr			; ベクタ15
-				.DATA.L		__kernel_int_hdr			; ベクタ16
-				.DATA.L		__kernel_int_hdr			; ベクタ17
-				.DATA.L		__kernel_int_hdr			; ベクタ18
-				.DATA.L		__kernel_int_hdr			; ベクタ19
-				.DATA.L		__kernel_int_hdr			; ベクタ20
-				.DATA.L		__kernel_int_hdr			; ベクタ21
-				.DATA.L		__kernel_int_hdr			; ベクタ22
-				.DATA.L		__kernel_int_hdr			; ベクタ23
-				.DATA.L		__kernel_int_hdr			; ベクタ24
-				.DATA.L		__kernel_int_hdr			; ベクタ25
-				.DATA.L		__kernel_int_hdr			; ベクタ26
-				.DATA.L		__kernel_int_hdr			; ベクタ27
-				.DATA.L		__kernel_int_hdr			; ベクタ28
-				.DATA.L		__kernel_int_hdr			; ベクタ29
-				.DATA.L		__kernel_int_hdr			; ベクタ30
-				.DATA.L		__kernel_int_hdr			; ベクタ31
-				.DATA.L		__kernel_int_hdr			; ベクタ32
-				.DATA.L		__kernel_int_hdr			; ベクタ33
-				.DATA.L		__kernel_int_hdr			; ベクタ34
-				.DATA.L		__kernel_int_hdr			; ベクタ35
-				.DATA.L		__kernel_int_hdr			; ベクタ36
-				.DATA.L		__kernel_int_hdr			; ベクタ37
-				.DATA.L		__kernel_int_hdr			; ベクタ38
-				.DATA.L		__kernel_int_hdr			; ベクタ39
-				.DATA.L		__kernel_int_hdr			; ベクタ40
-				.DATA.L		__kernel_int_hdr			; ベクタ41
-				.DATA.L		__kernel_int_hdr			; ベクタ42
-				.DATA.L		__kernel_int_hdr			; ベクタ43
-				.DATA.L		__kernel_int_hdr			; ベクタ44
-				.DATA.L		__kernel_int_hdr			; ベクタ45
-				.DATA.L		__kernel_int_hdr			; ベクタ46
-				.DATA.L		__kernel_int_hdr			; ベクタ47
-				.DATA.L		__kernel_int_hdr			; ベクタ48
-				.DATA.L		__kernel_int_hdr			; ベクタ49
-				.DATA.L		__kernel_int_hdr			; ベクタ50
-				.DATA.L		__kernel_int_hdr			; ベクタ51
-				.DATA.L		__kernel_int_hdr			; ベクタ52
-				.DATA.L		__kernel_int_hdr			; ベクタ53
-				.DATA.L		__kernel_int_hdr			; ベクタ54
-				.DATA.L		__kernel_int_hdr			; ベクタ55
-				.DATA.L		__kernel_int_hdr			; ベクタ56
-				.DATA.L		__kernel_int_hdr			; ベクタ57
-				.DATA.L		__kernel_int_hdr			; ベクタ58
-				.DATA.L		__kernel_int_hdr			; ベクタ59
-				.DATA.L		__kernel_int_hdr			; ベクタ60
-				.DATA.L		__kernel_int_hdr			; ベクタ61
-				.DATA.L		__kernel_int_hdr			; ベクタ62
-				.DATA.L		__kernel_int_hdr			; ベクタ63
+				.DATA.L		__kernel_vector_004			; ベクタ4
+				.DATA.L		__kernel_vector_005			; ベクタ5
+				.DATA.L		__kernel_vector_006			; ベクタ6
+				.DATA.L		__kernel_vector_007			; ベクタ7
+				.DATA.L		__kernel_vector_008			; ベクタ8
+				.DATA.L		__kernel_vector_009			; ベクタ9
+				.DATA.L		__kernel_vector_010			; ベクタ10
+				.DATA.L		__kernel_vector_011			; ベクタ11
+				.DATA.L		__kernel_vector_012			; ベクタ12
+				.DATA.L		__kernel_vector_013			; ベクタ13
+				.DATA.L		__kernel_vector_014			; ベクタ14
+				.DATA.L		__kernel_vector_015			; ベクタ15
+				.DATA.L		__kernel_vector_016			; ベクタ16
+				.DATA.L		__kernel_vector_017			; ベクタ17
+				.DATA.L		__kernel_vector_018			; ベクタ18
+				.DATA.L		__kernel_exc_hdr			; ベクタ19
+				.DATA.L		__kernel_exc_hdr			; ベクタ20
+				.DATA.L		__kernel_exc_hdr			; ベクタ21
+				.DATA.L		__kernel_exc_hdr			; ベクタ22
+				.DATA.L		__kernel_exc_hdr			; ベクタ23
+				.DATA.L		__kernel_exc_hdr			; ベクタ24
+				.DATA.L		__kernel_exc_hdr			; ベクタ25
+				.DATA.L		__kernel_exc_hdr			; ベクタ26
+				.DATA.L		__kernel_exc_hdr			; ベクタ27
+				.DATA.L		__kernel_exc_hdr			; ベクタ28
+				.DATA.L		__kernel_exc_hdr			; ベクタ29
+				.DATA.L		__kernel_exc_hdr			; ベクタ30
+				.DATA.L		__kernel_exc_hdr			; ベクタ31
+				.DATA.L		__kernel_exc_hdr			; ベクタ32
+				.DATA.L		__kernel_exc_hdr			; ベクタ33
+				.DATA.L		__kernel_exc_hdr			; ベクタ34
+				.DATA.L		__kernel_exc_hdr			; ベクタ35
+				.DATA.L		__kernel_exc_hdr			; ベクタ36
+				.DATA.L		__kernel_exc_hdr			; ベクタ37
+				.DATA.L		__kernel_exc_hdr			; ベクタ38
+				.DATA.L		__kernel_exc_hdr			; ベクタ39
+				.DATA.L		__kernel_exc_hdr			; ベクタ40
+				.DATA.L		__kernel_exc_hdr			; ベクタ41
+				.DATA.L		__kernel_exc_hdr			; ベクタ42
+				.DATA.L		__kernel_exc_hdr			; ベクタ43
+				.DATA.L		__kernel_exc_hdr			; ベクタ44
+				.DATA.L		__kernel_exc_hdr			; ベクタ45
+				.DATA.L		__kernel_exc_hdr			; ベクタ46
+				.DATA.L		__kernel_exc_hdr			; ベクタ47
+				.DATA.L		__kernel_exc_hdr			; ベクタ48
+				.DATA.L		__kernel_exc_hdr			; ベクタ49
+				.DATA.L		__kernel_exc_hdr			; ベクタ50
+				.DATA.L		__kernel_exc_hdr			; ベクタ51
+				.DATA.L		__kernel_exc_hdr			; ベクタ52
+				.DATA.L		__kernel_exc_hdr			; ベクタ53
+				.DATA.L		__kernel_exc_hdr			; ベクタ54
+				.DATA.L		__kernel_exc_hdr			; ベクタ55
+				.DATA.L		__kernel_exc_hdr			; ベクタ56
+				.DATA.L		__kernel_exc_hdr			; ベクタ57
+				.DATA.L		__kernel_exc_hdr			; ベクタ58
+				.DATA.L		__kernel_exc_hdr			; ベクタ59
+				.DATA.L		__kernel_exc_hdr			; ベクタ60
+				.DATA.L		__kernel_exc_hdr			; ベクタ61
+				.DATA.L		__kernel_exc_hdr			; ベクタ62
+				.DATA.L		__kernel_exc_hdr			; ベクタ63
 				.DATA.L		__kernel_int_hdr			; ベクタ64
 				.DATA.L		__kernel_int_hdr			; ベクタ65
 				.DATA.L		__kernel_int_hdr			; ベクタ66

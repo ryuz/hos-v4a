@@ -16,7 +16,7 @@ TARGET = sample
 
 
 # %jp{アーキテクチャ定義}%en{architecture}
-ARCH_NAME = sh2
+ARCH_NAME = sh2a-fpu
 ARCH_CC   = shc
 
 
@@ -25,7 +25,7 @@ TOP_DIR           = ..\..\..\..
 KERNEL_DIR        = $(TOP_DIR)\kernel
 KERNEL_CFGRTR_DIR = $(TOP_DIR)\cfgrtr\build\msc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)\build\common\nmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)\build\sh\sh2\shc
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)\build\sh\sh2a-fpu\shc
 
 
 # %jp{コンフィギュレータ定義}
@@ -37,17 +37,17 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)\h4acfg-$(ARCH_NAME)
 
 
 # %jp{メモリマップ}
-!if "$(MEMMAP)" == "ram"
-# %jp{外部メモリ}
-TARGET       = $(TARGET)_ram
-SECTION_VECT = 0FFFFE160
-SECTION_RO  = 000400400
-SECTION_RW  = 000410000
-!else
-# %jp{内蔵ROMメモリ}
+!if "$(MEMMAP)" == "rom"
+# %jp{ROM実行}
+TARGET       = $(TARGET)_rom
 SECTION_VECT = 000000000
-SECTION_RO  = 000000400
-SECTION_RW  = 0FFFFE000
+SECTION_RO   = 000000800
+SECTION_RW   = 01c000000
+!else
+# %jp{RAM実行}
+SECTION_VECT = 01c000000
+SECTION_RO   = 01c000800
+SECTION_RW   = 01c028000
 !endif
 
 
@@ -57,8 +57,8 @@ SRC_DIRS = . ..
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS   = -CPu=sh2
-CFLAGS   = -CPu=sh2
+AFLAGS   = -CPu=sh2afpu
+CFLAGS   = -CPu=sh2afpu
 LNFLAGS  = 
 
 

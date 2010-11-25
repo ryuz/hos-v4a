@@ -16,14 +16,6 @@
 				.SECTION  P, CODE, ALIGN=4
 
 
-;------------------------------------------------
-;   高速割り込みベクタ利用時、bra で分岐可能な
-; 位置にベクタ入り口を設置。ただし未使用の
-; ベクタまでリンクされてしまう。
-;------------------------------------------------
-
-		.AIFDEF		_KERNEL_FAST_EXCVEC
-
 				.EXPORT	__kernel_vector_004
 				.EXPORT	__kernel_vector_005
 				.EXPORT	__kernel_vector_006
@@ -385,7 +377,6 @@ __kernel_vector_063:
 				bra		__kernel_exc_hdr
 				mov		#63, r4
 
-		.AENDI
 
 
 ;------------------------------------------------
@@ -395,7 +386,11 @@ __kernel_vector_063:
 ;  格納してここに分岐するものとする
 ;------------------------------------------------
 __kernel_exc_hdr:
-			; まだ未実装
+
+				.ALIGN	4
+__kernel_exc_hdr:
+				bra		__kernel_exc_hdr
+				nop
 
 				mov.l	@r15+, r4
 				rte

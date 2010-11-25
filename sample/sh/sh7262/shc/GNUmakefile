@@ -37,18 +37,18 @@ KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-$(ARCH_NAME)
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-ifeq ($(MEMMAP),ram)
-# %jp{RAMé¿çs}%en{external RAM}
-TARGET := $(TARGET)_ram
-SECTION_VECT ?= 01c000000
-SECTION_RO   ?= 01c000800
-SECTION_RW   ?= 01c028000
-else
+ifeq ($(MEMMAP),rom)
 # %jp{ROMèƒÇ´Ç∑ÇÈèÍçá}%en{internal ROM}
-TARGET := $(TARGET)
+TARGET := $(TARGET)_rom
 SECTION_VECT ?= 000000000
 SECTION_RO   ?= 000000800
 SECTION_RW   ?= 01c000000
+else
+# %jp{RAMé¿çs}%en{external RAM}
+TARGET := $(TARGET)
+SECTION_VECT ?= 01c000000
+SECTION_RO   ?= 01c000800
+SECTION_RW   ?= 01c028000
 endif
 
 
