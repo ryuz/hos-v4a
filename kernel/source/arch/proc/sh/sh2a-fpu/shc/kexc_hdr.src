@@ -389,8 +389,8 @@ __kernel_exc_hdr:
 
 				.ALIGN	4
 __kernel_exc_hdr:
-				bra		__kernel_exc_hdr
-				nop
+;				bra		__kernel_exc_hdr
+;				nop
 
 				mov.l	@r15+, r4
 				rte

@@ -142,7 +142,7 @@ $(STD_LIBS):
 
 
 # %jp{実行ファイル生成用設定読込み}%en{setting for execute file}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
 # %jp{shc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/shc_r.inc

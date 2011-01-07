@@ -33,6 +33,10 @@ __kernel_swi_ctx:
 				sts.l	macl, @-r15
 				sts.l	mach, @-r15
 				sts.l	pr, @-r15
+				fmov.s	fr12, @-r15
+				fmov.s	fr13, @-r15
+				fmov.s	fr14, @-r15
+				fmov.s	fr15, @-r15
 				mov.l	r15, @(0, r5)			; スタックポインタ保存
 		; ---- このまま _kernel_sta_ctx に続ける
 
@@ -45,7 +49,11 @@ __kernel_swi_ctx:
 				.STACK	__kernel_sta_ctx=0
 __kernel_sta_ctx:
 				mov.l	@(0, r4), r15			; スタックポインタ復帰
-				lds.l	@r15+, pr				; r8-r14,prを復帰
+				fmov.s	@r15+, fr15
+				fmov.s	@r15+, fr14
+				fmov.s	@r15+, fr13
+				fmov.s	@r15+, fr12
+				lds.l	@r15+, pr
 				lds.l	@r15+, mach
 				lds.l	@r15+, macl
 				mov.l	@r15+, r14
