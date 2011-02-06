@@ -41,3 +41,10 @@ objs_*/
 *.ncb
 Debug/
 Release/
+
+# release
+tools/make_release/hos-v4a
+*.zip
+*.lzh
+*.tgz
+*.tar.gz
