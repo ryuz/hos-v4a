@@ -4,7 +4,7 @@
  * @file  procatr.h
  * @brief %jp{プロセッサアーキテクチャ固有属性定義(XILINX MicroBlaze)}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -27,7 +27,7 @@
 #define _KERNEL_PROCATR_TMIN_STKSZ			(4*32)		/**< %jp{最低限必要なスタックサイズ(byte単位)} */
 
 #define _KERNEL_PROCATR_SPT_SMP				FALSE		/**< %jp{SMPに対応しているか？} */
-#define _KERNEL_PROCATR_SPT_MULTINT			TRUE		/**< %jp{多重割込みに対応しているか？} */
+#define _KERNEL_PROCATR_SPT_MULTINT			FALSE		/**< %jp{多重割込みに対応しているか？} */
 
 #define _KERNEL_PROCATR_TMIN_INHNO			0			/**< %jp{割込みハンドラ番号の最小値} */
 #define _KERNEL_PROCATR_TMAX_INHNO			255			/**< %jp{割込みハンドラ番号の最大値} */

@@ -24,7 +24,5 @@ _kernel_rst_ctx:
 				addik	r15, r7, 0				/* スタックポインタリセット(遅延スロット) */
 
 
-				.end
-
 
 /* end of file */

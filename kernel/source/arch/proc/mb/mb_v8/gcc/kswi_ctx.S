@@ -57,8 +57,9 @@ _kernel_sta_ctx:
 				lwi		r28, r1, 40
 				lwi		r29, r1, 44
 				lwi		r30, r1, 48
-				rtsd	r15, 8
 				lwi		r31, r1, 52
+				rtsd	r15, 8
+				addik	r1, r1, 56
 
 
 

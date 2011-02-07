@@ -22,8 +22,6 @@ typedef struct _kernel_t_ctxcb
 /** %jp{割込みコンテキスト制御ブロック} */
 typedef struct _kernel_t_ictxcb
 {
-	H	imsk;
-	B	intcnt;
 	VP	isp;
 } _KERNEL_T_ICTXCB;
 
