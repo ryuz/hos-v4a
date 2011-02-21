@@ -22,7 +22,7 @@
 struct _kernel_t_isrcb;
 
 #if _KERNEL_IRCATR_REG_BASE
-extern       VP					_kernel_irc_reg_base;
+extern const VP					_kernel_irc_reg_base;
 #endif
 
 /* %jp{割込み情報} */
