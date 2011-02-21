@@ -17,6 +17,7 @@
 #define _KERNEL_IRCATR_INC_PATH		"simple"
 
 #define _KERNEL_IRCATR_IRC			TRUE							/**< %jp{IRCの有無} */
+#define _KERNEL_IRCATR_REG_BASE		FALSE							/**< %jp{IRCレジスタベースアドレスの有無} */
 
 #define _KERNEL_IRCATR_TMIN_INTNO	_KERNEL_PROCATR_TMIN_INHNO		/**< %jp{割込みハンドラ番号の最小値} */
 #define _KERNEL_IRCATR_TMAX_INTNO	_KERNEL_PROCATR_TMAX_INHNO		/**< %jp{割込みハンドラ番号の最大値} */

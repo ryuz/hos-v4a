@@ -29,7 +29,8 @@ public:
 
 protected:
 	int   m_iMinIntNo;	
-	int   m_iMaxIntNo;	
+	int   m_iMaxIntNo;
+	char* m_pszRegBase;
 };
 
 

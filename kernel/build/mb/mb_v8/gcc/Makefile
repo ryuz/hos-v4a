@@ -26,7 +26,7 @@ CMD_LIBR ?= $(GCC_ARCH)ar
 # %jp{アーキテクチャ定義}%en{architecture}
 ARCH_NAME ?= mb_v8
 ARCH_PROC ?= mb/mb_v8
-ARCH_IRC  ?= none
+ARCH_IRC  ?= mb/axi_intc
 ARCH_CC   ?= gcc
 
 
@@ -92,6 +92,10 @@ ASRCS += $(SRC_PROC_CC_DIR)/kexc_hdr.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
 CSRCS += $(SRC_PROC_DIR)/val_int.c
+CSRCS += $(SRC_IRC_DIR)/kini_irc.c
+CSRCS += $(SRC_IRC_DIR)/kexe_irc.c
+CSRCS += $(SRC_IRC_DIR)/ena_int.c
+CSRCS += $(SRC_IRC_DIR)/dis_int.c
 
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}

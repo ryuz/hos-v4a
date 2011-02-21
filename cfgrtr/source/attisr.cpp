@@ -29,13 +29,15 @@ CApiAttIsr::CApiAttIsr()
 	m_iParamSyntax[0] = 4;		// 4つのパラメーターブロック
 	m_iParams         = 1;
 
-	m_iMinIntNo =  0;	
-	m_iMaxIntNo = -1;
+	m_iMinIntNo  =  0;	
+	m_iMaxIntNo  = -1;
+	m_pszRegBase = NULL;
 }
 
 // デストラクタ
 CApiAttIsr::~CApiAttIsr()
 {
+	delete [] m_pszRegBase;
 }
 
 
@@ -110,6 +112,17 @@ int CApiAttIsr::AnalyzeApi(const char* pszApiName, const char* pszParams)
 		m_iMaxIntNo = atoi(pszParams);
 		return CFG_ERR_OK;
 	}
+	else if ( strcmp(pszApiName, "KERNEL_IRC_REGBASE") == 0 )
+	{
+		if ( m_pszRegBase != NULL )
+		{
+			return CFG_ERR_MULTIDEF;
+		}
+		
+		int len = strlen(pszParams);
+		m_pszRegBase = new char[len + 1];
+		strcpy(m_pszRegBase, pszParams);
+	}
 
 	return CFG_ERR_NOPROC;
 }
@@ -154,8 +167,25 @@ void  CApiAttIsr::WriteCfgDef(FILE* fp)
 
 	fprintf(
 			fp,
-		"const ID        _kernel_max_isrid = %d;\n",
-		m_iMaxId);
+			"const ID        _kernel_max_isrid = %d;\n",
+			m_iMaxId);
+
+#if _KERNEL_IRCATR_REG_BASE
+	if ( m_pszRegBase != NULL )
+	{
+		fprintf(
+				fp,
+				"const VP        _kernel_irc_reg_base = (VP)(%s);\n",
+				m_pszRegBase);
+	}
+	else
+	{
+		fprintf(
+				fp,
+				"const VP        _kernel_irc_reg_base = (VP)(0x%x);\n",
+				_KERNEL_IRCATR_REG_BASE_DEF);
+	}
+#endif
 }
 
 
