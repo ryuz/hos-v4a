@@ -122,6 +122,7 @@ int CApiAttIsr::AnalyzeApi(const char* pszApiName, const char* pszParams)
 		int len = strlen(pszParams);
 		m_pszRegBase = new char[len + 1];
 		strcpy(m_pszRegBase, pszParams);
+		return CFG_ERR_OK;
 	}
 
 	return CFG_ERR_NOPROC;
