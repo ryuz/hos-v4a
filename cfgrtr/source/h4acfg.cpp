@@ -43,11 +43,13 @@
 #define DEFAULT_INPUTFILE		"system.i"
 #define DEFAULT_IDFILE			"kernel_id.h"
 #define DEFAULT_CFGFILE			"kernel_cfg.c"
+#define DEFAULT_VECTORFILE		"kernel_vct.c"
 
 
 int  ReadConfigFile(FILE* fpConfig);	// コンフィギュレーションファイル読み込み
 void WriteIdFile(FILE* fp);				// ID 定義ヘッダファイル出力
 void WriteCfgFile(FILE* fp);			// C 言語ソース出力
+void WriteVctFile(FILE* fp);			// C 言語ソース出力
 void PrintUsage(void);
 
 
@@ -56,7 +58,7 @@ CApiKernelHeap g_ApiKernelHeap;
 CApiDpcQue     g_ApiDpcQue;
 CApiIdleStack  g_ApiIdleStack;
 CApiMaxTpri    g_ApiMaxTpri;
-CApiIntStack   g_IntStack;
+CApiIntStack   g_ApiIntStack;
 CApiCreTsk     g_ApiCreTsk;
 CApiDefTex     g_ApiDefTex;
 CApiCreSem     g_ApiCreSem;
@@ -77,6 +79,7 @@ CApiDefExc     g_ApiDefExc;
 static const char *s_szPhysicalInputFile  = NULL;
 static const char *s_szIdFile             = DEFAULT_IDFILE;
 static const char *s_szCfgFile            = DEFAULT_CFGFILE;
+static const char *s_szVctFile            = DEFAULT_VECTORFILE;
 
 // API定義リスト
 static CApiDef* g_ApiList[] =
@@ -85,7 +88,7 @@ static CApiDef* g_ApiList[] =
 		&g_ApiKernelHeap,
 		&g_ApiDpcQue,
 		&g_ApiIdleStack,
-		&g_IntStack,
+		&g_ApiIntStack,
 		&g_ApiCreTsk,
 //		&g_ApiDefTex,
 		&g_ApiCreSem,
@@ -114,6 +117,7 @@ int main(int argc, char *argv[])
 {
 	FILE* fpInput;
 	FILE* fpCfg;
+	FILE* fpVct;
 	FILE* fpId;
 	int  iErr;
 	int  i;
@@ -142,6 +146,17 @@ int main(int argc, char *argv[])
 				return 1;
 			}
 			s_szIdFile = argv[i];
+		}
+		else if ( strcmp(argv[i], "-vect") == 0 )
+		{
+			i++;
+			if ( i >= argc )
+			{
+				fprintf(stderr, "option error \"-vect\"\n");
+				PrintUsage();
+				return 1;
+			}
+			s_szVctFile = argv[i];
 		}
 		else if ( strcmp(argv[i], "-help") == 0 )
 		{
@@ -182,7 +197,7 @@ int main(int argc, char *argv[])
                fprintf(stderr, "could not open file \"%s\"\n", s_szPhysicalInputFile);
 		return 1;
 	}
-	
+
 	// コンフィギュレーションファイル読み込み
 	iErr = ReadConfigFile(fpInput) != 0;
 	fclose(fpInput);
@@ -200,7 +215,7 @@ int main(int argc, char *argv[])
 	// ID 定義ファイルオープン
 	if ( (fpId = fopen(s_szIdFile, "w")) == NULL )
 	{
-               fprintf(stderr, "could not open file \"%s\"\n", s_szIdFile);
+		fprintf(stderr, "could not open file \"%s\"\n", s_szIdFile);
 		return 1;
 	}
 
@@ -212,13 +227,26 @@ int main(int argc, char *argv[])
 	// Cfgファイルオープン
 	if ( (fpCfg = fopen(s_szCfgFile, "w")) == NULL )
 	{
-               fprintf(stderr, "could not open file \"%s\"\n", s_szCfgFile);
+		fprintf(stderr, "could not open file \"%s\"\n", s_szCfgFile);
 		return 1;
 	}
 
 	WriteCfgFile(fpCfg);
 
 	fclose(fpCfg);
+
+#ifdef _KERNEL_PROCATR_ARM_CORTEX_M3
+	// ベクタファイルオープン
+	if ( (fpVct = fopen(s_szVctFile, "w")) == NULL )
+	{
+		fprintf(stderr, "could not open file \"%s\"\n", s_szVctFile);
+		return 1;
+	}
+	WriteVctFile(fpVct);
+
+	fclose(fpVct);
+#endif
+
 
 	return 0;
 }
@@ -246,7 +274,7 @@ int ReadConfigFile(FILE* fpConfig)
 				read.GetLogicalLineNum(), GetErrMessage(iErr));
 			return 1;
 		}
-		
+
 		// 構文解析
 		iErr = CAnalyze::SplitState(szApiName, szParams, szState);
 		if ( iErr != CFG_ERR_OK )
@@ -362,12 +390,12 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/inhobj.h\"\n");
 	fprintf(fp, "#include \"object/isrobj.h\"\n");
 	fprintf(fp, "#include \"object/cycobj.h\"\n");
-	
+
 //	fprintf(fp, "#include \"%s\"\n", s_szIdFile);
 	fprintf(fp, "#include \"kernel_id.h\"\n");
-	
-	
-	// ID 定義ファイル出力
+
+
+	// 定義部出力
 	for ( i = 0; i < API_COUNT; i++ )
 	{
 		g_ApiList[i]->WriteCfgDef(fp);
@@ -413,6 +441,40 @@ void WriteCfgFile(FILE* fp)
 		"/* ------------------------------------------------------------------------ */\n"
 		, fp);
 }
+
+
+
+// C 言語ソース出力
+void WriteVctFile(FILE* fp)
+{
+	int i;
+
+	/* ヘッダ出力 */
+	fprintf(
+		fp,
+		"/* ------------------------------------------------------------------------ */\n"
+		"/*  HOS-V4a  kernel configuration                                           */\n"
+		"/*                                                                          */\n"
+		"/* ------------------------------------------------------------------------ */\n"
+		"\n\n");
+
+	fprintf(fp, "#include \"kernel.h\"\n");
+	fprintf(fp, "#include \"arch/proc/%s/procatr.h\"\n", _KERNEL_PROCATR_INC_PATH);
+	fprintf(fp, "#include \"arch/proc/%s/proc.h\"\n",    _KERNEL_PROCATR_INC_PATH);
+	fprintf(fp, "#include \"kernel_id.h\"\n");
+
+	g_ApiInclude.WriteCfgDef(fp);
+	g_ApiDefInh.WriteVecter(fp, &g_ApiIntStack);
+
+	// フッタ出力
+	fputs(
+		"\n\n"
+		"/* ------------------------------------------------------------------------ */\n"
+		"/*  End of file                                                             */\n"
+		"/* ------------------------------------------------------------------------ */\n"
+		, fp);
+}
+
 
 // 使い方表示
 void PrintUsage(void)

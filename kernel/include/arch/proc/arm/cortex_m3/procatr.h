@@ -2,20 +2,22 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  procatr.h
- * @brief %jp{ARM v7-M}%en{ARM v7-M}
+ * @brief %jp{ARM Cortex-M3}%en{ARM Cortex-M3}
  *
  * Copyright (C) 1998-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#ifndef _KERNEL__arch__proc__arm__arm_v7m__procatr_h__
-#define _KERNEL__arch__proc__arm__arm_v7m__procatr_h__
+#ifndef _KERNEL__arch__proc__arm__cortex_m3__procatr_h__
+#define _KERNEL__arch__proc__arm__cortex_m3__procatr_h__
 
+
+#define _KERNEL_PROCATR_ARM_CORTEX_M3
 
 
 /* %jp{プロセッサアーキテクチャ定義のあるインクルードパス} */
-#define _KERNEL_PROCATR_INC_PATH			"arm/arm_v7m"
+#define _KERNEL_PROCATR_INC_PATH			"arm/cortex_m3"
 
 
 /* %jp{プロセッサアーキテクチャに依存した属性} */
@@ -33,7 +35,7 @@
 #define _KERNEL_PROCATR_SPT_MULTINT			TRUE		/**< %jp{多重割込みに対応しているか？} */
 
 #define _KERNEL_PROCATR_TMIN_INHNO			0			/**< %jp{割込みハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_INHNO			1			/**< %jp{割込みハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMAX_INHNO			64			/**< %jp{割込みハンドラ番号の最大値} */
 
 #define _KERNEL_PROCATR_TMIN_EXCNO			0			/**< %jp{CPU例外ハンドラ番号の最小値} */
 #define _KERNEL_PROCATR_TMAX_EXCNO			4			/**< %jp{CPU例外ハンドラ番号の最大値} */
@@ -48,19 +50,8 @@
 #define _KERNEL_PROCATR_ALLOW_UNALIGN		FALSE		/**< %jp{アンアラインアクセスは可能か？} */
 
 
-/* %jp{ARM固有の定数} */
-#define _KERNEL_ARM_INHNO_IRQ				0			/**< %jp{IRQ割込みの割込みハンドラ番号} */
-#define _KERNEL_ARM_INHNO_FIQ				1			/**< %jp{FIQ割込みの割込みハンドラ番号} */
 
-#define _KERNEL_ARM_EXCNO_RST				0			/**< %jp{リセットのCPU例外ハンドラ番号} */
-#define _KERNEL_ARM_EXCNO_UND				1			/**< %jp{無効命令例外のCPU例外ハンドラ番号} */
-#define _KERNEL_ARM_EXCNO_SWI				2			/**< %jp{ソフトウェア割込みのCPU例外ハンドラ番号} */
-#define _KERNEL_ARM_EXCNO_PRE				3			/**< %jp{プリフェッチアボートのCPU例外ハンドラ番号} */
-#define _KERNEL_ARM_EXCNO_ABT				4			/**< %jp{データアボートのCPU例外ハンドラ番号} */
-
-
-
-#endif	/* _KERNEL__arch__proc__arm__arm_v7m__procatr_h__ */
+#endif	/* _KERNEL__arch__proc__arm__cortex_m3__procatr_h__ */
 
 
 /* end of file */

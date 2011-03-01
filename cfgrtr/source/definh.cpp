@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4a  コンフィギュレーター                           
-//    DEF_INH API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2010 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4a  コンフィギュレーター
+//    DEF_INH API の処理
+//
+//                                    Copyright (C) 1998-2011 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -59,6 +59,7 @@ int CApiDefInh::AutoId(void)
 // %jp{cfgファイル定義部書き出し}
 void  CApiDefInh::WriteCfgDef(FILE* fp)
 {
+#ifndef _KERNEL_PROCATR_ARM_CORTEX_M3
 	int i, j;
 
 	// コメント出力
@@ -77,7 +78,7 @@ void  CApiDefInh::WriteCfgDef(FILE* fp)
 		"_KERNEL_T_INHINF _kernel_inh_tbl[%d] =\n"
 		"\t{\n",
 		_KERNEL_TMAX_INH_INHNO - _KERNEL_TMIN_INH_INHNO + 1);
-	
+
 	for ( i = _KERNEL_TMIN_INH_INHNO; i <= _KERNEL_TMAX_INH_INHNO; i++ )
 	{
 		for ( j = 0; j < m_iObjs; j++ )
@@ -97,6 +98,8 @@ void  CApiDefInh::WriteCfgDef(FILE* fp)
 		}
 	}
 	fprintf(fp, "\t};\n\n");
+
+#endif
 }
 
 
@@ -106,6 +109,78 @@ void  CApiDefInh::WriteCfgStart(FILE* fp)
 }
 
 
+void  CApiDefInh::WriteVecter(FILE* fp, CApiIntStack *pIntStack)
+{
+#ifdef _KERNEL_PROCATR_ARM_CORTEX_M3
+	int i, j;
+
+	// コメント出力
+	fputs(
+		"\n\n\n"
+		"/* ------------------------------------------ */\n"
+		"/*        define interrupt handler            */\n"
+		"/* ------------------------------------------ */\n\n"
+		, fp);
+
+	pIntStack->WriteStackMemory(fp);
+
+	fprintf(fp,
+		"\n\n"
+#if !_KERNEL_SPT_DEF_INH
+		"const "
+#endif
+		"_KERNEL_T_INHINF _kernel_inh_tbl[%d] =\n"
+		"\t{\n",
+		_KERNEL_TMAX_INH_INHNO - _KERNEL_TMIN_INH_INHNO + 1);
+
+	for ( i = _KERNEL_TMIN_INH_INHNO; i <= _KERNEL_TMAX_INH_INHNO; i++ )
+	{
+		switch ( i )
+		{
+		case 0:
+			fprintf(fp, "\t\t{(FP)(_kernel_reset_handler)},\t\t/* reset handler */\n");
+			break;
+
+		case 1:
+			fprintf(fp, "\t\t{(FP)(");
+			pIntStack->WriteStackPointer(fp);
+			fprintf(fp, ")},\t\t/* stack pointer */\n");
+			break;
+
+		case 2:
+			fprintf(fp, "\t\t{(FP)(_kernel_nmi_handler)},\t\t/* non maskable intterupt handler */\n");
+			break;
+
+		case 3:
+			fprintf(fp, "\t\t{(FP)(_kernel_hw_fault_handler)},\t\t/* hard fault handler */\n");
+			break;
+
+		default:
+			for ( j = 0; j < m_iObjs; j++ )
+			{
+				if ( atoi(m_pParamPacks[j]->GetParam(DEFINH_INHNO)) == i )
+				{
+					break;
+				}
+			}
+			if ( j < m_iObjs )
+			{
+				fprintf(fp, "\t\t{(FP)(%s)},\n", m_pParamPacks[j]->GetParam(DEFINH_INTHDR));
+			}
+			else
+			{
+				fprintf(fp, "\t\t{(FP)NULL},\n");
+			}
+			break;
+		}
+	}
+	fprintf(fp, "\t};\n\n");
+
+#endif
+}
+
+
+
 // ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2006 by Project HOS                                    
+//  end of file
 // ---------------------------------------------------------------------------

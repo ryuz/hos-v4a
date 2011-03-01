@@ -2,15 +2,15 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  proc.h
- * @brief %jp{ARM v7-M}%en{ARM v7-M}
+ * @brief %jp{ARM Cortex-M3}%en{Cortex-M3}
  *
  * Copyright (C) 1998-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#ifndef _KERNEL__arch__proc__arm__arm_v7m__proc_h__
-#define _KERNEL__arch__proc__arm__arm_v7m__proc_h__
+#ifndef _KERNEL__arch__proc__arm__cortex_m3__proc_h__
+#define _KERNEL__arch__proc__arm__cortex_m3__proc_h__
 
 
 
@@ -46,6 +46,10 @@ extern _KERNEL_T_ICTXCB _kernel_ictxcb;		/**< %jp{割込みコンテキスト制
 extern "C" {
 #endif
 
+void    _kernel_reset_handler(void);
+void    _kernel_nmi_handler();
+void    _kernel_hw_fault_handler();
+
 void    _kernel_ena_int(void);																		/**< %jp{割込み許可} */
 void    _kernel_dis_int(void);																		/**< %jp{割込み禁止} */
 void    _kernel_wai_int(void);																		/**< %jp{割込み待ち(アイドル時の処理)} */
@@ -78,7 +82,7 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 									_kernel_swi_ctx((pk_ctxinf_nxt), (pk_ctxcb_now))				/**< %jp{実行コンテキストの切替} */
 
 
-#endif	/* _KERNEL__arch__proc__arm__arm_v7m__proc_h__ */
+#endif	/* _KERNEL__arch__proc__arm__cortex_m3__proc_h__ */
 
 
 

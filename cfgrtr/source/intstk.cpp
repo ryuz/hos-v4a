@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    HOS_INT_STK API の処理                                                  
-//                                                                            
-//                                    Copyright (C) 1998-2010 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4  コンフィギュレーター
+//    HOS_INT_STK API の処理
+//
+//                                    Copyright (C) 1998-2010 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -18,6 +18,10 @@
 
 #define INTSTK_STKSZ		0
 #define INTSTK_STK			1
+
+
+#define DEFAULT_SIZE		"256"
+#define DEFAULT_STACK		"NULL"
 
 
 // コンストラクタ
@@ -76,8 +80,8 @@ void  CApiIntStack::WriteCfgDef(FILE* fp)
 	// パラメータ読み出し
 	if ( m_iObjs <= 0 )
 	{
-		pszSize  = "256";
-		pszStack = "NULL";
+		pszSize  = DEFAULT_SIZE;
+		pszStack = DEFAULT_STACK;
 	}
 	else
 	{
@@ -109,7 +113,6 @@ void  CApiIntStack::WriteCfgDef(FILE* fp)
 				"const VP _kernel_int_isp = (VP)((VB *)(%s) + (SIZE)(%s));\n",
 				pszStack, pszSize);
 	}
-
 }
 
 
@@ -122,16 +125,16 @@ void CApiIntStack::WriteCfgIni(FILE* fp)
 	// パラメータ読み出し
 	if ( m_iObjs <= 0 )
 	{
-		pszSize  = "256";
-		pszStack = "NULL";
+		pszSize  = DEFAULT_SIZE;
+		pszStack = DEFAULT_STACK;
 	}
 	else
 	{
 		pszSize  = m_pParamPacks[0]->GetParam(INTSTK_STKSZ);
 		pszStack = m_pParamPacks[0]->GetParam(INTSTK_STK);
 	}
-	
-		
+
+
 	if ( strcmp(pszStack, "NULL") == 0 )
 	{
 		fprintf(
@@ -147,8 +150,59 @@ void CApiIntStack::WriteCfgIni(FILE* fp)
 	}
 }
 
+void CApiIntStack::WriteStackMemory(FILE* fp)
+{
+	const char* pszSize;
+	const char* pszStack;
+
+	// パラメータ読み出し
+	if ( m_iObjs <= 0 )
+	{
+		pszSize  = DEFAULT_SIZE;
+		pszStack = DEFAULT_STACK;
+	}
+	else
+	{
+		pszSize  = m_pParamPacks[0]->GetParam(INTSTK_STKSZ);
+		pszStack = m_pParamPacks[0]->GetParam(INTSTK_STK);
+	}
+
+	if ( strcmp(pszStack, "NULL") == 0 )
+	{
+		fprintf(fp, "extern VP       _kernel_int_stkblk[((%s) + sizeof(VP) - 1) / sizeof(VP)];\n", pszSize);
+	}
+}
+
+
+void CApiIntStack::WriteStackPointer(FILE* fp)
+{
+	const char* pszSize;
+	const char* pszStack;
+
+	// パラメータ読み出し
+	if ( m_iObjs <= 0 )
+	{
+		pszSize  = DEFAULT_SIZE;
+		pszStack = DEFAULT_STACK;
+	}
+	else
+	{
+		pszSize  = m_pParamPacks[0]->GetParam(INTSTK_STKSZ);
+		pszStack = m_pParamPacks[0]->GetParam(INTSTK_STK);
+	}
+
+	if ( strcmp(pszStack, "NULL") == 0 )
+	{
+		fprintf(fp, "&_kernel_int_stkblk[((%s) + sizeof(VP) - 1) / sizeof(VP)]", pszSize, pszSize);
+	}
+	else
+	{
+		fprintf(fp, "(VB *)(%s) + (SIZE)(%s)", pszStack, pszSize);
+	}
+}
+
 
 
 // ---------------------------------------------------------------------------
-//  end of file                           
+//  end of file
 // ---------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    HOS_INT_STK API の処理                                                  
-//                                                                            
-//                                    Copyright (C) 1998-2002 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4  コンフィギュレーター
+//    HOS_INT_STK API の処理
+//
+//                                    Copyright (C) 1998-2002 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -26,6 +26,9 @@ public:
 	int   AutoId(void);
 	void  WriteCfgDef(FILE* fp);		// cfgファイル定義部書き出し
 	void  WriteCfgIni(FILE* fp);
+
+	void  WriteStackMemory(FILE* fp);
+	void  WriteStackPointer(FILE* fp);
 
 protected:
 	char  m_szStackPointer[API_MAX_PARAM];
