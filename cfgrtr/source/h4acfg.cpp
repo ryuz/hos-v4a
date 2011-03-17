@@ -461,6 +461,22 @@ void WriteVctFile(FILE* fp)
 	fprintf(fp, "#include \"kernel.h\"\n");
 	fprintf(fp, "#include \"arch/proc/%s/procatr.h\"\n", _KERNEL_PROCATR_INC_PATH);
 	fprintf(fp, "#include \"arch/proc/%s/proc.h\"\n",    _KERNEL_PROCATR_INC_PATH);
+	fprintf(fp, "#include \"arch/irc/%s/ircatr.h\"\n",   _KERNEL_IRCATR_INC_PATH);
+	fprintf(fp, "#include \"arch/irc/%s/irc.h\"\n",      _KERNEL_IRCATR_INC_PATH);
+	fprintf(fp, "#include \"config/cfgknl.h\"\n");
+	fprintf(fp, "#include \"parser/parsknl.h\"\n");
+	fprintf(fp, "#include \"core/objid.h\"\n");
+	fprintf(fp, "#include \"core/objhdl.h\"\n");
+	fprintf(fp, "#include \"object/tskobj.h\"\n");
+	fprintf(fp, "#include \"object/semobj.h\"\n");
+	fprintf(fp, "#include \"object/flgobj.h\"\n");
+	fprintf(fp, "#include \"object/dtqobj.h\"\n");
+	fprintf(fp, "#include \"object/mbxobj.h\"\n");
+	fprintf(fp, "#include \"object/mtxobj.h\"\n");
+	fprintf(fp, "#include \"object/mpfobj.h\"\n");
+	fprintf(fp, "#include \"object/inhobj.h\"\n");
+	fprintf(fp, "#include \"object/isrobj.h\"\n");
+	fprintf(fp, "#include \"object/cycobj.h\"\n");
 	fprintf(fp, "#include \"kernel_id.h\"\n");
 
 	g_ApiInclude.WriteCfgDef(fp);

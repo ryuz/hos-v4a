@@ -80,6 +80,9 @@ include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 # --------------------------------------
 
 # %jp{アセンブラファイルの追加}%en{assembry sources}
+ASRCS += $(SRC_PROC_CC_DIR)/krst_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/knmi_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/khwf_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S
 ASRCS += $(SRC_PROC_CC_DIR)/kena_int.S
 ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.S
