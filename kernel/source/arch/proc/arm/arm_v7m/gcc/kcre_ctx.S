@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System V4 Advance
  *
  * Copyright (C) 1998-2011 by Project HOS
@@ -29,9 +29,9 @@ _kernel_cre_ctx:
 				str		r3, [r1, #4]				/* r5 部分にpar1を設定 */
 				ldr		r2, [sp, #0]				/* par2を取り出し */
 				str		r2, [r1, #8]				/* r6 部分にpar2を設定 */
-				movw	r2, #:lower16:ctx_entry
-				movt	r2, #:upper16:ctx_entry
-				str		r2, [r1, #32]				/* lr 部分にエントリーアドレスを設定 */
+				movw	r2, #:lower16:(ctx_entry+1)
+				movt	r2, #:upper16:(ctx_entry+1)
+				str		r2, [r1, #16]				/* lr 部分にエントリーアドレスを設定 */
 				str		r1, [r0]					/* ctxcb に新 sp を保存 */
 				bx		lr							/* リターン */
 
