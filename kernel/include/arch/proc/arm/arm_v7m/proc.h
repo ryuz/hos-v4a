@@ -2,15 +2,15 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  proc.h
- * @brief %jp{ARM Cortex-M3}%en{Cortex-M3}
+ * @brief %jp{ARMv7-M}%en{ARMv7-M}
  *
  * Copyright (C) 1998-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#ifndef _KERNEL__arch__proc__arm__cortex_m3__proc_h__
-#define _KERNEL__arch__proc__arm__cortex_m3__proc_h__
+#ifndef _KERNEL__arch__proc__arm__arm_v7m__proc_h__
+#define _KERNEL__arch__proc__arm__arm_v7m__proc_h__
 
 
 
@@ -82,7 +82,7 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 									_kernel_swi_ctx((pk_ctxinf_nxt), (pk_ctxcb_now))				/**< %jp{実行コンテキストの切替} */
 
 
-#endif	/* _KERNEL__arch__proc__arm__cortex_m3__proc_h__ */
+#endif	/* _KERNEL__arch__proc__arm__arm_v7m__proc_h__ */
 
 
 

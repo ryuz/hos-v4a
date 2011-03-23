@@ -5,8 +5,8 @@
 
 
 #include "kernel.h"
-#include "arch/proc/arm/cortex_m3/procatr.h"
-#include "arch/proc/arm/cortex_m3/proc.h"
+#include "arch/proc/arm/arm_v7m/procatr.h"
+#include "arch/proc/arm/arm_v7m/proc.h"
 #include "arch/irc/none/ircatr.h"
 #include "arch/irc/none/irc.h"
 #include "config/cfgknl.h"
@@ -39,8 +39,8 @@ extern VP       _kernel_int_stkblk[((512) + sizeof(VP) - 1) / sizeof(VP)];
 
 _KERNEL_T_INHINF _kernel_inh_tbl[65] =
 	{
-		{(FP)(_kernel_reset_handler)},		/* reset handler */
 		{(FP)(&_kernel_int_stkblk[((512) + sizeof(VP) - 1) / sizeof(VP)])},		/* stack pointer */
+		{(FP)(_kernel_reset_handler)},		/* reset handler */
 		{(FP)(_kernel_nmi_handler)},		/* non maskable intterupt handler */
 		{(FP)(_kernel_hw_fault_handler)},		/* hard fault handler */
 		{(FP)NULL},

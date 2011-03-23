@@ -138,13 +138,13 @@ void  CApiDefInh::WriteVecter(FILE* fp, CApiIntStack *pIntStack)
 		switch ( i )
 		{
 		case 0:
-			fprintf(fp, "\t\t{(FP)(_kernel_reset_handler)},\t\t/* reset handler */\n");
-			break;
-
-		case 1:
 			fprintf(fp, "\t\t{(FP)(");
 			pIntStack->WriteStackPointer(fp);
 			fprintf(fp, ")},\t\t/* stack pointer */\n");
+			break;
+
+		case 1:
+			fprintf(fp, "\t\t{(FP)(_kernel_reset_handler)},\t\t/* reset handler */\n");
 			break;
 
 		case 2:

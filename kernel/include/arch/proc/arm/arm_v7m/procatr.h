@@ -2,22 +2,22 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  procatr.h
- * @brief %jp{ARM Cortex-M3}%en{ARM Cortex-M3}
+ * @brief %jp{ARMv7-M}%en{ARMv7-M}
  *
  * Copyright (C) 1998-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#ifndef _KERNEL__arch__proc__arm__cortex_m3__procatr_h__
-#define _KERNEL__arch__proc__arm__cortex_m3__procatr_h__
+#ifndef _KERNEL__arch__proc__arm__arm_v7m__procatr_h__
+#define _KERNEL__arch__proc__arm__arm_v7m__procatr_h__
 
 
 #define _KERNEL_PROCATR_ARM_CORTEX_M3
 
 
 /* %jp{プロセッサアーキテクチャ定義のあるインクルードパス} */
-#define _KERNEL_PROCATR_INC_PATH			"arm/cortex_m3"
+#define _KERNEL_PROCATR_INC_PATH			"arm/arm_v7m"
 
 
 /* %jp{プロセッサアーキテクチャに依存した属性} */
@@ -51,7 +51,7 @@
 
 
 
-#endif	/* _KERNEL__arch__proc__arm__cortex_m3__procatr_h__ */
+#endif	/* _KERNEL__arch__proc__arm__arm_v7m__procatr_h__ */
 
 
 /* end of file */

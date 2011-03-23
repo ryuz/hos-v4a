@@ -3,9 +3,9 @@ ENTRY(_kernel_reset_handler)
 
 MEMORY
 {
-	vector : o = 0x00000000, l = 0x00001000
-	rom    : o = 0x00001000, l = 0x000ff000
-	ram    : o = 0x40000000, l = 0x00004000
+	vector : o = 0x08000000, l = 0x00001000
+	ro     : o = 0x08001000, l = 0x000ff000
+	rw     : o = 0x20000000, l = 0x00005000
 }
 
 SECTIONS
@@ -13,7 +13,8 @@ SECTIONS
 	.vector :
 	{
 		___vector = . ; 
-		*/kernel_vct.o(.text)
+		*/kernel_vct.o(.data)
+		*/kernel_vct.o(.rodata*)
 		FILL(0xff)
 		___vector_end = . ; 
 	} > vector
@@ -25,7 +26,7 @@ SECTIONS
 		*(.rodata*)
 		*(.glue*)
 		 ___text_end = . ; 
-	}  > rom
+	}  > ro
 	.tors :
 	{
 		. = ALIGN(4);
@@ -35,20 +36,20 @@ SECTIONS
 		___dtors = . ;
 		*(.dtors)
 		___dtors_end = . ;
-	} > rom
+	} > ro
 	data : AT (ADDR(.tors) + SIZEOF(.tors))
 	{
 	    ___data_rom = ADDR(.tors) + SIZEOF(.tors);
 		___data = . ;
 		*(.data)
 		___data_end = . ;
-	} > ram
+	} > rw
 	.bss :
 	{
 		___bss = . ;
 		*(.bss)
 		*(COMMON)
 		___bss_end = . ;  
-	}  >ram
+	}  >rw
 }
 

@@ -25,7 +25,7 @@ CMD_LIBR ?= $(GCC_ARCH)ar
 
 # %jp{アーキテクチャ定義}%en{architecture}
 ARCH_NAME ?= cortex_m3
-ARCH_PROC ?= arm/cortex_m3
+ARCH_PROC ?= arm/arm_v7m
 ARCH_IRC  ?= none
 ARCH_CC   ?= gcc
 

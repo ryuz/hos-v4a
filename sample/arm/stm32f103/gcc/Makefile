@@ -6,6 +6,9 @@
 # ----------------------------------------------------------------------------
 
 
+KERNEL_DEBUG ?= Yes
+DEBUG        ?= Yes
+
 
 # --------------------------------------
 #  %jp{各種設定}{setting}
@@ -26,6 +29,8 @@ CMD_OBJCNV ?= $(GCC_ARCH)objcopy
 # %jp{アーキテクチャ定義}%en{architecture}
 ARCH_NAME ?= cortex_m3
 ARCH_CC   ?= gcc
+
+EXT_EXE   ?= elf
 
 
 # %jp{ディレクトリ定義}%en{directories}

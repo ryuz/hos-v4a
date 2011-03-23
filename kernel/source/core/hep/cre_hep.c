@@ -20,7 +20,7 @@ void _kernel_cre_hep(
 		VP             hep)
 {
 	_KERNEL_T_HEPBLK *blk_last;
-	
+
 	/* %jp{サイズのアライメントを調整} */
 	hepsz &= ~(_KERNEL_HEP_MEMALIGN - 1);
 
@@ -34,15 +34,15 @@ void _kernel_cre_hep(
 	/* %jp{設定保存} */
 	pk_hepcb->base   = (_KERNEL_T_HEPBLK *)hep;
 	pk_hepcb->heapsz = hepsz;
-	
+
 	/* %jp{終端位置に番人を設定} */
 	blk_last = (_KERNEL_T_HEPBLK *)((UB *)hep + hepsz - _KERNEL_HEP_BLKSIZE);
-	
+
 	/* %jp{全体を空き領域に設定} */
 	pk_hepcb->base->prev = NULL;
 	pk_hepcb->base->size = hepsz - (_KERNEL_HEP_BLKSIZE * 2);
 	pk_hepcb->base->flag = _KERNEL_HEP_FREE;
-	
+
 	/* %jp{終端の番人を利用中に設定} */
 	blk_last->prev = NULL;
 	blk_last->size = 0;
