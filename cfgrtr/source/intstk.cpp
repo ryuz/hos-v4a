@@ -193,7 +193,7 @@ void CApiIntStack::WriteStackPointer(FILE* fp)
 
 	if ( strcmp(pszStack, "NULL") == 0 )
 	{
-		fprintf(fp, "&_kernel_int_stkblk[((%s) + sizeof(VP) - 1) / sizeof(VP)]", pszSize, pszSize);
+		fprintf(fp, "&_kernel_int_stkblk[((%s) + sizeof(VP) - 1) / sizeof(VP)]", pszSize);
 	}
 	else
 	{

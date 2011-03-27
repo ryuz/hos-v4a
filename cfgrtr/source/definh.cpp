@@ -155,6 +155,10 @@ void  CApiDefInh::WriteVecter(FILE* fp, CApiIntStack *pIntStack)
 			fprintf(fp, "\t\t{(FP)(_kernel_hw_fault_handler)},\t\t/* hard fault handler */\n");
 			break;
 
+		case 14:
+			fprintf(fp, "\t\t{(FP)(_kernel_pendsv_handler)},\t\t/* hard fault handler */\n");
+			break;
+
 		default:
 			for ( j = 0; j < m_iObjs; j++ )
 			{

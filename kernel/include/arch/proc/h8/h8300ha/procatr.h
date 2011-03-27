@@ -56,6 +56,13 @@
 #define _KERNEL_PROCATR_ALLOW_UNALIGN		TRUE		/**< %jp{データのアンアラインアクセスは可能か？} */
 #define _KERNEL_PROCATR_ALLOW_INST_UNALIGN	TRUE		/**< %jp{命令のアンアライン配置は可能か？} */
 
+#define _KERNEL_PROCATR_SYS_CTX				FALSE		/**< %jp{コンテキスト状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_LOC				FALSE		/**< %jp{CPUロック状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DSP				FALSE		/**< %jp{ディスパッチ禁止状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_SYS				FALSE		/**< %jp{システム状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DLY				FALSE		/**< %jp{遅延ディスパッチ保留状態管理をプロセッサで実施するか？} */
+
+
 
 #endif	/* _KERNEL__arch__proc__h8__h8300ha__procatr_h__ */
 

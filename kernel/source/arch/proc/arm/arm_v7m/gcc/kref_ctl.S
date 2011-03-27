@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System V4 Advance
  *
  * Copyright (C) 1998-2011 by Project HOS
@@ -6,23 +6,22 @@
  */
 
 
-
 				.text
 				.align	2
 
+
 /************************************************
-  割り込み待ち(CPUのアイドル処理)
-  void 	_kernel_wai_int(void);
+  CONTROLレジスタの取得
+  int _kernel_ref_cpu_control(void)
  ************************************************/
-				.global	_kernel_wai_int
+				.global	_kernel_ref_cpu_control
 				.thumb
 				.thumb_func
-				.type	_kernel_wai_int, %function
-_kernel_wai_int:
-											/* WaitForInterrupt */
-				b		_kernel_wai_int
-				.size	_kernel_wai_int, .-_kernel_wai_int
-
+				.type	_kernel_ref_cpu_control, %function
+_kernel_ref_cpu_control:
+				mrs		r0, CONTROL
+				bx		lr
+				.size	_kernel_ref_cpu_control, .-_kernel_ref_cpu_control
 
 				.end
 

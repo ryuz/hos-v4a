@@ -1,4 +1,4 @@
-/** 
+/**
  *  Sample program for Hyper Operating System V4 Advance
  *
  * @file  ostimer.c
@@ -19,6 +19,7 @@ extern "C" {
 
 /** %jp{OS用タイマ初期化ルーチン} */
 void OsTimer_Initialize(VP_INT exinf);
+void OsTimer_Isr(void);
 
 #ifdef __cplusplus
 }

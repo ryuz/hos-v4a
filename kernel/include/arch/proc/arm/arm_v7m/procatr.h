@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System V4 Advance
  *
  * @file  procatr.h
@@ -35,19 +35,25 @@
 #define _KERNEL_PROCATR_SPT_MULTINT			TRUE		/**< %jp{多重割込みに対応しているか？} */
 
 #define _KERNEL_PROCATR_TMIN_INHNO			0			/**< %jp{割込みハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_INHNO			64			/**< %jp{割込みハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMAX_INHNO			255			/**< %jp{割込みハンドラ番号の最大値} */
 
 #define _KERNEL_PROCATR_TMIN_EXCNO			0			/**< %jp{CPU例外ハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_EXCNO			4			/**< %jp{CPU例外ハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMAX_EXCNO			15			/**< %jp{CPU例外ハンドラ番号の最大値} */
 
-#define _KERNEL_PROCATR_SYSSTK_NUM			2			/**< %jp{システムスタックは何本必要か？} */
+#define _KERNEL_PROCATR_SYSSTK_NUM			1			/**< %jp{システムスタックは何本必要か？} */
 
 #define _KERNEL_PROCATR_SIGNED_INT			0			/**< %jp{符号付整数と符号無し整数のどちらが得意か？(符号付き:1, 符号無し:-1, 同じ:0)} */
 #define _KERNEL_PROCATR_TBIT_INT			32			/**< %jp{プロセッサに最適な整数型のビット数} */
 #define _KERNEL_PROCATR_TBIT_PTR			32			/**< %jp{ポインタのビット数} */
-#define _KERNEL_PROCATR_MEM_ALIGN			32			/**< %jp{適切なメモリのアライメント(byte単位)} */
+#define _KERNEL_PROCATR_MEM_ALIGN			4			/**< %jp{適切なメモリのアライメント(byte単位)} */
 #define _KERNEL_PROCATR_STK_ALIGN			8			/**< %jp{適切なスタックのアライメント(byte単位)} */
 #define _KERNEL_PROCATR_ALLOW_UNALIGN		FALSE		/**< %jp{アンアラインアクセスは可能か？} */
+
+#define _KERNEL_PROCATR_SYS_CTX				TRUE		/**< %jp{コンテキスト状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_LOC				FALSE		/**< %jp{CPUロック状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DSP				FALSE		/**< %jp{ディスパッチ禁止状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_SYS				FALSE		/**< %jp{システム状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DLY				TRUE		/**< %jp{遅延ディスパッチ保留状態管理をプロセッサで実施するか？} */
 
 
 

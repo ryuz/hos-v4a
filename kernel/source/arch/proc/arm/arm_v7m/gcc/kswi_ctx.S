@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System V4 Advance
  *
  * Copyright (C) 1998-2011 by Project HOS
@@ -13,8 +13,8 @@
 /************************************************
   実行コンテキストの切替
   void _kernel_swi_ctx(
-			_KERNEL_T_CTXCB *pk_ctxinf_nxt,	r0 : 現在のコンテキストの保存先
-			_KERNEL_T_CTXCB *pk_ctxinf_now)	r1 : 切り替えるコンテキスト
+			_KERNEL_T_CTXCB *pk_ctxinf_nxt,	r0 : 切り替えるコンテキスト
+			_KERNEL_T_CTXCB *pk_ctxinf_now)	r1 : 現在のコンテキストの保存先
  ************************************************/
 				.global	_kernel_swi_ctx
 				.thumb

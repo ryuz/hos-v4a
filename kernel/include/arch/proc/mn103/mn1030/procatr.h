@@ -55,7 +55,11 @@
 #define _KERNEL_ARM_EXCNO_PRE				3			/**< %jp{プリフェッチアボートのCPU例外ハンドラ番号} */
 #define _KERNEL_ARM_EXCNO_ABT				4			/**< %jp{データアボートのCPU例外ハンドラ番号} */
 
-
+#define _KERNEL_PROCATR_SYS_CTX				FALSE		/**< %jp{コンテキスト状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_LOC				FALSE		/**< %jp{CPUロック状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DSP				FALSE		/**< %jp{ディスパッチ禁止状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_SYS				FALSE		/**< %jp{システム状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DLY				FALSE		/**< %jp{遅延ディスパッチ保留状態管理をプロセッサで実施するか？} */
 
 
 

@@ -44,6 +44,11 @@
 #define _KERNEL_PROCATR_STK_ALIGN			1			/**< %jp{適切なスタックのアライメント(byte単位)} */
 #define _KERNEL_PROCATR_ALLOW_UNALIGN		TRUE		/**< %jp{アンアラインアクセスは可能か？} */
 
+#define _KERNEL_PROCATR_SYS_CTX				FALSE		/**< %jp{コンテキスト状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_LOC				FALSE		/**< %jp{CPUロック状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DSP				FALSE		/**< %jp{ディスパッチ禁止状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_SYS				FALSE		/**< %jp{システム状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DLY				FALSE		/**< %jp{遅延ディスパッチ保留状態管理をプロセッサで実施するか？} */
 
 
 #endif	/* _KERNEL__arch__proc__8080__z80__procatr_h__ */

@@ -117,7 +117,6 @@ int main(int argc, char *argv[])
 {
 	FILE* fpInput;
 	FILE* fpCfg;
-	FILE* fpVct;
 	FILE* fpId;
 	int  iErr;
 	int  i;
@@ -237,6 +236,7 @@ int main(int argc, char *argv[])
 
 #ifdef _KERNEL_PROCATR_ARM_CORTEX_M3
 	// ベクタファイルオープン
+	FILE* fpVct;
 	if ( (fpVct = fopen(s_szVctFile, "w")) == NULL )
 	{
 		fprintf(stderr, "could not open file \"%s\"\n", s_szVctFile);

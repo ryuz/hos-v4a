@@ -44,6 +44,12 @@
 #define _KERNEL_PROCATR_STK_ALIGN			8			/**< %jp{適切なスタックのアライメント(byte単位)} */
 #define _KERNEL_PROCATR_ALLOW_UNALIGN		FALSE		/**< %jp{アンアラインアクセスは可能か？} */
 
+#define _KERNEL_PROCATR_SYS_CTX				FALSE		/**< %jp{コンテキスト状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_LOC				FALSE		/**< %jp{CPUロック状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DSP				FALSE		/**< %jp{ディスパッチ禁止状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_SYS				FALSE		/**< %jp{システム状態管理をプロセッサで実施するか？} */
+#define _KERNEL_PROCATR_SYS_DLY				FALSE		/**< %jp{遅延ディスパッチ保留状態管理をプロセッサで実施するか？} */
+
 
 /* %jp{ARM固有の定数} */
 #define _KERNEL_ARM_INHNO_IRQ				0			/**< %jp{IRQ割込みの割込みハンドラ番号} */
@@ -54,8 +60,6 @@
 #define _KERNEL_ARM_EXCNO_SWI				2			/**< %jp{ソフトウェア割込みのCPU例外ハンドラ番号} */
 #define _KERNEL_ARM_EXCNO_PRE				3			/**< %jp{プリフェッチアボートのCPU例外ハンドラ番号} */
 #define _KERNEL_ARM_EXCNO_ABT				4			/**< %jp{データアボートのCPU例外ハンドラ番号} */
-
-
 
 
 

@@ -83,24 +83,19 @@ include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 ASRCS += $(SRC_PROC_CC_DIR)/krst_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/knmi_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/khwf_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/kpnd_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S
 ASRCS += $(SRC_PROC_CC_DIR)/kena_int.S
 ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/krst_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/kswi_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/kwai_int.S
-
-
-
+ASRCS += $(SRC_PROC_CC_DIR)/kref_ctl.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
-#CSRCS += $(SRC_PROC_DIR)/val_int.c
-#CSRCS += $(SRC_IRC_DIR)/kini_irc.c
-#CSRCS += $(SRC_IRC_DIR)/kexe_irc.c
-#CSRCS += $(SRC_IRC_DIR)/ena_int.c
-#CSRCS += $(SRC_IRC_DIR)/dis_int.c
-#CSRCS += $(SRC_IRC_DIR)/vclr_int.c
-
+CSRCS += $(SRC_PROC_DIR)/ena_int.c
+CSRCS += $(SRC_PROC_DIR)/dis_int.c
+CSRCS += $(SRC_PROC_DIR)/vclr_int.c
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc

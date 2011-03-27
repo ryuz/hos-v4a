@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System V4 Advance
  *
  * @file  sys.h
@@ -53,7 +53,7 @@ typedef struct _kernel_t_syscb
 {
 	_KERNEL_T_RDQCB		rdqcb;				/**< %jp{レディーキュー}%en{ready-queue} */
 
-	_KERNEL_T_TIMCB		timcb;				
+	_KERNEL_T_TIMCB		timcb;
 
 #if _KERNEL_SPT_TOQ
 	_KERNEL_T_TOQCB		toqcb;				/**< %jp{タイムアウトキュー}%en{timeout-queue} */
@@ -107,14 +107,14 @@ extern const _KERNEL_T_SYSCB_RO		_kernel_syscb_ro;
 #define	_KERNEL_SYS_INI_TIM()				_KERNEL_INI_TIM(_KERNEL_SYS_GET_TIMCB(), _KERNEL_SYS_GET_TIMCB_RO())
 #define	_KERNEL_SYS_SIG_TIM()				_KERNEL_SIG_TIM(_KERNEL_SYS_GET_TIMCB(), _KERNEL_SYS_GET_TIMCB_RO())
 #define	_KERNEL_SYS_GET_TIC()				_KERNEL_GET_TIC(_KERNEL_SYS_GET_TIMCB(), _KERNEL_SYS_GET_TIMCB_RO())
-#define	_KERNEL_SYS_SET_TIM(p_tim)			_KERNEL_SET_TIM(_KERNEL_SYS_GET_TIMCB(), (p_tim))	
-#define	_KERNEL_SYS_GET_TIM()				_KERNEL_GET_TIM(_KERNEL_SYS_GET_TIMCB())			
+#define	_KERNEL_SYS_SET_TIM(p_tim)			_KERNEL_SET_TIM(_KERNEL_SYS_GET_TIMCB(), (p_tim))
+#define	_KERNEL_SYS_GET_TIM()				_KERNEL_GET_TIM(_KERNEL_SYS_GET_TIMCB())
 
 /* timeout queue */
 #define _KERNEL_SYS_GET_TOQCB()				(&_kernel_syscb.toqcb)												/**< %jp{タイムアウトキューの取得} */
-#define _KERNEL_SYS_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(_KERNEL_SYS_GET_TOQCB(), (tskhdl), (tmout))	
-#define _KERNEL_SYS_RMV_TOQ(tskhd)			_KERNEL_RMV_TOQ(_KERNEL_SYS_GET_TOQCB(), (tskhd))				
-#define _KERNEL_SYS_SIG_TOQ(tictim)			_KERNEL_SIG_TOQ(_KERNEL_SYS_GET_TOQCB(), (tictim))					
+#define _KERNEL_SYS_ADD_TOQ(tskhdl, tmout)	_KERNEL_ADD_TOQ(_KERNEL_SYS_GET_TOQCB(), (tskhdl), (tmout))
+#define _KERNEL_SYS_RMV_TOQ(tskhd)			_KERNEL_RMV_TOQ(_KERNEL_SYS_GET_TOQCB(), (tskhd))
+#define _KERNEL_SYS_SIG_TOQ(tictim)			_KERNEL_SIG_TOQ(_KERNEL_SYS_GET_TOQCB(), (tictim))
 
 /* timer queue */
 #define _KERNEL_SYS_GET_TMQ()				(&_kernel_syscb.tmqcb)												/**< %jp{タイマキューの取得} */
@@ -159,28 +159,61 @@ extern const _KERNEL_T_SYSCB_RO		_kernel_syscb_ro;
 #define _KERNEL_SYS_GET_SYSISP()			((VP)((UB *)_KERNEL_SYS_GET_SYSSTK() + _KERNEL_SYS_GET_SYSSTKSZ()))	/**< %jp{カレントプロセッサのシステムコンテキストの初期スタックポインタ取得} */
 
 
+#if _KERNEL_PROCATR_SYS_CTX
+#define _KERNEL_SYS_SET_CTX()				_KERNEL_PROC_SET_CTX()												/**< %jp{非タスクコンテキストに設定} */
+#define _KERNEL_SYS_CLR_CTX()				_KERNEL_PROC_CLR_CTX()												/**< %jp{非タスクコンテキストを解除} */
+#define _KERNEL_SYS_SNS_CTX()				_KERNEL_PROC_SNS_CTX()												/**< %jp{コンテキスト状態を参照} */
+#else
 #define _KERNEL_SYS_SET_CTX()				do { _KERNEL_SYS_GET_PRCCB()->stat |= _KERNEL_TSS_CTX; } while (0)	/**< %jp{非タスクコンテキストに設定} */
 #define _KERNEL_SYS_CLR_CTX()				do { _KERNEL_SYS_GET_PRCCB()->stat &= ~_KERNEL_TSS_CTX; } while (0)	/**< %jp{非タスクコンテキストを解除} */
 #define _KERNEL_SYS_SNS_CTX()				((_KERNEL_SYS_GET_PRCCB()->stat & _KERNEL_TSS_CTX) ? TRUE : FALSE)	/**< %jp{コンテキスト状態を参照} */
+#endif
 
+#if _KERNEL_PROCATR_SYS_LOC
+#define _KERNEL_SYS_SET_LOC()				_KERNEL_PROC_SET_CTX()												/**< %jp{ロック状態を設定} */
+#define _KERNEL_SYS_CLR_LOC()				_KERNEL_PROC_CLR_CTX()												/**< %jp{ロック状態を解除} */
+#define _KERNEL_SYS_SNS_LOC()				_KERNEL_PROC_SNS_CTX()												/**< %jp{ロック状態を参照} */
+#else
 #define _KERNEL_SYS_SET_LOC()				do { _KERNEL_SYS_GET_PRCCB()->stat |= _KERNEL_TSS_LOC; } while (0)	/**< %jp{ロック状態を設定} */
 #define _KERNEL_SYS_CLR_LOC()				do { _KERNEL_SYS_GET_PRCCB()->stat &= ~_KERNEL_TSS_LOC; } while (0)	/**< %jp{ロック状態を解除} */
 #define _KERNEL_SYS_SNS_LOC()				((_KERNEL_SYS_GET_STST() & _KERNEL_TSS_LOC) ? TRUE : FALSE)			/**< %jp{ロック状態を参照} */
+#endif
 
+#if _KERNEL_PROCATR_SYS_DSP
+#define _KERNEL_SYS_SET_DSP()				_KERNEL_PROC_SET_DSP()												/**< %jp{ディスパッチ禁止状態を設定} */
+#define _KERNEL_SYS_CLR_DSP()				_KERNEL_PROC_CLR_DSP()												/**< %jp{ディスパッチ禁止状態を解除} */
+#define _KERNEL_SYS_SNS_DSP()				_KERNEL_PROC_SNS_DSP()												/**< %jp{ディスパッチ禁止状態を参照} */
+#else
 #define _KERNEL_SYS_SET_DSP()				do { _KERNEL_SYS_GET_PRCCB()->stat |= _KERNEL_TSS_DSP; } while (0)	/**< %jp{ディスパッチ禁止状態を設定} */
 #define _KERNEL_SYS_CLR_DSP()				do { _KERNEL_SYS_GET_PRCCB()->stat &= ~_KERNEL_TSS_DSP; } while (0)	/**< %jp{ディスパッチ禁止状態を解除} */
 #define _KERNEL_SYS_SNS_DSP()				((_KERNEL_SYS_GET_PRCCB()->stat & _KERNEL_TSS_DSP) ? TRUE : FALSE)	/**< %jp{ディスパッチ禁止状態を参照} */
+#endif
 
+#if _KERNEL_PROCATR_SYS_SYS
+#define _KERNEL_SYS_SET_SYS()				_KERNEL_PROC_SET_SYS()												/**< %jp{ディスパッチ禁止状態を設定} */
+#define _KERNEL_SYS_CLR_SYS()				_KERNEL_PROC_CLR_SYS()												/**< %jp{ディスパッチ禁止状態を解除} */
+#define _KERNEL_SYS_SNS_SYS()				_KERNEL_PROC_SNS_SYS()												/**< %jp{ディスパッチ禁止状態を参照} */
+#else
 #define _KERNEL_SYS_SET_SYS()				do { _KERNEL_SYS_GET_PRCCB()->stat |= _KERNEL_TSS_SYS; } while (0)	/**< %jp{システム状態を設定} */
 #define _KERNEL_SYS_CLR_SYS()				do { _KERNEL_SYS_GET_PRCCB()->stat &= ~_KERNEL_TSS_SYS; } while (0)	/**< %jp{システム状態を解除} */
 #define _KERNEL_SYS_SNS_SYS()				((_KERNEL_SYS_GET_PRCCB()->stat & _KERNEL_TSS_SYS) ? TRUE : FALSE)	/**< %jp{システム状態を参照} */
+#endif
 
+#if _KERNEL_PROCATR_SYS_DLY
+#define _KERNEL_SYS_SET_DLY()				_KERNEL_PROC_SET_DLY()												/**< %jp{ディスパッチ禁止状態を設定} */
+#define _KERNEL_SYS_CLR_DLY()				_KERNEL_PROC_CLR_DLY()												/**< %jp{ディスパッチ禁止状態を解除} */
+#define _KERNEL_SYS_SNS_DLY()				_KERNEL_PROC_SNS_DLY()												/**< %jp{ディスパッチ禁止状態を参照} */
+#else
 #define _KERNEL_SYS_SET_DLY()				do { _KERNEL_SYS_GET_PRCCB()->dlydsp = TRUE;} while (0)				/**< %jp{ディスパッチ遅延中を設定} */
 #define _KERNEL_SYS_CLR_DLY()				do { _KERNEL_SYS_GET_PRCCB()->dlydsp = FALSE;} while (0)			/**< %jp{ディスパッチ遅延中を解除} */
 #define _KERNEL_SYS_SNS_DLY()				(_KERNEL_SYS_GET_PRCCB()->dlydsp)									/**< %jp{ディスパッチ遅延中を参照} */
+#endif
 
+#if !_KERNEL_PROCATR_SYS_CTX && !_KERNEL_PROCATR_SYS_LOC && !_KERNEL_PROCATR_SYS_DSP &&  !_KERNEL_PROCATR_SYS_SYS &&  !_KERNEL_PROCATR_SYS_DLY
 #define _KERNEL_SYS_SNS_DPN()				((_KERNEL_SYS_GET_PRCCB()->stat != _KERNEL_TSS_TSK) ? TRUE : FALSE)	/**< %jp{ディスパッチ不能を参照} */
-
+#else
+#define _KERNEL_SYS_SNS_DPN()				(_KERNEL_SYS_SNS_CTX() || _KERNEL_SYS_SNS_LOC() || _KERNEL_SYS_SNS_DSP() || _KERNEL_SYS_SNS_SYS())
+#endif
 
 
 #if _KERNEL_SPT_DPC		/* %jp{遅延プロシージャコールの場合} */

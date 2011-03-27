@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System V4 Advance
  *
  * @file  del_cyc.c
@@ -26,18 +26,17 @@
 ER del_cyc(ID cycid)
 {
 	_KERNEL_T_CYCCB  *cyccb;
-	_KERNEL_T_TCB    *tcb;
 
 	/* %jp{IDチェック}%en{check ID} */
 #if _KERNEL_SPT_DEL_CYC_E_ID
 	if ( !_KERNEL_CYC_CHECK_CYCID(cycid) )
 	{
 		return E_ID;	/* %jp{不正ID番号}%en{Invalid ID number} */
-	}	
+	}
 #endif
-	
+
 	_KERNEL_ENTER_SVC();	/* %jp{サービスコールに入る}%en{enter service-call} */
-	
+
 	/* %jp{存在チェック}%en{check object} */
 #if _KERNEL_SPT_DEL_CYC_E_NOEXS
 	if ( !_KERNEL_CYC_CHECK_EXS(cycid) )
@@ -46,10 +45,10 @@ ER del_cyc(ID cycid)
 		return E_NOEXS;
 	}
 #endif
-	
+
 	/* %jp{周期ハンドラコントロールブロック取得} */
 	cyccb = _KERNEL_CYC_ID2CYCCB(cycid);
-	
+
 	/* %jp{オブジェクト削除} */
 #if _KERNEL_CYCCB_ALGORITHM == _KERNEL_CYCCB_ALG_PTRARRAY
 	_KERNEL_SYS_FRE_HEP(cyccb);						/* %jp{メモリ開放} */
@@ -59,7 +58,7 @@ ER del_cyc(ID cycid)
 #endif
 
 	_KERNEL_LEAVE_SVC();		/* %jp{サービスコールから出る}%en{leave service-call} */
-	
+
 	return E_OK;
 }
 
