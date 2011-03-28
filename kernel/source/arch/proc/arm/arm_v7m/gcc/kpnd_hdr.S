@@ -24,31 +24,54 @@ _kernel_pendsv_handler:
 				/* 割り込み禁止 */
 				cpsid	i
 
-				/* スレッドモードへ */
-				mrs		r0, control
-				bic		r0, r0, #1
-				msr		control, r0
-				isb
+				/* リターンアドレス変更 */
+				mrs		r0, psp
+				ldr		r1, [r0, #24]
+				movw	r2, #:lower16:pendsv_ret_addr
+				movt	r2, #:upper16:pendsv_ret_addr
+				str		r1, [r2]
 
-				/* 遅延ディスパッチ */
-				blx		_kernel_dsp_tsk
-
-				/* ハンドラモードへ */
-				mrs		r0, control
-				orr		r0, r0, #1
-				msr		control, r0
-				isb
-
-				/* 割り込み許可 */
-				cpsie	i
+				movw	r1, #:lower16:_kernel_pendsv_proc
+				movt	r1, #:upper16:_kernel_pendsv_proc
+				str		r1, [r0, #24]
 
 				/* スレッドモードへの復帰 */
-				movw	lr, #0xfffd
-				movt	lr, #0xffff
 				bx		lr
 
 				.size	_kernel_pendsv_handler, .-_kernel_pendsv_handler
 
+
+				.thumb_func
+				.type	_kernel_pendsv_proc, %function
+_kernel_pendsv_proc:
+				push	{r0}
+				push	{r0, r1, r2, r3, r12, lr}
+
+				mrs		r0, apsr
+				push	{r0}
+
+				/* リターンアドレス格納 */
+				movw	r0, #:lower16:pendsv_ret_addr
+				movt	r0, #:upper16:pendsv_ret_addr
+				ldr		r1, [r0]
+				orr		r1, r1, #1
+				str		r1, [sp, #28]
+
+				/* 遅延ディスパッチ */
+				blx		_kernel_dsp_tsk
+
+				pop		{r0}
+				msr		apsr, r0
+
+				cpsie	i
+
+				pop		{r0, r1, r2, r3, r12, lr}
+				pop		{pc}
+
+				.size	_kernel_pendsv_proc, .-_kernel_pendsv_proc
+
+
+				.comm	pendsv_ret_addr, 4, 4
 
 				.end
 

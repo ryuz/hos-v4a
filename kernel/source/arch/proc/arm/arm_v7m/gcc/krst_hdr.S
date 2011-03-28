@@ -5,7 +5,7 @@
  * http://sourceforge.jp/projects/hos/
  */
 
-
+				.syntax unified
 
 				.text
 				.align	2
@@ -25,6 +25,20 @@
 				.thumb_func
 				.type	_kernel_reset_handler, %function
 _kernel_reset_handler:
+				/* PSPへ切り替え */
+				mov		r1, sp
+				mrs		r0, control
+				orr		r0, r0, #2
+				msr		control, r0
+				isb
+				mov		sp, r1
+
+				/* PendSV 優先度設定 */
+				movw	r0, #0xed20
+				movt	r0, #0xe000
+				ldr		r1, [r0]
+				orr		r1, r1, #0x00ff0000
+				str		r1, [r0]
 
 				/* DATA領域のコピー */
 				movw	r0, #:lower16:___data_rom

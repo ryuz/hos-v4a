@@ -447,8 +447,6 @@ void WriteCfgFile(FILE* fp)
 // C 言語ソース出力
 void WriteVctFile(FILE* fp)
 {
-	int i;
-
 	/* ヘッダ出力 */
 	fprintf(
 		fp,

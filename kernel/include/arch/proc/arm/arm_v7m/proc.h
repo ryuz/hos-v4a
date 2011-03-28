@@ -74,7 +74,7 @@ void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxc
 
 #define	_KERNEL_PROC_SET_CTX()		do { } while (0)
 #define	_KERNEL_PROC_CLR_CTX()		do { } while (0)
-#define	_KERNEL_PROC_SNS_CTX()		((_kernel_ref_cpu_control() & 0x00000002) != 0)
+#define	_KERNEL_PROC_SNS_CTX()		((_kernel_ref_cpu_control() & 0x00000002) == 0)
 
 #define	_KERNEL_PROC_SET_DLY()		do { *_KERNEL_REG_INT_CONTROL |= 0x10000000; } while (0)
 #define	_KERNEL_PROC_CLR_DLY()		do { *_KERNEL_REG_INT_CONTROL |= 0x08000000; } while (0)
