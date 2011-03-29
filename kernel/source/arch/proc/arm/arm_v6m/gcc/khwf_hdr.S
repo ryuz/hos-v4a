@@ -6,25 +6,22 @@
  */
 
 
-				.syntax unified
-
 
 				.text
 				.align	2
 
-				.global	main
 
 /************************************************
   リセットハンドラ
  ************************************************/
-				.global	_kernel_nmi_handler
-				.thumb
+				.global	_kernel_hw_fault_handler
+				.code	16
 				.thumb_func
-				.type	_kernel_nmi_handler, %function
-_kernel_nmi_handler:
-				b		_kernel_nmi_handler
+				.type	_kernel_hw_fault_handler, %function
+_kernel_hw_fault_handler:
+				b		_kernel_hw_fault_handler
 				
-				.size	_kernel_nmi_handler, .-_kernel_nmi_handler
+				.size	_kernel_hw_fault_handler, .-_kernel_hw_fault_handler
 
 
 				.end

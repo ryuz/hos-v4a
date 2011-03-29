@@ -120,7 +120,7 @@ all: kernel_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 # %jp{クリーン}%en{clean}
 .PHONY : clean
 clean: makeexe_clean
-	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h kernel_vct.c
 
 # %jp{依存関係更新}%en{depend}
 .PHONY : depend
@@ -136,7 +136,7 @@ mostlyclean: clean kernel_clean
 
 
 # %jp{コンフィギュレータ実行}%en{configurator}
-../kernel_cfg.c ../kernel_id.h: ../system.cfg $(KERNEL_CFGRTR)
+../kernel_cfg.c ../kernel_id.h kernel_vct.c: ../system.cfg $(KERNEL_CFGRTR)
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 

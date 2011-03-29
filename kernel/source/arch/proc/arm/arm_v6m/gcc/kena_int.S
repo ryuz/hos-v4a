@@ -6,29 +6,25 @@
  */
 
 
-				.syntax unified
-
 
 				.text
 				.align	2
 
-				.global	main
-
 /************************************************
-  リセットハンドラ
+  割り込み許可
+  void _kernel_ena_int(void)
  ************************************************/
-				.global	_kernel_nmi_handler
-				.thumb
+				.global	_kernel_ena_int
+				.code	16
 				.thumb_func
-				.type	_kernel_nmi_handler, %function
-_kernel_nmi_handler:
-				b		_kernel_nmi_handler
-				
-				.size	_kernel_nmi_handler, .-_kernel_nmi_handler
+				.type	_kernel_ena_int, %function
+_kernel_ena_int:
+				cpsie	i			/* 割り込み許可 */
+				bx		lr			/* リターン */
+				.size	_kernel_ena_int, .-_kernel_ena_int
 
 
 				.end
 
 
-; end of file
-
+/* end of file */

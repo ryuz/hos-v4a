@@ -30,10 +30,13 @@ void Sample_Initialize(VP_INT exinf)
 /** %jp{適当な時間待つ} */
 void rand_wait(void)
 {
-	int r;
+	static	long	x = 1;
+	int 			r;
 
+	/* 擬似乱数生成 */
 	wai_sem(SEMID_RAND);
-	r = 500; /*rand();*/
+	x = x * 214013 + 2531011;
+	r = ((x >> 16) & 0xffff);
 	sig_sem(SEMID_RAND);
 
 	dly_tsk((r % 100) + 10);

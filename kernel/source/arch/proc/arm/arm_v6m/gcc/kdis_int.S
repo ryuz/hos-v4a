@@ -6,29 +6,23 @@
  */
 
 
-				.syntax unified
-
-
 				.text
 				.align	2
 
-				.global	main
-
 /************************************************
-  リセットハンドラ
+   割り込み禁止
+   void _kernel_dis_int(void)
  ************************************************/
-				.global	_kernel_nmi_handler
-				.thumb
+				.global	_kernel_dis_int
+				.code	16
 				.thumb_func
-				.type	_kernel_nmi_handler, %function
-_kernel_nmi_handler:
-				b		_kernel_nmi_handler
-				
-				.size	_kernel_nmi_handler, .-_kernel_nmi_handler
-
+				.type	_kernel_dis_int, %function
+_kernel_dis_int:
+				cpsid	i			/* 割り込み禁止 */
+				bx		lr			/* リターン */
+				.size	_kernel_dis_int, .-_kernel_dis_int
 
 				.end
 
 
-; end of file
-
+/* end of file */

@@ -6,6 +6,7 @@
 *.i
 kernel_id.h
 kernel_cfg.c
+kernel_vct.c
 
 # output files
 *.elf

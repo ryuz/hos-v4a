@@ -6,19 +6,16 @@
  */
 
 
-				.syntax unified
-
-
 				.text
 				.align	2
 
 				.global	main
 
 /************************************************
-  リセットハンドラ
+  NMIハンドラ
  ************************************************/
 				.global	_kernel_nmi_handler
-				.thumb
+				.code	16
 				.thumb_func
 				.type	_kernel_nmi_handler, %function
 _kernel_nmi_handler:
