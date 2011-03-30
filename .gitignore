@@ -50,6 +50,6 @@ tools/make_release/hos-v4a
 *.tgz
 *.tar.gz
 
-# eclipse
-.settings
-.project
+# setting
+.*
+!.gitignore

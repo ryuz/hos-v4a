@@ -26,14 +26,14 @@
 				.thumb_func
 				.type	_kernel_cre_ctx, %function
 _kernel_cre_ctx:
-				sub		r1, #36						/* スタックを確保 */
-				str		r2, [r1, #0]				/* r4 部分にentryを設定 */
-				str		r3, [r1, #4]				/* r5 部分にpar1を設定 */
+				sub		r1, #40						/* スタックを確保 */
+				str		r2, [r1, #4]				/* r4 部分にentryを設定 */
+				str		r3, [r1, #8]				/* r5 部分にpar1を設定 */
 				ldr		r2, [sp, #0]				/* par2を取り出し */
-				str		r2, [r1, #8]				/* r6 部分にpar2を設定 */
+				str		r2, [r1, #12]				/* r6 部分にpar2を設定 */
 				movw	r2, #:lower16:(ctx_entry+1)
 				movt	r2, #:upper16:(ctx_entry+1)
-				str		r2, [r1, #16]				/* lr 部分にエントリーアドレスを設定 */
+				str		r2, [r1, #36]				/* lr 部分にエントリーアドレスを設定 */
 				str		r1, [r0]					/* ctxcb に新 sp を保存 */
 				bx		lr							/* リターン */
 

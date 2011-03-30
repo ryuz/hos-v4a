@@ -23,9 +23,9 @@
 				.thumb_func
 				.type	_kernel_swi_ctx, %function
 _kernel_swi_ctx:
-				push	{r4-r7, lr}			/* レジスタ保存 */
+				push	{r0, r4-r11, lr}		/* レジスタ保存(r0は8の倍数にするダミー) */
 				mov		r4, sp
-				str		r4, [r1]
+				str		r4, [r1]				/* スタックポインタ保存 */
 		/* --- そのまま _kernel_sta_ctx に続ける */
 
 
@@ -39,9 +39,9 @@ _kernel_swi_ctx:
 				.thumb_func
 				.type	_kernel_sta_ctx, %function
 _kernel_sta_ctx:
-				ldr		r4, [r0]			/* スタックポインタ復帰 */
+				ldr		r4, [r0]				/* スタックポインタ復帰 */
 				mov		sp, r4
-				pop		{r4-r7, pc}			/* レジスタ復帰 */
+				pop		{r0, r4-r11, pc}		/* レジスタ復帰 */
 
 				.size	_kernel_swi_ctx, .-_kernel_swi_ctx
 				.size	_kernel_sta_ctx, .-_kernel_sta_ctx
