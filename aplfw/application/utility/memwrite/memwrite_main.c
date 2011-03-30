@@ -1,4 +1,4 @@
-/** 
+/**
  *  Hyper Operating System  Application Framework
  *
  * @file  memwrite.h
@@ -17,10 +17,10 @@
 
 int MemWrite_Main(int argc, char *argv[])
 {
-	void				*pAddr;
-	unsigned long int 	ulData;
-	int					iWidth = 'b';
-	
+	void			*pAddr;
+	unsigned long	ulData;
+	int				iWidth = 'b';
+
 	if ( argc < 3 )
 	{
 		StdIo_PrintFormat(
@@ -30,10 +30,10 @@ int MemWrite_Main(int argc, char *argv[])
 			);
 		return 1;
 	}
-	
+
 	/* コマンドライン解析 */
 	pAddr  = (void *)strtoul(argv[1], 0, 0);
-	ulData = (int)strtol(argv[2], 0, 0);
+	ulData = strtoul(argv[2], 0, 0);
 	if ( argc >= 4 )
 	{
 		iWidth = argv[3][0];
