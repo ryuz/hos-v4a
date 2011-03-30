@@ -40,13 +40,11 @@ _kernel_pendsv_handler:
 				.thumb_func
 				.type	_kernel_pendsv_proc, %function
 _kernel_pendsv_proc:
-				push	{r0}
+				push	{r0, r1}
+				mrs		r0, apsr
 				push	{r0, r1, r2, r3}
 				mov		r0, r12
 				push	{r0, lr}
-
-				mrs		r0, apsr
-				push	{r0}
 
 				/* リターンアドレス格納 */
 				ldr		r0, =pendsv_ret_addr
@@ -57,16 +55,14 @@ _kernel_pendsv_proc:
 				/* 遅延ディスパッチ */
 				blx		_kernel_dsp_tsk
 
-				pop		{r0}
-				msr		apsr, r0
-
 				cpsie	i
-				
+
 				pop		{r0, r1}
 				mov		r12, r0
 				mov		lr, r1
 				pop		{r0, r1, r2, r3}
-				pop		{pc}
+				msr		apsr, r0
+				pop		{r0, pc}
 
 				.size	_kernel_pendsv_proc, .-_kernel_pendsv_proc
 

@@ -5,7 +5,6 @@
  * http://sourceforge.jp/projects/hos/
  */
 
-				.syntax unified
 
 				.text
 				.align	2
@@ -16,7 +15,7 @@
   int _kernel_ref_cpu_control(void)
  ************************************************/
 				.global	_kernel_ref_cpu_control
-				.thumb
+				.code	16
 				.thumb_func
 				.type	_kernel_ref_cpu_control, %function
 _kernel_ref_cpu_control:

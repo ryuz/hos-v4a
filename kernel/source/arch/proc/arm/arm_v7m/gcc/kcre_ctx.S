@@ -31,22 +31,27 @@ _kernel_cre_ctx:
 				str		r3, [r1, #8]				/* r5 部分にpar1を設定 */
 				ldr		r2, [sp, #0]				/* par2を取り出し */
 				str		r2, [r1, #12]				/* r6 部分にpar2を設定 */
-				movw	r2, #:lower16:(ctx_entry+1)
-				movt	r2, #:upper16:(ctx_entry+1)
+				movw	r2, #:lower16:ctx_entry
+				movt	r2, #:upper16:ctx_entry
 				str		r2, [r1, #36]				/* lr 部分にエントリーアドレスを設定 */
 				str		r1, [r0]					/* ctxcb に新 sp を保存 */
 				bx		lr							/* リターン */
 
+				.size	_kernel_cre_ctx, .-_kernel_cre_ctx
+
+
 /************************************************
   実行コンテキストエントリーアドレス
  ************************************************/
+				.thumb
+				.thumb_func
+				.type	ctx_entry, %function
 ctx_entry:
 				mov		r0, r5						/* par1を設定 */
 				mov		r1, r6						/* par2を設定 */
 				bx		r4							/* entry を実行 */
 
-
-				.size	_kernel_cre_ctx, .-_kernel_cre_ctx
+				.size	ctx_entry, .-ctx_entry
 
 
 				.end
