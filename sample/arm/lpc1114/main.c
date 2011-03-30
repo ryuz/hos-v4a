@@ -26,6 +26,8 @@
 #define REG_SSP1CLKDIV			((volatile UW *)0x4004809C)
 #define REG_PDRUNCFG			((volatile UW *)0x40048238)
 
+#define REG_GPIO0DATA(mask)		((volatile UW *)(0x50000000 + (((mask) & 0xfff) << 2)))
+#define REG_GPIO0DIR			((volatile UW *)0x50008000)
 
 /** %jp{メイン関数} */
 int main()
@@ -59,6 +61,9 @@ int main()
 	*REG_UARTCLKDIV    = 0x00000001;
 	*REG_SSP1CLKDIV    = 0x00000001;
 	
+	/* LEDをつけてみる */
+	*REG_GPIO0DIR        |= 0x080;
+	*REG_GPIO0DATA(0x80)  = 0x000;
 	
 	/* %jp{カーネルの動作開始} */
 	vsta_knl();

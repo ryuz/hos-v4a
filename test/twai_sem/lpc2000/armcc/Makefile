@@ -64,6 +64,10 @@ TARGET_HEX = $(TARGET).hex
 # %jp{armcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
+# %jp{実行ファイル生成用設定読込み}%en{definitions for exection file}
+include $(KERNEL_MAKINC_DIR)/makexe_d.inc
+
+
 # ソースディレクトリ
 SRC_DIRS += . ..
 
@@ -97,8 +101,8 @@ clean: makeexe_clean
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
 
-# %jp{ライブラリ生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+# %jp{実行ファイル生成用設定読込み}%en{rules for exection file}
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
 # %jp{armcc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_r.inc

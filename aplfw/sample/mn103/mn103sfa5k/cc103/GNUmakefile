@@ -52,6 +52,9 @@ TARGET_EXE = $(TARGET).$(EXT_EXE)
 TARGET_BIN = $(TARGET).$(EXT_BIN)
 
 
+# %jp{実行ファイル生成用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_d.inc
+
 # %jp{コンパイラ依存の設定読込み}
 include $(KERNEL_MAKINC_DIR)/cc103_d.inc
 
@@ -122,8 +125,8 @@ mostlysrccpy: srccpy srccpy
 
 
 
-# %jp{ライブラリ生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+# %jp{実行ファイル生成用ルール読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
 # %jp{コンパイラ依存ルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/cc103_r.inc

@@ -77,6 +77,9 @@ TARGET_HEX = $(TARGET).hex
 TARGET_BIN = $(TARGET).bin
 
 
+# %jp{実行ファイル生成用設定読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_d.inc
+
 # %jp{gcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
@@ -146,10 +149,10 @@ mostlydepend: depend
 $(TARGET_EXE): $(LINK_SCRIPT)
 
 
-# %jp{ライブラリ生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+# %jp{実行ファイル生成用ルール読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
-# %jp{gcc用のルール定義読込み}
+# %jp{gcc用のルール定ルール込み}
 include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 

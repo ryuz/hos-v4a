@@ -4,7 +4,7 @@
  * @file  sample.c
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
- * Copyright (C) 1998-2006 by Project HOS
+ * Copyright (C) 1998-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -54,6 +54,8 @@ void print_state(int num, char *text)
 	Uart_PutChar(':');
 	Uart_PutChar(' ');
 	Uart_PutString(text);
+	Uart_PutChar('\r');
+	Uart_PutChar('\n');
 
 	sig_sem(SEMID_UART);
 }

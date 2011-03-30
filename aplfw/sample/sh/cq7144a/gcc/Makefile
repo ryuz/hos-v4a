@@ -75,6 +75,9 @@ TARGET_EXE = $(TARGET).$(EXT_EXE)
 TARGET_MOT = $(TARGET).$(EXT_MOT)
 
 
+# %jp{実行ファイル生成用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_d.inc
+
 # %jp{gcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/gcc_d.inc
 
@@ -140,8 +143,8 @@ srccpy: makeexe_srccpy
 $(KERNEL_CFGRTR) : kernel_make
 
 
-# %jp{ライブラリ生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+# %jp{実行ファイル生成用ルール読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
 
 # %jp{shc用のルール定義読込み}

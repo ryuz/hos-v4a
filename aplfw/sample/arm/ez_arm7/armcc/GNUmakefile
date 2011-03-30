@@ -77,6 +77,9 @@ TARGET_MOT = $(TARGET).mot
 TARGET_HEX = $(TARGET).hex
 
 
+# %jp{実行ファイル生成用の設定読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_d.inc
+
 # %jp{armcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
@@ -139,8 +142,8 @@ mostlydepend: depend
 $(KERNEL_CFGRTR): kernel_make
 
 
-# %jp{ライブラリ生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+# %jp{実行ファイル生成用ルール読込み}
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
 # %jp{armcc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_r.inc

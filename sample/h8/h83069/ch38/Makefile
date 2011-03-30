@@ -51,6 +51,8 @@ STD_LIB = stdlib.lib
 # %jp{ch38用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/ch38_d.inc
 
+# %jp{実行ファイル生成用設定読込み}%en{definitions for exection file}
+include $(KERNEL_MAKINC_DIR)/makexe_d.inc
 
 
 # --------------------------------------
@@ -103,8 +105,8 @@ $(STD_LIB):
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
 
-# %jp{実行ファイル生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makeexe.inc
+# %jp{実行ファイル生成用設定読込み}%en{rules for exection file}
+include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
 # %jp{ch38用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/ch38_r.inc
