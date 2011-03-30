@@ -8,11 +8,11 @@
 
 
 
-# %jp{繧ｿ繝ｼ繧ｲ繝�繝亥錐}
+# %jp{ターゲット名}
 TARGET ?= hosaplfw
 
 
-# %jp{繝�繧｣繝ｬ繧ｯ繝医Μ螳夂ｾｩ}
+# %jp{ディレクトリ定義}
 TOP_DIR            = ../../../../..
 KERNEL_DIR         = $(TOP_DIR)/kernel
 KERNEL_MAKINC_DIR  = $(KERNEL_DIR)/build/common/gmake
@@ -21,21 +21,21 @@ HOSAPLFW_MKINK_DIR = $(HOSAPLFW_DIR)/build/common/gmake
 OBJS_DIR           = objs_$(TARGET)
 
 
-# %jp{蜈ｱ騾夊ｨｭ螳夊ｪｭ霎ｼ縺ｿ}
+# %jp{共通設定読込み}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{繧､繝ｳ繧ｯ繝ｫ繝ｼ繝峨ヱ繧ｹ險ｭ螳嘲
+# %jp{インクルードパス設定}
 INC_DIRS += $(KERNEL_DIR)/include
 
 
-# %jp{繧ｪ繝励す繝ｧ繝ｳ繝輔Λ繧ｰ}
+# %jp{オプションフラグ}
 CFLAGS  = --cpu=4T --apcs=inter --thumb
 AFLAGS  = --cpu=4T --apcs=inter --thumb
 ARFLAGS = 
 
 
-# %jp{繝ｪ繝ｳ繧ｯ蛻ｶ蠕｡蟇ｾ雎｡蛻ｶ蠕｡}
+# %jp{リンク制御対象制御}
 LINK_AT91USART = Yes
 LINK_MX1UART   = Yes
 
@@ -53,18 +53,20 @@ depend: makelib_depend
 
 
 
-# %jp{armcc逕ｨ縺ｮ險ｭ螳夊ｪｭ霎ｼ縺ｿ}
+# %jp{armcc用の設定読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
-# %jp{蜈ｱ騾夊ｨｭ螳夊ｪｭ霎ｼ縺ｿ}
-include $(KERNEL_MAKINC_DIR)/makelib.inc
+# %jp{共通設定読込み}
+include $(KERNEL_MAKINC_DIR)/maklib_d.inc
+
 include $(HOSAPLFW_MKINK_DIR)/aplfwsrc.inc
 
+include $(KERNEL_MAKINC_DIR)/maklib_r.inc
 
-# %jp{armcc逕ｨ縺ｮ繝ｫ繝ｼ繝ｫ螳夂ｾｩ隱ｭ霎ｼ縺ｿ}
+# %jp{armcc用のルール定義読込み}
 include $(KERNEL_MAKINC_DIR)/armcc_r.inc
 
-# %jp{萓晏ｭ倬未菫ょｮ夂ｾｩ隱ｭ霎ｼ縺ｿ}
+# %jp{依存関係定義読込み}
 include $(HOSAPLFW_MKINK_DIR)/aplfwdep.inc
 
 

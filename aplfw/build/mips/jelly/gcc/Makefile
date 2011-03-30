@@ -64,13 +64,14 @@ ASRCS +=
 CSRCS +=
 
 
-# %jp{共通ソース}
-include $(HOSAPLFW_MKINK_DIR)/aplfwsrc.inc
-
-
 # %jp{リンク制御対象制御}
 LINK_JELLYUART = Yes
 LINK_JELLYI2C  = Yes
+
+
+# %jp{共通ソース}
+include $(HOSAPLFW_MKINK_DIR)/aplfwsrc.inc
+
 
 
 

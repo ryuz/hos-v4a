@@ -105,7 +105,7 @@ CSRCS += strlen.c
 
 
 # %jp{ライブラリファイルの追加}
-LIBS += $(APLFW_LIB) -lc
+LIBS := $(APLFW_LIB) $(LIBS) -lc
 
 
 
