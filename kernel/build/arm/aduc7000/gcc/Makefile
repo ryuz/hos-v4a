@@ -63,9 +63,9 @@ INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 # %jp{オプションフラグ}
-AFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
-CFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
-ARFLAGS += 
+AFLAGS  = -mcpu=arm7tdmi -mthumb-interwork
+CFLAGS  = -mcpu=arm7tdmi -mthumb-interwork
+ARFLAGS = 
 
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}

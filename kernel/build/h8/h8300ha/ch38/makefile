@@ -169,7 +169,7 @@ clean: makelib_clean
 
 
 # %jp{ライブラリ生成用設定読込み}
-!include $(KERNEL_MAKINC_DIR)/makelib.inc
+!include $(KERNEL_MAKINC_DIR)/maklib_r.inc
 
 
 # %jp{コンパイラ依存ルール}%en{rules of compiler dependence}

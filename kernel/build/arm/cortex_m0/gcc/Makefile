@@ -74,7 +74,6 @@ include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 
 
 
-
 # --------------------------------------
 #  %jp{ソースファイル}%en{source files}
 # --------------------------------------
@@ -96,6 +95,7 @@ ASRCS += $(SRC_PROC_CC_DIR)/kref_ctl.S
 CSRCS += $(SRC_PROC_DIR)/ena_int.c
 CSRCS += $(SRC_PROC_DIR)/dis_int.c
 CSRCS += $(SRC_PROC_DIR)/vclr_int.c
+
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc

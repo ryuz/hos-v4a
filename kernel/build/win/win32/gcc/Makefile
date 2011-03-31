@@ -7,63 +7,83 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{ターゲット名}
+# --------------------------------------
+#  %jp{各種設定}%en{setting}
+# --------------------------------------
+
+# %jp{ターゲットライブラリ名}%en{target library name}
 TARGET ?= libhosv4a
 
 # %jp{拡張子設定}
 EXT_EXE = exe
 
-# %jp{アーキテクチャパス}
-ARCH_PROC ?= win/win32
-ARCH_IRC  ?= simple
-ARCH_CC   ?= gcc
 
-
-# %jp{ツール定義}
+# %jp{ツール定義}%jp{tools}
 GCC_ARCH ?=
 CMD_CC   ?= $(GCC_ARCH)gcc
 CMD_ASM  ?= $(GCC_ARCH)gcc
 CMD_LIBR ?= $(GCC_ARCH)ar
 
 
-# %jp{ディレクトリ定義}
+# %jp{アーキテクチャ定義}%en{architecture}
+ARCH_NAME ?= win32
+ARCH_PROC ?= win/win32
+ARCH_IRC  ?= simple
+ARCH_CC   ?= gcc
+
+
+# %jp{ディレクトリ定義}%en{directories}
 TOP_DIR           = ../../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-OBJS_DIR          = objs_$(TARGET)
+INC_PROC_DIR      = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
+INC_IRC_DIR       = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
+SRC_PROC_DIR      = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
+SRC_PROC_CC_DIR   = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
+SRC_IRC_DIR       = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
+SRC_IRC_CC_DIR    = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
+CFGRTR_DIR        = $(TOP_DIR)/cfgrtr/build/gcc
 
 
-# %jp{カーネル指定}
+# %jp{コンフィギュレータ定義}%en{kernel configurator}
+CFGRTR = h4acfg-$(ARCH_NAME)
+
+
+# %jp{カーネル指定}%en{kernel flag}
 KERNEL = Yes
 
 
-# %jp{共通定義読込み}
+# %jp{共通定義読込み}%en{common setting}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{アーキテクチャパス定義}
-INC_PROC_DIR     = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
-INC_IRC_DIR      = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
-SRC_PROC_DIR     = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
-SRC_PROC_ASM_DIR = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
-SRC_IRC_DIR      = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
-SRC_IRC_ASM_DIR  = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
-
-# %jp{パス設定}
+# %jp{パス設定}%en{add source directories}
 INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
-SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_ASM_DIR) $(SRC_IRC_DIR) $(SRC_IRC_ASM_DIR)
+SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
-# %jp{オプションフラグ}
+
+# %jp{オプションフラグ}%en{option flags}
 AFLAGS  = 
 CFLAGS  = 
 ARFLAGS = 
 
-# %jp{コンフィギュレータ定義}
-CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
-CFGRTR     = h4acfg-win32
+
+# %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
+include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
+
+# %jp{ライブラリ生成用設定読込み}%en{definitions for library}
+include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 
 
-# %jp{C言語ファイルの追加}
+
+# --------------------------------------
+#  %jp{ソースファイル}%en{source files}
+# --------------------------------------
+
+# %jp{アセンブラファイルの追加}%en{assembry sources}
+ASRCS += 
+
+# %jp{C言語ファイルの追加}%en{C sources}
 CSRCS += $(SRC_PROC_DIR)/kcre_ctx.c
 CSRCS += $(SRC_PROC_DIR)/kdis_int.c
 CSRCS += $(SRC_PROC_DIR)/kena_int.c
@@ -76,39 +96,50 @@ CSRCS += $(SRC_PROC_DIR)/val_int.c
 CSRCS += $(SRC_PROC_DIR)/vsig_int.c
 
 
-# アセンブラファイルの追加
-ASRCS += 
-
-
-# カーネル共通ソースの追加
+# %jp{カーネル共通ソースの追加}%en{kernel common sources}
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 
-# %jp{ALL}
+
+
+# --------------------------------------
+#  %jp{ルール定義}%en{rules}
+# --------------------------------------
+
+# %jp{ALL}%en{all}
 .PHONY : all
 all: makelib_all
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
-# %jp{クリーン}
+# %jp{クリーン}%en{clean}
 .PHONY : clean
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
+# %jp{依存関係更新}%en{make depend}
+.PHONY : depend
+depend: makelib_depend
 
-# %jp{コンパイラ依存の設定読込み}
-include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
+# %jp{ソース一括コピー}%en{source files copy}
+.PHONY : srccpy
+srccpy: makelib_srccpy
 
 
-# %jp{ライブラリ生成用設定読込み}
-include $(KERNEL_MAKINC_DIR)/makelib.inc
+# %jp{ライブラリ生成用設定読込み}%en{rules for library}
+include $(KERNEL_MAKINC_DIR)/maklib_r.inc
 
-
-# %jp{コンパイラ依存ルール定義読込み}
+# %jp{コンパイラ依存のルール定義読込み}%en{rules for compiler}
 include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 
 
-# %jp{カーネル依存関係読込み}
+
+
+# --------------------------------------
+#  %jp{依存関係}%en{dependency}
+# --------------------------------------
+
+# %jp{カーネル依存関係読込み}{dependency list of kernel sources}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
 
