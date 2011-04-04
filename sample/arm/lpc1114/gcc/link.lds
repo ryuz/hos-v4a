@@ -3,8 +3,8 @@ ENTRY(_kernel_reset_handler)
 
 MEMORY
 {
-	vector : o = 0x00000000, l = 0x00001000
-	ro     : o = 0x00001000, l = 0x00007000
+	vector : o = 0x00000000, l = 0x000000c0
+	ro     : o = 0x000000c0, l = 0x00007f40
 	rw     : o = 0x10000000, l = 0x00002000
 }
 

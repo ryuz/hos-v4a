@@ -23,7 +23,7 @@
 void OsTimer_Initialize(VP_INT exinf)
 {
 	/* %jp{タイマ動作開始} */
-	*REG_SRVR  = 1000000;
+	*REG_SRVR  = 480000;
 	*REG_SCUVR = 0;
 	*REG_SCSR  = 0x00000007;
 

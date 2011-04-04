@@ -10,6 +10,7 @@ kernel_vct.c
 
 # output files
 *.elf
+*.axf
 *.bin
 *.out
 *.hex

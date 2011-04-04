@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_MPF API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4  コンフィギュレーター
+//    CRE_MPF API の処理
+//
+//                                    Copyright (C) 1998-2003 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -28,8 +28,8 @@
 CApiCreMpf::CApiCreMpf()
 {
 	// %jp{デフォルトの最大ID設定}
-	m_iDefaultMaxId = _KERNEL_TMAX_MPFID;
-	
+	m_iDefaultMaxId = _KERNEL_DEF_TMAX_MPFID;
+
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 4;		// 4パラメーターのブロック
@@ -54,12 +54,12 @@ int CApiCreMpf::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( m_iResObj > 0 )
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
@@ -77,21 +77,25 @@ int CApiCreMpf::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
 
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
 	}
-	
+
 	return CFG_ERR_NOPROC;
 }
 
@@ -124,7 +128,7 @@ void  CApiCreMpf::WriteCfgDef(FILE* fp)
 		"/*   create fixed size memory-pool objects    */\n"
 		"/* ------------------------------------------ */\n"
 		, fp);
-	
+
 	// %jp{メモリプール領域出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
@@ -139,7 +143,7 @@ void  CApiCreMpf::WriteCfgDef(FILE* fp)
 				m_pParamPacks[i]->GetParam(CREMPF_BLKSZ));
 		}
 	}
-	
+
 
 #if _KERNEL_MPFCB_ALGORITHM == _KERNEL_MPFCB_ALG_BLKARRAY
 #if _KERNEL_MPFCB_SPLIT_RO
@@ -236,7 +240,7 @@ void  CApiCreMpf::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #else
 	// ポインタ配列＆統合MPFCB
@@ -263,11 +267,11 @@ void  CApiCreMpf::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #endif
 #endif
-	
+
 	// %jp{タスク情報出力}
 	fprintf(
 		fp,
@@ -341,5 +345,5 @@ void  CApiCreMpf::WriteCfgStart(FILE* fp)
 
 
 // ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2003 by Project HOS                                    
+//  Copyright (C) 1998-2003 by Project HOS
 // ---------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_MBX API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4  コンフィギュレーター
+//    CRE_MBX API の処理
+//
+//                                    Copyright (C) 1998-2003 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -27,8 +27,8 @@
 CApiCreMbx::CApiCreMbx()
 {
 	// %jp{デフォルトの最大ID設定}
-	m_iDefaultMaxId = _KERNEL_TMAX_MBXID;
-	
+	m_iDefaultMaxId = _KERNEL_DEF_TMAX_MBXID;
+
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 3;		// 3パラメーターのブロック
@@ -53,12 +53,12 @@ int CApiCreMbx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( m_iResObj > 0 )
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
@@ -76,16 +76,20 @@ int CApiCreMbx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
 
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
@@ -115,7 +119,7 @@ void  CApiCreMbx::WriteCfgDef(FILE* fp)
 	{
 		return;
 	}
-	
+
 	// コメント出力
 	fputs(
 		"\n\n\n"
@@ -221,7 +225,7 @@ void  CApiCreMbx::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #else
 	// %jp{ポインタ配列＆統合MBXCB}
@@ -248,7 +252,7 @@ void  CApiCreMbx::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #endif
 #endif

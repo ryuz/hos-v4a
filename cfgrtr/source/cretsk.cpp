@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4 Advance Configulator                          
-//    CRE_TSK API                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2006 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4 Advance Configulator
+//    CRE_TSK API
+//
+//                                    Copyright (C) 1998-2006 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -56,44 +56,48 @@ int CApiCreTsk::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( m_iResObj > 0 )
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
-		
-		if ( (iId = atoi(pszParams)) <= 0 )
+
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
-		
+
 		m_iMaxId = iId;
-		
+
 		return CFG_ERR_OK;
 	}
 	else if ( strcmp(pszApiName, "KERNEL_RSV_TSKID") == 0 )
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
 
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
 	}
-	
+
 	return CFG_ERR_NOPROC;
 }
 
@@ -102,7 +106,7 @@ int CApiCreTsk::AnalyzeApi(const char* pszApiName, const char* pszParams)
 void CApiCreTsk::WriteId(FILE* fp)
 {
 	int i;
-	
+
 	// %jp{コメントを出力}
 	fputs("\n\n/* Task object ID definetion */\n\n", fp);
 
@@ -118,7 +122,7 @@ void CApiCreTsk::WriteId(FILE* fp)
 				m_iId[i]);
 		}
 	}
-	
+
 	// %jp{ID最大値定義を出力}
 	fprintf( fp,
 		"\n"
@@ -136,7 +140,7 @@ void CApiCreTsk::WriteCfgDef(FILE* fp)
 {
 	const char* pszParam;
 	int         i;
-	
+
 	// %jp{コメント出力}
 	fputs(
 		"\n\n\n"
@@ -144,8 +148,8 @@ void CApiCreTsk::WriteCfgDef(FILE* fp)
 		"/*          create task objects               */\n"
 		"/* ------------------------------------------ */\n\n"
 		, fp);
-	
-	
+
+
 	// %jp{スタック領域出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
@@ -159,7 +163,7 @@ void CApiCreTsk::WriteCfgDef(FILE* fp)
 				m_pParamPacks[i]->GetParam(CRETSK_STKSZ));
 		}
 	}
-	
+
 
 #if _KERNEL_TCB_ALGORITHM == _KERNEL_TCB_ALG_BLKARRAY
 #if _KERNEL_TCB_SPLIT_RO
@@ -256,7 +260,7 @@ void CApiCreTsk::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #else
 	// ポインタ配列＆統合TCB
@@ -283,11 +287,11 @@ void CApiCreTsk::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #endif
 #endif
-	
+
 	// %jp{タスク情報出力}
 	fprintf(
 		fp,
@@ -314,7 +318,7 @@ void CApiCreTsk::WriteTcbRam(FILE *fp, int iObj)
 	fprintf(fp, "0, 0, ");				/* %jp{キューに接続する為のオブジェクト} */
 #endif
 #endif
-	
+
 #if _KERNEL_TCB_TOQOBJ
 	fprintf(fp, "0, 0, 0, ");			/* %jp{タイムアウトキュー} */
 #endif
@@ -352,7 +356,7 @@ void CApiCreTsk::WriteTcbRam(FILE *fp, int iObj)
 #endif
 
 #if _KERNEL_TCB_MTXHDL
-	fprintf(fp, "0, ");					/* %jp{所有するミューテックスのリスト} */	
+	fprintf(fp, "0, ");					/* %jp{所有するミューテックスのリスト} */
 #endif
 
 #if _KERNEL_TCB_ERCD
@@ -445,7 +449,7 @@ void  CApiCreTsk::WriteCfgIni(FILE* fp)
 	for ( int i = 0; i < m_iObjs; i++ )
 	{
 		fprintf(fp, "\t_kernel_tcb_blk_%d.tcb_ro = &_kernel_tcb_ro_blk_%d;\n", m_iId[i], m_iId[i]);
-	}	
+	}
 #endif
 }
 
@@ -469,5 +473,5 @@ void  CApiCreTsk::WriteCfgStart(FILE* fp)
 
 
 // ---------------------------------------------------------------------------
-//  Copyright (C) 1998-2006 by Project HOS                                    
+//  Copyright (C) 1998-2006 by Project HOS
 // ---------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4a  コンフィギュレーター                           
-//    CRE_FLG API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2009 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4a  コンフィギュレーター
+//    CRE_FLG API の処理
+//
+//                                    Copyright (C) 1998-2009 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -27,7 +27,7 @@ CApiCreFlg::CApiCreFlg()
 {
 	// %jp{デフォルトの最大ID設定}
 	m_iDefaultMaxId = _KERNEL_DEF_TMAX_FLGID;
-	
+
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 2;		// 2パラメーターのブロック
@@ -51,12 +51,12 @@ int CApiCreFlg::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
-		
-		if ( m_iResObj > 0 )
+
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
@@ -74,16 +74,20 @@ int CApiCreFlg::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
 
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
@@ -97,7 +101,7 @@ int CApiCreFlg::AnalyzeApi(const char* pszApiName, const char* pszParams)
 void CApiCreFlg::WriteId(FILE* fp)
 {
 	int i;
-	
+
 	if ( m_iMaxId <= 0 )
 	{
 		return;
@@ -272,7 +276,7 @@ void  CApiCreFlg::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 
 	}
 #endif

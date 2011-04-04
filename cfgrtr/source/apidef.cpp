@@ -25,7 +25,7 @@ CApiDef::CApiDef()
 	m_iDefaultMaxId = 0;
 	m_iMaxId        = -1;
 	m_iObjs         = 0;
-	m_iResObj       = 0;
+	m_iResObj       = -1;
 	for ( i = 0; i < API_MAX_OBJS; i++ )
 	{
 		m_pParamPacks[i] = NULL;
@@ -87,7 +87,7 @@ int CApiDef::AddParams(const char* pszParams)
 				iErr = CFG_ERR_SYNTAX;
 				break;
 			}
-			
+
 			// ブロック切り出し
 			iErr = CAnalyze::SearchChar(szParamBlock, pszParams, '}');
 			if ( iErr != CFG_ERR_OK )
@@ -142,7 +142,7 @@ int CApiDef::AutoId(void)
 	bool blUsedId[65536];
 	int iId;
 	int i;
-	
+
 	if ( m_iObjs > 0 )
 	{
 		// 変数初期化
@@ -150,7 +150,7 @@ int CApiDef::AutoId(void)
 		{
 			blUsedId[i] = false;
 		}
-		
+
 		// 固定値指定のIDをサーチ
 		for ( i = 0; i < m_iObjs; i++ )
 		{
@@ -191,13 +191,13 @@ int CApiDef::AutoId(void)
 			m_iMaxId = iId;
 		}
 	}
-	
+
 	// 最大ID番号を予約オブジェクト数分増加
-	if ( m_iResObj > 0 && m_iMaxId < m_iObjs + m_iResObj )
+	if ( m_iResObj >= 0 && m_iMaxId < m_iObjs + m_iResObj )
 	{
 		m_iMaxId = m_iObjs + m_iResObj;
 	}
-	
+
 	// 指定が無い場合はデフォルト値に設定
 	if ( m_iMaxId < 0 )
 	{

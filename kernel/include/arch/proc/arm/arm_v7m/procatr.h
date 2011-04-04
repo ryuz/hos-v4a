@@ -13,7 +13,7 @@
 #define _KERNEL__arch__proc__arm__arm_v7m__procatr_h__
 
 
-#define _KERNEL_PROCATR_ARM_CORTEX_M3
+#define _KERNEL_PROCATR_ARM_ARMV7M
 
 
 /* %jp{プロセッサアーキテクチャ定義のあるインクルードパス} */

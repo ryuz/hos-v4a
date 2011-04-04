@@ -59,7 +59,7 @@ int CApiDefInh::AutoId(void)
 // %jp{cfgファイル定義部書き出し}
 void  CApiDefInh::WriteCfgDef(FILE* fp)
 {
-#ifndef _KERNEL_PROCATR_ARM_CORTEX_M3
+#if !(defined(_KERNEL_PROCATR_ARM_ARMV6M) || defined(_KERNEL_PROCATR_ARM_ARMV7M))
 	int i, j;
 
 	// コメント出力
@@ -111,7 +111,7 @@ void  CApiDefInh::WriteCfgStart(FILE* fp)
 
 void  CApiDefInh::WriteVecter(FILE* fp, CApiIntStack *pIntStack)
 {
-#ifdef _KERNEL_PROCATR_ARM_CORTEX_M3
+#if defined(_KERNEL_PROCATR_ARM_ARMV6M) || defined(_KERNEL_PROCATR_ARM_ARMV7M)
 	int i, j;
 
 	// コメント出力

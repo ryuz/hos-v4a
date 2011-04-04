@@ -146,12 +146,12 @@ int main(int argc, char *argv[])
 			}
 			s_szIdFile = argv[i];
 		}
-		else if ( strcmp(argv[i], "-vect") == 0 )
+		else if ( strcmp(argv[i], "-vct") == 0 )
 		{
 			i++;
 			if ( i >= argc )
 			{
-				fprintf(stderr, "option error \"-vect\"\n");
+				fprintf(stderr, "option error \"-vct\"\n");
 				PrintUsage();
 				return 1;
 			}
@@ -234,7 +234,7 @@ int main(int argc, char *argv[])
 
 	fclose(fpCfg);
 
-#ifdef _KERNEL_PROCATR_ARM_CORTEX_M3
+#if defined(_KERNEL_PROCATR_ARM_ARMV6M) || defined(_KERNEL_PROCATR_ARM_ARMV7M)
 	// ベクタファイルオープン
 	FILE* fpVct;
 	if ( (fpVct = fopen(s_szVctFile, "w")) == NULL )

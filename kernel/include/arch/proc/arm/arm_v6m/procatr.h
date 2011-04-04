@@ -13,7 +13,7 @@
 #define _KERNEL__arch__proc__arm__arm_v6m__procatr_h__
 
 
-#define _KERNEL_PROCATR_ARM_CORTEX_M3
+#define _KERNEL_PROCATR_ARM_ARMV6M
 
 
 /* %jp{プロセッサアーキテクチャ定義のあるインクルードパス} */
@@ -35,7 +35,7 @@
 #define _KERNEL_PROCATR_SPT_MULTINT			TRUE		/**< %jp{多重割込みに対応しているか？} */
 
 #define _KERNEL_PROCATR_TMIN_INHNO			0			/**< %jp{割込みハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_INHNO			255			/**< %jp{割込みハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMAX_INHNO			47			/**< %jp{割込みハンドラ番号の最大値} */
 
 #define _KERNEL_PROCATR_TMIN_EXCNO			0			/**< %jp{CPU例外ハンドラ番号の最小値} */
 #define _KERNEL_PROCATR_TMAX_EXCNO			15			/**< %jp{CPU例外ハンドラ番号の最大値} */

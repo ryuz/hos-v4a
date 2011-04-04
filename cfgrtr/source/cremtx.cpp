@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4a Advance configurator                           
-//    CRE_MTX API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2009 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4a Advance configurator
+//    CRE_MTX API の処理
+//
+//                                    Copyright (C) 1998-2009 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -27,7 +27,7 @@ CApiCreMtx::CApiCreMtx()
 {
 	// %jp{デフォルトの最大ID設定}
 	m_iDefaultMaxId = _KERNEL_DEF_TMAX_MTXID;
-	
+
 	// %jp{パラメーター構文設定}
 	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}
 	m_iParamSyntax[1] = 2;		// %jp{2パラメーターのブロック}
@@ -52,9 +52,14 @@ int CApiCreMtx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
+		}
+
+		if ( m_iResObj >= 0 )
+		{
+			return CFG_ERR_DEF_CONFLICT;
 		}
 
 		if ( (iId = atoi(pszParams)) < 0 )
@@ -66,7 +71,29 @@ int CApiCreMtx::AnalyzeApi(const char* pszApiName, const char* pszParams)
 
 		return CFG_ERR_OK;
 	}
-	
+	else if ( strcmp(pszApiName, "KERNEL_RSV_MTXID") == 0 )
+	{
+		int iId;
+
+		if ( m_iMaxId >= 0 )
+		{
+			return CFG_ERR_DEF_CONFLICT;
+		}
+
+		if ( (iId = atoi(pszParams)) < 0 )
+		{
+			return CFG_ERR_PARAM;
+		}
+
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
+		m_iResObj += iId;
+
+		return CFG_ERR_OK;
+	}
+
 	return CFG_ERR_NOPROC;
 }
 
@@ -80,10 +107,10 @@ void CApiCreMtx::WriteId(FILE* fp)
 	{
 		return;
 	}
-	
+
 	// %jp{コメントを出力}
 	fputs("\n\n/* Mtxaphore object ID definetion */\n\n", fp);
-	
+
 	// %jp{ID定義を出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
@@ -96,7 +123,7 @@ void CApiCreMtx::WriteId(FILE* fp)
 				m_iId[i]);
 		}
 	}
-	
+
 	// %jp{ID最大値定義を出力}
 	fprintf( fp,
 		"\n"
@@ -122,7 +149,7 @@ void  CApiCreMtx::WriteCfgDef(FILE* fp)
 		return;
 #endif
 	}
-	
+
 	// %jp{コメント出力}
 	fputs(
 		"\n\n\n"
@@ -228,7 +255,7 @@ void  CApiCreMtx::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #else
 	// %jp{ポインタ配列＆統合MTXCB}
@@ -255,7 +282,7 @@ void  CApiCreMtx::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #endif
 #endif
@@ -320,7 +347,7 @@ void  CApiCreMtx::WriteCfgIni(FILE* fp)
 	for ( int i = 0; i < m_iObjs; i++ )
 	{
 		fprintf(fp, "\t_kernel_mtxcb_blk_%d.mtxcb_ro = &_kernel_mtxcb_ro_blk_%d;\n", m_iId[i], m_iId[i]);
-	}	
+	}
 #endif
 }
 

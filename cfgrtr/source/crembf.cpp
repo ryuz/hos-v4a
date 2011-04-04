@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_MBF API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4  コンフィギュレーター
+//    CRE_MBF API の処理
+//
+//                                    Copyright (C) 1998-2003 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -53,12 +53,12 @@ int CApiCreMbf::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( m_iResObj > 0 )
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
@@ -76,21 +76,25 @@ int CApiCreMbf::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
 
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
 	}
-	
+
 	return CFG_ERR_NOPROC;
 }
 

@@ -2,7 +2,7 @@
 # Hyper Operating System V4 Advance   Application Framework
 #  makefile for SH2
 #
-# Copyright (C) 1998-2007 by Project HOS
+# Copyright (C) 1998-2011 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 

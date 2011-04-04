@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4  コンフィギュレーター                           
-//    CRE_DTQ API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2003 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4  コンフィギュレーター
+//    CRE_DTQ API の処理
+//
+//                                    Copyright (C) 1998-2003 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -29,7 +29,7 @@ CApiCreDtq::CApiCreDtq()
 {
 	// %jp{デフォルトの最大ID設定}
 	m_iDefaultMaxId = _KERNEL_DEF_TMAX_DTQID;
-	
+
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 3;		// 3パラメーターのブロック
@@ -53,17 +53,17 @@ int CApiCreDtq::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( m_iResObj > 0 )
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -76,7 +76,7 @@ int CApiCreDtq::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
@@ -86,11 +86,15 @@ int CApiCreDtq::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_PARAM;
 		}
 
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
 	}
-	
+
 	return CFG_ERR_NOPROC;
 }
 
@@ -107,8 +111,8 @@ void CApiCreDtq::WriteId(FILE* fp)
 
 	// %jp{コメントを出力}
 	fputs("\n\n/* Data queue object ID definetion */\n\n", fp);
-	
-	
+
+
 	// %jp{ID定義を出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
@@ -121,7 +125,7 @@ void CApiCreDtq::WriteId(FILE* fp)
 				m_iId[i]);
 		}
 	}
-	
+
 	// %jp{ID最大値定義を出力}
 	fprintf( fp,
 		"\n"
@@ -183,8 +187,8 @@ void  CApiCreDtq::WriteCfgDef(FILE* fp)
 			}
 		}
 	}
-	
-	
+
+
 	if ( m_iMaxId > 0 )
 	{
 #if _KERNEL_DTQCB_ALGORITHM == _KERNEL_DTQCB_ALG_BLKARRAY
@@ -208,7 +212,7 @@ void  CApiCreDtq::WriteCfgDef(FILE* fp)
 			}
 		}
 		fprintf(fp, "\t};\n");
-		
+
 		// %jp{ROM部出力}
 		fprintf(fp, "\nconst _KERNEL_T_DTQCB_RO _kernel_dtqcb_ro_tbl[%d] =\n\t{\n", m_iMaxId);
 		for ( i = 1; i <= m_iMaxId; i++ )
@@ -282,7 +286,7 @@ void  CApiCreDtq::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #else
 	// %jp{ポインタ配列＆統合DTQCB}
@@ -309,7 +313,7 @@ void  CApiCreDtq::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #endif
 #endif
@@ -366,7 +370,7 @@ void CApiCreDtq::WriteDtqcbRom(FILE *fp, int iObj)
 		}
 		else
 		{
-			fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREDTQ_DTQ));	
+			fprintf(fp, "(%s), ", m_pParamPacks[iObj]->GetParam(CREDTQ_DTQ));
 		}
 	}
 #endif

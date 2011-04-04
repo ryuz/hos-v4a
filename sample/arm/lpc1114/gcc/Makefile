@@ -6,10 +6,6 @@
 # ----------------------------------------------------------------------------
 
 
-KERNEL_DEBUG ?= Yes
-DEBUG        ?= Yes
-
-
 # --------------------------------------
 #  %jp{各種設定}{setting}
 # --------------------------------------
@@ -99,7 +95,7 @@ TARGET_HEX = $(TARGET).$(EXT_HEX)
 
 
 # %jp{C言語ファイルの追加}%en{C sources}
-CSRCS += ./kernel_vct.c
+CSRCS += ../kernel_vct.c
 CSRCS += ../kernel_cfg.c
 CSRCS += ../main.c
 CSRCS += ../sample.c
@@ -136,9 +132,9 @@ mostlyclean: clean kernel_clean
 
 
 # %jp{コンフィギュレータ実行}%en{configurator}
-../kernel_cfg.c ../kernel_id.h kernel_vct.c: ../system.cfg $(KERNEL_CFGRTR)
+../kernel_cfg.c ../kernel_id.h ../kernel_vct.c: ../system.cfg $(KERNEL_CFGRTR)
 	cpp -E ../system.cfg ../system.i
-	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h -vct ../kernel_vct.c
 
 
 # %jp{実行ファイル生成用設定読込み}%en{rules for exection file}

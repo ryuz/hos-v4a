@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 //  Hyper Operating System V4 Advance  configurator
 //    CRE_CYC API
-//                                                                            
+//
 //                                    Copyright (C) 1998-2010 by Project HOS
 //                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
@@ -32,7 +32,7 @@ CApiCreCyc::CApiCreCyc()
 {
 	// %jp{デフォルトの最大ID設定}
 	m_iDefaultMaxId = _KERNEL_DEF_TMAX_CYCID;
-	
+
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 5;		// 5パラメーターのブロック
@@ -56,17 +56,17 @@ int CApiCreCyc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( m_iResObj > 0 )
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -79,16 +79,20 @@ int CApiCreCyc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
 
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
@@ -120,7 +124,7 @@ void CApiCreCyc::WriteId(FILE* fp)
 				m_iId[i]);
 		}
 	}
-	
+
 	// %jp{ID最大値定義を出力}
 	fprintf( fp,
 		"\n"
@@ -242,7 +246,7 @@ void  CApiCreCyc::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #else
 	// %jp{ポインタ配列＆統合CYCCB}
@@ -269,7 +273,7 @@ void  CApiCreCyc::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #endif
 #endif
@@ -330,7 +334,7 @@ void  CApiCreCyc::WriteCfgIni(FILE* fp)
 	for ( int i = 0; i < m_iObjs; i++ )
 	{
 		fprintf(fp, "\t_kernel_cyccb_blk_%d.cyccb_ro = &_kernel_cyccb_ro_blk_%d;\n", m_iId[i], m_iId[i]);
-	}	
+	}
 #endif
 }
 

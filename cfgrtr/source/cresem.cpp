@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-//  Hyper Operating System V4 Advance configurator                           
-//    CRE_SEM API の処理                                                      
-//                                                                            
-//                                    Copyright (C) 1998-2006 by Project HOS  
-//                                    http://sourceforge.jp/projects/hos/     
+//  Hyper Operating System V4 Advance configurator
+//    CRE_SEM API の処理
+//
+//                                    Copyright (C) 1998-2006 by Project HOS
+//                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
 
 
@@ -28,7 +28,7 @@ CApiCreSem::CApiCreSem()
 {
 	// %jp{デフォルトの最大ID設定}
 	m_iDefaultMaxId = _KERNEL_DEF_TMAX_SEMID;
-	
+
 	// %jp{パラメーター構文設定}
 	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}
 	m_iParamSyntax[1] = 3;		// %jp{3パラメーターのブロック}
@@ -52,44 +52,48 @@ int CApiCreSem::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_MULTIDEF;
 		}
 
-		if ( m_iResObj > 0 )
+		if ( m_iResObj >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
-		
+
 		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
-		
+
 		m_iMaxId = iId;
-		
+
 		return CFG_ERR_OK;
 	}
 	else if ( strcmp(pszApiName, "KERNEL_RSV_SEMID") == 0 )
 	{
 		int iId;
 
-		if ( m_iMaxId > 0 )
+		if ( m_iMaxId >= 0 )
 		{
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
-		
+
+		if ( m_iResObj < 0 )
+		{
+			m_iResObj = 0;
+		}
 		m_iResObj += iId;
 
 		return CFG_ERR_OK;
 	}
-	
+
 	return CFG_ERR_NOPROC;
 }
 
@@ -98,7 +102,7 @@ int CApiCreSem::AnalyzeApi(const char* pszApiName, const char* pszParams)
 void CApiCreSem::WriteId(FILE* fp)
 {
 	int i;
-	
+
 	if ( m_iMaxId <= 0 )
 	{
 		return;
@@ -106,8 +110,8 @@ void CApiCreSem::WriteId(FILE* fp)
 
 	// %jp{コメントを出力}
 	fputs("\n\n/* Semaphore object ID definetion */\n\n", fp);
-	
-	
+
+
 	// %jp{ID定義を出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
@@ -120,7 +124,7 @@ void CApiCreSem::WriteId(FILE* fp)
 				m_iId[i]);
 		}
 	}
-	
+
 	// %jp{ID最大値定義を出力}
 	fprintf( fp,
 		"\n"
@@ -247,7 +251,7 @@ void  CApiCreSem::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #else
 	// %jp{ポインタ配列＆統合SEMCB}
@@ -274,7 +278,7 @@ void  CApiCreSem::WriteCfgDef(FILE* fp)
 				fprintf(fp, "\t\tNULL,\n");
 			}
 		}
-		fprintf(fp, "\t};\n");		
+		fprintf(fp, "\t};\n");
 	}
 #endif
 #endif
@@ -320,7 +324,7 @@ void  CApiCreSem::WriteCfgIni(FILE* fp)
 	{
 		return;
 	}
-	
+
 #if _KERNEL_SEMCB_ALGORITHM == _KERNEL_SEMCB_ALG_PTRARRAY && _KERNEL_SEMCB_SPLIT_RO
 	if ( m_iObjs <= 0 )
 	{
@@ -331,7 +335,7 @@ void  CApiCreSem::WriteCfgIni(FILE* fp)
 	for ( int i = 0; i < m_iObjs; i++ )
 	{
 		fprintf(fp, "\t_kernel_semcb_blk_%d.semcb_ro = &_kernel_semcb_ro_blk_%d;\n", m_iId[i], m_iId[i]);
-	}	
+	}
 #endif
 }
 

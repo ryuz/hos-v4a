@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 //  Hyper Operating System V4 Advance  configurator
 //    CRE_ALM API
-//                                                                            
+//
 //                                    Copyright (C) 1998-2010 by Project HOS
 //                                    http://sourceforge.jp/projects/hos/
 // ---------------------------------------------------------------------------
@@ -28,7 +28,7 @@ CApiCreAlm::CApiCreAlm()
 {
 	// %jp{デフォルトの最大ID設定}
 	m_iDefaultMaxId = _KERNEL_DEF_TMAX_ALMID;
-	
+
 	// パラメーター構文設定
 	m_iParamSyntax[0] = 0;		// 単独パラメーター
 	m_iParamSyntax[1] = 3;		// 3パラメーターのブロック
@@ -63,7 +63,7 @@ int CApiCreAlm::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
@@ -81,7 +81,7 @@ int CApiCreAlm::AnalyzeApi(const char* pszApiName, const char* pszParams)
 			return CFG_ERR_DEF_CONFLICT;
 		}
 
-		if ( (iId = atoi(pszParams)) <= 0 )
+		if ( (iId = atoi(pszParams)) < 0 )
 		{
 			return CFG_ERR_PARAM;
 		}
