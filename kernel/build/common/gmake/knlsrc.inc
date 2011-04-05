@@ -184,6 +184,7 @@ CSRCS += $(SYSOBJ_DIR)/ena_dsp.c
 CSRCS += $(SYSOBJ_DIR)/dis_dsp.c
 CSRCS += $(SYSOBJ_DIR)/sns_dsp.c
 CSRCS += $(SYSOBJ_DIR)/sns_ctx.c
+CSRCS += $(SYSOBJ_DIR)/exe_exc.c
 
 
 # Tasks
@@ -344,6 +345,7 @@ CSRCS += $(ISROBJ_DIR)/acre_isr.c
 CSRCS += $(ISROBJ_DIR)/kcre_isr.c
 CSRCS += $(ISROBJ_DIR)/del_isr.c
 CSRCS += $(ISROBJ_DIR)/exe_isr.c
+
 
 
 # end of file

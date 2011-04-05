@@ -87,6 +87,7 @@ TARGET_BIN = $(TARGET).$(EXT_BIN)
 # --------------------------------------
 
 # %jp{アセンブラファイルの追加}%en{assembry sources}
+ASRCS += ./vectors.S
 ASRCS += ./crt0.S
 
 
