@@ -17,8 +17,11 @@
 				.align	2
 				.global	_kernel_dis_int
 _kernel_dis_int:
+				mfs		r3, rmsr
+				andi	r3, r3, -3
+				mts		rmsr, r3
 				rtsd	r15, 8
-				msrclr	r3, 0x2000
+				nop
 
 
 

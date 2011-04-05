@@ -46,7 +46,7 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 
 
 # %jp{リンカスクリプト}%en{linker script}
-LINK_SCRIPT = rom.lds
+LINK_SCRIPT = link.lds
 
 
 # %jp{内蔵RAM}%en{internal RAM}
@@ -62,10 +62,9 @@ SRC_DIRS += . ..
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -mcpu=v8.00.a
-CFLAGS  = -mcpu=v8.00.a
-LNFLAGS = -mcpu=v8.00.a
-# -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+AFLAGS  = -mcpu=v8.00.a -mlittle-endian
+CFLAGS  = -mcpu=v8.00.a -mlittle-endian
+LNFLAGS = -mcpu=v8.00.a -mlittle-endian -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
@@ -88,7 +87,7 @@ TARGET_BIN = $(TARGET).$(EXT_BIN)
 # --------------------------------------
 
 # %jp{アセンブラファイルの追加}%en{assembry sources}
-#ASRCS += ./crt0.S
+ASRCS += ./crt0.S
 
 
 # %jp{C言語ファイルの追加}%en{C sources}

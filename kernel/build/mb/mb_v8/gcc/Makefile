@@ -61,8 +61,8 @@ SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -mcpu=v8.00.a
-CFLAGS  = -mcpu=v8.00.a
+AFLAGS  = -mcpu=v8.00.a -mlittle-endian
+CFLAGS  = -mcpu=v8.00.a -mlittle-endian
 ARFLAGS = 
 
 

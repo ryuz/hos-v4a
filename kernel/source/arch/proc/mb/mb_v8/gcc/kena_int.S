@@ -17,8 +17,11 @@
 				.align	2
 				.global	_kernel_ena_int
 _kernel_ena_int:
+				mfs		r3, rmsr
+				ori		r3, r3, 2
+				mts		rmsr, r3
 				rtsd	r15, 8
-				msrset	r3, 0x2000
+				nop
 
 
 /* end of file */
