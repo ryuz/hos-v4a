@@ -45,8 +45,8 @@ data_loop:
 data_loop_end:
 
 				/* BSS領域の初期化 */
-				lwi		r3, r0, ___bss
-				lwi		r4, r0, ___bss_end
+				addik	r3, r0, ___bss
+				addik	r4, r0, ___bss_end
 				cmpu	r18,r4, r3
 				bgei	r18, bss_loop_end
 bss_loop:
