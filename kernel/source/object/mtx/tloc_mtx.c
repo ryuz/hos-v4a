@@ -173,10 +173,10 @@ ER _kernel_loc_mtx(ID mtxid, TMO tmout)
 				if ( _KERNEL_TSK_GET_TSKPRI(tcb_lock) > _KERNEL_TSK_GET_TSKPRI(tcb) )
 				{
 					_KERNEL_TSK_SET_TSKPRI(tcb_lock, _KERNEL_TSK_GET_TSKPRI(tcb));
-					if ( _KERNEL_TSK_GET_TSKSTAT(tcb) == TTS_RDY )
+					if ( _KERNEL_TSK_GET_TSKSTAT(tcb_lock) == TTS_RDY )
 					{
-						_KERNEL_SYS_RMV_RDQ(tskhdl);
-						_KERNEL_SYS_ADD_RDQ(tskhdl);
+						_KERNEL_SYS_RMV_RDQ(tskhdl_lock);
+						_KERNEL_SYS_ADD_RDQ(tskhdl_lock);
 					}
 				}
 			}

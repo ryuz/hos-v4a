@@ -86,11 +86,8 @@ ER unl_mtx(ID mtxid)
 	{
 		/* %jp{優先度を元に戻す} */
 		_KERNEL_TSK_SET_TSKPRI(tcb, _KERNEL_TSK_GET_TSKBPRI(tcb));		
-		if ( _KERNEL_TSK_GET_TSKSTAT(tcb) == TTS_RDY )
-		{
-			_KERNEL_SYS_RMV_RDQ(tskhdl);
-			_KERNEL_SYS_ADD_RDQ(tskhdl);
-		}
+		_KERNEL_SYS_RMV_RDQ(tskhdl);
+		_KERNEL_SYS_ADD_RDQ(tskhdl);
 	}
 	
 	/* %jp{タスクディスパッチの実行} */
