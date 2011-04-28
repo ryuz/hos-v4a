@@ -31,12 +31,12 @@ ctx_entry:
 				.align	2
 				.global	_kernel_cre_ctx
 _kernel_cre_ctx:
-				addik 	r6, r6, -40				/* スタックに領域を確保 */
-				addik	r3, r0, ctx_entry
+				addik 	r6, r6, -(56+28)		/* スタックに領域を確保 */
+				addik	r3, r0, ctx_entry - 8
 				swi		r7, r6, 12				/* 実行アドレスを r21 の領域に設定 */
 				swi		r8, r6, 16				/* 実行時パラメータ1を r22 の領域に設定 */
 				swi		r9, r6, 20				/* 実行時パラメータ2を r23 の領域に設定 */
-				swi		r9, r6, 0				/* 実行エントリポイントを r15 の領域に設定 */
+				swi		r3, r6, 0				/* 実行エントリポイントを r15 の領域に設定 */
 				rtsd	r15, 8
 				swi		r6, r5, 0				/* スタックポインタを保存(遅延スロット) */
 

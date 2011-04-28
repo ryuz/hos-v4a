@@ -12,6 +12,12 @@
 #include "kernel.h"
 
 
+#define REG_UART_BASE		0x40600000
+#define REG_UART_RX			((volatile unsigned long *)(REG_UART_BASE + 0x0))
+#define REG_UART_TX			((volatile unsigned long *)(REG_UART_BASE + 0x4))
+#define REG_UART_STAT		((volatile unsigned long *)(REG_UART_BASE + 0x8))
+#define REG_UART_CTRL		((volatile unsigned long *)(REG_UART_BASE + 0xc))
+
 
 /* %jp{UARTの初期化} */
 void Uart_Initialize(void)
@@ -29,6 +35,10 @@ char Uart_GetChar(void)
 /* %jp{1文字出力} */
 void Uart_PutChar(int c)
 {
+	while ( *REG_UART_STAT & 0x08 )
+		;
+	
+	*REG_UART_TX = c;
 }
 
 

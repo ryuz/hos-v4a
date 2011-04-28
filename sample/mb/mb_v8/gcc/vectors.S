@@ -21,11 +21,15 @@
 /* --------------------------------------- */
 /*            ベクタ定義                   */
 /* --------------------------------------- */
-				.long	_reset_handler
-				.long	_kernel_exc_hdr
-				.long	_kernel_int_hdr
-				.long	_kernel_brk_hdr
-				.long	_kernel_hwe_hdr
+				bri		_reset_handler
+				nop
+				bri		_kernel_exc_hdr
+				nop
+				bri		_kernel_int_hdr
+				nop
+				bri		_kernel_brk_hdr
+				nop
+				bri		_kernel_hwe_hdr
 
 
 

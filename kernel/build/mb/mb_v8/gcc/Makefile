@@ -98,6 +98,7 @@ CSRCS += $(SRC_IRC_DIR)/kini_irc.c
 CSRCS += $(SRC_IRC_DIR)/kexe_irc.c
 CSRCS += $(SRC_IRC_DIR)/ena_int.c
 CSRCS += $(SRC_IRC_DIR)/dis_int.c
+CSRCS += $(SRC_IRC_DIR)/vclr_int.c
 
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}
