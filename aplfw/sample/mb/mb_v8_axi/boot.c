@@ -19,7 +19,7 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "driver/serial/xilinxuartdrv/xilinxuartdrv.h"
+#include "driver/serial/jelly/jellyuartdrv.h"
 #include "driver/console/vt100/vt100drv.h"
 #include "application//syscmd/shell/shell.h"
 #include "application//syscmd/commandlist/commandlist.h"
@@ -34,10 +34,18 @@
 #include "ostimer.h"
 
 
+#if 0
 
-#define SYSTEM_HEAP_ADDR	((void *)0xc0000000)
+long	g_SystemHeap[128 * 1024 / sizeof(long)];
+#define SYSTEM_HEAP_ADDR	((void *)g_SystemHeap)
+#define SYSTEM_HEAP_SIZE	sizeof(g_SystemHeap)
+
+#else
+
+#define SYSTEM_HEAP_ADDR	((void *)0x00200000)
 #define SYSTEM_HEAP_SIZE	0x00100000
 
+#endif
 
 
 extern SYSTIM_CPUTIME		SysTim_TimeCounter;		/* デフォルトのタイマカウンタ */
@@ -87,8 +95,8 @@ int Boot_Process(VPARAM Param)
 	/* タイマ初期化 */	
 	OsTimer_Initialize();
 	
-	/* UART デバドラ生成 (/dev/com0 に登録) */
-	hDriver = XilinxUartDrv_Create((void *)0x40600000, 1, 64);
+	/* Jelly UART デバドラ生成 (/dev/com0 に登録) */
+	hDriver = JellyUartDrv_Create((void *)0xf2000000, 1, 2, 64);
 	File_AddDevice("com0", hDriver);
 	
 	/* シリアルを開く */
@@ -136,7 +144,7 @@ int Boot_Process(VPARAM Param)
 			"================================================================\n"
 			" Hyper Operating System  Application Framework\n"
 			"\n"
-			"                          Copyright (C) 1998-2011 by Project HOS\n"
+			"                          Copyright (C) 1998-2008 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");

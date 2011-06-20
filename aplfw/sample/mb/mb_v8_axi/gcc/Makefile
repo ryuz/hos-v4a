@@ -30,11 +30,19 @@ EXT_EXE   ?= elf
 
 
 # %jp{ディレクトリ定義}%en{directories}
-TOP_DIR           = ../../../..
+TOP_DIR           = ../../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/mb/mb_v8/gcc
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/mb/mb_v8_axi/gcc
+APLFW_DIR         = $(TOP_DIR)/aplfw
+APLFW_INC_DIR     = $(APLFW_DIR)
+APLFW_BUILD_DIR   = $(APLFW_DIR)/build/mb/mb_v8_axi/gcc
+
+
+# %jp{カーネル設定}%en{set kernel option}
+KERNEL_HOK_TSK = Yes
+KERNEL_HOK_ISR = Yes
 
 
 # %jp{コンフィギュレータ定義}
@@ -49,16 +57,15 @@ include $(KERNEL_MAKINC_DIR)/common.inc
 LINK_SCRIPT = link.lds
 
 
-# %jp{内蔵RAM}%en{internal RAM}
-ifeq ($(MEMMAP),ram)
-LINK_SCRIPT  = ram.lds
-TARGET      := $(TARGET)_ram
+# %jp{ライブラリ定義}
+APLFW_LIB = $(APLFW_BUILD_DIR)/hosaplfw.a
+
+
+# %jp{デバッグ版の定義変更}
+ifeq ($(DEBUG),Yes)
+TARGET := $(TARGET)dbg
+APLFW_LIB = $(APLFW_BUILD_DIR)/hosaplfwdbg.a
 endif
-
-
-# %jp{パス設定}%en{add source directories}
-INC_DIRS += . ..
-SRC_DIRS += . ..
 
 
 # %jp{オプションフラグ}%en{option flags}
@@ -81,10 +88,15 @@ TARGET_HEX = $(TARGET).$(EXT_HEX)
 TARGET_BIN = $(TARGET).$(EXT_BIN)
 
 
-
 # --------------------------------------
 #  %jp{ソースファイル}%en{source files}
 # --------------------------------------
+
+
+# %jp{パス設定}%en{add source directories}
+INC_DIRS += . .. $(APLFW_DIR)
+SRC_DIRS += . ..
+
 
 # %jp{アセンブラファイルの追加}%en{assembry sources}
 ASRCS += ./vectors.S
@@ -94,9 +106,12 @@ ASRCS += ./crt0.S
 # %jp{C言語ファイルの追加}%en{C sources}
 CSRCS += ../main.c
 CSRCS += ../kernel_cfg.c
-CSRCS += ../sample.c
-CSRCS += ../uart.c
+CSRCS += ../boot.c
 CSRCS += ../ostimer.c
+
+
+# %jp{ライブラリファイルの追加}
+LIBS := $(APLFW_LIB) $(LIBS)
 
 
 
@@ -106,11 +121,11 @@ CSRCS += ../ostimer.c
 
 # %jp{ALL}%en{all}
 .PHONY : all
-all: kernel_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(TARGET_BIN)
+all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(TARGET_BIN)
 
-.PHONY : run
-run: $(TARGET_BIN)
-	jelly_loader -r $(TARGET_BIN)
+.PHONY : make_subprj
+make_subprj:
+	$(MAKE) -C $(APLFW_BUILD_DIR)
 
 # %jp{クリーン}%en{clean}
 .PHONY : clean
@@ -125,9 +140,13 @@ depend: makeexe_depend
 .PHONY : srccpy
 srccpy: makeexe_srccpy
 
-# %jp{カーネルごとクリーン}%en{mostlyclean}
 .PHONY : mostlyclean
 mostlyclean: clean kernel_clean
+	$(MAKE) -C $(APLFW_BUILD_DIR) clean
+
+.PHONY : mostlydepend
+mostlydepend: depend
+	$(MAKE) -C $(APLFW_BUILD_DIR) depend
 
 
 # %jp{コンフィギュレータ実行}%en{configurator}

@@ -1735,6 +1735,49 @@ $(OBJS_DIR)\mn103scdrv_isrrx.c : $(MN103SC_DIR)\mn103scdrv_isrrx.c
 	$(CMD_CP) $(MN103SC_DIR)\mn103scdrv_isrrx.c $(OBJS_DIR)\
 
 
+$(OBJS_DIR)\xilinxuartdrv.h : $(XILINXUARTDRV_DIR)\xilinxuartdrv.h
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_local.h : $(XILINXUARTDRV_DIR)\xilinxuartdrv_local.h
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_local.h $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_create.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_create.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_create.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_delete.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_delete.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_delete.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_constructor.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_constructor.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_constructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_destructor.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_destructor.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_destructor.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_open.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_open.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_open.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_close.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_close.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_close.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_write.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_write.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_write.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_read.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_read.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_read.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_seek.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_seek.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_seek.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_flush.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_flush.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_flush.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_iocontrol.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_iocontrol.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_iocontrol.c $(OBJS_DIR)\
+
+$(OBJS_DIR)\xilinxuartdrv_isr.c : $(XILINXUARTDRV_DIR)\xilinxuartdrv_isr.c
+	$(CMD_CP) $(XILINXUARTDRV_DIR)\xilinxuartdrv_isr.c $(OBJS_DIR)\
+
+
 $(OBJS_DIR)\winsockdrv.h : $(WINSOCK_DIR)\winsockdrv.h
 	$(CMD_CP) $(WINSOCK_DIR)\winsockdrv.h $(OBJS_DIR)\
 
@@ -2743,6 +2786,19 @@ $(OBJS_DIR)\mn103scdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\mn103scdrv_write.c	$(COMMON
 $(OBJS_DIR)\mn103scdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\mn103scdrv_flush.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\mn103scdrv_isrtx.$(EXT_OBJ):	$(OBJS_DIR)\mn103scdrv_isrtx.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\mn103scdrv_isrrx.$(EXT_OBJ):	$(OBJS_DIR)\mn103scdrv_isrrx.c	$(COMMON_HEADERS)
+
+$(OBJS_DIR)\xilinxuartdrv_create.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_create.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_delete.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_delete.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_constructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_destructor.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_destructor.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_open.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_open.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_close.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_close.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_write.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_write.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_read.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_read.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_seek.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_seek.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_flush.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_flush.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_iocontrol.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_iocontrol.c	$(COMMON_HEADERS)
+$(OBJS_DIR)\xilinxuartdrv_isr.$(EXT_OBJ):	$(OBJS_DIR)\xilinxuartdrv_isr.c	$(COMMON_HEADERS)
 
 $(OBJS_DIR)\winsockdrv_close.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_close.c	$(COMMON_HEADERS)
 $(OBJS_DIR)\winsockdrv_constructor.$(EXT_OBJ):	$(OBJS_DIR)\winsockdrv_constructor.c	$(COMMON_HEADERS)

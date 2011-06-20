@@ -122,6 +122,9 @@ LINK_MX1UART          = No
 !ifndef LINK_MN103SC
 LINK_MN103SC          = No
 !endif
+!ifndef LINK_XILINXUARTDRV
+LINK_XILINXUARTDRV    = No
+!endif
 !ifndef LINK_WINSOCK
 LINK_WINSOCK          = No
 !endif
@@ -1477,6 +1480,38 @@ CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_isrtx.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_isrtx.$(EXT_OBJ)
 CSRCS = $(CSRCS) $(MN103SC_DIR)\mn103scdrv_isrrx.c
 OBJS  = $(OBJS)  $(OBJS_DIR)\mn103scdrv_isrrx.$(EXT_OBJ)
+!endif
+
+
+# XILINX UART
+!if "$(LINK_XILINXUARTDRV)" == "Yes"
+XILINXUARTDRV_DIR = $(HOSAPLFW_DIR)\driver\serial\xilinxuartdrv
+HEADERS = $(HEADERS) $(OBJS_DIR)\xilinxuartdrv.h
+HEADERS = $(HEADERS) $(OBJS_DIR)\xilinxuartdrv_local.h
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_create.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_create.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_delete.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_delete.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_constructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_constructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_destructor.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_destructor.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_open.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_open.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_close.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_close.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_write.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_write.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_read.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_read.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_seek.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_seek.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_flush.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_flush.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_iocontrol.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_iocontrol.$(EXT_OBJ)
+CSRCS = $(CSRCS) $(XILINXUARTDRV_DIR)\xilinxuartdrv_isr.c
+OBJS  = $(OBJS)  $(OBJS_DIR)\xilinxuartdrv_isr.$(EXT_OBJ)
 !endif
 
 

@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for XILINX Microblaze v8.0
+#  makefile for XILINX Microblaze v8.0 AXI
 #
 # Copyright (C) 1998-2011 by Project HOS
 # http://sourceforge.jp/projects/hos/

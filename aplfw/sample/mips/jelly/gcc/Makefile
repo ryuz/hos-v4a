@@ -1,15 +1,21 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
 #
-# Copyright (C) 1998-2008 by Project HOS
+# Copyright (C) 1998-2011 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
 
-# %jp{ターゲット名}
+
+# --------------------------------------
+#  %jp{各種設定}{setting}
+# --------------------------------------
+
+# %jp{ターゲット名}%en{target name}
 TARGET ?= sample
 
-# %jp{ツール定義}
+
+# %jp{ツール定義}%en{tools}
 GCC_ARCH     ?= mips-elf-
 CMD_CC       ?= $(GCC_ARCH)gcc
 CMD_ASM      ?= $(GCC_ARCH)gcc
@@ -17,29 +23,28 @@ CMD_LINK     ?= $(GCC_ARCH)gcc
 CMD_OBJCNV   ?= $(GCC_ARCH)objcopy
 
 
-# %jp{ディレクトリ}
-OS_DIR            = ../../../../..
-KERNEL_DIR        = $(OS_DIR)/kernel
-KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
+# %jp{ディレクトリ定義}%en{directories}
+TOP_DIR           = ../../../../..
+KERNEL_DIR        = $(TOP_DIR)/kernel
+KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/mips/jelly/gcc
-APLFW_DIR         = $(OS_DIR)/aplfw
+APLFW_DIR         = $(TOP_DIR)/aplfw
 APLFW_INC_DIR     = $(APLFW_DIR)
 APLFW_BUILD_DIR   = $(APLFW_DIR)/build/mips/jelly/gcc
-OBJS_DIR          = objs_$(TARGET)
 
 
-# %jp{カーネル設定}
+# %jp{カーネル設定}%en{set kernel option}
 KERNEL_HOK_TSK = Yes
 KERNEL_HOK_ISR = Yes
 
 
-# %jp{共通定義読込み}
-include $(KERNEL_MAKINC_DIR)/common.inc
-
-
 # %jp{コンフィギュレータ定義}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-jelly
+
+
+# %jp{共通定義読込み}
+include $(KERNEL_MAKINC_DIR)/common.inc
 
 
 # %jp{ライブラリ定義}

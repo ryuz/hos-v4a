@@ -52,6 +52,7 @@ LINK_AT91USART        ?= No
 LINK_RENESASSCI       ?= No
 LINK_MX1UART          ?= No
 LINK_MN103SC          ?= No
+LINK_XILINXUARTDRV    ?= No
 LINK_WINSOCK          ?= No
 LINK_JELLYUART        ?= No
 LINK_I2CDRV           ?= Yes
@@ -822,6 +823,25 @@ CSRCS += $(MN103SC_DIR)/mn103scdrv_write.c
 CSRCS += $(MN103SC_DIR)/mn103scdrv_flush.c
 CSRCS += $(MN103SC_DIR)/mn103scdrv_isrtx.c
 CSRCS += $(MN103SC_DIR)/mn103scdrv_isrrx.c
+endif
+
+
+# XILINX UART
+ifeq ($(LINK_XILINXUARTDRV),Yes)
+XILINXUARTDRV_DIR = $(HOSAPLFW_DIR)/driver/serial/xilinxuartdrv
+SRC_DIRS += $(XILINXUARTDRV_DIR)
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_create.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_delete.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_constructor.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_destructor.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_open.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_close.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_write.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_read.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_seek.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_flush.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_iocontrol.c
+CSRCS += $(XILINXUARTDRV_DIR)/xilinxuartdrv_isr.c
 endif
 
 
