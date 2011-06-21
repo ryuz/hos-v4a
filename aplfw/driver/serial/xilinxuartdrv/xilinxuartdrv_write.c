@@ -43,7 +43,7 @@ FILE_SIZE XilinxUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void
 		c = *pubData++;
 		
 		/* 送信可能かチェック */
-		while ( !(XILINXUARTDRV_REG_READ(self, XILINXUARTDRV_REG_STAT) & 0x08) )
+		while ( XILINXUARTDRV_REG_READ(self, XILINXUARTDRV_REG_STAT) & 0x08 )
 		{
 			/* ブロッキングモードでなければ抜ける */
 			if ( SyncFile_GetSyncMode(pFile, SYNCDRV_FACTOR_WRITE) != FILE_SYNCMODE_BLOCKING )
