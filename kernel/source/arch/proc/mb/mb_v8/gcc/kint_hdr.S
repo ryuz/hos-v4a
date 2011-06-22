@@ -16,8 +16,6 @@
 
 
 #define ICTXCB_ISP		0
-#define ICTXCB_INTCNT	4
-#define ICTXCB_IMSK		6
 
 
 /************************************************
@@ -26,7 +24,7 @@
 				.align	2
 _kernel_int_hdr:
 		/* ---- レジスタ保存 */
-				addik	r1, r1, -76
+				addik	r1, r1, -80
 				swi		r14, r1, 0
 				swi		r3, r1, 28
 				swi		r4, r1, 32
@@ -39,8 +37,9 @@ _kernel_int_hdr:
 				swi		r11, r1, 60
 				swi		r12, r1, 64
 				swi		r15, r1, 68
+				swi		r18, r1, 72
 				mfs		r3, rmsr
-				swi		r3, r1, 72
+				swi		r3, r1, 76
 				
 		/* ---- スタック入れ替え */
 				addik	r3, r1, 0
@@ -62,7 +61,7 @@ _kernel_int_hdr:
 				lwi		r1, r1, 28					/* スタックの復帰 */
 				
 		/* ---- レジスタ復帰 */
-				lwi		r3, r1, 72
+				lwi		r3, r1, 76
 				mts		rmsr, r3
 				lwi		r14, r1, 0
 				lwi		r3, r1, 28
@@ -76,8 +75,9 @@ _kernel_int_hdr:
 				lwi		r11, r1, 60
 				lwi		r12, r1, 64
 				lwi		r15, r1, 68
+				lwi		r18, r1, 72
  				rtid	r14, 0
-				addik	r1, r1, 76
+				addik	r1, r1, 80
 
 
 /* end of file */

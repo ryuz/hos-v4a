@@ -2,20 +2,29 @@ ENTRY(_reset_handler)
 
 MEMORY
 {
-	vector : o = 0x00000000, l = 0x00000050
-	ro     : o = 0x00000100, l = 0x000fff00
-	rw     : o = 0x00100000, l = 0x00100000
+	ro     : o = 0x00000100, l = 0x0001ff00
+	rw     : o = 0x00020000, l = 0x00020000
 }
 
 SECTIONS
 {
-	.vector :
+	.vectors.reset 0x00000000 :
 	{
-		___vector = . ; 
-		*/vectors.o(.text)
-		FILL(0xff)
-		___vector_end = . ; 
-	} > vector
+		*(.vectors.reset)
+	}
+	.vectors.sw_exception 0x00000008 :
+	{
+		*(.vectors.sw_exception)
+	}
+	.vectors.interrupt 0x00000010 :
+	{
+		*(.vectors.interrupt)
+	}
+	.vectors.hw_exception 0x00000020 :
+	{
+		*(.vectors.hw_exception)
+	}
+	
 	.text :
 	{
 		 ___text = . ; 

@@ -15,20 +15,22 @@
 				.global	_kernel_hwe_hdr
 
 
-				.text
 				.align	2
 
 /* --------------------------------------- */
 /*            ベクタ定義                   */
 /* --------------------------------------- */
-				bri		_reset_handler
-				nop
+
+				.section	.vectors.reset, "ax"
+				brai	_reset_handler
+
+				.section	.vectors.sw_exception, "ax"
 				bri		_kernel_exc_hdr
-				nop
+
+				.section	.vectors.interrupt, "ax"
 				bri		_kernel_int_hdr
-				nop
-				bri		_kernel_brk_hdr
-				nop
+
+				.section	.vectors.hw_exception, "ax"
 				bri		_kernel_hwe_hdr
 
 

@@ -25,6 +25,15 @@
 ************************************************/
 				.align		2
 _reset_handler:	
+				/* キャッシュON */
+				addik	r3, r0, 0x000000a0
+				mts  	rmsr, r3
+				
+				/* BIPクリア(念の為) */
+				addik	r3, r0, bip_clear
+				rtbd	r3, 0
+bip_clear:		
+				
 				/* スタック設定 */
 				lwi		r1, r0, _kernel_int_isp
 				
