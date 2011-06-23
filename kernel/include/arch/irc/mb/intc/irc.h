@@ -2,15 +2,15 @@
  *  Hyper Operating System V4 Advance
  *
  * @file  irc.h
- * @brief XILINX AXI INTC
+ * @brief XILINX XPS/AXI INTC
  *
  * Copyright (C) 1998-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#ifndef _KERNEL__arch__irc__xilinx_axi_intc__irc_h__
-#define _KERNEL__arch__irc__xilinx_axi_intc__irc_h__
+#ifndef _KERNEL__arch__irc__xilinx_intc__irc_h__
+#define _KERNEL__arch__irc__xilinx_intc__irc_h__
 
 
 /* %jp{メモリマップドレジスタ定義} */
@@ -40,7 +40,7 @@ void _kernel_exe_irc(INHNO inhno);	/**< %jp{割込み処理} */
 #define _KERNEL_EXE_IRC(inhno)	_kernel_exe_irc(inhno)	/**< %jp{割込み処理} */
 
 
-#endif	/* _KERNEL__arch__irc__xilinx_axi_intc__irc_h__ */
+#endif	/* _KERNEL__arch__irc__xilinx_intc__irc_h__ */
 
 
 /* end of file */
