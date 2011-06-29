@@ -32,6 +32,9 @@ objs_*/
 *.obj
 *.ro
 
+# disasm
+*.dis
+
 # VC++ file
 *.vcxproj.*
 !*.vcxproj.filters
@@ -50,6 +53,10 @@ tools/make_release/hos-v4a
 *.lzh
 *.tgz
 *.tar.gz
+
+# etc
+*.bmm
+*.v
 
 # setting
 .*

@@ -13,48 +13,27 @@
 #include "ostimer.h"
 
 
-#define INTNO_TIMER			0
-
-#define REG_TIMER_BASE		0x41c00000
-#define REG_TIMER_TCSR0		((volatile unsigned long *)(REG_TIMER_BASE + 0x00))
-#define REG_TIMER_TLR0		((volatile unsigned long *)(REG_TIMER_BASE + 0x04))
-#define REG_TIMER_TCR0		((volatile unsigned long *)(REG_TIMER_BASE + 0x08))
-#define REG_TIMER_TCSR1		((volatile unsigned long *)(REG_TIMER_BASE + 0x10))
-#define REG_TIMER_TLR1		((volatile unsigned long *)(REG_TIMER_BASE + 0x14))
-#define REG_TIMER_TCR1		((volatile unsigned long *)(REG_TIMER_BASE + 0x18))
+#define INHNO_TIMER			0
 
 
-static void OsTimer_Isr(VP_INT exinf);		/**< %jp{タイマ割込みサービスルーチン} */
+static void OsTimer_Inh(void);		/**< %jp{タイマ割込みハンドラ} */
 
 
 /** %jp{OS用タイマ初期化ルーチン} */
 void OsTimer_Initialize(VP_INT exinf)
 {
-	T_CISR cisr;
+	T_DINH dinh;
 	
-	/* %jp{割込みサービスルーチン生成} */
-	cisr.isratr = TA_HLNG;
-	cisr.exinf  = 0;
-	cisr.intno  = INTNO_TIMER;
-	cisr.isr    = (FP)OsTimer_Isr;
-	acre_isr(&cisr);
-	
-	/* 開始 */
-	*REG_TIMER_TLR0  = 100000 - 1;		/* 1ms 100MHz */
-	*REG_TIMER_TCSR0 = 0x0132;			/* clear int, load counter */
-	*REG_TIMER_TCSR0 = 0x00d2;			/* start */
-	
-	/* 割込み許可 */
-	ena_int(INTNO_TIMER);
+	/* %jp{割込みハンドラ定義} */
+	dinh.inhatr = TA_HLNG;
+	dinh.inthdr = OsTimer_Inh;
+	def_inh(INHNO_TIMER, &dinh);
 }
 
 
 /** %jp{タイマ割込みハンドラ} */
-void OsTimer_Isr(VP_INT exinf)
+void OsTimer_Inh(void)
 {
-	*REG_TIMER_TCSR0 |= 0x0100;			/* clear int */
-	vclr_int(INTNO_TIMER);
-	
 	/* %jp{タイムティック供給} */
 	isig_tim();
 }

@@ -53,7 +53,7 @@ _kernel_int_hdr:
 				
 		/* ---- 割り込み実行処理呼び出し */
 				brlid	r15, _kernel_exe_inh
-				addik	r3, r0, 0
+				addik	r5, r0, 0
 				
 				
 		/* ---- 割込み終了処理呼び出し */
