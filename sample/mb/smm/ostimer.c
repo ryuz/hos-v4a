@@ -11,6 +11,7 @@
 
 #include "kernel.h"
 #include "ostimer.h"
+#include "uart.h"
 
 
 #define INHNO_TIMER			0

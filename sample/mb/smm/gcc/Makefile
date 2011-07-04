@@ -56,8 +56,8 @@ SRC_DIRS += . ..
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -mcpu=v7.30.a -mbig-endian
-CFLAGS  = -mcpu=v7.30.a -mbig-endian
+AFLAGS  = -mcpu=v7.30.a -mbig-endian -mno-xl-soft-mul
+CFLAGS  = -mcpu=v7.30.a -mbig-endian -mno-xl-soft-mul
 LNFLAGS = -mcpu=v7.30.a -mbig-endian -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
