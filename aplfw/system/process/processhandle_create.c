@@ -15,7 +15,10 @@
 
 static const T_PROCESSHANDLE_METHODS ProcessHandle_ObjMethods =
 	{
-		{ProcessHandle_Delete},		/* 削除 */
+		{
+			"ProcessHandle",
+			ProcessHandle_Delete,		/* 削除 */
+		}
 	};
 
 
@@ -30,7 +33,8 @@ HANDLE ProcessHandle_Create(struct c_process *pProcess)
 		return HANDLE_NULL;
 	}
 
-	HandleObj_Constructor(&self->HandleObj, &ProcessHandle_ObjMethods.HandlObjMethods);
+	/* 親クラスコンストラクタ */
+	HandleObj_Constructor(&self->HandleObj, &ProcessHandle_ObjMethods.HandlObjMethods, NULL);
 	
 	/* 紐付け */
 	self->pProcess = pProcess;
@@ -38,6 +42,5 @@ HANDLE ProcessHandle_Create(struct c_process *pProcess)
 
 	return (HANDLE)self;
 }
-
 
 /* end of file */

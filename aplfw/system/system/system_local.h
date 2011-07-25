@@ -72,6 +72,7 @@ C_PROCESS *System_GetSystemProcess(void);
 void       System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */
 void       System_UnregistryProcess(C_PROCESS *pProcess);	/* プロセスの登録解除 */
 
+#define    System_GetSystemOwnerObj()	(&System_GetSystemProcess()->OwnerObj)
 
 #ifdef __cplusplus
 }

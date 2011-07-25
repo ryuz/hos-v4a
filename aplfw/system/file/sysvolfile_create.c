@@ -16,7 +16,10 @@
 
 static const T_FILEOBJ_METHODS SysVolFile_FileObjMethods =
 	{
-		{File_Close},
+		{
+			"SysVolFile",
+			File_Close,
+		},
 	};
 
 

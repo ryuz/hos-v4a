@@ -1083,12 +1083,6 @@
     <ClCompile Include="..\..\..\..\system\handle\handleobj_constructor.c">
       <Filter>system\handle</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_create.c">
-      <Filter>system\handle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_delete.c">
-      <Filter>system\handle</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\system\handle\handleobj_destructor.c">
       <Filter>system\handle</Filter>
     </ClCompile>
@@ -1522,6 +1516,9 @@
       <Filter>system\process</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\processhandle_getprocess.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getstdout.c">
       <Filter>system\process</Filter>
     </ClCompile>
   </ItemGroup>

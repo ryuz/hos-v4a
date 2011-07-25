@@ -17,7 +17,10 @@
 const T_VOLUMEOBJ_METHODS SysVol_VolumeObjMethods =
 {
 	{
-		{ SysVol_Delete },
+		{
+			"SysVol",
+			SysVol_Delete,
+		},
 		SysVol_Open,
 		SysVol_Close,
 		SysVol_IoControl,

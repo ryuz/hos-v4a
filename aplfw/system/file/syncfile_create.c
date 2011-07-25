@@ -17,7 +17,10 @@
 
 static const T_FILEOBJ_METHODS SyncFile_FileObjMethods =
 	{
-		{File_Close},
+		{
+			"SyncFile",
+			File_Close
+		},
 	};
 
 

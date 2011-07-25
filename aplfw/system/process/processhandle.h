@@ -22,7 +22,7 @@
 /* ファイルオブジェクトクラス基本メソッドテーブル */
 typedef struct t_processhandle_methods
 {
-	T_HANDLEOBJ_METHODS	HandlObjMethods;	/* ハンドルオブジェクトを継承 */
+	T_OBJECT_METHODS	HandlObjMethods;	/* ハンドルオブジェクトを継承 */
 } T_PROCESSHANDLE_METHODS;
 
 

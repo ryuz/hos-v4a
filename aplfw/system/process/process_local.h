@@ -21,7 +21,7 @@
 /* プロセスオブジェクト基本クラス定義 */
 typedef struct c_process
 {
-	HANDLE				*pHandleList;					/**< 所有するハンドルのリスト(終了時に開放) */
+	C_OWNEROBJ			OwnerObj;						/**< 親クラスを継承 */
 	
 	unsigned long		ulProcessId;					/**< プロセスID */
 	
@@ -65,7 +65,7 @@ typedef struct c_process
 extern "C" {
 #endif
 
-PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_PROCESS_CREATE_INF *pInf);		/**< コンストラクタ */
+PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf);		/**< コンストラクタ */
 void        Process_Destructor(C_PROCESS *self);										/**< デストラクタ */
 
 C_PROCESS  *Process_GetCurrentProcess(void);											/**< 現在のプロセスハンドル取得 */	

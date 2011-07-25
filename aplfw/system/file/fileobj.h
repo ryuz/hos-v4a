@@ -23,7 +23,7 @@ struct c_drvobj;
 /* ファイルオブジェクトクラス基本メソッドテーブル */
 typedef struct t_fileobj_methods
 {
-	T_HANDLEOBJ_METHODS	HandlObjMethods;	/* ハンドルオブジェクトを継承 */
+	T_OBJECT_METHODS	HandlObjMethods;	/* ハンドルオブジェクトを継承 */
 } T_FILEOBJ_METHODS;
 
 

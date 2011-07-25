@@ -16,7 +16,6 @@
 /* 現在のプロセスハンドル取得 */
 HANDLE Process_GetCurrentHandle(void)
 {
-	SYSPRC_HANDLE	hSysPrc;
 	C_PROCESS		*self;
 	
 	/* ハンドルからオブジェクト本体を取得 */

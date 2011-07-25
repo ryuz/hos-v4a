@@ -13,11 +13,5 @@
 #include "handleobj.h"
 
 
-/* デストラクタ */
-void HandleObj_Delete(HANDLE Handle)
-{
-	
-}
-
 
 /* end of file */

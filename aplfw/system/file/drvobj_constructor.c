@@ -1,6 +1,7 @@
 
-#include "drvobj_local.h"
 
+#include "drvobj_local.h"
+#include "system/system/system_local.h"
 
 
 /**< コンストラクタ */

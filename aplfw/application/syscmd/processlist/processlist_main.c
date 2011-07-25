@@ -23,7 +23,9 @@ int ProcessList_Main(int argc, char *argv[])
 	unsigned long	ulExecNano;
 	int				iIsr   = 0;
 	int				i;
-	
+
+#if 0
+
 	/* オプション解析 */
 	for ( i = 1; i < argc; i++ )
 	{
@@ -52,7 +54,7 @@ int ProcessList_Main(int argc, char *argv[])
 	{
 		ulExecSec = Process_GetExecutionTime(hProcess, &ulExecNano);
 		StdIo_PrintFormat("%08lx ", (unsigned long)hProcess);
-		StdIo_PrintFormat("%08lx ", (unsigned long)Process_GetParentProcess(hProcess));
+		StdIo_PrintFormat("%08lx ", (unsigned long)Process_GetParentProcessId(hProcess));
 		StdIo_PrintFormat("%11lu ", ulExecSec);
 		StdIo_PrintFormat("%11lu ", ulExecNano);
 		StdIo_PrintFormat("%s",     Process_GetCommandLine(hProcess));
@@ -80,7 +82,8 @@ int ProcessList_Main(int argc, char *argv[])
 			}
 		}
 	}
-	
+
+#endif
 	
 	return 0;
 }

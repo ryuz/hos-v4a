@@ -14,7 +14,7 @@
 
 
 /* 仮想関数テーブル */
-static const T_HANDLEOBJ_METHODS Event_Methods =
+static const T_OBJECT_METHODS Event_Methods =
 	{
 		Event_Delete
 	};

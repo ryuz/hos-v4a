@@ -18,23 +18,23 @@
 /* ハンドルを閉じる */
 void Handle_Close(HANDLE handle)
 {
-	C_HANDLEOBJ *pHandleObj;
+	C_OBJECT *self;
 	
 	/* 有効チェック */
 	if ( handle == HANDLE_NULL )
 	{
+		SYS_ASSERT(0);
 		return;
 	}
 	
 	/* ハンドル変換 */
-	pHandleObj = (C_HANDLEOBJ *)handle;
+	self = (C_OBJECT *)handle;
 
 	/* クローズ処理 */
-	if ( pHandleObj->pMethods->pfncClose != NULL )
+	if ( self->pMethods != NULL && self->pMethods->pfncDelete != NULL )
 	{
-		pHandleObj->pMethods->pfncClose(handle);
+		self->pMethods->pfncDelete(handle);
 	}
 }
-
 
 /* end of file */

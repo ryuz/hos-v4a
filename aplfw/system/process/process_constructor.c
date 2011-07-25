@@ -20,14 +20,27 @@ static void Process_Entry(void);
 static void Process_SignalHandler(void);
 
 
+static const T_OBJECT_METHODS Process_Methods =
+	{
+		"Process",
+		Process_Delete,	/* デストラクタ */
+	};
+
+
 /** コンストラクタ */
-PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_PROCESS_CREATE_INF *pInf)
+PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf)
 {
+	/* 親クラスコンストラクタ */
+	if ( pMethods == NULL )
+	{
+		pMethods = &Process_Methods;
+	}
+	OwnerObj_Constructor(&self->OwnerObj, pMethods);
+	
 	/* メンバ変数初期化 */
-	self->iExitCode     = -1;					/* 終了コード */
+	self->iExitCode      = -1;					/* 終了コード */
 	self->iSignal        = 0;					/* シグナル番号 */
 	self->pfncSignalProc = NULL;				/* シグナルハンドラ */
-	self->pHandleList    = NULL;				/* 所有するハンドルのリスト(終了時に開放) */
 	self->pfncEntry      = pInf->pfncEntry;		/* 起動アドレス */
 	self->Param          = pInf->Param;			/* ユーザーパラメータ */
 	self->pEnv           = NULL;				/* 環境変数用 */
@@ -138,7 +151,7 @@ void Process_Entry(void)
 	{
 		if ( Command_Execute(self->pszCommandLine, &iExitCode) != COMMAND_ERR_OK )
 		{
-			File_PutString(Process_GetStdErr(HANDLE_NULL), "command is not found.\n");
+			File_PutString(Process_GetStdErr(), "command is not found.\n");
 		}
 	}
 	

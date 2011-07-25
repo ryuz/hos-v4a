@@ -4,7 +4,7 @@
  * @file  handleobj.h
  * @brief %jp{ハンドルオブジェクト}
  *
- * Copyright (C) 2006-2007 by Project HOS
+ * Copyright (C) 2006-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -19,12 +19,8 @@ struct c_process;
 
 #ifdef __cplusplus
 extern "C" {
+
 #endif
-
-void HandleObj_Constructor(C_HANDLEOBJ *self, const T_HANDLEOBJ_METHODS *pMethods);	/* コンストラクタ */
-void HandleObj_ConstructorEx(C_HANDLEOBJ *self, const T_HANDLEOBJ_METHODS *pMethods, struct c_process *pParent);
-void HandleObj_Destructor(C_HANDLEOBJ *self);										/* デストラクタ */
-
 #ifdef __cplusplus
 }
 #endif

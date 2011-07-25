@@ -23,7 +23,7 @@ struct c_fileobj;
 /* デバイスドライバオブジェクト基本クラス メソッドテーブル */
 typedef struct t_drvobj_methods
 {
-	T_HANDLEOBJ_METHODS		HandleObj_Methods;		/**< ハンドルオブジェクトを継承 */
+	T_OBJECT_METHODS		HandleObj_Methods;		/**< ハンドルオブジェクトを継承 */
 	
 	HANDLE    (*pfncOpen)(struct c_drvobj *self, const char *pszPath, int iMode);
 	void      (*pfncClose)(struct c_drvobj *self, struct c_fileobj *pFileObj);
@@ -39,7 +39,7 @@ typedef struct t_drvobj_methods
 /* デバイスドライバオブジェクト基本クラス */
 typedef struct c_drvobj
 {
-	C_HANDLEOBJ				HandleObj;				/**< ハンドルオブジェクトを継承 */
+	C_HANDLEOBJ				HandleObj;				/**< 親クラスを継承 */
 } C_DRVOBJ;
 
 
@@ -57,7 +57,7 @@ void      DrvObj_Delete(HANDLE hDriver);											/**< 削除 */
 }
 #endif
 
-#define  DrvObj_GetMethods(self)						((const T_DRVOBJ_METHODS *)HandleObj_GetMethods(&(self)->HandleObj))
+#define  DrvObj_GetMethods(self)						((const T_DRVOBJ_METHODS *)(self)->TargetObj.Object.pMethods)
 
 /* 仮想関数呼び出し用マクロ */
 #define  DrvObj_vOpen(self, pszPath, iMode)				(DrvObj_GetMethods(self)->pfncOpen((self), (pszPath), (iMode)))

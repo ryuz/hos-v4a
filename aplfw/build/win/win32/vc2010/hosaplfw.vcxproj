@@ -321,6 +321,7 @@
     <ClCompile Include="..\..\..\..\system\process\process_getparentprocess.c" />
     <ClCompile Include="..\..\..\..\system\process\process_getstderr.c" />
     <ClCompile Include="..\..\..\..\system\process\process_getstdin.c" />
+    <ClCompile Include="..\..\..\..\system\process\process_getstdout.c" />
     <ClCompile Include="..\..\..\..\system\process\process_getterminal.c" />
     <ClCompile Include="..\..\..\..\system\process\process_issystemmode.c" />
     <ClCompile Include="..\..\..\..\system\process\process_leavesystemmode.c" />
@@ -392,8 +393,6 @@
     <ClCompile Include="..\..\..\..\system\sysapi\systim_wait.c" />
     <ClCompile Include="..\..\..\..\system\handle\handle_close.c" />
     <ClCompile Include="..\..\..\..\system\handle\handleobj_constructor.c" />
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_create.c" />
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_delete.c" />
     <ClCompile Include="..\..\..\..\system\handle\handleobj_destructor.c" />
     <ClCompile Include="..\..\..\..\system\memory\memory.c" />
     <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_alignsize.c" />

@@ -4,7 +4,7 @@
  * @file  handle.h
  * @brief %jp{ハンドルオブジェクト}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -14,23 +14,51 @@
 #include "system/process/process_local.h"
 
 
+/** デストラクタ */
+void Object_Destructor(C_OBJECT *self)
+{
+	/* 紐付け解除 */
+	Object_SetParent(self, NULL);
+}
+
+
 /* デストラクタ */
 void HandleObj_Destructor(C_HANDLEOBJ *self)
 {
-	/* プロセスの紐付け解除 */
-	if ( self->pNext == self )
+	/* ターゲットからデタッチ */
+	self->pTargetObj->iRefCounter--;
+	if ( self->pTargetObj->iRefCounter <= 0 && self->pTargetObj->iRemove )
 	{
-		self->pParent->pHandle = NULL;
+		/* 削除指定ありで参照0なら閉じる */
+		Handle_Close((HANDLE)self->pTargetObj);
 	}
-	else
+
+	/* 親クラスデストラクタ */
+	Object_Destructor(&self->Object);
+}
+
+
+/* デストラクタ */
+void TargetObj_Destructor(C_TARGETOBJ *self)
+{
+	SYS_ASSERT(self->iRefCounter == 0);
+
+	/* 親クラスデストラクタ */
+	Object_Destructor(&self->Object);	
+}
+
+
+/* デストラクタ */
+void OwnerObj_Destructor(C_OWNEROBJ *self)
+{
+	/* 子オブジェクト全クローズ */
+	while ( self->pChild != NULL )
 	{
-		if ( self->pParent->pHandle  == self )
-		{
-			self->pParent->pHandle = self->pNext;
-		}
-		self->pNext->pPrev = self->pPrev;
-		self->pPrev->pNext = self->pNext;
+		Handle_Close((HANDLE)self->pChild);
 	}
+
+	/* 親クラスデストラクタ */
+	TargetObj_Destructor(&self->TargetObj);
 }
 
 

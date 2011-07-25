@@ -9,6 +9,7 @@
  */
 
 
+#include "system/system/system_local.h"
 #include "fileobj_local.h"
 
 
@@ -16,7 +17,7 @@
 void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, C_DRVOBJ *pDrvObj, int iMode)
 {
 	/* 親クラスコンストラクタ呼び出し */
-	HandleObj_Constructor(&self->HandleObj, &pMethods->HandlObjMethods);
+	HandleObj_Constructor(&self->HandleObj, &pMethods->HandlObjMethods, &System_GetSystemProcess()->OwnerObj);
 	
 	/* メンバ変数初期化 */
 	self->pDrvObj   = pDrvObj;
