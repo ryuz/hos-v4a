@@ -106,12 +106,11 @@ int Boot_Process(VPARAM Param)
 	/*     標準入出力設定    */
 	/*************************/
 	
-	Process_SetTerminal(HANDLE_NULL, hTty);
-	Process_SetConIn(HANDLE_NULL, hCon);
-	Process_SetConOut(HANDLE_NULL, hCon);
-	Process_SetStdIn(HANDLE_NULL, hCon);
-	Process_SetStdOut(HANDLE_NULL, hCon);
-	Process_SetStdErr(HANDLE_NULL, hCon);
+	Process_SetTerminal(hTty);
+	Process_SetConsole(hCon);
+	Process_SetStdIn(hCon);
+	Process_SetStdOut(hCon);
+	Process_SetStdErr(hCon);
 	
 
 	/*************************/

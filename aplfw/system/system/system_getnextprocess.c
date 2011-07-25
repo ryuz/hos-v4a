@@ -15,56 +15,68 @@
 
 
 /* 次のプロセスを取得 */
-HANDLE System_GetNextProcess(HANDLE hProcess)
+unsigned long System_GetNextProcessId(unsigned long ulProcessId)
 {
-	C_PROCESS *pProcess;
-		
-	if ( hProcess == NULL )
+	unsigned long	ulNextId = 0;
+	unsigned long	ulId;
+	C_SYSTEM		*self;
+
+	self = &g_System;
+
+	SysMtx_Lock(self->hMtxSys);
+
+	ulId = (ulProcessId % self->ulProcessTableSize) + 1;
+	for ( ; ulId < self->ulProcessTableSize; ulId++ )
 	{
-		return (HANDLE)g_System.pRunProcess;
+		if ( self->ppProcessTable[ulId] != NULL )
+		{
+			ulNextId = self->ppProcessTable[ulId]->ulProcessId;
+			break;
+		}
 	}
 
-	pProcess = (C_PROCESS *)hProcess;
-	if ( pProcess->pNext != g_System.pRunProcess )
-	{
-		return (HANDLE)pProcess->pNext;
-	}
-	
-	return HANDLE_NULL;
+	SysMtx_Unlock(self->hMtxSys);
+
+	return ulNextId;
 }
 
 
 /* プロセスの登録 */
 void System_RegistryProcess(C_PROCESS *pProcess)
 {
-	if ( g_System.pRunProcess == NULL )
+	unsigned long	ulSysPrcId;
+	unsigned long	ulProcessId;
+	C_SYSTEM		*self;
+
+	self = &g_System;
+
+	/* ITRON-ID取得 */
+	ulSysPrcId = (unsigned long)pProcess->hPrc;
+	SYS_ASSERT(ulSysPrcId < self->ulProcessTableSize);
+	SYS_ASSERT(self->ppProcessTable[ulSysPrcId] == NULL);
+
+	/* 重複しないIDを計算(但し一意に元IDを手繰れる数とする) */
+	ulProcessId  = self->ulNextProcessId - (self->ulNextProcessId % self->ulProcessTableSize);
+	ulProcessId += ulSysPrcId;
+	if ( ulProcessId < self->ulNextProcessId )
 	{
-		g_System.pRunProcess = pProcess;
-		pProcess->pNext = pProcess;
-		pProcess->pPrev = pProcess;
+		ulProcessId += self->ulProcessTableSize;
 	}
-	else
-	{
-		pProcess->pNext = g_System.pRunProcess;
-		pProcess->pPrev = pProcess->pNext->pPrev;
-		pProcess->pNext->pPrev = pProcess;
-		pProcess->pPrev->pNext = pProcess;
-	}
+
+	pProcess->ulProcessId = ulProcessId;
+	self->ppProcessTable[ulSysPrcId] = pProcess;
+	self->ulNextProcessId = ulProcessId + 1;
 }
 
 
 /* プロセスの登録解除 */
 void System_UnregistryProcess(C_PROCESS *pProcess)
 {
-	if ( pProcess->pNext == pProcess )
-	{	
-		g_System.pRunProcess = NULL;
-	}
-	else
-	{
-		pProcess->pNext->pPrev = pProcess->pPrev;
-		pProcess->pPrev->pNext = pProcess->pNext;
-	}
+	C_SYSTEM		*self;
+
+	self = &g_System;
+
+	self->ppProcessTable[pProcess->ulProcessId % self->ulProcessTableSize] = NULL;
 }
 
 

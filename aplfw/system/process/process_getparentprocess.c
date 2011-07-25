@@ -13,7 +13,7 @@
 #include <string.h>
 #include "process_local.h"
 
-
+#if 0
 
 HANDLE Process_GetParentProcess(HANDLE hProcess)
 {
@@ -31,5 +31,6 @@ HANDLE Process_GetParentProcess(HANDLE hProcess)
 	return (HANDLE)self->HandleObj.pParent;
 }
 
+#endif
 
 /* end of file */

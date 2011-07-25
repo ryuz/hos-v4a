@@ -20,7 +20,7 @@ void Process_Exit(int iExitCode)
 {
 	C_PROCESS *self;
 
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	self = Process_GetCurrentProcess();
 	
 	/* 終了コード設定 */
 	self->iExitCode = iExitCode;

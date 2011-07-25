@@ -15,18 +15,12 @@
 
 
 /** プロセスの標準エラー出力取得 */
-HANDLE Process_GetStdErr(HANDLE hProcess)
+HANDLE Process_GetStdErr(void)
 {
 	C_PROCESS *self;
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* 現在のプロセス取得 */
+	self = Process_GetCurrentHandle();
 	
 	/* ハンドルを返す */
 	return self->hStdErr;

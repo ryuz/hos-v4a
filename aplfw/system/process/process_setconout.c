@@ -18,14 +18,8 @@ void Process_SetConOut(HANDLE hProcess, HANDLE hFile)
 {
 	C_PROCESS *self;
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* 現在のプロセス取得 */
+	self = Process_GetCurrentHandle();
 	
 	/* ハンドルを設定 */
 	self->hConOut = hFile;

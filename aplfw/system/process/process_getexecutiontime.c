@@ -28,14 +28,8 @@ unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanose
 		return SysTim_CpuTimeToSecond(CpuTime);
 	}
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* ハンドルからオブジェクト本体を取得 */
+	self = ProcessHandle_GetProcess(hProcess);
 	
 	CpuTime = SysPrc_GetExecTime(self->hPrc);
 	

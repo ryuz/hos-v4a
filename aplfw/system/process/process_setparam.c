@@ -18,14 +18,8 @@ void Process_SetParam(HANDLE hProcess, VPARAM Param)
 {
 	C_PROCESS *self;
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* ハンドルからオブジェクト本体を取得 */
+	self = ProcessHandle_GetProcess(hProcess);
 	
 	/* パラメータを設定 */
 	self->Param = Param;

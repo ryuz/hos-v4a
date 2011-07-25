@@ -15,18 +15,12 @@
 
 
 /** プロセスの標準出力設定 */
-void Process_SetStdOut(HANDLE hProcess, HANDLE hFile)
+void Process_SetStdOut(HANDLE hFile)
 {
 	C_PROCESS *self;
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* 現在のプロセス取得 */
+	self = Process_GetCurrentHandle();
 	
 	/* ハンドルを設定 */
 	self->hStdOut = hFile;

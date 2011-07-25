@@ -20,7 +20,7 @@ PROCESS_ERR Process_EnterSystemMode(void)
 	C_PROCESS *self;
 	
 	/* 現在のプロセス取得 */
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	self = Process_GetCurrentProcess();
 	
 	/* モード設定 */
 	self->SysMode++;

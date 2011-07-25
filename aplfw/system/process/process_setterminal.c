@@ -14,18 +14,12 @@
 
 
 /** プロセスの標準ターミナル設定 */
-void Process_SetTerminal(HANDLE hProcess, HANDLE hFile)
+void Process_SetTerminal(HANDLE hFile)
 {
 	C_PROCESS *self;
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	/* 現在のプロセス取得 */
+	self = Process_GetCurrentHandle();
 	
 	/* ハンドルを設定 */
 	self->hTerminal = hFile;

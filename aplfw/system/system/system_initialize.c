@@ -28,22 +28,32 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 {
 	C_SYSTEM				*self;
 	T_PROCESS_CREATE_INF	*pProcessInf;
+	unsigned long			i;
 	
 	self = &g_System;
 
 	/* システムAPIの初期化 */
 	SysApi_Initialize(pInf->pSysMemBase, pInf->SysMemSize, pInf->SysMemAlign,
 							pInf->pIoMemBase, pInf->IoMemSize, pInf->IoMemAlign);
-	
+
 	/* システム排他制御用ミューテックス生成 */
 	self->hMtxSys = SysMtx_Create(SYSMTX_ATTR_NORMAL);
-
+	
 	/* システム変数の初期化 */
 	self->hEvtProc     = SysEvt_Create(SYSEVT_ATTR_AUTOCLEAR);
 	self->iProcHead    = 0;
 	self->iProcTail    = 0;
 	self->paWhiteBoard = NULL;
-
+	
+	/* プロセステーブル生成 */
+	self->ulProcessTableSize = 256;	
+	self->ulNextProcessId   = 1;
+	self->ppProcessTable    = (C_PROCESS **)SysMem_Alloc(sizeof(C_PROCESS *) * self->ulProcessTableSize);
+	for ( i = 0; i < self->ulProcessTableSize; i++ )
+	{
+		self->ppProcessTable[i] = NULL;
+	}
+	
 	/* ファイルシステム初期化 */
 	File_Initialize();
 	
@@ -61,13 +71,12 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->StackSize      = pInf->SystemStackSize;	/* スタックサイズ */
 	pProcessInf->Priority       = 1;						/* プロセス優先度 */
 	pProcessInf->hTerminal      = HANDLE_NULL;				/* ターミナル */
-	pProcessInf->hConIn         = HANDLE_NULL;				/* コンソール入力 */
-	pProcessInf->hConOut        = HANDLE_NULL;				/* コンソール出力 */
+	pProcessInf->hConsole       = HANDLE_NULL;				/* コンソール */
 	pProcessInf->hStdIn         = HANDLE_NULL;				/* 標準入力 */
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */
 	pProcessInf->pszCurrentDir  = "/";						/* カレントディレクトリ */
-	Process_Constructor(&self->Process, NULL, pProcessInf);
+	Process_Constructor(&self->Process, pProcessInf);
 	
 	/* ブートプロセスの起動依頼 */
 	pProcessInf->pszCommandLine = "[boot]";
@@ -76,8 +85,7 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->StackSize      = pInf->BootStackSize;		/* スタックサイズ */
 	pProcessInf->Priority       = PROCESS_PRIORITY_NORMAL;	/* プロセス優先度 */
 	pProcessInf->hTerminal      = HANDLE_NULL;				/* ターミナル */
-	pProcessInf->hConIn         = HANDLE_NULL;				/* コンソール入力 */
-	pProcessInf->hConOut        = HANDLE_NULL;				/* コンソール出力 */
+	pProcessInf->hConsole       = HANDLE_NULL;				/* コンソール */
 	pProcessInf->hStdIn         = HANDLE_NULL;				/* 標準入力 */
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */

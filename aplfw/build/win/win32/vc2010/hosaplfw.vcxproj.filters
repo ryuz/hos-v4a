@@ -439,6 +439,9 @@
     <ClInclude Include="..\..\..\..\application\utility\i2ccmd\i2ccmd.h">
       <Filter>application\utility\i2ccmd</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\system\process\processhandle.h">
+      <Filter>system\process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_constructor.c">
@@ -843,9 +846,6 @@
     <ClCompile Include="..\..\..\..\system\process\process_getconin.c">
       <Filter>system\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_getconout.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_getcurrentdir.c">
       <Filter>system\process</Filter>
     </ClCompile>
@@ -870,9 +870,6 @@
     <ClCompile Include="..\..\..\..\system\process\process_getstdin.c">
       <Filter>system\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_getstdout.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_getterminal.c">
       <Filter>system\process</Filter>
     </ClCompile>
@@ -886,9 +883,6 @@
       <Filter>system\process</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_setconin.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_setconout.c">
       <Filter>system\process</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_setcurrentdir.c">
@@ -1517,6 +1511,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_burstread.c">
       <Filter>driver\i2c\i2c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\processhandle_delete.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\processhandle_create.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getcurrentprocess.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\processhandle_getprocess.c">
+      <Filter>system\process</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

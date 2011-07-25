@@ -14,9 +14,9 @@
 
 
 /* システムプロセスを得る */
-HANDLE System_GetSystemProcess(void)
+C_PROCESS *System_GetSystemProcess(void)
 {
-	return (HANDLE)&g_System.Process;
+	return &g_System.Process;
 }
 
 

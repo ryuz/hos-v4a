@@ -19,7 +19,7 @@ void Process_LeaveSystemMode(void)
 	C_PROCESS *self;
 	
 	/* 現在のプロセス取得 */
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	self = Process_GetCurrentHandle();
 	
 	/* モード設定 */
 	self->SysMode--;

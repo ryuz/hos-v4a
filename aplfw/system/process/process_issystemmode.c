@@ -19,7 +19,7 @@ int Process_IsSystemMode(void)
 	C_PROCESS *self;
 	
 	/* 現在のプロセス取得 */
-	self = (C_PROCESS *)Process_GetCurrentHandle();
+	self = Process_GetCurrentHandle();
 	
 	/* モード判定 */
 	return (self->SysMode > 0);

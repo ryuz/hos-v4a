@@ -14,18 +14,12 @@
 
 
 /** プロセスの標準入力設定 */
-void Process_SetStdIn(HANDLE hProcess, HANDLE hFile)
+void Process_SetStdIn(HANDLE hFile)
 {
 	C_PROCESS *self;
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* 現在のプロセス取得 */
+	self = Process_GetCurrentHandle();
 	
 	/* ハンドルを設定 */
 	self->hStdIn = hFile;

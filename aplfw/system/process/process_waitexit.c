@@ -20,12 +20,13 @@ PROCESS_ERR Process_WaitExit(HANDLE hProcess)
 {
 	C_PROCESS *self;
 	
-	if ( hProcess == HANDLE_NULL || hProcess == Process_GetCurrentHandle() )
+	if ( hProcess == HANDLE_NULL )
 	{
 		return PROCESS_ERR_NG;
 	}
 
-	self = (C_PROCESS *)hProcess;
+	/* ハンドルからオブジェクト本体を取得 */
+	self = ProcessHandle_GetProcess(hProcess);
 	
 	/* 終了を待つ */
 	while ( !self->Exit )

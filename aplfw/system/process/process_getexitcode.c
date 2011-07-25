@@ -25,8 +25,8 @@ int Process_GetExitCode(HANDLE hProcess)
 		return -1;
 	}
 	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* ハンドルからオブジェクト本体を取得 */
+	self = ProcessHandle_GetProcess(hProcess);
 
 	return self->iExitCode;
 }

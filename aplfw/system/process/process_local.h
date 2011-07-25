@@ -21,12 +21,16 @@
 /* プロセスオブジェクト基本クラス定義 */
 typedef struct c_process
 {
-	C_HANDLEOBJ			HandleObj;						/**< ハンドルオブジェクトを継承 */
-
 	HANDLE				*pHandleList;					/**< 所有するハンドルのリスト(終了時に開放) */
 	
-	struct c_process	*pNext;							/*< 次のプロセス */
-	struct c_process	*pPrev;							/*< 前のプロセス */
+	unsigned long		ulProcessId;					/**< プロセスID */
+	
+	unsigned int		uiOpenCounter;					/**< オープンカウンタ */
+
+	struct c_handleobj	*pHandle;						/**< 現プロセスが所有するハンドル */
+
+//	struct c_process	*pNext;							/*< 次のプロセス */
+//	struct c_process	*pPrev;							/*< 前のプロセス */
 	
 	SYSPRC_HANDLE		hPrc;							/**< プロセスハンドル */
 	SYSEVT_HANDLE		hEvt;							/**< 待ち合わせ用イベント */
@@ -47,9 +51,10 @@ typedef struct c_process
 	int					Priority;						/**< プロセス優先度 */
 	char				SysMode;						/**< システムモード */
 	char				Exit;							/**< 終了フラグ */
+
+	HANDLE				hProcess;						/**< 自身のハンドル */
 	HANDLE				hTerminal;						/**< ターミナル */
-	HANDLE				hConIn;							/**< コンソール入力 */
-	HANDLE				hConOut;						/**< コンソール出力 */
+	HANDLE				hConsole;						/**< コンソール */
 	HANDLE				hStdIn;							/**< 標準入力 */
 	HANDLE				hStdOut;						/**< 標準出力 */
 	HANDLE				hStdErr;						/**< 標準エラー出力 */
@@ -60,14 +65,19 @@ typedef struct c_process
 extern "C" {
 #endif
 
-PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf);		/**< コンストラクタ */
-void        Process_Destructor(C_PROCESS *self);																				/**< デストラクタ */
+PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_PROCESS_CREATE_INF *pInf);		/**< コンストラクタ */
+void        Process_Destructor(C_PROCESS *self);										/**< デストラクタ */
 
-PROCESS_ERR Process_Attach(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf);				/**< 既存プロセスをアタッチ */
+C_PROCESS  *Process_GetCurrentProcess(void);											/**< 現在のプロセスハンドル取得 */	
+
+PROCESS_ERR Process_Attach(C_PROCESS *self, const T_PROCESS_CREATE_INF *pInf);			/**< 既存プロセスをアタッチ */
+
 
 #ifdef __cplusplus
 }
 #endif
+
+#include "processhandle.h"
 
 
 #endif	/* __HOS__process_local_h__ */

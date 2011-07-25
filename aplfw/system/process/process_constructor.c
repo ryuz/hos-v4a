@@ -15,24 +15,14 @@
 
 
 
-static const T_HANDLEOBJ_METHODS Process_Methods =
-	{
-		Process_Delete,
-	};
-
 
 static void Process_Entry(void);
 static void Process_SignalHandler(void);
 
 
 /** コンストラクタ */
-PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf)
+PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_PROCESS_CREATE_INF *pInf)
 {
-	if ( pMethods == NULL )
-	{
-		pMethods = &Process_Methods;
-	}
-
 	/* メンバ変数初期化 */
 	self->iExitCode     = -1;					/* 終了コード */
 	self->iSignal        = 0;					/* シグナル番号 */
@@ -46,8 +36,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 	self->SysMode        = 0;					/* システムモード */
 	self->Exit           = 0;					/* 終了フラグ */
 	self->hTerminal      = pInf->hTerminal;		/* ターミナル */
-	self->hConIn         = pInf->hConIn;		/* コンソール入力 */
-	self->hConOut        = pInf->hConOut;		/* コンソール出力 */
+	self->hConsole       = pInf->hConsole;		/* コンソール入力 */
 	self->hStdIn         = pInf->hStdIn;		/* 標準入力 */
 	self->hStdOut        = pInf->hStdOut;		/* 標準出力 */
 	self->hStdErr        = pInf->hStdErr;		/* 標準エラー出力 */
@@ -110,12 +99,9 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_HANDLEOBJ_METHODS *pMet
 		SysMem_Free(self->pszCurrentDir);
 		return PROCESS_ERR_NG;
 	}
-	
+
 	/* システムに登録 */
 	System_RegistryProcess(self);
-	
-	/* 親クラスコンストラクタ */
-	HandleObj_Constructor(&self->HandleObj, pMethods);
 	
 	/* プロセス動作開始 */
 	SysPrc_Start(self->hPrc);

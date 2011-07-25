@@ -11,27 +11,22 @@
 
 #include <stdio.h>
 #include "handleobj.h"
+#include "system/process/process_local.h"
 
 
 /* デストラクタ */
 void HandleObj_Destructor(C_HANDLEOBJ *self)
 {
-	/* 子オブジェクトがあればすべて閉じる */
-	while ( self->pChild != NULL )
-	{
-		Handle_Close((HANDLE)self->pChild);
-	}
-	
 	/* プロセスの紐付け解除 */
 	if ( self->pNext == self )
 	{
-		self->pParent->pChild = NULL;
+		self->pParent->pHandle = NULL;
 	}
 	else
 	{
-		if ( self->pParent->pChild  == self )
+		if ( self->pParent->pHandle  == self )
 		{
-			self->pParent->pChild = self->pNext;
+			self->pParent->pHandle = self->pNext;
 		}
 		self->pNext->pPrev = self->pPrev;
 		self->pPrev->pNext = self->pNext;

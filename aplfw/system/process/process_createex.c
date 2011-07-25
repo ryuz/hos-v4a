@@ -9,14 +9,16 @@
  */
 
 #include "process_local.h"
+#include "processhandle.h"
 
 
 
 /* プロセス生成 */
 HANDLE Process_CreateEx(const T_PROCESS_CREATE_INF *pInf)
 {
-	C_PROCESS *self;
-	
+	C_PROCESS		*self;
+	C_PROCESSHANDLE	*pHandle;
+
 	/* メモリ確保 */
 	if ( (self = (C_PROCESS *)SysMem_Alloc(sizeof(C_PROCESS))) == NULL )
 	{
@@ -29,8 +31,18 @@ HANDLE Process_CreateEx(const T_PROCESS_CREATE_INF *pInf)
 		SysMem_Free(self);
 		return HANDLE_NULL;
 	}
+
+	pHandle = ProcessHandle_Create(self);
+	if ( pHandle == NULL )
+	{
+		Process_Destructor(self);
+		SysMem_Free(self);
+		return HANDLE_NULL;
+	}
 	
-	return (HANDLE)self;
+	self->hProcess = (HANDLE)pHandle;
+
+	return (HANDLE)pHandle;
 }
 
 

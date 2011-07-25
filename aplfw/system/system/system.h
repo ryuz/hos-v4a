@@ -27,7 +27,7 @@ typedef struct t_system_initialize_inf
 	void	*pIoMemBase;					/**< I/O用のヒープメモリ領域 */
 	MEMSIZE	IoMemSize;						/**< I/O用のヒープメモリ領域サイズ */
 	MEMSIZE	IoMemAlign;						/**< I/O用のヒープメモリのアライメント単位 */
-	
+
 	MEMSIZE	SystemStackSize;				/**< システムプロセスに割り当てるスタックサイズ */
 	
 	int		(*pfncBoot)(VPARAM Param);		/**< ブートプロセスの起動番地 */	

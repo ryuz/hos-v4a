@@ -21,6 +21,8 @@
 #include "system/type/type.h"
 #include "library/container/memheap/memheap.h"
 
+/* ASSERT */
+#define SYS_ASSERT(x)				do { if (!(x)) { for(;;) ; } } while (0)
 
 /* プロセスハンドル(システム用) */
 #define SYSPRC_HANDLE_NULL			(0)

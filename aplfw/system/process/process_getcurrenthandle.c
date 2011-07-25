@@ -17,25 +17,13 @@
 HANDLE Process_GetCurrentHandle(void)
 {
 	SYSPRC_HANDLE	hSysPrc;
-	HANDLE			hProcess;
+	C_PROCESS		*self;
 	
-	/* 現在のプロセスを取得 */
-	if ( (hSysPrc = SysPrc_GetCurrentHandle()) == SYSPRC_HANDLE_NULL )
-	{
-		/* 未管理プロセスはすべてシステムプロセスとする */
-		return System_GetSystemProcess();
-	}
+	/* ハンドルからオブジェクト本体を取得 */
+	self = Process_GetCurrentProcess();
 	
-	/* 現在のプロセスを取得 */
-	hProcess = (HANDLE)SysPrc_GetParam(hSysPrc);
-	
-	if ( hProcess == HANDLE_NULL )
-	{
-		/* 未管理プロセスはすべてシステムプロセスとする */
-		return System_GetSystemProcess();
-	}
-	
-	return hProcess;
+	/* ハンドルを返す */
+	return self->hProcess;
 }
 
 

@@ -28,8 +28,7 @@ typedef struct c_handleobj
 {
 	const T_HANDLEOBJ_METHODS	*pMethods;
 
-	struct c_handleobj			*pParent;		/* 親プロセスのハンドル */
-	struct c_handleobj			*pChild;		/* 現プロセスが所有するハンドル */
+	struct c_process			*pParent;		/* 親プロセスのハンドル */
 	struct c_handleobj			*pNext;			/* 次のハンドル */
 	struct c_handleobj			*pPrev;			/* 前のハンドル */
 } C_HANDLEOBJ;

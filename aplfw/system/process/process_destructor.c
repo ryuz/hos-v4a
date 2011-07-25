@@ -39,9 +39,6 @@ void Process_Destructor(C_PROCESS *self)
 	{
 		Assoc_Delete(self->pEnv);
 	}
-	
-	/* 親クラスデストラクタ呼び出し */
-	HandleObj_Destructor(&self->HandleObj);
 }
 
 

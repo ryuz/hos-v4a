@@ -37,17 +37,22 @@ typedef struct t_system_procinf
 /* システムクラス */
 typedef struct c_system
 {
-	C_PROCESS			Process;		/**< システムプロセス */
+	C_PROCESS			**ppProcessTable;		/**< プロセステーブル */
+	unsigned long		ulProcessTableSize;		/**< プロセステーブルのサイズ */
+	unsigned long		ulNextProcessId;		/**< 次のプロセスID */
+	
+	C_PROCESS			Process;				/**< システムプロセス */
 
-	C_PROCESS			*pRunProcess;	/**< 実行中プロセスのリスト */
+	C_PROCESS			*pRunProcess;			/**< 実行中プロセスのリスト */
 		
 	HANDLE				hBootProcess;
 	
-	C_ASSOC				*paWhiteBoard;	/**< ホワイトボード */
+	C_ASSOC				*paWhiteBoard;			/**< ホワイトボード */
 	
 	SYSMTX_HANDLE		hMtxSys;
 	SYSPRC_HANDLE		hPrcProc;						
 	SYSEVT_HANDLE		hEvtProc;
+	
 	volatile int		iProcHead;
 	volatile int		iProcTail;
 	T_SYSTEM_PROCINF	ProcQue[SYSTEM_PROCQUE_SIZE];
@@ -63,9 +68,9 @@ extern "C" {
 
 int    System_Process(VPARAM Param);					/* システムプロセス */
 
-HANDLE System_GetSystemProcess(void);
-void   System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */
-void   System_UnregistryProcess(C_PROCESS *pProcess);	/* プロセスの登録解除 */
+C_PROCESS *System_GetSystemProcess(void);
+void       System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */
+void       System_UnregistryProcess(C_PROCESS *pProcess);	/* プロセスの登録解除 */
 
 
 #ifdef __cplusplus
