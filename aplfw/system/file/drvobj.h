@@ -13,7 +13,7 @@
 #define __HOS__drvobj_h__
 
 
-#include "system/handle/handleobj.h"
+#include "system/handle/handle_local.h"
 #include "file.h"
 
 
@@ -23,7 +23,7 @@ struct c_fileobj;
 /* デバイスドライバオブジェクト基本クラス メソッドテーブル */
 typedef struct t_drvobj_methods
 {
-	T_OBJECT_METHODS		HandleObj_Methods;		/**< ハンドルオブジェクトを継承 */
+	T_OBJECT_METHODS		PointerObj_Methods;		/**< ハンドルオブジェクトを継承 */
 	
 	HANDLE    (*pfncOpen)(struct c_drvobj *self, const char *pszPath, int iMode);
 	void      (*pfncClose)(struct c_drvobj *self, struct c_fileobj *pFileObj);
@@ -39,7 +39,7 @@ typedef struct t_drvobj_methods
 /* デバイスドライバオブジェクト基本クラス */
 typedef struct c_drvobj
 {
-	C_HANDLEOBJ				HandleObj;				/**< 親クラスを継承 */
+	C_TARGETOBJ			TargetObj;				/**< 親クラスを継承 */
 } C_DRVOBJ;
 
 

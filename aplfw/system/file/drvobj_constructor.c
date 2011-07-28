@@ -7,7 +7,7 @@
 /**< コンストラクタ */
 void DrvObj_Constructor(C_DRVOBJ *self, const T_DRVOBJ_METHODS *pMethods)
 {
-	HandleObj_Constructor(&self->HandleObj, &pMethods->HandleObj_Methods);
+	TargetObj_Constructor(&self->TargetObj, &pMethods->PointerObj_Methods);
 }
 
 

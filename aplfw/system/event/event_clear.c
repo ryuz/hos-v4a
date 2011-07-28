@@ -15,13 +15,13 @@
 /* イベントクリア */
 EVENT_ERR Event_Clear(HANDLE hEvent)
 {
-	C_EVENT *self;
+	C_EVENTOBJ	*pEventObj;
 	
-	/* キャスト */
-	self = (C_EVENT *)hEvent;
+	/* オブジェクト取得 */
+	pEventObj = EventPtr_GetEventObj(hEvent);
 	
 	/* イベント待ち */
-	SysEvt_Clear(self->hSysEvt);
+	SysEvt_Clear(pEventObj->hSysEvt);
 	
 	return EVENT_ERR_OK;
 }

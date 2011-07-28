@@ -16,7 +16,7 @@
 
 
 #include "system/file/file.h"
-#include "system/handle/handleobj.h"
+#include "system/handle/handle_local.h"
 
 struct c_drvobj;
 
@@ -30,7 +30,7 @@ typedef struct t_fileobj_methods
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_fileobj
 {
-	C_HANDLEOBJ		HandleObj;				/* ハンドルオブジェクトを継承 */
+	C_POINTEROBJ		TargetObj;				/* 親クラスを継承 */
 
 	struct c_drvobj	*pDrvObj;				/* ドライバへの参照 */
 

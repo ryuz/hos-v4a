@@ -10,7 +10,7 @@
 
 
 #include <stdio.h>
-#include "handleobj.h"
+#include "handle_local.h"
 #include "system/process/process_local.h"
 
 
@@ -23,7 +23,7 @@ void Object_Destructor(C_OBJECT *self)
 
 
 /* デストラクタ */
-void HandleObj_Destructor(C_HANDLEOBJ *self)
+void PointerObj_Destructor(C_POINTEROBJ *self)
 {
 	/* ターゲットからデタッチ */
 	self->pTargetObj->iRefCounter--;

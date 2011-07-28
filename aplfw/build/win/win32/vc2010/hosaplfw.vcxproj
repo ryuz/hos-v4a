@@ -104,6 +104,7 @@
     <ClInclude Include="..\..\..\..\system\file\volume.h" />
     <ClInclude Include="..\..\..\..\system\file\volumeobj.h" />
     <ClInclude Include="..\..\..\..\system\file\volumeobj_local.h" />
+    <ClInclude Include="..\..\..\..\system\handle\handle_local.h" />
     <ClInclude Include="..\..\..\..\system\process\processhandle.h" />
     <ClInclude Include="..\..\..\..\system\type\type.h" />
     <ClInclude Include="..\..\..\..\system\command\command.h" />
@@ -114,8 +115,6 @@
     <ClInclude Include="..\..\..\..\system\sysapi\sysapi.h" />
     <ClInclude Include="..\..\..\..\system\sysapi\sysapi_local.h" />
     <ClInclude Include="..\..\..\..\system\handle\handle.h" />
-    <ClInclude Include="..\..\..\..\system\handle\handleobj.h" />
-    <ClInclude Include="..\..\..\..\system\handle\handleobj_local.h" />
     <ClInclude Include="..\..\..\..\system\memory\memory.h" />
     <ClInclude Include="..\..\..\..\system\sysmem\sysmemheap.h" />
     <ClInclude Include="..\..\..\..\system\sysmem\sysmemheap_local.h" />
@@ -230,6 +229,7 @@
     <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_seek.c" />
     <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_send.c" />
     <ClCompile Include="..\..\..\..\driver\serial\winsock\winsockdrv_write.c" />
+    <ClCompile Include="..\..\..\..\system\event\event_duplicatehandle.c" />
     <ClCompile Include="..\..\..\..\system\file\console_getch.c" />
     <ClCompile Include="..\..\..\..\system\file\drvobj_close.c" />
     <ClCompile Include="..\..\..\..\system\file\drvobj_constructor.c" />
@@ -300,6 +300,17 @@
     <ClCompile Include="..\..\..\..\system\file\volumeobj_remove.c" />
     <ClCompile Include="..\..\..\..\system\file\volumeobj_shutdown.c" />
     <ClCompile Include="..\..\..\..\system\command\command.c" />
+    <ClCompile Include="..\..\..\..\system\handle\object_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\object_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\object_setparent.c" />
+    <ClCompile Include="..\..\..\..\system\handle\ownerobj_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\ownerobj_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_create.c" />
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_delete.c" />
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_destructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\targetobj_constructor.c" />
+    <ClCompile Include="..\..\..\..\system\handle\targetobj_destructor.c" />
     <ClCompile Include="..\..\..\..\system\process\processhandle_create.c" />
     <ClCompile Include="..\..\..\..\system\process\processhandle_delete.c" />
     <ClCompile Include="..\..\..\..\system\process\processhandle_getprocess.c" />
@@ -392,8 +403,6 @@
     <ClCompile Include="..\..\..\..\system\sysapi\systim_systimetosecond.c" />
     <ClCompile Include="..\..\..\..\system\sysapi\systim_wait.c" />
     <ClCompile Include="..\..\..\..\system\handle\handle_close.c" />
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_constructor.c" />
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_destructor.c" />
     <ClCompile Include="..\..\..\..\system\memory\memory.c" />
     <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_alignsize.c" />
     <ClCompile Include="..\..\..\..\system\sysmem\sysmemheap_alloc.c" />

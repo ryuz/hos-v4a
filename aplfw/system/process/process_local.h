@@ -14,7 +14,7 @@
 
 
 #include "process.h"
-#include "system/handle/handleobj_local.h"
+#include "system/handle/handle_local.h"
 #include "system/sysapi/sysapi.h"
 
 
@@ -27,7 +27,7 @@ typedef struct c_process
 	
 	unsigned int		uiOpenCounter;					/**< オープンカウンタ */
 
-	struct c_handleobj	*pHandle;						/**< 現プロセスが所有するハンドル */
+	struct c_pointerobj	*pHandle;						/**< 現プロセスが所有するハンドル */
 
 //	struct c_process	*pNext;							/*< 次のプロセス */
 //	struct c_process	*pPrev;							/*< 前のプロセス */

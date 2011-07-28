@@ -15,7 +15,10 @@
 /* 仮想関数テーブル */
 const T_DRVOBJ_METHODS JellyI2cDrv_Methods = 
 	{
-		{ JellyI2cDrv_Delete },
+		{
+			"JellyI2cDrv",
+			JellyI2cDrv_Delete,
+		},
 		JellyI2cDrv_Open,
 		JellyI2cDrv_Close,
 		JellyI2cDrv_IoControl,

@@ -1,16 +1,16 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  handleobj.h
- * @brief %jp{ハンドルオブジェクト}
+ * @file  handle_local.h
+ * @brief %jp{ハンドル ローカルヘッダファイル}
  *
  * Copyright (C) 2006-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
 
-#ifndef __HOS__handleobj_h__
-#define __HOS__handleobj_h__
+#ifndef __HOS__handle_local_h__
+#define __HOS__handle_local_h__
 
 
 #include "system/handle/handle.h"
@@ -42,18 +42,18 @@ typedef struct c_targetobj
 {
 	C_OBJECT					Object;				/* 親クラスを継承 */
 
-	int							iRemove;			/* 削除フラグ */
+	int							iDeleteFlag;		/* 削除フラグ */
 	int							iRefCounter;		/* 参照カウンタ */
 } C_TARGETOBJ;
 
 
 /* ハンドルオブジェクト */
-typedef struct c_handleobj
+typedef struct c_pointerobj
 {
 	C_OBJECT					Object;
 
 	C_TARGETOBJ					*pTargetObj;
-} C_HANDLEOBJ;
+} C_POINTEROBJ;
 
 
 /* オーナーオブジェクトクラス定義 */
@@ -75,11 +75,15 @@ void    Object_SetParent(C_OBJECT *self, C_OWNEROBJ *pParent);													/**< 
 
 void    TargetObj_Constructor(C_TARGETOBJ *self, const T_OBJECT_METHODS *pMethods);								/**< コンストラクタ */
 void    TargetObj_Destructor(C_TARGETOBJ *self);																/**< デストラクタ */
-#define TargetObj_Remove(self)			do{ (self)->iRemove = 1; } while(0)										/**< 削除 */
+#define TargetObj_SetDeleteFlag(self)		do{ ((C_TARGETOBJ *)(self))->iDeleteFlag = 1; } while(0)			/**< 削除フラグセット */
+#define TargetObj_GetDeleteFlag(self)		(((C_TARGETOBJ *)(self))->iDeleteFlag)								/**< 削除フラグ取得 */
+#define TargetObj_GetRefCounter(self)		(((C_TARGETOBJ *)(self))->iRefCounter)								/**< 参照カウンタ取得 */
 
-void    HandleObj_Constructor(C_HANDLEOBJ *self, const T_OBJECT_METHODS *pMethods, C_TARGETOBJ *pTargetObj);	/**< コンストラクタ */
-void    HandleObj_Destructor(C_HANDLEOBJ *self);																/**< デストラクタ */
-#define HandleObj_RefTargetObj(self)	((self)->pTargetObj)													/**< ターゲット参照 */
+HANDLE  PointerObj_Create(const T_OBJECT_METHODS *pMethods, C_TARGETOBJ *pTargetObj);							/**< 生成 */
+void    PointerObj_Delete(HANDLE handle);																		/**< 削除 */
+void    PointerObj_Constructor(C_POINTEROBJ *self, const T_OBJECT_METHODS *pMethods, C_TARGETOBJ *pTargetObj);	/**< コンストラクタ */
+void    PointerObj_Destructor(C_POINTEROBJ *self);																/**< デストラクタ */
+#define PointerObj_GetTargetObj(self)	(((C_POINTEROBJ *)(self))->pTargetObj)									/**< ターゲット参照 */
 
 void    OwnerObj_Constructor(C_OWNEROBJ *self, const T_OBJECT_METHODS *pMethods);								/**< コンストラクタ */
 void    OwnerObj_Destructor(C_OWNEROBJ *self);																	/**< デストラクタ */

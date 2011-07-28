@@ -15,13 +15,13 @@
 /* イベント待ち */
 EVENT_ERR Event_Wait(HANDLE hEvent)
 {
-	C_EVENT *self;
+	C_EVENTOBJ	*pEventObj;
 	
-	/* キャスト */
-	self = (C_EVENT *)hEvent;
-	
+	/* オブジェクト取得 */
+	pEventObj = EventPtr_GetEventObj(hEvent);
+
 	/* イベント待ち */
-	SysEvt_Wait(self->hSysEvt);
+	SysEvt_Wait(pEventObj->hSysEvt);
 	
 	return EVENT_ERR_OK;
 }

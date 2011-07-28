@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "handle.h"
-#include "handleobj.h"
+#include "handle_local.h"
 #include "system/sysapi/sysapi.h"
 
 

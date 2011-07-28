@@ -14,7 +14,10 @@
 
 static const T_FILEOBJ_METHODS FatFile_FileObjMethods =
 	{
-		{File_Close},	/* デストラクタ */
+		{
+			"FatFile",
+			File_Close
+		},	
 	};
 
 

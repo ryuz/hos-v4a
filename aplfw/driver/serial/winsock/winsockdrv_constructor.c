@@ -17,7 +17,10 @@
 /** 仮想関数テーブル */
 const T_DRVOBJ_METHODS  WinSockDrv_Methods = 
 	{
-		{ WinSockDrv_Delete },
+		{
+			"WinSockDrv",
+			WinSockDrv_Delete,
+		},
 		WinSockDrv_Open,
 		WinSockDrv_Close,
 		WinSockDrv_IoControl,

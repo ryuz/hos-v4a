@@ -13,18 +13,26 @@
 
 
 /* デストラクタ */
-void Event_Delete(HANDLE hEvent)
+void EventObj_Delete(HANDLE handle)
 {
-	C_EVENT *self;
+	C_EVENTOBJ *self;
 	
 	/* キャスト */
-	self = (C_EVENT *)hEvent;
+	self = (C_EVENTOBJ *)handle;
 	
+	/* 参照チェック */
+	if ( TargetObj_GetRefCounter(&self->TargetObj) > 0 )
+	{
+		/* 参照者がいれば、削除フラグのみでリターン */
+		TargetObj_SetDeleteFlag(&self->TargetObj);
+		return;
+	}
+
 	/* イベント削除 */
 	SysEvt_Delete(self->hSysEvt);
 	
 	/* 親クラスデストラクタ呼び出し */
-	HandleObj_Destructor(&self->HandleObj);
+	TargetObj_Destructor(&self->TargetObj);
 	
 	/* メモリ削除 */
 	SysMem_Free(self);

@@ -24,7 +24,7 @@ void ProcessHandle_Delete(HANDLE Handle)
 	pProcess = self->pProcess;
 
 	/* 自身を削除 */
-	HandleObj_Destructor(&self->HandleObj);
+	PointerObj_Destructor(&self->PointerObj);
 	SysMem_Free(self);
 	
 	/* 最後の参照ならプロセスを閉じる */

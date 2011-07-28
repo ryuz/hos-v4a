@@ -15,7 +15,10 @@
 
 const T_DRVOBJ_METHODS  Vt100Drv_Methods = 
 	{
-		{ Vt100Drv_Delete },
+		{
+			"Vt100Drv",
+			Vt100Drv_Delete,
+		},
 		Vt100Drv_Open,
 		Vt100Drv_Close,
 		Vt100Drv_IoControl,

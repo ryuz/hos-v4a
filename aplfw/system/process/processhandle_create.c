@@ -34,7 +34,7 @@ HANDLE ProcessHandle_Create(struct c_process *pProcess)
 	}
 
 	/* 親クラスコンストラクタ */
-	HandleObj_Constructor(&self->HandleObj, &ProcessHandle_ObjMethods.HandlObjMethods, NULL);
+	PointerObj_Constructor(&self->PointerObj, &ProcessHandle_ObjMethods.HandlObjMethods, NULL);
 	
 	/* 紐付け */
 	self->pProcess = pProcess;

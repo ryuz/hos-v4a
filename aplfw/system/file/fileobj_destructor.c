@@ -24,7 +24,7 @@ void FileObj_Destructor(C_FILEOBJ *self)
 	}
 	
 	/* 親クラスデストラクタ呼び出し */
-	HandleObj_Destructor(&self->HandleObj);
+	TargetObj_Destructor(&self->TargetObj);
 }
 
 

@@ -28,7 +28,7 @@ HANDLE Process_GetParentProcess(HANDLE hProcess)
 	/* ハンドルをキャスト */
 	self = (C_PROCESS *)hProcess;
 	
-	return (HANDLE)self->HandleObj.pParent;
+	return (HANDLE)self->PointerObj.pParent;
 }
 
 #endif

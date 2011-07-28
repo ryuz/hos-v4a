@@ -15,7 +15,7 @@
 #define __HOS__processhandle_h__
 
 
-#include "system/handle/handleobj.h"
+#include "system/handle/handle_local.h"
 
 
 
@@ -29,7 +29,7 @@ typedef struct t_processhandle_methods
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_processhandle
 {
-	C_HANDLEOBJ			HandleObj;			/* ハンドルオブジェクトを継承 */
+	C_POINTEROBJ			PointerObj;			/* ハンドルオブジェクトを継承 */
 	
 	struct c_process	*pProcess;			/* プロセス本体への参照 */
 } C_PROCESSHANDLE;

@@ -13,7 +13,7 @@
 #define __HOS__volumeobj_h__
 
 
-#include "system/handle/handleobj.h"
+#include "system/handle/handle_local.h"
 #include "system/file/drvobj.h"
 
 
@@ -53,7 +53,7 @@ FILE_ERR VolumeObj_Remove(C_VOLUMEOBJ *self, const char *pszPath);				/**< ãƒ•ã‚
 }
 #endif
 
-#define VolumeObj_GetMethods(self)		((T_VOLUMEOBJ_METHODS *)HandleObj_GetMethods(&(self)->DrvObj))
+#define VolumeObj_GetMethods(self)		((T_VOLUMEOBJ_METHODS *)PointerObj_GetMethods(&(self)->DrvObj))
 
 
 

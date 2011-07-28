@@ -29,6 +29,8 @@ extern "C" {
 
 HANDLE    Event_Create(void);
 void      Event_Delete(HANDLE hEvent);
+HANDLE    Event_DuplicateHandle(HANDLE hEvent);
+
 EVENT_ERR Event_Set(HANDLE hEvent);
 EVENT_ERR Event_Clear(HANDLE hEvent);
 EVENT_ERR Event_Wait(HANDLE hEvent);

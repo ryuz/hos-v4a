@@ -288,12 +288,6 @@
     <ClInclude Include="..\..\..\..\system\handle\handle.h">
       <Filter>system\handle</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\system\handle\handleobj.h">
-      <Filter>system\handle</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\system\handle\handleobj_local.h">
-      <Filter>system\handle</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\system\memory\memory.h">
       <Filter>system\memory</Filter>
     </ClInclude>
@@ -441,6 +435,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\system\process\processhandle.h">
       <Filter>system\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\handle\handle_local.h">
+      <Filter>system\handle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1080,12 +1077,6 @@
     <ClCompile Include="..\..\..\..\system\handle\handle_close.c">
       <Filter>system\handle</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_constructor.c">
-      <Filter>system\handle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\handle\handleobj_destructor.c">
-      <Filter>system\handle</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\system\memory\memory.c">
       <Filter>system\memory</Filter>
     </ClCompile>
@@ -1520,6 +1511,42 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_getstdout.c">
       <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\targetobj_constructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\object_constructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\object_setparent.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\ownerobj_constructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_constructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\targetobj_destructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\object_destructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\ownerobj_destructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_destructor.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_create.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_delete.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\event\event_duplicatehandle.c">
+      <Filter>system\event</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

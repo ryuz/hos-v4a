@@ -15,17 +15,41 @@
 
 
 #include "event.h"
-#include "system/handle/handleobj_local.h"
+#include "system/handle/handle_local.h"
 #include "system/sysapi/sysapi.h"
 
 
+extern const T_OBJECT_METHODS EventObj_Methods;
+extern const T_OBJECT_METHODS EventPtr_Methods;
+
+
 /* イベントオブジェクトクラス定義 */
-typedef struct c_event
+typedef struct c_eventobj
 {
-	C_HANDLEOBJ		HandleObj;		/* ハンドルオブジェクトを継承 */
+	C_TARGETOBJ		TargetObj;		/* 親クラスを継承 */
 
 	SYSEVT_HANDLE	hSysEvt;		/* イベント */
-} C_EVENT;
+} C_EVENTOBJ;
+
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* イベントオブジェクト */
+HANDLE  EventObj_Create(void);
+void    EventObj_Delete(HANDLE handle);
+
+/* イベントポインタクラス(PointerObjをそのまま継承) */
+typedef C_POINTEROBJ					C_EVENTPTR;
+#define EventPtr_Create(pEventObj)		PointerObj_Create(&EventObj_Methods, (C_TARGETOBJ *)(pEventObj));
+#define EventPtr_Delete					PointerObj_Delete
+#define EventPtr_GetEventObj(self)		((C_EVENTOBJ *)PointerObj_GetTargetObj(self))
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif	/* __HOS__event_local_h__ */

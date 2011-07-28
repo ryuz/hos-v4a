@@ -12,18 +12,16 @@
 #include "event_local.h"
 
 
-/* イベントセット */
-EVENT_ERR Event_Set(HANDLE hEvent)
+/* ハンドルの複製 */
+HANDLE Event_DuplicateHandle(HANDLE hEvent)
 {
 	C_EVENTOBJ	*pEventObj;
 	
 	/* オブジェクト取得 */
 	pEventObj = EventPtr_GetEventObj(hEvent);
 	
-	/* イベントセット */
-	SysEvt_Set(pEventObj->hSysEvt);
-	
-	return EVENT_ERR_OK;
+	/* ポインタ生成 */
+	return (HANDLE)PointerObj_Create(&EventPtr_Methods, (C_TARGETOBJ *)pEventObj);
 }
 
 
