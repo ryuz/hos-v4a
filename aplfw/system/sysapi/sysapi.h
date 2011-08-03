@@ -96,6 +96,7 @@ void           SysPrc_Delete(SYSPRC_HANDLE hPrc);							/**< プロセス削除(
 VPARAM         SysPrc_GetParam(SYSPRC_HANDLE hPrc);							/**< プロセスのパラメータ取得(システム用) */
 
 void           SysPrc_Start(SYSPRC_HANDLE hPrc);							/**< プロセス開始(システム用) */
+void           SysPrc_Exit(void);											/**< プロセス終了(システム用) */
 void           SysPrc_Terminate(SYSPRC_HANDLE hPrc);						/**< プロセス終了(システム用) */
 void           SysPrc_Suspend(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止(システム用) */			
 void           SysPrc_Resume(SYSPRC_HANDLE hPrc);							/**< プロセス強制停止解除(システム用) */	

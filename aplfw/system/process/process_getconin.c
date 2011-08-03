@@ -16,10 +16,10 @@
 /** プロセスの標準コンソール取得 */
 HANDLE Process_GetConsole(void)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
+	self = Process_GetCurrentProcessObj();
 	
 	/* ハンドルを返す */
 	return self->hConsole;

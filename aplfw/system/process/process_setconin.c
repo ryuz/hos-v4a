@@ -16,10 +16,10 @@
 /** プロセスの標準コンソール設定 */
 void Process_SetConsole(HANDLE hFile)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
+	self = Process_GetCurrentProcessObj();
 	
 	/* ハンドルを設定 */
 	self->hConsole = hFile;

@@ -1,10 +1,10 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  handle.h
+ * @file  pointerobj_duplicate.c
  * @brief %jp{ハンドルオブジェクト}
  *
- * Copyright (C) 2006 by Project HOS
+ * Copyright (C) 2006-2011 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -14,18 +14,22 @@
 #include "system/process/process_local.h"
 
 
-HANDLE PointerObj_Create(const T_OBJECT_METHODS *pMethods, C_TARGETOBJ *pTargetObj)
+/* ハンドルを複製する */
+HANDLE PointerObj_Duplicate(HANDLE handle)
 {
 	C_POINTEROBJ	*self;
-
+	C_POINTEROBJ	*pNew;
+	
+	self =(C_POINTEROBJ *)handle;
+	
 	/* メモリ確保 */
-	if ( (self = (C_POINTEROBJ *)SysMem_Alloc(sizeof(C_POINTEROBJ))) == NULL )
+	if ( (pNew = (C_POINTEROBJ *)SysMem_Alloc(sizeof(C_POINTEROBJ))) == NULL )
 	{
 		return NULL;
 	}
 	
 	/* コンストラクタ */
-	PointerObj_Constructor(self, pMethods, pTargetObj);
+	PointerObj_Constructor(self, self->Object.pMethods, self->pTargetObj);
 	
 	return self;
 }

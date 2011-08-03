@@ -17,7 +17,7 @@
 void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, C_DRVOBJ *pDrvObj, int iMode)
 {
 	/* 親クラスコンストラクタ呼び出し */
-	TargetObj_Constructor(&self->TargetObj, &pMethods->HandlObjMethods, &System_GetSystemProcess()->OwnerObj);
+	PointerObj_Constructor(&self->PointerObj, &pMethods->HandlObjMethods, &pDrvObj->TargetObj);
 	
 	/* メンバ変数初期化 */
 	self->pDrvObj   = pDrvObj;

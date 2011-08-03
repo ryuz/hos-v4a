@@ -16,11 +16,11 @@
 /** プロセスの標準入力設定 */
 void Process_SetStdIn(HANDLE hFile)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
-	
+	self = Process_GetCurrentProcessObj();
+
 	/* ハンドルを設定 */
 	self->hStdIn = hFile;
 }

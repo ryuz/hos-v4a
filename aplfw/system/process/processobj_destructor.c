@@ -16,6 +16,9 @@
 /** デストラクタ */
 void ProcessObj_Destructor(C_PROCESSOBJ *self)
 {
+	/* システムから登録解除 */
+	System_UnregistryProcess(self->ulProcessId);
+
 	/* プロセス削除 */
 	SysPrc_Delete(self->hPrc);
 	
@@ -30,9 +33,6 @@ void ProcessObj_Destructor(C_PROCESSOBJ *self)
 
 	/* カレントディレクトリ用メモリ開放 */
 	SysMem_Free(self->pszCurrentDir);
-	
-	/* システムから登録解除 */
-	System_UnregistryProcess(self);
 	
 	/* 環境変数削除 */
 	if ( self->pEnv != NULL )

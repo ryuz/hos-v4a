@@ -14,7 +14,7 @@
 
 
 /* システムプロセスを得る */
-C_PROCESS *System_GetSystemProcess(void)
+C_PROCESSOBJ *System_GetSystemProcessObj(void)
 {
 	return &g_System.Process;
 }

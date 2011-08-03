@@ -17,7 +17,7 @@
 /** プロセス終了コードの取得 */
 int Process_GetExitCode(HANDLE hProcess)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 指定が無ければエラー */
 	if ( hProcess == HANDLE_NULL )
@@ -26,11 +26,10 @@ int Process_GetExitCode(HANDLE hProcess)
 	}
 	
 	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
+	self = ProcessPtr_GetProcessObj(hProcess);
 
 	return self->iExitCode;
 }
-
 
 
 /* end of file */

@@ -14,7 +14,7 @@
 
 
 /* 現在のプロセス取得 */
-C_PROCESS *Process_GetCurrentProcess(void)
+C_PROCESSOBJ *Process_GetCurrentProcessObj(void)
 {
 	SYSPRC_HANDLE	hSysPrc;
 	
@@ -24,12 +24,12 @@ C_PROCESS *Process_GetCurrentProcess(void)
 	if ( hSysPrc == SYSPRC_HANDLE_NULL )
 	{
 		/* 未管理プロセスはすべてシステムプロセスとする */
-		return System_GetSystemProcess();
+		return System_GetSystemProcessObj();
 	}
 	else
 	{
 		/* 現在のプロセスを取得 */
-		return (C_PROCESS *)SysPrc_GetParam(hSysPrc);
+		return (C_PROCESSOBJ *)SysPrc_GetParam(hSysPrc);
 	}
 }
 

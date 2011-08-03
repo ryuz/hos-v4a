@@ -41,13 +41,13 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		File_Close(hDir);
 		
 		/* カレントディレクトリ設定 */
-		Process_SetCurrentDir(Process_GetCurrentHandle(), szPath);
+		Process_SetCurrentDir(szPath);
 		
 		return 0;		
 	}
 	if ( pszCommand[0] == 'p' && pszCommand[1] == 'w' && pszCommand[2] == 'd' && pszCommand[3] == '\0' )
 	{
-		StdIo_PrintFormat("%s\n", Process_GetCurrentDir(Process_GetCurrentHandle()));
+		StdIo_PrintFormat("%s\n", Process_GetCurrentDir());
 		return 0;
 	}
 	
@@ -91,17 +91,17 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 		
 		/* プロセスの生成 */
 		Inf.pszCommandLine = pszCommand;
-		Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);
-		Inf.pfncEntry      = NULL;									/* 起動アドレス */
-		Inf.Param          = 0;										/* ユーザーパラメータ */
-		Inf.StackSize      = 4096;									/* スタックサイズ */
-		Inf.Priority       = iPriority;								/* プロセス優先度 */
+		Inf.pszCurrentDir  = Process_GetCurrentDir();
+		Inf.pfncEntry      = NULL;							/* 起動アドレス */
+		Inf.Param          = 0;								/* ユーザーパラメータ */
+		Inf.StackSize      = 4096;							/* スタックサイズ */
+		Inf.Priority       = iPriority;						/* プロセス優先度 */
 		Inf.hTerminal      = Process_GetTerminal();			/* ターミナル */
 		Inf.hConsole       = Process_GetConsole();			/* コンソール */
 		Inf.hStdIn         = Process_GetStdIn();			/* 標準入力 */
 		Inf.hStdOut        = Process_GetStdOut();			/* 標準出力 */
 		Inf.hStdErr        = Process_GetStdErr();			/* 標準エラー出力 */
-		hProcess = Process_CreateEx(&Inf);
+		hProcess = Process_Create(&Inf);
 		
 		if ( iBackGround )
 		{

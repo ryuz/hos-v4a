@@ -16,10 +16,10 @@
 /** プロセスの標準ターミナル設定 */
 void Process_SetTerminal(HANDLE hFile)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
+	self = Process_GetCurrentProcessObj();
 	
 	/* ハンドルを設定 */
 	self->hTerminal = hFile;

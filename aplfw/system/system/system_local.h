@@ -37,14 +37,14 @@ typedef struct t_system_procinf
 /* システムクラス */
 typedef struct c_system
 {
-	C_PROCESS			**ppProcessTable;		/**< プロセステーブル */
+	C_PROCESSOBJ		**ppProcessTable;		/**< プロセステーブル */
 	unsigned long		ulProcessTableSize;		/**< プロセステーブルのサイズ */
 	unsigned long		ulNextProcessId;		/**< 次のプロセスID */
 	
-	C_PROCESS			Process;				/**< システムプロセス */
+	C_PROCESSOBJ		Process;				/**< システムプロセス */
 
-	C_PROCESS			*pRunProcess;			/**< 実行中プロセスのリスト */
-		
+	C_PROCESSOBJ		*pRunProcess;			/**< 実行中プロセスのリスト */
+	
 	HANDLE				hBootProcess;
 	
 	C_ASSOC				*paWhiteBoard;			/**< ホワイトボード */
@@ -66,13 +66,13 @@ extern C_SYSTEM g_System;
 extern "C" {
 #endif
 
-int    System_Process(VPARAM Param);					/* システムプロセス */
+int            System_Process(VPARAM Param);							/* システムプロセスエントリーポイント */
 
-C_PROCESS *System_GetSystemProcess(void);
-void       System_RegistryProcess(C_PROCESS *pProcess);		/* プロセスの登録 */
-void       System_UnregistryProcess(C_PROCESS *pProcess);	/* プロセスの登録解除 */
+C_PROCESSOBJ *System_GetSystemProcessObj(void);
+unsigned long System_RegistryProcess(C_PROCESSOBJ *pProcess);			/* プロセスの登録 */
+void          System_UnregistryProcess(unsigned long ulProcessId);		/* プロセスの登録解除 */
 
-#define    System_GetSystemOwnerObj()	(&System_GetSystemProcess()->OwnerObj)
+#define       System_GetSystemOwnerObj()	(&System_GetSystemProcess()->OwnerObj)
 
 #ifdef __cplusplus
 }

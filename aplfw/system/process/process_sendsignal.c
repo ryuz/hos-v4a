@@ -17,10 +17,10 @@
 /**< プロセスにシグナル受信プロシージャを登録 */
 void Process_SendSignal(HANDLE hProcess, int iSignal)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
+	self = ProcessPtr_GetProcessObj(hProcess);
 	
 	/* シグナル送信 */
 	self->iSignal = iSignal;

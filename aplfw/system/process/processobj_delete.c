@@ -12,14 +12,14 @@
 
 
 /* プロセス削除 */
-void Process_Delete(HANDLE hProcess)
+void ProcessObj_Delete(HANDLE hProcess)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
-	self = (C_PROCESS *)hProcess;
+	self = (C_PROCESSOBJ *)hProcess;
 
 	/* デストラクタ呼び出し */
-	Process_Destructor(self);
+	ProcessObj_Destructor(self);
 	
 	/* メモリ開放 */
 	SysMem_Free(self);

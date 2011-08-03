@@ -17,7 +17,7 @@
 /** 実行時間の取得 */	
 unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanosecond)
 {
-	C_PROCESS		*self;
+	C_PROCESSOBJ	*self;
 	SYSTIM_CPUTIME	CpuTime;
 	
 	/* アイドル時間取得 */
@@ -29,7 +29,7 @@ unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanose
 	}
 	
 	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
+	self = ProcessPtr_GetProcessObj(hProcess);
 	
 	CpuTime = SysPrc_GetExecTime(self->hPrc);
 	

@@ -14,13 +14,13 @@
 
 
 /** プロセス固有情報の設定 */
-void Process_SetParam(HANDLE hProcess, VPARAM Param)
+void Process_SetParam(VPARAM Param)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
-	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
-	
+	/* 現在のプロセス取得 */
+	self = Process_GetCurrentProcessObj();
+
 	/* パラメータを設定 */
 	self->Param = Param;
 }

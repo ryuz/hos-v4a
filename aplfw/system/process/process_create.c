@@ -11,37 +11,39 @@
 #include "process_local.h"
 
 
+static void Process_Entry(void);
+static void Process_SignalHandler(void);
+
+
+const T_OBJECT_METHODS ProcessPtr_Methods =
+	{
+		"ProcessPtr",
+		ProcessPtr_Delete,	/* デストラクタ */
+		NULL,
+	};
+
 
 /* プロセス生成 */
-HANDLE Process_Create(const char *pszCommand, MEMSIZE StackSize, int Priority)
+HANDLE Process_Create(const T_PROCESS_CREATE_INF *pInf)
 {
-	T_PROCESS_CREATE_INF Inf;
-	
-	/* デフォルト値 */
-	if ( StackSize == 0 )
+	C_PROCESSOBJ	*pObj;
+	C_PROCESSPTR	*pPtr;
+
+	/* 本体生成 */
+	if ( (pObj = (C_PROCESSOBJ *)ProcessObj_Create(pInf)) == NULL )
 	{
-		StackSize = 4096;
+		return HANDLE_NULL;
 	}
-	if ( Priority == 0 )
+
+	/* ポインタ生成 */
+	if ( (pPtr = (C_PROCESSPTR *)ProcessPtr_Create(pObj)) == NULL )
 	{
-		Priority = PROCESS_PRIORITY_NORMAL;
+		ProcessObj_Delete((HANDLE)pObj);
+		return HANDLE_NULL;
 	}
 	
-	Inf.pszCommandLine = pszCommand;							/**< コマンドライン */
-	Inf.pszCurrentDir  = Process_GetCurrentDir(HANDLE_NULL);	/**< 起動ディレクトリ */
-	Inf.pfncEntry      = NULL;									/**< 起動アドレス */
-	Inf.Param          = 0;										/**< ユーザーパラメータ */
-	Inf.StackSize      = StackSize;								/**< スタックサイズ */
-	Inf.Priority       = Priority;								/**< プロセス優先度 */
-	Inf.hTerminal      = Process_GetTerminal();			/**< ターミナル */
-	Inf.hConsole       = Process_GetConsole();			/**< コンソール入力 */
-	Inf.hStdIn         = Process_GetStdIn();			/**< 標準入力 */
-	Inf.hStdOut        = Process_GetStdOut();			/**< 標準出力 */
-	Inf.hStdErr        = Process_GetStdErr();			/**< 標準エラー出力 */
-	
-	return Process_CreateEx(&Inf);
+	return (HANDLE)pPtr;
 }
-	
 
 
 /* end of file */

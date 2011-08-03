@@ -11,10 +11,9 @@
 
 #include "handle_local.h"
 #include "system/system/system_local.h"
-#include "system/process/process_local.h"
 
 
-C_POINTEROBJ *PointerObj_Delete(HANDLE handle)
+void PointerObj_Delete(HANDLE handle)
 {
 	C_POINTEROBJ	*self;
 	

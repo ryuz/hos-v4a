@@ -30,7 +30,7 @@ typedef struct t_fileobj_methods
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_fileobj
 {
-	C_POINTEROBJ		TargetObj;				/* 親クラスを継承 */
+	C_POINTEROBJ	PointerObj;				/* 親クラスを継承 */
 
 	struct c_drvobj	*pDrvObj;				/* ドライバへの参照 */
 

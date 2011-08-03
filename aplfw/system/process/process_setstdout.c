@@ -17,10 +17,10 @@
 /** プロセスの標準出力設定 */
 void Process_SetStdOut(HANDLE hFile)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
+	self = Process_GetCurrentProcessObj();
 	
 	/* ハンドルを設定 */
 	self->hStdOut = hFile;

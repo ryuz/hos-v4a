@@ -20,7 +20,8 @@
 extern "C" {
 #endif
 
-void Handle_Close(HANDLE handle);			/* ハンドルを閉じる */
+void   Handle_Close(HANDLE handle);			/* ハンドルを閉じる */
+HANDLE Handle_Duplicate(HANDLE handle);		/* ハンドルを複製する */
 
 #ifdef __cplusplus
 }

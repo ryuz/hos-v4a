@@ -14,15 +14,12 @@
 #include "process_local.h"
 
 
-const char *Process_GetCurrentDir(HANDLE hProcess)
+const char *Process_GetCurrentDir(void)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 
-	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* オブジェクトを取得 */
+	self = Process_GetCurrentProcessObj();
 
 	return self->pszCurrentDir;
 }

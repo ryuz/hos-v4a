@@ -19,7 +19,7 @@
 void TargetObj_Constructor(C_TARGETOBJ *self, const T_OBJECT_METHODS *pMethods)
 {
 	/* 親クラスのコンストラクタ (デフォルトで現在のプロセスに紐付け) */
-	Object_Constructor(&self->Object, pMethods, &System_GetSystemProcess()->OwnerObj);
+	Object_Constructor(&self->Object, pMethods, &System_GetSystemProcessObj()->OwnerObj);
 	self->iRefCounter = 0;
 	self->iDeleteFlag = 0;
 }

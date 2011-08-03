@@ -15,12 +15,12 @@
 
 
 /** プロセス固有情報の取得 */
-VPARAM Process_GetParam(HANDLE hProcess)
+VPARAM Process_GetParam(void)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
+	self = Process_GetCurrentProcessObj();
 	
 	/* パラメータを返す */
 	return self->Param;

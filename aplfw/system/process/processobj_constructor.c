@@ -15,28 +15,18 @@
 
 
 
-
 static void Process_Entry(void);
 static void Process_SignalHandler(void);
 
 
-static const T_OBJECT_METHODS Process_Methods =
-	{
-		"Process",
-		Process_Delete,	/* デストラクタ */
-	};
-
-
 /** コンストラクタ */
-PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf)
+PROCESS_ERR ProcessObj_Constructor(C_PROCESSOBJ *self, const T_OBJECT_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf)
 {
-	/* 親クラスコンストラクタ */
-	if ( pMethods == NULL )
-	{
-		pMethods = &Process_Methods;
-	}
-	OwnerObj_Constructor(&self->OwnerObj, pMethods);
-	
+	C_PROCESSPTR	*pPtr;
+
+	SYS_ASSERT(pMethods != NULL);
+	SYS_ASSERT(pInf != NULL);
+
 	/* メンバ変数初期化 */
 	self->iExitCode      = -1;					/* 終了コード */
 	self->iSignal        = 0;					/* シグナル番号 */
@@ -54,11 +44,18 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethod
 	self->hStdOut        = pInf->hStdOut;		/* 標準出力 */
 	self->hStdErr        = pInf->hStdErr;		/* 標準エラー出力 */
 	
+	/* 自ポインタメモリ確保 */
+	if ( (pPtr = (C_PROCESSPTR *)SysMem_Alloc(sizeof(C_PROCESSPTR))) == NULL )
+	{
+		return PROCESS_ERR_NG;
+	}
+	
 	/* コマンドラインコピー */
 	if ( pInf->pszCommandLine != NULL )
 	{
 		if ( (self->pszCommandLine = (char *)SysMem_Alloc(strlen(pInf->pszCommandLine) + 1)) == NULL )
 		{
+			SysMem_Free(pPtr);
 			return PROCESS_ERR_NG;
 		}
 		strcpy(self->pszCommandLine, pInf->pszCommandLine);
@@ -74,6 +71,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethod
 		if ( (self->pszCurrentDir = (char *)SysMem_Alloc(strlen(pInf->pszCurrentDir) + 1)) == NULL )
 		{
 			SysMem_Free(self->pszCommandLine);
+			SysMem_Free(pPtr);
 			return PROCESS_ERR_NG;
 		}
 		strcpy(self->pszCurrentDir, pInf->pszCurrentDir);
@@ -88,6 +86,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethod
 	{
 		SysMem_Free(self->pszCommandLine);
 		SysMem_Free(self->pszCurrentDir);
+		SysMem_Free(pPtr);
 		return PROCESS_ERR_NG;
 	}
 
@@ -98,6 +97,7 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethod
 		SysMem_Free(self->pStack);
 		SysMem_Free(self->pszCommandLine);
 		SysMem_Free(self->pszCurrentDir);
+		SysMem_Free(pPtr);
 		return PROCESS_ERR_NG;
 	}
 	SysEvt_Clear(self->hEvt);
@@ -110,11 +110,22 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethod
 		SysMem_Free(self->pStack);
 		SysMem_Free(self->pszCommandLine);
 		SysMem_Free(self->pszCurrentDir);
+		SysMem_Free(pPtr);
 		return PROCESS_ERR_NG;
 	}
 
+	/* 親クラスコンストラクタ */
+	if ( pMethods == NULL )
+	{
+		pMethods = &ProcessObj_Methods;
+	}
+	OwnerObj_Constructor(&self->OwnerObj, pMethods);
+	
+	/* ポインタ紐付け */
+	ProcessPtr_Constructor(pPtr, &ProcessPtr_Methods, self);
+	
 	/* システムに登録 */
-	System_RegistryProcess(self);
+	self->ulProcessId = System_RegistryProcess(self);
 	
 	/* プロセス動作開始 */
 	SysPrc_Start(self->hPrc);
@@ -129,12 +140,12 @@ PROCESS_ERR Process_Constructor(C_PROCESS *self, const T_OBJECT_METHODS *pMethod
 /* プロセスエントリーポイント */
 void Process_Entry(void)
 {
-	C_PROCESS	*self;
-	int			(*pfncEntry)(VPARAM Param);
-	VPARAM		ProcParam;
-	int			iExitCode;
+	C_PROCESSOBJ	*self;
+	int				(*pfncEntry)(VPARAM Param);
+	VPARAM			ProcParam;
+	int				iExitCode;
 	
-	self = (C_PROCESS *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
+	self = (C_PROCESSOBJ *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
 	
 	SysPrc_SetSignalHandler(SysPrc_GetCurrentHandle(), Process_SignalHandler);
 	
@@ -162,9 +173,9 @@ void Process_Entry(void)
 /* シグナル受信ポイント */
 void Process_SignalHandler(void)
 {
-	C_PROCESS	*self;
+	C_PROCESSOBJ	*self;
 
-	self = (C_PROCESS *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
+	self = (C_PROCESSOBJ *)SysPrc_GetParam(SysPrc_GetCurrentHandle());
 	
 	if ( self->pfncSignalProc != NULL )
 	{

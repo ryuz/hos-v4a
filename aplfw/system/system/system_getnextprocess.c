@@ -42,7 +42,7 @@ unsigned long System_GetNextProcessId(unsigned long ulProcessId)
 
 
 /* プロセスの登録 */
-void System_RegistryProcess(C_PROCESS *pProcess)
+unsigned long System_RegistryProcess(C_PROCESSOBJ *pProcessObj)
 {
 	unsigned long	ulSysPrcId;
 	unsigned long	ulProcessId;
@@ -51,7 +51,7 @@ void System_RegistryProcess(C_PROCESS *pProcess)
 	self = &g_System;
 
 	/* ITRON-ID取得 */
-	ulSysPrcId = (unsigned long)pProcess->hPrc;
+	ulSysPrcId = (unsigned long)pProcessObj->hPrc;
 	SYS_ASSERT(ulSysPrcId < self->ulProcessTableSize);
 	SYS_ASSERT(self->ppProcessTable[ulSysPrcId] == NULL);
 
@@ -63,20 +63,21 @@ void System_RegistryProcess(C_PROCESS *pProcess)
 		ulProcessId += self->ulProcessTableSize;
 	}
 
-	pProcess->ulProcessId = ulProcessId;
-	self->ppProcessTable[ulSysPrcId] = pProcess;
+	self->ppProcessTable[ulSysPrcId] = pProcessObj;
 	self->ulNextProcessId = ulProcessId + 1;
+
+	return ulProcessId;
 }
 
 
 /* プロセスの登録解除 */
-void System_UnregistryProcess(C_PROCESS *pProcess)
+void System_UnregistryProcess(unsigned long ulProcessId)
 {
 	C_SYSTEM		*self;
 
 	self = &g_System;
 
-	self->ppProcessTable[pProcess->ulProcessId % self->ulProcessTableSize] = NULL;
+	self->ppProcessTable[ulProcessId % self->ulProcessTableSize] = NULL;
 }
 
 

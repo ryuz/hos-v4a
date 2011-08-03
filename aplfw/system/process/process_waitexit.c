@@ -18,7 +18,7 @@
 /** プロセスの終了を待つ */
 PROCESS_ERR Process_WaitExit(HANDLE hProcess)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	if ( hProcess == HANDLE_NULL )
 	{
@@ -26,8 +26,14 @@ PROCESS_ERR Process_WaitExit(HANDLE hProcess)
 	}
 
 	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
+	self = ProcessPtr_GetProcessObj(hProcess);
 	
+	/* 自オブジェクトの指定禁止 */
+	if ( self == Process_GetCurrentProcessObj() )
+	{
+		return PROCESS_ERR_NG;
+	}
+
 	/* 終了を待つ */
 	while ( !self->Exit )
 	{
@@ -42,15 +48,11 @@ PROCESS_ERR Process_WaitExit(HANDLE hProcess)
 /** プロセスの終了を確認 */
 int Process_IsExit(HANDLE hProcess)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
-	if ( hProcess == HANDLE_NULL )
-	{
-		return 0;
-	}
-
-	self = (C_PROCESS *)hProcess;
-
+	/* ハンドルからオブジェクト本体を取得 */
+	self = ProcessPtr_GetProcessObj(hProcess);
+	
 	return self->Exit;
 }
 

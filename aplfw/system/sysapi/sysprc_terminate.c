@@ -25,6 +25,11 @@ void SysPrc_Terminate(SYSPRC_HANDLE hPrc)
 	}
 }
 
+/** プロセス終了(システム用) */
+void SysPrc_Exit(void)		
+{
+	ext_tsk();
+}
 
 
 /* end of file */

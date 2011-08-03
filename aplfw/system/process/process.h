@@ -59,36 +59,31 @@ typedef struct t_process_create_inf
 extern "C" {
 #endif
 
-HANDLE        Process_Create(const char *pszCommand, MEMSIZE StackSize, int Priority);			/**< プロセス生成 */
-HANDLE        Process_CreateEx(const T_PROCESS_CREATE_INF *pInf);								/**< プロセス生成(詳細制御版) */
-void          Process_Delete(HANDLE hProcess);													/**< プロセス削除 */
+/* 生成/削除 */
+HANDLE        Process_Create(const T_PROCESS_CREATE_INF *pInf);									/**< プロセス生成 */
+#define       Process_Delete	Handle_Close													/**< プロセス削除 */
 
-HANDLE        Process_GetCurrentHandle(void);													/**< 現在のプロセスハンドル取得 */	
+
+/* 自プロセスの操作 */
+HANDLE        Process_Execute(const char *pszCommand, MEMSIZE StackSize, int Priority);			/**< プロセス実行 */
+
+unsigned long Process_GetCurrentProcessId(void);												/**< 現在のプロセスID取得 */	
 void          Process_Exit(int iExitCode);														/**< 現在のプロセスを終了させる */
 
-int           Process_IsExit(HANDLE hProcess);													/**< プロセスの終了を確認 */
-int           Process_WaitExit(HANDLE hProcess);												/**< プロセスの終了を待つ */
-int           Process_GetExitCode(HANDLE hProcess);												/**< プロセスの終了コード取得 */
-
-void          Process_SetSignalProc(HANDLE hProcess, void (*pfncSignalProc)(int iSignal));		/**< プロセスにシグナル受信プロシージャを登録 */
-void          Process_SendSignal(HANDLE hProcess, int iSignal);									/**< プロセスにシグナルを送信 */
+void          Process_SetSignalProc(void (*pfncSignalProc)(int iSignal));						/**< プロセスにシグナル受信プロシージャを登録 */
 
 PROCESS_ERR   Process_EnterSystemMode(void);													/**< システムモードに入る */
 void          Process_LeaveSystemMode(void);													/**< システムモードを出る */
 int           Process_IsSystemMode(void);														/**< システムモードかどうか問い合わせ */
 
-const char    *Process_GetCommandLine(HANDLE hProcess);											/**< コマンドラインの取得 */	
-unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanosecond);			/**< 実行時間の取得 */	
-unsigned long Process_GetParentProcessId(HANDLE hProcess);										/**< 親プロセスの取得 */
+int           Process_SetCurrentDir(const char *pszPath);										/**< プロセスのカレントディレクトリ設定 */
+const char    *Process_GetCurrentDir(void);														/**< プロセスのカレントディレクトリ取得 */
 
-void          Process_SetParam(HANDLE hProcess, VPARAM Param);									/**< プロセス固有情報の設定 */
-VPARAM        Process_GetParam(HANDLE hProcess);												/**< プロセス固有情報の取得 */
+void          Process_SetEnvString(const char *pszKey, const char *pszValue);					/**< 環境変数設定 */
+const char    *Process_GetEnvString(const char *pszKey);										/**< 環境変数取得 */
 
-void          Process_SetEnvString(HANDLE hProcess, const char *pszKey, const char *pszValue);	/**< 環境変数設定 */
-const char    *Process_GetEnvString(HANDLE hProcess, const char *pszKey);						/**< 環境変数取得 */
-
-int           Process_SetCurrentDir(HANDLE hProcess, const char *pszPath);						/**< プロセスのカレントディレクトリ設定 */
-const char    *Process_GetCurrentDir(HANDLE hProcess);											/**< プロセスのカレントディレクトリ取得 */
+void          Process_SetParam(VPARAM Param);													/**< プロセス固有情報の設定 */
+VPARAM        Process_GetParam(void);															/**< プロセス固有情報の取得 */
 
 void          Process_SetTerminal(HANDLE hFile);												/**< プロセスの標準ターミナル設定 */
 HANDLE        Process_GetTerminal(void);														/**< プロセスの標準ターミナル取得 */
@@ -101,6 +96,19 @@ HANDLE        Process_GetStdOut(void);															/**< プロセスの標準�
 void          Process_SetStdErr(HANDLE hFile);													/**< プロセスの標準エラー出力設定 */
 HANDLE        Process_GetStdErr(void);															/**< プロセスの標準エラー出力取得 */
 
+/* 外部プロセスからの操作 */
+HANDLE        Process_Open(unsigned long ulProcessId);											/**< プロセスを開く */
+#define       Process_Close		Handle_Close													/**< プロセスを閉る */
+
+void          Process_SendSignal(HANDLE hProcess, int iSignal);									/**< プロセスにシグナルを送信 */
+
+int           Process_IsExit(HANDLE hProcess);													/**< プロセスの終了を確認 */
+int           Process_WaitExit(HANDLE hProcess);												/**< プロセスの終了を待つ */
+int           Process_GetExitCode(HANDLE hProcess);												/**< プロセスの終了コード取得 */
+
+const char    *Process_GetCommandLine(HANDLE hProcess);											/**< コマンドラインの取得 */	
+unsigned long Process_GetExecutionTime(HANDLE hProcess, unsigned long *pulNanosecond);			/**< 実行時間の取得 */	
+unsigned long Process_GetParentProcessId(HANDLE hProcess);										/**< 親プロセスの取得 */
 
 #ifdef __cplusplus
 }

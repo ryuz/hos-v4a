@@ -48,7 +48,7 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	/* プロセステーブル生成 */
 	self->ulProcessTableSize = 256;	
 	self->ulNextProcessId   = 1;
-	self->ppProcessTable    = (C_PROCESS **)SysMem_Alloc(sizeof(C_PROCESS *) * self->ulProcessTableSize);
+	self->ppProcessTable    = (C_PROCESSOBJ **)SysMem_Alloc(sizeof(C_PROCESSOBJ *) * self->ulProcessTableSize);
 	for ( i = 0; i < self->ulProcessTableSize; i++ )
 	{
 		self->ppProcessTable[i] = NULL;
@@ -76,7 +76,7 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */
 	pProcessInf->pszCurrentDir  = "/";						/* カレントディレクトリ */
-	Process_Constructor(&self->Process, NULL, pProcessInf);
+	ProcessObj_Constructor(&self->Process, NULL, pProcessInf);
 	
 	/* ブートプロセスの起動依頼 */
 	pProcessInf->pszCommandLine = "[boot]";
@@ -104,7 +104,7 @@ void System_BootProcess(VPARAM Param1, VPARAM Param2)
 	pProcessInf = (T_PROCESS_CREATE_INF *)Param2;
 	
 	/* ブートプロセスをシステムプロセスの子プロセスとして開始 */
-	self->hBootProcess = Process_CreateEx(pProcessInf);
+	self->hBootProcess = Process_Create(pProcessInf);
 	
 	/* プロセス生成情報用メモリ開放 */
 	SysMem_Free(pProcessInf);

@@ -433,9 +433,6 @@
     <ClInclude Include="..\..\..\..\application\utility\i2ccmd\i2ccmd.h">
       <Filter>application\utility\i2ccmd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\system\process\processhandle.h">
-      <Filter>system\process</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\system\handle\handle_local.h">
       <Filter>system\handle</Filter>
     </ClInclude>
@@ -816,19 +813,7 @@
     <ClCompile Include="..\..\..\..\system\command\command.c">
       <Filter>system\command</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_constructor.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_create.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_createex.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_delete.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_destructor.c">
       <Filter>system\process</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_entersystemmode.c">
@@ -844,9 +829,6 @@
       <Filter>system\process</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_getcurrentdir.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_getcurrenthandle.c">
       <Filter>system\process</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_getexecutiontime.c">
@@ -1497,18 +1479,6 @@
     <ClCompile Include="..\..\..\..\driver\i2c\i2c\i2cdrv_burstread.c">
       <Filter>driver\i2c\i2c</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\processhandle_delete.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\processhandle_create.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\process_getcurrentprocess.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\process\processhandle_getprocess.c">
-      <Filter>system\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_getstdout.c">
       <Filter>system\process</Filter>
     </ClCompile>
@@ -1545,8 +1515,32 @@
     <ClCompile Include="..\..\..\..\system\handle\pointerobj_delete.c">
       <Filter>system\handle</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\event\event_duplicatehandle.c">
+    <ClCompile Include="..\..\..\..\system\process\processobj_create.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\handle_duplicate.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\handle\pointerobj_duplicate.c">
+      <Filter>system\handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\event\eventobj_create.c">
       <Filter>system\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_execute.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\processobj_constructor.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\processobj_destructor.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\processobj_delete.c">
+      <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\process\process_getcurrentprocessobj.c">
+      <Filter>system\process</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

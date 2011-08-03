@@ -18,9 +18,9 @@
 /* 現在のプロセスを終了させる */
 void Process_Exit(int iExitCode)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 
-	self = Process_GetCurrentProcess();
+	self = Process_GetCurrentProcessObj();
 	
 	/* 終了コード設定 */
 	self->iExitCode = iExitCode;
@@ -30,9 +30,8 @@ void Process_Exit(int iExitCode)
 	SysEvt_Set(self->hEvt);
 
 	/* 終了 */
-	SysPrc_Terminate(self->hPrc);
+	SysPrc_Exit();
 }
-
 
 
 /* end of file */

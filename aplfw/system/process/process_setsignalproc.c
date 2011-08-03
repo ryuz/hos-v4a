@@ -14,20 +14,14 @@
 
 
 /**< プロセスにシグナル受信プロシージャを登録 */
-void Process_SetSignalProc(HANDLE hProcess, void (*pfncSignalProc)(int iSignal))
+void Process_SetSignalProc(void (*pfncSignalProc)(int iSignal))
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
+
+	/* 現在のプロセス取得 */
+	self = Process_GetCurrentProcessObj();
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
-	
-	/* ハンドルを設定 */
+	/* プロシージャを設定 */
 	self->pfncSignalProc = pfncSignalProc; 
 }
 

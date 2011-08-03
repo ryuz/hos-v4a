@@ -16,10 +16,10 @@
 /** システムモードかどうか問い合わせ */
 int Process_IsSystemMode(void)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
+	self = Process_GetCurrentProcessObj();
 	
 	/* モード判定 */
 	return (self->SysMode > 0);

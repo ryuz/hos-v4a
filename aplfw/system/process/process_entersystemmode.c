@@ -17,10 +17,10 @@
 /** システムモードに入る */
 PROCESS_ERR Process_EnterSystemMode(void)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentProcess();
+	self = Process_GetCurrentProcessObj();
 	
 	/* モード設定 */
 	self->SysMode++;

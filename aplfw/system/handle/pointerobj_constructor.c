@@ -17,7 +17,7 @@
 void PointerObj_Constructor(C_POINTEROBJ *self, const T_OBJECT_METHODS *pMethods, C_TARGETOBJ *pTargetObj)
 {
 	/* 親クラスのコンストラクタ (デフォルトで現在のプロセスに紐付け) */
-	Object_Constructor(&self->Object, pMethods, &Process_GetCurrentProcess()->OwnerObj);
+	Object_Constructor(&self->Object, pMethods, &Process_GetCurrentProcessObj()->OwnerObj);
 	
 	/* ターゲットオブジェクト登録 */
 	self->pTargetObj = pTargetObj;

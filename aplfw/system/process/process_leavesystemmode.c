@@ -16,13 +16,16 @@
 /** システムモードを出る */
 void Process_LeaveSystemMode(void)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
+	self = Process_GetCurrentProcessObj();
 	
 	/* モード設定 */
-	self->SysMode--;
+	if ( --self->SysMode == 0 )
+	{
+		/* シグナル処理 */
+	}
 }
 
 

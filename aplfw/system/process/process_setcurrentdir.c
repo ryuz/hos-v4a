@@ -15,14 +15,14 @@
 
 
 
-int Process_SetCurrentDir(HANDLE hProcess, const char *pszPath)
+int Process_SetCurrentDir(const char *pszPath)
 {
-	C_PROCESS	*self;
-	char		*pcBuf;
-	int			iLen;
+	C_PROCESSOBJ	*self;
+	char			*pcBuf;
+	int				iLen;
 	
 	/* ハンドルからオブジェクト本体を取得 */
-	self = ProcessHandle_GetProcess(hProcess);
+	self = Process_GetCurrentProcessObj();
 	
 	iLen = strlen(pszPath);
 	if ( iLen >= FILE_MAX_PATH )

@@ -20,7 +20,8 @@
 typedef struct t_object_methods
 {
 	const char	*pszObjectIdentify;
-	void		(*pfncDelete)(HANDLE Handle);		/* 削除 */
+	void		(*pfncDelete)(HANDLE Handle);		/**< 削除 */
+	HANDLE		(*pfncDuplicate)(HANDLE Handle);	/**< 複製 */
 } T_OBJECT_METHODS;
 
 
@@ -83,6 +84,7 @@ HANDLE  PointerObj_Create(const T_OBJECT_METHODS *pMethods, C_TARGETOBJ *pTarget
 void    PointerObj_Delete(HANDLE handle);																		/**< 削除 */
 void    PointerObj_Constructor(C_POINTEROBJ *self, const T_OBJECT_METHODS *pMethods, C_TARGETOBJ *pTargetObj);	/**< コンストラクタ */
 void    PointerObj_Destructor(C_POINTEROBJ *self);																/**< デストラクタ */
+HANDLE  PointerObj_Duplicate(HANDLE handle);																	/**< 複製 */
 #define PointerObj_GetTargetObj(self)	(((C_POINTEROBJ *)(self))->pTargetObj)									/**< ターゲット参照 */
 
 void    OwnerObj_Constructor(C_OWNEROBJ *self, const T_OBJECT_METHODS *pMethods);								/**< コンストラクタ */

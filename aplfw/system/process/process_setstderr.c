@@ -15,10 +15,10 @@
 /** プロセスの標準エラー出力設定 */
 void Process_SetStdErr(HANDLE hFile)
 {
-	C_PROCESS *self;
+	C_PROCESSOBJ *self;
 	
 	/* 現在のプロセス取得 */
-	self = Process_GetCurrentHandle();
+	self = Process_GetCurrentProcessObj();
 	
 	/* ハンドルを設定 */
 	self->hStdErr = hFile;
