@@ -62,17 +62,17 @@ typedef struct c_at91usartdrv
 extern "C" {
 #endif
 
-FILE_ERR  At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);
+FILE_ERR  At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);
 																															/**< コンストラクタ */
 void      At91UsartDrv_Destructor(C_AT91USARTDRV *self);																	/**< デストラクタ */
 
-HANDLE    At91UsartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      At91UsartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  At91UsartDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  At91UsartDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE At91UsartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE At91UsartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  At91UsartDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    At91UsartDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      At91UsartDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  At91UsartDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  At91UsartDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE At91UsartDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE At91UsartDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  At91UsartDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      At91UsartDrv_Isr(VPARAM Param);			/* 割込み処理 */
 

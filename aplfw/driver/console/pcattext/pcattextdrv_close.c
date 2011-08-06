@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void PcatTextDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void PcatTextDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_PCATTEXTDRV	*self;
-	C_FILEOBJ	*pFile;
+	C_FILEPTR	*pFile;
 	
 	/* upper cast */
-	self  = (C_PCATTEXTDRV *)pDrvObj;
-	pFile = (C_FILEOBJ *)pFileObj;
+	self  = (C_PCATTEXTDRV *)pFileObj;
+	pFile = (C_FILEPTR *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )
@@ -29,7 +29,7 @@ void PcatTextDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	}
 	
 	/* ディスクリプタ削除 */
-	FileObj_Delete((HANDLE)pFile);	
+	FilePtr_Delete((HANDLE)pFile);	
 }
 
 

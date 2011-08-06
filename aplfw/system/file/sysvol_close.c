@@ -14,14 +14,14 @@
 #include "system/sysapi/sysapi.h"
 
 
-void SysVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void SysVol_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_SYSVOL		*self;
 	C_SYSVOLFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_SYSVOL *)pDrvObj;
-	pFile = (C_SYSVOLFILE *)pFileObj;
+	self  = (C_SYSVOL *)pFileObj;
+	pFile = (C_SYSVOLFILE *)pFilePtr;
 	
 	/* 削除 */
 	SysVolFile_Delete(pFile);

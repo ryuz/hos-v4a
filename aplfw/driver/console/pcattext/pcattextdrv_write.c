@@ -13,14 +13,14 @@
 
 
 /** %jp{送信} */
-FILE_SIZE PcatTextDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE PcatTextDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_PCATTEXTDRV		*self;
 	const unsigned char	*pubBuf;
 	FILE_SIZE 			i;
 	
 	/* upper cast */
-	self = (C_PCATTEXTDRV *)pDrvObj;
+	self = (C_PCATTEXTDRV *)pFileObj;
 	
 	pubBuf = (const unsigned char *)pData;
 	

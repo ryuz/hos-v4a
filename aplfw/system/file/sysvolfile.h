@@ -15,7 +15,7 @@
 #define __HOS__sysvolfile_h__
 
 
-#include "system/file/fileobj.h"
+#include "system/file/file_local.h"
 #include "library/container/assoc/assoc.h"
 
 struct c_sysvol;
@@ -23,7 +23,7 @@ struct c_sysvol;
 /* システムボリュームのディレクトリファイル */
 typedef struct c_sysvolfile
 {
-	C_FILEOBJ	FileObj;			/* ディレクトリオブジェクトを継承 */
+	C_FILEPTR	FilePtr;			/* ディレクトリオブジェクトを継承 */
 	ASSOC_POS	posRead;
 
 /*	int			iReadPtr;	*/		/* リードポインタ */

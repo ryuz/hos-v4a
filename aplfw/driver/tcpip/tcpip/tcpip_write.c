@@ -15,7 +15,7 @@
 #include "library/algorithm/ipchecksum/ipchecksum.h"
 
 
-FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE TcpIp_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_TCPIP			*self;
 	C_TCPIPFILE		*pFile;
@@ -26,8 +26,8 @@ FILE_SIZE TcpIp_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData,
 	FILE_SIZE		SizeRet;
 	
 	/* upper cast */
-	self  = (C_TCPIP *)pDrvObj;
-	pFile = (C_TCPIPFILE *)pFileObj;
+	self  = (C_TCPIP *)pFileObj;
+	pFile = (C_TCPIPFILE *)pFilePtr;
 	
 	
 	if ( pFile->iType == TCPIPFILE_TYPE_UDP )

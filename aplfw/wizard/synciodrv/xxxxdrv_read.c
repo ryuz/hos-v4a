@@ -12,14 +12,14 @@
 
 
 /** %jp{読込み} */
-FILE_SIZE XxxxDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE XxxxDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_XXXXDRV		*self;
 	C_XXXXFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_XXXXDRV *)pDrvObj;
-	pFile = (C_XXXXFILE *)pFileObj;
+	self  = (C_XXXXDRV *)pFileObj;
+	pFile = (C_XXXXFILE *)pFilePtr;
 
 	return 0;
 }

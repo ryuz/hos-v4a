@@ -18,20 +18,22 @@
 HANDLE File_Open(const char *pszPath, int iMode)
 {
 	C_FILE		*self;
-	FILE_ERR	ErrCode;
+	C_FILEOBJ	*pFileObj;
 	char		szBuf[FILE_MAX_PATH];
 	
 	self = &g_File;
 	
 	/* 絶対パスに変換 */
-	ErrCode = File_RelPathToAbsPath(szBuf, pszPath, sizeof(szBuf));
-	if ( ErrCode != FILE_ERR_OK )
+	if ( File_RelPathToAbsPath(szBuf, pszPath, sizeof(szBuf)) != FILE_ERR_OK )
 	{
 		return HANDLE_NULL;
 	}
 	
+	/* ルートオブジェクト取得 */
+	pFileObj = (C_FILEOBJ *)g_File.hRootVol;
+	
 	/* ルートディレクトリからオープンを掛ける */
-	return DrvObj_vOpen((C_DRVOBJ *)self->hRootVol, &szBuf[1], iMode);
+	return FileObj_GetMethods(pFileObj)->pfncOpen(pFileObj, &pszPath[1], iMode);
 }
 
 

@@ -12,10 +12,10 @@
 
 
 /** %jp{送信} */
-FILE_SIZE XxxxDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE XxxxDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_XXXXDRV	*self;
-	C_FILEOBJ	*pFile;
+	C_FILEPTR	*pFile;
 	
 	return 0;
 }

@@ -15,7 +15,7 @@
 
 
 /** %jp{読出し} */
-FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE FatVol_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_FATVOL		*self;
 	C_FATFILE		*pFile;
@@ -25,8 +25,8 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	FATVOL_UINT		i;
 	
 	/* upper cast */
-	self  = (C_FATVOL *)pDrvObj;
-	pFile = (C_FATFILE *)pFileObj;
+	self  = (C_FATVOL *)pFileObj;
+	pFile = (C_FATFILE *)pFilePtr;
 	
 	pubBuf = (unsigned char *)pBuf;
 
@@ -35,7 +35,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	SysMtx_Lock(self->hMtx);
 	
 	/* サイズチェック */
-	if ( !(FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR) )
+	if ( !(FilePtr_GetMode(&pFile->FilePtr) & FILE_OPEN_DIR) )
 	{
 		if ( Size > pFile->FileSize - pFile->FilePos )
 		{
@@ -57,7 +57,7 @@ FILE_SIZE FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	}
 	
 	/* 読み出し */
-	while ( Size > 0 && (pFile->FilePos < pFile->FileSize || (FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR)) )
+	while ( Size > 0 && (pFile->FilePos < pFile->FileSize || (FilePtr_GetMode(&pFile->FilePtr) & FILE_OPEN_DIR)) )
 	{
 		FILE_POS 			ReadStart;
 		FILE_SIZE			ReadSize;

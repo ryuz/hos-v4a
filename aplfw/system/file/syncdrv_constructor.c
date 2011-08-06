@@ -13,7 +13,7 @@
 #include "syncdrv_local.h"
 
 
-FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods, int iSyncFactorNum)
+FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_FILEOBJ_METHODS *pMethods, int iSyncFactorNum)
 {
 	int i;
 	
@@ -35,7 +35,7 @@ FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods, 
 	}
 	
 	/* 親クラスコンストラクタ呼び出し */
-	DrvObj_Constructor(&self->DrvObj, pMethods);
+	FileObj_Constructor(&self->FileObj, pMethods);
 	
 	return FILE_ERR_OK;
 }

@@ -15,14 +15,14 @@
 
 
 
-FILE_ERR SysVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR SysVol_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_SYSVOL		*self;
 	C_SYSVOLFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_SYSVOL *)pDrvObj;
-	pFile = (C_SYSVOLFILE *)pFileObj;
+	self  = (C_SYSVOL *)pFileObj;
+	pFile = (C_SYSVOLFILE *)pFilePtr;
 	
 	switch ( iFunc )
 	{

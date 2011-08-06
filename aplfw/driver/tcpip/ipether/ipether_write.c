@@ -15,7 +15,7 @@
 
 
 /* IPパケット送信 */
-FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE IpEther_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_IPETHER			*self;
 	const unsigned char	*pubData;
@@ -27,7 +27,7 @@ FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pDat
 	unsigned short		uhSum;
 	
 	/* upper cast */
-	self = (C_IPETHER *)pDrvObj;
+	self = (C_IPETHER *)pFileObj;
 	
 	pubData = (unsigned char *)pData;
 	

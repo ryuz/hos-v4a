@@ -13,13 +13,13 @@
 
 
 /** オープン */
-HANDLE JellyUartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE JellyUartDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_JELLYUARTDRV	*self;
 	HANDLE		hFile;
 	
 	/* upper cast */
-	self = (C_JELLYUARTDRV *)pDrvObj;
+	self = (C_JELLYUARTDRV *)pFileObj;
 
 	/* create file descriptor */
 	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL )

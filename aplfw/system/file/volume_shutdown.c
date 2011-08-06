@@ -22,7 +22,7 @@ FILE_ERR Volume_Shutdown(HANDLE hVolume)
 	
 	self = (C_VOLUMEOBJ *)hVolume;
 	
-	return ((T_VOLUMEOBJ_METHODS *)self->DrvObj.TargetObj.Object.pMethods)->pfncShutdown(self);
+	return ((T_VOLUMEOBJ_METHODS *)self->FileObj.TargetObj.Object.pMethods)->pfncShutdown(self);
 }
 
 

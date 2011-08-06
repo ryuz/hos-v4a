@@ -13,21 +13,21 @@
 
 
 /** %jp{仮想関数テーブル}%en{virtual functions table} */
-const T_DRVOBJ_METHODS PcatTextDrv_Methods = 
+const T_FILEOBJ_METHODS PcatTextDrv_Methods = 
 	{
 		{ PcatTextDrv_Delete },
 		PcatTextDrv_Open,
 		PcatTextDrv_Close,
 		PcatTextDrv_IoControl,
-		DrvObj_Seek,
-		DrvObj_Read,
+		FileObj_Seek,
+		FileObj_Read,
 		PcatTextDrv_Write,
-		DrvObj_Flush,
+		FileObj_Flush,
 	};
 
 
 /** コンストラクタ */
-FILE_ERR PcatTextDrv_Constructor(C_PCATTEXTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, void *pVramBase)
+FILE_ERR PcatTextDrv_Constructor(C_PCATTEXTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, void *pVramBase)
 {
 	/* 仮想関数テーブル */
 	if ( pMethods == NULL )
@@ -36,7 +36,7 @@ FILE_ERR PcatTextDrv_Constructor(C_PCATTEXTDRV *self, const T_DRVOBJ_METHODS *pM
 	}
 	
 	/* 親クラスコンストラクタ呼び出し */
-	DrvObj_Constructor(&self->DrvObj, pMethods);
+	FileObj_Constructor(&self->FileObj, pMethods);
 	
 	/* メンバ変数初期化 */
 	self->pRegBase      = pRegBase;

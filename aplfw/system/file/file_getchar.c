@@ -15,10 +15,10 @@
 
 int File_GetChar(HANDLE hFile)
 {
-	C_FILEOBJ	*pFileObj;
+	C_FILEPTR	*pFilePtr;
 	char 		c;
 
-	pFileObj = (C_FILEOBJ *)hFile;
+	pFilePtr = (C_FILEPTR *)hFile;
 	
 	do
 	{	
@@ -26,7 +26,7 @@ int File_GetChar(HANDLE hFile)
 		{
 			return FILE_EOF;
 		}
-	} while ( c == '\r' && (FileObj_GetMode(pFileObj) & FILE_OPEN_TEXT) );
+	} while ( c == '\r' && (FilePtr_GetMode(pFilePtr) & FILE_OPEN_TEXT) );
 
 	
 	return c;

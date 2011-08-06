@@ -24,7 +24,7 @@
 #define DEVVOL_MAX_NAME			16
 
 /* デバイス情報 */
-struct c_drvobj;
+struct c_fileobj;
 typedef struct t_sysvol_devinf
 {
 	HANDLE			hDriver;						/* デバイスドライバのハンドル */

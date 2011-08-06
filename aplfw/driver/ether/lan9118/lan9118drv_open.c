@@ -13,14 +13,14 @@
 
 
 /** オープン */
-HANDLE Lan9118Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE Lan9118Drv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_LAN9118DRV	*self;
 	C_CHRFILE		*pFile;
 	int				i;
 	
 	/* upper cast */
-	self = (C_LAN9118DRV *)pDrvObj;
+	self = (C_LAN9118DRV *)pFileObj;
 	
 	/* オープン処理 */
 	if ( self->iOpenCount == 0 )

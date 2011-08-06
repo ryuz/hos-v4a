@@ -13,12 +13,12 @@
 
 
 /** デストラクタ */
-void Lan9118Drv_Delete(C_DRVOBJ *pDrvObj)
+void Lan9118Drv_Delete(C_FILEOBJ *pFileObj)
 {
 	C_LAN9118DRV	*self;
 	
 	/* upper cast */
-	self = (C_LAN9118DRV *)pDrvObj;
+	self = (C_LAN9118DRV *)pFileObj;
 
 	/* 同期オブジェクト削除 */
 	SysEvt_Delete(self->hEvtRecv);

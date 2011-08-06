@@ -12,7 +12,7 @@
 #include "ipether_local.h"
 
 
-FILE_ERR IpEther_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR IpEther_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	return FILE_ERR_NG;
 }

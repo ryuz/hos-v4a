@@ -13,7 +13,7 @@
 #define __HOS__memdrv_h__
 
 
-#include "system/file/drvobj.h"
+#include "system/file/file_local.h"
 
 
 #ifdef __cplusplus

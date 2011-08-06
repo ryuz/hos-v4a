@@ -15,13 +15,13 @@
 
 
 /** オープン */
-HANDLE MemDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE MemDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_MEMDRV	*self;
 	HANDLE		hFile;
 	
 	/* upper cast */
-	self = (C_MEMDRV *)pDrvObj;
+	self = (C_MEMDRV *)pFileObj;
 
 	SysMtx_Lock(self->hMtx);
 	

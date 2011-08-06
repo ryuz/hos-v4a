@@ -12,7 +12,7 @@
 #include "memfile_local.h"
 
 
-static const T_FILEOBJ_METHODS MemFile_FileObjMethods =
+static const T_FILEOBJ_METHODS MemFile_FilePtrMethods =
 	{
 		{File_Close},	/* デストラクタ */
 	};
@@ -29,7 +29,7 @@ HANDLE MemFile_Create(C_MEMDRV *pMemVol, int iMode)
 	}
 	
 	/* コンストラクタ呼び出し */
-	MemFile_Constructor(self, &MemFile_FileObjMethods, pMemVol, iMode);
+	MemFile_Constructor(self, &MemFile_FilePtrMethods, pMemVol, iMode);
 	
 	return (HANDLE)self;
 }

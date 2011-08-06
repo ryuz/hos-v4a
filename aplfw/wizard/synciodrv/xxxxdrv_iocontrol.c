@@ -11,15 +11,15 @@
 #include "xxxxdrv_local.h"
 
 
-FILE_ERR XxxxDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR XxxxDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_XXXXDRV		*self;
 	C_XXXXFILE			*pFile;
 	FILE_ERR			ErrCode;
 	
 	/* upper cast */
-	self  = (C_XXXXDRV *)pDrvObj;
-	pFile = (C_XXXXFILE *)pFileObj;
+	self  = (C_XXXXDRV *)pFileObj;
+	pFile = (C_XXXXFILE *)pFilePtr;
 
 	switch ( iFunc )
 	{
@@ -51,7 +51,7 @@ FILE_ERR XxxxDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, vo
 	}
 	
 	
-	return SyncDrv_IoControl(pDrvObj, pFileObj, iFunc, pInBuf, InSize, pOutBuf, OutSize);
+	return SyncDrv_IoControl(pFileObj, pFilePtr, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 }
 
 

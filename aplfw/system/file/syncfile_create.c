@@ -15,7 +15,7 @@
 #include "syncfile_local.h"
 
 
-static const T_FILEOBJ_METHODS SyncFile_FileObjMethods =
+static const T_FILEOBJ_METHODS SyncFile_FilePtrMethods =
 	{
 		{
 			"SyncFile",
@@ -35,7 +35,7 @@ HANDLE SyncFile_Create(struct c_syncdrv *pSyncDrv, int iMode)
 	}
 	
 	/* コンストラクタ呼び出し */
-	if ( SyncFile_Constructor(self, &SyncFile_FileObjMethods, pSyncDrv, iMode) != FILE_ERR_OK )
+	if ( SyncFile_Constructor(self, &SyncFile_FilePtrMethods, pSyncDrv, iMode) != FILE_ERR_OK )
 	{
 		SysMem_Free(self);
 		return HANDLE_NULL;

@@ -10,18 +10,19 @@
 
 
 #include "file_local.h"
-#include "fileobj.h"
+#include "file_local.h"
 
 
 FILE_ERR File_IoControl(HANDLE hFile, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
-	C_FILEOBJ *self;
-
-	self = FILE_HANDLE2OBJ(hFile);
-
-	return DrvObj_vIoControl(self->pDrvObj, self, iFunc, pInBuf, InSize, pOutBuf, OutSize);
+	C_FILEPTR *pFilePtr;
+	C_FILEOBJ *pFileObj;
+	
+	pFilePtr = (C_FILEPTR *)hFile;
+	pFileObj = FilePtr_GetFileObj(pFilePtr);
+	
+	return FileObj_GetMethods(pFileObj)->pfncIoControl(pFileObj, pFilePtr, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 }
-
 
 
 /* end of file */

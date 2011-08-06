@@ -16,11 +16,11 @@ extern "C" {
 #endif
 
 void      SysVol_Constructor(C_SYSVOL *self, const T_VOLUMEOBJ_METHODS *pMethods);
-void      SysVol_Destructor(C_DRVOBJ *self);
+void      SysVol_Destructor(C_FILEOBJ *self);
 
-HANDLE    SysVol_Open(struct c_drvobj *self, const char *pszPath, int iMode);			/* ファイルを開く */
-void      SysVol_Close(struct c_drvobj *self, struct c_fileobj *pFileObj);
-FILE_ERR  SysVol_IoControl(struct c_drvobj *self, struct c_fileobj *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+HANDLE    SysVol_Open(struct c_fileobj *self, const char *pszPath, int iMode);			/* ファイルを開く */
+void      SysVol_Close(struct c_fileobj *self, struct c_fileptr *pFilePtr);
+FILE_ERR  SysVol_IoControl(struct c_fileobj *self, struct c_fileptr *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 
 #ifdef __cplusplus
 }

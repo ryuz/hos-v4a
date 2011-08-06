@@ -52,17 +52,17 @@ typedef struct c_jellyuartdrv
 extern "C" {
 #endif
 
-FILE_ERR  JellyUartDrv_Constructor(C_JELLYUARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize);
+FILE_ERR  JellyUartDrv_Constructor(C_JELLYUARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize);
 																															/**< コンストラクタ */
 void      JellyUartDrv_Destructor(C_JELLYUARTDRV *self);																	/**< デストラクタ */
 
-HANDLE    JellyUartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      JellyUartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  JellyUartDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  JellyUartDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE JellyUartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE JellyUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  JellyUartDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    JellyUartDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      JellyUartDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  JellyUartDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  JellyUartDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE JellyUartDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE JellyUartDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  JellyUartDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      JellyUartDrv_IsrRx(VPARAM Param);			/**< %jp{割込み処理} */
 void      JellyUartDrv_IsrTx(VPARAM Param);			/**< %jp{割込み処理} */

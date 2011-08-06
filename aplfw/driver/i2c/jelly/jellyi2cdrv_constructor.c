@@ -12,7 +12,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR JellyI2cDrv_Constructor(C_JELLYI2CDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, unsigned long ulBaseClock)
+FILE_ERR JellyI2cDrv_Constructor(C_JELLYI2CDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, unsigned long ulBaseClock)
 {
 	FILE_ERR	ErrCode;
 	

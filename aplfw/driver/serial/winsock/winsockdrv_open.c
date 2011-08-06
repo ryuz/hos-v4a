@@ -14,13 +14,13 @@
 
 
 /** オープン */
-HANDLE WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE WinSockDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_WINSOCKDRV		*self;
 	HANDLE				hFile;
 
 	/* upper cast */
-	self = (C_WINSOCKDRV *)pDrvObj;
+	self = (C_WINSOCKDRV *)pFileObj;
 
 	/* create file descriptor */
 	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL )

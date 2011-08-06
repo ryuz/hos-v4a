@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-static const T_DRVOBJ_METHODS MemDrv_Methods = 
+static const T_FILEOBJ_METHODS MemDrv_Methods = 
 	{
 		{ MemDrv_Delete },
 		MemDrv_Open,
@@ -28,7 +28,7 @@ static const T_DRVOBJ_METHODS MemDrv_Methods =
 
 
 /** コンストラクタ */
-void MemDrv_Constructor(C_MEMDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pMemAddr, FILE_POS MemSize, FILE_POS IniSize, int iAttr)
+void MemDrv_Constructor(C_MEMDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pMemAddr, FILE_POS MemSize, FILE_POS IniSize, int iAttr)
 {
 	if ( pMethods == NULL )
 	{
@@ -36,7 +36,7 @@ void MemDrv_Constructor(C_MEMDRV *self, const T_DRVOBJ_METHODS *pMethods, void *
 	}
 	
 	/* 親クラスコンストラクタ呼び出し */
-	DrvObj_Constructor(&self->DrvObj, pMethods);
+	FileObj_Constructor(&self->FileObj, pMethods);
 	
 	/* メンバ変数初期化 */
 	self->iOpenCount = 0;

@@ -13,7 +13,7 @@
 #include "system/sysapi/sysapi.h"
 
 
-const T_DRVOBJ_METHODS  Vt100Drv_Methods = 
+const T_FILEOBJ_METHODS  Vt100Drv_Methods = 
 	{
 		{
 			"Vt100Drv",

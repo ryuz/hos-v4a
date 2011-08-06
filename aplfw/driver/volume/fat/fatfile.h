@@ -14,13 +14,13 @@
 
 
 #include "fatvol_local.h"
-#include "system/file/fileobj_local.h"
+#include "system/file/file_local.h"
 
 
 /* ファイルディスクリプタ */
 typedef struct c_fatfile
 {
-	C_FILEOBJ	FileObj;			/* ボリュームオブジェクトを継承 */
+	C_FILEPTR	FilePtr;			/* ボリュームオブジェクトを継承 */
 	
 	FATVOL_UINT	uiStartCluster;		/* ファイルの先頭クラスタ */
 	

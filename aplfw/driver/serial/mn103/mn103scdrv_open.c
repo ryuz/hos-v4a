@@ -13,13 +13,13 @@
 
 
 /** オープン */
-HANDLE Mn103ScDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE Mn103ScDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_MN103SCDRV	*self;
 	HANDLE			hFile;
 	
 	/* upper cast */
-	self = (C_MN103SCDRV *)pDrvObj;
+	self = (C_MN103SCDRV *)pFileObj;
 
 	/* create file descriptor */
 	if ( (hFile = SyncFile_Create(&self->SyncDrv, 3)) == HANDLE_NULL )

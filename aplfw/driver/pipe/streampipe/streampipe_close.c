@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void StreamPipe_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void StreamPipe_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_STREAMPIPE	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_STREAMPIPE *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_STREAMPIPE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )

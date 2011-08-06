@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS At91UsartDrv_Methods = 
+const T_FILEOBJ_METHODS At91UsartDrv_Methods = 
 	{
 		{ At91UsartDrv_Delete },
 		At91UsartDrv_Open,

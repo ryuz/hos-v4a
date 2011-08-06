@@ -13,7 +13,7 @@
 
 
 /** %jp{受信} */
-FILE_SIZE Lan9000Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE Lan9000Drv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_LAN9000DRV	*self;
 	C_SYNCFILE		*pFile;
@@ -22,8 +22,8 @@ FILE_SIZE Lan9000Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	unsigned short	uhStatus;
 		
 	/* upper cast */
-	self  = (C_LAN9000DRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_LAN9000DRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 	
 	/* 読込み処理開始 */
 	if ( (ErrCode = SyncDrv_StartProcess(&self->SyncDrv, pFile, SYNCDRV_FACTOR_READ)) != FILE_ERR_OK )

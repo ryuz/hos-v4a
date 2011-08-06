@@ -12,14 +12,14 @@
 #include "lan9118drv_local.h"
 
 
-FILE_ERR Lan9118Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR Lan9118Drv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_LAN9118DRV	*self;
 	C_CHRFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_LAN9118DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	self  = (C_LAN9118DRV *)pFileObj;
+	pFile = (C_CHRFILE *)pFilePtr;
 
 	return FILE_ERR_OK;
 }

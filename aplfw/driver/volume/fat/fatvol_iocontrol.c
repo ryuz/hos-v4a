@@ -13,14 +13,14 @@
 #include "fatvol_local.h"
 
 
-FILE_ERR FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR FatVol_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_FATVOL	*self;
 	C_FATFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_FATVOL *)pDrvObj;
-	pFile = (C_FATFILE *)pFileObj;
+	self  = (C_FATVOL *)pFileObj;
+	pFile = (C_FATFILE *)pFilePtr;
 
 	switch ( iFunc )
 	{
@@ -36,7 +36,7 @@ FILE_ERR FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, voi
 			do
 			{
 				/* 1エントリ読み出し */
-				if ( FatVol_Read(pDrvObj, pFileObj, ubBuf, 32) != 32 )
+				if ( FatVol_Read(pFileObj, pFilePtr, ubBuf, 32) != 32 )
 				{
 					return FILE_ERR_NG;
 				}

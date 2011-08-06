@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS Pc16550Drv_Methods = 
+const T_FILEOBJ_METHODS Pc16550Drv_Methods = 
 	{
 		{ Pc16550Drv_Delete },
 		Pc16550Drv_Open,

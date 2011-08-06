@@ -12,14 +12,14 @@
 #include "scidrv_local.h"
 
 
-FILE_ERR SciDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR SciDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_SCIDRV	*self;
 	C_SYNCFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_SCIDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_SCIDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	return FILE_ERR_OK;
 }

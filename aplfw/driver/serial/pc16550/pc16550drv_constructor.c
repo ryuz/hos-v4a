@@ -14,7 +14,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR Pc16550Drv_Constructor(C_PC16550DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegAddr,  unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize)
+FILE_ERR Pc16550Drv_Constructor(C_PC16550DRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegAddr,  unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void 		*pMem;

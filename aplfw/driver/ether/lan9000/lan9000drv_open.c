@@ -13,13 +13,13 @@
 
 
 /** オープン */
-HANDLE Lan9000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE Lan9000Drv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_LAN9000DRV	*self;
 	HANDLE			hFile;
 	
 	/* upper cast */
-	self = (C_LAN9000DRV *)pDrvObj;
+	self = (C_LAN9000DRV *)pFileObj;
 
 	/* create file descriptor */
 	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL )

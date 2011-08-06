@@ -13,14 +13,14 @@
 #include "fatvol_local.h"
 
 
-FILE_POS FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS FatVol_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	C_FATVOL	*self;
 	C_FATFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_FATVOL *)pDrvObj;
-	pFile = (C_FATFILE *)pFileObj;
+	self  = (C_FATVOL *)pFileObj;
+	pFile = (C_FATFILE *)pFilePtr;
 	
 	
 	/* ファイルポインタ移動 */
@@ -50,7 +50,7 @@ FILE_POS FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, in
 	}
 	
 	/* サイズクリップ */
-	if ( pFile->FilePos > pFile->FileSize && !(pFile->FileObj.iMode & FILE_OPEN_DIR) )
+	if ( pFile->FilePos > pFile->FileSize && !(pFile->FilePtr.iMode & FILE_OPEN_DIR) )
 	{
 		pFile->FilePos = pFile->FileSize;
 	}

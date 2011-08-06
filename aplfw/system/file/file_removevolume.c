@@ -10,6 +10,7 @@
 
 
 #include "file_local.h"
+#include "sysvol.h"
 
 
 /* ボリュームデバイスの削除 */

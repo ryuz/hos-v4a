@@ -15,7 +15,7 @@
 
 
 /* ファイルオープン */
-HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE FatVol_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_FATVOL 			*self;
 	HANDLE 				hFile;
@@ -34,7 +34,7 @@ HANDLE FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	
 	
 	/* upper cast */
-	self = (C_FATVOL *)pDrvObj;
+	self = (C_FATVOL *)pFileObj;
 	
 	
 	/* クリティカルセクションに入る */

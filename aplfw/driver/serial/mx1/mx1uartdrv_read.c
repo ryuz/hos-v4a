@@ -13,7 +13,7 @@
 
 
 /** %jp{受信} */
-FILE_SIZE Mx1UartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE Mx1UartDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_MX1UARTDRV	*self;
 	C_SYNCFILE		*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE Mx1UartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	int				c;
 	
 	/* upper cast */
-	self  = (C_MX1UARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_MX1UARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	pubBuf = (unsigned char *)pBuf;
 

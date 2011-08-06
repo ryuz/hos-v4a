@@ -14,15 +14,15 @@
 
 
 #include "system/handle/handle_local.h"
-#include "system/file/drvobj.h"
+#include "system/file/file_local.h"
 
 
 /* ボリューム操作オブジェクトクラス基本メソッドテーブル */
 struct c_volumeobj;
 typedef struct t_volumeobj_methods
 {
-	T_DRVOBJ_METHODS	DrvObjMethods;			/* DrvObjを継承 */
-
+	T_FILEOBJ_METHODS	FileObjMethods;			/* FileObjを継承 */
+	
 	FILE_ERR (*pfncShutdown)(struct c_volumeobj *self);							/* デバイスのシャットダウン */
 	FILE_ERR (*pfncMakeDir)(struct c_volumeobj *self, const char *pszPath);		/* サブディレクトリを作成 */
 	FILE_ERR (*pfncRemove)(struct c_volumeobj *self, const char *pszPath);		/* ファイルを削除 */
@@ -30,7 +30,7 @@ typedef struct t_volumeobj_methods
 
 typedef struct c_volumeobj
 {
-	C_DRVOBJ	DrvObj;							/* DrvObjを継承 */
+	C_FILEOBJ	FileObj;							/* FileObjを継承 */
 } C_VOLUMEOBJ;
 
 
@@ -53,7 +53,7 @@ FILE_ERR VolumeObj_Remove(C_VOLUMEOBJ *self, const char *pszPath);				/**< フ�
 }
 #endif
 
-#define VolumeObj_GetMethods(self)		((T_VOLUMEOBJ_METHODS *)PointerObj_GetMethods(&(self)->DrvObj))
+#define VolumeObj_GetMethods(self)		((T_VOLUMEOBJ_METHODS *)PointerObj_GetMethods(&(self)->FileObj))
 
 
 

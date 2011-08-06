@@ -14,7 +14,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR Lan9000Drv_Constructor(C_LAN9000DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum)
+FILE_ERR Lan9000Drv_Constructor(C_LAN9000DRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum)
 {
 	FILE_ERR	ErrCode;
 

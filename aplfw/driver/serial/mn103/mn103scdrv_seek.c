@@ -12,14 +12,14 @@
 #include "mn103scdrv_local.h"
 
 
-FILE_POS Mn103ScDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS Mn103ScDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	C_MN103SCDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_MN103SCDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_MN103SCDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 
 	return FILE_ERR_NG;

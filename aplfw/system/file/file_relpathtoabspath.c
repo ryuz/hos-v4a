@@ -30,9 +30,9 @@ FILE_ERR File_RelPathToAbsPath(char *pszDstPath, const char *pszSrcPath, int iMa
 	else
 	{
 		/* 相対パス */
-		strcpy(pszDstPath, Process_GetCurrentDir(HANDLE_NULL));
+		strcpy(pszDstPath, Process_GetCurrentDir());
 		iLen = strlen(pszDstPath);
-		if ( pszDstPath[0] != '\0' )
+/*		if ( pszDstPath[0] != '\0' )	*/
 		{
 			strncat(pszDstPath, "/", iMaxLen - iLen);
 			iLen++;

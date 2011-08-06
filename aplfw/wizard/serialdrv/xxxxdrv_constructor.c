@@ -13,7 +13,7 @@
 
 
 /** %jp{仮想関数テーブル}%en{virtual functions table} */
-const T_DRVOBJ_METHODS XxxxDrv_Methods = 
+const T_FILEOBJ_METHODS XxxxDrv_Methods = 
 	{
 		{ XxxxDrv_Delete },
 		XxxxDrv_Open,
@@ -28,7 +28,7 @@ const T_DRVOBJ_METHODS XxxxDrv_Methods =
 
 
 /** コンストラクタ */
-FILE_ERR XxxxDrv_Constructor(C_XXXXDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
+FILE_ERR XxxxDrv_Constructor(C_XXXXDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void		*pMem;

@@ -8,16 +8,16 @@
  * http://sourceforge.jp/projects/hos/
  */
 
-#include "fileobj_local.h"
+#include "file_local.h"
 
 
-void FileObj_Delete(HANDLE hFile)
+void FilePtr_Delete(HANDLE hFile)
 {
-	C_FILEOBJ *self;
+	C_FILEPTR *self;
 	
-	self = (C_FILEOBJ *)hFile;
+	self = (C_FILEPTR *)hFile;
 
-	FileObj_Destructor(self);
+	FilePtr_Destructor(self);
 	
 	SysMem_Free(self);
 }

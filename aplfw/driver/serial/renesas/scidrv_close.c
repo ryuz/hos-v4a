@@ -13,12 +13,12 @@
 
 
 /** クローズ */
-void SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void SciDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_SCIDRV	*self;
 	
 	/* upper cast */
-	self = (C_SCIDRV *)pDrvObj;
+	self = (C_SCIDRV *)pFileObj;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )
@@ -29,7 +29,7 @@ void SciDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	}
 	
 	/* ディスクリプタ削除 */
-	SysMem_Free(pFileObj);
+	SysMem_Free(pFilePtr);
 }
 
 

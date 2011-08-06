@@ -14,14 +14,14 @@
 
 
 /** クローズ */
-void MemDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void MemDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_MEMDRV	*self;
 	C_MEMFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_MEMDRV *)pDrvObj;
-	pFile = (C_MEMFILE *)pFileObj;
+	self  = (C_MEMDRV *)pFileObj;
+	pFile = (C_MEMFILE *)pFilePtr;
 
 	SysMtx_Lock(self->hMtx);
 	
@@ -29,7 +29,7 @@ void MemDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	--self->iOpenCount;
 	
 	/* ディスクリプタ削除 */
-	FileObj_Delete((C_FILEOBJ *)pFile);	
+	FilePtr_Delete((C_FILEPTR *)pFile);	
 	SysMem_Free(pFile);
 
 	SysMtx_Unlock(self->hMtx);

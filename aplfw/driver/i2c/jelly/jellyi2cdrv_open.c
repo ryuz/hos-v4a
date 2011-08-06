@@ -13,13 +13,13 @@
 
 
 /** オープン */
-HANDLE JellyI2cDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE JellyI2cDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_JELLYI2CDRV	*self;
 	HANDLE			hFile;
 	
 	/* upper cast */
-	self = (C_JELLYI2CDRV *)pDrvObj;
+	self = (C_JELLYI2CDRV *)pFileObj;
 
 	/* create file descriptor */
 	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL )

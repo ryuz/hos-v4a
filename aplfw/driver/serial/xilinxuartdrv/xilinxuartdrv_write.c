@@ -13,7 +13,7 @@
 
 
 /** %jp{送信} */
-FILE_SIZE XilinxUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE XilinxUartDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_XILINXUARTDRV		*self;
 	C_SYNCFILE			*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE XilinxUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void
 	int					c;
 	
 	/* upper cast */
-	self  = (C_XILINXUARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_XILINXUARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 	
 	pubData = (const unsigned char *)pData;
 	

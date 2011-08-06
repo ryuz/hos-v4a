@@ -13,7 +13,7 @@
 
 
 /** %jp{受信} */
-FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE Pc16550Drv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_PC16550DRV	*self;
 	C_SYNCFILE		*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	int				c;
 	
 	/* upper cast */
-	self  = (C_PC16550DRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_PC16550DRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	pubBuf = (unsigned char *)pBuf;
 	

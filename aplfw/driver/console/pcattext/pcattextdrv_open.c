@@ -13,16 +13,16 @@
 
 
 /** オープン */
-HANDLE PcatTextDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE PcatTextDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_PCATTEXTDRV	*self;
 	HANDLE			hFile;
 	
 	/* upper cast */
-	self = (C_PCATTEXTDRV *)pDrvObj;
+	self = (C_PCATTEXTDRV *)pFileObj;
 
 	/* create file descriptor */
-	if ( (hFile = FileObj_Create(&self->DrvObj, iMode)) == HANDLE_NULL )
+	if ( (hFile = FilePtr_Create(&self->FileObj, iMode)) == HANDLE_NULL )
 	{
 		return HANDLE_NULL;
 	}

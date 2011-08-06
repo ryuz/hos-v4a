@@ -11,23 +11,23 @@
 
 #include <stdio.h>
 #include "file_local.h"
-#include "drvobj_local.h"
+#include "file_local.h"
 
 
 
 /* デバイスドライバ情報取得 */
 FILE_ERR  File_GetDriverInformation(HANDLE hDriver, char *pszInformation, int iLen)
 {
-	C_DRVOBJ *self;
+	C_FILEOBJ *self;
 	
-	self = (C_DRVOBJ *)hDriver;
+	self = (C_FILEOBJ *)hDriver;
 	
-	if ( DrvObj_GetMethods(self)->pfncGetInformation == NULL )
+	if ( FileObj_GetMethods(self)->pfncGetInformation == NULL )
 	{
 		return FILE_ERR_NG;
 	}
 	
-	return DrvObj_GetMethods(self)->pfncGetInformation(self, pszInformation, iLen);
+	return FileObj_GetMethods(self)->pfncGetInformation(self, pszInformation, iLen);
 }
 
 

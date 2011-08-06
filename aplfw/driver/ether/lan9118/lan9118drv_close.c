@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void Lan9118Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void Lan9118Drv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_LAN9118DRV	*self;
 	C_CHRFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_LAN9118DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	self  = (C_LAN9118DRV *)pFileObj;
+	pFile = (C_CHRFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )
@@ -30,7 +30,7 @@ void Lan9118Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	
 	/* ディスクリプタ削除 */
 	ChrFile_Delete(pFile);	
-	SysMem_Free(pFileObj);
+	SysMem_Free(pFilePtr);
 }
 
 

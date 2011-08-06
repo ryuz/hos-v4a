@@ -13,7 +13,7 @@
 #include "system/sysapi/sysapi.h"
 
 
-FILE_ERR  Vt100Drv_Flush(struct c_drvobj *self, C_FILEOBJ *pFileObj)
+FILE_ERR  Vt100Drv_Flush(struct c_fileobj *self, C_FILEPTR *pFilePtr)
 {
 	return  FILE_ERR_OK;
 }

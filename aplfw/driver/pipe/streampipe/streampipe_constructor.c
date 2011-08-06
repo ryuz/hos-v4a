@@ -13,7 +13,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR StreamPipe_Constructor(C_STREAMPIPE *self, const T_DRVOBJ_METHODS *pMethods, int iBufSize)
+FILE_ERR StreamPipe_Constructor(C_STREAMPIPE *self, const T_FILEOBJ_METHODS *pMethods, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void 		*pMem;

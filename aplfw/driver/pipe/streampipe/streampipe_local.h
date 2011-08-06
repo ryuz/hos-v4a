@@ -34,16 +34,16 @@ typedef struct c_streampipe
 extern "C" {
 #endif
 
-FILE_ERR  StreamPipe_Constructor(C_STREAMPIPE *self, const T_DRVOBJ_METHODS *pMethods, int iBufSize);	/**< コンストラクタ */
+FILE_ERR  StreamPipe_Constructor(C_STREAMPIPE *self, const T_FILEOBJ_METHODS *pMethods, int iBufSize);	/**< コンストラクタ */
 void      StreamPipe_Destructor(C_STREAMPIPE *self);													/**< デストラクタ */
 
-HANDLE    StreamPipe_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      StreamPipe_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  StreamPipe_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  StreamPipe_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE StreamPipe_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE StreamPipe_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  StreamPipe_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    StreamPipe_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      StreamPipe_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  StreamPipe_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  StreamPipe_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE StreamPipe_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE StreamPipe_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  StreamPipe_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 #ifdef __cplusplus
 }

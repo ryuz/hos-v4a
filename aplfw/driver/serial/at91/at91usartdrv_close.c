@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void At91UsartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void At91UsartDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_AT91USARTDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_AT91USARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_AT91USARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )

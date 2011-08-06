@@ -15,7 +15,7 @@
 void  FatFile_Destructor(C_FATFILE *self)
 {
 	/* 親クラスデストラクタ */		
-	FileObj_Destructor(&self->FileObj);
+	FilePtr_Destructor(&self->FilePtr);
 }
 
 

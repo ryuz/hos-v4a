@@ -19,7 +19,7 @@ void MemDrv_Destructor(C_MEMDRV *self)
 	SysMtx_Delete(self->hMtx);
 	
 	/* 親クラスデストラクタ */
-	DrvObj_Destructor(&self->DrvObj);
+	FileObj_Destructor(&self->FileObj);
 }
 
 

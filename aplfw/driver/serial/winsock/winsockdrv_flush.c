@@ -13,7 +13,7 @@
 #include "winsockdrv_local.h"
 
 
-FILE_ERR  WinSockDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR  WinSockDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	return FILE_ERR_OK;
 }

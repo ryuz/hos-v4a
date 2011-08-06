@@ -15,18 +15,11 @@
 
 
 /** 環境変数設定 */
-void Process_SetEnvString(HANDLE hProcess, const char *pszKey, const char *pszValue)
+void Process_SetEnvString(const char *pszKey, const char *pszValue)
 {
-	C_PROCESS *self;
-	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	C_PROCESSOBJ *self;
+
+	self = Process_GetCurrentProcessObj();
 	
 	/* 領域が無ければ生成 */
 	if ( self->pEnv == NULL )

@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS Mx1UartDrv_Methods = 
+const T_FILEOBJ_METHODS Mx1UartDrv_Methods = 
 	{
 		{ Mx1UartDrv_Delete },
 		Mx1UartDrv_Open,

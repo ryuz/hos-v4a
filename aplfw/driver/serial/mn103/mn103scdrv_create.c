@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS Mn103ScDrv_Methods = 
+const T_FILEOBJ_METHODS Mn103ScDrv_Methods = 
 	{
 		{ Mn103ScDrv_Delete },
 		Mn103ScDrv_Open,

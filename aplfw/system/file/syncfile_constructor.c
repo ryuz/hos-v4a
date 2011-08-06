@@ -30,7 +30,7 @@ FILE_ERR SyncFile_Constructor(C_SYNCFILE *self, const T_FILEOBJ_METHODS *pMethod
 	}
 
 	/* 親クラスコンストラクタ呼び出し */
-	FileObj_Constructor(&self->FileObj, pMethods, &pSyncDrv->DrvObj, iMode);
+	FilePtr_Constructor(&self->FilePtr, pMethods, &pSyncDrv->FileObj, iMode);
 	
 	/* メンバ初期化 */
 	for ( i = 0; i < iFactorNum; i++ )

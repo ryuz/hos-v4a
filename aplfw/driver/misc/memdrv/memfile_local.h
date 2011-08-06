@@ -14,14 +14,14 @@
 
 
 #include "memfile.h"
-#include "system/file/fileobj_local.h"
+#include "system/file/file_local.h"
 #include "system/sysapi/sysapi.h"
 
 
 /* ファイルディスクリプタ */
 typedef struct c_memfile
 {
-	C_FILEOBJ	FileObj;			/* 継承 */
+	C_FILEPTR	FilePtr;			/* 継承 */
 
 	FILE_POS	FilePos;
 } C_MEMFILE;

@@ -14,7 +14,7 @@
 
 
 #include "pcattextdrv.h"
-#include "system/file/drvobj_local.h"
+#include "system/file/file_local.h"
 #include "system/sysapi/sysapi.h"
 
 
@@ -22,7 +22,7 @@
 /** %jp{ドライバクラス}%en{Device driver class} */
 typedef struct c_pcattextdrv
 {
-	C_DRVOBJ				DrvObj;			/**< %jp{同期機能付きデバイスドライバを継承} */
+	C_FILEOBJ				FileObj;			/**< %jp{同期機能付きデバイスドライバを継承} */
 	
 	void					*pRegBase;
 	volatile unsigned short	*puhTextVram;
@@ -43,16 +43,16 @@ typedef struct c_pcattextdrv
 extern "C" {
 #endif
 
-FILE_ERR  PcatTextDrv_Constructor(C_PCATTEXTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, void *pVramBase);	/**< %jp{コンストラクタ} */
+FILE_ERR  PcatTextDrv_Constructor(C_PCATTEXTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, void *pVramBase);	/**< %jp{コンストラクタ} */
 void      PcatTextDrv_Destructor(C_PCATTEXTDRV *self);																		/**< %jp{デストラクタ} */
 
-HANDLE    PcatTextDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      PcatTextDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  PcatTextDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  PcatTextDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE PcatTextDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE PcatTextDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  PcatTextDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    PcatTextDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      PcatTextDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  PcatTextDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  PcatTextDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE PcatTextDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE PcatTextDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  PcatTextDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      PcatTextDrv_PutChar(C_PCATTEXTDRV *self, int c);
 void      PcatTextDrv_SetCursor(C_PCATTEXTDRV *self, int iX, int iY);

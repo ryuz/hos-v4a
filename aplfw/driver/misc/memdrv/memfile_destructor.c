@@ -15,7 +15,7 @@
 void  MemFile_Destructor(C_MEMFILE *self)
 {
 	/* 親クラスデストラクタ */		
-	FileObj_Destructor(&self->FileObj);
+	FilePtr_Destructor(&self->FilePtr);
 }
 
 

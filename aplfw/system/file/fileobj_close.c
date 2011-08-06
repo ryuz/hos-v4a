@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  drvobj.h
+ * @file  file_local.h
  * @brief %jp{デバイスドライバオブジェクトの基本クラス}
  *
  * Copyright (C) 2006-2007 by Project HOS
@@ -9,10 +9,10 @@
  */
 
 
-#include "drvobj_local.h"
+#include "file_local.h"
 
 
-void DrvObj_Close(C_DRVOBJ *self, struct c_fileobj *pFileObj)
+void FileObj_Close(C_FILEOBJ *self, struct c_fileptr *pFilePtr)
 {
 	return;
 }

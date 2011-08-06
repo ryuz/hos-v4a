@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void Pc16550Drv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_PC16550DRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_PC16550DRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_PC16550DRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )

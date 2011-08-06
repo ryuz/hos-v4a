@@ -13,7 +13,7 @@
 
 
 /** %jp{読込み} */
-FILE_SIZE StreamPipe_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE StreamPipe_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_STREAMPIPE	*self;
 	C_SYNCFILE		*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE StreamPipe_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	FILE_SIZE		ReadSize;
 	
 	/* upper cast */
-	self  = (C_STREAMPIPE *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_STREAMPIPE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 	
 	pubBuf = (unsigned char *)pBuf;
 	

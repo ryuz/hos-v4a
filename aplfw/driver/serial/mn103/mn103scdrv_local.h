@@ -38,16 +38,16 @@
 extern "C" {
 #endif
 
-FILE_ERR  Mn103ScDrv_Constructor(C_MN103SCDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize);	/**< コンストラクタ */
+FILE_ERR  Mn103ScDrv_Constructor(C_MN103SCDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize);	/**< コンストラクタ */
 void      Mn103ScDrv_Destructor(C_MN103SCDRV *self);																								/**< デストラクタ */
 
-HANDLE    Mn103ScDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      Mn103ScDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  Mn103ScDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  Mn103ScDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE Mn103ScDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE Mn103ScDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  Mn103ScDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    Mn103ScDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      Mn103ScDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  Mn103ScDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  Mn103ScDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE Mn103ScDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE Mn103ScDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  Mn103ScDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      Mn103ScDrv_IsrTx(VPARAM Param);			/* 送信割込み処理 */
 void      Mn103ScDrv_IsrRx(VPARAM Param);			/* 受信割込み処理 */

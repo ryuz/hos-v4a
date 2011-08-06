@@ -12,7 +12,7 @@
 #include "mn103scdrv_local.h"
 
 
-FILE_ERR Mn103ScDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR Mn103ScDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	return FILE_ERR_OK;
 }

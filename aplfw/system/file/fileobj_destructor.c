@@ -1,30 +1,21 @@
 /** 
  *  Hyper Operating System  Application Framework
  *
- * @file  file.c
- * @brief %jp{ファイルシステム}
+ * @file  file_local.h
+ * @brief %jp{デバイスドライバオブジェクトの基本クラス}
  *
  * Copyright (C) 2006-2007 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
-#include "fileobj_local.h"
 
 
+#include "file_local.h"
+
+
+/**< デストラクタ */
 void FileObj_Destructor(C_FILEOBJ *self)
 {
-	/* バッファを確保していれば開放 */
-	if ( self->pReadBuf != NULL )
-	{
-		SysMem_Free(self->pReadBuf);
-	}
-	if ( self->pWriteBuf != NULL )
-	{
-		SysMem_Free(self->pWriteBuf);
-	}
-	
-	/* 親クラスデストラクタ呼び出し */
-	PointerObj_Destructor(&self->PointerObj);
 }
 
 

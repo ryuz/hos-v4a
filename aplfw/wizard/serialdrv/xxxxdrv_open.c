@@ -12,13 +12,13 @@
 
 
 /** オープン */
-HANDLE XxxxDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE XxxxDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_XXXXDRV	*self;
 	HANDLE		hFile;
 	
 	/* upper cast */
-	self = (C_XXXXDRV *)pDrvObj;
+	self = (C_XXXXDRV *)pFileObj;
 
 	/* create file descriptor */
 	if ( (hFile = SyncFile_Create(&self->SyncDrv, iMode)) == HANDLE_NULL )

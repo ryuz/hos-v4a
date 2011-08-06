@@ -12,7 +12,7 @@
 #include "at91usartdrv_local.h"
 
 
-FILE_ERR At91UsartDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR At91UsartDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	return FILE_ERR_OK;
 }

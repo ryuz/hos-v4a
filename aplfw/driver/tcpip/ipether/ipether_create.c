@@ -14,7 +14,7 @@
 
 
 /* 仮想関数テーブル */
-static const T_DRVOBJ_METHODS IpEther_Methods = 
+static const T_FILEOBJ_METHODS IpEther_Methods = 
 	{
 		IpEther_Delete,
 		IpEther_Open,

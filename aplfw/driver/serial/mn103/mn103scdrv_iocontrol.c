@@ -12,16 +12,16 @@
 #include "mn103scdrv_local.h"
 
 
-FILE_ERR  Mn103ScDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR  Mn103ScDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_MN103SCDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_MN103SCDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_MN103SCDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
-	return SyncDrv_IoControl(pDrvObj, pFileObj, iFunc, pInBuf, InSize, pOutBuf, OutSize);
+	return SyncDrv_IoControl(pFileObj, pFilePtr, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 }
 
 

@@ -16,7 +16,7 @@
 void VolumeObj_Constructor(C_VOLUMEOBJ *self, const T_VOLUMEOBJ_METHODS *pMethods)
 {
 	/* 親クラスコンストラクタ呼び出し */
-	DrvObj_Constructor(&self->DrvObj, &pMethods->DrvObjMethods);
+	FileObj_Constructor(&self->FileObj, &pMethods->FileObjMethods);
 }
 
 

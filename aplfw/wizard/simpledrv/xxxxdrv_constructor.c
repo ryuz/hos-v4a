@@ -12,7 +12,7 @@
 
 
 /** %jp{仮想関数テーブル}%en{virtual functions table} */
-const T_DRVOBJ_METHODS XxxxDrv_Methods = 
+const T_FILEOBJ_METHODS XxxxDrv_Methods = 
 	{
 		{ XxxxDrv_Delete },
 		XxxxDrv_Open,
@@ -26,7 +26,7 @@ const T_DRVOBJ_METHODS XxxxDrv_Methods =
 
 
 /** コンストラクタ */
-FILE_ERR XxxxDrv_Constructor(C_XXXXDRV *self, const T_DRVOBJ_METHODS *pMethods)
+FILE_ERR XxxxDrv_Constructor(C_XXXXDRV *self, const T_FILEOBJ_METHODS *pMethods)
 {
 	FILE_ERR	ErrCode;
 	
@@ -38,7 +38,7 @@ FILE_ERR XxxxDrv_Constructor(C_XXXXDRV *self, const T_DRVOBJ_METHODS *pMethods)
 	}
 	
 	/* 親クラスコンストラクタ呼び出し */
-	DrvObj_Constructor(&self->DrvObj, pMethods);
+	FileObj_Constructor(&self->FileObj, pMethods);
 	
 	/* メンバ変数初期化 */
 	self->iOpenCount  = 0;

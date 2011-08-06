@@ -12,7 +12,7 @@
 #include "jellyuartdrv_local.h"
 
 
-FILE_POS JellyUartDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS JellyUartDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	return FILE_ERR_NG;
 }

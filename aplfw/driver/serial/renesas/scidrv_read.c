@@ -13,7 +13,7 @@
 
 
 /** %jp{受信} */
-FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE SciDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_SCIDRV		*self;
 	C_SYNCFILE		*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE SciDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_S
 	int				c;
 	
 	/* upper cast */
-	self  = (C_SCIDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_SCIDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	pubBuf = (unsigned char *)pBuf;
 

@@ -13,7 +13,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR Mx1UartDrv_Constructor(C_MX1UARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
+FILE_ERR Mx1UartDrv_Constructor(C_MX1UARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void		*pMem;

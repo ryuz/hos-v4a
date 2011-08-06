@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void JellyUartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void JellyUartDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_JELLYUARTDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_JELLYUARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_JELLYUARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )

@@ -13,7 +13,7 @@
 
 
 /** %jp{受信} */
-FILE_SIZE Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE Lan9118Drv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_LAN9118DRV	*self;
 	C_CHRFILE		*pFile;
@@ -22,8 +22,8 @@ FILE_SIZE Lan9118Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FI
 	int				c;
 	
 	/* upper cast */
-	self  = (C_LAN9118DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	self  = (C_LAN9118DRV *)pFileObj;
+	pFile = (C_CHRFILE *)pFilePtr;
 	
 	pubBuf = (unsigned char *)pBuf;
 

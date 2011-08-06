@@ -13,7 +13,7 @@
 #include "system/sysapi/sysapi.h"
 
 
-void Vt100Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void Vt100Drv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 }
 

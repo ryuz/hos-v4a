@@ -86,13 +86,13 @@ extern "C" {
 FATVOL_ERR          FatVol_Constructor(C_FATVOL *self, const T_VOLUMEOBJ_METHODS *pMethods, const char *pszPath);
 void                FatVol_Destructor(C_FATVOL *self);
 
-HANDLE              FatVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void                FatVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR            FatVol_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS            FatVol_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE           FatVol_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE           FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR            FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE              FatVol_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void                FatVol_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR            FatVol_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS            FatVol_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE           FatVol_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE           FatVol_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR            FatVol_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 FILE_ERR            FatVol_Shutdown(C_VOLUMEOBJ *pVolObj);														/**< シャットダウン */
 FILE_ERR            FatVol_MakeDir(C_VOLUMEOBJ *pVolObj, const char *pszPath);									/**< サブディレクトリを作成 */

@@ -13,7 +13,7 @@
 
 
 /** %jp{送信} */
-FILE_SIZE Lan9118Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE Lan9118Drv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_LAN9118DRV		*self;
 	C_CHRFILE			*pFile;
@@ -22,8 +22,8 @@ FILE_SIZE Lan9118Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 	int					c;
 	
 	/* upper cast */
-	self  = (C_LAN9118DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	self  = (C_LAN9118DRV *)pFileObj;
+	pFile = (C_CHRFILE *)pFilePtr;
 	
 	pubBuf = (const unsigned char *)pData;
 	

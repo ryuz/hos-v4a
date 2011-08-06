@@ -21,16 +21,16 @@
 extern "C" {
 #endif
 
-FILE_ERR  IpEther_Constructor(C_IPETHER *self, const T_DRVOBJ_METHODS *pMethods, const char *pszEther, const T_IPETHER_INF *pInf);	/**< コンストラクタ */
+FILE_ERR  IpEther_Constructor(C_IPETHER *self, const T_FILEOBJ_METHODS *pMethods, const char *pszEther, const T_IPETHER_INF *pInf);	/**< コンストラクタ */
 void      IpEther_Destructor(C_IPETHER *self);																						/**< デストラクタ */
 
-HANDLE    IpEther_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      IpEther_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  IpEther_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  IpEther_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE IpEther_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE IpEther_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  IpEther_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    IpEther_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      IpEther_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  IpEther_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  IpEther_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE IpEther_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE IpEther_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  IpEther_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      IpEther_Recv(void);																						/* 受信プロセス */
 

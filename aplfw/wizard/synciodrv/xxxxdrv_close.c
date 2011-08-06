@@ -12,14 +12,14 @@
 
 
 /** クローズ */
-void XxxxDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void XxxxDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_XXXXDRV	*self;
 	C_XXXXFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_XXXXDRV *)pDrvObj;
-	pFile = (C_XXXXFILE *)pFileObj;
+	self  = (C_XXXXDRV *)pFileObj;
+	pFile = (C_XXXXFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )

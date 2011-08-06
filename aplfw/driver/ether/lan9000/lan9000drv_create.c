@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-static const T_DRVOBJ_METHODS Lan9000Drv_Methods = 
+static const T_FILEOBJ_METHODS Lan9000Drv_Methods = 
 	{
 		{ Lan9000Drv_Delete },
 		Lan9000Drv_Open,

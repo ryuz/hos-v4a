@@ -15,10 +15,10 @@
 
 
 /**< コンストラクタ */
-void Vt100Drv_Constructor(C_VT100DRV *self, const T_DRVOBJ_METHODS *pMethods, HANDLE hTty)
+void Vt100Drv_Constructor(C_VT100DRV *self, const T_FILEOBJ_METHODS *pMethods, HANDLE hTty)
 {
 	/* 親クラスコンストラクタ */
-	DrvObj_Constructor(&self->DrvObj, pMethods);
+	FileObj_Constructor(&self->FileObj, pMethods);
 	
 	/* メンバ変数初期化 */
 	self->hTty      = hTty;

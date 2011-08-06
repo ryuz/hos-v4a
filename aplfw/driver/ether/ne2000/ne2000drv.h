@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 void Ne2000Drv_Create(C_NE2000DRV *self, void *pRegAddr, int iIntNum);		/**< コンストラクタ */
-void Ne2000Drv_Delete(C_DRVOBJ *pDrvObj);									/**< デストラクタ */
+void Ne2000Drv_Delete(C_FILEOBJ *pFileObj);									/**< デストラクタ */
 
 #ifdef __cplusplus
 }

@@ -101,15 +101,15 @@ int Boot_Process(VPARAM Param)
 #if 0
 	/* LAN9118デバドラ生成 (/dev/eth0 に登録) */
 	Lan9118Drv_Create(&g_Lan9118Drv[0], (void *)0x40000000, 24);
-	File_AddDevice("eth0", (C_DRVOBJ *)&g_Lan9118Drv[0]);
+	File_AddDevice("eth0", (C_FILEOBJ *)&g_Lan9118Drv[0]);
 	
 	/* Ether上にIP層構築 (/dev/ip0 に登録) */
 	IpEther_Create(&g_IpEther[0], "/dev/eth0", &IpEtherInf);
-	File_AddDevice("ip0", (C_DRVOBJ *)&g_IpEther[0]);
+	File_AddDevice("ip0", (C_FILEOBJ *)&g_IpEther[0]);
 
 	/* IP層の上にTCP/IP層構築 (/dev/tcpip0 に登録) */
 	TcpIp_Create(&g_TcpIp[0], "/dev/ip0");
-	File_AddDevice("tcpip0", (C_DRVOBJ *)&g_TcpIp[0]);
+	File_AddDevice("tcpip0", (C_FILEOBJ *)&g_TcpIp[0]);
 #endif	
 	
 	/* AT91 USARTデバドラ生成 (/dev/com0 に登録) */

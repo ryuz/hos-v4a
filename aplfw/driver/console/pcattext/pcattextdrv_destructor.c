@@ -16,7 +16,7 @@
 void PcatTextDrv_Destructor(C_PCATTEXTDRV *self)
 {
 	/* 親クラスデストラクタ */
-	DrvObj_Destructor(&self->DrvObj);
+	FileObj_Destructor(&self->FileObj);
 }
 
 

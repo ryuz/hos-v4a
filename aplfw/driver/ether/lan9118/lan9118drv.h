@@ -43,7 +43,7 @@ extern "C" {
 #endif
 
 void Lan9118Drv_Create(C_LAN9118DRV *self, void *pRegBase, int iIntNum);	/**< コンストラクタ */
-void Lan9118Drv_Delete(C_DRVOBJ *pDrvObj);									/**< デストラクタ */
+void Lan9118Drv_Delete(C_FILEOBJ *pFileObj);									/**< デストラクタ */
 
 #ifdef __cplusplus
 }

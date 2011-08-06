@@ -12,11 +12,11 @@
 #include "jellyi2cdrv_local.h"
 
 
-FILE_ERR JellyI2cDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR JellyI2cDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_JELLYI2CDRV	*self;
 
-	self = (C_JELLYI2CDRV *)pDrvObj;
+	self = (C_JELLYI2CDRV *)pFileObj;
 
 	switch ( iFunc )
 	{
@@ -24,7 +24,7 @@ FILE_ERR JellyI2cDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc
 		return JellyI2cDrv_Access(self, (T_I2CDRV_ACCESS *)pOutBuf);
 	}
 	
-	return SyncDrv_IoControl(pDrvObj, pFileObj, iFunc, pInBuf, InSize, pOutBuf, OutSize);
+	return SyncDrv_IoControl(pFileObj, pFilePtr, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 }
 
 

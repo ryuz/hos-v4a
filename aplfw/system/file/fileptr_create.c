@@ -9,31 +9,31 @@
  */
 
 
-#include "fileobj_local.h"
+#include "file_local.h"
 
 
 
-static const T_FILEOBJ_METHODS FileObj_FileObjMethods =
+static const T_FILEOBJ_METHODS FilePtr_FilePtrMethods =
 	{
 		{
-			"FileObj",
+			"FilePtr",
 			File_Close
 		},	/* デストラクタ */
 	};
 
 
-HANDLE FileObj_Create(struct c_drvobj *pDrvObj, int iMode)
+HANDLE FilePtr_Create(struct c_fileobj *pFileObj, int iMode)
 {
-	C_FILEOBJ *self;
+	C_FILEPTR *self;
 	
 	/* メモリ確保 */
-	if ( (self = (C_FILEOBJ *)SysMem_Alloc(sizeof(C_FILEOBJ))) == NULL )
+	if ( (self = (C_FILEPTR *)SysMem_Alloc(sizeof(C_FILEPTR))) == NULL )
 	{
 		return HANDLE_NULL;
 	}
 	
 	/* コンストラクタ呼び出し */
-	FileObj_Constructor(self, &FileObj_FileObjMethods, pDrvObj, iMode);
+	FilePtr_Constructor(self, &FilePtr_FilePtrMethods, pFileObj, iMode);
 	
 	return (HANDLE)self;
 }

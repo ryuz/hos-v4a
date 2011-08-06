@@ -14,14 +14,14 @@
 #include "tcpip_local.h"
 
 
-HANDLE TcpIp_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE TcpIp_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_TCPIP		*self;
 	HANDLE		hFile;
 	C_TCPIPFILE	*pFile;
 	
 	/* upper cast */
-	self = (C_TCPIP *)pDrvObj;
+	self = (C_TCPIP *)pFileObj;
 
 	/* create file descriptor */
 	if ( (hFile = TcpIpFile_Create(self, iMode)) == HANDLE_NULL )

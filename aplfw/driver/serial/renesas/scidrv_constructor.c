@@ -13,7 +13,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR SciDrv_Constructor(C_SCIDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulSysClock, int iBufSize)
+FILE_ERR SciDrv_Constructor(C_SCIDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulSysClock, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void		*pMem;

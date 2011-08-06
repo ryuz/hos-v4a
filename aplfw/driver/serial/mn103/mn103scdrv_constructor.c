@@ -13,7 +13,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR Mn103ScDrv_Constructor(C_MN103SCDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize)
+FILE_ERR Mn103ScDrv_Constructor(C_MN103SCDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void		*pMem;

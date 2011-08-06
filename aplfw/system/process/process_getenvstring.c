@@ -13,32 +13,17 @@
 
 
 /** 環境変数取得 */
-const char *Process_GetEnvString(HANDLE hProcess, const char *pszKey)
+const char *Process_GetEnvString(const char *pszKey)
 {
-	const char	*pszValue = NULL;
-	C_PROCESS	*self;
-	HANDLE		hParent;
+	const char		*pszValue = NULL;
+	C_PROCESSOBJ	*self;
 	
-	/* 指定が無ければ現在のプロセスとする */
-	if ( hProcess == HANDLE_NULL )
-	{
-		hProcess = Process_GetCurrentHandle();
-	}
-	
-	/* ハンドルをキャスト */
-	self = (C_PROCESS *)hProcess;
+	/* オブジェクトを取得 */
+	self = Process_GetCurrentProcessObj();
 	
 	if ( self->pEnv != NULL )
 	{
 		pszValue = Assoc_Get(self->pEnv, pszKey);
-	}
-	
-	if ( pszValue == NULL )
-	{
-		if ( (hParent = Process_GetParentProcess(hProcess)) != HANDLE_NULL )
-		{
-			pszValue = Process_GetEnvString(hParent, hProcess);
-		}
 	}
 	
 	return pszValue;

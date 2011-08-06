@@ -12,14 +12,14 @@
 
 
 /** クローズ */
-void XxxxDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void XxxxDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_XXXXDRV	*self;
-	C_FILEOBJ	*pFile;
+	C_FILEPTR	*pFile;
 	
 	/* upper cast */
-	self  = (C_XXXXDRV *)pDrvObj;
-	pFile = (C_FILEOBJ *)pFileObj;
+	self  = (C_XXXXDRV *)pFileObj;
+	pFile = (C_FILEPTR *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )
@@ -28,7 +28,7 @@ void XxxxDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 	}
 	
 	/* ディスクリプタ削除 */
-	FileObj_Delete((HANDLE)pFile);	
+	FilePtr_Delete((HANDLE)pFile);	
 }
 
 

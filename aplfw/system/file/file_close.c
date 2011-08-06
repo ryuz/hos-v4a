@@ -11,16 +11,18 @@
 
 #include <stdio.h>
 #include "file_local.h"
-#include "fileobj.h"
+#include "file_local.h"
 
 
 void File_Close(HANDLE hFile)
 {
-	C_FILEOBJ *self;
+	C_FILEPTR *pFilePtr;
+	C_FILEOBJ *pFileObj;
 	
-	self = FILE_HANDLE2OBJ(hFile);
+	pFilePtr = (C_FILEPTR *)hFile;
+	pFileObj = FilePtr_GetFileObj(pFilePtr);
 	
-	DrvObj_vClose(self->pDrvObj, self);
+	FileObj_GetMethods(pFileObj)->pfncClose(pFileObj, pFilePtr);
 }
 
 

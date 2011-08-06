@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void JellyI2cDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void JellyI2cDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_JELLYI2CDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_JELLYI2CDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_JELLYI2CDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	--self->iOpenCount;

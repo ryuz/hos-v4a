@@ -12,14 +12,14 @@
 #include "mx1uartdrv_local.h"
 
 
-FILE_ERR Mx1UartDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR Mx1UartDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_MX1UARTDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_MX1UARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_MX1UARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	return FILE_ERR_NG;
 }

@@ -207,22 +207,10 @@
     <ClInclude Include="..\..\..\..\system\file\console.h">
       <Filter>system\file</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\system\file\drvobj.h">
-      <Filter>system\file</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\system\file\drvobj_local.h">
-      <Filter>system\file</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\system\file\file.h">
       <Filter>system\file</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\system\file\file_local.h">
-      <Filter>system\file</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\system\file\fileobj.h">
-      <Filter>system\file</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\system\file\fileobj_local.h">
       <Filter>system\file</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\system\file\stdfile.h">
@@ -436,6 +424,18 @@
     <ClInclude Include="..\..\..\..\system\handle\handle_local.h">
       <Filter>system\handle</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\fileobj.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\fileobj_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\fileptr_local.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\system\file\fileptr.h">
+      <Filter>system\file</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\driver\volume\fat\fatfile_constructor.c">
@@ -606,33 +606,6 @@
     <ClCompile Include="..\..\..\..\system\file\console_getch.c">
       <Filter>system\file</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_close.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_constructor.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_destructor.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_flush.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_iocontrol.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_open.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_read.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_seek.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\drvobj_write.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\system\file\file_adddevice.c">
       <Filter>system\file</Filter>
     </ClCompile>
@@ -694,18 +667,6 @@
       <Filter>system\file</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\file\file_write.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\fileobj_constructor.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\fileobj_create.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\fileobj_delete.c">
-      <Filter>system\file</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\system\file\fileobj_destructor.c">
       <Filter>system\file</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\file\stdio_printformat.c">
@@ -1541,6 +1502,45 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\system\process\process_getcurrentprocessobj.c">
       <Filter>system\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_write.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_close.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_destructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_flush.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_iocontrol.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_open.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_read.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileobj_seek.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileptr_constructor.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileptr_create.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileptr_delete.c">
+      <Filter>system\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\system\file\fileptr_destructor.c">
+      <Filter>system\file</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

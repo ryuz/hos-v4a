@@ -12,12 +12,12 @@
 #include "fatvol_local.h"
 
 
-FILE_ERR FatVol_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR FatVol_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_FATVOL	*self;
 	
 	/* upper cast */
-	self  = (C_FATVOL *)pDrvObj;
+	self  = (C_FATVOL *)pFileObj;
 
 	/* クリティカルセクションに入る */
 	SysMtx_Lock(self->hMtx);

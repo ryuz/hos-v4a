@@ -17,7 +17,10 @@
 const T_VOLUMEOBJ_METHODS FatVol_VolumeObjMethods =
 {
 	{
-		{ FatVol_Delete },
+		{
+			"FatVol",
+			FatVol_Delete,
+		},
 		FatVol_Open,
 		FatVol_Close,
 		FatVol_IoControl,

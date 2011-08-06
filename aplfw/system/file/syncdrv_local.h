@@ -14,7 +14,7 @@
 
 
 #include "syncdrv.h"
-#include "system/file/drvobj_local.h"
+#include "system/file/file_local.h"
 #include "system/sysapi/sysapi.h"
 
 
@@ -31,7 +31,7 @@ struct c_syncfile;
 /* デバイスドライバオブジェクト基本クラス(抽象クラス) */
 typedef struct c_syncdrv
 {
-	C_DRVOBJ			DrvObj;				/**< DrvObjクラスを継承 */
+	C_FILEOBJ			FileObj;				/**< FileObjクラスを継承 */
 
 	struct c_syncfile	*pFileHead;			/**< ファイルオブジェクトの連結ポインタ */
 	
@@ -49,7 +49,7 @@ typedef struct c_syncdrv
 extern "C" {
 #endif
 
-FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_DRVOBJ_METHODS *pMethods, int iSyncFactorNum);	/**< コンストラクタ */
+FILE_ERR SyncDrv_Constructor(C_SYNCDRV *self, const T_FILEOBJ_METHODS *pMethods, int iSyncFactorNum);	/**< コンストラクタ */
 void     SyncDrv_Destructor(C_SYNCDRV *self);															/**< デストラクタ */
 
 #define  SyncDrv_GetSyncFactorNum(self)		((self)->iSyncFactorNum)									/**< 同期要因数取得 */
@@ -58,14 +58,14 @@ FILE_ERR SyncDrv_StartProcess(C_SYNCDRV *self, struct c_syncfile *pSyncFile, int
 void     SyncDrv_EndProcess(C_SYNCDRV *self, int iFactor, VPARAM ErrCode);								/**< 処理の完了 */
 void     SyncDrv_SendSignal(C_SYNCDRV *self, int iFactor);												/**< シグナルの送信 */
 
-FILE_ERR SyncDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_ERR SyncDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 
 #ifdef __cplusplus
 }
 #endif
 
 
-#endif	/* __HOS__drvobj_h__ */
+#endif	/* __HOS__fileobj_h__ */
 
 
 /* end of file */

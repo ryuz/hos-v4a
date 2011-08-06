@@ -12,14 +12,14 @@
 #include "tcpip_local.h"
 
 
-void TcpIp_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void TcpIp_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_TCPIP		*self;
 	C_TCPIPFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_TCPIP *)pDrvObj;
-	pFile = (C_TCPIPFILE *)pFileObj;
+	self  = (C_TCPIP *)pFileObj;
+	pFile = (C_TCPIPFILE *)pFilePtr;
 	
 	/* クローズ処理 */
 	self->iOpenCount--;

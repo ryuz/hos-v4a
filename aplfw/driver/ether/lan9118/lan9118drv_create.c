@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS Lan9118Drv_Methods = 
+const T_FILEOBJ_METHODS Lan9118Drv_Methods = 
 	{
 		Lan9118Drv_Delete,
 		Lan9118Drv_Open,

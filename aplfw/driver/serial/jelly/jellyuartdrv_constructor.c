@@ -14,7 +14,7 @@
 
 
 /** %jp{仮想関数テーブル}%en{virtual functions table} */
-const T_DRVOBJ_METHODS JellyUartDrv_Methods = 
+const T_FILEOBJ_METHODS JellyUartDrv_Methods = 
 	{
 		{ JellyUartDrv_Delete },
 		JellyUartDrv_Open,
@@ -29,7 +29,7 @@ const T_DRVOBJ_METHODS JellyUartDrv_Methods =
 
 
 /** コンストラクタ */
-FILE_ERR JellyUartDrv_Constructor(C_JELLYUARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize)
+FILE_ERR JellyUartDrv_Constructor(C_JELLYUARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNumRx, int iIntNumTx, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void		*pMem;

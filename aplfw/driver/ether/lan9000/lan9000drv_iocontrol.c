@@ -12,14 +12,14 @@
 #include "lan9000drv_local.h"
 
 
-FILE_ERR Lan9000Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR Lan9000Drv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_LAN9000DRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_LAN9000DRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_LAN9000DRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	switch ( iFunc )
 	{
@@ -33,7 +33,7 @@ FILE_ERR Lan9000Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc,
 	
 	default:
 		break;
-/*		return SyncDrv_IoControl(pDrvObj, pFileObj, pInBuf, InSize, pOutBuf, OutSize);	*/
+/*		return SyncDrv_IoControl(pFileObj, pFilePtr, pInBuf, InSize, pOutBuf, OutSize);	*/
 	}
 
 	return FILE_ERR_NG;

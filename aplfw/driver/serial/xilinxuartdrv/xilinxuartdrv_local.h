@@ -49,17 +49,17 @@ typedef struct c_xilinxuartdrv
 extern "C" {
 #endif
 
-FILE_ERR  XilinxUartDrv_Constructor(C_XILINXUARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, int iBufSize);
+FILE_ERR  XilinxUartDrv_Constructor(C_XILINXUARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, int iBufSize);
 																															/**< コンストラクタ */
 void      XilinxUartDrv_Destructor(C_XILINXUARTDRV *self);																	/**< デストラクタ */
 
-HANDLE    XilinxUartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      XilinxUartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  XilinxUartDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  XilinxUartDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE XilinxUartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE XilinxUartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  XilinxUartDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    XilinxUartDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      XilinxUartDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  XilinxUartDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  XilinxUartDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE XilinxUartDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE XilinxUartDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  XilinxUartDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      XilinxUartDrv_Isr(VPARAM Param);			/**< %jp{割込み処理} */
 

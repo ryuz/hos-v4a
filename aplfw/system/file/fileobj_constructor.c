@@ -1,29 +1,13 @@
-/** 
- *  Hyper Operating System  Application Framework
- *
- * @file  file.c
- * @brief %jp{ファイルシステム}
- *
- * Copyright (C) 2006 by Project HOS
- * http://sourceforge.jp/projects/hos/
- */
 
 
+#include "file_local.h"
 #include "system/system/system_local.h"
-#include "fileobj_local.h"
 
 
-/* コンストラクタ */
-void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods, C_DRVOBJ *pDrvObj, int iMode)
+/**< コンストラクタ */
+void FileObj_Constructor(C_FILEOBJ *self, const T_FILEOBJ_METHODS *pMethods)
 {
-	/* 親クラスコンストラクタ呼び出し */
-	PointerObj_Constructor(&self->PointerObj, &pMethods->HandlObjMethods, &pDrvObj->TargetObj);
-	
-	/* メンバ変数初期化 */
-	self->pDrvObj   = pDrvObj;
-	self->iMode     = iMode;
-	self->pReadBuf  = NULL;
-	self->pWriteBuf = NULL;
+	TargetObj_Constructor(&self->TargetObj, &pMethods->ObjectMethods);
 }
 
 

@@ -12,14 +12,14 @@
 #include "at91usartdrv_local.h"
 
 
-FILE_POS At91UsartDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS At91UsartDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	C_AT91USARTDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_AT91USARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_AT91USARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 
 	return FILE_ERR_NG;

@@ -57,12 +57,12 @@ typedef struct c_jellyi2cdrv
 extern "C" {
 #endif
 
-FILE_ERR  JellyI2cDrv_Constructor(C_JELLYI2CDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, unsigned long ulBaseClock);	/**< コンストラクタ */
+FILE_ERR  JellyI2cDrv_Constructor(C_JELLYI2CDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, unsigned long ulBaseClock);	/**< コンストラクタ */
 void      JellyI2cDrv_Destructor(C_JELLYI2CDRV *self);																					/**< デストラクタ */
 
-HANDLE    JellyI2cDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      JellyI2cDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  JellyI2cDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+HANDLE    JellyI2cDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      JellyI2cDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  JellyI2cDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
 
 FILE_ERR  JellyI2cDrv_Access(C_JELLYI2CDRV *self, const T_I2CDRV_ACCESS *pAccess);
 

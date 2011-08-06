@@ -13,14 +13,14 @@
 
 
 /** クローズ */
-void Mn103ScDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void Mn103ScDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_MN103SCDRV	*self;
 	C_SYNCFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_MN103SCDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_MN103SCDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	/* クローズ処理 */
 	if ( --self->iOpenCount == 0 )

@@ -52,16 +52,16 @@ typedef struct c_winsockdrv
 extern "C" {
 #endif
 
-FILE_ERR     WinSockDrv_Constructor(C_WINSOCKDRV *self, const T_DRVOBJ_METHODS *pMethods, int iPortNum, int iIntNum, int iBufSize);	/** コンストラクタ */
+FILE_ERR     WinSockDrv_Constructor(C_WINSOCKDRV *self, const T_FILEOBJ_METHODS *pMethods, int iPortNum, int iIntNum, int iBufSize);	/** コンストラクタ */
 void         WinSockDrv_Destructor(C_WINSOCKDRV *self);																				/** デストラクタ */
 
-HANDLE       WinSockDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-FILE_ERR     WinSockDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR     WinSockDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS     WinSockDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE    WinSockDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE    WinSockDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR     WinSockDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE       WinSockDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+FILE_ERR     WinSockDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR     WinSockDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS     WinSockDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE    WinSockDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE    WinSockDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR     WinSockDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 DWORD WINAPI WinSockDrv_Recv(LPVOID Param);
 DWORD WINAPI WinSockDrv_Send(LPVOID Param);

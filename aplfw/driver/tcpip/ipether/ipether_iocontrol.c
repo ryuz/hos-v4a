@@ -13,14 +13,14 @@
 #include "ipether_local.h"
 
 
-FILE_ERR IpEther_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR IpEther_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_IPETHER	*self;
 	C_SYNCFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_IPETHER *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_IPETHER *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 	
 	switch ( iFunc )
 	{
@@ -29,7 +29,7 @@ FILE_ERR IpEther_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, vo
 		return FILE_ERR_OK;
 	
 	default:
-		return SyncDrv_IoControl(pDrvObj, pFileObj, iFunc, pInBuf, InSize, pOutBuf, OutSize);
+		return SyncDrv_IoControl(pFileObj, pFilePtr, iFunc, pInBuf, InSize, pOutBuf, OutSize);
 	}
 }
 

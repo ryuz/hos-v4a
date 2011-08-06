@@ -15,12 +15,12 @@
 
 
 /** クローズ */
-FILE_ERR WinSockDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+FILE_ERR WinSockDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_WINSOCKDRV *self;
 
 	/* upper cast */
-	self = (C_WINSOCKDRV *)pDrvObj;
+	self = (C_WINSOCKDRV *)pFileObj;
 
 	if ( --self->iOpenCount == 0 )
 	{

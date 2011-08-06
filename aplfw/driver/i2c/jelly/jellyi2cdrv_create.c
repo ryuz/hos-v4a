@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS JellyI2cDrv_Methods = 
+const T_FILEOBJ_METHODS JellyI2cDrv_Methods = 
 	{
 		{
 			"JellyI2cDrv",

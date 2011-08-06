@@ -12,7 +12,7 @@
 #include "tcpip_local.h"
 
 
-FILE_POS TcpIp_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS TcpIp_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	return (-1);
 }

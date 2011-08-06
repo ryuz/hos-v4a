@@ -14,7 +14,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR IpEther_Constructor(C_IPETHER *self, const T_DRVOBJ_METHODS *pMethods, const char *pszEther, const T_IPETHER_INF *pInf)
+FILE_ERR IpEther_Constructor(C_IPETHER *self, const T_FILEOBJ_METHODS *pMethods, const char *pszEther, const T_IPETHER_INF *pInf)
 {
 	/* Etherポートオープン */
 	self->hEther = File_Open(pszEther, FILE_OPEN_READ | FILE_OPEN_WRITE | FILE_OPEN_EXIST);

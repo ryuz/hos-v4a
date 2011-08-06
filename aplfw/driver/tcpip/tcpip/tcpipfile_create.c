@@ -12,7 +12,7 @@
 #include "tcpipfile_local.h"
 
 
-static const T_FILEOBJ_METHODS TcpIpFile_FileObjMethods =
+static const T_FILEOBJ_METHODS TcpIpFile_FilePtrMethods =
 	{
 		{File_Close},	/* デストラクタ */
 	};
@@ -29,7 +29,7 @@ HANDLE TcpIpFile_Create(C_TCPIP *pTcpIp, int iMode)
 	}
 	
 	/* コンストラクタ呼び出し */
-	TcpIpFile_Constructor(self, &TcpIpFile_FileObjMethods, pTcpIp, iMode);
+	TcpIpFile_Constructor(self, &TcpIpFile_FilePtrMethods, pTcpIp, iMode);
 	
 	return (HANDLE)self;
 }

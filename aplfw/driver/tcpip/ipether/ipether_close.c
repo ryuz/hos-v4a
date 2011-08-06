@@ -14,12 +14,12 @@
 
 
 
-void IpEther_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void IpEther_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_IPETHER *self;
 	
 	/* upper cast */
-	self = (C_IPETHER *)pDrvObj;
+	self = (C_IPETHER *)pFileObj;
 
 	/* クロース処理 */
 	if ( --self->iOpenCount == 0 )
@@ -27,7 +27,7 @@ void IpEther_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
 		File_IoControl(self->hEther, FILE_IOCTL_ETHER_GETPHA, self->ubMyMacAddr, 6, 0, 0);
 	}
 	
-	SyncFile_Delete((HANDLE)pFileObj);
+	SyncFile_Delete((HANDLE)pFilePtr);
 }
 
 

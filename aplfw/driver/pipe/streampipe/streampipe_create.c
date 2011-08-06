@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS StreamPipe_Methods = 
+const T_FILEOBJ_METHODS StreamPipe_Methods = 
 	{
 		{ StreamPipe_Delete },
 		StreamPipe_Open,

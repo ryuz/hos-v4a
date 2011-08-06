@@ -11,7 +11,7 @@
 #include "xxxxfile_local.h"
 
 
-static const T_FILEOBJ_METHODS XxxxFile_FileObjMethods =
+static const T_FILEOBJ_METHODS XxxxFile_FilePtrMethods =
 	{
 		{File_Close},	/* デストラクタ */
 	};
@@ -28,7 +28,7 @@ HANDLE XxxxFile_Create(C_XXXXDRV *pXxxxVol, int iMode)
 	}
 	
 	/* コンストラクタ呼び出し */
-	XxxxFile_Constructor(self, &XxxxFile_FileObjMethods, pXxxxVol, iMode);
+	XxxxFile_Constructor(self, &XxxxFile_FilePtrMethods, pXxxxVol, iMode);
 	
 	return (HANDLE)self;
 }

@@ -12,14 +12,14 @@
 
 
 /** %jp{送信} */
-FILE_SIZE XxxxDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE XxxxDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_XXXXDRV			*self;
 	C_XXXXFILE			*pFile;
 	
 	/* upper cast */
-	self  = (C_XXXXDRV *)pDrvObj;
-	pFile = (C_XXXXFILE *)pFileObj;
+	self  = (C_XXXXDRV *)pFileObj;
+	pFile = (C_XXXXFILE *)pFilePtr;
 		
 	return 0;
 }

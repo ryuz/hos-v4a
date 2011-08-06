@@ -13,7 +13,7 @@
 
 
 /** %jp{送信} */
-FILE_SIZE Mx1UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE Mx1UartDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_MX1UARTDRV		*self;
 	C_SYNCFILE			*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE Mx1UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 	int					c;
 	
 	/* upper cast */
-	self  = (C_MX1UARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_MX1UARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 	pubBuf = (const unsigned char *)pData;
 

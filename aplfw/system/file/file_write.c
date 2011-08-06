@@ -11,16 +11,18 @@
 
 #include <stdio.h>
 #include "file_local.h"
-#include "fileobj.h"
+#include "file_local.h"
 
 
 FILE_SIZE File_Write(HANDLE hFile, const void *pData, FILE_SIZE Size)
 {
-	C_FILEOBJ *self;
-
-	self = FILE_HANDLE2OBJ(hFile);
+	C_FILEPTR *pFilePtr;
+	C_FILEOBJ *pFileObj;
 	
-	return DrvObj_vWrite(self->pDrvObj, self, pData, Size);
+	pFilePtr = (C_FILEPTR *)hFile;
+	pFileObj = FilePtr_GetFileObj(pFilePtr);
+	
+	return FileObj_GetMethods(pFileObj)->pfncWrite(pFileObj, pFilePtr, pData, Size);
 }
 
 

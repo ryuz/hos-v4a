@@ -11,23 +11,23 @@
 
 #include <stdio.h>
 #include "file_local.h"
-#include "drvobj_local.h"
+#include "file_local.h"
 
 
 
 /* ドライバから直接名無しファイルとしてオープン */
 HANDLE File_DriverOpen(HANDLE hDriver, const char *pszPath, int iMode)
 {
-	C_DRVOBJ *self;
+	C_FILEOBJ *self;
 	
-	self = (C_DRVOBJ *)hDriver;
+	self = (C_FILEOBJ *)hDriver;
 	
-	if ( DrvObj_GetMethods(self)->pfncOpen == NULL )
+	if ( FileObj_GetMethods(self)->pfncOpen == NULL )
 	{
 		return HANDLE_NULL;
 	}
 	
-	return DrvObj_GetMethods(self)->pfncOpen(self, pszPath, iMode);
+	return FileObj_GetMethods(self)->pfncOpen(self, pszPath, iMode);
 }
 
 

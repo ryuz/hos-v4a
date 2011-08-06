@@ -14,7 +14,7 @@
 
 
 /** 書き込み */
-FILE_SIZE WinSockDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE WinSockDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_WINSOCKDRV		*self;
 	C_SYNCFILE			*pFile;
@@ -24,8 +24,8 @@ FILE_SIZE WinSockDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 	int					iLen;
 	
 	/* upper cast */
-	self  = (C_WINSOCKDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_WINSOCKDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 	
 	pubData = (const unsigned char *)pData;
 	

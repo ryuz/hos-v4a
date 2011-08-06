@@ -15,7 +15,7 @@
 
 
 /** 仮想関数テーブル */
-const T_DRVOBJ_METHODS  WinSockDrv_Methods = 
+const T_FILEOBJ_METHODS  WinSockDrv_Methods = 
 	{
 		{
 			"WinSockDrv",
@@ -32,7 +32,7 @@ const T_DRVOBJ_METHODS  WinSockDrv_Methods =
 
 
 /** コンストラクタ */
-FILE_ERR WinSockDrv_Constructor(C_WINSOCKDRV *self, const T_DRVOBJ_METHODS *pMethods, int iPortNum, int iIntNum, int iBufSize)
+FILE_ERR WinSockDrv_Constructor(C_WINSOCKDRV *self, const T_FILEOBJ_METHODS *pMethods, int iPortNum, int iIntNum, int iBufSize)
 {
 	DWORD		dwThreadId;
 	FILE_ERR	ErrCode;

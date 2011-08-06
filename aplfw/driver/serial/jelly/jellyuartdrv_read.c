@@ -13,7 +13,7 @@
 
 
 /** %jp{読込み} */
-FILE_SIZE JellyUartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE JellyUartDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_JELLYUARTDRV		*self;
 	C_SYNCFILE		*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE JellyUartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, 
 	int				c;
 	
 	/* upper cast */
-	self  = (C_JELLYUARTDRV *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_JELLYUARTDRV *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 
 
 	pubBuf = (unsigned char *)pBuf;

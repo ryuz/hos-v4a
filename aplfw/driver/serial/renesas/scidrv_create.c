@@ -13,7 +13,7 @@
 
 
 /* 仮想関数テーブル */
-const T_DRVOBJ_METHODS SciDrv_Methods = 
+const T_FILEOBJ_METHODS SciDrv_Methods = 
 	{
 		{ SciDrv_Delete },
 		SciDrv_Open,

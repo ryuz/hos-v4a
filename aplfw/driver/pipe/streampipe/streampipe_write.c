@@ -13,7 +13,7 @@
 
 
 /** %jp{書込み} */
-FILE_SIZE StreamPipe_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE StreamPipe_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_STREAMPIPE		*self;
 	C_SYNCFILE			*pFile;
@@ -23,8 +23,8 @@ FILE_SIZE StreamPipe_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *p
 	FILE_SIZE			WriteSize;
 		
 	/* upper cast */
-	self  = (C_STREAMPIPE *)pDrvObj;
-	pFile = (C_SYNCFILE *)pFileObj;
+	self  = (C_STREAMPIPE *)pFileObj;
+	pFile = (C_SYNCFILE *)pFilePtr;
 	
 	pubData = (const unsigned char *)pData;
 	

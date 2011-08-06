@@ -14,7 +14,7 @@
 #include "sysvolfile_local.h"
 
 
-static const T_FILEOBJ_METHODS SysVolFile_FileObjMethods =
+static const T_FILEOBJ_METHODS SysVolFile_FilePtrMethods =
 	{
 		{
 			"SysVolFile",
@@ -34,7 +34,7 @@ HANDLE SysVolFile_Create(struct c_sysvol *pSysVol, int iMode)
 	}
 	
 	/* コンストラクタ呼び出し */
-	SysVolFile_Constructor(self, &SysVolFile_FileObjMethods, pSysVol, iMode);	
+	SysVolFile_Constructor(self, &SysVolFile_FilePtrMethods, pSysVol, iMode);	
 	
 	return (HANDLE)self;	
 }

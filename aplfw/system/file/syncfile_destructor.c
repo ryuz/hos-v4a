@@ -21,7 +21,7 @@ void SyncFile_Destructor(C_SYNCFILE *self)
 	int			iFactorNum;
 	int			i;
 
-	pSyncDrv = (C_SYNCDRV *)self->FileObj.pDrvObj;
+	pSyncDrv = (C_SYNCDRV *)self->FilePtr.PointerObj.pTargetObj;
 
 	/* 同期要因数取得 */
 	iFactorNum = SyncDrv_GetSyncFactorNum(pSyncDrv);
@@ -54,7 +54,7 @@ void SyncFile_Destructor(C_SYNCFILE *self)
 	SysMem_Free(self->pSyncObj);
 	
 	/* 親クラスデストラクタ呼び出し */
-	FileObj_Destructor(&self->FileObj);
+	FilePtr_Destructor(&self->FilePtr);
 }
 
 

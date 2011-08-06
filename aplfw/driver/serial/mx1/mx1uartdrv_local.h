@@ -70,17 +70,17 @@ typedef struct c_mx1uartdrv
 extern "C" {
 #endif
 
-FILE_ERR  Mx1UartDrv_Constructor(C_MX1UARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< コンストラクタ */
+FILE_ERR  Mx1UartDrv_Constructor(C_MX1UARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize);	/**< コンストラクタ */
 void      Mx1UartDrv_Destructor(C_MX1UARTDRV *self);																											/**< デストラクタ */
 
 
-HANDLE    Mx1UartDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      Mx1UartDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  Mx1UartDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  Mx1UartDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE Mx1UartDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE Mx1UartDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  Mx1UartDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    Mx1UartDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      Mx1UartDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  Mx1UartDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  Mx1UartDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE Mx1UartDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE Mx1UartDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  Mx1UartDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      Mx1UartDrv_IsrTx(VPARAM Param);			/* 割込み処理 */
 void      Mx1UartDrv_IsrRx(VPARAM Param);			/* 割込み処理 */

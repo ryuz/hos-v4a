@@ -14,7 +14,7 @@
 
 
 /** %jp{書き込み} */
-FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size)
+FILE_SIZE FatVol_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size)
 {
 	C_FATVOL			*self;
 	C_FATFILE			*pFile;
@@ -28,8 +28,8 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 
 	
 	/* upper cast */
-	self  = (C_FATVOL *)pDrvObj;
-	pFile = (C_FATFILE *)pFileObj;
+	self  = (C_FATVOL *)pFileObj;
+	pFile = (C_FATFILE *)pFilePtr;
 
 	/* キャスト */
 	pubData = (const unsigned char *)pData;
@@ -44,7 +44,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 	SysMtx_Lock(self->hMtx);
 	
 	/* モードチェック */
-	if ( !(FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_WRITE) || (FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR) )
+	if ( !(FilePtr_GetMode(&pFile->FilePtr) & FILE_OPEN_WRITE) || (FilePtr_GetMode(&pFile->FilePtr) & FILE_OPEN_DIR) )
 	{
 		SysMtx_Unlock(self->hMtx);
 		return 0;
@@ -147,7 +147,7 @@ FILE_SIZE FatVol_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData
 	}
 	
 	/* ディレクトリテーブルのサイズ更新 */
-	if ( iResizeFlag &&	!(FileObj_GetMode(&pFile->FileObj) & FILE_OPEN_DIR) )
+	if ( iResizeFlag &&	!(FilePtr_GetMode(&pFile->FilePtr) & FILE_OPEN_DIR) )
 	{
 		FatVol_SyncFileSize(self, pFile);
 	}

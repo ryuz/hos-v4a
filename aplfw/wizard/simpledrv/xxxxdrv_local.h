@@ -13,7 +13,7 @@
 
 
 #include "xxxxdrv.h"
-#include "system/file/drvobj_local.h"
+#include "system/file/file_local.h"
 #include "system/sysapi/sysapi.h"
 
 
@@ -21,7 +21,7 @@
 /** %jp{ドライバクラス}%en{Device driver class} */
 typedef struct c_xxxxdrv
 {
-	C_DRVOBJ		DrvObj;			/**< %jp{同期機能付きデバイスドライバを継承} */
+	C_FILEOBJ		FileObj;			/**< %jp{同期機能付きデバイスドライバを継承} */
 
 	int				iOpenCount;		/**< %jp{オープンカウンタ} */
 } C_XXXXDRV;
@@ -33,16 +33,16 @@ typedef struct c_xxxxdrv
 extern "C" {
 #endif
 
-FILE_ERR  XxxxDrv_Constructor(C_XXXXDRV *self, const T_DRVOBJ_METHODS *pMethods);		/**< %jp{コンストラクタ} */
+FILE_ERR  XxxxDrv_Constructor(C_XXXXDRV *self, const T_FILEOBJ_METHODS *pMethods);		/**< %jp{コンストラクタ} */
 void      XxxxDrv_Destructor(C_XXXXDRV *self);											/**< %jp{デストラクタ} */
 
-HANDLE    XxxxDrv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      XxxxDrv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  XxxxDrv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  XxxxDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE XxxxDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE XxxxDrv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  XxxxDrv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    XxxxDrv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      XxxxDrv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  XxxxDrv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  XxxxDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE XxxxDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE XxxxDrv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  XxxxDrv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 #ifdef __cplusplus
 }

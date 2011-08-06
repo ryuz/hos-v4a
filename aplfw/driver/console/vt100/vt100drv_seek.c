@@ -13,7 +13,7 @@
 #include "system/sysapi/sysapi.h"
 
 
-FILE_POS  Vt100Drv_Seek(struct c_drvobj *self, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS  Vt100Drv_Seek(struct c_fileobj *self, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	return  FILE_ERR_NG;
 }

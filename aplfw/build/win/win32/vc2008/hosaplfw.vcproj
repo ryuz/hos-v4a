@@ -439,50 +439,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\file\drvobj.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_close.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_constructor.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_destructor.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_flush.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_iocontrol.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_local.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_open.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_read.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_seek.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\drvobj_write.c"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\..\system\file\file.h"
 					>
 				</File>
@@ -575,7 +531,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\file\fileobj.h"
+					RelativePath="..\..\..\..\system\file\fileobj_close.c"
 					>
 				</File>
 				<File
@@ -583,19 +539,47 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\file\fileobj_create.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\file\fileobj_delete.c"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\..\system\file\fileobj_destructor.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\file\fileobj_local.h"
+					RelativePath="..\..\..\..\system\file\fileobj_flush.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileobj_iocontrol.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileobj_open.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileobj_read.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileobj_seek.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileobj_write.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileptr_constructor.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileptr_create.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileptr_delete.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\file\fileptr_destructor.c"
 					>
 				</File>
 				<File
@@ -811,27 +795,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\process\process_constructor.c"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\..\system\process\process_create.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\process\process_createex.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\process\process_delete.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\process\process_destructor.c"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\..\system\process\process_entersystemmode.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\process_execute.c"
 					>
 				</File>
 				<File
@@ -843,11 +815,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\process\process_getconin.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\process\process_getconout.c"
+					RelativePath="..\..\..\..\system\process\process_getconsole.c"
 					>
 				</File>
 				<File
@@ -855,7 +823,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\process\process_getcurrenthandle.c"
+					RelativePath="..\..\..\..\system\process\process_getcurrentprocessobj.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\process_getenvstring.c"
 					>
 				</File>
 				<File
@@ -907,15 +879,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\process\process_setconin.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\process\process_setconout.c"
+					RelativePath="..\..\..\..\system\process\process_setconsole.c"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\process\process_setcurrentdir.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\process_setenvstring.c"
 					>
 				</File>
 				<File
@@ -944,6 +916,22 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\process\process_waitexit.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\processobj_constructor.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\processobj_create.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\processobj_delete.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\processobj_destructor.c"
 					>
 				</File>
 			</Filter>
@@ -1199,6 +1187,10 @@
 				Name="handle"
 				>
 				<File
+					RelativePath="..\..\..\..\system\event\event_wait.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\handle\handle.h"
 					>
 				</File>
@@ -1207,27 +1199,59 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\handle\handleobj.h"
+					RelativePath="..\..\..\..\system\handle\handle_duplicate.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\handle\handleobj_constructor.c"
+					RelativePath="..\..\..\..\system\handle\handle_local.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\handle\handleobj_create.c"
+					RelativePath="..\..\..\..\system\handle\object_constructor.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\handle\handleobj_delete.c"
+					RelativePath="..\..\..\..\system\handle\object_destructor.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\handle\handleobj_destructor.c"
+					RelativePath="..\..\..\..\system\handle\object_setparent.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\handle\handleobj_local.h"
+					RelativePath="..\..\..\..\system\handle\ownerobj_constructor.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\ownerobj_destructor.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\pointerobj_constructor.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\pointerobj_create.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\pointerobj_delete.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\pointerobj_destructor.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\pointerobj_duplicate.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\targetobj_constructor.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\targetobj_destructor.c"
 					>
 				</File>
 			</Filter>
@@ -1312,10 +1336,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\event\event_set.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\..\system\event\event_wait.c"
 					>
 				</File>
 			</Filter>

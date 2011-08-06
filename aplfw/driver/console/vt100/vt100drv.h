@@ -1,13 +1,13 @@
 
 
 #include "system/file/console.h"
-#include "system/file/drvobj.h"
+#include "system/file/file_local.h"
 
 
 
 typedef struct c_vt100drv
 {
-	C_DRVOBJ		DrvObj;
+	C_FILEOBJ		FileObj;
 
 	HANDLE			hTty;
 	int				iEscState;

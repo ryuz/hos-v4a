@@ -12,12 +12,12 @@
 #include "tcpip_local.h"
 
 
-FILE_ERR TcpIp_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR TcpIp_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_TCPIP	*self;
 	
 	/* upper cast */
-	self = (C_TCPIP *)pDrvObj;
+	self = (C_TCPIP *)pFileObj;
 	
 	return FILE_ERR_NG;
 }

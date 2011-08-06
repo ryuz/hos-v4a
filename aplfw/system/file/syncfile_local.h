@@ -15,7 +15,7 @@
 #define __HOS__syncfile_local_h__
 
 #include "syncfile.h"
-#include "system/file/fileobj_local.h"
+#include "system/file/file_local.h"
 #include "system/file/syncdrv_local.h"
 #include "system/sysapi/sysapi.h"
 
@@ -33,7 +33,7 @@ typedef struct t_syncfile_syncobj
 /* ファイルブジェクト基本クラス定義 */
 typedef struct c_syncfile
 {
-	C_FILEOBJ			FileObj;		/**< ファイルオブジェクトを継承 */
+	C_FILEPTR			FilePtr;		/**< ファイルオブジェクトを継承 */
 	
 	struct c_syncfile	*pNext;			/**< イベント監視リスト連結用 */
 	struct c_syncfile	*pPrev;			/**< イベント監視リスト連結用 */

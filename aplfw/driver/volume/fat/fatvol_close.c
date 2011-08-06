@@ -13,17 +13,17 @@
 
 
 /** クローズ */
-void FatVol_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj)
+void FatVol_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr)
 {
 	C_FATVOL	*self;
 	C_FATFILE	*pFile;
 
 	/* フラッシュしておく */
-	FatVol_Flush(pDrvObj, pFileObj);
+	FatVol_Flush(pFileObj, pFilePtr);
 	
 	/* upper cast */
-	self  = (C_FATVOL *)pDrvObj;
-	pFile = (C_FATFILE *)pFileObj;
+	self  = (C_FATVOL *)pFileObj;
+	pFile = (C_FATFILE *)pFilePtr;
 	
 	
 	/* クローズ処理 */

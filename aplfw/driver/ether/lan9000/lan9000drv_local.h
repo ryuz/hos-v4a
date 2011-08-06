@@ -38,16 +38,16 @@ typedef struct c_lan9000drv
 extern "C" {
 #endif
 
-FILE_ERR  Lan9000Drv_Constructor(C_LAN9000DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum);	/**< コンストラクタ */
+FILE_ERR  Lan9000Drv_Constructor(C_LAN9000DRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum);	/**< コンストラクタ */
 void      Lan9000Drv_Destructor(C_LAN9000DRV *self);																	/**< デストラクタ */
 
-HANDLE    Lan9000Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      Lan9000Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  Lan9000Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  Lan9000Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE Lan9000Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE Lan9000Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  Lan9000Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    Lan9000Drv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      Lan9000Drv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  Lan9000Drv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  Lan9000Drv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE Lan9000Drv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE Lan9000Drv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  Lan9000Drv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      Lan9000Drv_Isr(VPARAM Param);			/* 割込み処理 */
 

@@ -11,16 +11,18 @@
 
 #include <stdio.h>
 #include "file_local.h"
-#include "fileobj.h"
+#include "file_local.h"
 
 
 FILE_POS File_Seek(HANDLE hFile, FILE_POS Offset, int iOrign)
 {
-	C_FILEOBJ *self;
+	C_FILEPTR *pFilePtr;
+	C_FILEOBJ *pFileObj;
 	
-	self = FILE_HANDLE2OBJ(hFile);
-
-	return DrvObj_vSeek(self->pDrvObj, self, Offset, iOrign);
+	pFilePtr = (C_FILEPTR *)hFile;
+	pFileObj = FilePtr_GetFileObj(pFilePtr);
+	
+	return FileObj_GetMethods(pFileObj)->pfncSeek(pFileObj, pFilePtr, Offset, iOrign);
 }
 
 

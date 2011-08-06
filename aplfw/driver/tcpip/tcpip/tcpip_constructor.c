@@ -14,7 +14,7 @@
 
 
 /* 仮想関数テーブル */
-static const T_DRVOBJ_METHODS TcpIp_Methods = 
+static const T_FILEOBJ_METHODS TcpIp_Methods = 
 	{
 		{ TcpIp_Delete },
 		TcpIp_Open,
@@ -28,7 +28,7 @@ static const T_DRVOBJ_METHODS TcpIp_Methods =
 
 
 /** コンストラクタ */
-FILE_ERR TcpIp_Constructor(C_TCPIP *self, const T_DRVOBJ_METHODS *pMethods, const char *pszIp)
+FILE_ERR TcpIp_Constructor(C_TCPIP *self, const T_FILEOBJ_METHODS *pMethods, const char *pszIp)
 {
 	if ( pMethods == NULL )
 	{

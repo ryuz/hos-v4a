@@ -21,7 +21,7 @@ void SyncDrv_Destructor(C_SYNCDRV *self)
 	SysMtx_Delete(self->hMtx);
 	
 	/* 親クラスデストラクタ呼び出し */
-	DrvObj_Destructor(&self->DrvObj);
+	FileObj_Destructor(&self->FileObj);
 }
 
 

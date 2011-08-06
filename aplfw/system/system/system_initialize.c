@@ -76,7 +76,7 @@ void System_Initialize(const T_SYSTEM_INITIALIZE_INF *pInf)
 	pProcessInf->hStdOut        = HANDLE_NULL;				/* 標準出力 */
 	pProcessInf->hStdErr        = HANDLE_NULL;				/* 標準エラー出力 */
 	pProcessInf->pszCurrentDir  = "/";						/* カレントディレクトリ */
-	ProcessObj_Constructor(&self->Process, NULL, pProcessInf);
+	ProcessObj_Constructor(&self->Process, &ProcessObj_Methods, pProcessInf);
 	
 	/* ブートプロセスの起動依頼 */
 	pProcessInf->pszCommandLine = "[boot]";

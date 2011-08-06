@@ -15,7 +15,7 @@
 void XxxxDrv_Destructor(C_XXXXDRV *self)
 {
 	/* 親クラスデストラクタ */
-	DrvObj_Destructor(&self->DrvObj);
+	FileObj_Destructor(&self->FileObj);
 }
 
 

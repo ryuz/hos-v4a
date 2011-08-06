@@ -12,12 +12,12 @@
 #include "vt100drv_local.h"
 #include "system/sysapi/sysapi.h"
 
-FILE_ERR  Vt100Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
+FILE_ERR  Vt100Drv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize)
 {
 	C_VT100DRV			*self;
 	
 	/* upper cast */
-	self = (C_VT100DRV *)pDrvObj;
+	self = (C_VT100DRV *)pFileObj;
 	
 	switch ( iFunc )
 	{

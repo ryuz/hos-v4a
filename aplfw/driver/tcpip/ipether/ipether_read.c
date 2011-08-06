@@ -14,13 +14,13 @@
 
 
 /* IPパケット受信 */
-FILE_SIZE IpEther_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE IpEther_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_IPETHER	*self;
 	int			iRecvSize;
 	
 	/* upper cast */
-	self = (C_IPETHER *)pDrvObj;
+	self = (C_IPETHER *)pFileObj;
 	
 	/* 受信待ち */
 	while ( self->iRecvNum <= 0 )

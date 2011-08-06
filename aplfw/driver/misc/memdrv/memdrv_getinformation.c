@@ -14,12 +14,12 @@
 
 
 
-FILE_ERR MemDrv_GetInformation(C_DRVOBJ *pDrvObj, char *pszInformation, int iLen)
+FILE_ERR MemDrv_GetInformation(C_FILEOBJ *pFileObj, char *pszInformation, int iLen)
 {
 	C_MEMDRV *self;
 	
 	/* upper cast */
-	self = (C_MEMDRV *)pDrvObj;
+	self = (C_MEMDRV *)pFileObj;
 	
 	StringFormat_FormatString
 						(

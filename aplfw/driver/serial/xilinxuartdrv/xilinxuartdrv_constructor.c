@@ -14,7 +14,7 @@
 
 
 /** %jp{仮想関数テーブル}%en{virtual functions table} */
-const T_DRVOBJ_METHODS XilinxUartDrv_Methods = 
+const T_FILEOBJ_METHODS XilinxUartDrv_Methods = 
 	{
 		{ XilinxUartDrv_Delete },
 		XilinxUartDrv_Open,
@@ -29,7 +29,7 @@ const T_DRVOBJ_METHODS XilinxUartDrv_Methods =
 
 
 /** コンストラクタ */
-FILE_ERR XilinxUartDrv_Constructor(C_XILINXUARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, int iBufSize)
+FILE_ERR XilinxUartDrv_Constructor(C_XILINXUARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void		*pMem;

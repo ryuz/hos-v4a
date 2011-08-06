@@ -12,14 +12,14 @@
 #include "memdrv_local.h"
 
 
-FILE_POS MemDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS MemDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	C_MEMDRV	*self;
 	C_MEMFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_MEMDRV *)pDrvObj;
-	pFile = (C_MEMFILE *)pFileObj;
+	self  = (C_MEMDRV *)pFileObj;
+	pFile = (C_MEMFILE *)pFilePtr;
 	
 	/* シーク */
 	switch ( iOrign )

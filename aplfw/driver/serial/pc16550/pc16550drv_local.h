@@ -41,16 +41,16 @@ typedef struct c_pc16550drv
 extern "C" {
 #endif
 
-FILE_ERR  Pc16550Drv_Constructor(C_PC16550DRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
+FILE_ERR  Pc16550Drv_Constructor(C_PC16550DRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegAddr, unsigned int uiRegStep, int iIntNum, long lSysClock, int iBufSize);	/**< コンストラクタ */
 void      Pc16550Drv_Destructor(C_PC16550DRV *self);
 
-HANDLE    Pc16550Drv_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode);
-void      Pc16550Drv_Close(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
-FILE_ERR  Pc16550Drv_IoControl(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
-FILE_POS  Pc16550Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign);
-FILE_SIZE Pc16550Drv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size);
-FILE_SIZE Pc16550Drv_Write(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, const void *pData, FILE_SIZE Size);
-FILE_ERR  Pc16550Drv_Flush(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj);
+HANDLE    Pc16550Drv_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode);
+void      Pc16550Drv_Close(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
+FILE_ERR  Pc16550Drv_IoControl(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, int iFunc, void *pInBuf, FILE_SIZE InSize, const void *pOutBuf, FILE_SIZE OutSize);
+FILE_POS  Pc16550Drv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign);
+FILE_SIZE Pc16550Drv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size);
+FILE_SIZE Pc16550Drv_Write(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, const void *pData, FILE_SIZE Size);
+FILE_ERR  Pc16550Drv_Flush(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr);
 
 void      Pc16550Drv_Isr(VPARAM Param);			/* 割込み処理 */
 

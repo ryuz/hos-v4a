@@ -13,19 +13,20 @@
 #include <string.h>
 #include "sysvol_local.h"
 #include "system/sysapi/sysapi.h"
-#include "system/file/drvobj.h"
-#include "system/file/fileobj_local.h"
+#include "system/file/file_local.h"
+#include "system/file/file_local.h"
 
 /* ファイルを開く */
-HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
+HANDLE SysVol_Open(C_FILEOBJ *pFileObj, const char *pszPath, int iMode)
 {
 	C_SYSVOL		*self;
+	C_FILEOBJ		*pDriver;
 	T_SYSVOL_DEVINF	*pDevInf;
 	char			szName[DEVVOL_MAX_NAME];
 	int				iLen;
 	
 	/* upper cast */
-	self = (C_SYSVOL *)pDrvObj;
+	self = (C_SYSVOL *)pFileObj;
 	
 	/* 自分自身のディレクトリを開くなら */
 	if ( *pszPath == '\0' )
@@ -64,7 +65,8 @@ HANDLE SysVol_Open(C_DRVOBJ *pDrvObj, const char *pszPath, int iMode)
 	}
 	
 	/* 下位デバイスを検索 */
-	return DrvObj_vOpen((C_DRVOBJ *)pDevInf->hDriver, &pszPath[iLen], iMode);
+	pDriver = (C_FILEOBJ *)pDevInf->hDriver;
+	return FileObj_GetMethods(pDriver)->pfncOpen(pDriver, &pszPath[iLen], iMode);
 }
 
 

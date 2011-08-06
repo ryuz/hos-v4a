@@ -12,7 +12,7 @@
 #include "fatfile_local.h"
 
 
-static const T_FILEOBJ_METHODS FatFile_FileObjMethods =
+static const T_FILEOBJ_METHODS FatFile_FilePtrMethods =
 	{
 		{
 			"FatFile",
@@ -32,7 +32,7 @@ HANDLE FatFile_Create(C_FATVOL *pFatVol, FATVOL_UINT uiStartCluster, FATVOL_UINT
 	}
 	
 	/* コンストラクタ呼び出し */
-	FatFile_Constructor(self, &FatFile_FileObjMethods, pFatVol, uiStartCluster, uiDirCluster, uiDirEntryPos, FileSize, iMode);
+	FatFile_Constructor(self, &FatFile_FilePtrMethods, pFatVol, uiStartCluster, uiDirCluster, uiDirEntryPos, FileSize, iMode);
 	
 	return (HANDLE)self;
 }

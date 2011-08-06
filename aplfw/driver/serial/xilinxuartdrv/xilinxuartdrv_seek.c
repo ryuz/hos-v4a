@@ -12,7 +12,7 @@
 #include "xilinxuartdrv_local.h"
 
 
-FILE_POS XilinxUartDrv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS XilinxUartDrv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	return FILE_ERR_NG;
 }

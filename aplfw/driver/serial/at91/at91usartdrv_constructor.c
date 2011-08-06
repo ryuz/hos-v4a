@@ -13,7 +13,7 @@
 
 
 /** コンストラクタ */
-FILE_ERR At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_DRVOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
+FILE_ERR At91UsartDrv_Constructor(C_AT91USARTDRV *self, const T_FILEOBJ_METHODS *pMethods, void *pRegBase, int iIntNum, unsigned long ulBaseClock, int iBufSize)
 {
 	FILE_ERR	ErrCode;
 	void		*pMem;

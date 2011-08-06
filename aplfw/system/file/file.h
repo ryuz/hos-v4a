@@ -126,7 +126,7 @@ typedef _HOS_SINT64		FILE_POS;						/* ファイル位置の型定義 */
 typedef long			FILE_SIZE;						/* 読み書き時のサイズ用の型定義 */
 typedef unsigned long	FILE_TIME;						/* 読み書き時のサイズ用の時刻型定義 */
 
-struct c_drvobj;
+struct c_fileobj;
 
 
 /* ファイル情報 */
@@ -162,8 +162,7 @@ typedef struct t_file_syncinf
 } T_FILE_SYNCINF;
 
 
-#include "fileobj.h"
-#include "drvobj.h"
+#include "file_local.h"
 
 
 #ifdef __cplusplus

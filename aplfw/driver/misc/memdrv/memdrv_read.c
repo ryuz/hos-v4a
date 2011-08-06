@@ -14,14 +14,14 @@
 
 
 
-FILE_SIZE MemDrv_Read(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, void *pBuf, FILE_SIZE Size)
+FILE_SIZE MemDrv_Read(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, void *pBuf, FILE_SIZE Size)
 {
 	C_MEMDRV	*self;
 	C_MEMFILE	*pFile;
 	
 	/* upper cast */
-	self  = (C_MEMDRV *)pDrvObj;
-	pFile = (C_MEMFILE *)pFileObj;
+	self  = (C_MEMDRV *)pFileObj;
+	pFile = (C_MEMFILE *)pFilePtr;
 	
 	SysMtx_Lock(self->hMtx);
 	

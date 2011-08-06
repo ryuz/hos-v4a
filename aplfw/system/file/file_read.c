@@ -11,17 +11,19 @@
 
 #include <stdio.h>
 #include "file_local.h"
-#include "fileobj.h"
+#include "file_local.h"
 
 
 
 FILE_SIZE File_Read(HANDLE hFile, void *pBuf, FILE_SIZE Size)
 {
-	C_FILEOBJ *self;
-
-	self = FILE_HANDLE2OBJ(hFile);
+	C_FILEPTR *pFilePtr;
+	C_FILEOBJ *pFileObj;
 	
-	return DrvObj_vRead(self->pDrvObj, self, pBuf, Size);
+	pFilePtr = (C_FILEPTR *)hFile;
+	pFileObj = FilePtr_GetFileObj(pFilePtr);
+	
+	return FileObj_GetMethods(pFileObj)->pfncRead(pFileObj, pFilePtr, pBuf, Size);
 }
 
 

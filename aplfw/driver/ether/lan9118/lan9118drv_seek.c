@@ -12,14 +12,14 @@
 #include "lan9118drv_local.h"
 
 
-FILE_POS Lan9118Drv_Seek(C_DRVOBJ *pDrvObj, C_FILEOBJ *pFileObj, FILE_POS Offset, int iOrign)
+FILE_POS Lan9118Drv_Seek(C_FILEOBJ *pFileObj, C_FILEPTR *pFilePtr, FILE_POS Offset, int iOrign)
 {
 	C_LAN9118DRV	*self;
 	C_CHRFILE		*pFile;
 	
 	/* upper cast */
-	self  = (C_LAN9118DRV *)pDrvObj;
-	pFile = (C_CHRFILE *)pFileObj;
+	self  = (C_LAN9118DRV *)pFileObj;
+	pFile = (C_CHRFILE *)pFilePtr;
 
 	return FILE_ERR_NG;
 }
