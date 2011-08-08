@@ -98,7 +98,7 @@ HANDLE        Process_GetStdErr(void);															/**< プロセスの標準�
 
 /* 外部プロセスからの操作 */
 HANDLE        Process_Open(unsigned long ulProcessId);											/**< プロセスを開く */
-#define       Process_Close		Handle_Close													/**< プロセスを閉る */
+void          Process_Close(HANDLE hProcess);													/**< プロセスを閉る */
 
 void          Process_SendSignal(HANDLE hProcess, int iSignal);									/**< プロセスにシグナルを送信 */
 

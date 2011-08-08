@@ -30,11 +30,14 @@ HANDLE Handle_Duplicate(HANDLE handle)
 	/* ハンドル変換 */
 	self = (C_OBJECT *)handle;
 
-	/* クローズ処理 */
-	if ( self->pMethods != NULL && self->pMethods->pfncDuplicate != NULL )
+	/* 複製処理 */
+	if ( self->pMethods == NULL || self->pMethods->pfncDuplicate == NULL )
 	{
-		self->pMethods->pfncDuplicate(handle);
+		return HANDLE_NULL;
 	}
+
+	return self->pMethods->pfncDuplicate(handle);	
 }
+
 
 /* end of file */

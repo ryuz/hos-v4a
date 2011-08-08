@@ -22,8 +22,6 @@ static void Process_SignalHandler(void);
 /** コンストラクタ */
 PROCESS_ERR ProcessObj_Constructor(C_PROCESSOBJ *self, const T_OBJECT_METHODS *pMethods, const T_PROCESS_CREATE_INF *pInf)
 {
-	C_PROCESSPTR	*pPtr;
-
 	SYS_ASSERT(pMethods != NULL);
 	SYS_ASSERT(pInf != NULL);
 
@@ -44,18 +42,11 @@ PROCESS_ERR ProcessObj_Constructor(C_PROCESSOBJ *self, const T_OBJECT_METHODS *p
 	self->hStdOut        = pInf->hStdOut;		/* 標準出力 */
 	self->hStdErr        = pInf->hStdErr;		/* 標準エラー出力 */
 	
-	/* 自ポインタメモリ確保 */
-	if ( (pPtr = (C_PROCESSPTR *)SysMem_Alloc(sizeof(C_PROCESSPTR))) == NULL )
-	{
-		return PROCESS_ERR_NG;
-	}
-	
 	/* コマンドラインコピー */
 	if ( pInf->pszCommandLine != NULL )
 	{
 		if ( (self->pszCommandLine = (char *)SysMem_Alloc(strlen(pInf->pszCommandLine) + 1)) == NULL )
 		{
-			SysMem_Free(pPtr);
 			return PROCESS_ERR_NG;
 		}
 		strcpy(self->pszCommandLine, pInf->pszCommandLine);
@@ -71,7 +62,6 @@ PROCESS_ERR ProcessObj_Constructor(C_PROCESSOBJ *self, const T_OBJECT_METHODS *p
 		if ( (self->pszCurrentDir = (char *)SysMem_Alloc(strlen(pInf->pszCurrentDir) + 1)) == NULL )
 		{
 			SysMem_Free(self->pszCommandLine);
-			SysMem_Free(pPtr);
 			return PROCESS_ERR_NG;
 		}
 		strcpy(self->pszCurrentDir, pInf->pszCurrentDir);
@@ -86,7 +76,6 @@ PROCESS_ERR ProcessObj_Constructor(C_PROCESSOBJ *self, const T_OBJECT_METHODS *p
 	{
 		SysMem_Free(self->pszCommandLine);
 		SysMem_Free(self->pszCurrentDir);
-		SysMem_Free(pPtr);
 		return PROCESS_ERR_NG;
 	}
 
@@ -97,7 +86,6 @@ PROCESS_ERR ProcessObj_Constructor(C_PROCESSOBJ *self, const T_OBJECT_METHODS *p
 		SysMem_Free(self->pStack);
 		SysMem_Free(self->pszCommandLine);
 		SysMem_Free(self->pszCurrentDir);
-		SysMem_Free(pPtr);
 		return PROCESS_ERR_NG;
 	}
 	SysEvt_Clear(self->hEvt);
@@ -110,19 +98,15 @@ PROCESS_ERR ProcessObj_Constructor(C_PROCESSOBJ *self, const T_OBJECT_METHODS *p
 		SysMem_Free(self->pStack);
 		SysMem_Free(self->pszCommandLine);
 		SysMem_Free(self->pszCurrentDir);
-		SysMem_Free(pPtr);
 		return PROCESS_ERR_NG;
 	}
-
+	
 	/* 親クラスコンストラクタ */
 	if ( pMethods == NULL )
 	{
 		pMethods = &ProcessObj_Methods;
 	}
 	OwnerObj_Constructor(&self->OwnerObj, pMethods);
-	
-	/* ポインタ紐付け */
-	ProcessPtr_Constructor(pPtr, &ProcessPtr_Methods, self);
 	
 	/* システムに登録 */
 	self->ulProcessId = System_RegistryProcess(self);

@@ -136,7 +136,7 @@ int Boot_Process(VPARAM Param)
 			"================================================================\n"
 			" Hyper Operating System  Application Framework\n"
 			"\n"
-			"                          Copyright (C) 1998-2010 by Project HOS\n"
+			"                          Copyright (C) 1998-2011 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");

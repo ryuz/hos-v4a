@@ -18,17 +18,21 @@
 /* 現在のプロセスを終了させる */
 void Process_Exit(int iExitCode)
 {
-	C_PROCESSOBJ *self;
-
-	self = Process_GetCurrentProcessObj();
+	C_PROCESSOBJ *pProcessObj;
+	
+	/* 現在のオブジェクト取得 */
+	pProcessObj = Process_GetCurrentProcessObj();
 	
 	/* 終了コード設定 */
-	self->iExitCode = iExitCode;
+	pProcessObj->iExitCode = iExitCode;
 	
 	/* 終了を通知 */
-	self->Exit = 1;
-	SysEvt_Set(self->hEvt);
-
+	pProcessObj->Exit = 1;
+	SysEvt_Set(pProcessObj->hEvt);
+	
+	/* オブジェクト削除 */
+	ProcessObj_Delete(pProcessObj);
+	
 	/* 終了 */
 	SysPrc_Exit();
 }

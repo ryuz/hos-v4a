@@ -66,13 +66,15 @@ extern C_SYSTEM g_System;
 extern "C" {
 #endif
 
-int            System_Process(VPARAM Param);							/* システムプロセスエントリーポイント */
+int           System_Process(VPARAM Param);							/* システムプロセスエントリーポイント */
 
 C_PROCESSOBJ *System_GetSystemProcessObj(void);
+/*#define       System_GetSystemOwnerObj()	(&System_GetSystemProcess()->OwnerObj) */
+
 unsigned long System_RegistryProcess(C_PROCESSOBJ *pProcess);			/* プロセスの登録 */
 void          System_UnregistryProcess(unsigned long ulProcessId);		/* プロセスの登録解除 */
+C_PROCESSOBJ *System_GetProcessObj(unsigned long ulProcessId);			/* 登録オブジェクトの取得 */
 
-#define       System_GetSystemOwnerObj()	(&System_GetSystemProcess()->OwnerObj)
 
 #ifdef __cplusplus
 }

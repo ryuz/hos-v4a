@@ -65,7 +65,8 @@ extern const T_OBJECT_METHODS ProcessPtr_Methods;
 extern "C" {
 #endif
 
-C_PROCESSOBJ *Process_GetCurrentProcessObj(void);											/**< 現在のプロセスオブジェクト取得 */	
+C_PROCESSOBJ *Process_GetCurrentProcessObj(void);											/**< 現在のプロセスオブジェクト取得 */
+C_PROCESSOBJ *Process_GetProcessObj(HANDLE handle);											/**< ハンドルからオブジェクトを取得 */
 PROCESS_ERR   Process_Attach(C_PROCESSOBJ *self, const T_PROCESS_CREATE_INF *pInf);			/**< 既存プロセスをアタッチ */
 
 HANDLE        ProcessObj_Create(const T_PROCESS_CREATE_INF *pInf);																/**< 生成 */
@@ -76,9 +77,11 @@ void          ProcessObj_Destructor(C_PROCESSOBJ *self);																		/**< �
 /* プロセスポインタクラス(PointerObjをそのまま継承) */
 #define ProcessPtr_Create(pProcessObj)					PointerObj_Create(&ProcessPtr_Methods, (C_TARGETOBJ *)(pProcessObj))
 #define ProcessPtr_Delete								PointerObj_Delete
-#define ProcessPtr_Constructor(self, methods, owner)	PointerObj_Constructor((C_POINTEROBJ *)(self), methods, (C_TARGETOBJ *)(owner))
+#define ProcessPtr_Constructor(self, owner)				PointerObj_Constructor((C_POINTEROBJ *)(self), &ProcessPtr_Methods, (C_TARGETOBJ *)(owner))
 #define ProcessPtr_Destructor							PointerObj_Destructor
 #define ProcessPtr_GetProcessObj(self)					((C_PROCESSOBJ *)PointerObj_GetTargetObj(self))
+#define PROCESSPTR_CHECK_HANDLE(handle)					SYS_ASSERT(Object_GetObjectIdentify(handle) == ProcessPtr_Methods.pszObjectIdentify)
+
 
 #ifdef __cplusplus
 }

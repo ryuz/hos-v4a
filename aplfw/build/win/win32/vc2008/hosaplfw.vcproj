@@ -795,6 +795,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\system\process\process_close.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\process\process_create.c"
 					>
 				</File>
@@ -847,6 +851,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\system\process\process_getprocessobj.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\process\process_getstderr.c"
 					>
 				</File>
@@ -863,6 +871,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\system\process\process_isexit.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\process\process_issystemmode.c"
 					>
 				</File>
@@ -872,6 +884,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\process\process_local.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\process\process_open.c"
 					>
 				</File>
 				<File
@@ -943,11 +959,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\system\system_getnextprocess.c"
+					RelativePath="..\..\..\..\system\system\system_getnextprocessid.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\system\system\system_getsystemprocess.c"
+					RelativePath="..\..\..\..\system\system\system_getprocessobj.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\system\system_getsystemprocessobj.c"
 					>
 				</File>
 				<File
@@ -967,11 +987,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\..\system\system\system_registryprocess.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\system\system\system_requestproc.c"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\system\system_unlock.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\system\system_unregistryprocess.c"
 					>
 				</File>
 				<File
@@ -1187,10 +1215,6 @@
 				Name="handle"
 				>
 				<File
-					RelativePath="..\..\..\..\system\event\event_wait.c"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\..\system\handle\handle.h"
 					>
 				</File>
@@ -1216,6 +1240,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\handle\object_setparent.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\handle\ownerobj_closechildadll.c"
 					>
 				</File>
 				<File
@@ -1336,6 +1364,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\system\event\event_set.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\system\event\event_wait.c"
 					>
 				</File>
 			</Filter>

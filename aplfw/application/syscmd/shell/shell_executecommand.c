@@ -136,7 +136,7 @@ int Shell_ExecuteCommand(C_SHELL *self, const char *pszCommand)
 			}
 			
 			/* プロセス削除 */
-			Process_Delete(hProcess);
+			Process_Close(hProcess);
 		}
 		
 		/* バックグランドプロセスで終わったものが無いかチェック */

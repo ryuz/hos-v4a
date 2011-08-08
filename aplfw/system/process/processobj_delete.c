@@ -16,8 +16,19 @@ void ProcessObj_Delete(HANDLE hProcess)
 {
 	C_PROCESSOBJ *self;
 	
+	/* オブジェクトへキャスト */
 	self = (C_PROCESSOBJ *)hProcess;
-
+	
+	/* 所有ハンドルはすべて閉じる */
+	OwnerObj_CloseChildAdll(&self->OwnerObj);
+	
+	/* 参照オブジェクトがいればフラグを立てて削除保留 */
+	if ( TargetObj_GetRefCounter(self) > 0 )
+	{
+		TargetObj_SetDeleteFlag(self);
+		return;
+	}
+	
 	/* デストラクタ呼び出し */
 	ProcessObj_Destructor(self);
 	

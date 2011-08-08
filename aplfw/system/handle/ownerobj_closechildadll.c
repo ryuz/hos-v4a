@@ -14,14 +14,14 @@
 #include "system/process/process_local.h"
 
 
-/* デストラクタ */
-void OwnerObj_Destructor(C_OWNEROBJ *self)
+/* 子オブジェクト全クローズ */
+void OwnerObj_CloseChildAdll(C_OWNEROBJ *self)
 {
 	/* 子オブジェクト全クローズ */
-	OwnerObj_CloseChildAdll(self);
-
-	/* 親クラスデストラクタ */
-	TargetObj_Destructor(&self->TargetObj);
+	while ( self->pChild != NULL )
+	{
+		Handle_Close((HANDLE)self->pChild);
+	}
 }
 
 

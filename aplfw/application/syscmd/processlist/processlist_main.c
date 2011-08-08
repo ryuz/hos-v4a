@@ -19,13 +19,13 @@
 int ProcessList_Main(int argc, char *argv[])
 {
 	HANDLE			hProcess;
+	unsigned long	ulProcessId;
 	unsigned long	ulExecSec;
 	unsigned long	ulExecNano;
 	int				iIsr   = 0;
 	int				i;
-
-#if 0
-
+	
+	
 	/* オプション解析 */
 	for ( i = 1; i < argc; i++ )
 	{
@@ -36,31 +36,32 @@ int ProcessList_Main(int argc, char *argv[])
 	}
 	
 	/* 表示 */
-	StdIo_PutString("HANDLE   PARENT   TIME[s]     +TIME[ns]    COMMAND\n");
-	StdIo_PutString("--------+--------+-----------+-----------+-----------\n");
+	StdIo_PutString("     ID        TIME[s]   +TIME[ns]      COMMAND\n");
+	StdIo_PutString("----------+-----------+-----------+----------------------\n");
 
 	/* アイドル時間取得 */
 	ulExecSec = Process_GetExecutionTime((HANDLE)(-1), &ulExecNano);
-	StdIo_PrintFormat("%08lx ", (unsigned long)0);
-	StdIo_PrintFormat("%08lx ", (unsigned long)0);
+	StdIo_PrintFormat("%10ld ", (unsigned long)0);
 	StdIo_PrintFormat("%11lu ", ulExecSec);
 	StdIo_PrintFormat("%11lu ", ulExecNano);
 	StdIo_PrintFormat("[idle]");
 	StdIo_PutChar('\n');
 	
 	/* 最初のプロセスを得る */
-	hProcess = System_GetNextProcess(HANDLE_NULL);
-	while ( hProcess != NULL )
+	ulProcessId = 0;
+	while (	(ulProcessId = System_GetNextProcessId(ulProcessId)) != 0 )
 	{
-		ulExecSec = Process_GetExecutionTime(hProcess, &ulExecNano);
-		StdIo_PrintFormat("%08lx ", (unsigned long)hProcess);
-		StdIo_PrintFormat("%08lx ", (unsigned long)Process_GetParentProcessId(hProcess));
-		StdIo_PrintFormat("%11lu ", ulExecSec);
-		StdIo_PrintFormat("%11lu ", ulExecNano);
-		StdIo_PrintFormat("%s",     Process_GetCommandLine(hProcess));
-		StdIo_PutChar('\n');
-		
-		hProcess = System_GetNextProcess(hProcess);
+		if ( (hProcess = Process_Open(ulProcessId)) != HANDLE_NULL )
+		{
+			ulExecSec = Process_GetExecutionTime(hProcess, &ulExecNano);
+			StdIo_PrintFormat("%10ld ", (unsigned long)ulProcessId);
+			StdIo_PrintFormat("%11lu ", ulExecSec);
+			StdIo_PrintFormat("%11lu ", ulExecNano);
+			StdIo_PrintFormat("%s",     Process_GetCommandLine(hProcess));
+			StdIo_PutChar('\n');
+
+			Process_Close(hProcess);
+		}
 	}
 	
 	/* 割込み処理時間表示 */
@@ -82,8 +83,6 @@ int ProcessList_Main(int argc, char *argv[])
 			}
 		}
 	}
-
-#endif
 	
 	return 0;
 }

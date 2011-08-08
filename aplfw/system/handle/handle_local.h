@@ -73,6 +73,7 @@ extern "C" {
 void    Object_Constructor(C_OBJECT *self, const T_OBJECT_METHODS *pMethods, C_OWNEROBJ *pParent);				/**< コンストラクタ */
 void    Object_Destructor(C_OBJECT *self);																		/**< デストラクタ */
 void    Object_SetParent(C_OBJECT *self, C_OWNEROBJ *pParent);													/**< 親の設定 */
+#define Object_GetObjectIdentify(handle)		(((C_OBJECT *)(handle))->pMethods->pszObjectIdentify)			/**< オブジェクト識別子取得 */
 
 void    TargetObj_Constructor(C_TARGETOBJ *self, const T_OBJECT_METHODS *pMethods);								/**< コンストラクタ */
 void    TargetObj_Destructor(C_TARGETOBJ *self);																/**< デストラクタ */
@@ -89,6 +90,7 @@ HANDLE  PointerObj_Duplicate(HANDLE handle);																	/**< 複製 */
 
 void    OwnerObj_Constructor(C_OWNEROBJ *self, const T_OBJECT_METHODS *pMethods);								/**< コンストラクタ */
 void    OwnerObj_Destructor(C_OWNEROBJ *self);																	/**< デストラクタ */
+void    OwnerObj_CloseChildAdll(C_OWNEROBJ *self);																/* 子オブジェクト全クローズ */
 
 #ifdef __cplusplus
 }

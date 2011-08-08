@@ -46,8 +46,7 @@ int    System_RequestProc(void (*pfncProc)(VPARAM Param1, VPARAM Param2), VPARAM
 void   System_Lock(void);
 void   System_Unlock(void);
 
-HANDLE System_GetNextProcess(HANDLE hProcess);																/**< 次のプロセスを取得 */
-
+unsigned long System_GetNextProcessId(unsigned long ulProcessId);
 
 void          Whiteboard_SetString(const char *pszKey, const char *pszValue);
 const char   *Whiteboard_GetString(const char *pszKey, char *pszBuf, int iBufSize, const char *pszDefault);
