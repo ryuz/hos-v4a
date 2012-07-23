@@ -82,7 +82,7 @@ ER ref_tsk(ID tskid, T_RTSK *p_rtsk)
 #endif
 
 #if _KERNEL_SPT_RTSK_TASK
-	p_rtsk->task    = _KERNEL_TSK_GET_TASK(tcb_ro);						/* %jp{タスクの起動番地(HOS独自拡張)} */
+	p_rtsk->task    = (FP)_KERNEL_TSK_GET_TASK(tcb_ro);					/* %jp{タスクの起動番地(HOS独自拡張)} */
 #endif
 #if _KERNEL_SPT_RTSK_ITSKPRI
 	p_rtsk->itskpri = _KERNEL_TSK_GET_ITSKPRI(tcb_ro);					/* %jp{タスクの起動時優先度(HOS独自拡張)} */
