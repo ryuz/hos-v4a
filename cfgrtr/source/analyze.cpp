@@ -4,7 +4,7 @@
  * @file  analyze.cpp
  * @brief  %jp{構文解析クラス}%en{lexer cless}
  *
- * Copyright (C) 1998-2010 by Project HOS
+ * Copyright (C) 1998-2014 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -94,7 +94,7 @@ int CAnalyze::SearchChar(char* pszBuf, const char* &pszText, char c)
 		}
 
 		// 文字列開始チェック
-		if ( !blText && *pszText == '\"' || *pszText == '\'' )
+		if ( (!blText && *pszText == '\"') || *pszText == '\'' )
 		{
 			cDelimiter = *pszText;
 			*pszBuf++ = *pszText++;
