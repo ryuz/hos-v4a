@@ -1,0 +1,31 @@
+*.dsw       -crlf
+*.dsp       -crlf
+*.sln       -crlf
+*.vcxproj   -crlf
+*.vcproj    -crlf
+*.html
+*.jpg       -crlf -diff
+*.pdf       -crlf -diff
+*.h         filter=textencoding
+*.c         filter=textencoding
+*.cpp       filter=textencoding
+*.cfg       filter=textencoding
+*.c         filter=textencoding
+*.s         filter=textencoding
+*.S         filter=textencoding
+*.src       filter=textencoding
+*.x         filter=textencoding
+*.asz       filter=textencoding
+*.asm       filter=textencoding
+*.as        filter=textencoding
+*.inc       filter=textencoding
+*.lds       filter=textencoding
+*.mak       filter=textencoding
+makefile    filter=textencoding
+Makefile    filter=textencoding
+GNUmakefile filter=textencoding
+*.sh        filter=textencoding
+*.pl        filter=textencoding
+*.bat       filter=textencoding
+*.txt       filter=textencoding
+*.log       filter=textencoding
