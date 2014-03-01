@@ -9,21 +9,21 @@
 
 
 # --------------------------------------
-#  %jp{ŠeŽíÝ’è}{setting}
+#  %jp{å„ç¨®è¨­å®š}{setting}
 # --------------------------------------
 
-# %jp{ƒ^[ƒQƒbƒgƒ‰ƒCƒuƒ‰ƒŠ–¼}%en{target library name}
+# %jp{ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ©ã‚¤ãƒ–ãƒ©ãƒªå}%en{target library name}
 TARGET ?= libhosv4a
 
 
-# %jp{ƒA[ƒLƒeƒNƒ`ƒƒ’è‹`}%en{architecture}
+# %jp{ã‚¢ãƒ¼ã‚­ãƒ†ã‚¯ãƒãƒ£å®šç¾©}%en{architecture}
 ARCH_NAME ?= mn103s
 ARCH_PROC ?= mn103/mn1030
 ARCH_IRC  ?= mn103/mn103s
 ARCH_CC   ?= cc103
 
 
-# %jp{ƒfƒBƒŒƒNƒgƒŠ’è‹`}
+# %jp{ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå®šç¾©}
 TOP_DIR           = ../../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
@@ -36,43 +36,43 @@ SRC_IRC_CC_DIR    = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
 CFGRTR_DIR        = $(TOP_DIR)/cfgrtr/build/gcc
 
 
-# %jp{ƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒ^’è‹`}%en{kernel configurator}
+# %jp{ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚¿å®šç¾©}%en{kernel configurator}
 CFGRTR = h4acfg-$(ARCH_NAME)
 
 
-# %jp{ƒJ[ƒlƒ‹Žw’è}%en{kernel flag}
+# %jp{ã‚«ãƒ¼ãƒãƒ«æŒ‡å®š}%en{kernel flag}
 KERNEL = Yes
 
 
-# %jp{‹¤’Ê’è‹`“Çž‚Ý}%en{common setting}
+# %jp{å…±é€šå®šç¾©èª­è¾¼ã¿}%en{common setting}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{ƒpƒXÝ’è}%en{add source directories}
+# %jp{ãƒ‘ã‚¹è¨­å®š}%en{add source directories}
 INC_DIRS += $(INC_PROC_DIR) $(INC_IRC_DIR)
 SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(SRC_IRC_CC_DIR)
 
 
-# %jp{ƒIƒvƒVƒ‡ƒ“ƒtƒ‰ƒO}%en{option flags}
+# %jp{ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°}%en{option flags}
 AFLAGS  = 
 CFLAGS  = 
 ARFLAGS = 
 
 
-# %jp{ƒRƒ“ƒpƒCƒ‰ˆË‘¶‚ÌÝ’è“Çž‚Ý}%en{compiler dependent definitions}
+# %jp{ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ä¾å­˜ã®è¨­å®šèª­è¾¼ã¿}%en{compiler dependent definitions}
 include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 
-# %jp{ƒ‰ƒCƒuƒ‰ƒŠ¶¬—pÝ’è“Çž‚Ý}%en{definitions for library}
+# %jp{ãƒ©ã‚¤ãƒ–ãƒ©ãƒªç”Ÿæˆç”¨è¨­å®šèª­è¾¼ã¿}%en{definitions for library}
 include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 
 
 
 
 # --------------------------------------
-#  %jp{ƒ\[ƒXƒtƒ@ƒCƒ‹}%en{source files}
+#  %jp{ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«}%en{source files}
 # --------------------------------------
 
-# %jp{ƒAƒZƒ“ƒuƒ‰ƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}%en{assembry sources}
+# %jp{ã‚¢ã‚»ãƒ³ãƒ–ãƒ©ãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }%en{assembry sources}
 ASRCS += $(SRC_PROC_CC_DIR)/kini_prc.as
 ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.as
 ASRCS += $(SRC_PROC_CC_DIR)/kena_int.as
@@ -84,7 +84,7 @@ ASRCS += $(SRC_PROC_CC_DIR)/kswi_ctx.as
 ASRCS += $(SRC_PROC_CC_DIR)/kint_hdr.as
 
 
-# %jp{CŒ¾Œêƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}%en{C sources}
+# %jp{Cè¨€èªžãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }%en{C sources}
 CSRCS += $(SRC_PROC_DIR)/val_int.c
 CSRCS += $(SRC_IRC_DIR)/ini_irc.c
 CSRCS += $(SRC_IRC_DIR)/exe_irc.c
@@ -95,14 +95,14 @@ CSRCS += $(SRC_IRC_DIR)/chg_ilv.c
 CSRCS += $(SRC_IRC_DIR)/get_ilv.c
 
 
-# %jp{ƒJ[ƒlƒ‹‹¤’Êƒ\[ƒX‚Ì’Ç‰Á}%en{kernel common sources}
+# %jp{ã‚«ãƒ¼ãƒãƒ«å…±é€šã‚½ãƒ¼ã‚¹ã®è¿½åŠ }%en{kernel common sources}
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 
 
 
 
 # --------------------------------------
-#  %jp{ƒ‹[ƒ‹’è‹`}%en{rules}
+#  %jp{ãƒ«ãƒ¼ãƒ«å®šç¾©}%en{rules}
 # --------------------------------------
 
 # %jp{ALL}%en{all}
@@ -110,35 +110,35 @@ include $(KERNEL_MAKINC_DIR)/knlsrc.inc
 all: makelib_all
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC)
 
-# %jp{ƒNƒŠ[ƒ“}%en{clean}
+# %jp{ã‚¯ãƒªãƒ¼ãƒ³}%en{clean}
 .PHONY : clean
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
 
-# %jp{ˆË‘¶ŠÖŒWXV}%en{make depend}
+# %jp{ä¾å­˜é–¢ä¿‚æ›´æ–°}%en{make depend}
 .PHONY : depend
 depend: makelib_depend
 
-# %jp{ƒ\[ƒXˆêŠ‡ƒRƒs[}%en{source files copy}
+# %jp{ã‚½ãƒ¼ã‚¹ä¸€æ‹¬ã‚³ãƒ”ãƒ¼}%en{source files copy}
 .PHONY : srccpy
 srccpy: makelib_srccpy
 
 
-# %jp{ƒ‰ƒCƒuƒ‰ƒŠ¶¬—pÝ’è“Çž‚Ý}%en{rules for library}
+# %jp{ãƒ©ã‚¤ãƒ–ãƒ©ãƒªç”Ÿæˆç”¨è¨­å®šèª­è¾¼ã¿}%en{rules for library}
 include $(KERNEL_MAKINC_DIR)/maklib_r.inc
 
-# %jp{ƒRƒ“ƒpƒCƒ‰ˆË‘¶‚Ìƒ‹[ƒ‹’è‹`“Çž‚Ý}%en{rules for compiler}
+# %jp{ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ä¾å­˜ã®ãƒ«ãƒ¼ãƒ«å®šç¾©èª­è¾¼ã¿}%en{rules for compiler}
 include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 
 
 
 
 # --------------------------------------
-#  %jp{ˆË‘¶ŠÖŒW}%en{dependency}
+#  %jp{ä¾å­˜é–¢ä¿‚}%en{dependency}
 # --------------------------------------
 
-# %jp{ƒJ[ƒlƒ‹ˆË‘¶ŠÖŒW“Çž‚Ý}{dependency list of kernel sources}
+# %jp{ã‚«ãƒ¼ãƒãƒ«ä¾å­˜é–¢ä¿‚èª­è¾¼ã¿}{dependency list of kernel sources}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
 

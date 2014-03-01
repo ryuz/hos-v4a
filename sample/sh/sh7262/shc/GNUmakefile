@@ -9,19 +9,19 @@
 
 
 # --------------------------------------
-#  %jp{ŠeŽíÝ’è}{setting}
+#  %jp{å„ç¨®è¨­å®š}{setting}
 # --------------------------------------
 
-# %jp{ƒ^[ƒQƒbƒg–¼}%en{target name}
+# %jp{ã‚¿ãƒ¼ã‚²ãƒƒãƒˆå}%en{target name}
 TARGET ?= sample
 
 
-# %jp{ƒA[ƒLƒeƒNƒ`ƒƒ’è‹`}%en{architecture}
+# %jp{ã‚¢ãƒ¼ã‚­ãƒ†ã‚¯ãƒãƒ£å®šç¾©}%en{architecture}
 ARCH_NAME ?= sh2a-fpu
 ARCH_CC   ?= shc
 
 
-# %jp{ƒfƒBƒŒƒNƒgƒŠ’è‹`}%en{directories}
+# %jp{ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå®šç¾©}%en{directories}
 OS_DIR            = ../../../..
 KERNEL_DIR        = $(OS_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
@@ -29,22 +29,22 @@ KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/sh/sh2a-fpu/shc
 
 
-# %jp{ƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒ^’è‹`}
+# %jp{ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚¿å®šç¾©}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-$(ARCH_NAME)
 
 
-# %jp{‹¤’Ê’è‹`“Çž‚Ý}%jp{common setting}
+# %jp{å…±é€šå®šç¾©èª­è¾¼ã¿}%jp{common setting}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
 ifeq ($(MEMMAP),rom)
-# %jp{ROMÄ‚«‚·‚éê‡}%en{internal ROM}
+# %jp{ROMç„¼ãã™ã‚‹å ´åˆ}%en{internal ROM}
 TARGET := $(TARGET)_rom
 SECTION_VECT ?= 000000000
 SECTION_RO   ?= 000000800
 SECTION_RW   ?= 01c000000
 else
-# %jp{RAMŽÀs}%en{external RAM}
+# %jp{RAMå®Ÿè¡Œ}%en{external RAM}
 TARGET := $(TARGET)
 SECTION_VECT ?= 01c000000
 SECTION_RO   ?= 01c000800
@@ -52,44 +52,44 @@ SECTION_RW   ?= 01c028000
 endif
 
 
-# %jp{ƒpƒXÝ’è}%en{add source directories}
+# %jp{ãƒ‘ã‚¹è¨­å®š}%en{add source directories}
 INC_DIRS += . ..
 SRC_DIRS += . ..
 
 
-# %jp{ƒIƒvƒVƒ‡ƒ“ƒtƒ‰ƒO}%en{option flags}
+# %jp{ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°}%en{option flags}
 AFLAGS  = -CPu=sh2afpu
 CFLAGS  = -CPu=sh2afpu
 LNFLAGS = 
 
 
-# %jp{ƒRƒ“ƒpƒCƒ‰ˆË‘¶‚ÌÝ’è“Çž‚Ý}%en{compiler dependent definitions}
+# %jp{ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ä¾å­˜ã®è¨­å®šèª­è¾¼ã¿}%en{compiler dependent definitions}
 include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 
-# %jp{ŽÀsƒtƒ@ƒCƒ‹¶¬—pÝ’è“Çž‚Ý}%en{definitions for exection file}
+# %jp{å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨è¨­å®šèª­è¾¼ã¿}%en{definitions for exection file}
 include $(KERNEL_MAKINC_DIR)/makexe_d.inc
 
 
-# %jp{o—Íƒtƒ@ƒCƒ‹–¼}%en{output files}
+# %jp{å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å}%en{output files}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
 TARGET_MOT = $(TARGET).$(EXT_MOT)
 
-# %jp{Cƒ‰ƒCƒuƒ‰ƒŠ–¼‚ÌŽw’è}%en{std library}
+# %jp{Cãƒ©ã‚¤ãƒ–ãƒ©ãƒªåã®æŒ‡å®š}%en{std library}
 STD_LIBS = stdlib.lib
 
 
 
 
 # --------------------------------------
-#  %jp{ƒ\[ƒXƒtƒ@ƒCƒ‹}%en{source files}
+#  %jp{ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«}%en{source files}
 # --------------------------------------
 
-# %jp{ƒAƒZƒ“ƒuƒ‰ƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}%en{assembry sources}
+# %jp{ã‚¢ã‚»ãƒ³ãƒ–ãƒ©ãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }%en{assembry sources}
 ASRCS += ./vcttbl.src
 ASRCS += ./startup.src
 
 
-# %jp{CŒ¾Œêƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}%en{C sources}
+# %jp{Cè¨€èªžãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }%en{C sources}
 CSRCS += ./dbsct.c
 CSRCS += ../kernel_cfg.c
 CSRCS += ../main.c
@@ -98,59 +98,59 @@ CSRCS += ../ostimer.c
 CSRCS += ../sci1.c
 
 
-# %jp{ƒ‰ƒCƒuƒ‰ƒŠ‚Ì’Ç‰Á}%en{library}
+# %jp{ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®è¿½åŠ }%en{library}
 LIBS  += $(STD_LIBS)
 
 
 
 
 # --------------------------------------
-#  %jp{ƒ‹[ƒ‹’è‹`}%en{rules}
+#  %jp{ãƒ«ãƒ¼ãƒ«å®šç¾©}%en{rules}
 # --------------------------------------
 
 # %jp{ALL}%en{all}
 .PHONY : all
 all: makeexe_all $(TARGET_EXE) $(TARGET_MOT)
 
-# %jp{ƒNƒŠ[ƒ“}%en{clean}
+# %jp{ã‚¯ãƒªãƒ¼ãƒ³}%en{clean}
 .PHONY : clean
 clean: makeexe_clean
 	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
 
-# %jp{ˆË‘¶ŠÖŒWXV}%en{depend}
+# %jp{ä¾å­˜é–¢ä¿‚æ›´æ–°}%en{depend}
 .PHONY : depend
 depend: makeexe_depend
 
-# %jp{ƒ\[ƒXˆêŠ‡ƒRƒs[}%en{source files copy}
+# %jp{ã‚½ãƒ¼ã‚¹ä¸€æ‹¬ã‚³ãƒ”ãƒ¼}%en{source files copy}
 .PHONY : srccpy
 srccpy: makeexe_srccpy
 
-# %jp{ƒJ[ƒlƒ‹‚²‚ÆƒNƒŠ[ƒ“}%en{mostlyclean}
+# %jp{ã‚«ãƒ¼ãƒãƒ«ã”ã¨ã‚¯ãƒªãƒ¼ãƒ³}%en{mostlyclean}
 .PHONY : mostlyclean
 mostlyclean: clean kernel_clean
 
 
-# %jp{•W€ƒ‰ƒCƒuƒ‰ƒŠ}%en{std library}
+# %jp{æ¨™æº–ãƒ©ã‚¤ãƒ–ãƒ©ãƒª}%en{std library}
 $(STD_LIBS):
 	lbgsh -OUTPut=$(STD_LIBS) -CPu=sh2 -REent
 
 
-# %jp{ƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒ^ŽÀs}%en{configurator}
+# %jp{ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚¿å®Ÿè¡Œ}%en{configurator}
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg $(KERNEL_CFGRTR)
 	cpp -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
 
 
-# %jp{ŽÀsƒtƒ@ƒCƒ‹¶¬—pÝ’è“Çž‚Ý}%en{setting for execute file}
+# %jp{å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨è¨­å®šèª­è¾¼ã¿}%en{setting for execute file}
 include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
-# %jp{shc—p‚Ìƒ‹[ƒ‹’è‹`“Çž‚Ý}
+# %jp{shcç”¨ã®ãƒ«ãƒ¼ãƒ«å®šç¾©èª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/shc_r.inc
 
 
 
 # --------------------------------------
-#  %jp{ˆË‘¶ŠÖŒW}%en{dependency}
+#  %jp{ä¾å­˜é–¢ä¿‚}%en{dependency}
 # --------------------------------------
 
 $(OBJS_DIR)/sample.obj: ../sample.c ../kernel_id.h

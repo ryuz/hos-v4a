@@ -6,10 +6,10 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{ƒ^[ƒQƒbƒg–¼}
+# %jp{ã‚¿ãƒ¼ã‚²ãƒƒãƒˆå}
 TARGET ?= sample
 
-# %jp{ƒfƒBƒŒƒNƒgƒŠ}
+# %jp{ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª}
 TOP_DIR             = ../../../../..
 KERNEL_DIR          = $(TOP_DIR)/kernel
 KERNEL_CFGRTR_DIR   = $(TOP_DIR)/cfgrtr/build/gcc
@@ -21,70 +21,70 @@ HOSAPLFW_BUILD_DIR  = $(HOSAPLFW_DIR)/build/mn103/mn103s/cc103
 OBJS_DIR            = objs_$(TARGET)
 
 
-# %jp{‹¤’Ê’è‹`“Çž‚Ý}
+# %jp{å…±é€šå®šç¾©èª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{ƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒ^’è‹`}
+# %jp{ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚¿å®šç¾©}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-mn103s
 
 
-# %jp{ƒ‰ƒCƒuƒ‰ƒŠ’è‹`}
+# %jp{ãƒ©ã‚¤ãƒ–ãƒ©ãƒªå®šç¾©}
 HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)/hosaplfw.$(EXT_LIB)
 
 
 
-# %jp{ƒfƒoƒbƒO”Å‚Ì’è‹`•ÏX}
+# %jp{ãƒ‡ãƒãƒƒã‚°ç‰ˆã®å®šç¾©å¤‰æ›´}
 ifeq ($(DEBUG),Yes)
 TARGET := $(TARGET)dbg
 HOSAPLFW_LIB = $(HOSAPLFW_BUILD_DIR)/hosaplfwdbg.$(EXT_LIB)
 endif
 
 
-# %jp{ƒtƒ‰ƒOÝ’è}
+# %jp{ãƒ•ãƒ©ã‚°è¨­å®š}
 CFLAGS  = 
 AFLAGS  = 
 LNFLAGS = -g -Qld=-m -Qld=-Rl -Qld=-T@CODE=0x40000000 -Qld=-T@DATA=0x00000004
 
 
-# %jp{o—Íƒtƒ@ƒCƒ‹–¼}
+# %jp{å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å}
 TARGET_EXE = $(TARGET).$(EXT_EXE)
 TARGET_BIN = $(TARGET).$(EXT_BIN)
 
 
-# %jp{ŽÀsƒtƒ@ƒCƒ‹¶¬—p‚ÌÝ’è“Çž‚Ý}
+# %jp{å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨ã®è¨­å®šèª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/makexe_d.inc
 
-# %jp{ƒRƒ“ƒpƒCƒ‰ˆË‘¶‚ÌÝ’è“Çž‚Ý}
+# %jp{ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ä¾å­˜ã®è¨­å®šèª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/cc103_d.inc
 
 
-# %jp{ƒCƒ“ƒNƒ‹[ƒhƒfƒBƒŒƒNƒgƒŠ}
+# %jp{ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª}
 INC_DIRS += $(HOSAPLFW_INC_DIR)
 
-# %jp{ƒ\[ƒXƒfƒBƒŒƒNƒgƒŠ}
+# %jp{ã‚½ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª}
 SRC_DIRS += . ..
 
 
-# %jp{ƒAƒZƒ“ƒuƒ‰ƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}
+# %jp{ã‚¢ã‚»ãƒ³ãƒ–ãƒ©ãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }
 ASRCS += ./startup.as		\
 
 
-# %jp{CŒ¾Œêƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}
+# %jp{Cè¨€èªžãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }
 CSRCS += ../kernel_cfg.c	\
          ../main.c			\
          ../boot.c			\
          ../ostimer.c
 
 
-# %jp{ƒ‰ƒCƒuƒ‰ƒŠƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}
+# %jp{ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }
 LIBS     += $(HOSAPLFW_LIB)
 STD_LIBS += C:/PanaX/CC103S/LIB/CC103S.L
 
 
 
 # --------------------------------------
-#  %jp{ƒ‹[ƒ‹}
+#  %jp{ãƒ«ãƒ¼ãƒ«}
 # --------------------------------------
 
 .PHONY : all
@@ -125,16 +125,16 @@ mostlysrccpy: srccpy srccpy
 
 
 
-# %jp{ŽÀsƒtƒ@ƒCƒ‹¶¬—pƒ‹[ƒ‹“Çž‚Ý}
+# %jp{å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨ãƒ«ãƒ¼ãƒ«èª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
-# %jp{ƒRƒ“ƒpƒCƒ‰ˆË‘¶ƒ‹[ƒ‹’è‹`“Çž‚Ý}
+# %jp{ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ä¾å­˜ãƒ«ãƒ¼ãƒ«å®šç¾©èª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/cc103_r.inc
 
 
 
 # --------------------------------------
-#  %jp{ˆË‘¶ŠÖŒW}
+#  %jp{ä¾å­˜é–¢ä¿‚}
 # --------------------------------------
 
 $(OBJS_DIR)/sample.obj: ../sample.c ../kernel_id.h

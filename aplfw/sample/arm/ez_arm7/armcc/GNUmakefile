@@ -6,10 +6,10 @@
 # ----------------------------------------------------------------------------
 
 
-# %jp{ƒ^[ƒQƒbƒg–¼}
+# %jp{ã‚¿ãƒ¼ã‚²ãƒƒãƒˆå}
 TARGET ?= sample
 
-# %jp{ƒfƒBƒŒƒNƒgƒŠ}
+# %jp{ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª}
 OS_DIR            = ../../../../..
 KERNEL_DIR        = $(OS_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
@@ -21,43 +21,43 @@ APLFW_BUILD_DIR   = $(APLFW_DIR)/build/arm/arm_v4t/armcc
 OBJS_DIR          = objs_$(TARGET)
 
 
-# %jp{ƒJ[ƒlƒ‹Ý’è}
+# %jp{ã‚«ãƒ¼ãƒãƒ«è¨­å®š}
 KERNEL_HOK_TSK = Yes
 KERNEL_HOK_ISR = Yes
 
 
-# %jp{‹¤’Ê’è‹`“Çž‚Ý}
+# %jp{å…±é€šå®šç¾©èª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/common.inc
 
 
-# %jp{ƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒ^’è‹`}
+# %jp{ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚¿å®šç¾©}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-lpc2000
 
 
-# %jp{ƒ‰ƒCƒuƒ‰ƒŠ’è‹`}
+# %jp{ãƒ©ã‚¤ãƒ–ãƒ©ãƒªå®šç¾©}
 APLFW_LIB = $(APLFW_BUILD_DIR)/hosaplfw.a
 
 
-# %jp{ƒfƒoƒbƒO”Å‚Ì’è‹`•ÏX}
+# %jp{ãƒ‡ãƒãƒƒã‚°ç‰ˆã®å®šç¾©å¤‰æ›´}
 ifeq ($(DEBUG),Yes)
 TARGET := $(TARGET)dbg
 APLFW_LIB = $(APLFW_BUILD_DIR)/hosaplfwdbg.a
 endif
 
 
-# %jp{ƒƒ‚ƒŠƒ}ƒbƒv}
+# %jp{ãƒ¡ãƒ¢ãƒªãƒžãƒƒãƒ—}
 ifeq ($(MEMMAP),ext)
-# %jp{ŠO•”ƒƒ‚ƒŠ}
+# %jp{å¤–éƒ¨ãƒ¡ãƒ¢ãƒª}
 TARGET       := $(TARGET)ext
 SECTION_RO  ?= 0x80008000
 SECTION_RW  ?= 0x80020000
 else
 ifeq ($(MEMMAP),ram)
-# %jp{“à‘ RAM}
+# %jp{å†…è”µRAM}
 SECTION_RO  ?= 0x00000000
 SECTION_RW  ?= 0x80010000
 else
-# %jp{“à‘ ROM}
+# %jp{å†…è”µROM}
 AFLAGS       += --predefine="ROM_AT_ADDRESS_ZERO SETL {TRUE}"
 SECTION_RO  ?= 0x00000000
 SECTION_RW  ?= 0x80010000
@@ -65,51 +65,51 @@ endif
 endif
 
 
-# %jp{ƒtƒ‰ƒOÝ’è}
+# %jp{ãƒ•ãƒ©ã‚°è¨­å®š}
 CFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
 AFLAGS  = --cpu=ARM7TDMI-S --apcs=inter --thumb
 LNFLAGS = --ro_base=$(SECTION_RO) --rw_base=$(SECTION_RW) --first=vectors.o --entry=$(SECTION_RO)
 
 
-# %jp{o—Íƒtƒ@ƒCƒ‹–¼}
+# %jp{å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å}
 TARGET_EXE = $(TARGET).axf
 TARGET_MOT = $(TARGET).mot
 TARGET_HEX = $(TARGET).hex
 
 
-# %jp{ŽÀsƒtƒ@ƒCƒ‹¶¬—p‚ÌÝ’è“Çž‚Ý}
+# %jp{å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨ã®è¨­å®šèª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/makexe_d.inc
 
-# %jp{armcc—p‚ÌÝ’è“Çž‚Ý}
+# %jp{armccç”¨ã®è¨­å®šèª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/armcc_d.inc
 
 
-# %jp{ƒCƒ“ƒNƒ‹[ƒhƒfƒBƒŒƒNƒgƒŠ}
+# %jp{ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª}
 INC_DIRS += $(APLFW_INC_DIR)
 
-# %jp{ƒ\[ƒXƒfƒBƒŒƒNƒgƒŠ}
+# %jp{ã‚½ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª}
 SRC_DIRS += . ..
 
 
-# %jp{ƒAƒZƒ“ƒuƒ‰ƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}
+# %jp{ã‚¢ã‚»ãƒ³ãƒ–ãƒ©ãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }
 ASRCS += ./vectors.s		\
          ./startup.s		\
          ./uish.s
 
 
-# %jp{CŒ¾Œêƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}
+# %jp{Cè¨€èªžãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }
 CSRCS += ../kernel_cfg.c	\
          ../main.c			\
          ../boot.c			\
          ../ostimer.c
 
-# %jp{ƒ‰ƒCƒuƒ‰ƒŠƒtƒ@ƒCƒ‹‚Ì’Ç‰Á}
+# %jp{ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ•ã‚¡ã‚¤ãƒ«ã®è¿½åŠ }
 LIBS += $(APLFW_LIB)
 
 
 
 # --------------------------------------
-#  %jp{ƒ‹[ƒ‹}
+#  %jp{ãƒ«ãƒ¼ãƒ«}
 # --------------------------------------
 
 .PHONY : all
@@ -142,16 +142,16 @@ mostlydepend: depend
 $(KERNEL_CFGRTR): kernel_make
 
 
-# %jp{ŽÀsƒtƒ@ƒCƒ‹¶¬—pƒ‹[ƒ‹“Çž‚Ý}
+# %jp{å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨ãƒ«ãƒ¼ãƒ«èª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 
-# %jp{armcc—p‚Ìƒ‹[ƒ‹’è‹`“Çž‚Ý}
+# %jp{armccç”¨ã®ãƒ«ãƒ¼ãƒ«å®šç¾©èª­è¾¼ã¿}
 include $(KERNEL_MAKINC_DIR)/armcc_r.inc
 
 
 
 # --------------------------------------
-#  %jp{ˆË‘¶ŠÖŒW}
+#  %jp{ä¾å­˜é–¢ä¿‚}
 # --------------------------------------
 
 $(OBJS_DIR)/sample.obj: ../sample.c ../kernel_id.h
