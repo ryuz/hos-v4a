@@ -19,11 +19,15 @@
 #include "system/file/console.h"
 #include "system/process/process.h"
 #include "system/command/command.h"
-#include "driver/serial/xilinxuartdrv/xilinxuartdrv.h"
+#include "driver/i2c/jelly/jellyi2cdrv.h"
+#include "driver/serial/jelly/jellyuartdrv.h"
 #include "driver/console/vt100/vt100drv.h"
-#include "application//syscmd/shell/shell.h"
-#include "application//syscmd/commandlist/commandlist.h"
-#include "application//syscmd/processlist/processlist.h"
+#include "driver/volume/fat/fatvol.h"
+#include "application/syscmd/shell/shell.h"
+#include "application/syscmd/commandlist/commandlist.h"
+#include "application/syscmd/processlist/processlist.h"
+#include "application/filecmd/filelist/filelist.h"
+#include "application/filecmd/filecopy/filecopy.h"
 #include "application/utility/timecmd/timecmd.h"
 #include "application/utility/memdump/memdump.h"
 #include "application/utility/memwrite/memwrite.h"
@@ -34,10 +38,21 @@
 #include "ostimer.h"
 
 
+int dhrystone_main(int argc, char *argv[]);
 
-#define SYSTEM_HEAP_ADDR	((void *)0xc0000000)
+
+#if 0
+
+long	g_SystemHeap[128 * 1024 / sizeof(long)];
+#define SYSTEM_HEAP_ADDR	((void *)g_SystemHeap)
+#define SYSTEM_HEAP_SIZE	sizeof(g_SystemHeap)
+
+#else
+
+#define SYSTEM_HEAP_ADDR	((void *)0x01300000)
 #define SYSTEM_HEAP_SIZE	0x00100000
 
+#endif
 
 
 extern SYSTIM_CPUTIME		SysTim_TimeCounter;		/* デフォルトのタイマカウンタ */
@@ -87,8 +102,8 @@ int Boot_Process(VPARAM Param)
 	/* タイマ初期化 */	
 	OsTimer_Initialize();
 	
-	/* UART デバドラ生成 (/dev/com0 に登録) */
-	hDriver = XilinxUartDrv_Create((void *)0x40600000, 1, 64);
+	/* Jelly UART デバドラ生成 (/dev/com0 に登録) */
+	hDriver = JellyUartDrv_Create((void *)0xfffff200, 1, 2, 256);
 	File_AddDevice("com0", hDriver);
 	
 	/* シリアルを開く */
@@ -100,6 +115,7 @@ int Boot_Process(VPARAM Param)
 	
 	/* コンソールを開く */
 	hCon = File_Open("/dev/con0", FILE_OPEN_READ | FILE_OPEN_WRITE);
+	
 	
 	
 	/*************************/
@@ -126,17 +142,21 @@ int Boot_Process(VPARAM Param)
 	Command_AddCommand("memtest",  MemTest_Main);
 	Command_AddCommand("keytest",  KeyTest_Main);
 	Command_AddCommand("hello",    Hello_Main);
+	Command_AddCommand("ls",       FileList_Main);
+	Command_AddCommand("cp",       FileCopy_Main);
+	
 	
 	
 	/*************************/
 	/*    起動メッセージ     */
 	/*************************/
+
 	StdIo_PutString(
 			"\n\n"
 			"================================================================\n"
 			" Hyper Operating System  Application Framework\n"
 			"\n"
-			"                          Copyright (C) 1998-2011 by Project HOS\n"
+			"                          Copyright (C) 1998-2014 by Project HOS\n"
 			"                          http://sourceforge.jp/projects/hos/\n"
 			"================================================================\n"
 			"\n");
@@ -148,7 +168,7 @@ int Boot_Process(VPARAM Param)
 	
 	/* プロセスの生成*/
 	ProcInf.pszCommandLine = "sh -i";								/* 実行コマンド */
-	ProcInf.pszCurrentDir  = "";									/* 起動ディレクトリ */
+	ProcInf.pszCurrentDir  = "/";									/* 起動ディレクトリ */
 	ProcInf.pfncEntry      = NULL;									/* 起動アドレス */
 	ProcInf.Param          = 0;										/* ユーザーパラメータ */
 	ProcInf.StackSize      = 2048;									/* スタックサイズ */

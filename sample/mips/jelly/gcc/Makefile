@@ -16,12 +16,12 @@ TARGET ?= sample
 
 
 # %jp{ツール定義}%en{tools}
-GCC_ARCH   ?= mips-elf-
-CMD_CC     ?= $(GCC_ARCH)gcc
-CMD_ASM    ?= $(GCC_ARCH)gcc
-CMD_LINK   ?= $(GCC_ARCH)gcc
-CMD_OBJCNV ?= $(GCC_ARCH)objcopy
-
+GCC_ARCH    ?= mips-elf-
+CMD_CC      ?= $(GCC_ARCH)gcc
+CMD_ASM     ?= $(GCC_ARCH)gcc
+CMD_LINK    ?= $(GCC_ARCH)gcc
+CMD_OBJCNV  ?= $(GCC_ARCH)objcopy
+CMD_OBJDUMP ?= $(GCC_ARCH)objdump
 
 # %jp{アーキテクチャ定義}%en{architecture}
 ARCH_NAME ?= jelly
@@ -106,10 +106,11 @@ CSRCS += ../ostimer.c
 # %jp{ALL}%en{all}
 .PHONY : all
 all: kernel_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(TARGET_BIN)
+	$(CMD_OBJDUMP) -D $(TARGET_EXE) > $(TARGET)_disas.txt
 
 .PHONY : run
 run: $(TARGET_BIN)
-	jelly_loader -r $(TARGET_BIN)
+	jelly_loader -c 4 -r $(TARGET_BIN)
 
 # %jp{クリーン}%en{clean}
 .PHONY : clean

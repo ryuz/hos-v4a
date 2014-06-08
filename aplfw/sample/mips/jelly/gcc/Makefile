@@ -24,7 +24,7 @@ CMD_OBJCNV   ?= $(GCC_ARCH)objcopy
 
 
 # %jp{ディレクトリ定義}%en{directories}
-TOP_DIR           = ../../../../..
+TOP_DIR           = $(HOME)/hos-v4a
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
@@ -59,14 +59,17 @@ endif
 
 
 # %jp{メモリマップ}
-ifeq ($(MEMMAP),ram)
-# %jp{内蔵RAM}
-TARGET       := $(TARGET)_ram
-LINK_SCRIPT = ram.lds
-else
+ifeq ($(MEMMAP),rom)
 # %jp{内蔵ROM}
+TARGET       := $(TARGET)_rom
 LINK_SCRIPT = rom.lds
+else
+# %jp{内蔵RAM}
+LINK_SCRIPT = ram.lds
 endif
+
+# loader COM port
+COMPORT ?= 1
 
 
 # %jp{フラグ設定}
@@ -123,7 +126,7 @@ all: kernel_make make_subprj makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HE
 
 .PHONY : run
 run: $(TARGET_BIN)
-	jelly_loader -r $(TARGET_BIN)
+	jelly_loader -c $(COMPORT) -r $(TARGET_BIN)
 
 
 .PHONY : make_subprj
