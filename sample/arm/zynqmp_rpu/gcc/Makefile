@@ -7,6 +7,7 @@
 
 # %jp{ターゲット名}
 TARGET ?= sample
+EXT_EXE ?= elf
 
 # %jp{ツール定義}
 GCC_ARCH   ?= arm-none-eabi-
