@@ -25,7 +25,7 @@ makelib_batch: $(CSRCS) $(ASRCS) makelib_mkobjsdir batch_asm batch_c $(TARGET_LI
 # %jp{クリーンナップ}%en{clean}
 .PHONY : makelib_clean
 makelib_clean:
-	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
+	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
 
 
 # %jp{依存関係の生成}%en{depend}
@@ -40,7 +40,7 @@ makelib_depend: makelib_mkobjsdir
 # %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
 .PHONY : makelib_mkobjsdir
 makelib_mkobjsdir:
-	$(CMD_MKDIR) -p $(OBJS_DIR)
+	-$(CMD_MKDIR) $(OBJS_DIR)
 
 
 # %jp{ソースのコピー}%en{spurce files copy}

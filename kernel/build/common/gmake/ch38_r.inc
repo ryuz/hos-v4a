@@ -49,7 +49,7 @@ AFLAGS += $(AFLAGS_INC)
 
 # %jp{実行ファイル生成}%en{Executable file}
 $(TARGET_EXE): $(OBJS) $(LIBS)
-	$(CMD_RM) -f $(TARGET_EXE)
+	-$(CMD_RM) $(TARGET_EXE)
 	$(CMD_ECHO) "-rom D=R"                                            > $(OBJS_DIR)/linksub.txt
 	$(CMD_ECHO) "-list $(TARGET).map"                                >> $(OBJS_DIR)/linksub.txt
 	$(CMD_ECHO) "-SHow SY,R,X"                                       >> $(OBJS_DIR)/linksub.txt
@@ -70,7 +70,7 @@ $(TARGET_MOT): $(TARGET_EXE)
 
 # %jp{ライブラリ生成}%en{Library}
 $(TARGET_LIB): $(OBJS)
-	$(CMD_RM) -f $(TARGET_LIB)
+	-$(CMD_RM) $(TARGET_LIB)
 	$(CMD_ECHO) "-Input=$(subst $(space),$(comma),$(strip $(OBJS)))" > $(OBJS_DIR)/subcmd.txt
 	$(CMD_ECHO) "-OUtput=$(TARGET_LIB)"                             >> $(OBJS_DIR)/subcmd.txt
 	$(CMD_ECHO) "-FOrm=Library"                                     >> $(OBJS_DIR)/subcmd.txt

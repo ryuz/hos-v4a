@@ -61,7 +61,7 @@ $(TARGET_HEX): $(TARGET_EXE)
 
 # %jp{ライブラリ生成}%en{Library}
 $(TARGET_LIB): $(OBJS)
-	$(CMD_RM) -f $(TARGET_LIB)
+	-$(CMD_RM) $(TARGET_LIB)
 	$(CMD_LIBR) $(TARGET_LIB) -c $(OBJS)
 
 

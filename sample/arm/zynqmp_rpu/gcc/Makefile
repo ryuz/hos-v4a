@@ -82,7 +82,8 @@ CSRCS += ../kernel_cfg.c	\
 all: makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 clean: makeexe_clean
-	rm -f $(TARGET_EXE) $(TARGET_EXE) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	$(CMD_RM) $(TARGET_EXE) $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	$(CMD_RM) $(TARGET).map
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	cpp -E ../system.cfg ../system.i

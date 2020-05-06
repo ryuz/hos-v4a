@@ -25,13 +25,13 @@ makeexe_all: $(KERNEL_LIB) makeexe_mkobjsdir $(CSRCS) $(ASRCS)
 # %jp{クリーンナップ}%en{clean}
 .PHONY : makeexe_clean
 makeexe_clean:
-	$(CMD_RM) -f $(TARGET_LIB) $(OBJS)
+	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
 
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{make object file firectory}
 .PHONY : makeexe_mkobjsdir
 makeexe_mkobjsdir:
-	$(CMD_MKDIR) -p $(OBJS_DIR)
+	-$(CMD_MKDIR) $(OBJS_DIR)
 
 
 # %jp{依存関係の生成}%en{make depend}
