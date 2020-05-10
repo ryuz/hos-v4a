@@ -20,6 +20,7 @@ kernel_vct.c
 *.abs
 *.exe
 *.x
+h4acfg-*
 
 # liblary files
 *.a
