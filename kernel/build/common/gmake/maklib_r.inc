@@ -33,7 +33,7 @@ makelib_clean:
 DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 .PHONY : makelib_depend
 makelib_depend: makelib_mkobjsdir
-	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e 's?\.o?\.$(EXT_OBJ)?g' | sed -e 's?^\(.*\):?$(OBJS_DIR)/\1:?g' > $(OBJS_DIR)/depend.inc
+	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e "s?\.o?\.$(EXT_OBJ)?g" | sed -e "s?^\(.*\):?$(OBJS_DIR)/\1:?g" > $(OBJS_DIR)/depend.inc
 
 -include $(OBJS_DIR)/depend.inc
 
