@@ -9,8 +9,8 @@
  */
 
 
-#ifndef __ostimer_h__
-#define __ostimer_h__
+#ifndef __uart_h__
+#define __uart_h__
 
 
 #ifdef __cplusplus
@@ -29,7 +29,7 @@ void Uart_PutHexWord(int i);
 #endif
 
 
-#endif	/* __ostimer_h__ */
+#endif	/* __uart_h__ */
 
 
 /* end of file */
