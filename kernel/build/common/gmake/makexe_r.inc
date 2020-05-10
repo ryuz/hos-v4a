@@ -26,6 +26,7 @@ makeexe_all: $(KERNEL_LIB) makeexe_mkobjsdir $(CSRCS) $(ASRCS)
 .PHONY : makeexe_clean
 makeexe_clean:
 	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
+	-$(CMD_RMDIR) $(OBJS_DIR)
 
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{make object file firectory}

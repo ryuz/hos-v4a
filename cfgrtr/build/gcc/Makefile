@@ -12,11 +12,11 @@ CC   = g++
 LINK = g++
 
 CMD_MKDIR ?= mkdir -p
+CMD_RMDIR ?= rmdir
 CMD_RM    ?= rm -f
 
 ifeq ($(OS),Windows_NT)
-CMD_MKDIR = cmd.exe /C unix_mkdir -p
-CMD_RM    = cmd.exe /C unix_rm -f
+CMD_MKDIR = mkdir
 endif
 
 
@@ -100,6 +100,7 @@ mkdir_objs:
 .PHONY : clean
 clean:
 	-$(CMD_RM) $(TARGET_EXE) $(OBJS)
+	-$(CMD_RMDIR) $(OBJS_DIR)
 
 
 $(OBJS_DIR)/%.o :: %.cpp

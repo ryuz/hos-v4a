@@ -19,14 +19,15 @@ space:= $(empty) $(empty)
 CMD_ECHO   ?= echo
 CMD_CD     ?= cd
 CMD_MKDIR  ?= mkdir -p
+CMD_RMDIR  ?= rmdir
 CMD_CP     ?= cp
 CMD_MV     ?= mv
 CMD_RM     ?= rm -f
 CMD_DEPEND ?= gcc
+CMD_CPP    ?= cpp
 
 ifeq ($(OS),Windows_NT)
-CMD_MKDIR = cmd.exe /C unix_mkdir -p
-CMD_RM    = cmd.exe /C unix_rm -f
+CMD_MKDIR = mkdir
 endif
 
 

@@ -57,6 +57,7 @@ tools/make_release/hos-v4a
 # etc
 *.bmm
 *.v
+*.log
 
 # setting
 .*

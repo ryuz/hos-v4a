@@ -69,7 +69,7 @@ all: makelib_all
 # %jp{クリーン}%en{clean}
 .PHONY : clean
 clean: makelib_clean
-	$(RM) -f *.lst
+	-$(CMD_RM) -f *.lst
 
 .PHONY : depend
 depend: makelib_depend

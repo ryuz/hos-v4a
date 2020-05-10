@@ -59,7 +59,7 @@ all: makelib_all
 
 .PHONY : clean
 clean: makelib_clean
-	$(CMD_RM) *.lst
+	-$(CMD_RM) *.lst
 
 .PHONY : depend
 depend: makelib_depend

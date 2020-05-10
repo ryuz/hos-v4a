@@ -26,6 +26,7 @@ makelib_batch: $(CSRCS) $(ASRCS) makelib_mkobjsdir batch_asm batch_c $(TARGET_LI
 .PHONY : makelib_clean
 makelib_clean:
 	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
+	-$(CMD_RMDIR) $(OBJS_DIR)
 
 
 # %jp{依存関係の生成}%en{depend}

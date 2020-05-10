@@ -82,12 +82,13 @@ CSRCS += ../kernel_cfg.c	\
 all: makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
 clean: makeexe_clean
-	$(CMD_RM) $(TARGET_EXE) $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(OBJS) ../kernel_cfg.c ../kernel_id.h
-	$(CMD_RM) $(TARGET).map
+	-$(CMD_RM) $(TARGET_EXE) $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(OBJS) ../system.i ../kernel_cfg.c ../kernel_id.h
+	-$(CMD_RM) $(TARGET).map
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
-	cpp -E ../system.cfg ../system.i
+	$(CMD_CPP) -E ../system.cfg ../system.i
 	$(KERNEL_CFGRTR) ../system.i -c ../kernel_cfg.c -i ../kernel_id.h
+	-$(CMD_RM) ../system.i
 
 
 # %jp{実行ファイル生成用設定読込み}%en{rules for exection file}
