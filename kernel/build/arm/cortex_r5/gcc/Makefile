@@ -121,7 +121,10 @@ all: makelib_all
 .PHONY : clean
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
-	$(RM) -f *.lst
+
+# %jp{深いクリーン}%en{distclean}
+.PHONY : distclean
+distclean: clean makelib_distclean
 
 # %jp{依存関係更新}%en{make depend}
 .PHONY : depend

@@ -116,6 +116,7 @@ OBJS_DIR = objs_$(TARGET)
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(ASRCS)))))	\
        $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))))
 
-
+# %jp{依存ファイル}
+DEPEND_FILE=$(OBJS_DIR)/depend.inc
 
 # end of file

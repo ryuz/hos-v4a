@@ -26,6 +26,9 @@ makeexe_all: $(KERNEL_LIB) makeexe_mkobjsdir $(CSRCS) $(ASRCS)
 .PHONY : makeexe_clean
 makeexe_clean:
 	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
+
+makeexe_distclean:
+	-$(CMD_RM) $(OBJS_DIR)/depend.inc
 	-$(CMD_RMDIR) $(OBJS_DIR)
 
 
@@ -38,8 +41,12 @@ makeexe_mkobjsdir:
 # %jp{依存関係の生成}%en{make depend}
 DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 .PHONY : makeexe_depend
-makeexe_depend: makeexe_mkobjsdir
-	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e "s?\.o?\.$(EXT_OBJ)?g" | sed -e "s?^\(.*\):?$(OBJS_DIR)/\1:?g" > $(OBJS_DIR)/depend.inc
+makeexe_depend:
+	-$(CMD_MKDIR) $(OBJS_DIR)
+	-$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e "s?\.o?\.$(EXT_OBJ)?g" | sed -e "s?^\(.*\):?$(OBJS_DIR)/\1:?g" > $(DEPEND_FILE)
+
+# CSRCS に kernel_cfg.c などが含まれており、そのままだと誤動作するのでコメントアウト
+# $(DEPEND_FILE): $(CSRCS)
 
 -include $(OBJS_DIR)/depend.inc
 
@@ -63,6 +70,10 @@ kernel_make:
 kernel_clean:
 	$(MAKE) -C $(KERNEL_BUILD_DIR) $(KERNEL_MAKOPT) clean
 
+# %jp{カーネル全クリーン}%en{clean distkernel}
+.PHONY : kernel_distclean
+kernel_distclean:
+	$(MAKE) -C $(KERNEL_BUILD_DIR) $(KERNEL_MAKOPT) distclean
 
 # %jp{カーネルdepend}%en{depend kernel}
 .PHONY : kernel_depend

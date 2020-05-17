@@ -22,7 +22,7 @@ OS_DIR            = ../../../..
 KERNEL_DIR        = $(OS_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(OS_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/arm/arm_v7r/gcc
+KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/arm/cortex_r5/gcc
 OBJS_DIR          = objs_$(TARGET)
 
 # %jp{共通定義読込み}
@@ -44,7 +44,7 @@ LNFLAGS = -march=armv7-r -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,
 
 
 # %jp{コンフィギュレータ定義}
-KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-arm_v7r
+KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-cortex_r5
 
 # 出力ファイル名
 TARGET_EXE = $(TARGET).$(EXT_EXE)
@@ -81,9 +81,13 @@ CSRCS += ../kernel_cfg.c	\
 .PHONY : all
 all: makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX)
 
+.PHONY : clean
 clean: makeexe_clean
 	-$(CMD_RM) $(TARGET_EXE) $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(OBJS) ../system.i ../kernel_cfg.c ../kernel_id.h
 	-$(CMD_RM) $(TARGET).map
+
+.PHONY : distclean
+distclean: clean makeexe_distclean
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
 	$(CMD_CPP) -E ../system.cfg ../system.i

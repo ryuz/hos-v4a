@@ -17,7 +17,8 @@
 /** %jp{割込みコントローラの初期化} */
 void _kernel_ini_irc(void)
 {
-	*_KERNEL_IRC_ICCPMR = 0;
+	*_KERNEL_IRC_ICCPMR = 0xf8;
+	*_KERNEL_IRC_ICCICR = 1;
 }
 
 

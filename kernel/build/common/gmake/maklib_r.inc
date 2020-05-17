@@ -26,16 +26,22 @@ makelib_batch: $(CSRCS) $(ASRCS) makelib_mkobjsdir batch_asm batch_c $(TARGET_LI
 .PHONY : makelib_clean
 makelib_clean:
 	-$(CMD_RM) $(TARGET_LIB) $(OBJS)
+
+makelib_distclean: makelib_clean
+	-$(CMD_RM) $(OBJS_DIR)/depend.inc
 	-$(CMD_RMDIR) $(OBJS_DIR)
 
 
 # %jp{依存関係の生成}%en{depend}
 DEPFLAGS += -MM $(patsubst %,-I%,$(INC_DIRS))
 .PHONY : makelib_depend
-makelib_depend: makelib_mkobjsdir
-	$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e "s?\.o?\.$(EXT_OBJ)?g" | sed -e "s?^\(.*\):?$(OBJS_DIR)/\1:?g" > $(OBJS_DIR)/depend.inc
+makelib_depend: $(DEPEND_FILE)
 
--include $(OBJS_DIR)/depend.inc
+$(DEPEND_FILE): $(CSRCS)
+	-$(CMD_MKDIR) $(OBJS_DIR)
+	-$(CMD_DEPEND) $(DEPFLAGS) $(CSRCS) | sed -e "s?\.o?\.$(EXT_OBJ)?g" | sed -e "s?^\(.*\):?$(OBJS_DIR)/\1:?g" > $(DEPEND_FILE)
+
+-include $(DEPEND_FILE)
 
 
 # %jp{オブジェクト出力ディレクトリ作成}%en{objects directory}
