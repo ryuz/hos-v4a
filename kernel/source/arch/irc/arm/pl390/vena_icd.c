@@ -1,9 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  ena_int.c
+ * @file  vena_icd.c
  * @brief %jp{ARM GIC PL390}%en{ARM GIC PL390}
- * Copyright (C) 1998-2007 by Project HOS
+ * 
+ * Copyright (C) 1998-2020 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -13,13 +14,11 @@
 #include "object/isrobj.h"
 
 
-/* %jp{割込みのクリア} */
-ER vclr_int(INTNO intno)
+/* enable ICD */
+ER   vena_icd(void)
 {
-//	*_KERNEL_IRC_ICCEOIR = intno;
-	
+	*_KERNEL_IRC_ICDDCR = 1;	
 	return E_OK;
 }
-
 
 /* end of file */

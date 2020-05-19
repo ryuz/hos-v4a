@@ -18,7 +18,7 @@
 void _kernel_ini_irc(void)
 {
 	*_KERNEL_IRC_ICCPMR = 0xf8;
-	*_KERNEL_IRC_ICCICR = 1;
+	*_KERNEL_IRC_ICCICR = 0x07;
 }
 
 

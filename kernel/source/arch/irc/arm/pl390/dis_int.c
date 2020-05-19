@@ -17,7 +17,7 @@
 /* 割込みの禁止 */
 ER dis_int(INTNO intno)
 {
-
+	*_KERNEL_IRC_ICDICER(intno >> 5) = (1 << (intno & 0x1f));
 	return E_OK;
 }
 

@@ -31,6 +31,7 @@ protected:
 	int   m_iMinIntNo;	
 	int   m_iMaxIntNo;
 	char* m_pszRegBase;
+	char* m_pszReg2Base;
 };
 
 

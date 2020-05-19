@@ -1,9 +1,10 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  ena_int.c
+ * @file  dis_int.c
  * @brief %jp{ARM GIC PL390}%en{ARM GIC PL390}
- * Copyright (C) 1998-2007 by Project HOS
+ *
+ * Copyright (C) 1998-2020 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -13,11 +14,10 @@
 #include "object/isrobj.h"
 
 
-/* %jp{割込みのクリア} */
-ER vclr_int(INTNO intno)
+/**< %jp{割込みレベル参照(独自サービスコール)} */
+ER vget_ilv(INTNO intno, INT *p_ilv)
 {
-//	*_KERNEL_IRC_ICCEOIR = intno;
-	
+	*p_ilv = *_KERNEL_IRC_ICDIPR(intno);
 	return E_OK;
 }
 
