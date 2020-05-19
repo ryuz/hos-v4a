@@ -25,6 +25,12 @@ struct _kernel_t_isrcb;
 extern const VP					_kernel_irc_reg_base;
 #endif
 
+#ifdef _KERNEL_IRCATR_REG2_BASE
+#if _KERNEL_IRCATR_REG2_BASE
+extern const VP					_kernel_irc_reg2_base;
+#endif
+#endif
+
 /* %jp{割込み情報} */
 typedef struct _kernel_t_intinf
 {
