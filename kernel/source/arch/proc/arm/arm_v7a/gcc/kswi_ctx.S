@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * Copyright (C) 1998-2014 by Project HOS
+ * Copyright (C) 1998-2020 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -33,7 +33,8 @@ _kernel_swi_ctx:
 				.global	_kernel_sta_ctx
 _kernel_sta_ctx:
 				ldr		sp, [r0]					/* スタックポインタ復帰 */
-				ldmfd	sp!, {r4-r11, pc}			/* レジスタ復帰 */
+				ldmfd	sp!, {r4-r11, lr}			/* レジスタ復帰 */
+				bx		lr
 
 				.end
 

@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * Copyright (C) 1998-2014 by Project HOS
+ * Copyright (C) 1998-2020 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -17,7 +17,6 @@
   void _kernel_ena_int(void)
  ************************************************/
 				.global	_kernel_ena_int
-				.global	_kernel_ictxcb
 _kernel_ena_int:
 				ldr		r1, =_kernel_ictxcb
 				mrs 	r0, cpsr					/* cpsr取得 */

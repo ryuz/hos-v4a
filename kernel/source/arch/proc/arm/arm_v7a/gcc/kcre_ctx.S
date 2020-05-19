@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * Copyright (C) 1998-2014 by Project HOS
+ * Copyright (C) 1998-2020 by Project HOS
  * http://sourceforge.jp/projects/hos/
  */
 
@@ -9,7 +9,6 @@
 #include "arm_v7a.inc"
 
 
-				.code	16
 				.text
 				.align	2
 
@@ -23,6 +22,9 @@
 			VP_INT         par2)		sp[0]:実行時パラメータ
  ************************************************/
 				.global	_kernel_cre_ctx
+				.code	16
+				.thumb_func
+				.type	_kernel_cre_ctx, %function
 _kernel_cre_ctx:
 				sub		r1, #36						/* スタックを確保 */
 				str		r2, [r1, #0]				/* r4 部分にentryを設定 */
@@ -42,6 +44,9 @@ ctx_entry:
 				mov		r0, r5						/* par1を設定 */
 				mov		r1, r6						/* par2を設定 */
 				bx		r4							/* entry を実行 */
+
+				.size	_kernel_cre_ctx, .-_kernel_cre_ctx
+
 
 				.end
 

@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for Cortex-M3
+#  makefile for ARM Cortex-A9
 #
-# Copyright (C) 1998-2011 by Project HOS
+# Copyright (C) 1998-2020 by Project HOS
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ CMD_LIBR ?= $(GCC_ARCH)ar
 # %jp{アーキテクチャ定義}%en{architecture}
 ARCH_NAME ?= cortex_a9
 ARCH_PROC ?= arm/arm_v7a
-ARCH_IRC  ?= none
+ARCH_IRC  ?= arm/pl390
 ARCH_CC   ?= gcc
 
 
@@ -61,8 +61,8 @@ SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -mcpu=cortex-a9 -mthumb
-CFLAGS  = -mcpu=cortex-a9 -mthumb
+AFLAGS  = -march=armv7-a -mthumb-interwork
+CFLAGS  = -march=armv7-a -mthumb-interwork
 ARFLAGS = 
 
 
@@ -71,7 +71,6 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 
 # %jp{ライブラリ生成用設定読込み}%en{definitions for library}
 include $(KERNEL_MAKINC_DIR)/maklib_d.inc
-
 
 
 
@@ -86,14 +85,32 @@ ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/krst_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/kswi_ctx.S
 ASRCS += $(SRC_PROC_CC_DIR)/kwai_int.S
+ASRCS += $(SRC_PROC_CC_DIR)/kund_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/kswi_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/kpre_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/kabt_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kirq_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/kfiq_hdr.S
+
 
 # %jp{C言語ファイルの追加}%en{C sources}
 CSRCS += $(SRC_PROC_DIR)/val_int.c
+CSRCS += $(SRC_IRC_DIR)/kini_irc.c
+CSRCS += $(SRC_IRC_DIR)/kexe_irc.c
+CSRCS += $(SRC_IRC_DIR)/ena_int.c
+CSRCS += $(SRC_IRC_DIR)/dis_int.c
+CSRCS += $(SRC_IRC_DIR)/vclr_int.c
+CSRCS += $(SRC_IRC_DIR)/vchg_ilv.c
+CSRCS += $(SRC_IRC_DIR)/vget_ilv.c
+CSRCS += $(SRC_IRC_DIR)/vena_icd.c
+CSRCS += $(SRC_IRC_DIR)/vdis_icd.c
+CSRCS += $(SRC_IRC_DIR)/vicdiptr.c
+CSRCS += $(SRC_IRC_DIR)/vicdicfr.c
+
+
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}
 include $(KERNEL_MAKINC_DIR)/knlsrc.inc
-
 
 
 
@@ -110,7 +127,10 @@ all: makelib_all
 .PHONY : clean
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
-	$(RM) -f *.lst
+
+# %jp{深いクリーン}%en{distclean}
+.PHONY : distclean
+distclean: clean makelib_distclean
 
 # %jp{依存関係更新}%en{make depend}
 .PHONY : depend
@@ -136,15 +156,6 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 
 # %jp{カーネル依存関係読込み}{dependency list of kernel sources}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
-
-
-$(OBJS_DIR)/val_int.$(EXT_OBJ)	:	$(COMMON_HEADERS)
-$(OBJS_DIR)/kini_irc.$(EXT_OBJ)	:	$(COMMON_HEADERS)
-$(OBJS_DIR)/kexe_irc.$(EXT_OBJ)	:	$(COMMON_HEADERS)
-$(OBJS_DIR)/ena_int.$(EXT_OBJ)	:	$(COMMON_HEADERS)
-$(OBJS_DIR)/dis_int.$(EXT_OBJ)	:	$(COMMON_HEADERS)
-$(OBJS_DIR)/vclr_int.$(EXT_OBJ)	:	$(COMMON_HEADERS)
-
 
 
 # end of file

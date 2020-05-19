@@ -8,18 +8,18 @@
 
 #include "arm_v7a.inc"
 
+
+				.code	32
 				.text
 				.align	2
 
-/************************************************
-  割り込み待ち(CPUのアイドル処理)
-  void 	_kernel_wai_int(void);
- ************************************************/
-				.global	_kernel_wai_int
-_kernel_wai_int:
-		/*		mcr		p15, 0, r0, c7, c0, 4	*/	/* WaitForInterrupt */
-				b		_kernel_wai_int
 
+/************************************************
+  Undefined handler
+ ************************************************/
+				.global	_kernel_und_hdr
+_kernel_und_hdr:
+				b		_kernel_und_hdr
 
 				.end
 
