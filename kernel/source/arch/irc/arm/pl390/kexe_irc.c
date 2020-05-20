@@ -21,11 +21,25 @@ void _kernel_exe_irc(INHNO inhno)
 
 	/* %jp{割込み番号取得} */
 	intno = *_KERNEL_IRC_ICCIAR;
-	
-	/* %jp{割込みサービスルーチン呼び出し} */
-	_kernel_exe_isr((INTNO)intno);
+	if ( !(intno >= _KERNEL_IRCATR_TMIN_INTNO && intno <= _KERNEL_IRCATR_TMAX_INTNO) ) {
+		return;
+	}
 
+	/* 優先度マスク更新 */
+	UB pmr = (UB)*_KERNEL_IRC_ICCPMR;
+	UB ilv = *_KERNEL_IRC_ICDIPR(intno);
+	*_KERNEL_IRC_ICCPMR = ilv;
+
+	/* 先に割り込みを終わらせる */
 	*_KERNEL_IRC_ICCEOIR = intno;
+
+	/* %jp{割込みサービスルーチン呼び出し} */
+	_kernel_ictxcb.imsk &= ~_KERNEL_IMSK_I;	/* 多重割り込み許可 */
+	_kernel_exe_isr((INTNO)intno);
+	_kernel_ictxcb.imsk |= _KERNEL_IMSK_I;
+	
+	/* 優先度マスク復帰 */
+	*_KERNEL_IRC_ICCPMR = pmr;
 }
 
 

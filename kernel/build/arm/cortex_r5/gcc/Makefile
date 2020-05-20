@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Hyper Operating System V4 Advance
-#  makefile for Freescale MX1 family
+#  makefile for ARM Cortex-R5
 #
 # Copyright (C) 1998-2007 by Project HOS
 # http://sourceforge.jp/projects/hos/
@@ -100,7 +100,8 @@ CSRCS += $(SRC_IRC_DIR)/kexe_irc.c
 CSRCS += $(SRC_IRC_DIR)/ena_int.c
 CSRCS += $(SRC_IRC_DIR)/dis_int.c
 CSRCS += $(SRC_IRC_DIR)/vclr_int.c
-
+CSRCS += $(SRC_IRC_DIR)/vchg_ilv.c
+CSRCS += $(SRC_IRC_DIR)/vget_ilv.c
 
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}
