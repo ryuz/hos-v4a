@@ -39,6 +39,12 @@ _reset_handler:
 				/* モード設定 */
 				msr		cpsr_c, #(Mode_SYS | F_Bit | I_Bit)
 				
+				/* SCTLR.V クリア(例外ベクタを0番地に戻す) */
+				mrc		p15, 0, r0, c1, c0, 0
+				mvn		r1, #0x2000
+				and		r0, r0, r1
+				mcr		p15, 0, r0, c1, c0, 0
+				
 				/* スタック仮設定 */
 				ldr		r0, =_kernel_int_isp
 				ldr 	sp, [r0]
@@ -64,7 +70,9 @@ bss_loop:
 				strcc	r2, [r0], #4
 				bcc		bss_loop
 				
-				
+				/* テスト */
+//				MRC		p15, 0, r2, c12, c0, 0
+
 				/* main関数の呼び出し */
 				bl		main
 end_loop:

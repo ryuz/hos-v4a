@@ -48,7 +48,8 @@ void Uart_Initialize(void)
 	*UART_Control           = 0x00;
 	*UART_Control           = 0x14;		/* 開始 */
 	*UART_Mode              = 0x20;		/* non-parity */
-	
+
+	*UART_Intrpt_en = 0x07;	
 }
 
 
