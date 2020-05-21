@@ -102,6 +102,10 @@ CSRCS += $(SRC_IRC_DIR)/dis_int.c
 CSRCS += $(SRC_IRC_DIR)/vclr_int.c
 CSRCS += $(SRC_IRC_DIR)/vchg_ilv.c
 CSRCS += $(SRC_IRC_DIR)/vget_ilv.c
+CSRCS += $(SRC_IRC_DIR)/vena_icd.c
+CSRCS += $(SRC_IRC_DIR)/vdis_icd.c
+CSRCS += $(SRC_IRC_DIR)/vicdiptr.c
+CSRCS += $(SRC_IRC_DIR)/vicdicfr.c
 
 
 # %jp{カーネル共通ソースの追加}%en{kernel common sources}
