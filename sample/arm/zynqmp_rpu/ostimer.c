@@ -103,8 +103,9 @@ void OsTimer_Isr(VP_INT exinf)
 {
 	/* %jp{割込み要因クリア} */
 #if USE_TTC
-	volatile UW dumy;
-	dumy = *REG_TTC_Interrupt_Register_1;	/* 読み出すとクリア */
+	volatile UW dummy;
+	dummy = *REG_TTC_Interrupt_Register_1;	/* 読み出すとクリア */
+	(void)dummy;
 #endif
 
 //	vclr_int(OS_TIMER_INTNO);
