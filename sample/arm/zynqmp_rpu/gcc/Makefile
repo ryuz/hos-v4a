@@ -102,6 +102,14 @@ include $(KERNEL_MAKINC_DIR)/makexe_r.inc
 include $(KERNEL_MAKINC_DIR)/gcc_r.inc
 
 
+start: $(TARGET_EXE)
+	sudo cp $(TARGET_EXE) /lib/firmware
+	sudo sh -c "echo $(TARGET_EXE) > /sys/class/remoteproc/remoteproc0/firmware"
+	sudo sh -c "echo start > /sys/class/remoteproc/remoteproc0/state"
+
+stop:
+	sudo sh -c "echo stop > /sys/class/remoteproc/remoteproc0/state"
+
 
 # --------------------------------------
 #  %jp{依存関係}

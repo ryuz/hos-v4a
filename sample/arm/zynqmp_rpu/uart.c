@@ -41,6 +41,7 @@
 /* %jp{UARTの初期化} */
 void Uart_Initialize(void)
 {
+#if 0
 	*UART_Control           = 0x28;		/* 停止 */
 	*UART_Baud_rate_gen     = 0x7c;		/* 115200bps */
 	*UART_Baud_rate_divider = 0x06;
@@ -50,6 +51,7 @@ void Uart_Initialize(void)
 	*UART_Mode              = 0x20;		/* non-parity */
 
 	*UART_Intrpt_en = 0x07;	
+#endif
 }
 
 
