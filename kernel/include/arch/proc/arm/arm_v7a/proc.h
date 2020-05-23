@@ -47,6 +47,7 @@ extern "C" {
 #endif
 
 void    _kernel_ini_prc(void);																		/**< %jp{プロセッサ初期化} */
+
 void    _kernel_ena_int(void);																		/**< %jp{割込み許可} */
 void    _kernel_dis_int(void);																		/**< %jp{割込み禁止} */
 void    _kernel_wai_int(void);																		/**< %jp{割込み待ち(アイドル時の処理)} */

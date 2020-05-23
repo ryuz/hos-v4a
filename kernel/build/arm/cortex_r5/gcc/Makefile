@@ -61,9 +61,18 @@ SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(
 
 
 # %jp{オプションフラグ}%en{option flags}
-AFLAGS  = -march=armv7-r -mthumb-interwork
-CFLAGS  = -march=armv7-r -mthumb-interwork
+AFLAGS  = -mcpu=cortex-r5 -mthumb-interwork
+CFLAGS  = -mcpu=cortex-r5 -mthumb-interwork
 ARFLAGS = 
+
+# %jp{VFPフラグ}%en{VFP flags}
+WITH_VFP ?= Yes
+ifneq ($(WITH_VFP),No)
+AFLAGS += -mfloat-abi=softfp -mfpu=vfpv3
+CFLAGS += -mfloat-abi=softfp -mfpu=vfpv3
+A_DEFS += _KERNEL_ARM_WITH_VFP
+C_DEFS += _KERNEL_ARM_WITH_VFP
+endif
 
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
@@ -79,6 +88,7 @@ include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 # --------------------------------------
 
 # %jp{アセンブラファイルの追加}%en{assembry sources}
+ASRCS += $(SRC_PROC_CC_DIR)/kini_prc.S
 ASRCS += $(SRC_PROC_CC_DIR)/kdis_int.S
 ASRCS += $(SRC_PROC_CC_DIR)/kena_int.S
 ASRCS += $(SRC_PROC_CC_DIR)/kcre_ctx.S

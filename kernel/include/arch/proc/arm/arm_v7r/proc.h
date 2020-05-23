@@ -45,6 +45,8 @@ extern _KERNEL_T_ICTXCB _kernel_ictxcb;		/**< %jp{割込みコンテキスト制
 extern "C" {
 #endif
 
+void    _kernel_ini_prc(void);																		/**< %jp{プロセッサ初期化} */
+
 void    _kernel_ena_int(void);																		/**< %jp{割込み許可} */
 void    _kernel_dis_int(void);																		/**< %jp{割込み禁止} */
 void    _kernel_wai_int(void);																		/**< %jp{割込み待ち(アイドル時の処理)} */
@@ -68,7 +70,7 @@ void    _kernel_fiq_hdr(void);
 
 
 
-#define _KERNEL_INI_PRC()			do {} while (0)													/**< %jp{プロセッサ固有の初期化} */
+#define _KERNEL_INI_PRC()			_kernel_ini_prc();												/**< %jp{プロセッサ固有の初期化} */
 
 #define _KERNEL_INI_INT(stksz, stk)	do { _kernel_ictxcb.isp = (VB *)(stk) + (stksz); } while (0)	/**< %jp{割込み初期化} */
 #define _KERNEL_ENA_INT()			_kernel_ena_int()												/**< %jp{割込み許可} */

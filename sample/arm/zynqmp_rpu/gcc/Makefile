@@ -38,9 +38,19 @@ LINK_SCRIPT = link.lds
 
 
 # %jp{フラグ設定}
-CFLAGS  = -march=armv7-r -mthumb-interwork
-AFLAGS  = -march=armv7-r -mthumb-interwork
-LNFLAGS = -march=armv7-r -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+CFLAGS  = -mcpu=cortex-r5 -mthumb-interwork
+AFLAGS  = -mcpu=cortex-r5 -mthumb-interwork
+LNFLAGS = -mcpu=cortex-r5 -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+
+# %jp{VFPフラグ}%en{VFP flags}
+WITH_VFP ?= Yes
+ifneq ($(WITH_VFP),No)
+AFLAGS  += -mfloat-abi=softfp -mfpu=vfpv3
+CFLAGS  += -mfloat-abi=softfp -mfpu=vfpv3
+LNFLAGS += -mfloat-abi=softfp -mfpu=vfpv3
+A_DEFS += _KERNEL_ARM_WITH_VFP
+C_DEFS += _KERNEL_ARM_WITH_VFP
+endif
 
 
 # %jp{コンフィギュレータ定義}
