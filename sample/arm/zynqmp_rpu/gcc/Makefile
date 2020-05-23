@@ -45,9 +45,9 @@ LNFLAGS = -mcpu=cortex-r5 -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map
 # %jp{VFPフラグ}%en{VFP flags}
 WITH_VFP ?= Yes
 ifneq ($(WITH_VFP),No)
-AFLAGS  += -mfloat-abi=softfp -mfpu=vfpv3
-CFLAGS  += -mfloat-abi=softfp -mfpu=vfpv3
-LNFLAGS += -mfloat-abi=softfp -mfpu=vfpv3
+AFLAGS  += -mfloat-abi=softfp -mfpu=vfpv3-d16 
+CFLAGS  += -mfloat-abi=softfp -mfpu=vfpv3-d16 
+LNFLAGS += -mfloat-abi=softfp -mfpu=vfpv3-d16 
 A_DEFS += _KERNEL_ARM_WITH_VFP
 C_DEFS += _KERNEL_ARM_WITH_VFP
 endif

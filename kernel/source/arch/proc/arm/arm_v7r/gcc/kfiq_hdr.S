@@ -31,7 +31,6 @@ _kernel_fiq_hdr:
 
 #ifdef _KERNEL_ARM_WITH_VFP		/* VFP利用時 */
 				vpush	{d0-d7}									/* VFP用レジスタ退避 */
-				vpush	{d16-d31}								/* VFP用レジスタ退避 */
 				vmrs	r1, fpscr								/* fpscr取り出し */
 				push	{r1}									/* fpscr退避 */
 				vmrs	r1, fpexc								/* fpexc取り出し */
@@ -108,7 +107,6 @@ return_int:
 				vmsr    fpexc, r1								/* fpexc 設定 */
 				pop 	{r1}									/* fpscr 復帰 */
 				vmsr    fpscr, r1								/* fpscr 設定 */
-				vpop    {d16-d31}								/* VFP用レジスタ復帰 */
 				vpop    {d0-d7}									/* VFP用レジスタ復帰 */
 #endif
 
