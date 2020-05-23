@@ -38,10 +38,17 @@ LINK_SCRIPT = link.lds
 
 
 # %jp{フラグ設定}
-CFLAGS  = -march=armv7-a -mthumb-interwork
-AFLAGS  = -march=armv7-a -mthumb-interwork
-LNFLAGS = -march=armv7-a -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+CFLAGS  = -mcpu=cortex-a9 -mthumb-interwork
+AFLAGS  = -mcpu=cortex-a9 -mthumb-interwork
+LNFLAGS = -mcpu=cortex-a9 -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
+# %jp{VFPフラグ}%en{VFP flags}
+ifneq ($(WITH_VFP),No)
+AFLAGS += -mfloat-abi=softfp -mfpu=neon
+CFLAGS += -mfloat-abi=softfp -mfpu=neon
+A_DEFS += _KERNEL_ARM_WITH_VFP _KERNEL_ARM_WITH_NEON
+C_DEFS += _KERNEL_ARM_WITH_VFP _KERNEL_ARM_WITH_NEON
+endif
 
 # %jp{コンフィギュレータ定義}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-cortex_a9

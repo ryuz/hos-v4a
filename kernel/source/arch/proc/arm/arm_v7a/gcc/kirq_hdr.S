@@ -27,6 +27,16 @@ _kernel_irq_hdr:
 			/* ---- レジスタ退避 */
 				msr		cpsr_c, #(Mode_SYS | F_Bit | I_Bit)		/* SYSモードに移行 */
 				stmfd	sp!, {r0-r3, r12, lr}					/* SYSモードの汎用レジスタ退避 */
+
+#ifdef _KERNEL_ARM_WITH_VFP		/* VFP利用時 */
+				vpush	{d0-d7}									/* VFP用レジスタ退避 */
+				vpush	{d16-d31}								/* VFP用レジスタ退避 */
+				vmrs	r1, fpscr								/* fpscr 取り出し */
+				push	{r1}									/* fpscr 退避 */
+				vmrs	r1, fpexc								/* fpexc 取り出し */
+				push	{r1}									/* fpexc 退避 */
+#endif
+
 				msr		cpsr_c, #(Mode_IRQ | F_Bit | I_Bit)		/* IRQモードに移行 */
 				mov		r0, lr									/* lr_irq 取り出し */
 				mrs		r1, spsr								/* spsr_irq 取り出し */
@@ -87,6 +97,16 @@ return_int:
 				mov		lr, r0									/* lr_irq 復帰 */
 				msr		spsr_csxf, r1 							/* spsr_irq 復帰 */
 				msr		cpsr_c, #(Mode_SYS | F_Bit | I_Bit)		/* SYSモードに移行 */
+
+#ifdef _KERNEL_ARM_WITH_VFP		/* VFP利用時 */
+				pop 	{r1}									/* fpexc 復帰 */
+				vmsr    fpexc, r1								/* fpexc 設定 */
+				pop 	{r1}									/* fpscr 復帰 */
+				vmsr    fpscr, r1								/* fpscr 設定 */
+				vpop    {d16-d31}								/* VFP用レジスタ復帰 */
+				vpop    {d0-d7}									/* VFP用レジスタ復帰 */
+#endif
+
 				ldmfd	sp!, {r0-r3, r12, lr}					/* SYSモードの汎用レジスタ復帰 */
 				msr		cpsr_c, #(Mode_IRQ | F_Bit | I_Bit)		/* IRQモードに移行 */
 				subs	pc, lr, #4								/* 割込み復帰 */
