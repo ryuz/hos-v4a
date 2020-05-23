@@ -88,7 +88,7 @@ void OsTimer_Initialize(VP_INT exinf)
 	*REG_TTC_Counter_Control_1    = 0x21;		/* stop */
 
 	*REG_TTC_Clock_Control_1      = 0x03;		/* PS_VAL:1, PS_EN:1 */
-	*REG_TTC_Interval_Counter_1   = 33333-1;	/* 1kHz (CPU_1x:133.333MHz) */
+	*REG_TTC_Interval_Counter_1   = 25000-1;	/* 1kHz (CPU_1x:100MHz) */
 
 	*REG_TTC_Interrupt_Register_1 = 0x01;		/* Interrupt : Interval */
 	*REG_TTC_Interrupt_Enable_1   = 0x01;		/* Interrupt enable */
