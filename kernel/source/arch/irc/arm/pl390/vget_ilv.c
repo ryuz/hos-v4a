@@ -1,7 +1,7 @@
 /** 
  *  Hyper Operating System V4 Advance
  *
- * @file  dis_int.c
+ * @file  vget_ilv.c
  * @brief %jp{ARM GIC PL390}%en{ARM GIC PL390}
  *
  * Copyright (C) 1998-2020 by Project HOS

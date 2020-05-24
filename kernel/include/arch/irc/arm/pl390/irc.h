@@ -14,29 +14,29 @@
 
 
 /* %jp{メモリマップドレジスタ定義} */
-#define _KERNEL_IRC_ICCICR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x000))
-#define _KERNEL_IRC_ICCPMR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x004))
-#define _KERNEL_IRC_ICCBPR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x008))
-#define _KERNEL_IRC_ICCIAR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x00C))
-#define _KERNEL_IRC_ICCEOIR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x010))
-#define _KERNEL_IRC_ICCRPR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x014))
-#define _KERNEL_IRC_ICCHPIR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x018))
-#define _KERNEL_IRC_ICCABPR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x01c))
-#define _KERNEL_IRC_ICCIDR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x0fc))
+#define _KERNEL_IRC_ICCICR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x000))             /* CPU インタフェース制御レジスタ */
+#define _KERNEL_IRC_ICCPMR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x004))             /* 割り込み優先度マスクレジスタ */
+#define _KERNEL_IRC_ICCBPR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x008))             /* 2進小数点レジスタ */
+#define _KERNEL_IRC_ICCIAR				((volatile UW *)((B*)_kernel_irc_reg_base + 0x00C))             /* 割り込み応答レジスタ */
+#define _KERNEL_IRC_ICCEOIR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x010))             /* 割り込み終了レジスタ */
+#define _KERNEL_IRC_ICCRPR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x014))             /* 実行優先度レジスタ */
+#define _KERNEL_IRC_ICCHPIR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x018))             /* 最優先保留割り込みレジスタ */
+#define _KERNEL_IRC_ICCABPR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x01c))             /* エイリアスされた非セキュア2 進小数点レジスタ */
+#define _KERNEL_IRC_ICCIDR		    	((volatile UW *)((B*)_kernel_irc_reg_base + 0x0fc))             /* CPUインタフェース実装識別レジスタ */
 
-#define _KERNEL_IRC_ICDDCR		        ((volatile UW *)((B*)_kernel_irc_reg2_base + 0x000))
-#define _KERNEL_IRC_ICDICTR		        ((volatile UW *)((B*)_kernel_irc_reg2_base + 0x004))
-#define _KERNEL_IRC_ICDIIDR		        ((volatile UW *)((B*)_kernel_irc_reg2_base + 0x008))
+#define _KERNEL_IRC_ICDDCR		        ((volatile UW *)((B*)_kernel_irc_reg2_base + 0x000))            /* 配器制御レジスタ */
+#define _KERNEL_IRC_ICDICTR		        ((volatile UW *)((B*)_kernel_irc_reg2_base + 0x004))            /* 割り込みコントローラタイプ レジスタ */
+#define _KERNEL_IRC_ICDIIDR		        ((volatile UW *)((B*)_kernel_irc_reg2_base + 0x008))            /* 分配器実装者識別レジスタ */
 #define _KERNEL_IRC_ICDISR(n)			((volatile UW *)((B*)_kernel_irc_reg2_base + 0x080 + 4*(n)))    /* 割り込みセキュリティレジスタ */
 #define _KERNEL_IRC_ICDISER(n)			((volatile UW *)((B*)_kernel_irc_reg2_base + 0x100 + 4*(n)))    /* 割り込みイネーブルセットレジスタ */
 #define _KERNEL_IRC_ICDICER(n)			((volatile UW *)((B*)_kernel_irc_reg2_base + 0x180 + 4*(n)))    /* 割り込みイネーブルクリアレジスタ */
 #define _KERNEL_IRC_ICDISPR(n)			((volatile UW *)((B*)_kernel_irc_reg2_base + 0x200 + 4*(n)))    /* 割り込み保留セットレジスタ */
-#define _KERNEL_IRC_ICDICPR(n)			((volatile UW *)((B*)_kernel_irc_reg2_base + 0x280 + 4*(n)))    /* 割り込み保留クリアセットレジスタ */
+#define _KERNEL_IRC_ICDICPR(n)			((volatile UW *)((B*)_kernel_irc_reg2_base + 0x280 + 4*(n)))    /* 割り込み保留クリアレジスタ */
 #define _KERNEL_IRC_ICDABR(n)			((volatile UW *)((B*)_kernel_irc_reg2_base + 0x300 + 4*(n)))    /* アクティブビット レジスタ */
 #define _KERNEL_IRC_ICDIPR(n)			((volatile UB *)((B*)_kernel_irc_reg2_base + 0x400 + 1*(n)))    /* 割り込み優先度レジスタ */ 
 #define _KERNEL_IRC_ICDIPTR(n)          ((volatile UB *)((B*)_kernel_irc_reg2_base + 0x800 + 1*(n)))    /* 割り込みプロセッサターゲットレジスタ */
 #define _KERNEL_IRC_ICDICFR(n)          ((volatile UW *)((B*)_kernel_irc_reg2_base + 0xc00 + 4*(n)))    /* 割り込み構成レジスタ */
-#define _KERNEL_IRC_ICDSGIR             ((volatile UW *)((B*)_kernel_irc_reg2_base + 0xf00)
+#define _KERNEL_IRC_ICDSGIR             ((volatile UW *)((B*)_kernel_irc_reg2_base + 0xf00)             /* ソフトウェア生成割り込みレジスタ */
 
 #ifdef __cplusplus
 extern "C" {
