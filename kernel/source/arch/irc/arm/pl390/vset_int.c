@@ -13,10 +13,14 @@
 #include "object/isrobj.h"
 
 
-/* %jp{割込みのクリア} */
-ER vclr_int(INTNO intno)
+/* %jp{割込みのセット} */
+ER vset_int(INTNO intno)
 {
-	*_KERNEL_IRC_ICDICPR(intno >> 5) = (1 << (intno & 0x1f));
+	if ( intno < _KERNEL_INT_TMIN_INTNO || intno > _KERNEL_INT_TMAX_INTNO ) {
+		return E_PAR;
+	}
+
+	*_KERNEL_IRC_ICDISPR(intno >> 5) = (1 << (intno & 0x1f));
 
 	return E_OK;
 }

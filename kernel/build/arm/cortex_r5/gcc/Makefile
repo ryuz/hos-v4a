@@ -110,6 +110,7 @@ CSRCS += $(SRC_IRC_DIR)/kexe_irc.c
 CSRCS += $(SRC_IRC_DIR)/ena_int.c
 CSRCS += $(SRC_IRC_DIR)/dis_int.c
 CSRCS += $(SRC_IRC_DIR)/vclr_int.c
+CSRCS += $(SRC_IRC_DIR)/vset_int.c
 CSRCS += $(SRC_IRC_DIR)/vchg_ilv.c
 CSRCS += $(SRC_IRC_DIR)/vget_ilv.c
 CSRCS += $(SRC_IRC_DIR)/vena_icd.c

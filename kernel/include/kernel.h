@@ -431,6 +431,7 @@ ER      del_isr(ID isrid);									/**< %jp{割込みサービスルーチンの
 ER      dis_int(INTNO intno);								/**< %jp{割込みの禁止} */
 ER      ena_int(INTNO intno);								/**< %jp{割込みの許可} */
 ER      vclr_int(INTNO intno);								/**< %jp{割込み要因のクリア(独自サービスコール)} */
+ER      vset_int(INTNO intno);								/**< %jp{割込み要因のセット(独自サービスコール)} */
 ER      chg_imsk(INT imsk);									/**< %jp{割込みマスクの変更(実装依存サービスコール)} */
 ER      get_imsk(INT *p_imsk);								/**< %jp{割込みマスクの参照(実装依存サービスコール)} */
 ER      vchg_ilv(INTNO intno, INT ilv);						/**< %jp{割込みレベル変更(独自サービスコール)} */
