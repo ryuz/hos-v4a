@@ -101,7 +101,7 @@ ASRCS += $(SRC_PROC_CC_DIR)/kpre_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kabt_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kirq_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kfiq_hdr.S
-
+ASRCS += $(SRC_PROC_CC_DIR)/vchg_cp15.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
 CSRCS += $(SRC_PROC_DIR)/val_int.c
