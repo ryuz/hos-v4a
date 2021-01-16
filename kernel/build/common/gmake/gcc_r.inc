@@ -18,11 +18,21 @@ CFLAGS_INC ?= $(patsubst %,-I%,$(INC_DIRS))
 endif
 
 
+# %jp{C++言語マクロ定義オプションの定義}%en{C-compiler define macros}
+ifneq ($(CXX_DEFS),)
+CXXFLAGS_DEF ?= $(patsubst %,-D%,$(CXX_DEFS))
+endif
+
+# %jp{C言語インクルードパスオプションの定義}%en{C-compiler include path}
+ifneq ($(INC_DIRS),)
+CXXFLAGS_INC ?= $(patsubst %,-I%,$(INC_DIRS))
+endif
+
+
 # %jp{C言語マクロ定義オプションの定義}%en{C-compiler define macros}
 ifneq ($(C_DEFS),)
 CFLAGS_DEF ?= $(patsubst %,-D%,$(C_DEFS))
 endif
-
 
 # %jp{アセンブリ言語インクルードパスオプションの定義}%en{Assembler include path}
 ifneq ($(INC_DIRS),)
@@ -76,6 +86,9 @@ $(TARGET_LIB): $(OBJS)
 $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_C)
 	$(CMD_CC) $(CFLAGS) -c $< -o $@
 
+# %jp{C++コンパイル}%en{C++ Compile}
+$(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_CXX)
+	$(CMD_CXX) $(CXXFLAGS) -c $< -o $@
 
 # %jp{アセンブル}%en{Assemble}
 $(OBJS_DIR)/%.$(EXT_OBJ) :: %.$(EXT_ASM)
@@ -87,6 +100,10 @@ batch_c:
 	$(CMD_CC) $(CFLAGS) -c $(CSRCS)
 	$(CMD_MV) -f $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))) $(OBJS_DIR)
 
+# %jp{一括コンパイル}%en{batch cmpile}
+batch_cxx:
+	$(CMD_CXX) $(CXXFLAGS) -c $(CXXSRCS)
+	$(CMD_MV) -f $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CXXSRCS)))) $(OBJS_DIR)
 
 # %jp{一括アセンブル}%en{batch cmpile}
 batch_asm:

@@ -7,6 +7,16 @@
 # ----------------------------------------------------------------------------
 
 
+# 特に定義が無ければ C++ は Cと同じにする
+CMD_CXX             ?= $(CMD_CC)
+CXX_DEFS            ?= $(C_DEFS)
+CXXFLAGS            ?= $(CFLAGS)
+CXXFLAGS_DBG        ?= $(CFLAGS_DBG)
+CXXFLAGS_OPT_NONE   ?= $(CFLAGS_OPT_NONE)
+CXXFLAGS_OPT_SPEED  ?= $(CFLAGS_OPT_SPEED)
+CXXFLAGS_OPT_SIZE   ?= $(CFLAGS_OPT_SIZE)
+CXXFLAGS_OPT_NORMAL ?= $(CFLAGS_OPT_NORMAL)
+
 
 # --------------------------------------
 #  %jp{オプション解析}%en{analyze option}
@@ -15,24 +25,29 @@
 ifeq ($(DEBUG),Yes)
 # %jp{デバッグ指定があればデバッグ版作成}%en{debug mode}
 TARGET := $(TARGET)dbg
-C_DEFS += _DEBUG
-A_DEFS += _DEBUG
-AFLAGS += $(AFLAGS_DBG) $(AFLAGS_OPT_NONE)
-CFLAGS += $(CFLAGS_DBG) $(CFLAGS_OPT_NONE)
+A_DEFS   += _DEBUG
+C_DEFS   += _DEBUG
+CXX_DEFS += _DEBUG
+AFLAGS   += $(AFLAGS_DBG)   $(AFLAGS_OPT_NONE)
+CFLAGS   += $(CFLAGS_DBG)   $(CFLAGS_OPT_NONE)
+CXXFLAGS += $(CXXFLAGS_DBG) $(CXXFLAGS_OPT_NONE)
 else
 ifeq ($(OPT_SPEED),Yes)
 # %jp{速度最適化指定があれば速度優先}%en{speed optimize}
-AFLAGS += $(AFLAGS_OPT_SPEED)
-CFLAGS += $(CFLAGS_OPT_SPEED)
+AFLAGS   += $(AFLAGS_OPT_SPEED)
+CFLAGS   += $(CFLAGS_OPT_SPEED)
+CXXFLAGS += $(CXXFLAGS_OPT_SPEED)
 else
 ifeq ($(OPT_SIZE),Yes)
 # %jp{サイズ優先適化指定があればサイズ優先}%en{size optimize}
-AFLAGS += $(AFLAGS_OPT_SIZE)
-CFLAGS += $(CFLAGS_OPT_SIZE)
+AFLAGS   += $(AFLAGS_OPT_SIZE)
+CFLAGS   += $(CFLAGS_OPT_SIZE)
+CXXFLAGS += $(CXXFLAGS_OPT_SIZE)
 else
 # %jp{デフォルトで通常の最適化}%en{default}
-AFLAGS += $(AFLAGS_OPT_NORMAL)
-CFLAGS += $(CFLAGS_OPT_NORMAL)
+AFLAGS   += $(AFLAGS_OPT_NORMAL)
+CFLAGS   += $(CFLAGS_OPT_NORMAL)
+CXXFLAGS += $(CXXFLAGS_OPT_NORMAL)
 endif
 endif
 endif
@@ -114,7 +129,8 @@ OBJS_DIR = objs_$(TARGET)
 
 # %jp{オブジェクトファイル}
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(ASRCS)))))	\
-       $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))))
+       $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CSRCS)))))	\
+       $(addprefix $(OBJS_DIR)/, $(addsuffix .$(EXT_OBJ), $(basename $(notdir $(CXXSRCS)))))
 
 # %jp{依存ファイル}
 DEPEND_FILE=$(OBJS_DIR)/depend.inc

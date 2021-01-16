@@ -15,7 +15,7 @@ CMD_OBJCNV ?= hx850
 
 # %jp{拡張子定義}
 EXT_C   ?= c
-EXT_CPP ?= cpp
+EXT_CXX ?= cpp
 EXT_ASM ?= s
 EXT_OBJ ?= o
 EXT_LIB ?= a

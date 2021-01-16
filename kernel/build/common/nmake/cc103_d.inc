@@ -30,7 +30,7 @@ CMD_OBJCNV = xcv103
 
 # %jp{拡張子定義}
 EXT_C   = c
-EXT_CPP = cpp
+EXT_CXX = cpp
 EXT_ASM = as
 EXT_OBJ = ro
 EXT_LIB = l

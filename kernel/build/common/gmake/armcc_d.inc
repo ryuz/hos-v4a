@@ -18,7 +18,7 @@ CMD_OBJCNV ?= fromelf
 
 # %jp{拡張子定義}%en{file extensions}
 EXT_C   ?= c
-EXT_CPP ?= cpp
+EXT_CXX ?= cpp
 EXT_ASM ?= s
 EXT_OBJ ?= o
 EXT_LIB ?= a

@@ -8,6 +8,7 @@
 
 # %jp{ツール定義}%en{Tools}
 CMD_CC     ?= gcc
+CMD_CXX    ?= g++
 CMD_ASM    ?= gcc
 CMD_LIBR   ?= ar
 CMD_LINK   ?= gcc
@@ -16,7 +17,7 @@ CMD_OBJCNV ?= objcopy
 
 # %jp{拡張子定義}%en{file extensions}
 EXT_C   ?= c
-EXT_CPP ?= cpp
+EXT_CXX ?= cpp
 EXT_ASM ?= S
 EXT_OBJ ?= o
 EXT_LIB ?= a

@@ -2,6 +2,11 @@
 *.bak
 *~
 
+*_/
+*_
+*_.*
+
+
 # configurator files
 *.i
 kernel_id.h

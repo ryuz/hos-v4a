@@ -16,7 +16,7 @@ CMD_OBJCNV ?= sdcc
 
 # %jp{拡張子定義}%en{file extensions}
 EXT_C   ?= c
-EXT_CPP ?= cpp
+EXT_CXX ?= cpp
 EXT_ASM ?= S
 EXT_OBJ ?= rel
 EXT_LIB ?= a

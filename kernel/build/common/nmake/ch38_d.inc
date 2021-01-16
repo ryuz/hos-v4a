@@ -24,7 +24,7 @@ CMD_LIBR = optlnk
 
 # %jp{拡張子定義}
 EXT_C   = c
-EXT_CPP = cpp
+EXT_CXX = cpp
 EXT_ASM = src
 EXT_OBJ = obj
 EXT_LIB = lib

@@ -27,7 +27,7 @@ CMD_LINK = cl
 
 # %jp{拡張子定義}%en{file extensions}
 EXT_C   = c
-EXT_CPP = cpp
+EXT_CXX = cpp
 EXT_ASM = asm
 EXT_OBJ = obj
 EXT_LIB = lib
