@@ -66,6 +66,16 @@ void    _kernel_abt_hdr(void);
 void    _kernel_irq_hdr(void);
 void    _kernel_fiq_hdr(void);
 
+/* Cache control */
+void    vena_cache(void);       /* Enable All Cache */
+void    vdis_cache(void);       /* Disable All Cache */
+void    vena_icache(void);      /* Enable I-Cache */
+void    vdis_icache(void);      /* Disable I-Cache */
+void    vena_dcache(void);      /* Enable D-Cache */
+void    vdis_dcache(void);      /* Disable D-Cache */
+void    vena_ecc(void);         /* Enable ECC */
+void    vdis_ecc(void);         /* Enable ECC */
+
 
 /* Access to CP15 */
 UW      _kernel_read_cp15_c0_c0_4(void);	/* read MPU Type Register */

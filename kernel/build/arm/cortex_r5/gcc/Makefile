@@ -101,6 +101,14 @@ ASRCS += $(SRC_PROC_CC_DIR)/kpre_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kabt_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kirq_hdr.S
 ASRCS += $(SRC_PROC_CC_DIR)/kfiq_hdr.S
+ASRCS += $(SRC_PROC_CC_DIR)/vena_cache.S
+ASRCS += $(SRC_PROC_CC_DIR)/vdis_cache.S
+ASRCS += $(SRC_PROC_CC_DIR)/vena_icache.S
+ASRCS += $(SRC_PROC_CC_DIR)/vdis_icache.S
+ASRCS += $(SRC_PROC_CC_DIR)/vena_dcache.S
+ASRCS += $(SRC_PROC_CC_DIR)/vdis_dcache.S
+ASRCS += $(SRC_PROC_CC_DIR)/vena_ecc.S
+ASRCS += $(SRC_PROC_CC_DIR)/vdis_ecc.S
 ASRCS += $(SRC_PROC_CC_DIR)/kacc_cp15.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
