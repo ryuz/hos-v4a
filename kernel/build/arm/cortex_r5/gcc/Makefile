@@ -109,6 +109,8 @@ ASRCS += $(SRC_PROC_CC_DIR)/vena_dcache.S
 ASRCS += $(SRC_PROC_CC_DIR)/vdis_dcache.S
 ASRCS += $(SRC_PROC_CC_DIR)/vena_ecc.S
 ASRCS += $(SRC_PROC_CC_DIR)/vdis_ecc.S
+ASRCS += $(SRC_PROC_CC_DIR)/vena_bpredict.S
+ASRCS += $(SRC_PROC_CC_DIR)/vdis_bpredict.S
 ASRCS += $(SRC_PROC_CC_DIR)/kacc_cp15.S
 
 # %jp{C言語ファイルの追加}%en{C sources}

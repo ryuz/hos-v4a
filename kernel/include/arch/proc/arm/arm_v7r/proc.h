@@ -75,7 +75,8 @@ void    vena_dcache(void);      /* Enable D-Cache */
 void    vdis_dcache(void);      /* Disable D-Cache */
 void    vena_ecc(void);         /* Enable ECC */
 void    vdis_ecc(void);         /* Enable ECC */
-
+void    vena_bpredict(void);    /* Enable barnch prediction */
+void    vdis_bpredict(void);    /* Disable barnch prediction */
 
 /* Access to CP15 */
 UW      _kernel_read_cp15_c0_c0_4(void);	/* read MPU Type Register */
