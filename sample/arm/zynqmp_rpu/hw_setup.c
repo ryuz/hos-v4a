@@ -14,15 +14,18 @@
 #include "arch/irc/arm/pl390/irc.h"
 
 
-/** %jp{メイン関数} */
-int main()
+/** hardware setup */
+void hw_setup(void)
 {
 	int i;
 	int n;
 	int region_num;
 
 
-#if 1
+    /* ---------------------------------- */
+    /*  MPU 設定                          */
+    /* -----------------------------------*/
+
 	/* MPU設定 */
 	n = vmpu_get_number_of_regions();
 	for ( i = 0; i < n; ++i ) {
@@ -95,11 +98,20 @@ int main()
 	vmpu_set_region_base_address(0xfffc0000);
 	vmpu_set_region_size(_KERNEL_MPU_SIZE_256K);
 	vmpu_set_region_access_control(_KERNEL_MPU_AP_FULL | _KERNEL_MPU_WRITE_BACK_ALLOC);
-#endif
 
-    vena_ecc();
-    vena_cache();
-    vena_bpredict();
+
+    /* ---------------------------------- */
+    /*  キャッシュ設定                     */
+    /* -----------------------------------*/
+
+    vena_ecc();         /* ECC有効化 */
+    vena_cache();       /* キャッシュ有効化 */
+    vena_bpredict();    /* 分岐予測有効化 */
+
+
+    /* ---------------------------------- */
+    /*  割り込みコントローラ設定            */
+    /* -----------------------------------*/
 
 	/* ICD(Distributor) setup */
 	UB targetcpu = 0x01;
@@ -119,12 +131,6 @@ int main()
 	}
 
 	vena_icd();	/* enable IDC */
-
-	
-	/* %jp{カーネルの動作開始} */
-	vsta_knl();
-	
-	return 0;
 }
 
 

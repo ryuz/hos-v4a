@@ -12,6 +12,7 @@
 				.extern		___data_end
 				.extern		___bss
 				.extern		___bss_end
+				.extern		hw_setup
 				.extern		main
 
 				.global		_reset_handler
@@ -47,9 +48,56 @@ _reset_handler:
 				
 				/* スタック仮設定 */
 				ldr		r0, =_kernel_int_isp
-				ldr 	sp, [r0]
-				
-				
+				ldr		sp, [r0]
+
+                /* Disable DBWR for errata 780125 */
+                mrc     p15, 0, r0, c1, c0, 1       /* Read ACTLR */
+                orr	    r0, r0, #0x1 << 14          /* Disable DBWR for errata 780125 */
+                mcr     p15, 0, r0, c1, c0, 1       /* Write ACTLR */
+                
+				/* enable VFP */
+				mrc		p15, 0, r0, c1, c0, 2
+				orr     r0, r0, #(0xf << 20)
+				mcr     p15, 0, r0, c1, c0, 2
+				isb
+
+				/* enable FPU access  */
+				vmrs	r3, FPEXC
+				orr		r1, r3, #(0x1 << 30)
+				vmsr	FPEXC, r1
+
+				/* Disable MPU and caches */
+				mrc		p15, 0, r0, c1, c0, 0	/* Read CP15 Control Register*/
+				bic		r0, r0, #0x05			/* Disable MPU (M bit) and data cache (C bit) */
+				bic		r0, r0, #0x1000			/* Disable instruction cache (I bit) */
+				dsb								/* Ensure all previous loads/stores have completed */
+				mcr		p15, 0, r0, c1, c0, 0	/* Write CP15 Control Register */
+				isb		
+
+				/* Disable Branch prediction, TCM ECC checks */
+				mrc		p15, 0, r0, c1, c0, 1		/* Read ACTLR */
+				orr		r0, r0, #(0x1 << 17)		/* Enable RSDIS bit 17 to disable the return stack */
+				orr		r0, r0, #(0x1 << 16)		/* Clear BP bit 15 and set BP bit 16:*/
+				bic		r0, r0, #(0x1 << 15)		/* Branch always not taken and history table updates disabled*/
+				orr		r0, r0, #(0x1 << 27)		/* Enable B1TCM ECC check */
+				orr		r0, r0, #(0x1 << 26)		/* Enable B0TCM ECC check */
+				orr		r0, r0, #(0x1 << 25)		/* Enable ATCM ECC check */
+				bic		r0, r0, #(0x1 << 5)			/* Generate abort on parity errors, with [5:3]=b 000*/
+				bic 	r0, r0, #(0x1 << 4)
+				bic		r0, r0, #(0x1 << 3)
+				mcr		p15, 0, r0, c1, c0, 1		/* Write ACTLR*/
+				dsb				    				/* Complete all outstanding explicit memory operations*/
+
+				/* Invalidate caches */
+				mov		r0, #0						/* r0 = 0  */
+				dsb
+				mcr		p15, 0, r0, c7, c5, 0		/* invalidate icache */
+				mcr 	p15, 0, r0, c15, c5, 0		/* Invalidate entire data cache*/
+				isb
+
+                /* H/W 初期化 */
+                bl      hw_setup
+
 				/* DATA領域のコピー */
 				ldr		r0, =___data_rom
 				ldr		r1, =___data
@@ -70,44 +118,7 @@ bss_loop:
 				strcc	r2, [r0], #4
 				bcc		bss_loop
 				
-				/* MPU設定 */
-#if 0
-				mov     r0, #0
-				mcr     p15, 0, r0, c6, c2, 0	/* RGNR */
-				ldr     r0, =0x00000000
-				mcr     p15, 0, r0, c6, c1, 0	/* MPU Region Base Address Register */
-				ldr     r0, =0x0000030b
-				mcr     p15, 0, r0, c6, c1, 4	/* MPU Region Access Control Register */
-				ldr     r0, =0x0000003d
-				mcr     p15, 0, r0, c6, c1, 2	/* Data MPU Region Size and Enable Register */
-				
-				mov     r0, #1
-				mcr     p15, 0, r0, c6, c2, 0	/* RGNR */
-				ldr     r0, =0xc0000000
-				mcr     p15, 0, r0, c6, c1, 0	/* MPU Region Base Address Register */
-				ldr     r0, =0x0000030b
-				mcr     p15, 0, r0, c6, c1, 4	/* MPU Region Access Control Register */
-				ldr     r0, =0x0000003b
-				mcr     p15, 0, r0, c6, c1, 2	/* Data MPU Region Size and Enable Register */
-#endif
-				
-				/* 分岐予測有効化(ACTLR設定) */
-				mrc     p15, 0, r0, c1, c0, 1
-				ldr		r1, =0xfffc7fff		/* RSDIS=0, BP=0 */
-				and		r0, r0, r1
-				ldr		r1, =0x00004000		/* DBWR=1 (errata 780125) */
-				orr		r0, r0, r1
-				mcr		p15, 0, r0, c1, c0, 1
-				
-				/* Iキャッシュ/Dキャッシュ有効(SCTLR) */
-				mrc 	p15, 0, r1, c1, c0, 0
-				ldr		r0, =0x00001005		/* I=1, C=1, M=1 */
-				orr 	r1, r1, r0
-				dsb
-				mcr		p15, 0, r1, c1, c0, 0
-				isb
-				
-				
+                
 				/* main関数の呼び出し */
 				bl		main
 end_loop:

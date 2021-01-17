@@ -76,12 +76,12 @@ ASRCS += ./vectors.S		\
          ./crt0.S
 
 # %jp{C言語ファイルの追加}
-CSRCS += ../kernel_cfg.c	\
+CSRCS += ../hw_setup.c		\
+         ../kernel_cfg.c	\
          ../main.c			\
          ../sample.c		\
          ../ostimer.c		\
          ../uart.c
-
 
 
 # --------------------------------------
