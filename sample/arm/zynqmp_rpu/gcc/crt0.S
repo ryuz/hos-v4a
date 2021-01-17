@@ -7,29 +7,29 @@
 /* ------------------------------------------------------------------------ */
 
 
-				.extern		__kernel_int_isp
-				.extern		___data
-				.extern		___data_end
-				.extern		___bss
-				.extern		___bss_end
-				.extern		hw_setup
-				.extern		main
+                .extern     __kernel_int_isp
+                .extern     ___data
+                .extern     ___data_end
+                .extern     ___bss
+                .extern     ___bss_end
+                .extern     hw_setup
+                .extern     main
 
-				.global		_reset_handler
-				.global		__main
+                .global     _reset_handler
+                .global     __main
 
 
-				.text
+                .text
 
-#define Mode_USR		0x10
-#define Mode_IRQ		0x12
-#define Mode_FIQ		0x11
-#define Mode_SVC		0x13
-#define Mode_UND		0x1b
-#define Mode_SYS		0x1f
-#define I_Bit			0x80
-#define F_Bit			0x40
-#define T_Bit			0x20
+#define Mode_USR        0x10
+#define Mode_IRQ        0x12
+#define Mode_FIQ        0x11
+#define Mode_SVC        0x13
+#define Mode_UND        0x1b
+#define Mode_SYS        0x1f
+#define I_Bit           0x80
+#define F_Bit           0x40
+#define T_Bit           0x20
 
 
 /************************************************
@@ -122,15 +122,14 @@ bss_loop:
 				/* main関数の呼び出し */
 				bl		main
 end_loop:
-				b		end_loop
+                b       end_loop
 
 
 __main:
-				bx		lr
+                bx      lr
 
 
-
-				.end
+                .end
 
 
 /* end of file */
