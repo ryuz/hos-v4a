@@ -47,8 +47,9 @@ endif
 
 
 # %jp{オプション統合}{Options marged}
-CFLAGS += $(CFLAGS_INC) $(CFLAGS_DEF)
-AFLAGS += $(AFLAGS_INC) $(AFLAGS_DEF)
+CFLAGS   += $(CFLAGS_INC) $(CFLAGS_DEF)
+CXXFLAGS += $(CXXFLAGS_INC) $(CXXFLAGS_DEF)
+AFLAGS   += $(AFLAGS_INC) $(AFLAGS_DEF)
 
 
 
