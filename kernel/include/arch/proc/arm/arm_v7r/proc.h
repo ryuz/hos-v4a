@@ -57,6 +57,8 @@ void    _kernel_rst_ctx(VP_INT par1, VP_INT par2, FP entry, VP isp);								/**<
 void    _kernel_sta_ctx(_KERNEL_T_CTXCB *pk_ctxcb);													/**< %jp{実行コンテキストの開始} */
 void    _kernel_swi_ctx(_KERNEL_T_CTXCB *pk_ctxinf_nxt, _KERNEL_T_CTXCB *pk_ctxcb_now);				/**< %jp{実行コンテキストの切替} */
 
+
+/* exception handler */
 void    _kernel_und_hdr(void);
 void    _kernel_swi_hdr(void);
 void    _kernel_pre_hdr(void);
@@ -64,24 +66,21 @@ void    _kernel_abt_hdr(void);
 void    _kernel_irq_hdr(void);
 void    _kernel_fiq_hdr(void);
 
-/* MPU Type Register */
-UW      _kernel_ref_cp15c0c0_4(void);
 
-/* MPU Region Size and Enable Registers */
-void    _kernel_chg_cp15c6c1_0(UW v);
-UW      _kernel_ref_cp15c6c1_0(void);
+/* Access to CP15 */
+UW      _kernel_read_cp15_c0_c0_4(void);	/* read MPU Type Register */
 
-/* c6, MPU Region Number Register */
-void    _kernel_chg_cp15c6c2_0(UW v);
-UW      _kernel_ref_cp15c6c2_0(void);
+void    _kernel_write_cp15_c6_c1_0(UW v);	/* write MPU Region Size and Enable Registers */
+UW      _kernel_read_cp15_c6_c1_0(void);	/* read MPU Region Size and Enable Registers */
 
-/* MPU Region Access Control Register */
-void    _kernel_chg_cp15c6c1_4(UW v);
-UW      _kernel_ref_cp15c6c1_4(void);
+void    _kernel_write_cp15_c6_c2_0(UW v);	/* write MPU Region Number Register */
+UW      _kernel_read_cp15_c6_c2_0(void);	/* read MPU Region Number Register */
 
-/* Data MPU Region Size and Enable Register */
-void    _kernel_chg_cp15c6c1_2(UW v);
-UW      _kernel_ref_cp15c6c1_2(void);
+void    _kernel_write_cp15_c6_c1_4(UW v);	/* write MPU Region Access Control Register */
+UW      _kernel_read_cp15_c6_c1_4(void);	/* read MPU Region Access Control Register */
+
+void    _kernel_write_cp15_c6_c1_2(UW v);	/* write Data MPU Region Size and Enable Register */
+UW      _kernel_read_cp15_c6_c1_2(void);	/* read Data MPU Region Size and Enable Register */
 
 
 #ifdef __cplusplus
@@ -156,11 +155,11 @@ UW      _kernel_ref_cp15c6c1_2(void);
 #define _KERNEL_MPU_2_WRITE_THROUGH			((0x4 << 3) | 0x2)
 #define _KERNEL_MPU_2_WRITE_BACK			((0x4 << 3) | 0x3)
 
-#define vmpu_get_number_of_regions()		((_kernel_ref_cp15c0c0_4() >> 8) & 0xff)
-#define vmpu_set_region_number(v)			do { _kernel_chg_cp15c6c2_0(v); } while(0)
-#define vmpu_set_region_base_address(v)		do { _kernel_chg_cp15c6c1_0(v); } while(0)
-#define vmpu_set_region_size(v)				do { _kernel_chg_cp15c6c1_2(v); } while(0)
-#define vmpu_set_region_access_control(v)   do { _kernel_chg_cp15c6c1_4(v); } while(0)
+#define vmpu_get_number_of_regions()		((_kernel_read_cp15_c0_c0_4() >> 8) & 0xff)
+#define vmpu_set_region_number(v)			do { _kernel_write_cp15_c6_c2_0(v); } while(0)
+#define vmpu_set_region_base_address(v)		do { _kernel_write_cp15_c6_c1_0(v); } while(0)
+#define vmpu_set_region_size(v)				do { _kernel_write_cp15_c6_c1_2(v); } while(0)
+#define vmpu_set_region_access_control(v)   do { _kernel_write_cp15_c6_c1_4(v); } while(0)
 
 
 #endif	/* _KERNEL__arch__proc__arm__arm_v7r__proc_h__ */

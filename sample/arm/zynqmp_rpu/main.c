@@ -115,6 +115,7 @@ int main()
 
 	vena_icd();	/* enable IDC */
 
+	
 	/* %jp{カーネルの動作開始} */
 	vsta_knl();
 	
