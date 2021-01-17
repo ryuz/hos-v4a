@@ -35,92 +35,92 @@
 /************************************************
   リセットハンドラ
 ************************************************/
-				.align		4
-_reset_handler:	
-				/* モード設定 */
-				msr		cpsr_c, #(Mode_SYS | F_Bit | I_Bit)
-				
-				/* SCTLR.V クリア(例外ベクタを0番地に戻す) */
-				mrc		p15, 0, r0, c1, c0, 0
-				mvn		r1, #0x2000
-				and		r0, r0, r1
-				mcr		p15, 0, r0, c1, c0, 0
-				
-				/* スタック仮設定 */
-				ldr		r0, =_kernel_int_isp
-				ldr		sp, [r0]
+                .align      4
+_reset_handler: 
+                /* モード設定 */
+                msr     cpsr_c, #(Mode_SYS | F_Bit | I_Bit)
+                
+                /* SCTLR.V クリア(例外ベクタを0番地に戻す) */
+                mrc     p15, 0, r0, c1, c0, 0
+                mvn     r1, #0x2000
+                and     r0, r0, r1
+                mcr     p15, 0, r0, c1, c0, 0
+                
+                /* スタック仮設定 */
+                ldr     r0, =_kernel_int_isp
+                ldr     sp, [r0]
 
                 /* Disable DBWR for errata 780125 */
                 mrc     p15, 0, r0, c1, c0, 1       /* Read ACTLR */
-                orr	    r0, r0, #0x1 << 14          /* Disable DBWR for errata 780125 */
+                orr     r0, r0, #0x1 << 14          /* Disable DBWR for errata 780125 */
                 mcr     p15, 0, r0, c1, c0, 1       /* Write ACTLR */
                 
-				/* enable VFP */
-				mrc		p15, 0, r0, c1, c0, 2
-				orr     r0, r0, #(0xf << 20)
-				mcr     p15, 0, r0, c1, c0, 2
-				isb
+                /* enable VFP */
+                mrc     p15, 0, r0, c1, c0, 2
+                orr     r0, r0, #(0xf << 20)
+                mcr     p15, 0, r0, c1, c0, 2
+                isb
 
-				/* enable FPU access  */
-				vmrs	r3, FPEXC
-				orr		r1, r3, #(0x1 << 30)
-				vmsr	FPEXC, r1
+                /* enable FPU access  */
+                vmrs    r3, FPEXC
+                orr     r1, r3, #(0x1 << 30)
+                vmsr    FPEXC, r1
 
-				/* Disable MPU and caches */
-				mrc		p15, 0, r0, c1, c0, 0	/* Read CP15 Control Register*/
-				bic		r0, r0, #0x05			/* Disable MPU (M bit) and data cache (C bit) */
-				bic		r0, r0, #0x1000			/* Disable instruction cache (I bit) */
-				dsb								/* Ensure all previous loads/stores have completed */
-				mcr		p15, 0, r0, c1, c0, 0	/* Write CP15 Control Register */
-				isb		
+                /* Disable MPU and caches */
+                mrc     p15, 0, r0, c1, c0, 0   /* Read CP15 Control Register*/
+                bic     r0, r0, #0x05           /* Disable MPU (M bit) and data cache (C bit) */
+                bic     r0, r0, #0x1000         /* Disable instruction cache (I bit) */
+                dsb                             /* Ensure all previous loads/stores have completed */
+                mcr     p15, 0, r0, c1, c0, 0   /* Write CP15 Control Register */
+                isb     
 
-				/* Disable Branch prediction, TCM ECC checks */
-				mrc		p15, 0, r0, c1, c0, 1		/* Read ACTLR */
-				orr		r0, r0, #(0x1 << 17)		/* Enable RSDIS bit 17 to disable the return stack */
-				orr		r0, r0, #(0x1 << 16)		/* Clear BP bit 15 and set BP bit 16:*/
-				bic		r0, r0, #(0x1 << 15)		/* Branch always not taken and history table updates disabled*/
-				orr		r0, r0, #(0x1 << 27)		/* Enable B1TCM ECC check */
-				orr		r0, r0, #(0x1 << 26)		/* Enable B0TCM ECC check */
-				orr		r0, r0, #(0x1 << 25)		/* Enable ATCM ECC check */
-				bic		r0, r0, #(0x1 << 5)			/* Generate abort on parity errors, with [5:3]=b 000*/
-				bic 	r0, r0, #(0x1 << 4)
-				bic		r0, r0, #(0x1 << 3)
-				mcr		p15, 0, r0, c1, c0, 1		/* Write ACTLR*/
-				dsb				    				/* Complete all outstanding explicit memory operations*/
+                /* Disable Branch prediction, TCM ECC checks */
+                mrc     p15, 0, r0, c1, c0, 1       /* Read ACTLR */
+                orr     r0, r0, #(0x1 << 17)        /* Enable RSDIS bit 17 to disable the return stack */
+                orr     r0, r0, #(0x1 << 16)        /* Clear BP bit 15 and set BP bit 16:*/
+                bic     r0, r0, #(0x1 << 15)        /* Branch always not taken and history table updates disabled*/
+                orr     r0, r0, #(0x1 << 27)        /* Enable B1TCM ECC check */
+                orr     r0, r0, #(0x1 << 26)        /* Enable B0TCM ECC check */
+                orr     r0, r0, #(0x1 << 25)        /* Enable ATCM ECC check */
+                bic     r0, r0, #(0x1 << 5)         /* Generate abort on parity errors, with [5:3]=b 000*/
+                bic     r0, r0, #(0x1 << 4)
+                bic     r0, r0, #(0x1 << 3)
+                mcr     p15, 0, r0, c1, c0, 1       /* Write ACTLR*/
+                dsb                                 /* Complete all outstanding explicit memory operations*/
 
-				/* Invalidate caches */
-				mov		r0, #0						/* r0 = 0  */
-				dsb
-				mcr		p15, 0, r0, c7, c5, 0		/* invalidate icache */
-				mcr 	p15, 0, r0, c15, c5, 0		/* Invalidate entire data cache*/
-				isb
+                /* Invalidate caches */
+                mov     r0, #0                      /* r0 = 0  */
+                dsb
+                mcr     p15, 0, r0, c7, c5, 0       /* invalidate icache */
+                mcr     p15, 0, r0, c15, c5, 0      /* Invalidate entire data cache*/
+                isb
 
                 /* H/W 初期化 */
                 bl      hw_setup
 
-				/* DATA領域のコピー */
-				ldr		r0, =___data_rom
-				ldr		r1, =___data
-				ldr		r2, =___data_end
-data_loop:		
-				cmp		r1, r2
-				ldrcc	r3, [r0], #4
-				strcc	r3, [r1], #4
-				bcc		data_loop
-				
-				
-				/* BSS領域の初期化 */
-				ldr		r0, =___bss
-				ldr		r1, =___bss_end
-				mov		r2, #0
-bss_loop:		
-				cmp		r0, r1
-				strcc	r2, [r0], #4
-				bcc		bss_loop
-				
+                /* DATA領域のコピー */
+                ldr     r0, =___data_rom
+                ldr     r1, =___data
+                ldr     r2, =___data_end
+data_loop:      
+                cmp     r1, r2
+                ldrcc   r3, [r0], #4
+                strcc   r3, [r1], #4
+                bcc     data_loop
                 
-				/* main関数の呼び出し */
-				bl		main
+                
+                /* BSS領域の初期化 */
+                ldr     r0, =___bss
+                ldr     r1, =___bss_end
+                mov     r2, #0
+bss_loop:       
+                cmp     r0, r1
+                strcc   r2, [r0], #4
+                bcc     bss_loop
+                
+                
+                /* main関数の呼び出し */
+                bl      main
 end_loop:
                 b       end_loop
 
