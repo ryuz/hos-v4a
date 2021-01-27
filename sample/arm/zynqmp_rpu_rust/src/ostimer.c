@@ -115,4 +115,14 @@ void OsTimer_Isr(VP_INT exinf)
 }
 
 
+
+/** %jp{ランダムな時間待つ} */
+void rand_wait(void)
+{
+    static int rand_num = 1;
+    rand_num = rand_num*1103515245 + 12345;
+    dly_tsk((rand_num & 0x3ff) + 100);
+}
+
+
 /* end of file */

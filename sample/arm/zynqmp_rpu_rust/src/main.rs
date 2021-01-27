@@ -14,7 +14,6 @@ fn panic(_panic: &PanicInfo<'_>) -> ! {
 // ITRON API
 extern {
     fn vsta_knl();  // HOS-V4a独自
-    fn dly_tsk(tm: i32) -> i32;
     fn wai_sem(id: i32) -> i32;
     fn pol_sem(id: i32) -> i32;
     fn sig_sem(id: i32) -> i32;
@@ -24,6 +23,11 @@ extern {
 extern {
     fn Uart_Initialize();
     fn Uart_PutChar(c: i32);
+}
+
+// 時間待ち
+extern {
+    fn rand_wait();
 }
 
 
@@ -99,17 +103,6 @@ fn left_id(num: i32) -> i32 {
 // 右のフォーク相当のセマフォID
 fn right_id(num: i32) -> i32 {
     if num >= 5 {1} else {num+1}
-}
-
-// ランダムな時間待つ
-//static mut RAND_NUM: i32 = 1;
-fn rand_wait()
-{
-    unsafe {
-//      RAND_NUM = RAND_NUM*1103515245 + 12345;
-//      dly_tsk((RAND_NUM & 0x3ff) + 100);
-        dly_tsk(900);
-    }
 }
 
 
