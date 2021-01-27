@@ -115,7 +115,6 @@ void OsTimer_Isr(VP_INT exinf)
 }
 
 
-
 /** %jp{ランダムな時間待つ} */
 void rand_wait(void)
 {
