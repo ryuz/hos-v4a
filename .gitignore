@@ -69,3 +69,4 @@ tools/make_release/hos-v4a
 .*
 !.gitignore
 !.gitattributes
+!.cargo/
