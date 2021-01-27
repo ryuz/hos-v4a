@@ -72,7 +72,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .flag("-I/home/ryuji/git-work/hos-v4a/kernel/include")
         .file("src/ostimer.c")
         .compile("ostimer");
-
+/*
     Build::new()
         .flag("-mfpu=vfpv3-d16")
         .flag("-mthumb-interwork")
@@ -81,7 +81,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .flag("-I/home/ryuji/git-work/hos-v4a/kernel/include")
         .file("src/sample.c")
         .compile("sample");
-    
+*/
     Build::new()
         .flag("-mfpu=vfpv3-d16")
         .flag("-mthumb-interwork")
