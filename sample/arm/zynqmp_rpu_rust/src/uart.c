@@ -55,13 +55,22 @@ void Uart_Initialize(void)
 }
 
 
+void Uart_Wait(void)
+{
+    volatile int i;
+    for ( i = 0; i < 100000; ++i )
+        ;
+}
+
+
 /* %jp{1文字出力} */
 void Uart_PutChar(int c)
 {
 	while ( *UART_Channel_sts & 0x10 )
-		;
+		Uart_Wait();
 	
 	*UART_TX_RX_FIFO = c;
+    Uart_Wait();
 }
 
 

@@ -32,10 +32,12 @@ SECTIONS
 		. = ALIGN(4);
 		___ctors = . ;
 		*(.ctors)
+		*(.ctors.*)
 		___ctors_end = . ;
 		___dtors = . ;
 		*(.note.gnu.build-id)
 		*(.dtors)
+		*(.dtors.*)
 		___dtors_end = . ;
 	} > ro
 	data : AT (ADDR(.tors) + SIZEOF(.tors))

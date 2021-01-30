@@ -3,11 +3,13 @@
 
 #[link(name = "hosv4a")]
 
+mod my_uart;
 
 use core::panic::PanicInfo;
 
 #[panic_handler]
 fn panic(_panic: &PanicInfo<'_>) -> ! {
+    uart_print_string("\r\npanic\r\n");
     loop {}
 }
 
@@ -15,20 +17,10 @@ fn panic(_panic: &PanicInfo<'_>) -> ! {
 // ITRON API
 extern {
     fn vsta_knl();  // HOS-V4a独自
+    fn dly_tsk(id: i32) -> i32;
     fn wai_sem(id: i32) -> i32;
     fn pol_sem(id: i32) -> i32;
     fn sig_sem(id: i32) -> i32;
-}
-
-// UART操作
-extern {
-    fn Uart_Initialize();
-    fn Uart_PutChar(c: i32);
-}
-
-// 時間待ち
-extern {
-    fn rand_wait();
 }
 
 
@@ -39,12 +31,20 @@ pub unsafe extern "C" fn main() -> ! {
     loop {}
 }
 
+// ランダムな時間待ち
+static mut R : i32 = 1;
+fn rand_wait() {
+    unsafe {
+        R = R.wrapping_mul(1103515245).wrapping_add(12345);
+        dly_tsk(R&0x3ff + 100);
+    }
+}
 
 // アプリ初期化
 #[no_mangle]
 pub unsafe extern "C" fn Sample_Initialize()
 {
-    Uart_Initialize();
+//  Uart_Initialize();
     uart_print_string("Program Start\r\n");
 }
 
@@ -119,18 +119,14 @@ fn print_state(num: i32, state:&str)
 // 数字出力
 fn uart_print_int(i: i32)
 {
-    unsafe {
-        Uart_PutChar('0' as i32 + i);
-    }
+    my_uart::uart_write('0' as i32 + i);
 }
 
 // 文字列出力
 fn uart_print_string(s: &str)
 {
     for i in s.chars() {
-        unsafe {
-            Uart_PutChar(i as i32);
-        }
+        my_uart::uart_write(i as i32);
     }
 }
 
