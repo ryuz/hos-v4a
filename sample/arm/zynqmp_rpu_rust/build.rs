@@ -2,16 +2,16 @@ use std::{env, error::Error, fs::File, io::Write, path::PathBuf};
 use cc::Build;
 
 use std::process::Command;
-//use std::path::Path;
+
 
 fn main() -> Result<(), Box<dyn Error>> {
 
     // ITRONカーネルのパス
     let kernel_path =  "../../../kernel";
 
-    // カーネルビルド
+    // カーネルビルド(CargoでTARGET環境変数ができてしまうので上書き)
     Command::new("make")
-        .args(&["-C", &format!("{}/build/arm/cortex_r5/gcc", kernel_path)])
+        .args(&["TARGET=libhosv4a", "-C", &format!("{}/build/arm/cortex_r5/gcc", kernel_path)])
         .output()
         .expect("kernel build command failed");
 
