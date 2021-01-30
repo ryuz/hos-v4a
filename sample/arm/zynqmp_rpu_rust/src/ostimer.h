@@ -17,8 +17,8 @@
 extern "C" {
 #endif
 
-/** %jp{OS用タイマ初期化ルーチン} */
 void OsTimer_Initialize(VP_INT exinf);
+void OsTimer_Isr(VP_INT exinf);
 
 #ifdef __cplusplus
 }

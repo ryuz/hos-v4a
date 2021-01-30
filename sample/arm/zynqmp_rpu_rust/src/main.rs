@@ -1,15 +1,30 @@
+// -------------------------------------------------------------
+//  Sample program for Hyper Operating System V4 Advance
+//  食事する哲学者の問題 Rust 版
+// 
+//  Copyright (C) 1998-2021 by Project HOS
+//  https://github.com/ryuz/hos-v4a
+//  http://sourceforge.jp/projects/hos/
+// -------------------------------------------------------------
+
+
 #![no_main]
 #![no_std]
 
 #[link(name = "hosv4a")]
 
-mod my_uart;
+
+mod ostimer;
+mod uart;
+
+use uart::*;
+
 
 use core::panic::PanicInfo;
 
 #[panic_handler]
 fn panic(_panic: &PanicInfo<'_>) -> ! {
-    uart_print_string("\r\npanic\r\n");
+    println!("\r\n!!!panic!!!");
     loop {}
 }
 
@@ -31,102 +46,71 @@ pub unsafe extern "C" fn main() -> ! {
     loop {}
 }
 
-// ランダムな時間待ち
-static mut R : i32 = 1;
-fn rand_wait() {
-    unsafe {
-        R = R.wrapping_mul(1103515245).wrapping_add(12345);
-        dly_tsk(R&0x3ff + 100);
-    }
-}
-
 // アプリ初期化
 #[no_mangle]
 pub unsafe extern "C" fn Sample_Initialize()
 {
-//  Uart_Initialize();
-    uart_print_string("Program Start\r\n");
+    println!("Program Start");
 }
 
-// タスク
+// タスク(哲学者に見立てたタスク)
 #[no_mangle]
 pub unsafe extern "C" fn Sample_Task(num: i32) -> !
 {
-    print_state(num, "task start");
+    let left_id  = if num <= 1 {5} else {num-1};    // 左のフォーク相当のセマフォID
+    let right_id = if num >= 5 {1} else {num+1};    // 右のフォーク相当のセマフォID
+
+    random_wait(num, "task start");
 
 	// いわゆる哲学者の食事の問題
     loop {
         // 適当な時間考える
-		print_state(num, "thinking");
-		rand_wait();
+		random_wait(num, "thinking");
 		
 		// 左右のフォークを取るまでループ
 		loop {
 			// 左から順に取る
-			wai_sem(left_id(num));
-			if pol_sem(right_id(num)) == 0 {
+			wai_sem(left_id);
+			if pol_sem(right_id) == 0 {
 				break;	// 両方取れた
 			}
-			sig_sem(left_id(num));	// 取れなければ離す
+			sig_sem(left_id);	// 取れなければ離す
 			
-			// 適当な時間待つ
-			print_state(num, "hungry");
-			rand_wait();
+			// 適当な時間空腹なまま待つ
+			random_wait(num, "hungry");
             
 			// 右から順に取る
-			wai_sem(right_id(num));
-			if pol_sem(left_id(num)) == 0 {
+			wai_sem(right_id);
+			if pol_sem(left_id) == 0 {
 				break;	// 両方取れた
 			}
-			sig_sem(right_id(num));	// 取れなければ離す
+			sig_sem(right_id);	// 取れなければ離す
 
 			// 適当な時間待つ
-			print_state(num, "hungry");
-			rand_wait();
+			random_wait(num, "hungry");
 		}
 		
 		// 適当な時間、食べる
-		print_state(num, "eating");
-		rand_wait();
+		random_wait(num, "eating");
 		
 		// フォークを置く
-		sig_sem(left_id(num));
-		sig_sem(right_id(num));
+		sig_sem(left_id);
+		sig_sem(right_id);
+    }
+}
+
+// ランダムな時間待ち
+static mut R : i32 = 1;
+fn random_wait(num: i32, state:&str) {
+    // 状態を表示
+    println!("{} : {}", num, state);
+
+    // ランダムな時間待つ
+    unsafe {
+        R = R.wrapping_mul(1103515245).wrapping_add(12345); // 線形合同法で乱数生成
+        dly_tsk(R&0x3ff + 100); // タスク遅延
     }
 }
 
 
-// 左のフォーク相当のセマフォID
-fn left_id(num: i32) -> i32 {
-    if num <= 1 {5} else {num-1}
-}
-
-// 右のフォーク相当のセマフォID
-fn right_id(num: i32) -> i32 {
-    if num >= 5 {1} else {num+1}
-}
-
-
-// 状態表示
-fn print_state(num: i32, state:&str)
-{
-    uart_print_int(num);
-    uart_print_string(" : ");
-    uart_print_string(state);
-    uart_print_string("\r\n");
-}
-
-// 数字出力
-fn uart_print_int(i: i32)
-{
-    my_uart::uart_write('0' as i32 + i);
-}
-
-// 文字列出力
-fn uart_print_string(s: &str)
-{
-    for i in s.chars() {
-        my_uart::uart_write(i as i32);
-    }
-}
-
+// end of file

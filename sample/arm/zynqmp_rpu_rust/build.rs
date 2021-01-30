@@ -2,9 +2,18 @@ use std::{env, error::Error, fs::File, io::Write, path::PathBuf};
 use cc::Build;
 
 use std::process::Command;
-
+//use std::path::Path;
 
 fn main() -> Result<(), Box<dyn Error>> {
+
+    // ITRONカーネルのパス
+    let kernel_path =  "../../../kernel";
+
+    // カーネルビルド
+    Command::new("make")
+        .args(&["-C", &format!("{}/build/arm/cortex_r5/gcc", kernel_path)])
+        .output()
+        .expect("kernel build command failed");
 
     // コンフィギュレータ実行
     Command::new("cpp")
@@ -22,64 +31,35 @@ fn main() -> Result<(), Box<dyn Error>> {
         .output()
         .expect("rm command failed");
 
-    
+
+    // アセンブラとCをコンパイル
+    let src_files = vec![
+        ["src/vectors.S", "vectors"],
+        ["src/crt0.S", "crt0"],
+        ["src/hw_setup.c", "hw_setup"],
+        ["src/kernel_cfg.c", "kernel_cfg"],
+    ];
+
+    for name in src_files.into_iter() {
+        Build::new()
+            .flag("-mfpu=vfpv3-d16")
+            .flag("-mthumb-interwork")
+            .flag("-mfloat-abi=softfp")
+            .flag("-Wno-unused-parameter")
+            .flag("-Wno-missing-field-initializers")
+            .flag(&format!("-I{}/include", kernel_path))
+                .file(name[0])
+            .compile(name[1]);
+    }
+
+
     // ライブラリパス追加(あってるか自信なし)
     let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
     println!("cargo:rustc-link-search={}", out_dir.display());
-    println!("cargo:rustc-link-search=/home/ryuji/git-work/hos-v4a/kernel/build/arm/cortex_r5/gcc");
+    println!("cargo:rustc-link-search={}/build/arm/cortex_r5/gcc", kernel_path);
 
     // リンカスクリプトををビルドディレクトリに
     File::create(out_dir.join("link.lds"))?.write_all(include_bytes!("link.lds"))?;
-
-    // アセンブラとCをコンパイル
-    Build::new()
-        .flag("-mfpu=vfpv3-d16")
-        .flag("-mthumb-interwork")
-        .flag("-mfloat-abi=softfp")
-        .file("src/vectors.S")
-        .compile("vectors");
-
-    Build::new()
-        .flag("-mfpu=vfpv3-d16")
-        .flag("-mthumb-interwork")
-        .flag("-mfloat-abi=softfp")
-        .file("src/crt0.S")
-        .compile("crt0");
-
-    Build::new()
-        .flag("-mfpu=vfpv3-d16")
-        .flag("-mthumb-interwork")
-        .flag("-mfloat-abi=softfp")
-        .flag("-I/home/ryuji/git-work/hos-v4a/kernel/include")
-        .file("src/hw_setup.c")
-        .compile("hw_setup");
-    
-    Build::new()
-        .flag("-mfpu=vfpv3-d16")
-        .flag("-mthumb-interwork")
-        .flag("-mfloat-abi=softfp")
-        .flag("-Wno-unused-parameter")
-        .flag("-Wno-missing-field-initializers")
-        .flag("-I/home/ryuji/git-work/hos-v4a/kernel/include")
-        .file("src/kernel_cfg.c")
-        .compile("kernel_cfg");
-
-    Build::new()
-        .flag("-mfpu=vfpv3-d16")
-        .flag("-mthumb-interwork")
-        .flag("-mfloat-abi=softfp")
-        .flag("-Wno-unused-parameter")
-        .flag("-I/home/ryuji/git-work/hos-v4a/kernel/include")
-        .file("src/ostimer.c")
-        .compile("ostimer");
-
-    Build::new()
-        .flag("-mfpu=vfpv3-d16")
-        .flag("-mthumb-interwork")
-        .flag("-mfloat-abi=softfp")
-        .flag("-I/home/ryuji/git-work/hos-v4a/kernel/include")
-        .file("src/uart.c")
-        .compile("uart");
 
     Ok(())
 }

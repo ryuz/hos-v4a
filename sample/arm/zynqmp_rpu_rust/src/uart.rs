@@ -1,5 +1,7 @@
 // UART
 
+use core::fmt::{self, Write};
+
 
 // const UART_BASE_ADDR   : usize = 0xff000000;    // UART0
 const UART_BASE_ADDR   : usize = 0xff010000;    // UART1
@@ -37,6 +39,34 @@ pub fn uart_write(c: i32)
     }
     uart_wait();
     wrtie_reg(UART_TX_RX_FIFO, c as u32)
+}
+
+
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::_print(format_args!($($arg)*)));
+}
+
+#[macro_export]
+macro_rules! println {
+    ($fmt:expr) => (print!(concat!($fmt, "\r\n")));
+    ($fmt:expr, $($arg:tt)*) => (print!(concat!($fmt, "\r\n"), $($arg)*));
+}
+
+pub fn _print(args: fmt::Arguments) {
+    let mut writer = UartWriter {};
+    writer.write_fmt(args).unwrap();
+}
+
+struct UartWriter;
+
+impl Write for UartWriter {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        for c in s.bytes() {
+            uart_write(c as i32);
+        }
+        Ok(())
+    }
 }
 
 
