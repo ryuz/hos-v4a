@@ -1,4 +1,4 @@
-# サンプルプログラム (Rust 版)
+# Xilinx ZynqMP サンプルプログラム (Rust 版)
 
 ## 概要
 
