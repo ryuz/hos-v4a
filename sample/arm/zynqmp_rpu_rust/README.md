@@ -41,7 +41,6 @@ $ rustup component add llvm-tools-preview
 ```
 $ git clone https://github.com/ryuz/hos-v4a.git
 $ cd hos-v4a/sample/arm/zynqmp_rpu_rust
-$ make -C ../../../kernel/build/arm/cortex_r5/gcc
 $ cargo build
 $ ./run.sh
 ```
