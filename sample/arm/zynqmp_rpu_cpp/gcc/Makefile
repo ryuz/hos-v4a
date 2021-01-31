@@ -40,7 +40,7 @@ LINK_SCRIPT = link.lds
 
 # %jp{フラグ設定}
 CFLAGS    = -mcpu=cortex-r5 -mthumb-interwork
-CXXFLAGS  = -mcpu=cortex-r5 -mthumb-interwork -std=c++11 -fno-use-cxa-atexit -fno-exceptions
+CXXFLAGS  = -mcpu=cortex-r5 -mthumb-interwork -std=c++11 -fno-use-cxa-atexit -fno-exceptions -fno-rtti
 #CXXFLAGS  = -mcpu=cortex-r5 -mthumb-interwork -std=c++11 -nostdinc -nostdlib -fno-use-cxa-atexit -fno-exceptions
 AFLAGS    = -mcpu=cortex-r5 -mthumb-interwork
 LNFLAGS   = -mcpu=cortex-r5 -mthumb-interwork -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
