@@ -9,6 +9,7 @@
  */
 
 
+#include <array>
 #include <stdlib.h>
 #include <string.h>
 #include "kernel.h"
@@ -23,8 +24,8 @@ ID mpfid;
 // メッセージ構造体
 struct T_PRINT_MSG
 {
-    T_MSG msg;
-    char  text[32];
+    T_MSG                   msg;
+    std::array<char, 32>    text;
 };
 
 // 初期化ハンドラ
@@ -65,7 +66,10 @@ void Sample_Print(VP_INT exinf)
         // メッセージを受けてUARTに表示
         T_PRINT_MSG *msg;
         rcv_mbx(mbxid, (T_MSG **)&msg);
-        Uart_PutString(msg->text);
+        for ( auto c : msg->text ) {
+            if ( c == '\0' ) break;
+            Uart_PutChar(c);
+        }
         rel_mpf(mpfid, msg);
     }
 }
@@ -99,12 +103,10 @@ public:
             RandomWait("thinking");
         
             // 左右のフォークを取るまでループ
-            for ( ; ; )
-            {
+            for ( ; ; ) {
                 // 左から順に取る
                 wai_sem(m_left);
-                if ( pol_sem(m_right) == E_OK )
-                {
+                if ( pol_sem(m_right) == E_OK ) {
                     break;  // 両方取れた
                 }
                 sig_sem(m_left); // 取れなければ離す
@@ -141,10 +143,9 @@ protected:
 
         // セマフォで排他制御して newlib の乱数利用
         wai_sem(SEMID_RAND);
-        int r;
-        r = rand();
+        auto r = rand();
         sig_sem(SEMID_RAND);
-        dly_tsk((r % 1000) + 10);
+        dly_tsk((RELTIM)((r % 1000) + 10));
     }
     
     // 自分の番号をつけて文字列送信
@@ -156,12 +157,17 @@ protected:
         auto msg = (T_PRINT_MSG *)mem;
 
         // 文字列生成
-        msg->text[0] = '0' + m_num;
-        msg->text[1] = ' ';
-        msg->text[2] = ':';
-        msg->text[3] = ' ';
-        strcpy(&msg->text[4], text);
-        strcat(msg->text, "\r\n");
+        auto ptr = msg->text.begin();
+        *ptr++ = '0' + m_num;
+        *ptr++ = ' ';
+        *ptr++ = ':';
+        *ptr++ = ' ';
+        while ( auto c = *text++ ) {
+            *ptr++ = c;
+        }
+        *ptr++ = '\r';
+        *ptr++ = '\n';
+        *ptr++ = '\0';
 
         // 表示タスクに送信
         snd_mbx(mbxid, (T_MSG *)msg);
