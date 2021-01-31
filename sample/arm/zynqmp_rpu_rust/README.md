@@ -57,3 +57,54 @@ Linux側は UART が使えなくなるのでご注意ください。
 $ ./stop.sh
 ```
 
+
+## Rust 化の為にやったこと(参考)
+
+基本的に Rust と言っても pub unsafe extern "C" してしまえばアセンブラレベルではCの関数と同様に呼び出せるため、主にビルドシステムやリンク周りの対応となります。
+
+
+### リンカ対応
+
+組み込みの為にもともとC言語用にアセンブラ等で用意していたブートストラップコードを組み込んでいます。
+
+.cargo/config に以下を組み込んで、
+
+
+```.cargo/config
+[target.armv7r-none-eabi]
+rustflags = ["-C", "link-args=-Tlink.lds -lhosv4a"]
+
+[build]
+target = "armv7r-none-eabi"
+```
+
+- ターゲットを armv47r にする
+- リンカスクリプト link.lds を読ませる
+- libhosv4a.a をリンクするように指示する
+
+ということをしています。
+
+また、link.lds においては、生成されるコードのセクションも単なる .text や .data ではなく .text.XXXX や .data.XXXXという名前になるようですので *(.text) だけでなく *(.text.*) などを追加しています。
+
+さらに
+
+```
+/DISCARD/ :
+{
+    *(.ARM.exidx.*);
+}
+```
+
+という例外ハンドラ用のセクションを捨てるコードも、過去事例に倣って挿入しております。
+
+
+### ビルド対応
+
+build.rs に
+
+- HOSカーネル自体のビルド呼び出し(arm-none-eabi-gccインストール済み前提)
+- コンフィギュレータの実行(kernel.cfg から kernel_id.h と kernel_cfg.c を生成)
+- cargo:rustc-link-search にHOSのライブラリパス追加
+
+などを行っています。詳しくは build.rs を参照ください。
+
