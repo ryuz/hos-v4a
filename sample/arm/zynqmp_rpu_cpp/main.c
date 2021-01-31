@@ -17,10 +17,10 @@
 /** %jp{メイン関数} */
 int main()
 {
-	/* %jp{カーネルの動作開始} */
-	vsta_knl();
-	
-	return 0;
+    /* %jp{カーネルの動作開始} */
+    vsta_knl();
+    
+    return 0;
 }
 
 

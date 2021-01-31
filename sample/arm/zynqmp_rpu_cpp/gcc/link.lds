@@ -30,10 +30,12 @@ SECTIONS
 	{
 		. = ALIGN(4);
 		___ctors = . ;
+        *(.init_array);
 		*(.ctors)
 		___ctors_end = . ;
 		___dtors = . ;
 		*(.note.gnu.build-id)
+        *(.fini_array);
 		*(.dtors)
 		___dtors_end = . ;
 	} > ro

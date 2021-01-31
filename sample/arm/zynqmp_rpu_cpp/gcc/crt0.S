@@ -12,6 +12,11 @@
                 .extern     ___data_end
                 .extern     ___bss
                 .extern     ___bss_end
+                .extern     ___ctors
+                .extern     ___ctors_end
+                .extern     ___dtors
+                .extern     ___dtors_end
+
                 .extern     hw_setup
                 .extern     main
 
@@ -118,9 +123,29 @@ bss_loop:
                 strcc   r2, [r0], #4
                 bcc     bss_loop
                 
+
+                /* コンストラクタ呼び出し */
+                ldr     r4, =___ctors
+                ldr     r5, =___ctors_end
+ctors_loop:     
+                cmp     r4, r5
+                ldrcc   r0, [r4], #4
+                blxcc   r0
+                bcc     ctors_loop
                 
                 /* main関数の呼び出し */
                 bl      main
+
+                /* デストラクタ呼び出し */
+                ldr     r4, =___dtors
+                ldr     r5, =___dtors_end
+dtors_loop:     
+                cmp     r4, r5
+                ldrcc   r0, [r4], #4
+                blxcc   r0
+                bcc     dtors_loop
+
+                /* 無限ループ */
 end_loop:
                 b       end_loop
 
