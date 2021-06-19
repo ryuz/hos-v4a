@@ -36,6 +36,16 @@ $ cargo install cargo-binutils
 $ rustup component add llvm-tools-preview
 ```
 
+## gcc の準備
+
+今のところHOSカーネル側がデフォルトでgccなのでこちらも入れておきます。
+
+```
+sudo apt install gcc-arm-none-eabi
+sudo apt install libnewlib-arm-none-eabi
+```
+
+
 ## ビルド＆実行
 
 ```
