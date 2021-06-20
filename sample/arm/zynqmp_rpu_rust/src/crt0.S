@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------ */
 /*  Hyper Operating System V4 Advance                                       */
-/*    Sample program for ADuC7000 series                                    */
+/*    Sample program for Xilinx ZynqMP                                      */
 /*                                                                          */
 /*                                  Copyright (C) 1998-2007 by Project HOS  */
 /*                                  http://sourceforge.jp/projects/hos/     */
