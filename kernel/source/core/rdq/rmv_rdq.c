@@ -30,7 +30,7 @@ void _kernel_rmv_rdq(_KERNEL_T_RDQCB *rdqcb, _KERNEL_T_TSKHDL tskhdl)
 	/* %jp{タスク優先度を取得} */
 	tskpri = _KERNEL_TSK_GET_TSKPRI(tcb);
 	
-	/* %jp{キューに追加} */
+	/* %jp{キューから削除} */
 	_KERNEL_RMV_QUE(&rdqcb->que[tskpri-1], tskhdl);
 }
 
