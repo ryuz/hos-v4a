@@ -320,7 +320,7 @@ void CApiCreTsk::WriteTcbRam(FILE *fp, int iObj)
 #endif
 
 #if _KERNEL_TCB_TOQOBJ
-	fprintf(fp, "0, 0, 0, ");			/* %jp{タイムアウトキュー} */
+	fprintf(fp, "(_KERNEL_TCB_T_TSKHDL)0, (_KERNEL_TCB_T_TSKHDL)0, (_KERNEL_TCB_T_RELTIM)0, ");			/* %jp{タイムアウトキュー} */
 #endif
 
 #if _KERNEL_TCB_TSKSTAT
