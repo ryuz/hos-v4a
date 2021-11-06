@@ -82,8 +82,8 @@ typedef uint64_t					_KERNEL_T_UD;
 #define _KERNEL_ENABLE64			TRUE
 
 /* %jp{64bit定数の定義} */
-#define _KERNEL_CONSTNAT_INT64(x)	(x ## LL)
-#define _KERNEL_CONSTNAT_UINT64(x)	(x ## ULL)
+#define _KERNEL_CONSTANT_INT64(x)	(x ## LL)
+#define _KERNEL_CONSTANT_UINT64(x)	(x ## ULL)
 
 #else	/* %jp{stdint.h が使えない場合} */
 
@@ -142,8 +142,8 @@ typedef _KERNEL_CMPL_UINT64			_KERNEL_T_UD;
 #define _KERNEL_ENABLE64			TRUE
 
 /* %jp{64bit定数の定義} */
-#define _KERNEL_CONSTNAT_INT64(x)	_KERNEL_CMPL_CONSTNAT_INT64(x)
-#define _KERNEL_CONSTNAT_UINT64(x)	_KERNEL_CMPL_CONSTNAT_UINT64(x)
+#define _KERNEL_CONSTANT_INT64(x)	_KERNEL_CMPL_CONSTANT_INT64(x)
+#define _KERNEL_CONSTANT_UINT64(x)	_KERNEL_CMPL_CONSTANT_UINT64(x)
 
 #else	/* %jp{コンパイラが64bitを未サポートなら} */
 
@@ -643,70 +643,70 @@ typedef void*						_KERNEL_T_VP;
 /** %jp{ビット幅算出マクロ} */
 #define _KERNEL_MAXNUM2BIT(x)											\
 	(																	\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000000000) ?  0 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000000001) ?  1 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000000003) ?  2 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000000007) ?  3 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000000000f) ?  4 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000000001f) ?  5 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000000003f) ?  6 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000000007f) ?  7 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000000000ff) ?  8 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000000001ff) ?  9 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000000003ff) ? 10 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000000007ff) ? 11 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000000fff) ? 12 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000001fff) ? 13 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000003fff) ? 14 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000007fff) ? 15 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000000ffff) ? 16 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000001ffff) ? 17 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000003ffff) ? 18 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000007ffff) ? 19 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000000fffff) ? 20 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000001fffff) ? 21 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000003fffff) ? 22 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000007fffff) ? 23 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000000ffffff) ? 24 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000001ffffff) ? 25 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000003ffffff) ? 26 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000007ffffff) ? 27 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000000fffffff) ? 28 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000001fffffff) ? 29 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000003fffffff) ? 30 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000007fffffff) ? 31 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000000ffffffff) ? 32 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000001ffffffff) ? 33 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000003ffffffff) ? 34 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000007ffffffff) ? 35 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000000fffffffff) ? 36 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000001fffffffff) ? 37 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000003fffffffff) ? 38 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000007fffffffff) ? 39 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000000ffffffffff) ? 40 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000001ffffffffff) ? 41 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000003ffffffffff) ? 42 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000007ffffffffff) ? 43 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00000fffffffffff) ? 44 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00001fffffffffff) ? 45 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00003fffffffffff) ? 46 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00007fffffffffff) ? 47 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0000ffffffffffff) ? 48 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0001ffffffffffff) ? 49 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0003ffffffffffff) ? 50 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0007ffffffffffff) ? 51 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x000fffffffffffff) ? 52 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x001fffffffffffff) ? 53 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x003fffffffffffff) ? 54 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x007fffffffffffff) ? 55 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x00ffffffffffffff) ? 56 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x01ffffffffffffff) ? 57 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x03ffffffffffffff) ? 58 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x07ffffffffffffff) ? 59 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x0fffffffffffffff) ? 60 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x1fffffffffffffff) ? 61 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x3fffffffffffffff) ? 62 :		\
-		(x) <= _KERNEL_CONSTNAT_INT64(0x7fffffffffffffff) ? 63 : 64		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000000000) ?  0 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000000001) ?  1 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000000003) ?  2 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000000007) ?  3 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000000000f) ?  4 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000000001f) ?  5 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000000003f) ?  6 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000000007f) ?  7 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000000000ff) ?  8 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000000001ff) ?  9 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000000003ff) ? 10 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000000007ff) ? 11 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000000fff) ? 12 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000001fff) ? 13 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000003fff) ? 14 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000007fff) ? 15 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000000ffff) ? 16 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000001ffff) ? 17 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000003ffff) ? 18 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000007ffff) ? 19 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000000fffff) ? 20 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000001fffff) ? 21 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000003fffff) ? 22 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000007fffff) ? 23 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000000ffffff) ? 24 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000001ffffff) ? 25 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000003ffffff) ? 26 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000007ffffff) ? 27 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000000fffffff) ? 28 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000001fffffff) ? 29 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000003fffffff) ? 30 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000007fffffff) ? 31 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000000ffffffff) ? 32 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000001ffffffff) ? 33 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000003ffffffff) ? 34 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000007ffffffff) ? 35 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000000fffffffff) ? 36 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000001fffffffff) ? 37 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000003fffffffff) ? 38 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000007fffffffff) ? 39 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000000ffffffffff) ? 40 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000001ffffffffff) ? 41 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000003ffffffffff) ? 42 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000007ffffffffff) ? 43 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00000fffffffffff) ? 44 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00001fffffffffff) ? 45 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00003fffffffffff) ? 46 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00007fffffffffff) ? 47 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0000ffffffffffff) ? 48 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0001ffffffffffff) ? 49 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0003ffffffffffff) ? 50 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0007ffffffffffff) ? 51 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x000fffffffffffff) ? 52 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x001fffffffffffff) ? 53 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x003fffffffffffff) ? 54 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x007fffffffffffff) ? 55 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x00ffffffffffffff) ? 56 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x01ffffffffffffff) ? 57 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x03ffffffffffffff) ? 58 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x07ffffffffffffff) ? 59 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x0fffffffffffffff) ? 60 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x1fffffffffffffff) ? 61 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x3fffffffffffffff) ? 62 :		\
+		(x) <= _KERNEL_CONSTANT_INT64(0x7fffffffffffffff) ? 63 : 64		\
 	)
 
 #else
