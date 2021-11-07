@@ -1,0 +1,108 @@
+------------------------------------------------------------------------------
+  Hyper Operating System V4 Advance  --μITRON4.0仕様OS
+    RISC-V (gcc)用 ドキュメント
+
+                                       Copyright (C) 1998-2007 by Project HOS
+                                       http://sourceforge.jp/projects/hos/
+------------------------------------------------------------------------------
+
+1. 概要
+
+  本ドキュメントは Hyper Operating System V4 Advance （以下 HOS-V4A）の
+  RISC-Vコアの固有部分についての説明を記載します。
+
+2. 動作環境とその構築
+
+2.1 ターゲットボード
+
+動作確認ターゲットボードは, 以下のQEMU(*1)のRISC-V向けシステムシミュレータの
+virt (VirtI/O) マシンです。
+
+- qemu-system-riscv32
+- qemu-system-riscv64
+
+
+(*1) QEMUは、Fabrice Bellardらが中心となって開発しているオープンソースの
+プロセッサエミュレータです(http://qemu.org/ 参照)。
+
+2.2 開発環境
+
+Linux上で動作するgccクロスコンパイラで動作確認しています。
+
+開発時に使用したgccクロスコンパイラ, シミュレータを構成する
+各ソフトウエアの版数は以下の通りです。
+
+- アセンブラ・リンカ: binutils-2.37
+- GNU Compiler Collection: gcc-11.2.0
+- 組込み向けC標準ライブラリ: newlib-4.1.0
+- QEMU qemu-6.1.0
+
+2.3 サンプルプログラムのコンパイル
+
+QEmu virtマシン上で動作するサンプルプログラムです。
+MIPSプロセッサ向けのサンプルプログラムを
+RISC-V向けに移植しています。
+
+実行手順は以下の通りです。
+クロスコンパイラ/アセンブラ/リンカ/シミュレータへのパスを通した
+上で以下の手順を実行してください。
+コンパイルのためにGNU Makeが必要です。
+
+- hos-v4a/sample/riscv/virt/gccに移動します。
+- gmake を実行し, サンプルプログラムとHOS-V4Aのコンフィギュレータ,
+  カーネルライブラリとを生成します。
+- gmake run を実行することでQEMU シミュレータが立ち上がり,
+  サンプルプログラムが動作します。
+- gmake run-debug を実行することでQEMU シミュレータがクロスgdb
+  デバッガからの接続を待ち合わせて起動します。
+    他の端末上のクロスgdbを用いてポート番号1234番に対して接続することで
+  gdbによるリモートでバッグが可能です。クロスgdbのプロンプトから
+  ``target remote localhost:1234''
+  コマンドを実行することでターゲット(QEMU)に接続します。
+
+
+gmake 実行時に環境変数``RISCV_ARCH''を以下のように設定することで,
+32bit版RISC-Vと64bit版RISC-V向けのいずれのコアに対してプログラムを
+生成するかを選択することができます。
+
+環境変数``RISCV_ARCH''未設定時は, 64bit版RISC-V向けにプログラムを
+生成します。
+
+- 32bit版RISC-V向けにプログラムを生成する場合
+  RISCV_ARCHに``riscv32''を設定します。
+  コンパイル時のコマンドラインの例: env RISCV_ARCH=riscv32 gmake
+  実行時のコマンドラインの例: env RISCV_ARCH=riscv32 gmake run
+  デバッグ時のコマンドラインの例: env RISCV_ARCH=riscv32 gmake run-debug
+
+- 64bit版RISC-V向けにプログラムを生成する場合
+  RISCV_ARCHに``riscv64''を設定します。
+  コンパイル時のコマンドラインの例: env RISCV_ARCH=riscv64 gmake
+  実行時のコマンドラインの例: env RISCV_ARCH=riscv64 gmake run
+  デバッグ時のコマンドラインの例: env RISCV_ARCH=riscv64 gmake run-debug
+
+
+4. 割込み/例外について
+4.1. 割込み番号(INTNO)の割り当て
+
+   QEMU RISC-Vターゲット向けの割込みを以下の割込み番号に割り当てています。
+
+   INTNO | 割込みソース
+   0     | マシンモードソフトウェア割込み
+   1     | マシンモードタイマ割込み
+   2以降 | Platform-Level Interrupt Controller (PLIC) の
+           Interrupt Ready Queue (IRQ) 0 番以降を割り当て
+
+例えば, PLICのIRQ番号10番(QEMU virtマシン上のUART)の場合は, INTNO12番を指定
+します。
+
+4.2. 例外番号
+
+   CPU例外発生時の例外番号は, RISC-Vのmacuseレジスタの値を例外番号として
+   使用します。
+   詳細は, RISC-V Privileged ISA Specification
+    ( https://riscv.org/technical/specifications/privileged-isa/ )
+   を参照ください。
+
+------------------------------------------------------------------------------
+ end of file
+------------------------------------------------------------------------------
