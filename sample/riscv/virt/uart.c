@@ -10,15 +10,29 @@
 
 
 #include "kernel.h"
+#include "kernel_id.h"
+
+#include "ircatr.h"
+#include "irc.h"
 
 #include "uart.h"
 
+#define RISCV64_VIRT_UART_ECHOBACK TRUE  /* シリアル受信時にエコーバックする */
+
 /* %jp{UARTレジスタ} */
 #define RISCV64_VIRT_UART0_PADDR     ((volatile UB *)(0x10000000))
+#define INTNO_UART0                  ( 10 + _KERNEL_IRCATR_PLIC_TMIN_INTNO )
+
+static void Uart_Isr(VP_INT exinf);
+
+static int rd_ch=-1;
 
 /* %jp{UARTの初期化} */
 void Uart_Initialize(void)
 {
+	T_CISR cisr;
+	T_CINT cint;
+
 	/* %jp{割込み通知を無効化} */
 	RISCV_VIRT_UART_WRITE_REG(RISCV64_VIRT_UART0_PADDR, UART_INTR, UART_INTR_DIS);
 
@@ -34,19 +48,64 @@ void Uart_Initialize(void)
 
 	/* %jp{FIFOを有効化する} */
 	RISCV_VIRT_UART_WRITE_REG(RISCV64_VIRT_UART0_PADDR, UART_FIFO, 0x07);
+
+	/* %jp{割込みサービスルーチン生成} */
+	cisr.isratr = TA_HLNG;
+	cisr.exinf  = 0;
+	cisr.intno  = INTNO_UART0;
+	cisr.isr    = (FP)Uart_Isr;
+	acre_isr(&cisr);
+
+	/* %jp{受信割込み通知を有効化} */
+	RISCV_VIRT_UART_WRITE_REG(RISCV64_VIRT_UART0_PADDR, UART_INTR, UART_INTR_RDA);
+
+	/* %jp{割込み線初期化} */
+	cint.intatr=TA_ENAINT|TA_EDGE|TA_POSEDGE;
+	cint.intpri = -1;
+
+	cfg_int(INTNO_UART0, &cint);
 }
 
+/**< %jp{UART割込みサービスルーチン} */
+static void Uart_Isr(VP_INT exinf){
+	ER                   ercd;
+
+
+	ercd = twai_sem(SEMID_UART, TMO_POL);
+	if ( ercd == E_OK )
+	{
+		/* %jp{受信可能になるのを待ち合わせる} */
+		while( (RISCV_VIRT_UART_READ_REG(RISCV64_VIRT_UART0_PADDR, UART_LSR) &
+			UART_LSR_RXRDY) == 0 )
+			;
+
+		/* %jp{1文字読み込み} */
+		rd_ch = (int)RISCV_VIRT_UART_READ_REG(RISCV64_VIRT_UART0_PADDR, UART_RHR);
+#ifdef  RISCV64_VIRT_UART_ECHOBACK
+		Uart_PutChar(rd_ch);
+#endif  /*  RISCV64_VIRT_UART_ECHOBACK  */
+
+		sig_sem(SEMID_UART);
+	}
+
+
+
+	vclr_int(INTNO_UART0);  /* %jp{割込み受付通知} */
+}
 
 /* %jp{1文字入力} */
 char Uart_GetChar(void)
 {
-	/* %jp{受信可能になるのを待ち合わせる} */
-	while( (RISCV_VIRT_UART_READ_REG(RISCV64_VIRT_UART0_PADDR, UART_LSR) &
-		 UART_LSR_RXRDY) == 0 )
-		;
+	int rcv_ch;
 
+	wai_sem(SEMID_UART);
+
+	rcv_ch = rd_ch;
+	rd_ch = -1;
+
+	sig_sem(SEMID_UART);
 	/* %jp{1バイト受信} */
-	return RISCV_VIRT_UART_READ_REG(RISCV64_VIRT_UART0_PADDR, UART_RHR);
+	return rcv_ch;
 }
 
 

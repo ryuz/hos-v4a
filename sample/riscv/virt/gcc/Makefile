@@ -30,12 +30,16 @@ ARCH_NAME ?= riscv
 ARCH_CC   ?= gcc
 EXT_EXE   ?= elf
 
+ARCH_IRC  ?= riscv
+
 # %jp{ディレクトリ定義}%en{directories}
 TOP_DIR           = ../../../..
 KERNEL_DIR        = $(TOP_DIR)/kernel
 KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/riscv/gcc
+
+INC_IRC_DIR       = $(KERNEL_DIR)/include/arch/irc/$(ARCH_IRC)
 
 # %jp{コンフィギュレータ定義}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-$(ARCH_NAME)
@@ -52,7 +56,7 @@ LINK_SCRIPT = ram.lds
 
 
 # %jp{パス設定}%en{add source directories}
-INC_DIRS += . ..
+INC_DIRS += . .. $(INC_IRC_DIR)
 SRC_DIRS += . ..
 
 
