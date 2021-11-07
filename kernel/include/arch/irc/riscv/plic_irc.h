@@ -10,7 +10,7 @@
 
 
 #ifndef _KERNEL__arch__irc__riscv__plic__plic_irc_h__
-#define _KERNEL__arch__irc__riscv__plint__plic_irc_h__
+#define _KERNEL__arch__irc__riscv__plic__plic_irc_h__
 
 /** %jp{QEMU Platform-Level Interrupt Controller (PLIC) レジスタアドレス}   */
 #define _KERNEL_RISCV_IRC_PLIC_ADDR        ((VP)(0xC000000))
