@@ -1,7 +1,7 @@
 /**
  *  Sample program for Hyper Operating System V4 Advance
  *
- * @file  ostimer.c
+ * @file  ostimer.h
  * @brief %jp{OSタイマ}%en{OS timer}
  *
  * Copyright (C) 1998-2006 by Project HOS

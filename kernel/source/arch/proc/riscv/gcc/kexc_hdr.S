@@ -14,6 +14,7 @@
 				.extern	_kernel_sta_inh
 				.extern	_kernel_end_inh
 				.extern	_kernel_exe_inh
+				.extern _kernel_exe_exh
 
 				.global	_kernel_exc_hdr
 				.global handle_exception
@@ -42,8 +43,6 @@ _kernel_exc_hdr:
 				_KERNEL_RISCV_PROC_ST	a5, _KERNEL_RISCV_PROC_ICTX_A5(sp)
 				_KERNEL_RISCV_PROC_ST	a6, _KERNEL_RISCV_PROC_ICTX_A6(sp)
 				_KERNEL_RISCV_PROC_ST	a7, _KERNEL_RISCV_PROC_ICTX_A7(sp)
-				_KERNEL_RISCV_PROC_ST	tp, _KERNEL_RISCV_PROC_ICTX_TP(sp)
-				_KERNEL_RISCV_PROC_ST	gp, _KERNEL_RISCV_PROC_ICTX_GP(sp)
 				csrr	t0, mepc
 				_KERNEL_RISCV_PROC_ST   t0, _KERNEL_RISCV_PROC_ICTX_EPC(sp)
         			csrr	t0, mstatus
@@ -127,8 +126,6 @@ _kernel_riscv_resume_exc:
 				csrw	mstatus, t0
 				_KERNEL_RISCV_PROC_LD	t0, _KERNEL_RISCV_PROC_ICTX_EPC(sp)
 				csrw	mepc, t0
-				_KERNEL_RISCV_PROC_LD	gp, _KERNEL_RISCV_PROC_ICTX_GP(sp)
-				_KERNEL_RISCV_PROC_LD	tp, _KERNEL_RISCV_PROC_ICTX_TP(sp)
 				_KERNEL_RISCV_PROC_LD	a7, _KERNEL_RISCV_PROC_ICTX_A7(sp)
 				_KERNEL_RISCV_PROC_LD	a6, _KERNEL_RISCV_PROC_ICTX_A6(sp)
 				_KERNEL_RISCV_PROC_LD	a5, _KERNEL_RISCV_PROC_ICTX_A5(sp)

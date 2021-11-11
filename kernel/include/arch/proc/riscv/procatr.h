@@ -31,7 +31,7 @@
 #define _KERNEL_PROCATR_TMAX_INHNO			3			/**< %jp{割込みハンドラ番号の最大値(CLIC:3)} */
 
 #define _KERNEL_PROCATR_TMIN_EXCNO			0			/**< %jp{CPU例外ハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_EXCNO			11			/**< %jp{CPU例外ハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMAX_EXCNO			63			/**< %jp{CPU例外ハンドラ番号の最大値} */
 
 #define _KERNEL_PROCATR_SYSSTK_NUM			1			/**< %jp{システムスタックは何本必要か？} */
 
@@ -69,7 +69,7 @@
 
 
 /**< %jp{割込みコンテキスト} */
-#define _KERNEL_RISCV_PROC_ICTX_SIZE               80
+#define _KERNEL_RISCV_PROC_ICTX_SIZE               72
 
 #define _KERNEL_RISCV_PROC_ICTX_RA                  0
 #define _KERNEL_RISCV_PROC_ICTX_T0                  4
@@ -89,14 +89,12 @@
 #define _KERNEL_RISCV_PROC_ICTX_A6                 56
 #define _KERNEL_RISCV_PROC_ICTX_A7                 60
 
-#define _KERNEL_RISCV_PROC_ICTX_TP                 64
-#define _KERNEL_RISCV_PROC_ICTX_GP                 68
-#define _KERNEL_RISCV_PROC_ICTX_EPC                72
-#define _KERNEL_RISCV_PROC_ICTX_STATUS             76
+#define _KERNEL_RISCV_PROC_ICTX_EPC                64
+#define _KERNEL_RISCV_PROC_ICTX_STATUS             68
 
 
 /**< %jp{タスクスイッチコンテキスト} */
-#define _KERNEL_RISCV_PROC_TSKCTX_SIZE             52
+#define _KERNEL_RISCV_PROC_TSKCTX_SIZE             56
 
 #define _KERNEL_RISCV_PROC_TSKCTX_RA                0
 #define _KERNEL_RISCV_PROC_TSKCTX_S0                4
@@ -112,6 +110,7 @@
 #define _KERNEL_RISCV_PROC_TSKCTX_S10              44
 #define _KERNEL_RISCV_PROC_TSKCTX_S11              48
 
+#define _KERNEL_RISCV_PROC_TSKCTX_TP               52
 
 #elif __riscv_xlen == 64
 #define _KERNEL_PROCATR_TMIN_STKSZ			(8*32)		/**< %jp{最低限必要なスタックサイズ(byte単位).} */
@@ -126,7 +125,7 @@
 
 
 /**< %jp{割込みコンテキスト} */
-#define _KERNEL_RISCV_PROC_ICTX_SIZE              160
+#define _KERNEL_RISCV_PROC_ICTX_SIZE              144
 
 #define _KERNEL_RISCV_PROC_ICTX_RA                  0
 #define _KERNEL_RISCV_PROC_ICTX_T0                  8
@@ -146,14 +145,12 @@
 #define _KERNEL_RISCV_PROC_ICTX_A6                112
 #define _KERNEL_RISCV_PROC_ICTX_A7                120
 
-#define _KERNEL_RISCV_PROC_ICTX_TP                128
-#define _KERNEL_RISCV_PROC_ICTX_GP                136
-#define _KERNEL_RISCV_PROC_ICTX_EPC               144
-#define _KERNEL_RISCV_PROC_ICTX_STATUS            152
+#define _KERNEL_RISCV_PROC_ICTX_EPC               128
+#define _KERNEL_RISCV_PROC_ICTX_STATUS            136
 
 
 /**< %jp{タスクスイッチコンテキスト} */
-#define _KERNEL_RISCV_PROC_TSKCTX_SIZE            104
+#define _KERNEL_RISCV_PROC_TSKCTX_SIZE            112
 #define _KERNEL_RISCV_PROC_TSKCTX_RA                0
 #define _KERNEL_RISCV_PROC_TSKCTX_S0                8
 #define _KERNEL_RISCV_PROC_TSKCTX_S1               16
@@ -168,6 +165,9 @@
 #define _KERNEL_RISCV_PROC_TSKCTX_S10              88
 #define _KERNEL_RISCV_PROC_TSKCTX_S11              96
 
+#define _KERNEL_RISCV_PROC_TSKCTX_TP              104
+
+
 #else
 #error "target is not supported"
 #endif
@@ -179,50 +179,50 @@
 extern "C" {
 #endif
 
-/** %jp{割込みコンテキスト:160バイト} */
-typedef struct _kernel_riscv64_ictx{
-	_KERNEL_RISCV_PROC_REGTYPE      ra;  /* %jp{オフセット: 0 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      t0;  /* %jp{オフセット: 8 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      t1;  /* %jp{オフセット: 16 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      t2;  /* %jp{オフセット: 24 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      t3;  /* %jp{オフセット: 32 バイト} */
+/** %jp{割込みコンテキスト: riscv64でのサイズは144バイト} */
+typedef struct _kernel_riscv_ictx{
+	_KERNEL_RISCV_PROC_REGTYPE      ra;  /* %jp{riscv64でのオフセット: 0 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      t0;  /* %jp{riscv64でのオフセット: 8 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      t1;  /* %jp{riscv64でのオフセット: 16 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      t2;  /* %jp{riscv64でのオフセット: 24 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      t3;  /* %jp{riscv64でのオフセット: 32 バイト} */
 
-	_KERNEL_RISCV_PROC_REGTYPE      t4;  /* %jp{オフセット: 40 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      t5;  /* %jp{オフセット: 48 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      t6;  /* %jp{オフセット: 56 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      a0;  /* %jp{オフセット: 64 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      a1;  /* %jp{オフセット: 72 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      t4;  /* %jp{riscv64でのオフセット: 40 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      t5;  /* %jp{riscv64でのオフセット: 48 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      t6;  /* %jp{riscv64でのオフセット: 56 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      a0;  /* %jp{riscv64でのオフセット: 64 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      a1;  /* %jp{riscv64でのオフセット: 72 バイト} */
 
-	_KERNEL_RISCV_PROC_REGTYPE      a2;  /* %jp{オフセット: 80 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      a3;  /* %jp{オフセット: 88 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      a4;  /* %jp{オフセット: 96 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      a5;  /* %jp{オフセット: 104 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      a6;  /* %jp{オフセット: 112 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      a2;  /* %jp{riscv64でのオフセット: 80 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      a3;  /* %jp{riscv64でのオフセット: 88 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      a4;  /* %jp{riscv64でのオフセット: 96 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      a5;  /* %jp{riscv64でのオフセット: 104 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      a6;  /* %jp{riscv64でのオフセット: 112 バイト} */
 
-	_KERNEL_RISCV_PROC_REGTYPE      a7;  /* %jp{オフセット: 120 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      tp;  /* %jp{オフセット: 128 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      gp;  /* %jp{オフセット: 136 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE     epc;  /* %jp{オフセット: 144 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE  status;  /* %jp{オフセット: 152 バイト} */
-}kernel_riscv64_ictx;
+	_KERNEL_RISCV_PROC_REGTYPE      a7;  /* %jp{riscv64でのオフセット: 120 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE     epc;  /* %jp{riscv64でのオフセット: 128 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE  status;  /* %jp{riscv64でのオフセット: 136 バイト} */
+}kernel_riscv_ictx;
 
 
-/** %jp{タスクスイッチコンテキスト:104バイト} */
-typedef struct _kernel_riscv64_tskswctx{
-	_KERNEL_RISCV_PROC_REGTYPE      ra;  /* %jp{オフセット: 0 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s0;  /* %jp{オフセット: 8 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s1;  /* %jp{オフセット: 16 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s2;  /* %jp{オフセット: 24 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s3;  /* %jp{オフセット: 32 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s4;  /* %jp{オフセット: 40 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s5;  /* %jp{オフセット: 48 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s6;  /* %jp{オフセット: 56 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s7;  /* %jp{オフセット: 64 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s8;  /* %jp{オフセット: 72 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      s9;  /* %jp{オフセット: 80 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE     s10;  /* %jp{オフセット: 88 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE     s11;  /* %jp{オフセット: 96 バイト} */
-}kernel_riscv64_tskswctx;
+/** %jp{タスクスイッチコンテキスト: riscv64でのサイズは112バイト} */
+typedef struct _kernel_riscv_tskswctx{
+	_KERNEL_RISCV_PROC_REGTYPE      ra;  /* %jp{riscv64でのオフセット:  0 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s0;  /* %jp{riscv64でのオフセット:  8 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s1;  /* %jp{riscv64でのオフセット:  16 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s2;  /* %jp{riscv64でのオフセット:  24 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s3;  /* %jp{riscv64でのオフセット:  32 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s4;  /* %jp{riscv64でのオフセット:  40 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s5;  /* %jp{riscv64でのオフセット:  48 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s6;  /* %jp{riscv64でのオフセット:  56 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s7;  /* %jp{riscv64でのオフセット:  64 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s8;  /* %jp{riscv64でのオフセット:  72 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      s9;  /* %jp{riscv64でのオフセット:  80 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE     s10;  /* %jp{riscv64でのオフセット:  88 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE     s11;  /* %jp{riscv64でのオフセット:  96 バイト} */
+	_KERNEL_RISCV_PROC_REGTYPE      tp;  /* %jp{riscv64でのオフセット: 104 バイト} */
+}kernel_riscv_tskswctx;
+
 
 #ifdef __cplusplus
 }
