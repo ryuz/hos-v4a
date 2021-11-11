@@ -1218,6 +1218,15 @@
 #define _KERNEL_ISRCB_ISR			TRUE
 
 
+
+/* ------------------------------------------------------------------ */
+/*  CPU exception                                                     */
+/* ------------------------------------------------------------------ */
+
+#define _KERNEL_TMIN_EXC_EXCNO		_KERNEL_PROCATR_TMIN_EXCNO
+#define _KERNEL_TMAX_EXC_EXCNO		_KERNEL_PROCATR_TMAX_EXCNO
+
+
 #endif	/* _KERNEL__parser__parsknl_h__ */
 
 
