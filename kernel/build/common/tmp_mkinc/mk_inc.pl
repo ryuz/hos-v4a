@@ -287,6 +287,14 @@
 		"del_isr.c",
 		"exe_isr.c",
 	],
+	[
+		"CPU exception handlers",
+		"\$(COMMON_HEADERS) \$(EXCOBJ_HEADERS)",
+		"\$(KERNEL_OBJ_DIR)/exc",
+		"EXCOBJ_DIR",
+		"def_exc.c",
+		"exe_exc.c",
+	],
 );
 
 # header
@@ -345,6 +353,8 @@ CYCOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/cycobj.h
 INHOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/inhobj.h
 
 ISROBJ_HEADERS = \$(KERNEL_INC_DIR)/object/isrobj.h
+
+EXCOBJ_HEADERS = \$(KERNEL_INC_DIR)/object/excobj.h
 
 COMMON_HEADERS = \$(ITRON_HEADERS)		\\
                  \$(CFG_HEADERS)			\\
