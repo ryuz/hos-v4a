@@ -23,7 +23,7 @@ UD _kernel_riscv_get_hartid(void);
 void OsTimer_Initialize(VP_INT exinf)
 {
 	T_CISR    cisr;
-	UD timeval;
+	UD     timeval;
 
 	/* %jp{割込みサービスルーチン生成} */
 	cisr.isratr = TA_HLNG;
