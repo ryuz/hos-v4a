@@ -10,6 +10,7 @@ SECTIONS
 {
 	.text :
 	{
+		. = ALIGN(16);  /* %jp{128bit命令を想定して16バイトアラインに設定} */
 		 ___text = . ;
 		*/crt0.o(.text)
 		*(.text .text.*)
@@ -21,7 +22,7 @@ SECTIONS
 
 	.tors :
 	{
-		. = ALIGN(4);
+		. = ALIGN(16);  /* %jp{128bit命令を想定して16バイトアラインに設定} */
 		___ctors = . ;
 		*(.ctors)
 		___ctors_end = . ;
@@ -31,6 +32,8 @@ SECTIONS
 	} > ram
 	.data : AT (ADDR(.tors) + SIZEOF(.tors))
 	{
+		/* %jp{128bitロード/ストアを想定して16バイトアラインに設定} */
+		. = ALIGN(16);
 		___data = . ;
 		*(.data)
 		_gp = ALIGN(16) + 0x7ff0;
@@ -39,6 +42,8 @@ SECTIONS
 	} > ram
 	.bss :
 	{
+		/* %jp{128bitロード/ストアを想定して16バイトアラインに設定} */
+		. = ALIGN(16);
 		___bss = . ;
 		*(.sbss)
 		*(.bss)
