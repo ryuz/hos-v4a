@@ -16,37 +16,38 @@
 #include "readcfg.h"
 
 
-#define DEFEXC_EXCNO		0
-#define DEFEXC_EXCATR		1
-#define DEFEXC_EXCHDR		2
+#define DEFEXC_EXCNO		0  /* %jp{第1パラメータ:CPU例外番号} */
+#define DEFEXC_EXCATR		1  /* %jp{パラメーターブロック 第1パラメータ:CPU例外ハンドラ属性} */
+#define DEFEXC_EXCHDR		2  /* %jp{パラメーターブロック 第2パラメータ:CPU例外ハンドラの先頭番地} */
 
 
-// コンストラクタ
+// %jp{コンストラクタ}
 CApiDefExc::CApiDefExc()
 {
-	// パラメーター構文設定
-	m_iParamSyntax[0] = 0;		// 単独パラメーター
-	m_iParamSyntax[1] = 2;		// 2つのパラメーターブロック
+	// %jp{パラメーター構文設定}
+	m_iParamSyntax[0] = 0;		// %jp{単独パラメーター}
+	m_iParamSyntax[1] = 2;		// %jp{2個のパラメーターブロック}
 	m_iParams         = 2;
 
-	m_iMaxExcNo = 0;
-	m_iMinExcNo = 0;
+	m_iMaxExcNo = -1;  //%jp{最大例外番号を負の値で初期化}
+	m_iMinExcNo = -1;  //%jp{最小例外番号を負の値で初期化}
 }
 
-// デストラクタ
+
+// %jp{デストラクタ}
 CApiDefExc::~CApiDefExc()
 {
 }
 
 
-// 自動ID番号割り当て
+// %jp{自動ID番号割り当て}
 int CApiDefExc::AutoId(void)
 {
 	return CFG_ERR_OK;
 }
 
 
-// APIの解析
+// %jp{APIの解析}
 int CApiDefExc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 {
 	if ( strcmp(pszApiName, "DEF_EXC") == 0 )
@@ -57,14 +58,16 @@ int CApiDefExc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iExcNo;
 
-		if ( m_iMaxExcNo > 0 )
+		//%jp{最大例外番号指定処理}
+
+		if ( m_iMaxExcNo >= 0 )
 		{
-			return CFG_ERR_MULTIDEF;
+			return CFG_ERR_MULTIDEF;  //%jp{多重定義}
 		}
 
 		if ( (iExcNo = atoi(pszParams)) < 0 )
 		{
-			return CFG_ERR_PARAM;
+			return CFG_ERR_PARAM;  //%jp{パラメタが指定されていない}
 		}
 
 		m_iMaxExcNo = iExcNo;
@@ -75,14 +78,15 @@ int CApiDefExc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 	{
 		int iExcNo;
 
-		if ( m_iMinExcNo > 0 )
+		//%jp{最小例外番号指定処理}
+		if ( m_iMinExcNo >= 0 )
 		{
-			return CFG_ERR_MULTIDEF;
+			return CFG_ERR_MULTIDEF;  //%jp{多重定義}
 		}
 
 		if ( (iExcNo = atoi(pszParams)) < 0 )
 		{
-			return CFG_ERR_PARAM;
+			return CFG_ERR_PARAM;  //%jp{パラメタが指定されていない}
 		}
 
 		m_iMinExcNo = iExcNo;
@@ -94,57 +98,95 @@ int CApiDefExc::AnalyzeApi(const char* pszApiName, const char* pszParams)
 }
 
 
-// cfgファイル定義部書き出し
+// %jp{cfgファイル定義部書き出し}
 void  CApiDefExc::WriteCfgDef(FILE* fp)
 {
-	// コメント出力
+#if !(defined(_KERNEL_PROCATR_ARM_ARMV6M) || defined(_KERNEL_PROCATR_ARM_ARMV7M))
+	int i, j;
+
+	// %jp{最大例外番号未設定時は, _KERNEL_TMAX_EXC_EXCNOを反映}
+	if ( m_iMaxExcNo < 0 )
+		m_iMaxExcNo = _KERNEL_TMAX_EXC_EXCNO;
+
+	// %jp{最小例外番号未設定時は, _KERNEL_TMIN_EXC_EXCNOを反映}
+	if ( m_iMinExcNo < 0 )
+		m_iMinExcNo = _KERNEL_TMIN_EXC_EXCNO;
+
+
+	// %jp{コメント出力}
 	fputs(
 		"\n\n\n"
 		"/* ------------------------------------------ */\n"
-		"/*    CPU exception handler control objects   */\n"
+		"/*    Define CPU exception handlers           */\n"
 		"/* ------------------------------------------ */\n"
 		, fp);
 
-	// 割込み管理テーブル生成
-	fputs("\n/* interrupt control */\n", fp);
+	/* %jp{CPU例外ハンドラ管理テーブル生成} */
+	fprintf(fp,
+		"\n\n"
+#if !_KERNEL_SPT_DEF_EXC
+		"const "
+#endif
+		"_KERNEL_T_EXCINF _kernel_exc_tbl[%d] =\n"
+		"\t{\n",
+		_KERNEL_TMAX_EXC_EXCNO - _KERNEL_TMIN_EXC_EXCNO + 1);
 
-	if ( m_iMaxExcNo - m_iMinExcNo + 1 > 0 )
+	// %jp{CPU例外ハンドラの起動番地を検索}
+	for ( i = _KERNEL_TMIN_EXC_EXCNO; i <= _KERNEL_TMAX_EXC_EXCNO; i++ )
 	{
-		fprintf(
-			fp,
-			"T_KERNEL_EXCCB kernel_exccb_tbl[%d];\t\t/* CPU exception handler control block table */\n",
-			m_iMaxExcNo - m_iMinExcNo + 1);
-	}
+		for ( j = 0; j < m_iObjs; j++ )
+		{
+			if ( atoi(m_pParamPacks[j]->GetParam(DEFEXC_EXCNO)) == i )
+			{
+				break;
+			}
+		}
 
+		// %jp{CPU例外ハンドラの起動番地を設定}
+		if ( j < m_iObjs )
+		{
+			fprintf(fp, "\t\t{(FP)(%s)},\n", m_pParamPacks[j]->GetParam(DEFEXC_EXCHDR));
+		}
+		else
+		{
+			fprintf(fp, "\t\t{(FP)NULL},\n");
+		}
+	}
+	fprintf(fp, "\t};\n\n");
+
+	// %jp{CPU例外ハンドラの個数, CPU例外ハンドラ番号の最小値/最大値を出力}
 	fprintf(
 		fp,
-		"const INT      kernel_exccb_cnt = %d;\t\t/* CPU exception handler control block count */\n"
-		"const EXCNO    kernel_min_excno = %d;\t\t/* minimum CPU exception handler number */\n",
+		"const INT      kernel_exc_cnt = %d;\t\t/* CPU exception handler control block count */\n"
+		"const EXCNO    kernel_min_excno = %d;\t\t/* minimum CPU exception handler number */\n"
+		"const EXCNO    kernel_max_excno = %d;\t\t/* maximum CPU exception handler number */\n",
 		m_iMaxExcNo - m_iMinExcNo + 1,
-		m_iMinExcNo);	
+		m_iMinExcNo,
+		m_iMaxExcNo);
+#endif
 }
 
 
-// cfgファイル初期化部書き出し
+// %jp{cfgファイル初期化部書き出し}
 void  CApiDefExc::WriteCfgIni(FILE* fp)
 {
 	int i;
 
-	// オブジェクト存在チェック
+	// %jp{オブジェクト存在チェック}
 	if ( m_iObjs == 0 )
 	{
 		return;
 	}
 
-	// コメント出力
+	// %jp{コメント出力}
 	fputs("\n\t/* initialize CPU exception handler table */\n", fp);
 	
-	// 初期化部出力
+	// %jp{初期化部出力}
 	for ( i = 0; i < m_iObjs; i++ )
 	{
 		fprintf(
 			fp,
-			"\tkernel_exccb_tbl[%s].exchdr = (FP)(%s);\n",
+			"\t_kernel_exc_tbl[%s].exchdr = (FP)(%s);\n",
 			m_pParamPacks[i]->GetParam(DEFEXC_EXCNO),
 			m_pParamPacks[i]->GetParam(DEFEXC_EXCHDR));
 	}

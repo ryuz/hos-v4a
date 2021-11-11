@@ -104,7 +104,7 @@ static CApiDef* g_ApiList[] =
 		&g_ApiDefInh,
 		&g_ApiAttIsr,
 		&g_ApiAttIni,
-//		&g_ApiDefExc,
+		&g_ApiDefExc,
 	};
 
 #define API_COUNT	((int)(sizeof(g_ApiList) / sizeof(CApiDef*)))		// API個数
@@ -390,6 +390,7 @@ void WriteCfgFile(FILE* fp)
 	fprintf(fp, "#include \"object/inhobj.h\"\n");
 	fprintf(fp, "#include \"object/isrobj.h\"\n");
 	fprintf(fp, "#include \"object/cycobj.h\"\n");
+	fprintf(fp, "#include \"object/excobj.h\"\n");
 
 //	fprintf(fp, "#include \"%s\"\n", s_szIdFile);
 	fprintf(fp, "#include \"kernel_id.h\"\n");
