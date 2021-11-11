@@ -31,7 +31,7 @@
 #define _KERNEL_PROCATR_TMAX_INHNO			3			/**< %jp{割込みハンドラ番号の最大値(CLIC:3)} */
 
 #define _KERNEL_PROCATR_TMIN_EXCNO			0			/**< %jp{CPU例外ハンドラ番号の最小値} */
-#define _KERNEL_PROCATR_TMAX_EXCNO			11			/**< %jp{CPU例外ハンドラ番号の最大値} */
+#define _KERNEL_PROCATR_TMAX_EXCNO			63			/**< %jp{CPU例外ハンドラ番号の最大値} */
 
 #define _KERNEL_PROCATR_SYSSTK_NUM			1			/**< %jp{システムスタックは何本必要か？} */
 
