@@ -62,7 +62,7 @@ SRC_DIRS += . ..
 
 # %jp{オプションフラグ}%en{option flags}
 AFLAGS  = -mcmodel=medany
-CFLAGS  = -mcmodel=medany -mstrict-align -malign-data=natural
+CFLAGS  = -mcmodel=medany
 LNFLAGS = -mcmodel=medany -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
 
 
