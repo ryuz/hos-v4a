@@ -96,6 +96,7 @@ void Uart_PutString(const char *text);	    /* %jp{文字列出力} */
 void Uart_PutHexByte(char c);		    /* %jp{16進バイト出力} */
 void Uart_PutHexHalfWord(unsigned short h); /* %jp{16進ハーフワード出力} */
 void Uart_PutHexWord(unsigned long w);      /* %jp{16進ワード出力} */
+void Uart_PutHexDoubleWord(unsigned long long d); /* %jp{16進ダブルワード出力} */
 
 #ifdef __cplusplus
 }

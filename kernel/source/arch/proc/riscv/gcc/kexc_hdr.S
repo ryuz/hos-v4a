@@ -147,9 +147,9 @@ _kernel_riscv_resume_exc:
 
 				/* %jp{例外ハンドラ処理} */
 handle_exception:
-				/* %jp{例外ハンドラ実行, a0:割込み要因} */
-				/* TODO:def_exc関連処理実装 */
-//				jal	_kernel_exe_exh
+				/* %jp{例外ハンドラ実行, a0:例外番号, a1:拡張情報(例外コンテキスト)} */
+				mv	a1, sp
+				jal	_kernel_exe_exh
 
 				j 	_kernel_riscv_resume_exc  /* %jp{例外復帰} */
 /* end of file */
