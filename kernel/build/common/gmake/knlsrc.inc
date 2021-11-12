@@ -75,6 +75,8 @@ INHOBJ_HEADERS = $(KERNEL_INC_DIR)/object/inhobj.h
 
 ISROBJ_HEADERS = $(KERNEL_INC_DIR)/object/isrobj.h
 
+EXCOBJ_HEADERS = $(KERNEL_INC_DIR)/object/excobj.h
+
 COMMON_HEADERS = $(ITRON_HEADERS)		\
                  $(CFG_HEADERS)			\
                  $(PARS_HEADERS)		\
@@ -184,7 +186,6 @@ CSRCS += $(SYSOBJ_DIR)/ena_dsp.c
 CSRCS += $(SYSOBJ_DIR)/dis_dsp.c
 CSRCS += $(SYSOBJ_DIR)/sns_dsp.c
 CSRCS += $(SYSOBJ_DIR)/sns_ctx.c
-CSRCS += $(SYSOBJ_DIR)/exe_exc.c
 
 
 # Tasks
@@ -346,6 +347,12 @@ CSRCS += $(ISROBJ_DIR)/kcre_isr.c
 CSRCS += $(ISROBJ_DIR)/del_isr.c
 CSRCS += $(ISROBJ_DIR)/exe_isr.c
 
+
+# CPU exception handlers
+EXCOBJ_DIR = $(KERNEL_OBJ_DIR)/exc
+SRC_DIRS += $(EXCOBJ_DIR)
+CSRCS += $(EXCOBJ_DIR)/def_exc.c
+CSRCS += $(EXCOBJ_DIR)/exe_exc.c
 
 
 # end of file

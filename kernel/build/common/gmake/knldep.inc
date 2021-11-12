@@ -187,5 +187,8 @@ $(OBJS_DIR)/kcre_isr.$(EXT_OBJ):	$(ISROBJ_DIR)/kcre_isr.c	$(COMMON_HEADERS) $(IS
 $(OBJS_DIR)/del_isr.$(EXT_OBJ):	$(ISROBJ_DIR)/del_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 $(OBJS_DIR)/exe_isr.$(EXT_OBJ):	$(ISROBJ_DIR)/exe_isr.c	$(COMMON_HEADERS) $(ISROBJ_HEADERS)
 
+$(OBJS_DIR)/def_exc.$(EXT_OBJ):	$(EXCOBJ_DIR)/def_exc.c	$(COMMON_HEADERS) $(EXCOBJ_HEADERS)
+$(OBJS_DIR)/exe_exc.$(EXT_OBJ):	$(EXCOBJ_DIR)/exe_exc.c	$(COMMON_HEADERS) $(EXCOBJ_HEADERS)
+
 
 # end of file
