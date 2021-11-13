@@ -1,7 +1,7 @@
 /** 
  *  Sample program for Hyper Operating System V4 Advance
  *
- * @file  sample.c
+ * @file  sample.h
  * @brief %jp{サンプルプログラム}%en{Sample program}
  *
  * Copyright (C) 1998-2006 by Project HOS
@@ -21,6 +21,8 @@ extern "C" {
 void Sample_Initialize(VP_INT exinf);
 void Sample_Task(VP_INT exinf);
 void Sample_Print(VP_INT exinf);
+
+void Ecall_Task(VP_INT exinf);
 
 #ifdef __cplusplus
 }

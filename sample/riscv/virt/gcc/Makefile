@@ -88,6 +88,7 @@ TARGET_BIN = $(TARGET).$(EXT_BIN)
 # %jp{アセンブラファイルの追加}%en{assembry sources}
 ASRCS += ./crt0.S
 ASRCS += ./time.S
+ASRCS += ./ecall.S
 
 # %jp{C言語ファイルの追加}%en{C sources}
 CSRCS += ../main.c
@@ -95,7 +96,7 @@ CSRCS += ../kernel_cfg.c
 CSRCS += ../sample.c
 CSRCS += ../uart.c
 CSRCS += ../ostimer.c
-
+CSRCS += ../exception.c
 
 
 # --------------------------------------

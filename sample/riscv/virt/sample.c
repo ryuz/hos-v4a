@@ -14,6 +14,8 @@
 #include "kernel.h"
 #include "kernel_id.h"
 #include "uart.h"
+#include "ecall.h"
+#include "exception.h"
 
 #define LEFT(num)	((num) <= 1 ? 5 : (num) - 1)
 #define RIGHT(num)	((num) >= 5 ? 1 : (num) + 1)
@@ -32,6 +34,8 @@ void Sample_Initialize(VP_INT exinf)
 	act_tsk(TSKID_SAMPLE3);
 	act_tsk(TSKID_SAMPLE4);
 	act_tsk(TSKID_SAMPLE5);
+
+	act_tsk(TSKID_ECALL);
 }
 
 
@@ -70,6 +74,39 @@ void Sample_PrintSatet(int num, const char *text)
 	Uart_PutChar('\n');
 
 	sig_sem(SEMID_UART);
+}
+
+
+
+/** %jp{CPU例外タスク} */
+void Ecall_Task(VP_INT exinf)
+{
+	int     num;
+	int      rc;
+	T_DEXC dexc;
+
+	num = (int)exinf;
+
+	/* %jp{CPU例外ハンドラ定義} */
+	dexc.excatr = 0;
+	dexc.exchdr = EnvironmentCall;
+	def_exc(11, &dexc);
+
+	for( ; ; ) {
+
+		/* %jp{適当な時間待ち合わせる} */
+		Sample_RandWait();
+		Uart_PutChar('0' + num);
+		Uart_PutChar(' ');
+		Uart_PutChar(':');
+		Uart_PutChar(' ');
+		Uart_PutString("Exception (ecall) ");
+		rc = _riscv_ecall(num, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7);
+		if ( rc == 0 )
+			Uart_PutString(" rc=OK\n");
+		else
+			Uart_PutString(" rc=NG\n");
+	}
 }
 
 

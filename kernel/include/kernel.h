@@ -276,6 +276,13 @@ typedef struct t_cisr
 	FP     isr;				/* 割込みサービスルーチンの起動番地 */
 } T_CISR;
 
+/** %jp{CPU例外ハンドラ定義情報}%en{CPU exception handler definition information} */
+typedef struct t_dexc
+{
+	ATR    excatr; /* %jp{CPU例外ハンドラ属性}%en{CPU exception handler attribute} */
+	VP     exchdr; /* %jp{CPU例外ハンドラの先頭番地}%en{CPU exception handler start address} */
+} T_DEXC;
+
 
 
 #ifdef __cplusplus
@@ -426,6 +433,9 @@ ER      def_inh(INHNO inhno, const T_DINH *pk_dinh);
 ER      cre_isr(ID isrid, const T_CISR *pk_cisr);			/**< %jp{割込みサービスルーチンの生成} */
 ER_ID   acre_isr(const T_CISR *pk_cisr);					/**< %jp{割込みサービスルーチンの生成(ID番号自動割付け)} */
 ER      del_isr(ID isrid);									/**< %jp{割込みサービスルーチンの削除} */
+
+
+ER      def_exc(EXCNO excno, const T_DEXC *pk_dexc);   /**< %jp{CPU例外ハンドラの定義} */
 
 
 ER      dis_int(INTNO intno);								/**< %jp{割込みの禁止} */

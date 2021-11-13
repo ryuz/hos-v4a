@@ -170,4 +170,11 @@ void Uart_PutHexWord(unsigned long w)
 	Uart_PutHexHalfWord((w >> 16) & 0xffff);
 	Uart_PutHexHalfWord((w >>  0) & 0xffff);
 }
+
+void Uart_PutHexDoubleWord(unsigned long long d)
+{
+	Uart_PutHexWord((d >> 32) & 0xffff);
+	Uart_PutHexWord((d >>  0) & 0xffff);
+}
+
 /* end of file */

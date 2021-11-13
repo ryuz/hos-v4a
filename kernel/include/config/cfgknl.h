@@ -556,7 +556,7 @@ C言語構文(例えばtypedefなど)はこの中には記載せず、マクロ�
 #define _KERNEL_CFG_CAL_SVC 			FALSE				/* cal_svc */
 
 /* System configulation management functions */
-#define _KERNEL_CFG_DEF_EXC				FALSE				/* def_exc */
+#define _KERNEL_CFG_DEF_EXC			TRUE				/* def_exc */
 #define _KERNEL_CFG_REF_CFG	 			FALSE				/* ref_cfg */
 #define _KERNEL_CFG_REF_VER	 			FALSE				/* ref_ver */
 

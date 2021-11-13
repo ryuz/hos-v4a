@@ -75,6 +75,8 @@ INHOBJ_HEADERS = $(KERNEL_INC_DIR)\object\inhobj.h
 
 ISROBJ_HEADERS = $(KERNEL_INC_DIR)\object\isrobj.h
 
+EXCOBJ_HEADERS = $(KERNEL_INC_DIR)\object\excobj.h
+
 COMMON_HEADERS = $(ITRON_HEADERS)		\
                  $(CFG_HEADERS)			\
                  $(PARS_HEADERS)		\
@@ -480,6 +482,14 @@ OBJS = $(OBJS) $(OBJS_DIR)\acre_isr.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\kcre_isr.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\del_isr.$(EXT_OBJ)
 OBJS = $(OBJS) $(OBJS_DIR)\exe_isr.$(EXT_OBJ)
+
+
+# CPU exception handlers
+EXCOBJ_DIR = $(KERNEL_OBJ_DIR)\exc
+CSRCS = $(CSRCS) $(EXCOBJ_DIR)\def_exc.c
+CSRCS = $(CSRCS) $(EXCOBJ_DIR)\exe_exc.c
+OBJS = $(OBJS) $(OBJS_DIR)\def_exc.$(EXT_OBJ)
+OBJS = $(OBJS) $(OBJS_DIR)\exe_exc.$(EXT_OBJ)
 
 
 # end of file
