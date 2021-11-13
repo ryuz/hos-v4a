@@ -63,7 +63,7 @@ SRC_DIRS += $(SRC_PROC_DIR) $(SRC_PROC_DIR) $(SRC_PROC_CC_DIR) $(SRC_IRC_DIR) $(
 
 # %jp{オプションフラグ}%en{option flags}
 AFLAGS  = -mcmodel=medany
-CFLAGS  = -mcmodel=medany -mstrict-align -malign-data=natural
+CFLAGS  = -mcmodel=medany
 ARFLAGS =
 
 
