@@ -67,51 +67,6 @@
 #define _KERNEL_RISCV_PROC_LD                      lw    /**< %jp{32bitレジスタ} */
 #define _KERNEL_RISCV_PROC_ST                      sw    /**< %jp{32bitレジスタ} */
 
-
-/**< %jp{割込みコンテキスト} */
-#define _KERNEL_RISCV_PROC_ICTX_SIZE               72
-
-#define _KERNEL_RISCV_PROC_ICTX_RA                  0
-#define _KERNEL_RISCV_PROC_ICTX_T0                  4
-#define _KERNEL_RISCV_PROC_ICTX_T1                  8
-#define _KERNEL_RISCV_PROC_ICTX_T2                 12
-#define _KERNEL_RISCV_PROC_ICTX_T3                 16
-#define _KERNEL_RISCV_PROC_ICTX_T4                 20
-#define _KERNEL_RISCV_PROC_ICTX_T5                 24
-#define _KERNEL_RISCV_PROC_ICTX_T6                 28
-
-#define _KERNEL_RISCV_PROC_ICTX_A0                 32
-#define _KERNEL_RISCV_PROC_ICTX_A1                 36
-#define _KERNEL_RISCV_PROC_ICTX_A2                 40
-#define _KERNEL_RISCV_PROC_ICTX_A3                 44
-#define _KERNEL_RISCV_PROC_ICTX_A4                 48
-#define _KERNEL_RISCV_PROC_ICTX_A5                 52
-#define _KERNEL_RISCV_PROC_ICTX_A6                 56
-#define _KERNEL_RISCV_PROC_ICTX_A7                 60
-
-#define _KERNEL_RISCV_PROC_ICTX_EPC                64
-#define _KERNEL_RISCV_PROC_ICTX_STATUS             68
-
-
-/**< %jp{タスクスイッチコンテキスト} */
-#define _KERNEL_RISCV_PROC_TSKCTX_SIZE             56
-
-#define _KERNEL_RISCV_PROC_TSKCTX_RA                0
-#define _KERNEL_RISCV_PROC_TSKCTX_S0                4
-#define _KERNEL_RISCV_PROC_TSKCTX_S1                8
-#define _KERNEL_RISCV_PROC_TSKCTX_S2               12
-#define _KERNEL_RISCV_PROC_TSKCTX_S3               16
-#define _KERNEL_RISCV_PROC_TSKCTX_S4               20
-#define _KERNEL_RISCV_PROC_TSKCTX_S5               24
-#define _KERNEL_RISCV_PROC_TSKCTX_S6               28
-#define _KERNEL_RISCV_PROC_TSKCTX_S7               32
-#define _KERNEL_RISCV_PROC_TSKCTX_S8               36
-#define _KERNEL_RISCV_PROC_TSKCTX_S9               40
-#define _KERNEL_RISCV_PROC_TSKCTX_S10              44
-#define _KERNEL_RISCV_PROC_TSKCTX_S11              48
-
-#define _KERNEL_RISCV_PROC_TSKCTX_TP               52
-
 #elif __riscv_xlen == 64
 #define _KERNEL_PROCATR_TMIN_STKSZ			(8*32)		/**< %jp{最低限必要なスタックサイズ(byte単位).} */
 #define _KERNEL_PROCATR_TBIT_INT			64			/**< %jp{プロセッサに最適な整数型のビット数} */
@@ -122,50 +77,6 @@
 #define _KERNEL_RISCV_PROC_REGTYPE                 UD    /**< %jp{64bitレジスタ} */
 #define _KERNEL_RISCV_PROC_LD                      ld    /**< %jp{64bitレジスタ} */
 #define _KERNEL_RISCV_PROC_ST                      sd    /**< %jp{64bitレジスタ} */
-
-
-/**< %jp{割込みコンテキスト} */
-#define _KERNEL_RISCV_PROC_ICTX_SIZE              144
-
-#define _KERNEL_RISCV_PROC_ICTX_RA                  0
-#define _KERNEL_RISCV_PROC_ICTX_T0                  8
-#define _KERNEL_RISCV_PROC_ICTX_T1                 16
-#define _KERNEL_RISCV_PROC_ICTX_T2                 24
-#define _KERNEL_RISCV_PROC_ICTX_T3                 32
-#define _KERNEL_RISCV_PROC_ICTX_T4                 40
-#define _KERNEL_RISCV_PROC_ICTX_T5                 48
-#define _KERNEL_RISCV_PROC_ICTX_T6                 56
-
-#define _KERNEL_RISCV_PROC_ICTX_A0                 64
-#define _KERNEL_RISCV_PROC_ICTX_A1                 72
-#define _KERNEL_RISCV_PROC_ICTX_A2                 80
-#define _KERNEL_RISCV_PROC_ICTX_A3                 88
-#define _KERNEL_RISCV_PROC_ICTX_A4                 96
-#define _KERNEL_RISCV_PROC_ICTX_A5                104
-#define _KERNEL_RISCV_PROC_ICTX_A6                112
-#define _KERNEL_RISCV_PROC_ICTX_A7                120
-
-#define _KERNEL_RISCV_PROC_ICTX_EPC               128
-#define _KERNEL_RISCV_PROC_ICTX_STATUS            136
-
-
-/**< %jp{タスクスイッチコンテキスト} */
-#define _KERNEL_RISCV_PROC_TSKCTX_SIZE            112
-#define _KERNEL_RISCV_PROC_TSKCTX_RA                0
-#define _KERNEL_RISCV_PROC_TSKCTX_S0                8
-#define _KERNEL_RISCV_PROC_TSKCTX_S1               16
-#define _KERNEL_RISCV_PROC_TSKCTX_S2               24
-#define _KERNEL_RISCV_PROC_TSKCTX_S3               32
-#define _KERNEL_RISCV_PROC_TSKCTX_S4               40
-#define _KERNEL_RISCV_PROC_TSKCTX_S5               48
-#define _KERNEL_RISCV_PROC_TSKCTX_S6               56
-#define _KERNEL_RISCV_PROC_TSKCTX_S7               64
-#define _KERNEL_RISCV_PROC_TSKCTX_S8               72
-#define _KERNEL_RISCV_PROC_TSKCTX_S9               80
-#define _KERNEL_RISCV_PROC_TSKCTX_S10              88
-#define _KERNEL_RISCV_PROC_TSKCTX_S11              96
-
-#define _KERNEL_RISCV_PROC_TSKCTX_TP              104
 
 
 #else
@@ -228,6 +139,11 @@ typedef struct _kernel_riscv_tskswctx{
 }
 #endif  /*  __cplusplus  */
 #endif  /*  !_ASM_FILE  */
+
+#if !defined(_IN_ASM_OFFSET)
+#include "regoff.h"  /* %jp{コンテキスト中のレジスタオフセット定義読み込み} */
+#endif  /*  !defined(_IN_ASM_OFFSET)  */
+
 #endif  /*  __riscv  */
 #endif	/* _KERNEL__arch__proc__riscv__procatr_h__ */
 

@@ -73,6 +73,8 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 # %jp{ライブラリ生成用設定読込み}%en{definitions for library}
 include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 
+# %jp{オフセットファイル生成用設定読込み}%en{definitions for register offsets}
+include $(KERNEL_MAKINC_DIR)/asmoffgcc_d.inc
 
 
 
@@ -162,6 +164,12 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 # %jp{カーネル依存関係読込み}{dependency list of kernel sources}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
+# %jp{オフセットファイルとprocatr.h間の依存関係定義}{dependency between procatr.h and the processor register offset file}
+$(INC_PROC_DIR)/procatr.h: $(INC_PROC_DIR)/regoff.h
+
+# %jp{オフセットファイルの依存関係定義}{dependency of the processor register offset file}
+$(INC_PROC_DIR)/regoff.h: $(SRC_PROC_DIR)/regoff.c
+	$(call _bld_gmk_asmoff_create_depend,$@,$<)
 
 
 # end of file
