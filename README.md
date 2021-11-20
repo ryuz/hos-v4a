@@ -1,5 +1,14 @@
 # HOS-V4 Advance -μITRON4.0仕様 RealTime-OS (作者local版)
 
+## お知らせ
+
+表題の通り、このリポジトリは作者のローカル版です。
+が、これをきっかけに TAKEHARU KATO 氏がすごい勢いで RISC-V 移植を進めておられます。
+
+RISC-V 方面の方は TAKEHARU KATO 氏のリポジトリである https://github.com/takeharukato/hos-v4a からの clone をお勧めいたします。
+
+こちらでは、主に Xilinx ZynqMP を追いかけております。
+
 ## 概要
 
 ### ITRONとは
@@ -25,7 +34,7 @@ HOS(Hyper Operating System) は当初 μITRON3.0 仕様OS として、1998年頃
 
 当時の開発物は[作者ホームページ](http://ryuz.my.coocan.jp/hos/index.html) にあります。
 
-その後、本プロジェクトのソースコードは [Sorseforge(現在はOSDN)](https://ja.osdn.net/projects/hos/) に移行して、グループ開発可能な体制に移行しております。
+その後、本プロジェクトのソースコードは [Sorseforge(現在はOSDN)](https://ja.osdn.net/projects/hos/) に移行して、グループ開発体制に移行しており多くの方の協力を得て開発を進めておりました。
 
 現時点ではいくつかの派生含めた実装トライアルとして
 
