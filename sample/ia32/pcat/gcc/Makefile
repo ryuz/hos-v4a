@@ -27,6 +27,8 @@ CMD_OBJCNV ?= $(GCC_ARCH)objcopy
 ARCH_NAME ?= pcat
 ARCH_CC   ?= gcc
 
+ARCH_PROC ?= ia32/i386
+
 
 # %jp{ディレクトリ定義}
 TOP_DIR           = ../../../..
@@ -35,6 +37,7 @@ KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
 KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
 KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/ia32/pcat/gcc
 
+INC_PROC_DIR       = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
 
 # %jp{コンフィギュレータ定義}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-$(ARCH_NAME)
@@ -49,7 +52,7 @@ LINK_SCRIPT = link.lds
 
 
 # %jp{パス設定}%en{add source directories}
-INC_DIRS += . ..
+INC_DIRS += . .. $(INC_PROC_DIR)
 SRC_DIRS += . ..
 
 
