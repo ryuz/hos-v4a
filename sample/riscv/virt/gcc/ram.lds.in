@@ -51,4 +51,18 @@ SECTIONS
 		*(.scommon)
 		___bss_end = . ;
 	} > ram
+
+	.tls :
+	{
+		_tp = . ; /* %jp{Thread Local Storage領域開始アドレス} */
+		/* %jp{128bitロード/ストアを想定して16バイトアラインに設定} */
+		. = ALIGN(16);
+		___tls_data = . ;
+		*(.tdata)
+		___tls_data_end = . ;
+		___tls_bss = . ;
+		*(.tbss)
+		___tls_bss_end = . ;
+	} > ram
+
 }

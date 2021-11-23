@@ -83,9 +83,6 @@ int main(int argc, char *argv[])
 	OFFSET(_KERNEL_RISCV_PROC_TSKCTX_S10, _kernel_riscv_tskswctx, s10);
 	OFFSET(_KERNEL_RISCV_PROC_TSKCTX_S11, _kernel_riscv_tskswctx, s11);
 
-	/*  %jp{TPレジスタオフセット(単位:バイト)}  */
-	OFFSET(_KERNEL_RISCV_PROC_TSKCTX_TP, _kernel_riscv_tskswctx, tp);
-
 	return 0;
 }
 

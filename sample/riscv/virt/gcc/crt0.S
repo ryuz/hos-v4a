@@ -40,6 +40,18 @@ clear_bss:
 				/* %jp{BSS領域の終了までループする} */
 				blt 		t0, t1, clear_bss
 
+				/* %jp{TLS BSSの初期化} */
+				la		t0, ___tls_bss /* %jp{開始アドレス} */
+				la		t1, ___tls_bss_end /* %jp{終了アドレス} */
+clear_tls_bss:
+				_KERNEL_RISCV_PROC_ST	zero, (t0)  /* %jp{ゼロクリア} */
+				add 		t0, t0, 8 /*  %jp{アドレスを加算} */
+				/* %jp{BSS領域の終了までループする} */
+				blt 		t0, t1, clear_tls_bss
+
+				/* %jp{TLSポインタを設定} */
+				la		tp, _tp
+
 				/* %jp{割込みベクタ設定} */
         			la   		t0, _riscv_machine_vector
 				/* %jp{マシンモードベクタアドレスを設定} */
