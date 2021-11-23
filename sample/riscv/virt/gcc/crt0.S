@@ -6,8 +6,8 @@
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
-#define _ASM_FILE
-#include "arch/proc/riscv/procatr.h"
+#define _MACRO_ONLY
+#include "procatr.h"
 
 				.extern		_kernel_int_isp
 				.extern		_kernel_exc_hdr
@@ -53,6 +53,8 @@ junk:
 				/* %jp{main関数から復帰後はループする} */
 				j		junk
 
+
+/* %jp{マシンモードの例外/割込みベクタアドレス (4バイトアライン)} */
 .balign 4
 _riscv_machine_vector:
 				j	_kernel_exc_hdr

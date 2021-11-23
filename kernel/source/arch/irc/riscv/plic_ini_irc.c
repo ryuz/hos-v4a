@@ -13,38 +13,39 @@
 #include "object/inhobj.h"
 #include "object/isrobj.h"
 
-extern _KERNEL_T_INTINF _kernel_int_tbl[];
 
 /** %jp{割込みコントローラの初期化} */
 void _kernel_riscv_irc_plic_ini_irc(void)
 {
-	int                    i;
-	INTNO                irq;
-	_KERNEL_T_ISRHDL  isrhdl;
-	UD               curhart;
+	int  i;
 
-	curhart = _kernel_riscv_get_hartid();  /* %jp{自コアのhartid獲得} */
+	for( i = _KERNEL_IRCATR_PLIC_TMIN_INTNO; _KERNEL_IRCATR_PLIC_TMAX_INTNO > i; ++i)
+	{
 
-	for( i = _KERNEL_IRCATR_PLIC_TMIN_INTNO;
-	     _KERNEL_IRCATR_PLIC_TMAX_INTNO > i;
-	     ++i){
+		/*  %jp{ISR未登録な割込みをマスクし, ISR登録済み割込みのマスクを解放}  */
+		if ( _KERNEL_INT_GET_HEAD(i) == _KERNEL_ISRHDL_NULL )
+		{
 
-		isrhdl = _KERNEL_INT_GET_HEAD(i);   /* %jp{ISRハンドラ参照} */
-
-		/* %jp{割込み番号をIRQ番号に変換} */
-		irq = i - _KERNEL_IRCATR_PLIC_TMIN_INTNO;
-
-		/* %jp{ISR未登録な割込みをマスクし, ISR登録済み割込みのマスクを解放} */
-		if ( isrhdl == _KERNEL_ISRHDL_NULL )
-			*_KERNEL_RISCV_IRC_PLIC_MENABLE_REG(curhart, irq)
-				&= ~(1 << (irq % 32));  /* %jp{割込みをマスク} */
+			/*  %jp{割込みをマスク}  */
+			*_KERNEL_RISCV_IRC_PLIC_MENABLE_REG(_kernel_riscv_get_hartid(),
+			    _KERNEL_RISCV_IRC_PLIC_INTNO2IRQ(i))
+				&= ~( _KERNEL_RISCV_IRC_PLIC_IRQBITMASK(
+					    _KERNEL_RISCV_IRC_PLIC_INTNO2IRQ(i) ) );
+		}
 		else
-			*_KERNEL_RISCV_IRC_PLIC_MENABLE_REG(curhart, irq)
-				|= (1 << (irq % 32));  /* %jp{割込みをアンマスク} */
+		{
+
+			/*  %jp{割込みのマスクを解放}  */
+			*_KERNEL_RISCV_IRC_PLIC_MENABLE_REG(_kernel_riscv_get_hartid(),
+			    _KERNEL_RISCV_IRC_PLIC_INTNO2IRQ(i))
+				|= _KERNEL_RISCV_IRC_PLIC_IRQBITMASK(
+					_KERNEL_RISCV_IRC_PLIC_INTNO2IRQ(i) );
+		}
 
 	}
 
-	*_KERNEL_RISCV_IRC_PLIC_MPRIO_REG(curhart) = 0;  /* 優先度を0に設定 */
+	/* %jp{優先度を0に設定} */
+	*_KERNEL_RISCV_IRC_PLIC_MPRIO_REG(_kernel_riscv_get_hartid()) = 0;
 }
 
 /* end of file */

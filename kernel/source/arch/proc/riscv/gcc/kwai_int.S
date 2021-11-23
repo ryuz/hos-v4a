@@ -6,6 +6,8 @@
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
+#define _MACRO_ONLY
+
 /**  %jp{mstatusレジスタ割込みマスク} */
 #define MSTATUS_MIE_ENABLE_MASK                     (0x8)
 #define MSTATUS_MIE_DISABLE_MASK             (0xfffffff7)

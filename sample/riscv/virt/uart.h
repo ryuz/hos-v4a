@@ -86,6 +86,8 @@
  */
 #define RISCV_VIRT_UART_GETIIR(val) ( (val) & (UART_IIR_IDMASK) )
 
+#if !defined(_MACRO_ONLY)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -102,6 +104,7 @@ void Uart_PutHexDoubleWord(unsigned long long d); /* %jp{16進ダブルワード
 }
 #endif
 
+#endif  /* !_MACRO_ONLY */
 
 #endif	/* __uart_h__ */
 

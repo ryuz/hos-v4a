@@ -14,14 +14,14 @@
 #include "object/isrobj.h"
 
 
-/* 割込み受付通知 */
+/* %jp{割込み受付通知} */
 ER _kernel_riscv_irc_plic_clr_int(INTNO intno)
 {
 
 	if ( intno < _KERNEL_IRCATR_PLIC_TMIN_INTNO ||
 	    intno > _KERNEL_IRCATR_PLIC_TMAX_INTNO )
 	{
-		return E_PAR;
+		return E_PAR;  /* %jp{有効な割込み番号の範囲外} */
 	}
 
 	/* %jp{処理した割込み番号を通知} */

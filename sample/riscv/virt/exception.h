@@ -14,6 +14,8 @@
 
 #include "kernel.h"
 
+#if !defined(_MACRO_ONLY)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -34,6 +36,7 @@ void StoreAMOPageFault(void *exinf);
 }
 #endif
 
+#endif  /* !_MACRO_ONLY */
 
 #endif	/* __exception_h__ */
 

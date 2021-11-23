@@ -6,6 +6,8 @@
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
+#define _MACRO_ONLY
+
 /**  %jp{mstatusレジスタ割込み有効化} */
 #define MSTATUS_MIE_ENABLE_MASK             (0x8)
 

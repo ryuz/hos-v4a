@@ -15,8 +15,7 @@
 #include "clint_irc.h"
 #include "plic_irc.h"
 
-#ifndef _ASM_FILE
-
+#if !defined(_MACRO_ONLY)
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,7 +36,7 @@ void _kernel_exe_irc(INHNO inhno);	/**< %jp{割込み処理} */
 }
 #endif
 
-#endif  /* !_ASM_FILE */
+#endif  /* !_MACRO_ONLY */
 
 #endif	/* _KERNEL__arch__irc__riscv__irc_h__ */
 

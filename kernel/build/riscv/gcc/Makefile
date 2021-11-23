@@ -133,6 +133,7 @@ all: makelib_all
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
+	$(RM) -f $(INC_PROC_DIR)/regoff.h
 
 # %jp{クリーン}%en{clean}
 .PHONY : distclean
@@ -164,12 +165,14 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 # %jp{カーネル依存関係読込み}{dependency list of kernel sources}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
-# %jp{オフセットファイルとprocatr.h間の依存関係定義}{dependency between procatr.h and the processor register offset file}
-$(INC_PROC_DIR)/procatr.h: $(INC_PROC_DIR)/regoff.h
+# %jp{依存関係ファイル生成前にオフセットファイルを生成}{Generate offset-file before dependency generation}
+$(DEPEND_FILE) : $(INC_PROC_DIR)/regoff.h
 
 # %jp{オフセットファイルの依存関係定義}{dependency of the processor register offset file}
-$(INC_PROC_DIR)/regoff.h: $(SRC_PROC_DIR)/regoff.c
+$(INC_PROC_DIR)/regoff.h: $(SRC_PROC_DIR)/regoff.c $(SRC_PROC_DIR)
+	-$(CMD_MKDIR) $(OBJS_DIR)
 	$(call _bld_gmk_asmoff_create_depend,$@,$<)
+
 
 
 # end of file

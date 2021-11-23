@@ -18,10 +18,11 @@
 /* %jp{割込みの許可} */
 ER ena_int(INTNO intno)
 {
+
 	if ( intno < _KERNEL_IRCATR_PLIC_TMIN_INTNO )
-		return _kernel_riscv_irc_clint_ena_int(intno);
+		return _kernel_riscv_irc_clint_ena_int(intno);  /* %jp{CLINTによる割込み許可} */
 	else
-		return _kernel_riscv_irc_plic_ena_int(intno);
+		return _kernel_riscv_irc_plic_ena_int(intno);   /* %jp{PLICによる割込み許可} */
 
 	return E_PAR;
 }

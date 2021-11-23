@@ -14,17 +14,25 @@
 #include "object/isrobj.h"
 
 
-/* 割込みの許可 */
+/* %jp{割込みの許可} */
 ER _kernel_riscv_irc_clint_clr_int(INTNO intno)
 {
 
 	if ( intno < _KERNEL_IRCATR_CLINT_TMIN_INTNO ||
 	    intno > _KERNEL_IRCATR_CLINT_TMAX_INTNO )
 	{
-		return E_PAR;
+		return E_PAR;  /* %jp{有効な割込み番号の範囲外} */
 	}
 
-	_kernel_riscv_irc_write_mip(_kernel_riscv_irc_read_mip() & ~( (UD)1 << intno ));
+
+	/*
+	  %jp{タイマ割込みで無ければ割込みペンディングビットをクリア
+	  MIPのタイマ割込みビットは, 読み取り専用ビットであるため書き換えない
+	  (CLICのTIMECMPレジスタへの書込みによりビットクリアされる)}
+	 */
+	if ( intno != _KERNEL_IRCATR_CLINT_MTIMER_INTNO )
+		_kernel_riscv_irc_write_mip(_kernel_riscv_irc_read_mip()
+		    & ~( (UD)1 << intno ));
 
 	return E_OK;
 }

@@ -18,7 +18,9 @@
 /** %jp{割込みコントローラの初期化} */
 void _kernel_ini_irc(void)
 {
+	/* %jp{Platform-Level Interrupt Controllerの初期化} */
 	_kernel_riscv_irc_plic_ini_irc();
+	/* %jp{Core-local Interruptorの初期化} */
 	_kernel_riscv_irc_clint_ini_irc();
 }
 

@@ -18,10 +18,11 @@
 /* %jp{割込みの禁止} */
 ER dis_int(INTNO intno)
 {
+
 	if ( intno < _KERNEL_IRCATR_PLIC_TMIN_INTNO )
-		return _kernel_riscv_irc_clint_dis_int(intno);
+		return _kernel_riscv_irc_clint_dis_int(intno);  /* %jp{CLINTによる割込み禁止} */
 	else
-		return _kernel_riscv_irc_plic_dis_int(intno);
+		return _kernel_riscv_irc_plic_dis_int(intno);   /* %jp{PLICによる割込み禁止} */
 
 	return E_PAR;
 }
