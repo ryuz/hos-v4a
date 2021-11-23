@@ -138,7 +138,6 @@ typedef struct _kernel_riscv_tskswctx{
 	_KERNEL_RISCV_PROC_REGTYPE      s9;  /* %jp{riscv64でのオフセット:  80 バイト} */
 	_KERNEL_RISCV_PROC_REGTYPE     s10;  /* %jp{riscv64でのオフセット:  88 バイト} */
 	_KERNEL_RISCV_PROC_REGTYPE     s11;  /* %jp{riscv64でのオフセット:  96 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      tp;  /* %jp{riscv64でのオフセット: 104 バイト} */
 }kernel_riscv_tskswctx;
 
 
