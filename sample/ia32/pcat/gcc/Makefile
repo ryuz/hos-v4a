@@ -140,10 +140,23 @@ ipl.bin: $(OBJS_DIR)/ipl.o
 $(TARGET).img: ipl.bin $(TARGET_BIN)
 	./fd_img.pl $(TARGET).img ipl.bin $(TARGET_BIN)
 
+# %jP{Bochsによる実行}%en{Run a program with Bochs}
 .PHONY : bochs
 bochs: $(TARGET).img
 	bochs "floppya: 1_44=$(TARGET).img, status=inserted" "boot: a"
 
+# %jP{QEmuによる実行}%en{Run a program with QEmu}
+.PHONY : qemu
+qemu: $(TARGET).img
+	qemu-system-i386 -boot a \
+	-drive file=sample.img,format=raw,if=floppy,media=disk,readonly=off,index=0
+
+# %jP{QEmuとGDBによるデバッグ実行}%en{Debug a program with QEmu and GDB}
+.PHONY : qemu-debug
+qemu-debug: $(TARGET).img
+	qemu-system-i386 -boot a \
+	-drive file=sample.img,format=raw,if=floppy,media=disk,readonly=off,index=0 \
+	-gdb tcp::1234
 
 # %jp{実行ファイル生成用設定読込み}%en{rules for exection file}
 include $(KERNEL_MAKINC_DIR)/makexe_r.inc
