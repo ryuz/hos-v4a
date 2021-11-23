@@ -23,7 +23,7 @@ CMD_RMDIR  ?= rmdir
 CMD_CP     ?= cp
 CMD_MV     ?= mv
 CMD_RM     ?= rm -f
-CMD_DEPEND ?= gcc
+CMD_DEPEND ?= $(GCC_ARCH)gcc
 CMD_CPP    ?= cpp
 
 ifeq ($(OS),Windows_NT)
