@@ -37,7 +37,7 @@ C_DEFS        += _RAM
 else
 # %jp{ROM焼きする場合}
 LINKER_SCRIPT ?= link_rom.lds
-C_DEFS        += 
+C_DEFS        +=
 endif
 
 
@@ -98,7 +98,7 @@ clean: makeexe_clean
 
 
 .PHONY : mostlyclean
-mostlyclean: clean clean_kernel
+mostlyclean: clean kernel_clean
 
 
 ../kernel_cfg.c ../kernel_id.h: ../system.cfg
@@ -121,4 +121,3 @@ $(OBJS_DIR)/sample.$(EXT_OBJ): ../sample.c ../kernel_id.h
 
 
 # end of file
-
