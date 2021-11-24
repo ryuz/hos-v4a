@@ -51,6 +51,8 @@
 
 /** %jp{RISC-V C API Specificationに準拠したコンパイラの場合, __riscv_xlenによってレジスタ長を判定可能} */
 #ifdef __riscv
+
+
 #define _KERNEL_RISCV_XLEN                         __riscv_xlen    /**< %jp{bit長} */
 /**< %jp{レジスタ長(単位:バイト)} */
 #define _KERNEL_RISCV_REGSIZE                      (__riscv_xlen/8)
@@ -63,9 +65,12 @@
 #define _KERNEL_PROCATR_MEM_ALIGN			4			/**< %jp{適切なメモリのアライメント(byte単位)} */
 #define _KERNEL_PROCATR_STK_ALIGN			16			/**< %jp{適切なスタックのアライメント(byte単位)} */
 
-#define _KERNEL_RISCV_PROC_REGTYPE                 UW    /**< %jp{32bitレジスタ} */
 #define _KERNEL_RISCV_PROC_LD                      lw    /**< %jp{32bitレジスタ} */
 #define _KERNEL_RISCV_PROC_ST                      sw    /**< %jp{32bitレジスタ} */
+
+#if !defined(_MACRO_ONLY)
+#define _KERNEL_RISCV_PROC_REGTYPE                 UW    /**< %jp{32bitレジスタ} */
+#endif  /*  !_MACRO_ONLY  */
 
 #elif __riscv_xlen == 64
 #define _KERNEL_PROCATR_TMIN_STKSZ			(8*32)		/**< %jp{最低限必要なスタックサイズ(byte単位).} */
@@ -74,21 +79,23 @@
 #define _KERNEL_PROCATR_MEM_ALIGN			8			/**< %jp{適切なメモリのアライメント(byte単位)} */
 #define _KERNEL_PROCATR_STK_ALIGN			16			/**< %jp{適切なスタックのアライメント(byte単位)} */
 
-#define _KERNEL_RISCV_PROC_REGTYPE                 UD    /**< %jp{64bitレジスタ} */
 #define _KERNEL_RISCV_PROC_LD                      ld    /**< %jp{64bitレジスタ} */
 #define _KERNEL_RISCV_PROC_ST                      sd    /**< %jp{64bitレジスタ} */
 
+#if !defined(_MACRO_ONLY)
+#define _KERNEL_RISCV_PROC_REGTYPE                 UD    /**< %jp{64bitレジスタ} */
+#endif  /*  !_MACRO_ONLY  */
 
-#else
+#else   /* !__riscv_xlen == 64 */
 #error "target is not supported"
-#endif
+#endif  /* !__riscv_xlen == 32 */
 
 
-#ifndef _ASM_FILE
+#if !defined(_MACRO_ONLY)
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif  /*  __cplusplus  */
 
 /** %jp{割込みコンテキスト: riscv64でのサイズは144バイト} */
 typedef struct _kernel_riscv_ictx{
@@ -131,20 +138,21 @@ typedef struct _kernel_riscv_tskswctx{
 	_KERNEL_RISCV_PROC_REGTYPE      s9;  /* %jp{riscv64でのオフセット:  80 バイト} */
 	_KERNEL_RISCV_PROC_REGTYPE     s10;  /* %jp{riscv64でのオフセット:  88 バイト} */
 	_KERNEL_RISCV_PROC_REGTYPE     s11;  /* %jp{riscv64でのオフセット:  96 バイト} */
-	_KERNEL_RISCV_PROC_REGTYPE      tp;  /* %jp{riscv64でのオフセット: 104 バイト} */
 }kernel_riscv_tskswctx;
 
 
 #ifdef __cplusplus
 }
 #endif  /*  __cplusplus  */
-#endif  /*  !_ASM_FILE  */
+
+#endif  /*  !_MACRO_ONLY  */
+
+#endif  /*  __riscv  */
 
 #if !defined(_IN_ASM_OFFSET)
 #include "regoff.h"  /* %jp{コンテキスト中のレジスタオフセット定義読み込み} */
 #endif  /*  !defined(_IN_ASM_OFFSET)  */
 
-#endif  /*  __riscv  */
 #endif	/* _KERNEL__arch__proc__riscv__procatr_h__ */
 
 

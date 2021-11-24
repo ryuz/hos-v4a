@@ -6,7 +6,7 @@
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
-#define _ASM_FILE
+#define _MACRO_ONLY
 #include "procatr.h"
 
 				.text
@@ -33,8 +33,6 @@ _kernel_swi_ctx:
 				_KERNEL_RISCV_PROC_ST	s9, _KERNEL_RISCV_PROC_TSKCTX_S9(sp)	/* s9 */
 				_KERNEL_RISCV_PROC_ST	s10, _KERNEL_RISCV_PROC_TSKCTX_S10(sp)	/* s10 */
 				_KERNEL_RISCV_PROC_ST	s11, _KERNEL_RISCV_PROC_TSKCTX_S11(sp)	/* s11 */
-				_KERNEL_RISCV_PROC_ST	tp, _KERNEL_RISCV_PROC_TSKCTX_TP(sp)	/* tp */
-
 				_KERNEL_RISCV_PROC_ST	sp, (a1)        /* %jp{sp保存} */
 
 				/* --- %jp{そのまま _kernel_sta_ctx に続ける} */
@@ -48,7 +46,6 @@ _kernel_swi_ctx:
 _kernel_sta_ctx:
 				_KERNEL_RISCV_PROC_LD	sp, 0(a0)	/* %jp{sp復帰} */
 
-				_KERNEL_RISCV_PROC_LD	tp, _KERNEL_RISCV_PROC_TSKCTX_TP(sp)	/* tp */
 				_KERNEL_RISCV_PROC_LD	s11, _KERNEL_RISCV_PROC_TSKCTX_S11(sp)	/* s11 */
 				_KERNEL_RISCV_PROC_LD	s10, _KERNEL_RISCV_PROC_TSKCTX_S10(sp)	/* s10 */
 				_KERNEL_RISCV_PROC_LD	s9, _KERNEL_RISCV_PROC_TSKCTX_S9(sp)	/* s9 */

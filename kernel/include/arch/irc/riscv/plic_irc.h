@@ -12,6 +12,8 @@
 #ifndef _KERNEL__arch__irc__riscv__plic__plic_irc_h__
 #define _KERNEL__arch__irc__riscv__plic__plic_irc_h__
 
+#if !defined(_MACRO_ONLY)
+
 /** %jp{QEMU Platform-Level Interrupt Controller (PLIC) レジスタアドレス}   */
 #define _KERNEL_RISCV_IRC_PLIC_ADDR        ((VP)(0xC000000))
 /** %jp{QEMU Platform-Level Interrupt Controller (PLIC) 最低割込み優先度}   */
@@ -21,6 +23,8 @@
 
 /**< %jp{割込みコントローラレジスタ長(単位:バイト)} */
 #define _KERNEL_RISCV_IRC_PLIC_REGSIZE         (4)
+/**< %jp{割込みコントローラレジスタビット長(単位:ビット)} */
+#define _KERNEL_RISCV_IRC_PLIC_REG_BITS        (_KERNEL_RISCV_IRC_PLIC_REGSIZE * 8)
 /**< %jp{優先度設定レジスタオフセット(単位:バイト)} */
 #define _KERNEL_RISCV_IRC_PLIC_PRIO_OFFSET     (0x0)
  /**< %jp{保留割込みレジスタオフセット(単位:バイト)} */
@@ -96,7 +100,7 @@
    返り値 %jp{ビットマスク}
  */
 #define _KERNEL_RISCV_IRC_PLIC_IRQBITMASK(_irq)				\
-	( (UW)1 << ( (_irq) % ( _KERNEL_RISCV_IRC_PLIC_REGSIZE * 8 ) ) )
+	( (UW)1 << ( (_irq) % _KERNEL_RISCV_IRC_PLIC_REG_BITS ) )
 
 #ifdef __cplusplus
 extern "C" {
@@ -139,6 +143,7 @@ ER _kernel_riscv_irc_plic_cfg_int(INTNO intno, T_CINT *pk_cint);   /**< %jp{割�
 }
 #endif
 
+#endif  /* !_MACRO_ONLY */
 
 #endif	/* _KERNEL__arch__irc__riscv__plic__plic_irc_h__ */
 

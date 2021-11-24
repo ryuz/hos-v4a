@@ -21,7 +21,8 @@
 /** %jp{割込み要因数} */
 #define _KERNEL_RISCV_IRC_CLINT_FACTORS      (2)
 
-#ifndef _ASM_FILE
+#if !defined(_MACRO_ONLY)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -114,7 +115,8 @@ ER _kernel_riscv_irc_clint_clr_int(INTNO intno);        /**< %jp{割込み要因
 #ifdef __cplusplus
 }
 #endif
-#endif  /* !_ASM_FILE */
+
+#endif  /* !_MACRO_ONLY */
 
 #endif	/* _KERNEL__arch__irc__riscv__clint__clint_irc_h__ */
 

@@ -14,19 +14,26 @@
 #include "object/isrobj.h"
 
 
-/* 割込みの許可 */
+/* %jp{割込みの許可} */
 ER _kernel_riscv_irc_clint_ena_int(INTNO intno)
 {
+
 	if ( intno < _KERNEL_IRCATR_CLINT_TMIN_INTNO ||
 	    intno > _KERNEL_IRCATR_CLINT_TMAX_INTNO )
 	{
-		return E_PAR;
+		return E_PAR;  /* %jp{有効な割込み番号の範囲外} */
 	}
 
-	if ( intno == 0 )
+
+	/*
+	  %jp{外部割込み以外の割込みマスクを操作し, 割込みマスクを解放する
+	  外部割込みのマスク操作は, PLICで実施}
+	 */
+	if ( intno == _KERNEL_IRCATR_CLINT_MSOFT_INTNO )  /* %jp{ソフトウエア割り込み} */
 		_kernel_riscv_irc_write_mie(_kernel_riscv_irc_read_mie() |
 		    ( (UD)1 << _KERNEL_RISCV_IRC_CLINT_MSIP_BIT ));
-	else if ( intno == 1 )
+
+	else if ( intno == _KERNEL_IRCATR_CLINT_MTIMER_INTNO )  /* %jp{タイマ割り込み} */
 		_kernel_riscv_irc_write_mie(_kernel_riscv_irc_read_mie() |
 		    ( (UD)1 << _KERNEL_RISCV_IRC_CLINT_MTIP_BIT ));
 

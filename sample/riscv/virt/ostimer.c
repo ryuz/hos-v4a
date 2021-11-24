@@ -11,7 +11,8 @@
 
 #include "kernel.h"
 #include "ostimer.h"
-#include "arch/irc/riscv/irc.h"
+
+#include "irc.h"
 
 #define INTNO_TIMER0	1
 

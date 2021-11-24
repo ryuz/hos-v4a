@@ -14,6 +14,8 @@
 
 #include "kernel.h"
 
+#if !defined(_MACRO_ONLY)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -26,6 +28,7 @@ UD _riscv_get_time(void);
 }
 #endif
 
+#endif  /* !_MACRO_ONLY */
 
 #endif	/* __ostimer_h__ */
 

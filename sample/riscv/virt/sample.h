@@ -1,4 +1,4 @@
-/** 
+/**
  *  Sample program for Hyper Operating System V4 Advance
  *
  * @file  sample.h
@@ -13,6 +13,7 @@
 #ifndef __sample_h__
 #define __sample_h__
 
+#if !defined(_MACRO_ONLY)
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,6 +29,7 @@ void Ecall_Task(VP_INT exinf);
 }
 #endif
 
+#endif  /* !_MACRO_ONLY */
 
 #endif	/* __sample_h__ */
 

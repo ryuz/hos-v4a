@@ -19,11 +19,11 @@
 ER vclr_int(INTNO intno)
 {
 	if ( intno < _KERNEL_IRCATR_PLIC_TMIN_INTNO )
-		return _kernel_riscv_irc_clint_clr_int(intno);
+		return _kernel_riscv_irc_clint_clr_int(intno); /* %jp{CLINT割込みのクリア} */
 	else if ( intno <= _KERNEL_IRCATR_PLIC_TMAX_INTNO )
-		return _kernel_riscv_irc_plic_clr_int(intno);
+		return _kernel_riscv_irc_plic_clr_int(intno);  /* %jp{外部割込みのクリア} */
 
-	return E_PAR;
+	return E_PAR;   /* %jp{パラメタ異常} */
 }
 
 

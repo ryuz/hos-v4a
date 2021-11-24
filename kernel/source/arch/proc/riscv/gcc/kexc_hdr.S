@@ -6,7 +6,8 @@
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
-#define _ASM_FILE
+#define _MACRO_ONLY
+
 #include "procatr.h"
 #include "clint_irc.h"
 

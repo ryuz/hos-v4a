@@ -31,14 +31,20 @@ ER _kernel_riscv_irc_plic_cfg_int(INTNO intno, T_CINT *pk_cint)
 		return E_PAR;
 	}
 
-	/* %jp{エッジトリガ割込み指定にもかかわらず, レベルトリガのフラグが設定されている} */
+	/*
+	  %jp{エッジトリガ割込み指定にもかかわらず,
+	  レベルトリガのフラグが設定されている}
+	*/
 	if ( ( pk_cint->intatr & TA_EDGE )
 	    && ( pk_cint->intatr & ( TA_LOWLEVEL |TA_HIGHLEVEL ) ) )
 	{
 		return E_PAR;
 	}
 
-	/* %jp{レベルトリガ割込み指定にもかかわらず, レベルトリガのフラグが設定されていない} */
+	/*
+	  %jp{レベルトリガ割込み指定にもかかわらず,
+	  レベルトリガのフラグが設定されていない}
+	*/
 	if ( ( ( pk_cint->intatr & TA_EDGE ) == 0 )
 	    && ( ( pk_cint->intatr & ( TA_LOWLEVEL |TA_HIGHLEVEL ) ) == 0 ) )
 	{
@@ -65,5 +71,6 @@ ER _kernel_riscv_irc_plic_cfg_int(INTNO intno, T_CINT *pk_cint)
 
 	return E_OK;
 }
+
 
 /* end of file */

@@ -3,7 +3,7 @@ ENTRY(_entry)
 
 MEMORY
 {
-  ram : ORIGIN = 0x80000000, LENGTH = 32M
+  ram : ORIGIN = 0x80000000, LENGTH = __RISCV_QEMU_MEMORY_SIZE__
 }
 
 SECTIONS
@@ -51,4 +51,19 @@ SECTIONS
 		*(.scommon)
 		___bss_end = . ;
 	} > ram
+
+	/* %jp{128bitロード/ストアを想定して16バイトアラインに設定} */
+	. = ALIGN(16);
+
+	.tls :
+	{
+		_tp = . ; /* %jp{Thread Local Storage領域開始アドレス} */
+		___tls_data = . ;
+		*(.tdata)
+		___tls_data_end = . ;
+		___tls_bss = . ;
+		*(.tbss)
+		___tls_bss_end = . ;
+	} > ram
+
 }

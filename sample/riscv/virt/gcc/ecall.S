@@ -6,6 +6,8 @@
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
+#define _MACRO_ONLY
+
 
 				.text
 
