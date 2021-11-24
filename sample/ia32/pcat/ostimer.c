@@ -11,6 +11,7 @@
 
 #include "kernel.h"
 #include "ostimer.h"
+#include "proc.h"
 
 
 

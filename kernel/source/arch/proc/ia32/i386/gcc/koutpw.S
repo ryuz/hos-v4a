@@ -21,7 +21,7 @@
 _kernel_outpw:
 				movl	4(%esp), %edx
 				movl	8(%esp), %eax
-				outb	%eax, %dx
+				outl	%eax, %dx
 				ret
 
 
