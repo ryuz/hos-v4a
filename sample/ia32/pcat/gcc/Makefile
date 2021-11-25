@@ -6,6 +6,9 @@
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
+#KERNEL_DEBUG ?= Yes
+#DEBUG        ?= Yes
+#NO_VGA ?= Yes
 
 # --------------------------------------
 #  %jp{各種設定}{setting}
@@ -16,12 +19,14 @@ TARGET ?= sample
 
 
 # %jp{ツール定義}%en{tools}
-GCC_ARCH   ?= i386-elf-
-CMD_CC     ?= $(GCC_ARCH)gcc
-CMD_ASM    ?= $(GCC_ARCH)gcc
-CMD_LINK   ?= $(GCC_ARCH)gcc
-CMD_OBJCNV ?= $(GCC_ARCH)objcopy
-
+GCC_ARCH    ?= i386-elf-
+CMD_CC      ?= $(GCC_ARCH)gcc
+CMD_ASM     ?= $(GCC_ARCH)gcc
+CMD_LINK    ?= $(GCC_ARCH)gcc
+CMD_OBJCNV  ?= $(GCC_ARCH)objcopy
+CMD_OBJDUMP ?= $(GCC_ARCH)objdump
+CMD_BOCHS   ?= bochs
+CMD_QEMU    ?= qemu-system-i386
 
 # %jp{アーキテクチャ定義}%en{architecture}
 ARCH_NAME ?= pcat
@@ -31,17 +36,18 @@ ARCH_PROC ?= ia32/i386
 
 
 # %jp{ディレクトリ定義}
-TOP_DIR           = ../../../..
-KERNEL_DIR        = $(TOP_DIR)/kernel
-KERNEL_CFGRTR_DIR = $(TOP_DIR)/cfgrtr/build/gcc
-KERNEL_MAKINC_DIR = $(KERNEL_DIR)/build/common/gmake
-KERNEL_BUILD_DIR  = $(KERNEL_DIR)/build/ia32/pcat/gcc
+TOP_DIR             = ../../../..
+KERNEL_DIR          = $(TOP_DIR)/kernel
+KERNEL_CFGRTR_DIR   = $(TOP_DIR)/cfgrtr/build/gcc
+KERNEL_MAKINC_DIR   = $(KERNEL_DIR)/build/common/gmake
+KERNEL_BUILD_DIR    = $(KERNEL_DIR)/build/ia32/pcat/gcc
 
-INC_PROC_DIR       = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
+INC_PROC_DIR        = $(KERNEL_DIR)/include/arch/proc/$(ARCH_PROC)
+
+APLFW_STRFMT_DIR    = $(TOP_DIR)/aplfw/library/algorithm/stringformat
 
 # %jp{コンフィギュレータ定義}
 KERNEL_CFGRTR = $(KERNEL_CFGRTR_DIR)/h4acfg-$(ARCH_NAME)
-
 
 # %jp{共通定義読込み}%jp{common setting}
 include $(KERNEL_MAKINC_DIR)/common.inc
@@ -76,6 +82,21 @@ TARGET_HEX = $(TARGET).$(EXT_HEX)
 TARGET_BIN = $(TARGET).$(EXT_BIN)
 TARGET_IMG = $(TARGET).img
 
+# %jp{QEMUのオプション}
+QEMU_COMMON_OPTS ?= -boot a \
+	-drive file=$(TARGET_IMG),format=raw,if=floppy,media=disk,readonly=off,index=0 \
+	-serial mon:stdio
+
+# %jp{QEMUのVGAコンソール使用有無}
+ifeq ($(NO_VGA),Yes)
+QEMU_NOGRAPHIC =  -nographic
+else
+QEMU_NOGRAPHIC =
+endif
+
+# %jp{QEMUとGDBを使用したリモートデバッグ}
+QEMU_DBG_OPT =  -gdb tcp::1234 -S
+
 
 
 # --------------------------------------
@@ -94,15 +115,15 @@ CSRCS += ../ostimer.c
 CSRCS += ../console.c
 
 # debug
-SRC_DIRS += ../../../../aplfw/library/algorithm/stringformat
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_decimal.c
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_format.c
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_formatstring.c
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_formatstringv.c
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_formatv.c
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_hexadecimal.c
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_nibble.c
-CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_string.c
+SRC_DIRS += $(APLFW_STRFMT_DIR)
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_decimal.c
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_format.c
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_formatstring.c
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_formatstringv.c
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_formatv.c
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_hexadecimal.c
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_nibble.c
+CSRCS += $(APLFW_STRFMT_DIR)/stringformat_string.c
 
 
 
@@ -112,6 +133,7 @@ CSRCS += ../../../../aplfw/library/algorithm/stringformat/stringformat_string.c
 
 # %jp{ALL}%en{all}
 all: kernel_make makeexe_all ipl.bin $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img
+	$(CMD_OBJDUMP) -SD $(TARGET_EXE) > $(TARGET)_disas.txt
 
 # %jp{クリーン}%en{clean}
 clean: makeexe_clean
@@ -145,21 +167,18 @@ $(TARGET).img: ipl.bin $(TARGET_BIN)
 
 # %jP{Bochsによる実行}%en{Run a program with Bochs}
 .PHONY : bochs
-bochs: $(TARGET).img
-	bochs "floppya: 1_44=$(TARGET).img, status=inserted" "boot: a"
+bochs: $(TARGET_IMG)
+	$(CMD_BOCHS) "floppya: 1_44=$(TARGET_IMG), status=inserted" "boot: a"
 
 # %jP{QEmuによる実行}%en{Run a program with QEmu}
 .PHONY : qemu
-qemu: $(TARGET).img
-	qemu-system-i386 -boot a \
-	-drive file=sample.img,format=raw,if=floppy,media=disk,readonly=off,index=0
+qemu: $(TARGET_IMG)
+	$(CMD_QEMU) $(QEMU_COMMON_OPTS) $(QEMU_NOGRAPHIC)
 
 # %jP{QEmuとGDBによるデバッグ実行}%en{Debug a program with QEmu and GDB}
 .PHONY : qemu-debug
-qemu-debug: $(TARGET).img
-	qemu-system-i386 -boot a \
-	-drive file=sample.img,format=raw,if=floppy,media=disk,readonly=off,index=0 \
-	-gdb tcp::1234
+qemu-debug: $(TARGET_IMG)
+	$(CMD_QEMU) $(QEMU_COMMON_OPTS) $(QEMU_NOGRAPHIC) $(QEMU_DBG_OPT)
 
 # %jp{実行ファイル生成用設定読込み}%en{rules for exection file}
 include $(KERNEL_MAKINC_DIR)/makexe_r.inc
@@ -179,4 +198,3 @@ $(OBJS_DIR)/sample.$(EXT_OBJ): ../sample.c ../kernel_id.h
 
 
 # end of file
-
