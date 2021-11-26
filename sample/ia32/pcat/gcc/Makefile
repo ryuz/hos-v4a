@@ -113,6 +113,7 @@ CSRCS += ../kernel_cfg.c
 CSRCS += ../sample.c
 CSRCS += ../ostimer.c
 CSRCS += ../console.c
+CSRCS += ../exception.c
 
 # debug
 SRC_DIRS += $(APLFW_STRFMT_DIR)
