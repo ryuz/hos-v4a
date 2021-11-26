@@ -41,6 +41,7 @@
 #define _KERNEL_IRC_PIC1_VECT	0x20
 #define _KERNEL_IRC_PIC2_VECT	0x28
 
+#ifndef _MACRO_ONLY
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,6 +58,7 @@ void _kernel_exe_irc(INHNO inhno);	/**< %jp{割込み処理} */
 #define _KERNEL_INI_IRC()		_kernel_ini_irc()		/**< %jp{割込みコントローラの初期化} */
 #define _KERNEL_EXE_IRC(inhno)	_kernel_exe_irc(inhno)	/**< %jp{割込み処理} */
 
+#endif  /* !_MACRO_ONLY  */
 
 #endif	/* _KERNEL__arch__irc__pcat__irc_h__ */
 
