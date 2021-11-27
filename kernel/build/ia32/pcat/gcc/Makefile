@@ -39,7 +39,8 @@ SRC_PROC_DIR      = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)
 SRC_PROC_CC_DIR   = $(KERNEL_DIR)/source/arch/proc/$(ARCH_PROC)/$(ARCH_CC)
 SRC_IRC_DIR       = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)
 SRC_IRC_CC_DIR    = $(KERNEL_DIR)/source/arch/irc/$(ARCH_IRC)/$(ARCH_CC)
-CFGRTR_DIR        = $(TOP_DIR)/cfgrtr/build/gcc
+CFGRTR_DIR        = $(TOP_DIR)/cfgrtr/build/$(ARCH_CC)
+TOOLS_PROC_DIR    = $(KERNEL_DIR)/build/$(ARCH_PROC)/$(ARCH_CC)
 
 
 # %jp{コンフィギュレータ定義}%en{kernel configurator}
@@ -71,6 +72,8 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
 # %jp{ライブラリ生成用設定読込み}%en{definitions for library}
 include $(KERNEL_MAKINC_DIR)/maklib_d.inc
 
+# %jp{オフセットファイル生成用設定読込み}%en{definitions for register offsets}
+include $(KERNEL_MAKINC_DIR)/asmoffgcc_d.inc
 
 
 
@@ -95,6 +98,8 @@ ASRCS += $(SRC_PROC_CC_DIR)/kinpb.S
 ASRCS += $(SRC_PROC_CC_DIR)/kinph.S
 ASRCS += $(SRC_PROC_CC_DIR)/kinpw.S
 ASRCS += $(SRC_PROC_CC_DIR)/klidt.S
+ASRCS += $(SRC_PROC_CC_DIR)/kbld_ctx.S
+ASRCS += $(SRC_PROC_CC_DIR)/ktrp_vec.S
 
 
 # %jp{C言語ファイルの追加}%en{C sources}
@@ -128,6 +133,7 @@ all: makelib_all
 clean: makelib_clean
 	$(MAKE) -C $(CFGRTR_DIR) TARGET=$(CFGRTR) ARCH_PROC=$(ARCH_PROC) ARCH_IRC=$(ARCH_IRC) clean
 	$(RM) -f *.lst
+	$(RM) -f $(INC_PROC_DIR)/regoff.h $(SRC_PROC_CC_DIR)/ktrp_vec.S
 
 # %jp{依存関係更新}%en{make depend}
 .PHONY : depend
@@ -153,6 +159,18 @@ include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_r.inc
 # %jp{カーネル依存関係読込み}{dependency list of kernel sources}
 include $(KERNEL_MAKINC_DIR)/knldep.inc
 
+# %jp{依存関係ファイル生成前にオフセットファイルを生成}{Generate offset-file before dependency generation}
+$(DEPEND_FILE) : $(INC_PROC_DIR)/regoff.h $(SRC_PROC_CC_DIR)/ktrp_vec.S
+
+# %jp{オフセットファイルの依存関係定義}{dependency of the processor register offset file}
+$(INC_PROC_DIR)/regoff.h: $(SRC_PROC_DIR)/regoff.c $(SRC_PROC_DIR)
+	-$(CMD_MKDIR) $(OBJS_DIR)
+	$(call _bld_gmk_asmoff_create_depend,$@,$<)
+
+# %jp{ベクタエントリファイルの依存関係定義}{dependency of the vector entry file}
+$(SRC_PROC_CC_DIR)/ktrp_vec.S   : $(TOOLS_PROC_DIR)/gen-vec.py
+	$(CMD_RM) -f $@
+	$(TOOLS_PROC_DIR)/gen-vec.py ktrp_vec.S > $@
 
 $(OBJS_DIR)/val_int.$(EXT_OBJ)	:	$(COMMON_HEADERS)
 $(OBJS_DIR)/kini_prc.$(EXT_OBJ)	:	$(COMMON_HEADERS)

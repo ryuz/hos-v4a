@@ -50,6 +50,52 @@
 #define _KERNEL_PROCATR_SYS_SYS				FALSE		/**< %jp{システム状態管理をプロセッサで実施するか？} */
 #define _KERNEL_PROCATR_SYS_DLY				FALSE		/**< %jp{遅延ディスパッチ保留状態管理をプロセッサで実施するか？} */
 
+/**< %jp{eflagsの初期値} */
+#define _KERNEL_IA32_INITIAL_EFLAGS ( ( 1 << 1) | ( 1 << 3) | ( 1 << 5 ) )
+
+#ifndef _MACRO_ONLY
+
+#include "itron.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/** %jp{割込みコンテキスト} */
+typedef struct _kernel_ia32_ictx{
+	UW    ebx;
+	UW    ecx;
+	UW    edx;
+	UW    esi;
+	UW    edi;
+	UW    ebp;
+	UW    eax;
+	UW  excno;
+	UW   excd;
+	UW    eip;
+	UW    xcs;
+	UW eflags;
+}kernel_ia32_ictx;
+
+/** %jp{タスクスイッチコンテキスト} */
+typedef struct _kernel_ia32_tskswctx{
+	UW       ebp;
+	UW       edi;
+	UW       esi;
+	UW       ebx;
+	UW    eflags;
+	UW   retaddr;
+}kernel_ia32_tskswctx;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  /* !_MACRO_ONLY */
+
+#if !defined(_IN_ASM_OFFSET)
+#include "regoff.h"  /* %jp{コンテキスト中のレジスタオフセット定義読み込み} */
+#endif  /*  !defined(_IN_ASM_OFFSET)  */
 
 
 #endif	/* _KERNEL__arch__proc__ia32__i386__procatr_h__ */

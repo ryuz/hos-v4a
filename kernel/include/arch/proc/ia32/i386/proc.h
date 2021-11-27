@@ -12,6 +12,7 @@
 #ifndef _KERNEL__arch__proc__ia32__i386__proc_h__
 #define _KERNEL__arch__proc__ia32__i386__proc_h__
 
+#ifndef _MACRO_ONLY
 
 /** %jp{コンテキスト情報保存ブロック} */
 typedef struct _kernel_t_ctxcb
@@ -341,6 +342,7 @@ void    _kernel_vector_255(void);
 									_kernel_swi_ctx((pk_ctxinf_nxt), (pk_ctxcb_now))				/**< %jp{実行コンテキストの切替} */
 
 
+#endif  /*  !_MACRO_ONLY  */
 
 #endif	/* _KERNEL__arch__proc__ia32__i386__proc_h__ */
 

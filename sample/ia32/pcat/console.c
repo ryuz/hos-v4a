@@ -11,6 +11,7 @@
 
 #include "kernel.h"
 #include "console.h"
+#include "proc.h"
 
 
 #define TEXTVRAM	((volatile UH *)0x000b8000)
@@ -26,14 +27,14 @@ void Console_Initialize(void)
 {
 	int i;
 	
-	/* COM1の初期化 */
+	/* %jp{COM1の初期化} */
 	_kernel_outpb(0x3fb, 0x83);
 	_kernel_outpb(0x3f8, 0x0c);		/* 9600bps */
 	_kernel_outpb(0x3f9, 0x00);
 	_kernel_outpb(0x3fb, 0x03);
 	
 	
-	/* Text-VRAM初期化 */
+	/* %jp{Text-VRAM初期化} */
 	Console_x = 0;
 	Console_y = 0;
 	for ( i = 0; i < 80*25; i++ )
@@ -48,7 +49,7 @@ void Console_PutChar(int c)
 {
 	int i, j;
 	
-	/* Text-VRAM出力 */
+	/* %jp{Text-VRAM出力} */
 	if ( c == '\n' )
 	{
 		Console_x = 0;
@@ -77,10 +78,12 @@ void Console_PutChar(int c)
 		Console_x++;
 	}
 	
-	/* COM出力 */
+	/* %jp{COM出力} */
 	if ( c == '\n' )
 	{
-		c = '\r';
+		while ( !(_kernel_inpb(0x3fd) & 0x20) )
+			;
+		_kernel_outpb(0x3f8, '\r');  /* %jp{Carriage Return出力} */
 	}
 	while ( !(_kernel_inpb(0x3fd) & 0x20) )
 		;
