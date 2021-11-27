@@ -63,12 +63,8 @@ extern "C" {
 
 /** %jp{割込みコンテキスト} */
 typedef struct _kernel_ia32_ictx{
-	UW    ebx;
 	UW    ecx;
 	UW    edx;
-	UW    esi;
-	UW    edi;
-	UW    ebp;
 	UW    eax;
 	UW  excno;
 	UW   excd;

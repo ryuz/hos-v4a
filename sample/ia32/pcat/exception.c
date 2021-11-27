@@ -79,14 +79,11 @@ void ia32_handle_exception(void *exinf)
 		    ctx->excno, ctx->excd, exinf);
 
 	StringFormat_Format(console_put, NULL,
-	    "ebx: 0x%08x ecx: 0x%08x edx: 0x%08x esi: 0x%08x\n",
-	    ctx->ebx, ctx->ecx, ctx->edx, ctx->esi);
+	    "ecx: 0x%08x edx: 0x%08x eax: 0x%08x\n",
+	    ctx->ecx, ctx->edx, ctx->eax);
 	StringFormat_Format(console_put, NULL,
-	    "edi: 0x%08x ebp: 0x%08x eax: 0x%08x eip: 0x%08x\n",
-	    ctx->edi, ctx->ebp, ctx->eax, ctx->eip);
-	StringFormat_Format(console_put, NULL,
-	    "cs: 0x%08x eflags: 0x%08x\n",
-	    ctx->xcs, ctx->eflags);
+	    "eip: 0x%08x cs: 0x%08x eflags: 0x%08x\n",
+	    ctx->eip, ctx->xcs, ctx->eflags);
 
 	if ( IA32_NAMED_EXCEPTION_NR > ctx->excno )
 		while(1);  /* %jp{不正CPU例外とみなし, 停止する} */

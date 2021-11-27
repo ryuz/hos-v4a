@@ -32,12 +32,8 @@ int main(int argc, char *argv[])
 	    _KERNEL_CNTNR_OFFSET_OF(struct _kernel_ia32_ictx, eip));
 
 	/*  %jp{汎用レジスタオフセット(単位:バイト)}  */
-	OFFSET(_KERNEL_IA32_PROC_ICTX_EBX, _kernel_ia32_ictx, ebx);
 	OFFSET(_KERNEL_IA32_PROC_ICTX_ECX, _kernel_ia32_ictx, ecx);
 	OFFSET(_KERNEL_IA32_PROC_ICTX_EDX, _kernel_ia32_ictx, edx);
-	OFFSET(_KERNEL_IA32_PROC_ICTX_ESI, _kernel_ia32_ictx, esi);
-	OFFSET(_KERNEL_IA32_PROC_ICTX_EDI, _kernel_ia32_ictx, edi);
-	OFFSET(_KERNEL_IA32_PROC_ICTX_EBP, _kernel_ia32_ictx, ebp);
 	OFFSET(_KERNEL_IA32_PROC_ICTX_EAX, _kernel_ia32_ictx, eax);
 
 	/*  %jp{例外/割込み番号オフセット(単位:バイト)}  */
