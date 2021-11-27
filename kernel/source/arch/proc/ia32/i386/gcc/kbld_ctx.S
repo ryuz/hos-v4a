@@ -25,6 +25,9 @@
  ****************************************************/
 _kernel_ia32_build_trap_context:
 
+			cli  /* %jp{割込み禁止} */
+			cld  /* %jp{ディレクションフラグクリア} */
+
 			/* %jp{割込みコンテキスト保存域を確保} */
 			subl	$_KERNEL_IA32_PROC_ICTX_ALCSIZE, %esp
 

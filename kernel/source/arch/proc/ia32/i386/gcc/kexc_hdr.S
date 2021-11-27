@@ -20,7 +20,9 @@ _kernel_exc_hdr:
 				pushl	%esi	 /* %jp{第2引数:例外コンテキスト} */
 				pushl	%edi	 /* %jp{第1引数:例外番号} */
 
+				sti  /* %jp{割込み許可} */
 				call	_kernel_exe_exh /* %jp{CPU例外処理呼び出し} */
+				cli  /* %jp{割込み禁止} */
 
 				addl	$8, %esp /* %jp{引数領域を解放} */
 
