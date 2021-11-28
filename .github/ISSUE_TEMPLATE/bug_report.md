@@ -1,38 +1,23 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: 障害報告
+about: 障害内容を報告します。
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**障害内容を記載**
+どうなることを期待していたのに対してどうなったのかを記載
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**再現手順**
+再現手順を箇条書きで記載:
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**開発実行環境:**
+ - ターゲットCPU: [例 H8/3052  ]
+ - ターゲットボード: AKI-H8/3052
+ - 開発環境: gcc, binutilsなどのバージョンを記載 [例: gcc-8.4.0, binutils-2.24]
+ - HOSのVersion [HOS-v4a gitリビジョン番号など]
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+**補足事項**
+補足事項を記載
