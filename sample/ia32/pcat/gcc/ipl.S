@@ -22,8 +22,10 @@ LOAD_SEC_NUM = 128
 				.org	0
 
 				.global	ipl_top
+				.global	_start
 
 		/***** IPL部 *****/
+_start:
 ipl_top:
 				cli
 				jmpl	$IPL_SEG, $ipl_start	/* CSの初期化 */
@@ -158,7 +160,7 @@ _start_32bit:
 				movw	%ax, %gs
 				
 				movl	$LOAD_ADDR, %eax
-				jmp		%eax
+				jmp		*%eax
 
 
 
