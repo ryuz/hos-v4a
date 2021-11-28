@@ -81,6 +81,9 @@ TARGET_MOT = $(TARGET).$(EXT_MOT)
 TARGET_HEX = $(TARGET).$(EXT_HEX)
 TARGET_BIN = $(TARGET).$(EXT_BIN)
 TARGET_IMG = $(TARGET).img
+IPL_OBJ    = $(OBJS_DIR)/ipl.o
+IPL_OUT	   = ipl.out
+IPL_BIN	   = ipl.bin
 
 # %jp{QEMUのオプション}
 QEMU_COMMON_OPTS ?= -boot a \
@@ -133,12 +136,12 @@ CSRCS += $(APLFW_STRFMT_DIR)/stringformat_string.c
 # --------------------------------------
 
 # %jp{ALL}%en{all}
-all: kernel_make makeexe_all ipl.bin $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img
+all: kernel_make makeexe_all ipl.bin $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET_IMG)
 	$(CMD_OBJDUMP) -SD $(TARGET_EXE) > $(TARGET)_disas.txt
 
 # %jp{クリーン}%en{clean}
 clean: makeexe_clean
-	rm -f $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET).img $(OBJS) ../kernel_cfg.c ../kernel_id.h
+	${RM} -f $(TARGET_EXE) $(TARGET_BIN) $(TARGET_HEX) $(TARGET_MOT) $(TARGET_IMG) $(TARGET).map $(TARGET)_disas.txt $(OBJS) ../kernel_cfg.c ../kernel_id.h $(IPL_OUT) $(IPL_BIN) $(IPL_OBJ)
 
 # %jp{依存関係更新}%en{depend}
 depend: makeexe_depend
@@ -158,13 +161,13 @@ mostlyclean: clean kernel_clean
 
 
 # %jp{IPL部の生成}
-ipl.bin: $(OBJS_DIR)/ipl.o
-	$(GCC_ARCH)ld -Ttext=0x0000 $(OBJS_DIR)/ipl.o -o ipl.out
-	$(CMD_OBJCNV) -O binary ipl.out ipl.bin
+ipl.bin: $(IPL_OBJ)
+	$(GCC_ARCH)ld -Ttext=0x0000 $(IPL_OBJ) -o $(IPL_OUT)
+	$(CMD_OBJCNV) -O binary $(IPL_OUT) $(IPL_BIN)
 
 # %jP{フロッピーディスクイメージ生成}%en{FD image}
-$(TARGET).img: ipl.bin $(TARGET_BIN)
-	./fd_img.pl $(TARGET).img ipl.bin $(TARGET_BIN)
+$(TARGET_IMG): ipl.bin $(TARGET_BIN)
+	./fd_img.pl $(TARGET_IMG) ipl.bin $(TARGET_BIN)
 
 # %jP{Bochsによる実行}%en{Run a program with Bochs}
 .PHONY : bochs
