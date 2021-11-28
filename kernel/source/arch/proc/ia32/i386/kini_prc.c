@@ -51,10 +51,10 @@ void _kernel_ini_prc(void)
 	_kernel_set_idt( 14, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_014);
 	_kernel_set_idt( 15, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_015);
 	_kernel_set_idt( 16, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
-	_kernel_set_idt( 17, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
-	_kernel_set_idt( 18, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
-	_kernel_set_idt( 19, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
-	_kernel_set_idt( 20, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_016);
+	_kernel_set_idt( 17, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_017);
+	_kernel_set_idt( 18, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_018);
+	_kernel_set_idt( 19, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_019);
+	_kernel_set_idt( 20, _KERNEL_DT_TYPE_TRAP, _KERNEL_SEG_CODE, (UW)_kernel_vector_020);
 	
 	_kernel_set_idt( 32, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_032);
 	_kernel_set_idt( 33, _KERNEL_DT_TYPE_INT, _KERNEL_SEG_CODE, (UW)_kernel_vector_033);
