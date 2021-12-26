@@ -18,7 +18,8 @@
 				.align	2
 				.global	__kernel_swi_ctx
 __kernel_swi_ctx:
-				mov.l	r8, @-r15				/* レジスタを退避 */
+				stc.l	sr, @-r15				/* レジスタを退避 */
+				mov.l	r8, @-r15
 				mov.l	r9, @-r15
 				mov.l	r10, @-r15
 				mov.l	r11, @-r15
@@ -48,8 +49,9 @@ __kernel_sta_ctx:
 				mov.l	@r15+, r11
 				mov.l	@r15+, r10
 				mov.l	@r15+, r9
-				rts
 				mov.l	@r15+, r8
+				rts
+				ldc.l	@r15+, sr
 
 
 				.end
