@@ -6,6 +6,8 @@
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
+KERNEL_DEBUG ?= Yes
+DEBUG        ?= Yes
 
 
 # --------------------------------------
@@ -148,4 +150,3 @@ $(OBJS_DIR)/sample.$(EXT_OBJ): ../sample.c ../kernel_id.h
 
 
 # end of file
-

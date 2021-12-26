@@ -1,4 +1,4 @@
-/** 
+/**
  *  Sample program for Hyper Operating System V4 Advance
  *
  * @file  ostimer.c
@@ -25,11 +25,11 @@ static void OsTimer_IrqHandler(void);						/**< %jp{タイマ割込みハンド�
 void OsTimer_Initialize(VP_INT exinf)
 {
 	T_DINH dfinh;
-	
+
 	/* %jp{割込みハンドラ定義} */
 	dfinh.inthdr = (FP)OsTimer_IrqHandler;
 	def_inh(INHNO_OSTIMER, &dfinh);
-	
+#if 0
 	/* %jp{タイマ動作開始} */
 	*REG_STANDBY_MSTCR2 &= 0xefff;
 	*REG_CMT_CMSTR  &= 0xfffe;								/* %jp{動作停止} */
@@ -37,9 +37,10 @@ void OsTimer_Initialize(VP_INT exinf)
 	*REG_CMT0_CMCOR  = (PERIPHERAL_CLOCK / 128) / 1000;		/* %jp{1msに設定} */
 	*REG_CMT0_CMCSR  = 0x0042;								/* %jp{128分周に設定} */
 	*REG_CMT_CMSTR  |= 0x0001;								/* %jp{動作開始} */
-	
+
 	/* %jp{割込み許可} */
 	*REG_INTC_IPRG = ((*REG_INTC_IPRG & 0xff0f) | 0x0010);
+#endif
 }
 
 
@@ -47,7 +48,7 @@ void OsTimer_Initialize(VP_INT exinf)
 void OsTimer_IrqHandler(void)
 {
 	*REG_CMT0_CMCSR &= 0xff7f;
-	
+
 	isig_tim();
 }
 
