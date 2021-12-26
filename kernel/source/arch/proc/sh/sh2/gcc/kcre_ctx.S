@@ -44,9 +44,6 @@ __kernel_cre_ctx:
 				.align	2
 addr_ctx_entry:
 				.long	ctx_entry
-				mov	r9, r4				/* 実行時パラメータ1を設定 */
-				jmp	@r8				/* 実行開始アドレスに分岐 */
-				mov	r10, r5				/* 実行時パラメータ2を設定(遅延スロット) */
 
 
 
