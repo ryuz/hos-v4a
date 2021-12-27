@@ -31,7 +31,7 @@ ctx_entry:
 				.align	2
 				.global	__kernel_cre_ctx
 __kernel_cre_ctx:
-				add 	#-40, r5				/* スタックに領域を確保 */
+				add 	#-44, r5				/* スタックに領域を確保 */
 				mov.l	r6, @(36, r5)			/* 実行アドレスを      r8 の領域に設定 */
 				mov.l	r7, @(32, r5)			/* 実行時パラメータ1を r9 の領域に設定 */
 				mov.l	@(0, r15), r0
