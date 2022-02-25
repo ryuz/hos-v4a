@@ -1,0 +1,606 @@
+#
+# コンパイルテスト用GitHub Action
+# -*- coding:utf-8 mode: yaml-mode -*-
+# Copyright (C) 1998-2022 by Project HOS
+# http://sourceforge.jp/projects/hos/
+#
+name: compile test for HOSv4a
+on:
+  # 手動実行
+  workflow_dispatch:
+
+  # push時に実行
+  push:
+    # mainブランチ/ワークフローブランチに, カーネル, コンフィグレータ,
+    # アプリケーションフレームワーク, ターゲットサンプル, 構築ツール
+    # をpushしたら実行
+    branches:
+      - main
+      - learn-github-actions
+    paths:
+      - '.github/workflows/*.yml'
+      - 'kernel/*'
+      - 'cfgrtr/*'
+      - 'sample/*'
+      - 'tools/*'
+
+jobs:
+
+#
+# RISC-V 64bit
+#
+  compile_test_riscv64_virt:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にRISC-V開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-riscv:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/riscv/virt/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load RISCV64-UNKNOWN-ELF-GCC
+          printenv
+          make
+          module unload RISCV64-UNKNOWN-ELF-GCC
+        shell: bash
+
+#
+# RISC-V 32bit
+#
+  compile_test_riscv32_virt:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にRISC-V開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-riscv:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/riscv/virt/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load RISCV32-UNKNOWN-ELF-GCC
+          printenv
+          env RISCV_ARCH=riscv32 make
+          module unload RISCV32-UNKNOWN-ELF-GCC
+        shell: bash
+
+#
+# i386
+#
+  compile_test_i386_pcat:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にi386開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-i386:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/ia32/pcat/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load I386-UNKNOWN-ELF-GCC
+          printenv
+          make
+          module unload I386-UNKNOWN-ELF-GCC
+        shell: bash
+
+#
+# h8300
+#
+  compile_test_h8300_h83069:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にh8300開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-h8300:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/h8/h83069/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load H8300-ELF-GCC
+          printenv
+          make
+          module unload H8300-ELF-GCC
+        shell: bash
+
+#
+# sh2
+#
+  compile_test_sh2_sh7144:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にsh2開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-sh2:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/sh/sh7144/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load SH-ELF-GCC
+          printenv
+          make
+          module unload SH-ELF-GCC
+        shell: bash
+
+  compile_test_sh2_sh7262:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にsh2開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-sh2:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/sh/sh7262/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load SH-ELF-GCC
+          printenv
+          make
+          module unload SH-ELF-GCC
+        shell: bash
+
+#
+# microblaze
+#
+  compile_test_microblaze_mb_v8_axi:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にmicroblaze開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-microblaze:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/mb/mb_v8_axi/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load MICROBLAZEEL-UNKNOWN-ELF-GCC
+          printenv
+          make
+          module unload MICROBLAZEEL-UNKNOWN-ELF-GCC
+        shell: bash
+
+  compile_test_microblaze_smm:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にmicroblaze開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-microblaze:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/mb/smm/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load MICROBLAZE-UNKNOWN-ELF-GCC
+          printenv
+          make
+          module unload MICROBLAZE-UNKNOWN-ELF-GCC
+        shell: bash
+
+#
+# mips
+#
+  compile_test_mips_jelly:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にmips開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-mips:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/mips/jelly/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load MIPS-UNKNOWN-ELF-GCC
+          printenv
+          make
+          module unload MIPS-UNKNOWN-ELF-GCC
+        shell: bash
+
+#
+# Arm hard float版
+#
+  compile_test_armhw_lpc2000:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/lpc2000/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-EABIHF-GCC
+          printenv
+          make
+          module unload ARM-EABIHF-GCC
+        shell: bash
+
+  compile_test_armhw_lpc1114:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/lpc1114/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-EABIHF-GCC
+          printenv
+          make
+          module unload ARM-EABIHF-GCC
+        shell: bash
+
+  compile_test_armhw_zynq7000:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/zynq7000/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-EABIHF-GCC
+          printenv
+          make
+          module unload ARM-EABIHF-GCC
+        shell: bash
+
+  compile_test_armhw_zynqmp_rpu_cpp:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/zynqmp_rpu_cpp/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-EABIHF-GCC
+          printenv
+          make
+          module unload ARM-EABIHF-GCC
+        shell: bash
+
+  compile_test_armhw_stm32f103:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/stm32f103/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-EABIHF-GCC
+          printenv
+          make
+          module unload ARM-EABIHF-GCC
+        shell: bash
+
+  compile_test_armhw_aduc7000:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/aduc7000/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-EABIHF-GCC
+          printenv
+          make
+          module unload ARM-EABIHF-GCC
+        shell: bash
+
+  compile_test_armhw_zynqmp_rpu:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/zynqmp_rpu/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-EABIHF-GCC
+          printenv
+          make
+          module unload ARM-EABIHF-GCC
+        shell: bash
+
+#
+# Arm soft float版
+#
+  compile_test_arm_lpc2000:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/lpc2000/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-NONE-EABI-GCC
+          printenv
+          make
+          module unload ARM-NONE-EABI-GCC
+        shell: bash
+
+  compile_test_arm_lpc1114:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/lpc1114/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-NONE-EABI-GCC
+          printenv
+          make
+          module unload ARM-NONE-EABI-GCC
+        shell: bash
+
+  compile_test_arm_zynq7000:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/zynq7000/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-NONE-EABI-GCC
+          printenv
+          make
+          module unload ARM-NONE-EABI-GCC
+        shell: bash
+
+  compile_test_arm_zynqmp_rpu_cpp:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/zynqmp_rpu_cpp/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-NONE-EABI-GCC
+          printenv
+          make
+          module unload ARM-NONE-EABI-GCC
+        shell: bash
+
+  compile_test_arm_stm32f103:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/stm32f103/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-NONE-EABI-GCC
+          printenv
+          make
+          module unload ARM-NONE-EABI-GCC
+        shell: bash
+
+  compile_test_arm_aduc7000:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/aduc7000/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-NONE-EABI-GCC
+          printenv
+          make
+          module unload ARM-NONE-EABI-GCC
+        shell: bash
+
+  compile_test_arm_zynqmp_rpu:
+    # ubuntu導入済み仮想マシン上で実行
+    runs-on: ubuntu-latest
+    # 仮想マシン上にarm開発環境コンテナを導入
+    container: ghcr.io/takeharukato/crosstool-for-hos-arm:latest
+    steps:
+      # HOSv4aのリポジトリをチェックアウト
+      - name: checkout
+        # checkout@v2というアクションはリポジトリにアクセスするためのアクション
+        uses: actions/checkout@v2
+      # コンテナ内で実行するコマンドの環境変数を設定
+      # GitHub Actionsの公式手順に従ってシステム環境変数を設定
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      # コンパイルを実施
+      - name: Compile
+        run: |
+          cd sample/arm/zynqmp_rpu/gcc
+          . /opt/hos/cross/etc/shell/init/bash
+          module load ARM-NONE-EABI-GCC
+          printenv
+          make
+          module unload ARM-NONE-EABI-GCC
+        shell: bash
