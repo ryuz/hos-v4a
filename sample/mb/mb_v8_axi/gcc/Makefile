@@ -58,8 +58,8 @@ SRC_DIRS += . ..
 # %jp{オプションフラグ}%en{option flags}
 AFLAGS  = -mcpu=v8.00.a -mlittle-endian
 CFLAGS  = -mcpu=v8.00.a -mlittle-endian
-LNFLAGS = -mcpu=v8.00.a -mlittle-endian -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
-
+LNFLAGS = -mcpu=v8.00.a -mlittle-endian -nostdlib -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+LNFLAGS2 = -lgcc
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
 include $(KERNEL_MAKINC_DIR)/$(ARCH_CC)_d.inc
@@ -146,4 +146,3 @@ $(OBJS_DIR)/sample.$(EXT_OBJ) : ../kernel_id.h
 
 
 # end of file
-
