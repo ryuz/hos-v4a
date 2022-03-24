@@ -5,6 +5,8 @@
 /*                                  http://sourceforge.jp/projects/hos/     */
 /* ------------------------------------------------------------------------ */
 
+/*  %jp{例外番号マスク}                 */
+#define ESR_EXC_MASK            0x0000001F
 
 				.global	_kernel_exc_hdr
 				.global	_kernel_exe_exc
@@ -31,12 +33,18 @@ _kernel_exc_hdr:
 				swi		r10, r1, 32
 				swi		r11, r1, 36
 				swi		r12, r1, 40
-				
-				
-		/* ---- 例外処理実行処理呼び出し */
-				brlid	r15, _kernel_exe_exc
+
+		/* ---- %jp{例外番号を第1引数(r5)に設定} */
+				mfs		r5, resr
+				andi	r5, r5, ESR_EXC_MASK;
+
+		/* ---- %jp{拡張情報(例外コンテキスト)を第2引数(r6)に設定} */
+				addik   r6, r1, 0
+
+		/* ---- %jp{例外ハンドラ実行, r5:例外番号, r6:拡張情報(例外コンテキスト)} */
+				brlid	r15, _kernel_exe_exh
 				addik	r3, r0, 0
-				
+
 		/* ---- レジスタ復帰 */
 				lwi		r15, r1, 0
 				lwi		r3, r1, 4
