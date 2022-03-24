@@ -5,7 +5,11 @@
 # http://sourceforge.jp/projects/hos/
 # ----------------------------------------------------------------------------
 
+# KERNEL_DEBUG ?= Yes
+# DEBUG        ?= Yes
 
+# data2memを使用したデータ変換の実施
+MB_NEED_DATA_TRANSLATION ?= Yes
 
 # --------------------------------------
 #  %jp{各種設定}{setting}
@@ -21,7 +25,7 @@ CMD_CC     ?= $(GCC_ARCH)gcc
 CMD_ASM    ?= $(GCC_ARCH)gcc
 CMD_LINK   ?= $(GCC_ARCH)gcc
 CMD_OBJCNV ?= $(GCC_ARCH)objcopy
-
+CMD_OBJDUMP ?= $(GCC_ARCH)objdump
 
 # %jp{アーキテクチャ定義}%en{architecture}
 ARCH_NAME ?= mb_v8
@@ -58,7 +62,8 @@ SRC_DIRS += . ..
 # %jp{オプションフラグ}%en{option flags}
 AFLAGS  = -mcpu=v7.30.a -mbig-endian -mno-xl-soft-mul
 CFLAGS  = -mcpu=v7.30.a -mbig-endian -mno-xl-soft-mul
-LNFLAGS = -mcpu=v7.30.a -mbig-endian -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+LNFLAGS = -mcpu=v7.30.a -mbig-endian -nostdlib -nostartfiles -Wl,-Map,$(TARGET).map,-T$(LINK_SCRIPT)
+LNFLAGS2 = -lgcc
 
 
 # %jp{コンパイラ依存の設定読込み}%en{compiler dependent definitions}
@@ -101,10 +106,16 @@ CSRCS += ../ostimer.c
 # %jp{ALL}%en{all}
 .PHONY : all
 all: kernel_make makeexe_all $(TARGET_EXE) $(TARGET_MOT) $(TARGET_HEX) $(TARGET_BIN) $(TARGET_V)
-	mb-objdump -D $(TARGET_EXE) > $(TARGET).dis
+	$(CMD_OBJDUMP) -D $(TARGET_EXE) > $(TARGET).dis
 
 $(TARGET_V) : $(TARGET_EXE)
+# %jp{data2memを用いたデータ変換}
+ifeq ($(MB_NEED_DATA_TRANSLATION),Yes)
 	data2mem.exe -bm smm.bmm -bd $(TARGET_EXE) -o v $(TARGET_V)
+else
+	:
+endif
+
 
 # %jp{クリーン}%en{clean}
 .PHONY : clean
@@ -150,4 +161,3 @@ $(OBJS_DIR)/sample.$(EXT_OBJ) : ../kernel_id.h
 
 
 # end of file
-
