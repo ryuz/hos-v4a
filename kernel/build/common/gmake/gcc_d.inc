@@ -13,7 +13,7 @@ CMD_ASM    ?= gcc
 CMD_LIBR   ?= ar
 CMD_LINK   ?= gcc
 CMD_OBJCNV ?= objcopy
-
+CMD_OBJDUMP ?= objdump
 
 # %jp{拡張子定義}%en{file extensions}
 EXT_C   ?= c
