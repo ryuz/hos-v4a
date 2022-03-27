@@ -16,7 +16,7 @@ on:
     # をpushしたら実行
     branches:
       - main
-      - learn-github-actions
+      - github-actions-devel
     paths:
       - '.github/workflows/*.yml'
       - 'kernel/*'
@@ -232,7 +232,7 @@ jobs:
           . /opt/hos/cross/etc/shell/init/bash
           module load MICROBLAZE-UNKNOWN-ELF-GCC
           printenv
-          make
+          env MB_NEED_DATA_TRANSLATION=No make
           module unload MICROBLAZE-UNKNOWN-ELF-GCC
         shell: bash
 
