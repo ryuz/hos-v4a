@@ -32,7 +32,7 @@ HOS-V4a が実装を目指しているのはこのうち [μITRON4.0仕様](http
 
 HOS(Hyper Operating System) は当初 μITRON3.0 仕様OS として、1998年頃から Z80 用や H8用などに開発したものが発端となっております。
 
-当時の開発物は[作者ホームページ](http://ryuz.my.coocan.jp/hos/index.html) にあります。
+当時の開発物は[作者ホームページ](http://ryuz.my.coocan.jp/legacy/hos/index.html) にあります。
 
 その後、本プロジェクトのソースコードは [Sorseforge(現在はOSDN)](https://ja.osdn.net/projects/hos/) に移行して、グループ開発体制に移行しており多くの方の協力を得て開発を進めておりました。
 
